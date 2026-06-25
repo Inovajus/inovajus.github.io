@@ -630,11 +630,11 @@ body {
         </div>
     </section>
 
-    <!-- ============ AULA · MÓDULO 1 · 1 de 7: Como a IA funciona (INFOGRÁFICO fluxo) ============ -->
+    <!-- ============ AULA · MÓDULO 1 · 1 de 8: Como a IA funciona (INFOGRÁFICO fluxo) ============ -->
     <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-3 pb-6">
         <div class="w-full max-w-6xl flex flex-col items-center" data-aos="fade-up" data-aos-delay="100">
             <div class="text-center mb-2">
-                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a11-eyebrow">Módulo 1 · Aula 1 de 7 · Como a IA funciona</p>
+                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a11-eyebrow">Módulo 1 · Aula 1 de 8 · Como a IA funciona</p>
                 <h2 class="text-4xl md:text-5xl font-bold mb-2" data-k="a11-h2">Como a IA <span class="primary-color italic">funciona</span></h2>
                 <p class="text-white/60 italic text-lg" data-k="a11-obj">Ela prevê a próxima palavra por probabilidade: gera o texto mais provável, não a verdade.</p>
             </div>
@@ -676,7 +676,7 @@ body {
     <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-3 pb-6">
         <div class="w-full max-w-6xl" data-aos="fade-up" data-aos-delay="100">
             <div class="text-center mb-3">
-                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a12-eyebrow">Módulo 1 · Aula 2 de 7 · Capacidades e limites</p>
+                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a12-eyebrow">Módulo 1 · Aula 2 de 8 · Capacidades e limites</p>
                 <h2 class="text-4xl md:text-5xl font-bold mb-2" data-k="a12-h2">O que faz bem, <span class="primary-color italic">onde falha</span></h2>
                 <p class="text-white/60 italic text-lg" data-k="a12-obj">A IA acelera o rascunho do trabalho de Vara e de Gabinete; o discernimento jurídico continua seu.</p>
             </div>
@@ -707,11 +707,46 @@ body {
         </div>
     </section>
 
-    <!-- ============ AULA · MÓDULO 1 · 3 de 7: Anatomia do prompt (INFOGRÁFICO radial) ============ -->
+    <!-- ============ AULA · MÓDULO 1 · 3 de 8: Contexto e tokens (comparação despejar x recortar) ============ -->
+    <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-3 pb-6">
+        <div class="w-full max-w-6xl" data-aos="fade-up" data-aos-delay="100">
+            <div class="text-center mb-3">
+                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="actx-eyebrow">Módulo 1 · Aula 3 de 8 · Contexto e tokens</p>
+                <h2 class="text-4xl md:text-5xl font-bold mb-2" data-k="actx-h2">Não despeje o processo <span class="primary-color italic">inteiro</span></h2>
+                <p class="text-white/60 italic text-lg" data-k="actx-obj">A IA tem uma memória de trabalho limitada: recortar o que importa é mais rápido, mais barato e mais seguro.</p>
+            </div>
+            <div class="glass-card rounded-2xl p-3 md:p-4 grid md:grid-cols-2 gap-4 items-center">
+                <div class="relative">
+                    <button id="replay-actx" class="replay-btn" type="button"><i data-lucide="rotate-cw" class="w-4 h-4"></i>Replay</button>
+                    <!-- @MIRA:SIZE 3/10 -->
+                    <div class="anim-stage mod-stage" id="actx-stage">
+                        <svg id="actx-svg" viewBox="0 0 720 560" preserveAspectRatio="xMidYMid meet"></svg>
+                    </div>
+                </div>
+                <div class="px-2">
+                    <p class="text-xs uppercase tracking-[3px] text-white/40 mb-3">Ideias-chave</p>
+                    <ul class="space-y-2 text-white/85">
+                        <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="actx-t1">A janela de contexto é a memória de trabalho da IA, e ela tem limite.</span></li>
+                        <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="actx-t2">Colar o processo inteiro faz a IA reler tudo a cada passo: lento, caro e às vezes estoura o limite e nem responde.</span></li>
+                        <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="actx-t3">Recorte a peça ou o trecho que importa e faça perguntas específicas.</span></li>
+                        <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="actx-t4">Quebre tarefas grandes em partes menores e trabalhe por etapas.</span></li>
+                        <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="actx-t5">Menos texto desnecessário também é menos dado sensível exposto.</span></li>
+                    </ul>
+                    <div class="grid grid-cols-3 gap-2 mt-4">
+                        <div class="attribute-pill text-center p-2 rounded-xl"><i data-lucide="scissors" class="w-4 h-4 primary-color mx-auto mb-1"></i><p class="text-xs font-semibold" data-k="actx-pill1">Recorte o que importa</p></div>
+                        <div class="attribute-pill text-center p-2 rounded-xl"><i data-lucide="target" class="w-4 h-4 primary-color mx-auto mb-1"></i><p class="text-xs font-semibold" data-k="actx-pill2">Pergunte com foco</p></div>
+                        <div class="attribute-pill text-center p-2 rounded-xl"><i data-lucide="shield" class="w-4 h-4 primary-color mx-auto mb-1"></i><p class="text-xs font-semibold" data-k="actx-pill3">Menos exposição</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ AULA · MÓDULO 1 · 4 de 8: Anatomia do prompt (INFOGRÁFICO radial) ============ -->
     <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-3 pb-6">
         <div class="w-full max-w-6xl flex flex-col items-center" data-aos="fade-up" data-aos-delay="100">
             <div class="text-center mb-2">
-                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a13-eyebrow">Módulo 1 · Aula 3 de 7 · Anatomia do prompt</p>
+                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a13-eyebrow">Módulo 1 · Aula 4 de 8 · Anatomia do prompt</p>
                 <h2 class="text-4xl md:text-5xl font-bold mb-2" data-k="a13-h2">O prompt em <span class="primary-color italic">6 etapas</span></h2>
                 <p class="text-white/60 italic text-lg" data-k="a13-obj">Um bom prompt é como um bom despacho: contexto claro, pedido preciso e formato definido.</p>
             </div>
@@ -756,7 +791,7 @@ body {
     <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-3 pb-6">
         <div class="w-full max-w-6xl" data-aos="fade-up" data-aos-delay="100">
             <div class="text-center mb-3">
-                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a14-eyebrow">Módulo 1 · Aula 4 de 7 · Fraco x forte</p>
+                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a14-eyebrow">Módulo 1 · Aula 5 de 8 · Fraco x forte</p>
                 <h2 class="text-4xl md:text-5xl font-bold mb-2" data-k="a14-h2">Prompt fraco, <span class="primary-color italic">prompt forte</span></h2>
                 <p class="text-white/60 italic text-lg" data-k="a14-obj">O mesmo pedido, dois resultados: a diferença está em quanto você especifica.</p>
             </div>
@@ -790,7 +825,7 @@ body {
     <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-3 pb-6">
         <div class="w-full max-w-6xl" data-aos="fade-up" data-aos-delay="100">
             <div class="text-center mb-3">
-                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a15-eyebrow">Módulo 1 · Aula 5 de 7 · Técnicas</p>
+                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a15-eyebrow">Módulo 1 · Aula 6 de 8 · Técnicas</p>
                 <h2 class="text-4xl md:text-5xl font-bold mb-2" data-k="a15-h2">Técnicas que <span class="primary-color italic">turbinam o prompt</span></h2>
                 <p class="text-white/60 italic text-lg" data-k="a15-obj">Quatro ajustes simples que elevam a qualidade das respostas em tarefas complexas.</p>
             </div>
@@ -824,7 +859,7 @@ body {
     <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-3 pb-6">
         <div class="w-full max-w-6xl" data-aos="fade-up" data-aos-delay="100">
             <div class="text-center mb-3">
-                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a16-eyebrow">Módulo 1 · Aula 6 de 7 · Biblioteca de prompts</p>
+                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a16-eyebrow">Módulo 1 · Aula 7 de 8 · Biblioteca de prompts</p>
                 <h2 class="text-4xl md:text-5xl font-bold mb-2" data-k="a16-h2">Sua biblioteca <span class="primary-color italic">de prompts</span></h2>
                 <p class="text-white/60 italic text-lg" data-k="a16-obj">Todo prompt que funciona vira um modelo reutilizável seu e da sua unidade.</p>
             </div>
@@ -858,7 +893,7 @@ body {
     <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-3 pb-6">
         <div class="w-full max-w-6xl" data-aos="fade-up" data-aos-delay="100">
             <div class="text-center mb-3">
-                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a17-eyebrow">Módulo 1 · Aula 7 de 7 · Qual ferramenta usar</p>
+                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a17-eyebrow">Módulo 1 · Aula 8 de 8 · Qual ferramenta usar</p>
                 <h2 class="text-4xl md:text-5xl font-bold mb-2" data-k="a17-h2">Qual ferramenta <span class="primary-color italic">usar</span></h2>
                 <p class="text-white/60 italic text-lg" data-k="a17-obj">As três grandes dão conta do dia a dia; o que muda é o ponto forte de cada uma.</p>
             </div>
@@ -1220,6 +1255,7 @@ body {
                         <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="a22-t2">Extrair pedidos, prazos e valores citados.</span></li>
                         <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="a22-t3">Apontar os pontos controvertidos do caso.</span></li>
                         <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="a22-t4">Conferir o resumo contra a peça original.</span></li>
+                        <li class="flex gap-3 mod-topic"><i data-lucide="scissors" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="a22-t5">Não cole o processo inteiro: recorte a peça que importa (lembra do Módulo 1, contexto e tokens?).</span></li>
                     </ul>
                     <div class="grid grid-cols-3 gap-2 mt-4">
                         <div class="attribute-pill text-center p-2 rounded-xl"><i data-lucide="align-left" class="w-4 h-4 primary-color mx-auto mb-1"></i><p class="text-xs font-semibold" data-k="a22-pill1">Tópicos fiéis</p></div>
@@ -2113,6 +2149,71 @@ body {
         }
 
         // ===== AULA M1.3: 6 blocos nomeados montam o prompt, cascata + resposta (loop) =====
+        // ===== AULA M1.3: contexto/tokens — despejar tudo x recortar e ir ao ponto (loop) =====
+        function animateActx() {
+            clearInterval(window.__actxLoop); clearTimeout(window.__actxTo);
+            window.__actxGen = (window.__actxGen || 0) + 1; const g = window.__actxGen;
+            const svg = d3.select('#actx-svg'); svg.selectAll('*').remove();
+            const stackX = 70, pageW = 158, pageRight = stackX + pageW, nPages = 9, pgGap = 13, pgH = 7;
+            const meterX = 470, meterW = 52, target = 4;
+            const rows = [
+                { key: 'bad',  yTitle: 52,  y0: 80,  cost: 168, sub: 'Caro, pode estourar o limite' },
+                { key: 'good', yTitle: 316, y0: 344, cost: 44,  sub: 'Barato, rápido, citação confiável' }
+            ];
+            const titles = { bad: 'Despejar o processo inteiro', good: 'Recortar e ir ao ponto' };
+            rows.forEach((r) => {
+                svg.append('text').attr('x', stackX).attr('y', r.yTitle).attr('fill', r.key === 'good' ? PRIMARY : 'rgba(255,255,255,0.65)')
+                    .attr('font-size', 17).attr('font-weight', 700).text(titles[r.key])
+                    .attr('opacity', 0).transition().duration(450).attr('opacity', 1);
+                for (let i = 0; i < nPages; i++) {
+                    const isT = (r.key === 'good' && i === target);
+                    svg.append('rect').attr('class', 'pg-' + r.key).attr('data-i', i)
+                        .attr('x', stackX).attr('y', r.y0 + i * pgGap).attr('height', pgH).attr('rx', 3.5).attr('width', 0)
+                        .attr('fill', isT ? 'rgba(255,144,77,0.72)' : 'rgba(255,255,255,0.16)')
+                        .transition().delay(150 + i * 40).duration(380).attr('width', isT ? pageW : pageW - (i % 3) * 16);
+                }
+                if (r.key === 'good') {
+                    svg.append('text').attr('x', pageRight + 12).attr('y', r.y0 + target * pgGap + 7)
+                        .attr('fill', PRIMARY).attr('font-size', 13).attr('font-weight', 700).text('trecho certo')
+                        .attr('opacity', 0).transition().delay(700).attr('opacity', 1);
+                }
+                const base = r.y0 + (nPages - 1) * pgGap + 16;
+                svg.append('rect').attr('x', meterX).attr('y', base).attr('width', meterW).attr('height', 0).attr('rx', 5)
+                    .attr('fill', r.key === 'good' ? 'rgba(255,144,77,0.32)' : 'rgba(255,144,77,0.62)')
+                    .transition().delay(500).duration(700).ease(d3.easeQuadOut).attr('y', base - r.cost).attr('height', r.cost);
+                svg.append('text').attr('x', meterX + meterW / 2).attr('y', base + 18).attr('text-anchor', 'middle')
+                    .attr('fill', 'rgba(255,255,255,0.45)').attr('font-size', 11).attr('font-weight', 600).text('custo')
+                    .attr('opacity', 0).transition().delay(800).attr('opacity', 1);
+                svg.append('text').attr('x', stackX).attr('y', base + 18).attr('fill', r.key === 'good' ? 'rgba(255,144,77,0.85)' : 'rgba(255,255,255,0.5)')
+                    .attr('font-size', 12.5).attr('font-style', 'italic').text(r.sub)
+                    .attr('opacity', 0).transition().delay(750).attr('opacity', 1);
+            });
+            const rA = rows[0], rB = rows[1];
+            const aTop = rA.y0 - 6, aBot = rA.y0 + (nPages - 1) * pgGap + 6;
+            const baseA = rA.y0 + (nPages - 1) * pgGap + 16, meterTopA = baseA - rA.cost;
+            const ty = rB.y0 + target * pgGap + 3;
+            function loop() {
+                if (g !== window.__actxGen) return;
+                // "bad": faixa relê TODAS as páginas, de cima a baixo, repetindo
+                const band = svg.append('rect').attr('x', stackX - 4).attr('width', pageW + 8).attr('height', 15).attr('rx', 4)
+                    .attr('fill', 'rgba(255,144,77,0.22)').attr('y', aTop).attr('opacity', 0.9);
+                band.transition().duration(1300).ease(d3.easeQuadInOut).attr('y', aBot)
+                    .transition().duration(200).attr('opacity', 0).on('end', () => band.remove());
+                const coin = svg.append('circle').attr('r', 5).attr('cx', meterX + meterW / 2).attr('cy', meterTopA + 10)
+                    .attr('fill', ACCENT2).attr('opacity', 0.95).style('filter', 'drop-shadow(0 0 5px ' + PRIMARY + ')');
+                coin.transition().duration(750).attr('cy', meterTopA - 12).attr('opacity', 0).on('end', () => coin.remove());
+                // "good": marcador pula DIRETO para o trecho certo
+                const dot = svg.append('circle').attr('r', 6).attr('cx', meterX - 6).attr('cy', ty)
+                    .attr('fill', ACCENT2).attr('opacity', 0.95).style('filter', 'drop-shadow(0 0 7px ' + PRIMARY + ')');
+                dot.transition().duration(620).ease(d3.easeBackOut.overshoot(1.2)).attr('cx', pageRight - 8)
+                    .transition().duration(260).attr('opacity', 0).on('end', () => dot.remove());
+                svg.selectAll('.pg-good').filter(function () { return d3.select(this).attr('data-i') == target; })
+                    .transition().delay(560).duration(220).attr('fill', 'rgba(255,144,77,0.95)')
+                    .transition().duration(420).attr('fill', 'rgba(255,144,77,0.72)');
+            }
+            window.__actxTo = setTimeout(() => { if (g === window.__actxGen) { loop(); window.__actxLoop = setInterval(loop, 1900); } }, 1200);
+        }
+
         function animateA13() {
             clearInterval(window.__a13Loop); clearTimeout(window.__a13To);
             window.__a13Gen = (window.__a13Gen || 0) + 1; const g = window.__a13Gen;
@@ -3170,6 +3271,7 @@ body {
                 { stage: document.getElementById('m1-stage'), fn: animateM1, replay: 'replay-m1' },
                 { stage: document.getElementById('a11-stage'), fn: animateA11, replay: 'replay-a11' },
                 { stage: document.getElementById('a12-stage'), fn: animateA12, replay: 'replay-a12' },
+                { stage: document.getElementById('actx-stage'), fn: animateActx, replay: 'replay-actx' },
                 { stage: document.getElementById('a13-stage'), fn: animateA13, replay: 'replay-a13' },
                 { stage: document.getElementById('a14-stage'), fn: animateA14, replay: 'replay-a14' },
                 { stage: document.getElementById('a15-stage'), fn: animateA15, replay: 'replay-a15' },
