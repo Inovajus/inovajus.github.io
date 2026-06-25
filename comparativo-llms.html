@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude, Gemini ou ChatGPT? Comparativo das IAs no plano de US$ 20</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14110d; --ink-2:#1c1812; --ink-3:#241f17;
+    --gold:#be9c6d; --gold-br:#dcc095; --gold-soft:rgba(190,156,109,.16);
+    --cream:#fff4e4; --cream-dim:rgba(255,244,228,.66); --cream-fade:rgba(255,244,228,.34);
+    --line:rgba(190,156,109,.22);
+    --claude:#d97757; --gemini:#5b8def; --chatgpt:#10a37f;
+    --shadow:0 18px 60px -22px rgba(0,0,0,.7);
+    --serif:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--body); color:var(--cream); background:var(--ink);
+    background-image:
+      radial-gradient(900px 500px at 12% -8%, rgba(190,156,109,.10), transparent 60%),
+      radial-gradient(800px 600px at 100% 0%, rgba(91,141,239,.06), transparent 55%);
+    background-attachment:fixed;
+    line-height:1.5; -webkit-font-smoothing:antialiased; padding-bottom:120px;
+  }
+  ::selection{background:var(--gold);color:var(--ink)}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+  /* ---------- HERO ---------- */
+  header.hero{padding:64px 0 26px;border-bottom:1px solid var(--line)}
+  .eyebrow{font-family:var(--body);font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--gold);font-weight:600;margin-bottom:18px}
+  .eyebrow .dot{opacity:.5;margin:0 8px}
+  h1.title{font-family:var(--serif);font-weight:600;font-size:clamp(2.1rem,5.4vw,3.8rem);
+    line-height:1.04;letter-spacing:-.015em;color:var(--cream);max-width:16ch}
+  h1.title em{font-style:italic;color:var(--gold-br);font-weight:500}
+  .lede{font-size:clamp(1.02rem,2.1vw,1.22rem);color:var(--cream-dim);max-width:62ch;margin-top:20px}
+  .meta{margin-top:18px;font-size:.82rem;color:var(--cream-fade);display:flex;gap:18px;flex-wrap:wrap}
+  .meta b{color:var(--gold);font-weight:600}
+
+  /* ---------- TABS ---------- */
+  nav.tabs{position:sticky;top:0;z-index:40;background:rgba(20,17,13,.86);
+    backdrop-filter:blur(12px);border-bottom:1px solid var(--line);margin-top:6px}
+  nav.tabs .wrap{display:flex;gap:4px;flex-wrap:wrap}
+  .tab{appearance:none;background:none;border:none;cursor:pointer;font-family:var(--serif);
+    color:var(--cream-fade);font-size:.98rem;font-weight:600;padding:18px 16px 16px;position:relative;
+    transition:color .2s}
+  .tab:hover{color:var(--cream-dim)}
+  .tab.active{color:var(--gold-br)}
+  .tab.active::after{content:"";position:absolute;left:16px;right:16px;bottom:-1px;height:2px;
+    background:var(--gold);border-radius:2px}
+  .panel{display:none;animation:rise .45s ease both}
+  .panel.active{display:block}
+  @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+  section.block{padding:42px 0}
+  .kicker{font-size:.76rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:10px}
+  h2.sec{font-family:var(--serif);font-size:clamp(1.5rem,3.4vw,2.1rem);font-weight:600;letter-spacing:-.01em;color:var(--cream);margin-bottom:6px}
+  h2.sec em{font-style:italic;color:var(--gold-br)}
+  .sub{color:var(--cream-dim);max-width:64ch;margin-bottom:28px}
+
+  /* ---------- SCOREBOARD ---------- */
+  .board{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:8px}
+  .pcard{position:relative;background:linear-gradient(180deg,var(--ink-2),var(--ink-3));
+    border:1px solid var(--line);border-radius:18px;padding:22px 20px 20px;text-align:center;overflow:hidden;
+    box-shadow:var(--shadow);transition:transform .3s,border-color .3s}
+  .pcard:hover{transform:translateY(-3px)}
+  .pcard .bar{position:absolute;top:0;left:0;right:0;height:4px}
+  .pcard.claude .bar{background:var(--claude)} .pcard.gemini .bar{background:var(--gemini)} .pcard.chatgpt .bar{background:var(--chatgpt)}
+  .pcard.lead{border-color:var(--gold)}
+  .pcard .crown{position:absolute;top:13px;right:14px;font-family:var(--body);font-size:.62rem;
+    font-weight:700;letter-spacing:.14em;color:var(--ink);background:var(--gold);padding:3px 9px;
+    border-radius:999px;opacity:0;transform:translateY(-6px);transition:.5s .3s}
+  .pcard.lead .crown{opacity:1;transform:none}
+  .pname{font-family:var(--serif);font-size:1.28rem;font-weight:600;margin-bottom:2px;color:var(--cream)}
+  .pmaker{font-size:.78rem;color:var(--cream-fade);letter-spacing:.04em}
+  .pscore{font-family:var(--serif);font-size:3.4rem;font-weight:700;line-height:1;margin:14px 0 2px;
+    color:var(--gold-br)}
+  .pcard.claude .pscore{color:#e7a486} .pcard.gemini .pscore{color:#9bbcf6} .pcard.chatgpt .pscore{color:#5cc6a8}
+  .plabel{font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--cream-fade)}
+  .pwins{margin-top:14px;display:flex;gap:5px;justify-content:center;flex-wrap:wrap;min-height:8px}
+  .pwins span{width:18px;height:6px;border-radius:3px;background:var(--gold-soft);transition:.4s}
+  .pwins span.on{background:var(--gold)}
+
+  /* ---------- CONTROLS ---------- */
+  .controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:26px 0 10px}
+  .controls .lbl{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cream-fade)}
+  .chip{appearance:none;cursor:pointer;font-family:var(--body);font-size:.86rem;font-weight:500;
+    color:var(--cream-dim);background:var(--ink-2);border:1px solid var(--line);border-radius:999px;
+    padding:7px 14px;transition:.2s;display:inline-flex;align-items:center;gap:7px}
+  .chip:hover{color:var(--cream)}
+  .chip.on{color:var(--ink);background:var(--gold);border-color:var(--gold);font-weight:600}
+  .chip .sw{width:9px;height:9px;border-radius:50%}
+  .chip[data-f="claude"] .sw{background:var(--claude)} .chip[data-f="gemini"] .sw{background:var(--gemini)} .chip[data-f="chatgpt"] .sw{background:var(--chatgpt)}
+
+  /* ---------- CATEGORY ROWS ---------- */
+  .cats{display:flex;flex-direction:column;gap:12px}
+  .cat{background:var(--ink-2);border:1px solid var(--line);border-radius:16px;overflow:hidden;
+    transition:.35s;will-change:transform}
+  .cat.hide{display:none}
+  .cat-head{display:grid;grid-template-columns:46px 1fr auto;align-items:center;gap:16px;
+    padding:16px 20px;cursor:pointer}
+  .cat-num{font-family:var(--serif);font-size:1.5rem;font-weight:700;color:var(--gold);
+    width:46px;height:46px;display:grid;place-items:center;border:1px solid var(--line);border-radius:12px;background:var(--gold-soft)}
+  .cat-title{font-family:var(--serif);font-size:1.16rem;font-weight:600;color:var(--cream)}
+  .cat-flag{font-size:.76rem;color:var(--cream-fade);margin-top:2px}
+  .cat-right{display:flex;align-items:center;gap:14px}
+  .winner-chip{display:inline-flex;align-items:center;gap:8px;font-size:.82rem;font-weight:600;
+    padding:6px 13px;border-radius:999px;border:1px solid;white-space:nowrap}
+  .winner-chip .sw{width:9px;height:9px;border-radius:50%}
+  .winner-chip.claude{color:#e7a486;border-color:rgba(217,119,87,.45);background:rgba(217,119,87,.10)}
+  .winner-chip.claude .sw{background:var(--claude)}
+  .winner-chip.gemini{color:#9bbcf6;border-color:rgba(91,141,239,.45);background:rgba(91,141,239,.10)}
+  .winner-chip.gemini .sw{background:var(--gemini)}
+  .winner-chip.chatgpt{color:#5cc6a8;border-color:rgba(16,163,127,.45);background:rgba(16,163,127,.10)}
+  .winner-chip.chatgpt .sw{background:var(--chatgpt)}
+  .caret{color:var(--gold);transition:transform .35s;font-size:1rem}
+  .cat.open .caret{transform:rotate(90deg)}
+  .cat-body{max-height:0;overflow:hidden;transition:max-height .4s ease}
+  .cat-inner{padding:4px 20px 20px;border-top:1px solid var(--line);margin-top:0}
+  .rationale{color:var(--cream-dim);font-size:.98rem;margin:16px 0 18px;max-width:70ch}
+  .versus{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .vcell{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--ink);
+    display:flex;align-items:center;gap:10px;font-size:.9rem;color:var(--cream-fade)}
+  .vcell .sw{width:10px;height:10px;border-radius:50%;flex:none}
+  .vcell[data-p="claude"] .sw{background:var(--claude)} .vcell[data-p="gemini"] .sw{background:var(--gemini)} .vcell[data-p="chatgpt"] .sw{background:var(--chatgpt)}
+  .vcell.win{color:var(--cream);border-color:var(--gold);background:var(--gold-soft);font-weight:600}
+  .vcell .mark{margin-left:auto;font-weight:700;color:var(--gold)}
+
+  /* ---------- VERDICT ---------- */
+  .standings{display:flex;flex-direction:column;gap:10px;margin-bottom:30px}
+  .strow{display:grid;grid-template-columns:54px 1fr auto;align-items:center;gap:16px;
+    background:var(--ink-2);border:1px solid var(--line);border-radius:14px;padding:14px 18px}
+  .strow.gold{border-color:var(--gold)}
+  .medal{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;justify-self:center;
+    font-family:var(--serif);font-weight:700;font-size:1.1rem;color:var(--ink);border:2px solid rgba(0,0,0,.25)}
+  .medal.m1{background:linear-gradient(145deg,#e7c989,#bd9858)}
+  .medal.m2{background:linear-gradient(145deg,#dfe2e6,#aab0b8)}
+  .medal.m3{background:linear-gradient(145deg,#e0a878,#b9794a)}
+  .strow .nm{font-family:var(--serif);font-size:1.2rem;font-weight:600}
+  .strow .nm small{display:block;font-family:var(--body);font-size:.78rem;color:var(--cream-fade);font-weight:400}
+  .stbar{height:10px;border-radius:6px;background:var(--gold-soft);position:relative;width:180px;max-width:38vw}
+  .stbar i{position:absolute;left:0;top:0;bottom:0;border-radius:6px;display:block}
+  .strow.c1 .stbar i{background:var(--claude)} .strow.c2 .stbar i{background:var(--gemini)} .strow.c3 .stbar i{background:var(--chatgpt)}
+  .stpts{font-family:var(--serif);font-size:1.5rem;font-weight:700;color:var(--gold-br);min-width:40px;text-align:right}
+
+  .note{border-left:3px solid var(--gold);background:var(--gold-soft);border-radius:0 12px 12px 0;
+    padding:18px 22px;margin:8px 0 34px;color:var(--cream-dim);font-size:.98rem;max-width:74ch}
+  .note b{color:var(--gold-br)}
+
+  .guide{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .gcard{background:linear-gradient(180deg,var(--ink-2),var(--ink-3));border:1px solid var(--line);
+    border-radius:16px;padding:22px;position:relative;overflow:hidden;transition:.3s}
+  .gcard:hover{transform:translateY(-3px);border-color:var(--gold)}
+  .gcard .top{position:absolute;top:0;left:0;right:0;height:3px}
+  .gcard.claude .top{background:var(--claude)} .gcard.gemini .top{background:var(--gemini)} .gcard.chatgpt .top{background:var(--chatgpt)}
+  .gcard .if{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cream-fade);margin-bottom:8px}
+  .gcard .goal{font-family:var(--serif);font-size:1.12rem;font-weight:600;color:var(--cream);margin-bottom:14px;line-height:1.3}
+  .gcard .pick{display:inline-flex;align-items:center;gap:9px;font-family:var(--serif);font-size:1.2rem;font-weight:700}
+  .gcard.claude .pick{color:#e7a486} .gcard.gemini .pick{color:#9bbcf6} .gcard.chatgpt .pick{color:#5cc6a8}
+  .gcard .pick .sw{width:11px;height:11px;border-radius:50%}
+  .gcard.claude .pick .sw{background:var(--claude)} .gcard.gemini .pick .sw{background:var(--gemini)} .gcard.chatgpt .pick .sw{background:var(--chatgpt)}
+
+  .closer{margin-top:40px;text-align:center;padding:40px 20px;border-top:1px solid var(--line)}
+  .closer .q{font-family:var(--serif);font-style:italic;font-size:clamp(1.3rem,3.2vw,1.9rem);
+    color:var(--gold-br);max-width:26ch;margin:0 auto;line-height:1.3}
+  .closer .src{margin-top:16px;font-size:.82rem;color:var(--cream-fade)}
+
+  /* ---------- SPECS TABLE ---------- */
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);
+    -webkit-overflow-scrolling:touch}
+  .spectable{display:grid;grid-template-columns:190px repeat(3,minmax(220px,1fr));min-width:880px;background:var(--ink-2)}
+  .spectable>div{padding:15px 18px;border-bottom:1px solid var(--line);font-size:.92rem}
+  .spectable .colh{position:relative;border-bottom:1px solid var(--line);padding:18px 18px 16px;
+    background:var(--ink-3);text-align:center}
+  .spectable .colh .ph-top{position:absolute;top:0;left:0;right:0;height:3px}
+  .colh.claude .ph-top{background:var(--claude)} .colh.gemini .ph-top{background:var(--gemini)} .colh.chatgpt .ph-top{background:var(--chatgpt)}
+  .colh .pn{font-family:var(--serif);font-size:1.18rem;font-weight:600;color:var(--cream)}
+  .colh .pm{font-size:.74rem;color:var(--cream-fade);letter-spacing:.05em}
+  .spectable .rowlab{font-family:var(--serif);font-weight:600;color:var(--gold);background:var(--ink-3);
+    display:flex;align-items:center;font-size:.92rem}
+  .spectable .cell{color:var(--cream-dim);line-height:1.45}
+  .spectable .cell.no{color:var(--cream-fade)}
+  .spectable .cell b{color:var(--cream);font-weight:600}
+  .src{font-size:.62rem;font-weight:700;color:var(--ink);background:var(--gold);border-radius:5px;
+    padding:1px 5px;margin-left:5px;text-decoration:none;vertical-align:super;cursor:pointer;line-height:1}
+  .src:hover{background:var(--gold-br)}
+  .warn{display:inline-block;color:#e8a06a;cursor:help;margin-left:4px;font-weight:700}
+  .spectable>div:nth-last-child(-n+4){border-bottom:none}
+
+  .divergence{margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .dcard{background:var(--ink-2);border:1px solid rgba(232,160,106,.3);border-left:3px solid #e8a06a;
+    border-radius:0 12px 12px 0;padding:14px 16px}
+  .dcard .dt{font-family:var(--serif);font-weight:600;color:#e8a06a;font-size:.92rem;margin-bottom:5px}
+  .dcard p{font-size:.86rem;color:var(--cream-dim);line-height:1.45}
+
+  .sources{margin-top:30px;border-top:1px solid var(--line);padding-top:22px}
+  .sources h3{font-family:var(--serif);font-size:1.05rem;color:var(--gold);margin-bottom:14px;letter-spacing:.02em}
+  .sources ol{list-style:none;counter-reset:s;display:flex;flex-direction:column;gap:9px}
+  .sources li{counter-increment:s;display:grid;grid-template-columns:26px 1fr;gap:10px;font-size:.82rem;
+    color:var(--cream-dim);padding:6px 8px;border-radius:8px;transition:background .3s}
+  .sources li::before{content:counter(s);font-family:var(--serif);font-weight:700;color:var(--ink);
+    background:var(--gold);border-radius:6px;width:24px;height:24px;display:grid;place-items:center;font-size:.78rem}
+  .sources li.flash{background:var(--gold-soft)}
+  .sources li a{color:var(--gold-br);text-decoration:none;word-break:break-all}
+  .sources li a:hover{text-decoration:underline}
+  .sources .acc{display:block;color:var(--cream-fade);font-size:.74rem;margin-top:2px}
+
+  /* ---------- SPECS placeholder ---------- */
+  .pending{text-align:center;padding:70px 24px;color:var(--cream-dim)}
+  .pending .ico{font-size:2.4rem;margin-bottom:14px}
+  .pending h3{font-family:var(--serif);font-size:1.4rem;color:var(--cream);margin-bottom:8px}
+
+  @media(max-width:720px){.divergence{grid-template-columns:1fr}}
+
+  /* ---------- EDIT BAR ---------- */
+  #editbar{position:fixed;left:20px;bottom:20px;z-index:90;display:flex;gap:8px;align-items:center}
+  #editbar button{font-family:var(--body);font-size:.84rem;font-weight:600;cursor:pointer;
+    border:1px solid var(--line);background:rgba(20,17,13,.92);backdrop-filter:blur(8px);color:var(--cream-dim);
+    padding:9px 14px;border-radius:999px;transition:.2s}
+  #editbar button:hover{color:var(--cream);border-color:var(--gold)}
+  #editbar button.live{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+  body.editing [data-k]{outline:1px dashed rgba(190,156,109,.5);outline-offset:3px;border-radius:3px}
+  body.editing [data-k]:hover{outline-color:var(--gold);background:rgba(190,156,109,.06)}
+  [data-k]:focus{outline:2px solid var(--gold)!important;background:rgba(190,156,109,.08)}
+  .editflag{position:fixed;right:20px;bottom:24px;z-index:90;font-size:.78rem;color:var(--gold);
+    background:rgba(20,17,13,.92);border:1px solid var(--gold);border-radius:999px;padding:8px 14px;display:none}
+  body.editing .editflag{display:block}
+
+  footer.foot{border-top:1px solid var(--line);margin-top:30px;padding:28px 0;color:var(--cream-fade);font-size:.82rem}
+  footer.foot b{color:var(--gold)}
+
+  @media(max-width:720px){
+    .board,.guide{grid-template-columns:1fr}
+    .versus{grid-template-columns:1fr}
+    .cat-head{grid-template-columns:40px 1fr;}
+    .cat-right{grid-column:1/-1;justify-content:flex-start;padding-left:56px;margin-top:-6px}
+  }
+</style>
+<style id="modo-aula">/* publicado p/ alunos: sem edição */ #editbar,.editflag{display:none!important;}</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow" data-k="eyebrow">INOVAJUS <span class="dot">·</span> Eixo III <span class="dot">·</span> Curso Servidor + IA</div>
+    <h1 class="title" data-k="title">Claude, Gemini ou <em>ChatGPT</em>?</h1>
+    <p class="lede" data-k="lede">As três plataformas que disputam a liderança da IA, comparadas categoria a categoria no plano de US$ 20 por mês. Se você só pudesse assinar uma, qual escolher?</p>
+  </div>
+</header>
+
+<nav class="tabs">
+  <div class="wrap">
+    <button class="tab active" data-tab="placar">Placar por categoria</button>
+    <button class="tab" data-tab="ficha">Ficha técnica</button>
+    <button class="tab" data-tab="veredito">Veredito e guia de escolha</button>
+  </div>
+</nav>
+
+<!-- ===================== TAB 1: PLACAR ===================== -->
+<div class="panel active" id="placar">
+  <div class="wrap">
+    <section class="block">
+      <div class="kicker" data-k="p-kicker">A disputa</div>
+      <h2 class="sec" data-k="p-h2">Oito categorias, <em>um vencedor</em></h2>
+      <p class="sub" data-k="p-sub">Cada categoria tem um campeão. Clique numa categoria para ver o porquê. Os pontos somam em tempo real no placar abaixo.</p>
+
+      <div class="board" id="board">
+        <div class="pcard claude" data-p="claude">
+          <div class="bar"></div><div class="crown">LÍDER</div>
+          <div class="pname" data-k="b-claude-n">Claude</div>
+          <div class="pmaker" data-k="b-claude-m">Anthropic</div>
+          <div class="pscore" data-count>0</div>
+          <div class="plabel">pontos</div>
+          <div class="pwins" data-wins></div>
+        </div>
+        <div class="pcard gemini" data-p="gemini">
+          <div class="bar"></div><div class="crown">LÍDER</div>
+          <div class="pname" data-k="b-gemini-n">Gemini</div>
+          <div class="pmaker" data-k="b-gemini-m">Google</div>
+          <div class="pscore" data-count>0</div>
+          <div class="plabel">pontos</div>
+          <div class="pwins" data-wins></div>
+        </div>
+        <div class="pcard chatgpt" data-p="chatgpt">
+          <div class="bar"></div><div class="crown">LÍDER</div>
+          <div class="pname" data-k="b-chatgpt-n">ChatGPT</div>
+          <div class="pmaker" data-k="b-chatgpt-m">OpenAI</div>
+          <div class="pscore" data-count>0</div>
+          <div class="plabel">pontos</div>
+          <div class="pwins" data-wins></div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <span class="lbl">Filtrar vencedor:</span>
+        <button class="chip on" data-f="all">Todas</button>
+        <button class="chip" data-f="claude"><span class="sw"></span>Claude</button>
+        <button class="chip" data-f="gemini"><span class="sw"></span>Gemini</button>
+        <button class="chip" data-f="chatgpt"><span class="sw"></span>ChatGPT</button>
+      </div>
+
+      <div class="cats" id="cats"><!-- injetadas via JS --></div>
+    </section>
+  </div>
+</div>
+
+<!-- ===================== TAB 2: FICHA TÉCNICA ===================== -->
+<div class="panel" id="ficha">
+  <div class="wrap">
+    <section class="block">
+      <div class="kicker" data-k="f-kicker">Camada de dados</div>
+      <h2 class="sec" data-k="f-h2">Ficha técnica <em>com fontes</em></h2>
+      <p class="sub" data-k="f-sub">Dados objetivos dos planos de ~US$ 20, cada item com a fonte citada (acesso em jun/2026). Passe o mouse no símbolo ⚠ para ver as ressalvas; clique no número para ir à fonte.</p>
+
+      <div class="tablewrap">
+        <div class="spectable">
+          <!-- header -->
+          <div class="colh" style="background:var(--ink-3)"></div>
+          <div class="colh claude"><div class="ph-top"></div><div class="pn" data-k="f-claude-n">Claude</div><div class="pm" data-k="f-claude-m">Anthropic · Claude Pro</div></div>
+          <div class="colh gemini"><div class="ph-top"></div><div class="pn" data-k="f-gemini-n">Gemini</div><div class="pm" data-k="f-gemini-m">Google · AI Pro</div></div>
+          <div class="colh chatgpt"><div class="ph-top"></div><div class="pn" data-k="f-chatgpt-n">ChatGPT</div><div class="pm" data-k="f-chatgpt-m">OpenAI · Plus</div></div>
+
+          <!-- preço -->
+          <div class="rowlab">Plano e preço</div>
+          <div class="cell"><b data-k="s-preco-c">US$ 20</b> / mês<a class="src" href="#f1">1</a></div>
+          <div class="cell"><b data-k="s-preco-g">US$ 19,99</b> / mês<a class="src" href="#f9">9</a></div>
+          <div class="cell"><b data-k="s-preco-x">US$ 20</b> / mês<a class="src" href="#f4">4</a></div>
+
+          <!-- modelos -->
+          <div class="rowlab">Modelos incluídos</div>
+          <div class="cell" data-k="s-mod-c">Haiku 4.5, Sonnet 4.6 e <b>Opus 4.8</b> (recomendado)<a class="src" href="#f2">2</a></div>
+          <div class="cell" data-k="s-mod-g"><b>Gemini 3.1 Pro</b> + 1.000 créditos de IA/mês<a class="src" href="#f9">9</a></div>
+          <div class="cell" data-k="s-mod-x"><b>GPT-5.5</b> e GPT-5.5 Instant (o GPT-5.5 Pro fica fora do Plus)<a class="src" href="#f5">5</a></div>
+
+          <!-- contexto -->
+          <div class="rowlab">Janela de contexto</div>
+          <div class="cell" data-k="s-ctx-c">200K no chat; até 500K nos pagos; <b>1M</b> via Claude Code<a class="src" href="#f3">3</a></div>
+          <div class="cell" data-k="s-ctx-g"><b>1M</b> tokens (saída até 65K)<a class="src" href="#f11">11</a></div>
+          <div class="cell" data-k="s-ctx-x">~128K tokens<span class="warn" title="Valor de comparativos de terceiros; não confirmado em página oficial da OpenAI (acesso direto bloqueado).">⚠</span></div>
+
+          <!-- imagem -->
+          <div class="rowlab">Geração de imagem</div>
+          <div class="cell no" data-k="s-img-c">Não gera imagens<a class="src" href="#f2">2</a></div>
+          <div class="cell" data-k="s-img-g"><b>Sim</b> · Nano Banana Pro<a class="src" href="#f9">9</a></div>
+          <div class="cell" data-k="s-img-x"><b>Sim</b> · ChatGPT Images 2.0 (gpt-image-2)<a class="src" href="#f6">6</a></div>
+
+          <!-- vídeo -->
+          <div class="rowlab">Geração de vídeo</div>
+          <div class="cell no" data-k="s-vid-c">Não<a class="src" href="#f2">2</a></div>
+          <div class="cell" data-k="s-vid-g"><b>Sim</b> (limitado) · Veo 3.1 Lite + 200 créditos Flow<a class="src" href="#f9">9</a></div>
+          <div class="cell" data-k="s-vid-x">Sora 2 no ChatGPT (~50 vídeos/mês, 480p)<span class="warn" title="Relatos conflitantes: o app Sora standalone foi descontinuado e a API encerra em 24/09/2026, mas a geração dentro do ChatGPT Plus segue relatada. Não confirmado em fonte oficial direta.">⚠</span><a class="src" href="#f7">7</a></div>
+
+          <!-- agêntico -->
+          <div class="rowlab">IA agêntica / código</div>
+          <div class="cell" data-k="s-ag-c"><b>Claude Code</b> (incluído) e Cowork<a class="src" href="#f1">1</a></div>
+          <div class="cell" data-k="s-ag-g">Gemini CLI / Jules<span class="warn" title="Inclusão específica no nível AI Pro não confirmada por fonte oficial nesta pesquisa.">⚠</span></div>
+          <div class="cell" data-k="s-ag-x"><b>OpenAI Codex</b> (GPT-5.3-Codex)<a class="src" href="#f8">8</a></div>
+
+          <!-- brindes -->
+          <div class="rowlab">Brindes e extras</div>
+          <div class="cell" data-k="s-ext-c">Claude Code e Claude Design<a class="src" href="#f1">1</a></div>
+          <div class="cell" data-k="s-ext-g">NotebookLM (5x áudio), 5 TB Google One, YouTube Premium Lite, Gemini no Gmail/Docs<a class="src" href="#f9">9</a><a class="src" href="#f10">10</a></div>
+          <div class="cell" data-k="s-ext-x">Deep Research, Canvas, Voz e GPTs<a class="src" href="#f4">4</a></div>
+        </div>
+      </div>
+
+      <div class="kicker" style="margin-top:32px" data-k="dv-kicker">Onde os dados divergem do vídeo</div>
+      <h2 class="sec" style="margin-bottom:6px" data-k="dv-h2">Pensar criticamente <em>sobre a fonte</em></h2>
+      <p class="sub" data-k="dv-sub">Comparar a opinião do vídeo com dados atuais é, por si só, um exercício do curso. Estas são as ressalvas honestas desta ficha.</p>
+      <div class="divergence">
+        <div class="dcard"><div class="dt" data-k="dv1t">Vídeo × vídeo no ChatGPT</div><p data-k="dv1p">O vídeo afirma que só o Gemini gera vídeo no plano de US$ 20. Dados atuais indicam o Sora 2 dentro do ChatGPT Plus, mas com relatos conflitantes. Tratar com cautela.</p></div>
+        <div class="dcard"><div class="dt" data-k="dv2t">Modelos topo de linha</div><p data-k="dv2p">A Anthropic anunciou o Fable 5 (jun/2026) como modelo mais avançado, mas seu acesso no plano Claude Pro de consumo não está confirmado. Por isso a ficha lista o Opus 4.8 como o modelo principal do Pro.</p></div>
+        <div class="dcard"><div class="dt" data-k="dv3t">Fontes da OpenAI</div><p data-k="dv3p">As páginas oficiais da OpenAI bloquearam a leitura automática (HTTP 403). Os dados de ChatGPT vêm de trechos de fontes oficiais e da imprensa especializada; reconfirme no navegador antes de cada turma.</p></div>
+        <div class="dcard"><div class="dt" data-k="dv4t">Números a reconfirmar</div><p data-k="dv4p">A janela de contexto do ChatGPT Plus (~128K) e a inclusão do Gemini CLI/Jules no nível Pro não foram confirmadas em fonte oficial. O armazenamento Google One (5 TB) pode variar por região.</p></div>
+      </div>
+
+      <div class="sources">
+        <h3 data-k="src-h">Fontes (acesso em 23/06/2026)</h3>
+        <ol>
+          <li id="f1"><div><a href="https://www.eesel.ai/blog/claude-pro-pricing" target="_blank" rel="noopener">eesel.ai/blog/claude-pro-pricing</a> · preço e recursos do Claude Pro<span class="acc">complemento: anthropic.com</span></div></li>
+          <li id="f2"><div><a href="https://platform.claude.com/docs/en/about-claude/models/overview" target="_blank" rel="noopener">platform.claude.com/docs · visão geral de modelos</a> · modelos, imagem e vídeo</div></li>
+          <li id="f3"><div><a href="https://support.claude.com/en/articles/8606394" target="_blank" rel="noopener">support.claude.com/articles/8606394</a> · janela de contexto por plano</div></li>
+          <li id="f4"><div><a href="https://chatgpt.com/pricing/" target="_blank" rel="noopener">chatgpt.com/pricing</a> · plano ChatGPT Plus e recursos</div></li>
+          <li id="f5"><div><a href="https://help.openai.com/en/articles/11909943-gpt-5-in-chatgpt" target="_blank" rel="noopener">help.openai.com · GPT-5.5 no ChatGPT</a> · modelos do Plus</div></li>
+          <li id="f6"><div><a href="https://openai.com/index/introducing-chatgpt-images-2-0/" target="_blank" rel="noopener">openai.com · ChatGPT Images 2.0</a> · geração de imagem (gpt-image-2)</div></li>
+          <li id="f7"><div><a href="https://en.wikipedia.org/wiki/Sora_(text-to-video_model)" target="_blank" rel="noopener">Sora (modelo de vídeo)</a> · status do Sora 2 no ChatGPT (relato)</div></li>
+          <li id="f8"><div><a href="https://openai.com/codex/" target="_blank" rel="noopener">openai.com/codex</a> · OpenAI Codex no Plus</div></li>
+          <li id="f9"><div><a href="https://gemini.google/subscriptions/" target="_blank" rel="noopener">gemini.google/subscriptions</a> · Google AI Pro: preço, modelos, imagem, vídeo, extras</div></li>
+          <li id="f10"><div><a href="https://one.google.com/about/google-ai-plans/" target="_blank" rel="noopener">one.google.com/about/google-ai-plans</a> · armazenamento e benefícios Google One</div></li>
+          <li id="f11"><div><a href="https://deepmind.google/models/model-cards/gemini-3-1-pro/" target="_blank" rel="noopener">deepmind.google · Gemini 3.1 Pro</a> · janela de contexto de 1M</div></li>
+        </ol>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ===================== TAB 3: VEREDITO ===================== -->
+<div class="panel" id="veredito">
+  <div class="wrap">
+    <section class="block">
+      <div class="kicker" data-k="v-kicker">Resultado final</div>
+      <h2 class="sec" data-k="v-h2">Quem venceu a <em>disputa</em></h2>
+      <p class="sub" data-k="v-sub">O placar fechado das oito categorias, a ressalva honesta do autor e um guia rápido por objetivo.</p>
+
+      <div class="standings">
+        <div class="strow gold c1">
+          <div class="medal m1">1</div>
+          <div class="nm" data-k="st1">Claude <small data-k="st1s">Anthropic · escrita, integrações, IA agêntica, programação</small></div>
+          <div style="display:flex;align-items:center;gap:14px;justify-self:end">
+            <div class="stbar"><i style="width:100%"></i></div><div class="stpts">4</div>
+          </div>
+        </div>
+        <div class="strow c2">
+          <div class="medal m2">2</div>
+          <div class="nm" data-k="st2">Gemini <small data-k="st2s">Google · vídeo, conversas do dia a dia, brindes</small></div>
+          <div style="display:flex;align-items:center;gap:14px;justify-self:end">
+            <div class="stbar"><i style="width:75%"></i></div><div class="stpts">3</div>
+          </div>
+        </div>
+        <div class="strow c3">
+          <div class="medal m3">3</div>
+          <div class="nm" data-k="st3">ChatGPT <small data-k="st3s">OpenAI · geração de imagem</small></div>
+          <div style="display:flex;align-items:center;gap:14px;justify-self:end">
+            <div class="stbar"><i style="width:25%"></i></div><div class="stpts">1</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="note" data-k="v-note"><b>Ressalva do autor:</b> ele admite tendência ao Claude, que é a ferramenta que mais usa (duas empresas, mais de 100 agentes rodando 24h e mais de 300 tarefas agendadas). Mas reforça: hoje nenhuma dessas IAs é ruim, e a melhor escolha depende do seu objetivo.</div>
+
+      <div class="kicker" style="margin-top:8px" data-k="g-kicker">Guia de escolha</div>
+      <h2 class="sec" style="margin-bottom:20px" data-k="g-h2">Escolha pelo <em>objetivo</em></h2>
+      <div class="guide">
+        <div class="gcard chatgpt">
+          <div class="top"></div>
+          <div class="if" data-k="g1if">Se você quer</div>
+          <div class="goal" data-k="g1g">Criar e editar imagens</div>
+          <div class="pick"><span class="sw"></span><span data-k="g1p">ChatGPT</span></div>
+        </div>
+        <div class="gcard gemini">
+          <div class="top"></div>
+          <div class="if" data-k="g2if">Se você quer</div>
+          <div class="goal" data-k="g2g">NotebookLM, vídeos e o ecossistema Google</div>
+          <div class="pick"><span class="sw"></span><span data-k="g2p">Gemini</span></div>
+        </div>
+        <div class="gcard claude">
+          <div class="top"></div>
+          <div class="if" data-k="g3if">Se você quer</div>
+          <div class="goal" data-k="g3g">Escrita, tarefas agênticas e programação</div>
+          <div class="pick"><span class="sw"></span><span data-k="g3p">Claude</span></div>
+        </div>
+      </div>
+
+      <div class="closer">
+        <p class="q" data-k="closer">"Chegamos a um momento em que a forma como você usa a IA importa mais do que qual você usa."</p>
+        <p class="src" data-k="closer-src">Reflexão de fechamento, útil como gancho pedagógico do curso Servidor + IA.</p>
+      </div>
+    </section>
+  </div>
+</div>
+
+<div id="editbar">
+  <button id="ed-toggle">✎ Editar</button>
+  <button id="ed-save" style="display:none">⬇ Baixar HTML</button>
+  <button id="ed-reset" style="display:none">↺ Restaurar</button>
+</div>
+<div class="editflag">Modo de edição ligado · clique nos textos para alterar</div>
+
+<footer class="foot">
+  <div class="wrap" data-k="foot">
+    <b>Comparativo de LLMs</b> · material de apoio do curso Servidor + IA (INOVAJUS Eixo III, Justiça Federal no Ceará).
+    A ficha técnica traz dados verificados com fontes. Os modelos evoluem rápido: revalide antes de cada turma.
+  </div>
+</footer>
+
+<script>
+/* ---------- DADOS DAS CATEGORIAS (editáveis via data-k nos elementos gerados) ---------- */
+const CATS = [
+  {n:1, t:"Geração de vídeo", w:"gemini", flag:"Único com vídeo no plano de US$ 20",
+   r:"É a única das três a oferecer geração de vídeo (modelo Veo, do Google) dentro do plano de US$ 20. Claude e ChatGPT não incluem geração de vídeo nesse plano."},
+  {n:2, t:"Geração de imagem", w:"chatgpt", flag:"GPT Image venceu no teste lado a lado",
+   r:"O GPT Image (OpenAI) superou o Nano Banana (Google) num comparativo lado a lado com o mesmo prompt. Claude não gera imagens. Disputa acirrada, mas o ChatGPT pontua."},
+  {n:3, t:"Conversas do dia a dia", w:"gemini", flag:"Respostas curtas e bem organizadas",
+   r:"Para pesquisas rápidas e correções simples, o Gemini entrega respostas mais diretas, que você 'bate o olho' e entende. O Claude é forte, mas tende a respostas longas demais para o uso cotidiano."},
+  {n:4, t:"Escrita elaborada", w:"claude", flag:"Linguagem natural, menos 'slop'",
+   r:"De e-mails a campanhas e capítulos de livro, o Claude soa mais humano e natural. Domina a escrita desde o Sonnet; a skill Humanizer torna o texto quase indistinguível de um humano."},
+  {n:5, t:"Integração com apps", w:"claude", flag:"Maior ecossistema de integrações nativas",
+   r:"O Claude conecta-se a mais plataformas com integrações nativas (poucos cliques). O Gemini brilha dentro do ecossistema Google (Gmail, Sheets, Drive), mas é menos generoso fora dele."},
+  {n:6, t:"IA agêntica", w:"claude", flag:"Comunidade e modelos mais avançados",
+   r:"Claude Code/Cowork tem ecossistema e comunidade muito ativos (skills e plugins toda semana) e os modelos mais avançados (Fable/Mythos). O Codex (OpenAI) é forte, mas o Google está atrás nessa corrida."},
+  {n:7, t:"Programação", w:"claude", flag:"Ferramenta dominante entre devs",
+   r:"O Claude Code é a ferramenta de IA mais usada por desenvolvedores no dia a dia. Nessa categoria a disputa é quase insignificante: domínio quase total."},
+  {n:8, t:"Brindes e extras", w:"gemini", flag:"NotebookLM, YouTube Premium, storage",
+   r:"O Google entrega muito: NotebookLM (sem equivalente no mercado, cria respostas, podcasts e vídeos a partir dos seus documentos), YouTube Premium, armazenamento e integrações. ChatGPT é fraco aqui; Claude tem o Claude Design."}
+];
+const NAMES = {claude:"Claude", gemini:"Gemini", chatgpt:"ChatGPT"};
+
+/* ---------- RENDER CATEGORIAS ---------- */
+const catsEl = document.getElementById('cats');
+CATS.forEach(c=>{
+  const others = ['claude','gemini','chatgpt'];
+  const cells = others.map(p=>{
+    const win = p===c.w;
+    return `<div class="vcell ${win?'win':''}" data-p="${p}"><span class="sw"></span>${NAMES[p]}${win?'<span class="mark">✓ vence</span>':''}</div>`;
+  }).join('');
+  const el = document.createElement('div');
+  el.className='cat'; el.dataset.w=c.w;
+  el.innerHTML=`
+    <div class="cat-head">
+      <div class="cat-num">${c.n}</div>
+      <div>
+        <div class="cat-title" data-k="cat${c.n}-t">${c.t}</div>
+        <div class="cat-flag" data-k="cat${c.n}-f">${c.flag}</div>
+      </div>
+      <div class="cat-right">
+        <span class="winner-chip ${c.w}"><span class="sw"></span>${NAMES[c.w]}</span>
+        <span class="caret">▶</span>
+      </div>
+    </div>
+    <div class="cat-body">
+      <div class="cat-inner">
+        <p class="rationale" data-k="cat${c.n}-r">${c.r}</p>
+        <div class="versus">${cells}</div>
+      </div>
+    </div>`;
+  catsEl.appendChild(el);
+  el.querySelector('.cat-head').addEventListener('click',()=>{
+    const open=el.classList.toggle('open');
+    const body=el.querySelector('.cat-body');
+    body.style.maxHeight = open ? body.scrollHeight+'px' : '0';
+  });
+});
+
+/* ---------- PLACAR (contagem animada + filtro) ---------- */
+function tally(filter='all'){
+  const visible = CATS.filter(c=> filter==='all' || c.w===filter);
+  const counts={claude:0,gemini:0,chatgpt:0};
+  visible.forEach(c=>counts[c.w]++);
+  const totals={claude:0,gemini:0,chatgpt:0};
+  CATS.forEach(c=>totals[c.w]++);
+  document.querySelectorAll('.pcard').forEach(card=>{
+    const p=card.dataset.p;
+    animateCount(card.querySelector('[data-count]'), counts[p]);
+    // dots = wins totais; acesos = wins no filtro atual
+    const wrap=card.querySelector('[data-wins]'); wrap.innerHTML='';
+    for(let i=0;i<totals[p];i++){const s=document.createElement('span'); if(i<counts[p])s.className='on'; wrap.appendChild(s);}
+  });
+  // coroa para o líder do filtro atual
+  const max=Math.max(...Object.values(counts));
+  document.querySelectorAll('.pcard').forEach(card=>{
+    card.classList.toggle('lead', max>0 && counts[card.dataset.p]===max);
+  });
+}
+function animateCount(el,to){
+  const from=parseInt(el.textContent)||0; if(from===to){el.textContent=to;return;}
+  const steps=Math.abs(to-from), dir=to>from?1:-1; let cur=from, i=0;
+  const t=setInterval(()=>{cur+=dir;el.textContent=cur;if(++i>=steps)clearInterval(t);},90);
+}
+let firstRun=true;
+function runBoard(filter){
+  if(firstRun){ // anima do 0 na entrada
+    document.querySelectorAll('[data-count]').forEach(e=>e.textContent='0');
+    setTimeout(()=>tally(filter),250); firstRun=false;
+  } else tally(filter);
+}
+
+/* filtro de categorias */
+document.querySelectorAll('.chip').forEach(ch=>{
+  ch.addEventListener('click',()=>{
+    document.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));
+    ch.classList.add('on');
+    const f=ch.dataset.f;
+    document.querySelectorAll('.cat').forEach(cat=>{
+      cat.classList.toggle('hide', f!=='all' && cat.dataset.w!==f);
+    });
+    tally(f);
+  });
+});
+
+/* ---------- TABS ---------- */
+const tabs=document.querySelectorAll('.tab'), panels=document.querySelectorAll('.panel');
+tabs.forEach(t=>t.addEventListener('click',()=>{
+  tabs.forEach(x=>x.classList.remove('active')); t.classList.add('active');
+  panels.forEach(p=>p.classList.remove('active'));
+  document.getElementById(t.dataset.tab).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}));
+
+/* dispara o placar quando a aba 1 aparece (já é a ativa) */
+runBoard('all');
+
+/* ---------- FONTES: clique no número destaca a fonte ---------- */
+document.querySelectorAll('.src').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const id=a.getAttribute('href').slice(1);
+    const li=document.getElementById(id);
+    if(li){li.classList.add('flash');setTimeout(()=>li.classList.remove('flash'),1600);}
+  });
+});
+
+/* ---------- MODO DE EDIÇÃO ---------- */
+const LS='comparativo-llms';
+const T=document.getElementById('ed-toggle'),S=document.getElementById('ed-save'),R=document.getElementById('ed-reset');
+function applySaved(){try{const d=JSON.parse(localStorage.getItem(LS+':text')||'{}');
+  document.querySelectorAll('[data-k]').forEach(e=>{if(d[e.dataset.k]!=null)e.innerHTML=d[e.dataset.k];});}catch(e){}}
+applySaved();
+let editing=false;
+T.addEventListener('click',()=>{
+  editing=!editing; document.body.classList.toggle('editing',editing);
+  document.querySelectorAll('[data-k]').forEach(e=>e.contentEditable=editing);
+  T.classList.toggle('live',editing); T.textContent=editing?'✓ Concluir':'✎ Editar';
+  S.style.display=R.style.display=editing?'inline-block':'none';
+  if(!editing)save();
+});
+function save(){const d={};document.querySelectorAll('[data-k]').forEach(e=>d[e.dataset.k]=e.innerHTML);
+  localStorage.setItem(LS+':text',JSON.stringify(d));}
+document.addEventListener('input',e=>{if(editing&&e.target.dataset&&e.target.dataset.k)save();});
+R.addEventListener('click',()=>{if(confirm('Restaurar o texto original e descartar suas edições?')){localStorage.removeItem(LS+':text');location.reload();}});
+S.addEventListener('click',()=>{
+  const clone=document.documentElement.cloneNode(true);
+  clone.querySelectorAll('#editbar,.editflag').forEach(n=>n.remove());
+  clone.classList.remove('editing');
+  clone.querySelectorAll('[contenteditable]').forEach(n=>n.removeAttribute('contenteditable'));
+  const html='<!DOCTYPE html>\n'+clone.outerHTML;
+  const b=new Blob([html],{type:'text/html'}),u=URL.createObjectURL(b),a=document.createElement('a');
+  a.href=u;a.download='comparativo-llms.html';a.click();URL.revokeObjectURL(u);
+});
+</script>
+</body>
+</html>
