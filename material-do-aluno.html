@@ -1,0 +1,1193 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Material do participante · Curso Servidor + IA</title>
+<style>
+:root {
+  --laranja:#C05A1E; --laranja-claro:#F2E4D8; --tinta:#23201d; --cinza:#5c554e;
+  --fundo:#FFFDFA; --borda:#e6ddd3; --creme:#FFF7EF;
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--fundo); color:var(--tinta);
+  font:16px/1.65 -apple-system,"Segoe UI",Inter,Roboto,sans-serif; }
+header.topo { background:var(--laranja); color:#fff; padding:26px 20px; }
+header.topo h1 { margin:0 0 4px; font-size:1.5rem; letter-spacing:-.01em; }
+header.topo p { margin:0; opacity:.92; font-size:.95rem; }
+.wrap { display:flex; gap:32px; max-width:1240px; margin:0 auto; padding:28px 20px 80px; }
+nav { flex:0 0 264px; position:sticky; top:20px; align-self:flex-start;
+  max-height:calc(100vh - 40px); overflow:auto; font-size:.9rem; }
+nav ul { list-style:none; margin:0; padding:0; }
+nav a { color:var(--cinza); text-decoration:none; display:block; padding:5px 10px;
+  border-left:2px solid transparent; border-radius:0 4px 4px 0; }
+nav a:hover { background:var(--creme); color:var(--laranja); border-left-color:var(--laranja); }
+.nav-sec a { font-weight:700; color:var(--tinta); margin-top:14px; }
+.n2 a { padding-left:20px; }
+main { flex:1; min-width:0; }
+h2 { font-size:1.32rem; margin:2.2em 0 .5em; color:var(--laranja);
+  border-bottom:1px solid var(--borda); padding-bottom:.3em; }
+h3 { font-size:1.08rem; margin:1.7em 0 .4em; }
+h4 { font-size:.98rem; margin:1.4em 0 .3em; color:var(--cinza); }
+p, li { margin:.5em 0; }
+code { background:var(--creme); padding:1px 5px; border-radius:3px; font-size:.9em; }
+pre { background:var(--creme); border:1px solid var(--borda); border-left:3px solid var(--laranja);
+  padding:14px 16px; border-radius:6px; overflow-x:auto; white-space:pre-wrap;
+  font:13px/1.5 ui-monospace,Consolas,monospace; }
+blockquote { margin:.8em 0; padding:.4em 0 .4em 14px; border-left:3px solid var(--laranja-claro);
+  color:var(--cinza); font-style:italic; }
+.tw { overflow-x:auto; margin:1em 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { border:1px solid var(--borda); padding:7px 10px; text-align:left; vertical-align:top; }
+th { background:var(--laranja-claro); }
+.secao { scroll-margin-top:20px; }
+.barra { position:fixed; left:16px; bottom:16px; display:flex; gap:8px; z-index:50; }
+.btn { background:#fff; border:1px solid var(--borda); color:var(--tinta); padding:8px 14px;
+  border-radius:999px; font-size:.85rem; cursor:pointer; box-shadow:0 2px 10px rgba(0,0,0,.09); }
+.btn:hover { border-color:var(--laranja); color:var(--laranja); }
+.btn.on { background:var(--laranja); color:#fff; border-color:var(--laranja); }
+[contenteditable="true"] { outline:1px dashed var(--laranja); outline-offset:2px;
+  background:rgba(192,90,30,.04); }
+.rodape { border-top:1px solid var(--borda); margin-top:60px; padding-top:16px;
+  color:var(--cinza); font-size:.85rem; }
+@media (max-width:900px) {
+  .wrap { flex-direction:column; padding:16px; }
+  nav { position:static; max-height:none; flex:none; }
+}
+@media print {
+  nav, .barra, header.topo { display:none; }
+  body { font-size:11pt; } .wrap { display:block; padding:0; }
+  h2 { page-break-after:avoid; } table, pre { page-break-inside:avoid; }
+}
+</style>
+</head>
+<body>
+<header class="topo">
+  <h1>Curso Servidor + IA · material do participante</h1>
+  <p>Justiça Federal no Ceará · INOVAJUS Eixo III · 24 horas · 4 módulos</p>
+</header>
+
+<div class="wrap">
+<nav>
+  <ul>
+    <li class="nav-sec"><a href="#manual">Manual do Aluno</a></li>
+<li class="n2"><a href="#man-0">Boas-vindas</a></li>
+<li class="n2"><a href="#man-4">Como acompanhar as aulas</a></li>
+<li class="n2"><a href="#man-7">O essencial de cada módulo</a></li>
+<li class="n2"><a href="#man-12">Job aids — fichas de consulta rápida</a></li>
+<li class="n2"><a href="#man-17">Como usar o Banco de Prompts</a></li>
+<li class="n2"><a href="#man-19">Os 30 dias seguintes</a></li>
+<li class="n2"><a href="#man-21">Perguntas frequentes</a></li>
+<li class="n2"><a href="#man-22">Onde buscar ajuda</a></li>
+    <li class="nav-sec"><a href="#caderno">Caderno de Exercícios</a></li>
+<li class="n2"><a href="#cad-0">Como usar este caderno</a></li>
+<li class="n2"><a href="#cad-4">Módulo 1 — Fundamentos de IA e prompt engineering</a></li>
+<li class="n2"><a href="#cad-5">Módulo 2 — Pensamento crítico e causal</a></li>
+<li class="n2"><a href="#cad-18">Módulo 3 — Prática forense</a></li>
+<li class="n2"><a href="#cad-21">Módulo 4 — Ética, LGPD e governança</a></li>
+  </ul>
+</nav>
+
+<main>
+  <section id="manual" class="secao">
+    <h2 style="margin-top:0">Manual do Aluno</h2>
+    <blockquote data-k="k1">Guia de referência para participantes do curso &quot;Servidor + IA&quot;.</blockquote>
+<blockquote data-k="k2">Versão 2.0 — julho de 2026.</blockquote>
+<blockquote data-k="k3">INOVAJUS — Eixo III — Justiça Federal no Ceará.</blockquote>
+<h2 id="man-0" data-k="k4">Boas-vindas</h2>
+<p data-k="k5">Você foi selecionado(a) para o curso <strong>Servidor + IA</strong>, capacitação de <strong>24 horas</strong>, <strong>online e ao vivo</strong>, sobre uso de inteligência artificial generativa no trabalho de Vara e Gabinete. Esta edição (Turma 1) ocorre em agosto de 2026.</p>
+<p data-k="k6">Este Manual é a peça que fica com você depois que o curso termina. Os slides passam durante a aula; este documento fica na sua mesa (física ou digital) para consulta meses depois, quando a dúvida for &quot;como era mesmo aquela etapa do prompt?&quot; ou &quot;posso mandar isto para a IA?&quot;.</p>
+<h3 id="man-1" data-k="k7">Como o curso funciona</h3>
+<p data-k="k8">O curso é dado inteiramente por videoconferência, ao vivo, em quatro módulos, nesta ordem — e a ordem importa: primeiro se aprende a pedir bem e a desconfiar direito, só depois se aplica em ritmo de produção.</p>
+<div class="tw"><table>
+<tr><th data-k="k9">Módulo</th><th data-k="k10">Tema</th><th data-k="k11">Carga horária</th></tr>
+<tr><td data-k="k12"><strong>Módulo 1</strong></td><td data-k="k13">Fundamentos e prompt engineering (a técnica de pedir bem para a IA)</td><td data-k="k14">6h</td></tr>
+<tr><td data-k="k15"><strong>Módulo 2</strong></td><td data-k="k16">Pensamento crítico e causal</td><td data-k="k17">6h</td></tr>
+<tr><td data-k="k18"><strong>Módulo 3</strong></td><td data-k="k19">Prática forense</td><td data-k="k20">10h</td></tr>
+<tr><td data-k="k21"><strong>Módulo 4</strong></td><td data-k="k22">Ética, LGPD e governança</td><td data-k="k23">2h</td></tr>
+<tr><td data-k="k24"><strong>Total</strong></td><td data-k="k25"></td><td data-k="k26"><strong>24h</strong></td></tr>
+</table></div>
+<p data-k="k27">O Módulo 1 ensina a montar um pedido (prompt) bem-feito. O Módulo 2 ensina a desconfiar direito do que a IA responde, antes de aplicar isso a qualquer coisa real. O Módulo 3, o mais longo, é onde as duas coisas se juntam nas tarefas do dia a dia da Vara e do Gabinete. O Módulo 4 fecha o curso com os limites: o que a lei e o sigilo permitem, e o que não.</p>
+<h3 id="man-2" data-k="k28">O que se espera de você</h3>
+<ul>
+<li data-k="k29"><strong>Frequência nos encontros síncronos.</strong> O curso é ao vivo; a certificação exige frequência mínima de 80% da carga horária (19,2 das 24 horas). Se precisar faltar, avise a Coordenação do Eixo III com antecedência sempre que possível.</li>
+<li data-k="k30"><strong>Participação nos exercícios.</strong> Cada bloco tem uma prática — individual, em duplas ou em salas (breakout). O aprendizado deste curso é fazer, não só assistir.</li>
+<li data-k="k31"><strong>Entrega do projeto integrador</strong>, no Módulo 3: em grupo, você aplica o que aprendeu a um caso real da sua unidade, ponta a ponta, e apresenta o resultado à turma. É avaliado por uma rubrica institucional própria (rubrica do projeto integrador), com sete dimensões e quatro níveis de desempenho.</li>
+<li data-k="k32"><strong>Disposição para questionar.</strong> Você não precisa concordar com tudo nem chegar sabendo programar. Precisa perguntar quando algo não fizer sentido na sua rotina — isso também é conteúdo do curso.</li>
+</ul>
+<h3 id="man-3" data-k="k33">Como obter o certificado</h3>
+<p data-k="k34">Ao final do curso, quem cumpriu a frequência mínima e entregou o projeto integrador recebe o <strong>certificado de 24 horas emitido pela Direção do Foro da JFCE</strong>. Não há prova teórica: a avaliação é pela aplicação prática, pela rubrica do projeto integrador.</p>
+<h2 id="man-4" data-k="k35">Como acompanhar as aulas</h2>
+<p data-k="k36">O instrutor conduz por videoconferência e compartilha a tela com o deck (a apresentação) e com a ferramenta de IA, ao vivo. Você acompanha os slides no seu próprio dispositivo, por um link ou QR code mostrado na capa de cada módulo — ter o deck aberto na sua tela ajuda a seguir os exemplos com calma, no seu próprio ritmo.</p>
+<h3 id="man-5" data-k="k37">Etiqueta do encontro online</h3>
+<ul>
+<li data-k="k38"><strong>Câmera</strong> ligada sempre que sua conexão permitir — ajuda o instrutor a perceber se a turma está acompanhando.</li>
+<li data-k="k39"><strong>Microfone fechado</strong> fora da sua fala; abra para falar e feche em seguida. Evita ruído de fundo para todo mundo.</li>
+<li data-k="k40"><strong>Dúvidas pelo chat.</strong> O instrutor monitora o chat continuamente e responde nas pausas ou ao vivo, conforme o caso.</li>
+<li data-k="k41"><strong>Salas (breakout rooms):</strong> nos exercícios em grupo, você será movido automaticamente para uma sala de 3 a 4 pessoas. O instrutor circula entre as salas — chame pelo chat da sala se precisar de ajuda.</li>
+<li data-k="k42"><strong>Enquetes:</strong> algumas perguntas do instrutor viram enquete rápida na plataforma; participe, é assim que a turma se enxerga.</li>
+</ul>
+<h3 id="man-6" data-k="k43">Se a conexão cair</h3>
+<p data-k="k44">Reconecte pelo mesmo link o quanto antes — a sala permanece aberta durante todo o encontro. Se a queda for maior que alguns minutos, o conteúdo do bloco fica registrado no deck (que você pode reabrir e revisar) e o instrutor normalmente retoma com uma síntese no início do bloco seguinte. Em caso de instabilidade recorrente, avise a Coordenação: pode haver necessidade de reposição em turma futura.</p>
+<h2 id="man-7" data-k="k45">O essencial de cada módulo</h2>
+<p data-k="k46">Esta seção não substitui o slide nem a demonstração ao vivo — é o texto para reler depois, quando a memória do exemplo já tiver esfriado.</p>
+<h3 id="man-8" data-k="k47">Módulo 1 — Fundamentos e prompt engineering</h3>
+<p data-k="k48"><strong>O que a IA faz, de fato.</strong> Uma IA generativa de texto não &quot;sabe&quot; a resposta como uma pessoa sabe: ela calcula, palavra por palavra, qual é a continuação mais provável para o que você escreveu, com base em um treinamento sobre uma quantidade enorme de texto. O resultado costuma ser fluente e bem escrito — mas fluente não é o mesmo que correto. Uma resposta pode estar gramaticalmente perfeita e ainda assim inventar um fato, um número ou uma citação que não existe (isso se chama <strong>alucinação</strong>: a IA &quot;preenche a lacuna&quot; com algo plausível quando não tem a informação real). Por isso toda saída de IA é uma hipótese bem escrita, não um fato conferido.</p>
+<p data-k="k49"><strong>O que a IA apoia e o que continua sendo decisão sua.</strong> Há tarefas em que a IA ajuda bastante — resumir, triar, rascunhar, organizar — e há a parte final de toda tarefa, que é ler, conferir e decidir, e essa parte não se delega. É natural que o tema desperte a pergunta sobre substituição: a resposta direta é que a IA assume <strong>tarefas</strong>, não pessoas. Quem hoje passa horas triando manualmente uma lista de expedientes passa a fazer essa triagem em uma fração do tempo, e usa o tempo que sobra em análise, conferência e atendimento — no que exige, de fato, o juízo humano do servidor.</p>
+<p data-k="k50"><strong>As seis etapas do prompt.</strong> &quot;Prompt&quot; é o nome técnico do pedido que você escreve para a IA. O curso ensina a montá-lo em seis etapas fixas: contexto, tom, tarefa, exemplos, qualidade e formato. Um pedido vago (&quot;resuma isso aí&quot;) produz uma resposta genérica; o mesmo pedido, passado pelas seis etapas, produz uma resposta que já vem no formato que você precisa, no tom certo, sem parágrafos de enfeite. A ficha de consulta rápida com as seis etapas e um exemplo completo está na próxima seção deste Manual.</p>
+<p data-k="k51"><strong>Não despeje o processo inteiro.</strong> Toda IA tem um limite de quanto texto consegue &quot;olhar&quot; de uma vez — chama-se <strong>janela de contexto</strong> — e esse limite é medido em <strong>tokens</strong> (a unidade em que a IA conta o texto; aproximadamente pedaços de palavras). Colar o processo inteiro em vez do trecho relevante não só desperdiça essa janela como aumenta o risco de sigilo, porque envia informação que a tarefa não precisava. A regra prática é recortar: leve à IA só o trecho que a tarefa exige.</p>
+<p data-k="k52"><strong>Prompt fraco × prompt forte.</strong> O curso demonstra, lado a lado, o mesmo pedido escrito de forma vaga e de forma completa (nas seis etapas). A diferença na resposta não é sorte — é a etapa que faltou. Aprender a nomear qual etapa faltou é o que permite corrigir um prompt fraco na hora, sem recomeçar do zero.</p>
+<p data-k="k53"><strong>Três técnicas que melhoram qualquer prompt.</strong> Pedir para a IA &quot;pensar passo a passo&quot; antes de responder reduz erro em tarefas com várias etapas. Dar um ou dois exemplos do resultado que você espera (mesmo fictícios) ajuda mais do que uma descrição longa. Separar claramente a instrução do documento colado (por exemplo, com uma linha do tipo &quot;instrução acima, documento abaixo&quot;) evita que a IA confunda o que é ordem e o que é conteúdo a processar.</p>
+<p data-k="k54"><strong>O Banco de Prompts e a escolha da ferramenta.</strong> Você não precisa escrever cada prompt do zero: o curso entrega um Banco de Prompts com 14 modelos prontos (prompts-mestre), cada um para um tipo de tarefa, para você adaptar à sua unidade. Sobre qual ferramenta usar: as principais opções do mercado dão conta do que este curso ensina — a escolha deve ser pela tarefa, não pela marca; o método vale mais que a ferramenta específica.</p>
+<h3 id="man-9" data-k="k55">Módulo 2 — Pensamento crítico e causal</h3>
+<p data-k="k56"><strong>Fluência não é fidelidade.</strong> Este módulo aprofunda a ideia central do Módulo 1: uma resposta de IA bem escrita, com tom seguro e formatação impecável, não é garantia de que o conteúdo é verdadeiro ou aplicável ao seu caso. É como um GPS que manda entrar numa rua interditada hoje — ele não está mentindo, só não enxerga a obra. Quem dirige continua sendo você.</p>
+<p data-k="k57"><strong>Causa oculta (confundidor).</strong> Quando duas coisas sobem ou caem juntas, é tentador concluir que uma causa a outra — mas muitas vezes existe uma terceira coisa por trás, empurrando as duas ao mesmo tempo (o <strong>confundidor</strong>, ou causa oculta). O exemplo clássico: venda de sorvete e casos de afogamento sobem juntos no verão; o sorvete não afoga ninguém, é o calor que aumenta os dois. No trabalho da Vara, esse raciocínio se aplica a números que &quot;sobem juntos&quot; e tentam contar uma história de causa e efeito que pode não existir.</p>
+<p data-k="k58"><strong>Contrafactual: o número que não se vê.</strong> O efeito real de uma medida é o que aconteceu <strong>menos</strong> o que teria acontecido de qualquer forma, sem ela — e esse segundo número nunca aparece sozinho em lugar nenhum, precisa ser estimado. Duas formas de estimar: olhar a <strong>tendência anterior</strong> (o que a curva já vinha fazendo antes da medida) ou usar um <strong>grupo de comparação</strong> (uma unidade parecida que não mudou nada no período). Sem registrar o &quot;antes&quot;, nenhum &quot;melhorou&quot; é demonstrável — é exatamente por isso que o projeto integrador do Módulo 3 exige essa etapa.</p>
+<p data-k="k59"><strong>Detectar alucinação e conferir na fonte.</strong> A IA erra com a mesma confiança com que acerta. O sinal mais perigoso não costuma ser um erro grosseiro — é uma citação de norma ou jurisprudência perfeitamente formatada, com número, relator e data plausíveis, que simplesmente não existe. O hábito que o curso instala não é desconfiar da IA por princípio: é conferir, sempre, na fonte oficial antes de citar qualquer norma ou julgado em uma peça real.</p>
+<p data-k="k60"><strong>Duas camadas de defesa.</strong> A primeira camada é a instrução dentro do próprio prompt (pedir à IA que aponte suas próprias fraquezas, que confirme se cada dado citado está na fonte). A segunda é o checklist humano, aplicado depois, por você. As duas camadas trabalham juntas; nenhuma substitui a outra.</p>
+<p data-k="k61"><strong>As quatro perguntas do checklist.</strong> Este é o instrumento mais usado do curso depois que ele termina: confere com a fonte? faz sentido no caso concreto? tem algum dado que pode ter sido inventado? a conclusão trata casos iguais de forma igual? A ficha de consulta rápida com a ação correspondente a cada pergunta está na próxima seção.</p>
+<p data-k="k62"><strong>A resposta boa demais (a lacuna).</strong> Existe um tipo de erro mais difícil de pegar que uma alucinação: a resposta correta, fluente, bem estruturada — e incompleta. Ela passa em todas as conferências de forma e ainda assim deixa de fora algo essencial ao seu contexto (por exemplo, um conselho sobre adoção de IA que nunca menciona sigilo ou LGPD). Detectar a <strong>lacuna</strong>, não só o erro, é a habilidade que diferencia quem revisa por hábito de quem revisa de fato.</p>
+<h3 id="man-10" data-k="k63">Módulo 3 — Prática forense</h3>
+<p data-k="k64">Este é o módulo mais longo porque é aqui que os Módulos 1 e 2 se encontram com a rotina real de Vara e Gabinete, tarefa por tarefa.</p>
+<p data-k="k65"><strong>Triagem de demandas.</strong> Colar um lote de expedientes ou petições e pedir à IA que classifique por tipo e urgência acelera uma tarefa repetitiva — mas a classificação sugerida sempre passa por conferência antes de virar prioridade de fato (um habeas corpus com réu preso, por exemplo, precisa saltar aos olhos, e é o servidor quem confirma isso).</p>
+<p data-k="k66"><strong>Resumo de peças.</strong> Pedir o resumo de uma peça longa economiza tempo de leitura, mas o resumo entregue pela IA é conferido contra o documento original antes de ser usado para qualquer decisão — resumir não é o mesmo que ler.</p>
+<p data-k="k67"><strong>Minutas e despachos.</strong> A IA pode produzir uma minuta de despacho ou decisão em segundos, com estrutura e linguagem corretas. A minuta é sempre revisada linha a linha antes de seguir para assinatura e juntada nos autos eletrônicos do PJe: a redação pode estar impecável e ainda presumir um pedido que não existe nos autos daquele processo específico. A decisão continua sendo do servidor e, quando aplicável, do magistrado — nunca da ferramenta.</p>
+<p data-k="k68"><strong>Jurisprudência: atenção redobrada.</strong> Ao pedir referências de jurisprudência à IA, o risco de alucinação é mais alto do que em outras tarefas, porque um julgado inventado costuma vir com número, relator e ementa plausíveis. Toda citação de jurisprudência sugerida pela IA é conferida na base oficial do tribunal antes de entrar em qualquer peça.</p>
+<p data-k="k69"><strong>Comparar e conferir divergências.</strong> Cotejar uma minuta com o modelo padrão da unidade, ou duas versões de um mesmo documento, é uma tarefa em que a IA aponta diferenças rapidamente — cabe a você avaliar se cada diferença apontada é relevante.</p>
+<p data-k="k70"><strong>Estruturar dados soltos.</strong> Dados espalhados em e-mails, planilhas ou anotações podem ser organizados pela IA em tabela ou relatório — útil para prestação de contas interna e para o próprio projeto integrador.</p>
+<p data-k="k71"><strong>Trabalho em lote, com anonimização antes.</strong> Gerar documentos padronizados a partir de uma tabela (por exemplo, um lote de intimações) multiplica o ganho de tempo — e multiplica também o risco, se a tabela tiver dado pessoal real. A regra é anonimizar a tabela antes de processá-la em lote, nunca depois.</p>
+<p data-k="k72"><strong>Registrar o antes, demonstrar o depois.</strong> Toda aplicação prática deste módulo — e, em especial, o projeto integrador — começa por registrar como a tarefa é feita hoje e quanto tempo ela consome por unidade (o &quot;antes&quot;). Sem esse registro, o ganho da IA não é demonstrável; com ele, o resultado da turma vira número institucional, aproveitável pela Coordenação do Eixo III.</p>
+<h3 id="man-11" data-k="k73">Módulo 4 — Ética, LGPD e governança</h3>
+<p data-k="k74"><strong>Supervisão humana é linha vermelha.</strong> A Resolução CNJ nº 615/2025 estabelece que o uso de inteligência artificial no Judiciário exige supervisão humana. Neste curso isso não é uma recomendação entre outras: é o limite que atravessa todos os módulos. Toda saída de IA é conferida por uma pessoa, e a decisão final é sempre humana.</p>
+<p data-k="k75"><strong>O que pode e o que não pode ir para a IA.</strong> Nem todo documento pode ser enviado a uma ferramenta de IA externa, mesmo depois de anonimizado — sigilo de justiça e segredo de justiça bloqueiam o envio, independentemente de qualquer tratamento prévio. A ficha &quot;semáforo de sigilo&quot;, na próxima seção, resume a regra em três faixas.</p>
+<p data-k="k76"><strong>Anonimização.</strong> É o processo de remover ou substituir, antes do envio à IA, qualquer dado que identifique uma pessoa real — nome, CPF, endereço, dado de saúde, dado de criança ou adolescente. A ficha de anonimização, na próxima seção, mostra o que substituir e por qual marcador.</p>
+<p data-k="k77"><strong>Viés algorítmico.</strong> É a tendência de um sistema de IA reproduzir, na resposta, padrões de desigualdade presentes nos dados com que foi treinado — por exemplo, associar determinado perfil de parte a determinado desfecho, sem que isso reflita o caso concreto. Reconhecer um viés numa resposta não é motivo para descartar a ferramenta; é motivo para desconsiderar aquele trecho específico e seguir pela análise própria.</p>
+<p data-k="k78"><strong>Boas práticas de segurança.</strong> Usar contas e ferramentas homologadas pela instituição, não reutilizar prompts com dado real &quot;só para testar&quot;, e reportar qualquer incidente de vazamento pelo canal institucional, não informalmente.</p>
+<p data-k="k79"><strong>Ideia boa demais para morrer com o autor.</strong> Governança não é freio contra o servidor — é o que transforma a boa ideia da ponta em solução homologada e permanente. Uma solução criada &quot;por fora&quot;, sem registro institucional, morre quando o autor sai da função e, até lá, expõe a unidade a um risco que ninguém mapeou. A via institucional (Coordenação do Eixo III, repositório de prompts, multiplicadores) é o que faz a ideia da ponta escalar para a unidade inteira — e é o tema da última seção deste Manual.</p>
+<p data-k="k80"><strong>Uma nota sobre o horizonte.</strong> O curso fecha distinguindo um assistente de IA (que responde ao que você pede, um passo de cada vez) de um agente de IA (que executa várias etapas em sequência com menos intervenção). Nos dois casos, quem comanda o serviço e mantém o juízo é o servidor — a autonomia da ferramenta cresce com responsabilidade proporcional, nunca por conta própria.</p>
+<h2 id="man-12" data-k="k81">Job aids — fichas de consulta rápida</h2>
+<p data-k="k82">As quatro fichas abaixo são para impressão avulsa (uma página cada) e uso na mesa. Elas não substituem o Manual completo — são o resumo que você consulta enquanto trabalha.</p>
+<h3 id="man-13" data-k="k83">Ficha 1 — As seis etapas do prompt</h3>
+<div class="tw"><table>
+<tr><th data-k="k84">Etapa</th><th data-k="k85">O que ela diz à IA</th><th data-k="k86">Exemplo</th></tr>
+<tr><td data-k="k87"><strong>1. Contexto</strong></td><td data-k="k88">Em que situação isso se insere</td><td data-k="k89">&quot;Sou servidor de uma Vara Federal cível.&quot;</td></tr>
+<tr><td data-k="k90"><strong>2. Tom</strong></td><td data-k="k91">Como a resposta deve soar</td><td data-k="k92">&quot;Tom formal, adequado a peça processual.&quot;</td></tr>
+<tr><td data-k="k93"><strong>3. Tarefa</strong></td><td data-k="k94">O que exatamente você quer que seja feito</td><td data-k="k95">&quot;Resuma a petição inicial abaixo em até 10 linhas.&quot;</td></tr>
+<tr><td data-k="k96"><strong>4. Exemplos</strong></td><td data-k="k97">Um modelo do resultado esperado (mesmo fictício)</td><td data-k="k98">&quot;Siga este padrão: [modelo de resumo anterior].&quot;</td></tr>
+<tr><td data-k="k99"><strong>5. Qualidade</strong></td><td data-k="k100">O critério de verificação embutido no pedido</td><td data-k="k101">&quot;Ao final, confirme se todo dado citado está no texto original.&quot;</td></tr>
+<tr><td data-k="k102"><strong>6. Formato</strong></td><td data-k="k103">Como a resposta deve se apresentar</td><td data-k="k104">&quot;Entregue em tópicos, no máximo 10 linhas.&quot;</td></tr>
+</table></div>
+<p data-k="k105"><strong>Prompt completo, montado etapa a etapa (exemplo fictício):</strong></p>
+<pre data-k="k106">[Contexto] Sou servidor de uma Vara Federal cível na Justiça Federal no Ceará
+e preciso apoiar a triagem de expedientes recebidos hoje.
+[Tom] Use tom objetivo e neutro, adequado a rotina cartorária.
+[Tarefa] Classifique cada item da lista abaixo por tipo de demanda e por
+urgência (alta, média, baixa), justificando a urgência em uma linha.
+[Exemplos] Siga este padrão de saída:
+&quot;1. Pedido de tutela de urgência — Urgência: alta — Justificativa: réu preso.&quot;
+[Qualidade] Ao final, indique se algum item ficou ambíguo e por quê.
+[Formato] Entregue em tabela com as colunas: item, tipo, urgência, justificativa.
+
+Lista de expedientes (dados fictícios):
+1. Petição solicitando liminar em mandado de segurança...
+2. Manifestação sobre laudo pericial...
+3. Pedido de habeas corpus com informação de prisão em flagrante...</pre>
+<h3 id="man-14" data-k="k107">Ficha 2 — As quatro perguntas do checklist</h3>
+<p data-k="k108">Responder &quot;no atacado&quot; (&quot;li, está tudo certo&quot;) não vale. Cada pergunta exige uma ação distinta.</p>
+<div class="tw"><table>
+<tr><th data-k="k109">Pergunta</th><th data-k="k110">Ação concreta</th></tr>
+<tr><td data-k="k111"><strong>Confere com a fonte?</strong></td><td data-k="k112">Abra a fonte oficial (base de jurisprudência, norma, autos) e confirme cada citação, uma por uma — não confie na formatação.</td></tr>
+<tr><td data-k="k113"><strong>Faz sentido no caso concreto?</strong></td><td data-k="k114">Releia os autos do processo específico e verifique se a resposta da IA presumiu algo que não está ali.</td></tr>
+<tr><td data-k="k115"><strong>Tem algum dado que pode ter sido inventado?</strong></td><td data-k="k116">Percorra número por número, nome por nome, e pergunte: &quot;de onde veio isso?&quot; Se não achar a origem no material fornecido, trate como inventado até prova em contrário.</td></tr>
+<tr><td data-k="k117"><strong>A conclusão trata casos iguais de forma igual?</strong></td><td data-k="k118">Compare com um caso semelhante já decidido pela unidade; se o tratamento diverge sem justificativa, investigue antes de seguir.</td></tr>
+</table></div>
+<h3 id="man-15" data-k="k119">Ficha 3 — Semáforo de sigilo</h3>
+<div class="tw"><table>
+<tr><th data-k="k120">Sinal</th><th data-k="k121">Situação</th><th data-k="k122">Exemplo</th><th data-k="k123">O que fazer</th></tr>
+<tr><td data-k="k124"><strong>VERDE</strong></td><td data-k="k125">Dado público ou fictício, sem identificação de pessoa</td><td data-k="k126">Texto de lei, minuta-modelo sem nome de parte, exemplo de treinamento</td><td data-k="k127">Pode ser enviado à ferramenta de IA normalmente.</td></tr>
+<tr><td data-k="k128"><strong>AMARELO</strong></td><td data-k="k129">Dado real, sem sigilo processual, mas com informação pessoal</td><td data-k="k130">Petição de processo público com nome de parte e CPF</td><td data-k="k131">Anonimize antes de enviar (ficha 4). Só depois de anonimizado, pode seguir.</td></tr>
+<tr><td data-k="k132"><strong>VERMELHO</strong></td><td data-k="k133">Processo em sigilo ou segredo de justiça, ou dúvida sobre a classificação</td><td data-k="k134">Processo de família com sigilo decretado; processo em que você não sabe se há sigilo</td><td data-k="k135"><strong>Não se envia</strong>, mesmo anonimizado.</td></tr>
+</table></div>
+<p data-k="k136"><strong>Regra dura:</strong> sigilo &quot;sim&quot; ou sigilo &quot;desconhecido&quot; é bloqueio. Não é uma recomendação — é proibição. Na dúvida, trate como sigiloso e confirme com a chefia antes de qualquer envio.</p>
+<h3 id="man-16" data-k="k137">Ficha 4 — Quadro de anonimização</h3>
+<div class="tw"><table>
+<tr><th data-k="k138">O que aparece no texto</th><th data-k="k139">Substituir por</th></tr>
+<tr><td data-k="k140">Nome de parte, testemunha ou terceiro</td><td data-k="k141"><code>[NOME]</code> (ou <code>[NOME_A]</code>, <code>[NOME_B]</code> se houver mais de uma pessoa)</td></tr>
+<tr><td data-k="k142">CPF ou CNPJ</td><td data-k="k143"><code>[DOCUMENTO]</code></td></tr>
+<tr><td data-k="k144">Número de processo</td><td data-k="k145"><code>[Nº PROCESSO]</code></td></tr>
+<tr><td data-k="k146">Endereço</td><td data-k="k147"><code>[ENDEREÇO]</code></td></tr>
+<tr><td data-k="k148">Dado de saúde</td><td data-k="k149"><code>[DADO DE SAÚDE]</code></td></tr>
+<tr><td data-k="k150">Dado de criança ou adolescente</td><td data-k="k151"><code>[DADO DE MENOR]</code> — atenção redobrada, mesmo em contexto aparentemente inofensivo</td></tr>
+<tr><td data-k="k152">Dado bancário ou financeiro</td><td data-k="k153"><code>[DADO FINANCEIRO]</code></td></tr>
+</table></div>
+<p data-k="k154"><strong>Antes:</strong> &quot;João da Silva Pereira, CPF 000.000.000-00, residente na Rua das Flores, 123, requer...&quot;</p>
+<p data-k="k155"><strong>Depois:</strong> &quot;[NOME], [DOCUMENTO], residente em [ENDEREÇO], requer...&quot;</p>
+<h2 id="man-17" data-k="k156">Como usar o Banco de Prompts</h2>
+<p data-k="k157">O <strong>Banco de Prompts — Servidor + IA</strong> é um documento à parte, entregue no início do curso, com <strong>14 prompts-mestre</strong> — modelos prontos, um para cada tipo de tarefa recorrente de Vara e Gabinete — e cinco apêndices de aprofundamento.</p>
+<p data-k="k158">Cada prompt-mestre já vem nas seis etapas do prompt e com as instruções de qualidade embutidas (a primeira camada de defesa do Módulo 2). Seu trabalho é adaptá-lo: trocar o exemplo genérico pelo caso da sua unidade, ajustar o tom se necessário, e sempre revisar o resultado com o checklist de quatro perguntas.</p>
+<p data-k="k159">Os apêndices cobrem o que não cabe num prompt-mestre único: <strong>Apêndice A</strong> (prática forense, aprofunda o Módulo 3), <strong>Apêndice B</strong> (pensamento crítico e causal, aprofunda o Módulo 2), <strong>Apêndice C</strong> (ética, LGPD e anonimização, aprofunda o Módulo 4), <strong>Apêndice D</strong> (duas técnicas avançadas de análise de documento — D1, técnica creditada ao Prof. George Marmelstein, e D2, um assistente de revisão) e <strong>Apêndice E</strong> (roteiros passo a passo das demonstrações ao vivo do curso: E1 triagem, E2 modelos e lote, E3 auditoria da &quot;resposta boa demais&quot;).</p>
+<h3 id="man-18" data-k="k160">Tabela — qual prompt-mestre usar para cada tarefa</h3>
+<div class="tw"><table>
+<tr><th data-k="k161">Se a sua tarefa é...</th><th data-k="k162">Comece pelo prompt-mestre</th></tr>
+<tr><td data-k="k163">Resumir um processo ou peça longa antes de despachar</td><td data-k="k164"><strong>M1</strong> — Resumir documento longo</td></tr>
+<tr><td data-k="k165">Revisar e melhorar um texto já escrito (clareza, formalidade)</td><td data-k="k166"><strong>M2</strong> — Revisar e aprimorar texto</td></tr>
+<tr><td data-k="k167">Redigir uma minuta de despacho, decisão ou ofício</td><td data-k="k168"><strong>M3</strong> — Redigir minuta</td></tr>
+<tr><td data-k="k169">Traduzir uma decisão técnica para linguagem que a parte entenda</td><td data-k="k170"><strong>M4</strong> — Traduzir para linguagem cidadã</td></tr>
+<tr><td data-k="k171">Cotejar duas versões de um documento ou minuta com modelo</td><td data-k="k172"><strong>M5</strong> — Comparar documentos e apontar divergências</td></tr>
+<tr><td data-k="k173">Organizar dados soltos (planilha, e-mails) em tabela ou relatório</td><td data-k="k174"><strong>M6</strong> — Extrair e estruturar dados</td></tr>
+<tr><td data-k="k175">Explicar um conceito difícil a um colega ou jurisdicionado</td><td data-k="k176"><strong>M7</strong> — Explicar conceito difícil</td></tr>
+<tr><td data-k="k177">Planejar um projeto, mutirão ou ação da unidade</td><td data-k="k178"><strong>M8</strong> — Planejar projeto</td></tr>
+<tr><td data-k="k179">Triar um lote de expedientes e priorizar por urgência (roteiro E1)</td><td data-k="k180"><strong>M9</strong> — Classificar e triar demandas</td></tr>
+<tr><td data-k="k181">Preparar roteiro de audiência ou lista de perguntas</td><td data-k="k182"><strong>M10</strong> — Gerar roteiro ou perguntas</td></tr>
+<tr><td data-k="k183">Analisar premissas, riscos ou causas de um problema da unidade</td><td data-k="k184"><strong>M11</strong> — Analisar criticamente</td></tr>
+<tr><td data-k="k185">Fazer brainstorm de soluções para um gargalo recorrente</td><td data-k="k186"><strong>M12</strong> — Brainstorm de soluções</td></tr>
+<tr><td data-k="k187">Sintetizar uma norma, resolução ou instrução extensa</td><td data-k="k188"><strong>M13</strong> — Sintetizar normativa</td></tr>
+<tr><td data-k="k189">Criar material de comunicação, treinamento ou capacitação</td><td data-k="k190"><strong>M14</strong> — Criar material de comunicação ou treinamento</td></tr>
+<tr><td data-k="k191">Gerar lote de documentos padronizados a partir de uma tabela</td><td data-k="k192">Roteiro <strong>E2</strong>, combinado com o prompt-mestre do tipo de documento (ex.: M3), sempre anonimizando a tabela antes</td></tr>
+</table></div>
+<p data-k="k193"><strong>Lembrete de nomenclatura:</strong> &quot;M9&quot; acima é o prompt-mestre nove do Banco — não confunda com &quot;Módulo&quot; do curso. Ao conversar com colegas, prefira sempre &quot;prompt-mestre M9&quot; ou &quot;Módulo 3&quot;, nunca &quot;M9&quot; sozinho.</p>
+<h2 id="man-19" data-k="k194">Os 30 dias seguintes</h2>
+<p data-k="k195">O curso termina no Módulo 4, mas o ganho real aparece depois, na aplicação sustentada. O plano dos 30 dias seguintes é individual e simples:</p>
+<ol>
+<li data-k="k196"><strong>Escolha uma tarefa</strong> da sua rotina que se beneficie de IA — de preferência a mesma do seu projeto integrador, ou uma nova, mais simples.</li>
+<li data-k="k197"><strong>Registre o &quot;antes&quot;</strong>: como a tarefa é feita hoje e quanto tempo consome por unidade (por peça, por expediente, por lote).</li>
+<li data-k="k198"><strong>Aplique por quatro semanas</strong>, usando o prompt-mestre adequado (ver a tabela da seção anterior), sempre com conferência humana.</li>
+<li data-k="k199"><strong>Meça o &quot;depois&quot;</strong>: tempo por unidade ao final das quatro semanas, nas mesmas condições de medição do &quot;antes&quot;.</li>
+<li data-k="k200"><strong>Relate o resultado</strong> à sua chefia e, se pertinente, à Coordenação do Eixo III — é assim que uma aplicação individual vira evidência da unidade.</li>
+</ol>
+<h3 id="man-20" data-k="k201">Ficha simples de acompanhamento</h3>
+<div class="tw"><table>
+<tr><th data-k="k202">Campo</th><th data-k="k203">Preencha</th></tr>
+<tr><td data-k="k204">Tarefa escolhida</td><td data-k="k205"></td></tr>
+<tr><td data-k="k206">Prompt-mestre utilizado</td><td data-k="k207"></td></tr>
+<tr><td data-k="k208">Antes — tempo por unidade</td><td data-k="k209"></td></tr>
+<tr><td data-k="k210">Semana 1 — observações</td><td data-k="k211"></td></tr>
+<tr><td data-k="k212">Semana 2 — observações</td><td data-k="k213"></td></tr>
+<tr><td data-k="k214">Semana 3 — observações</td><td data-k="k215"></td></tr>
+<tr><td data-k="k216">Semana 4 — observações</td><td data-k="k217"></td></tr>
+<tr><td data-k="k218">Depois — tempo por unidade</td><td data-k="k219"></td></tr>
+<tr><td data-k="k220">O que funcionou bem</td><td data-k="k221"></td></tr>
+<tr><td data-k="k222">O que precisou de ajuste</td><td data-k="k223"></td></tr>
+</table></div>
+<p data-k="k224">A unidade acompanha essa aplicação pelos <strong>formulários de impacto D+30, D+60 e D+90</strong>, que já existem e chegam automaticamente após a certificação — curtos, poucos minutos cada. Preencher esses formulários é a forma oficial de o seu resultado individual alimentar o relatório do Eixo III; a ficha acima é o rascunho que facilita a resposta.</p>
+<h2 id="man-21" data-k="k225">Perguntas frequentes</h2>
+<p data-k="k226"><strong>A IA vai me substituir?</strong></p>
+<p data-k="k227">Não é essa a proposta deste curso nem a leitura institucional do tema. A IA assume tarefas — a parte repetitiva e mecânica de um processo de trabalho — não o cargo nem a responsabilidade da pessoa. A conferência e a decisão continuam sendo humanas, por determinação normativa (Res. CNJ 615/2025) e por necessidade prática: a IA não responde pelo que assina.</p>
+<p data-k="k228"><strong>Posso colar o processo inteiro na IA para pedir um resumo ou uma minuta?</strong></p>
+<p data-k="k229">Evite. Recorte o trecho necessário à tarefa. Isso reduz o consumo desnecessário da janela de contexto e, principalmente, limita a quantidade de dado sensível exposto. E, antes de colar qualquer trecho, confira o semáforo de sigilo (ficha 3): sigilo &quot;sim&quot; ou &quot;desconhecido&quot; bloqueia o envio, independentemente do recorte.</p>
+<p data-k="k230"><strong>E se a IA errar e eu assinar mesmo assim?</strong></p>
+<p data-k="k231">A responsabilidade pelo conteúdo assinado é de quem assina, não da ferramenta. É exatamente para isso que existe o checklist de quatro perguntas (ficha 2) e a regra de conferir na fonte oficial toda citação normativa ou jurisprudencial antes de levar à peça.</p>
+<p data-k="k232"><strong>Posso usar minha conta pessoal de IA para tarefas do trabalho?</strong></p>
+<p data-k="k233">Utilize a ferramenta e a conta orientadas pela sua unidade e pela governança institucional. Misturar conta pessoal com dado de trabalho real cria um risco de rastreabilidade e de sigilo que a instituição não consegue gerenciar.</p>
+<p data-k="k234"><strong>O que eu faço se não tenho acesso a nenhuma ferramenta de IA na minha estação de trabalho?</strong></p>
+<p data-k="k235">Informe sua chefia imediata; se for uma questão de acesso ou instalação, a via seguinte é a DTIC, com a Coordenação do Eixo III como apoio institucional. Não é recomendável instalar ou contratar ferramenta por conta própria, fora do que a unidade homologa.</p>
+<p data-k="k236"><strong>Usar IA no trabalho conta como hora de trabalho, ou preciso &quot;compensar&quot; o tempo que ela economiza?</strong></p>
+<p data-k="k237">O tempo aplicado com apoio de IA é tempo de trabalho normal — a ferramenta reduz o tempo gasto numa etapa específica, não a jornada. O tempo que sobra se destina às partes da tarefa que exigem julgamento humano, não a atividades fora do expediente.</p>
+<p data-k="k238"><strong>Posso ensinar o que aprendi para os colegas da minha unidade?</strong></p>
+<p data-k="k239">Pode e é bem-vindo — é inclusive o caminho formal do Programa de Multiplicadores (Ação 1.3 do INOVAJUS), que forma servidores para justamente replicar esse conteúdo. Ensinar informalmente já ajuda; tornar-se multiplicador formal dá suporte institucional para isso.</p>
+<p data-k="k240"><strong>Posso usar a IA para decidir um caso ou definir o mérito de um processo?</strong></p>
+<p data-k="k241">Não. A IA apoia etapas de preparação (resumo, organização, minuta, triagem) — a decisão de mérito, a análise jurídica do caso concreto e a assinatura continuam sendo exclusivamente humanas, por força da Resolução CNJ nº 615/2025.</p>
+<p data-k="k242"><strong>O certificado do curso tem 24 horas mesmo sem eu ter usado IA antes?</strong></p>
+<p data-k="k243">Sim — o curso começa do zero em relação à ferramenta; nenhum conhecimento técnico prévio é exigido. O certificado depende de frequência e da entrega do projeto integrador, não de experiência anterior.</p>
+<p data-k="k244"><strong>O que acontece se eu não aplicar nada do curso depois de certificado?</strong></p>
+<p data-k="k245">Nada de punitivo — mas o objetivo do curso, e o que a Coordenação acompanha pelos formulários D+30/D+60/D+90, é que o aprendizado chegue à rotina. Se a aplicação não aconteceu, vale registrar o motivo real (tarefa não se encaixou, ferramenta indisponível, outra prioridade) no próprio formulário — essa informação também é útil ao Eixo III.</p>
+<p data-k="k246"><strong>Tive uma ideia de uso de IA que vai além do que o curso ensinou. Posso simplesmente implementar na minha unidade?</strong></p>
+<p data-k="k247">Leve a ideia à sua chefia e à Coordenação do Eixo III antes de implementar por conta própria. Uma solução criada &quot;por fora&quot;, sem registro institucional, funciona enquanto você estiver lá para mantê-la e, até lá, expõe a unidade a um risco de sigilo ou conformidade que ninguém mapeou. O caminho institucional é o que transforma a sua ideia em solução permanente.</p>
+<h2 id="man-22" data-k="k248">Onde buscar ajuda</h2>
+<div class="tw"><table>
+<tr><th data-k="k249">Situação</th><th data-k="k250">Canal</th></tr>
+<tr><td data-k="k251">Dúvida sobre conteúdo do curso, prompt-mestre ou exercício</td><td data-k="k252">Multiplicador da sua unidade, se houver, ou Coordenação do Eixo III</td></tr>
+<tr><td data-k="k253">Acesso à ferramenta de IA bloqueado ou indisponível</td><td data-k="k254">Chefia imediata primeiro; DTIC em seguida, com apoio da Coordenação do Eixo III</td></tr>
+<tr><td data-k="k255">Dúvida sobre sigilo, anonimização ou o que pode ser enviado à IA</td><td data-k="k256">Chefia imediata; em caso de dúvida jurídica mais fina, encarregado de proteção de dados da JFCE</td></tr>
+<tr><td data-k="k257">Ideia de uso de IA além do que o curso cobriu</td><td data-k="k258">Coordenação do Eixo III — via institucional, antes de qualquer implementação por conta própria</td></tr>
+<tr><td data-k="k259">Interesse em se tornar multiplicador na sua unidade</td><td data-k="k260">Coordenação do Eixo III (Programa de Multiplicadores, Ação 1.3)</td></tr>
+</table></div>
+<p data-k="k261">A <strong>via institucional</strong> é o fio condutor desta seção: chefia, Coordenação do Eixo III e DTIC, nesta ordem de proximidade, cada uma resolvendo o que está ao seu alcance e escalando o que não está. Vale repetir o que fecha o Módulo 4: uma boa ideia resolvida &quot;por fora&quot; do caminho institucional funciona só enquanto o autor estiver por perto para sustentá-la — e o registro institucional é o que a mantém viva depois que ele mudar de função, sair de férias ou se aposentar.</p>
+<p data-k="k262">Se a sua unidade ainda não tem um multiplicador — um colega de referência formado para apoiar o uso cotidiano de IA — considere se candidatar ou indicar alguém. É a peça que faz o conteúdo deste curso continuar vivo entre uma turma e a próxima.</p>
+<p data-k="k263"><em>Coordenação do Eixo III — INOVAJUS — Justiça Federal no Ceará — julho de 2026.</em></p>
+  </section>
+
+  <section id="caderno" class="secao">
+    <h2>Caderno de Exercícios</h2>
+    <p data-k="k264"><strong>Justiça Federal no Ceará · INOVAJUS Eixo III · Frente 1 · Ações 1.2 e 1.3</strong></p>
+<p data-k="k265">24 horas · 4 módulos · online ao vivo (síncrono)</p>
+<h2 id="cad-0" data-k="k266">Como usar este caderno</h2>
+<p data-k="k267">Este caderno reúne todas as atividades práticas do curso, com o insumo pronto para uso e, na</p>
+<p data-k="k268">edição do instrutor, o gabarito comentado. Ele complementa o Plano de Aula, que continua sendo o</p>
+<p data-k="k269">roteiro cronometrado de cada encontro, e o Guia Metodológico, que explica o método por trás das</p>
+<p data-k="k270">atividades.</p>
+<p data-k="k271"><strong>A organização é por bloco temático, não por encontro.</strong> Cada atividade indica o slide de origem</p>
+<p data-k="k272">e, entre parênteses, onde o bloco cai no calendário de 24 horas da Justiça Federal no Ceará. Isso</p>
+<p data-k="k273">permite redistribuir os blocos em outros arranjos de calendário sem refazer o material.</p>
+<h3 id="cad-1" data-k="k274">Os cinco tipos de atividade</h3>
+<div class="tw"><table>
+<tr><th data-k="k275">Código</th><th data-k="k276">Tipo</th><th data-k="k277">Duração</th><th data-k="k278">Função</th></tr>
+<tr><td data-k="k279"><strong>MV</strong></td><td data-k="k280">Micro-verificação</td><td data-k="k281">3 min</td><td data-k="k282">fecha cada bloco expositivo; mede se a turma pode avançar</td></tr>
+<tr><td data-k="k283"><strong>EX</strong></td><td data-k="k284">Exercício de fixação</td><td data-k="k285">25 a 45 min</td><td data-k="k286">é a prática principal do bloco</td></tr>
+<tr><td data-k="k287"><strong>EF</strong></td><td data-k="k288">Exercício de falha</td><td data-k="k289">20 a 40 min</td><td data-k="k290">um por módulo; o aluno diagnostica uma saída defeituosa</td></tr>
+<tr><td data-k="k291"><strong>TE</strong></td><td data-k="k292">Tarefa entre encontros</td><td data-k="k293">15 min</td><td data-k="k294">mantém o vínculo entre um encontro e o seguinte</td></tr>
+<tr><td data-k="k295"><strong>PI</strong></td><td data-k="k296">Projeto integrador</td><td data-k="k297">90 min</td><td data-k="k298">Módulo 3; avaliado pela rubrica do projeto integrador v2</td></tr>
+</table></div>
+<h3 id="cad-2" data-k="k299">Regras que valem para todas as atividades</h3>
+<ol>
+<li data-k="k300"><strong>Todo insumo deste caderno é fictício.</strong> Nomes, números de processo, datas, valores e casos</li>
+</ol>
+<p data-k="k301">foram inventados para o curso. Nada aqui deve ser citado em peça processual.</p>
+<ol>
+<li data-k="k302"><strong>Nenhum dado real entra em exercício.</strong> Quando o aluno usar um caso da própria rotina, o caso</li>
+</ol>
+<p data-k="k303">entra anonimizado: sem nome de parte, sem número de processo, sem identificação de servidor.</p>
+<ol>
+<li data-k="k304"><strong>Sigilo é bloqueio.</strong> Processo em segredo de justiça, ou cuja classificação de sigilo seja</li>
+</ol>
+<p data-k="k305">desconhecida, não vai para ferramenta de IA externa, nem em exercício.</p>
+<ol>
+<li data-k="k306"><strong>Toda atividade termina na conferência humana.</strong> A saída da IA é rascunho; a decisão e a</li>
+</ol>
+<p data-k="k307">responsabilidade são do servidor (Resolução CNJ 615/2025).</p>
+<ol>
+<li data-k="k308"><strong>Quando o tempo apertar, encolha a exposição, não a prática.</strong> Cada exercício traz, ao final,</li>
+</ol>
+<p data-k="k309">uma variação para quando sobra e para quando falta tempo.</p>
+<h3 id="cad-3" data-k="k310">Onde encontrar o que já existe</h3>
+<p data-k="k311">Algumas atividades apontam para material que já é publicado e não se repete aqui:</p>
+<ul>
+<li data-k="k312">**Roteiros de demonstração E1 (triagem), E2 (modelos e trabalho em lote) e E3 (auditoria da</li>
+</ul>
+<p data-k="k313">resposta boa demais)** — Apêndice E do Banco de Prompts.</p>
+<ul>
+<li data-k="k314"><strong>Roteiros didáticos B1 a B4 do Módulo 2</strong> e o <strong>exercício da resposta boa demais</strong> — Anexos A e</li>
+</ul>
+<p data-k="k315">B do Plano de Aula (Instrutor).</p>
+<ul>
+<li data-k="k316"><strong>Os 14 prompts-mestre e os apêndices A, B, C e D</strong> — Banco de Prompts.</li>
+<li data-k="k317"><strong>Critérios de avaliação do projeto integrador</strong> — rubrica do projeto integrador v2.</li>
+</ul>
+<h2 id="cad-4" data-k="k318">Módulo 1 — Fundamentos de IA e prompt engineering</h2>
+<p data-k="k319">Peças do Módulo 1, organizadas por bloco temático (não por encontro), para servir tanto ao</p>
+<p data-k="k320">calendário de 6h em 2 encontros da JFCE quanto a outras variantes de calendário. Cobre os oito</p>
+<p data-k="k321">objetivos de aprendizagem do módulo (OA1.1 a OA1.8): seis micro-verificações (uma por bloco),</p>
+<p data-k="k322">dois exercícios de fixação, um exercício de falha e duas tarefas entre encontros.</p>
+<h4 id="cad-5" data-k="k323">EX1.1 — Escreva seu prompt em 6 etapas</h4>
+<p data-k="k324"><strong>Objetivo de aprendizagem:</strong> OA1.3</p>
+<p data-k="k325"><strong>Slide de origem:</strong> a13 · <strong>Bloco:</strong> Anatomia do prompt em 6 etapas · <strong>Tempo:</strong> 25 min</p>
+<p data-k="k326"><strong>Formato:</strong> individual (com 2 a 3 compartilhamentos no chat ao final)</p>
+<p data-k="k327"><strong>Enunciado (ler para a turma):</strong></p>
+<p data-k="k328">Escolha uma tarefa real e repetitiva da sua rotina na Vara ou no Gabinete. Usando o roteiro das 6 etapas — contexto, tom, tarefa, exemplos, qualidade, formato —, escreva um prompt completo para essa tarefa. Não pule nenhuma etapa: se alguma parecer desnecessária, escreva mesmo assim em uma frase curta.</p>
+<p data-k="k329"><strong>Insumo (colar no chat):</strong></p>
+<pre data-k="k330">Roteiro das 6 etapas (preencha):
+1. Contexto: [quem você é, em que unidade, o que está tentando resolver]
+2. Tom: [formal, técnico, uso interno, etc.]
+3. Tarefa: [o pedido específico, com um verbo de ação]
+4. Exemplos: [um exemplo do que espera receber, se houver]
+5. Qualidade: [o critério que a resposta precisa cumprir para você aceitar]
+6. Formato: [como quer receber: lista, tabela, texto corrido, tamanho]
+
+Exemplo já preenchido (fictício, apenas para servir de modelo — não copie, adapte à sua tarefa):
+1. Contexto: sou assessor de uma vara federal fictícia e preciso organizar os despachos
+   pendentes de assinatura antes da audiência de amanhã.
+2. Tom: direto, sem formalidade excessiva, para uso interno da equipe.
+3. Tarefa: a partir da lista de processos abaixo, separe os despachos em &quot;urgente&quot; (prazo até
+   amanhã) e &quot;normal&quot; (sem prazo apertado).
+4. Exemplos: urgente = processo com pedido de liminar ou réu preso; normal = despacho de mero
+   expediente.
+5. Qualidade: não inclua nenhum processo em &quot;urgente&quot; sem justificar o motivo em uma frase.
+6. Formato: tabela com três colunas — número do processo (fictício), classificação, motivo.
+
+Se travar na hora de escolher a tarefa, use uma destas (fictícias, comuns à rotina de
+Vara/Gabinete):
+- organizar a pauta de audiências da semana por tipo de ação;
+- resumir uma petição inicial em cinco linhas para o gabinete decidir a prioridade;
+- separar, numa lista de intimações, quais têm prazo em aberto e quais já venceram.</pre>
+<p data-k="k331"><strong>Passo a passo do aluno:</strong></p>
+<ol>
+<li data-k="k332">Escolha a tarefa (a própria ou uma das sugeridas).</li>
+<li data-k="k333">Preencha as 6 etapas no roteiro, uma frase por etapa.</li>
+<li data-k="k334">Releia e verifique se alguém de fora entenderia o que você quer sem perguntar nada a mais.</li>
+<li data-k="k335">Se houver tempo, cole o prompt na ferramenta de IA e veja a resposta.</li>
+</ol>
+<p data-k="k336"><strong>Produto esperado:</strong> um prompt completo, com as 6 etapas preenchidas, pronto para ser testado na ferramenta.</p>
+<h4 id="cad-5" data-k="k337">EX1.2 — Adapte dois prompts-mestre à sua unidade</h4>
+<p data-k="k338"><strong>Objetivo de aprendizagem:</strong> OA1.7</p>
+<p data-k="k339"><strong>Slides de origem:</strong> a16 e a17 · <strong>Bloco:</strong> Biblioteca de prompts + qual ferramenta usar · <strong>Tempo:</strong> 35 min</p>
+<p data-k="k340"><strong>Formato:</strong> em salas (breakout) de 3 a 4, com apresentação em plenário</p>
+<p data-k="k341"><strong>Enunciado (ler para a turma):</strong></p>
+<p data-k="k342">Em grupo, vocês vão adaptar dois prompts-mestre do Banco de Prompts às tarefas reais da própria unidade. A base de cada prompt já está pronta abaixo — o trabalho do grupo é substituir os colchetes pelo conteúdo específico da sua Vara ou Gabinete, mantendo as 6 etapas.</p>
+<p data-k="k343"><strong>Insumo (colar no chat):</strong></p>
+<pre data-k="k344">Bases para adaptar. Troquem os colchetes por dados fictícios da rotina do grupo.
+
+Prompt-mestre M1 — Resumir documento longo (base para adaptar):
+&quot;Contexto: você é [função] e recebeu [tipo de documento] para decidir [o quê].
+Tom: técnico, para uso interno.
+Tarefa: resuma o documento abaixo em até [número] linhas, destacando [o que importa: pedido,
+fundamento, prazo].
+Exemplos: um bom resumo cita o pedido principal em uma frase e o prazo, se houver.
+Qualidade: não inclua informação que não esteja no texto; se faltar um dado, escreva
+&#x27;não consta&#x27;.
+Formato: lista com no máximo [número] itens.
+DOCUMENTO:
+[colar o texto aqui]&quot;
+
+Prompt-mestre M9 — Classificar e triar demandas (base para adaptar):
+&quot;Contexto: você é [função] e recebeu uma lista de [processos ou demandas] para priorizar.
+Tom: objetivo, para decisão rápida.
+Tarefa: classifique cada item da lista abaixo em &#x27;urgente&#x27; ou &#x27;normal&#x27;, segundo o critério
+[exemplo: réu preso, liminar, prazo em 48h].
+Exemplos: urgente = [exemplo]; normal = [exemplo].
+Qualidade: justifique cada classificação em uma frase; não classifique como urgente sem motivo
+explícito no texto.
+Formato: tabela com colunas identificador, classificação, motivo.
+LISTA:
+[colar a lista aqui]&quot;</pre>
+<p data-k="k345"><strong>Passo a passo do aluno:</strong></p>
+<ol>
+<li data-k="k346">Formem grupos de 3 a 4 na sala (breakout).</li>
+<li data-k="k347">Escolham uma tarefa real da unidade para cada um dos dois prompts-mestre.</li>
+<li data-k="k348">Substituam os colchetes pelos dados da tarefa escolhida (fictícios, se forem apresentar em plenário).</li>
+<li data-k="k349">Se der tempo, testem ao menos um dos dois prompts na ferramenta de IA.</li>
+<li data-k="k350">Preparem uma frase de apresentação para cada prompt: &quot;adaptamos o prompt-mestre M[número] para [tarefa]&quot;.</li>
+</ol>
+<p data-k="k351"><strong>Produto esperado:</strong> dois prompts adaptados, prontos para uso na unidade, e uma frase de apresentação para cada um.</p>
+<h4 id="cad-5" data-k="k352">EF1 — Diagnostique o defeito do prompt</h4>
+<p data-k="k353"><strong>Objetivo de aprendizagem:</strong> OA1.3 e OA1.5</p>
+<p data-k="k354"><strong>Slides de origem:</strong> a13 · a14 · actx · <strong>Bloco:</strong> Prompt fraco × prompt forte · <strong>Tempo:</strong> 25 min</p>
+<p data-k="k355"><strong>Formato:</strong> em salas (breakout) de 3 a 4, com plenário final</p>
+<p data-k="k356"><strong>Enunciado (ler para a turma):</strong></p>
+<p data-k="k357">Vocês vão receber um prompt real (fictício) que um colega usou para pedir o resumo de um processo, e a resposta que a IA devolveu. A resposta parece pronta para uso, mas tem um defeito — e o defeito não é do conteúdo, é do prompt. Em grupo, encontrem o que falta no prompt usando as 6 etapas como checklist, reescrevam um prompt melhor e prevejam o que deve mudar na resposta.</p>
+<p data-k="k358"><strong>Insumo (colar no chat):</strong></p>
+<pre data-k="k359">Prompt ruim (fictício, usado por um colega):
+&quot;Resuma esse processo pra mim.&quot;
+[colado no mesmo bloco de texto, sem nenhum recorte: a petição inicial fictícia completa
+(4 páginas, pedido de auxílio-doença), seguida do despacho anterior e da contestação,
+tudo misturado, sem separação entre os documentos]
+
+Saída ruim (fictícia, gerada a partir do prompt acima):
+&quot;O processo trata de pedido de benefício previdenciário. A parte autora alega ter direito ao
+benefício e junta documentos como suporte do pedido. O réu, por sua vez, contesta o pedido nos
+termos de praxe. Não há, nos termos apresentados, indicação de urgência aparente. Recomenda-se
+a continuidade do trâmite processual conforme a rotina da unidade.&quot;</pre>
+<p data-k="k360"><strong>Passo a passo do aluno:</strong></p>
+<ol>
+<li data-k="k361">Leiam o prompt ruim e a saída ruim.</li>
+<li data-k="k362">Apliquem o checklist das 6 etapas ao prompt ruim: quais etapas estão ausentes?</li>
+<li data-k="k363">Reescrevam um prompt completo, com as 6 etapas, para a mesma tarefa.</li>
+<li data-k="k364">Prevejam, por escrito, três coisas que devem mudar na resposta com o prompt novo.</li>
+<li data-k="k365">Compartilhem o diagnóstico no plenário.</li>
+</ol>
+<p data-k="k366"><strong>Produto esperado:</strong> um prompt reescrito com as 6 etapas e uma lista de três previsões de mudança na saída.</p>
+<h4 id="cad-5" data-k="k367">TE1 — Leve um caso (anonimizado) para o próximo encontro</h4>
+<p data-k="k368"><strong>Objetivo de aprendizagem:</strong> OA1.4</p>
+<p data-k="k369"><strong>Quando entra:</strong> fim do Encontro 1, após o bloco de mão na massa, para uso no Encontro 2</p>
+<p data-k="k370"><strong>Tempo estimado:</strong> 15 min</p>
+<p data-k="k371"><strong>Enunciado (ler para a turma):</strong></p>
+<p data-k="k372">Até o próximo encontro, escolha uma tarefa real da sua rotina para usar como exemplo pessoal nos próximos exercícios — pode ser a mesma que você já usou hoje no prompt de 6 etapas. Escreva, em poucas linhas, o essencial do caso já sem dado sigiloso: troque nome de parte, número de processo e qualquer identificação por termos genéricos ou fictícios. Guarde esse texto para o próximo encontro.</p>
+<p data-k="k373"><strong>Produto esperado:</strong> um parágrafo curto (5 a 10 linhas), sem dado sigiloso, pronto para ser colado num prompt no encontro seguinte.</p>
+<h4 id="cad-5" data-k="k374">TE2 — Teste um prompt-mestre adaptado e observe a resposta</h4>
+<p data-k="k375"><strong>Objetivo de aprendizagem:</strong> OA1.7</p>
+<p data-k="k376"><strong>Quando entra:</strong> fim do Módulo 1, para uso na abertura do Módulo 2</p>
+<p data-k="k377"><strong>Tempo estimado:</strong> 15 min</p>
+<p data-k="k378"><strong>Enunciado (ler para a turma):</strong></p>
+<p data-k="k379">Escolha um dos dois prompts-mestre que seu grupo adaptou na EX1.2 e teste-o na ferramenta de IA com um caso da sua rotina, fictício ou anonimizado. Leia a resposta com atenção e anote, em três linhas: o que pareceu correto e se algo pareceu &quot;bom demais para ser verdade&quot; — mesmo que você não saiba ainda apontar o erro. Guarde essa anotação: ela abre o próximo módulo.</p>
+<p data-k="k380"><strong>Produto esperado:</strong> uma resposta de IA testada e três linhas de observação crítica, trazidas para o início do Módulo 2.</p>
+<h2 id="cad-5" data-k="k381">Módulo 2 — Pensamento crítico e causal</h2>
+<p data-k="k382">6 horas. Público: servidores de Vara e assessores de Gabinete (área-fim). Sistema de referência: PJe 2.x. Todos os números, nomes, processos e julgados citados neste módulo são <strong>fictícios</strong> — nenhum dado real de unidade, parte, servidor ou magistrado aparece aqui.</p>
+<p data-k="k383">Este módulo tem seis blocos temáticos (2.1 a 2.6). A condução expositiva de quatro deles já está escrita nos <strong>roteiros B1 a B4 do Anexo B do Plano de Aula (Instrutor)</strong> — este caderno não os repete. Aqui entram apenas o que falta ao redor deles: as micro-verificações de cada bloco e os exercícios com insumo e gabarito prontos para uso. No calendário de 24h da JFCE, os blocos 2.1 a 2.3 caem no Encontro 1 do Módulo 2 e os blocos 2.4 a 2.6 no Encontro 2 (a mesma numeração serve à variante de 4 encontros de 6h, bastando enquadrar os blocos no dia correspondente).</p>
+<h3 id="cad-6" data-k="k384">Bloco 2.1 — Por que questionar a IA</h3>
+<p data-k="k385"><strong>Slide de origem:</strong> a31 · <strong>Tempo:</strong> 10 min (abertura) · <strong>Condução:</strong> roteiro B1 do Anexo B do Plano de Aula.</p>
+<h3 id="cad-7" data-k="k386">Bloco 2.2 — Correlação e causa oculta</h3>
+<p data-k="k387"><strong>Slide de origem:</strong> a32 · <strong>Tempo:</strong> 45 min · <strong>Condução:</strong> roteiro B2 do Anexo B do Plano de Aula (inclui o exemplo do mutirão e o da mistura do acervo).</p>
+<h3 id="cad-8" data-k="k388">Bloco 2.3 — Contrafactual</h3>
+<p data-k="k389"><strong>Slide de origem:</strong> a33 · <strong>Tempo:</strong> 45 min · <strong>Condução:</strong> roteiro B3 do Anexo B do Plano de Aula (inclui a conta da tendência anterior).</p>
+<h3 id="cad-9" data-k="k390">EX2.1 — Causas alternativas e confundidores</h3>
+<p data-k="k391"><strong>Objetivo de aprendizagem:</strong> OA2.2</p>
+<p data-k="k392"><strong>Slide de origem:</strong> a32/a33 · <strong>Bloco:</strong> Mão na massa do Encontro 1 · <strong>Tempo:</strong> 45 min</p>
+<p data-k="k393"><strong>Formato:</strong> em salas (breakout) de 3 a 4</p>
+<p data-k="k394"><strong>Enunciado (ler para a turma):</strong></p>
+<p data-k="k395">Vou trazer uma conclusão com dado, do jeito que costuma aparecer em relatório de gestão. Em grupo, vocês vão fazer duas listas: (1) pelo menos cinco explicações alternativas para o número, além da que o relatório defende; (2) para cada explicação, qual dado eu precisaria olhar para confirmar ou descartar aquela hipótese. Não vale aceitar a explicação só porque ela é a que a gente já queria provar — essa é justamente a armadilha do bloco de hoje.</p>
+<p data-k="k396"><strong>Insumo (colar no chat):</strong></p>
+<p data-k="k397">&quot;Relatório interno — 7ª Vara Federal (exemplo fictício). Depois da adoção da triagem assistida por IA para as peças recebidas, o número de decisões proferidas por mês subiu de 85 para 132 (aumento de 55%). Conclusão do relatório: &#x27;a triagem assistida por IA aumentou a produtividade da equipe em decisões.&#x27;&quot;</p>
+<p data-k="k398"><strong>Passo a passo do aluno:</strong></p>
+<ol>
+<li data-k="k399">Sem descartar a explicação do relatório, listem pelo menos cinco outras causas que poderiam ter produzido o mesmo aumento.</li>
+<li data-k="k400">Para cada causa, escrevam uma frase: &quot;eu confirmaria ou descartaria isso olhando para ___&quot;.</li>
+<li data-k="k401">Marquem, das cinco, qual é a mais fácil de confirmar com um dado que a Vara já tem hoje.</li>
+<li data-k="k402">Um representante do grupo leva ao plenário a explicação alternativa mais forte.</li>
+</ol>
+<p data-k="k403"><strong>Produto esperado:</strong> uma lista de ao menos cinco causas alternativas, cada uma amarrada ao dado que a separaria da hipótese do relatório.</p>
+<p data-k="k404"><strong>Ponte com a IA:</strong> o prompt B1 do Apêndice B do Banco de Prompts (&quot;teste de correlação × causalidade&quot;) faz exatamente este exercício: cole a conclusão do relatório e peça à ferramenta que liste explicações alternativas e o dado que separaria cada uma. A IA é boa gerando hipóteses rivais; quem decide entre elas é o servidor.</p>
+<h3 id="cad-10" data-k="k405">TE3 — Teste sua conclusão antes do próximo encontro</h3>
+<p data-k="k406"><strong>Objetivo de aprendizagem:</strong> OA2.2 / OA2.3</p>
+<p data-k="k407"><strong>Tempo:</strong> 15 min · <strong>Quando:</strong> entre os dois encontros do Módulo 2 (depois do Encontro 1, antes do Encontro 2)</p>
+<p data-k="k408"><strong>Formato:</strong> individual, assíncrono</p>
+<p data-k="k409"><strong>Enunciado:</strong> Pense em uma frase do tipo &quot;isso melhorou depois daquilo&quot; que já circulou na sua unidade (reunião, relatório, conversa de corredor) — pode ser sobre prazo, produtividade, número de audiências, o que for. Usando o prompt-mestre M11 do Banco de Prompts (&quot;Analisar criticamente: premissas, riscos, causalidade&quot;), peça à ferramenta de IA que liste explicações alternativas para essa frase e o dado que separaria cada uma. Guarde o resultado — não precisa entregar nada, mas o instrutor vai pedir dois ou três relatos voluntários na abertura do Encontro 2.</p>
+<p data-k="k410"><strong>Produto esperado:</strong> uma lista pessoal de causas alternativas para uma afirmação real da própria rotina, pronta para compartilhar em até um minuto no início do próximo encontro.</p>
+<p data-k="k411"><strong>Como abrir no encontro seguinte (instrutor):</strong> peça dois ou três voluntários para contar, em uma frase, a afirmação e a causa alternativa mais interessante que a IA sugeriu. Use isso como ponte para o Encontro 2 (alucinação, validação, checklist).</p>
+<h3 id="cad-11" data-k="k412">Bloco 2.4 — Detectar alucinações</h3>
+<p data-k="k413"><strong>Slide de origem:</strong> a34 · <strong>Tempo:</strong> 40 min · <strong>Condução:</strong> roteiro B4 do Anexo B do Plano de Aula (parte da demonstração da citação inventada).</p>
+<h3 id="cad-12" data-k="k414">Bloco 2.5 — Validar antes de confiar</h3>
+<p data-k="k415"><strong>Slide de origem:</strong> a35 · <strong>Tempo:</strong> 40 min · <strong>Condução:</strong> roteiro B4 do Anexo B do Plano de Aula (parte da validação, as duas camadas de defesa).</p>
+<h3 id="cad-13" data-k="k416">Bloco 2.6 — Checklist e decisão humana</h3>
+<p data-k="k417"><strong>Slide de origem:</strong> a36 · <strong>Tempo:</strong> 30 min · <strong>Condução:</strong> roteiro B4 do Anexo B do Plano de Aula (parte final, as quatro perguntas do checklist).</p>
+<h3 id="cad-14" data-k="k418">EX2.2 — Aplicando o checklist a uma resposta com erros plantados</h3>
+<p data-k="k419"><strong>Objetivo de aprendizagem:</strong> OA2.6 (reforça também OA2.4)</p>
+<p data-k="k420"><strong>Slide de origem:</strong> a36 · <strong>Bloco:</strong> Mão na massa do Encontro 2 · <strong>Tempo:</strong> 40 min</p>
+<p data-k="k421"><strong>Formato:</strong> individual, com posta em comum em plenário</p>
+<p data-k="k422"><strong>Enunciado (ler para a turma):</strong></p>
+<p data-k="k423">Vocês vão receber uma resposta de IA sobre um caso fictício de triagem de prioridade. Ela contém pelo menos quatro problemas diferentes, um para cada uma das quatro perguntas do checklist de a36. Trabalhem sozinhos por 15 minutos, depois discutimos juntos: o objetivo não é achar &quot;um erro qualquer&quot;, é dizer exatamente qual pergunta do checklist pegou cada problema.</p>
+<p data-k="k424"><strong>Insumo (colar no chat):</strong></p>
+<p data-k="k425">&quot;Prompt do servidor: &#x27;Analise os quatro processos abaixo e recomende a ordem de prioridade de decisão.&#x27; Resposta da IA (exemplo fictício, para fins de exercício):</p>
+<p data-k="k426">&#x27;A IA analisou quatro processos fictícios da Vara e recomendou a seguinte ordem de prioridade:</p>
+<p data-k="k427">Processo 1 — autor de 82 anos, pedido de fornecimento de medicamento de uso contínuo, com laudo médico atestando risco de agravamento em caso de interrupção. Classificação: PRIORIDADE MÁXIMA, por se tratar de idoso com risco à saúde, nos termos do Estatuto do Idoso.</p>
+<p data-k="k428">Processo 2 — autora de 79 anos, mesmo pedido de fornecimento de medicamento de uso contínuo, também com laudo atestando risco de agravamento. Classificação: prioridade comum, sem urgência, por se tratar de pedido rotineiro em ação de saúde.</p>
+<p data-k="k429">Processo 3 — autor de 34 anos, pedido de fornecimento de medicamento de uso contínuo, sem laudo de risco imediato juntado aos autos. Classificação: PRIORIDADE MÁXIMA, porque, segundo levantamento do Conselho Nacional de Justiça, processos de saúde têm taxa de sucesso de 94% e devem ser decididos com celeridade (CNJ, Painel Saúde, 2025).</p>
+<p data-k="k430">Processo 4 — autor de 51 anos, pedido de tutela de urgência para custeio de cirurgia bariátrica, com relatório médico anexado indicando indicação cirúrgica. Classificação: indeferimento sugerido, pois, conforme entendimento consolidado no REsp 1.923.410/CE, do Superior Tribunal de Justiça, cirurgia bariátrica não se enquadra como tratamento de urgência para fins de tutela antecipada.</p>
+<p data-k="k431">Conclusão geral: com base na análise, sugere-se decidir primeiro os processos 1 e 3, adiando os processos 2 e 4.&#x27;&quot;</p>
+<p data-k="k432"><strong>Passo a passo do aluno:</strong></p>
+<ol>
+<li data-k="k433">Leia a resposta inteira uma vez, sem marcar nada.</li>
+<li data-k="k434">Releia pergunta por pergunta do checklist de a36, marcando no texto onde cada uma &quot;acende o alerta&quot;.</li>
+<li data-k="k435">Para cada problema encontrado, escreva: (a) onde está; (b) qual das quatro perguntas o pegou.</li>
+<li data-k="k436">Traga ao plenário o problema que você acha mais fácil de um colega não perceber.</li>
+</ol>
+<p data-k="k437"><strong>Produto esperado:</strong> uma lista de pelo menos quatro problemas, cada um localizado no texto e amarrado a uma das quatro perguntas do checklist.</p>
+<h3 id="cad-15" data-k="k438">EX2.3 — A resposta boa demais (remissão ao Anexo A)</h3>
+<p data-k="k439"><strong>Objetivo de aprendizagem:</strong> OA2.7</p>
+<p data-k="k440"><strong>Slide de origem:</strong> a36 · <strong>Bloco:</strong> Exercício alternativo do Encontro 2 (mesmos 40 min do EX2.2) · <strong>Tempo:</strong> 40 min</p>
+<p data-k="k441"><strong>Formato:</strong> em salas (breakout) de 3 a 4</p>
+<p data-k="k442">Este exercício <strong>já existe pronto</strong> no Anexo A do Plano de Aula (Instrutor) — &quot;Exercício de auditoria (Módulo 2): a resposta boa demais&quot; — e está publicado para os alunos como <strong>roteiro E3 do Banco de Prompts</strong>. Não é reescrito aqui: use o texto e o gabarito do Anexo A tal como estão.</p>
+<p data-k="k443"><strong>Enunciado (ler para a turma):</strong> este exercício não tem erro plantado — o texto está correto. A tarefa é achar o que FALTA antes de levar esse conselho adiante. É a habilidade mais difícil do módulo: detectar lacuna é mais difícil que detectar erro.</p>
+<p data-k="k444"><strong>Insumo:</strong> o trecho de resposta de IA reproduzido no Anexo A (a IA aconselhando um gestor sobre adoção de IA na organização).</p>
+<p data-k="k445"><strong>Produto esperado:</strong> a lista de lacunas do grupo, comparada ao gabarito do Anexo A (medir o &quot;antes&quot;, proteção de dados, dono do processo, risco normativo).</p>
+<p data-k="k446"><strong>Quando usar EX2.2 ou EX2.3:</strong> são alternativos entre si, no mesmo intervalo de 40 minutos do Encontro 2. Use EX2.2 quando quiser reforçar o checklist das quatro perguntas sobre um erro plantado; use EX2.3 (Anexo A) quando quiser trabalhar a detecção de lacuna numa resposta sem erro algum. Turmas maiores podem dividir metade em cada exercício e trocar achados no plenário.</p>
+<h3 id="cad-16" data-k="k447">EF2 — O contrafactual mal feito</h3>
+<p data-k="k448"><strong>Objetivo de aprendizagem:</strong> OA2.3</p>
+<p data-k="k449"><strong>Slide de origem:</strong> a33 · <strong>Bloco:</strong> Exercício de falha do módulo · <strong>Tempo:</strong> 30 min</p>
+<p data-k="k450"><strong>Formato:</strong> individual, com correção conduzida em plenário</p>
+<p data-k="k451"><strong>Enunciado (ler para a turma):</strong></p>
+<p data-k="k452">Vou apresentar um &quot;relatório de resultado&quot; de uma unidade fictícia. Ele compara o depois com o pior mês do antes, e comemora um ganho que a conta correta não confirma. Vocês vão refazer a conta usando a tendência que já vinha em curso antes da medida — o mesmo método do bloco 2.3 — e dizer se o ganho comemorado é real.</p>
+<p data-k="k453"><strong>Insumo (colar no chat):</strong></p>
+<p data-k="k454">&quot;Relatório de resultado — 9ª Vara Federal (exemplo fictício). Métrica: prazo médio, em dias, entre o protocolo da petição inicial e a triagem/primeiro despacho.</p>
+<p data-k="k455">Série mensal antes da medida:</p>
+<div class="tw"><table>
+<tr><th data-k="k456">Mês</th><th data-k="k457">1</th><th data-k="k458">2</th><th data-k="k459">3</th><th data-k="k460">4</th><th data-k="k461">5</th><th data-k="k462">6</th></tr>
+<tr><td data-k="k463">Prazo médio (dias)</td><td data-k="k464">50</td><td data-k="k465">46</td><td data-k="k466">42</td><td data-k="k467">38</td><td data-k="k468">34</td><td data-k="k469">30</td></tr>
+</table></div>
+<p data-k="k470">Triagem assistida por IA implantada a partir do mês 7.</p>
+<p data-k="k471">Série mensal depois da medida:</p>
+<div class="tw"><table>
+<tr><th data-k="k472">Mês</th><th data-k="k473">7</th><th data-k="k474">8</th><th data-k="k475">9</th></tr>
+<tr><td data-k="k476">Prazo médio (dias)</td><td data-k="k477">26</td><td data-k="k478">24</td><td data-k="k479">22</td></tr>
+</table></div>
+<p data-k="k480">Conclusão do relatório: &#x27;Comparado ao pior mês do período anterior (mês 1, 50 dias), o prazo médio caiu para 22 dias em setembro (mês 9) — uma redução de 28 dias, equivalente a 56%. A triagem assistida por IA reduziu o prazo pela metade.&#x27;&quot;</p>
+<p data-k="k481"><strong>Passo a passo do aluno:</strong></p>
+<ol>
+<li data-k="k482">Calcule a tendência de queda que já estava em curso nos meses 1 a 6, antes da medida (dias por mês, em média).</li>
+<li data-k="k483">Projete, com essa tendência, qual seria o prazo nos meses 7, 8 e 9 <strong>se a medida não tivesse sido adotada</strong>.</li>
+<li data-k="k484">Compare o prazo projetado (sem a medida) com o prazo observado (com a medida) no mês 9.</li>
+<li data-k="k485">Diga, com uma frase, se o &quot;ganho&quot; de 28 dias anunciado pelo relatório é real, e por quê.</li>
+</ol>
+<p data-k="k486"><strong>Produto esperado:</strong> a projeção da tendência anterior para os meses 7 a 9, o número do efeito real estimado da medida, e a identificação do erro de método do relatório (comparar com o pior mês, em vez de comparar com a tendência).</p>
+<h3 id="cad-17" data-k="k487">TE4 — Do pensamento crítico à prática forense</h3>
+<p data-k="k488"><strong>Objetivo de aprendizagem:</strong> OA2.6</p>
+<p data-k="k489"><strong>Tempo:</strong> 15 min · <strong>Quando:</strong> entre o Módulo 2 e o Módulo 3</p>
+<p data-k="k490"><strong>Formato:</strong> individual, assíncrono</p>
+<p data-k="k491"><strong>Enunciado:</strong> Escolha uma tarefa da sua rotina que você vai praticar no Módulo 3 (triagem, resumo de peça, minuta, pesquisa de jurisprudência ou relatório). Para essa tarefa específica, escreva uma frase para cada uma das quatro perguntas do checklist de a36, dizendo o que, na prática, você vai checar. Exemplo de formato de resposta (não é o conteúdo esperado, apenas o modelo): &quot;Tarefa: resumo de peça. Confere com a fonte → reler o parágrafo do original que embasa cada frase do resumo. Faz sentido no caso concreto → ver se o resumo cita o pedido que está realmente nos autos. Dado que pode ter sido inventado → nomes, datas e valores citados no resumo. Casos iguais tratados de forma igual → não se aplica a este resumo isolado.&quot;</p>
+<p data-k="k492"><strong>Produto esperado:</strong> um checklist de quatro linhas, já adaptado à tarefa que o aluno vai praticar no Módulo 3.</p>
+<p data-k="k493"><strong>Como abrir no encontro seguinte (instrutor):</strong> no início do Módulo 3, peça que dois ou três alunos leiam o checklist que escreveram; use isso para justificar por que a prática forense de M3 (triagem com o prompt-mestre M9, resumo, minuta, pesquisa de jurisprudência) sempre vem acompanhada de conferência — a base construída no Módulo 2 não fica para trás, ela vira hábito de trabalho.</p>
+<h2 id="cad-18" data-k="k494">Módulo 3 — Prática forense</h2>
+<p data-k="k495">10 horas · o módulo em que o curso vira trabalho. Todos os casos, nomes, números de processo e</p>
+<p data-k="k496">valores deste módulo são <strong>fictícios</strong> — nenhum corresponde a processo, parte ou servidor reais.</p>
+<p data-k="k497">As demonstrações ao vivo do instrutor (roteiro E1 — Triagem, e roteiro E2 — Modelos e lote) já</p>
+<p data-k="k498">estão publicadas no Banco de Prompts e não são recriadas aqui: este documento traz apenas o que</p>
+<p data-k="k499">o aluno faz <strong>depois</strong> de ver a demonstração. Onde um exercício usa um prompt-mestre do Banco, o</p>
+<p data-k="k500">comando exato para colar está indicado.</p>
+<p data-k="k501">Lembrete de sigilo, válido para todo o módulo: antes de colar qualquer peça, lote ou dado</p>
+<p data-k="k502">processual numa ferramenta de IA — no curso ou na rotina da Vara —, remova ou substitua nome de</p>
+<p data-k="k503">parte, número de documento pessoal, endereço e qualquer dado que identifique alguém. Nos</p>
+<p data-k="k504">exercícios abaixo isso já foi feito nos insumos fictícios; na vida real, é o primeiro passo,</p>
+<p data-k="k505">sempre.</p>
+<h4 id="cad-19" data-k="k506">Bloco 3.1 — Triagem (a21 · 50 min · OA3.1)</h4>
+<p data-k="k507">A demonstração ao vivo (roteiro E1 do Banco: lote de 6 demandas classificado com o</p>
+<p data-k="k508">prompt-mestre M9, o habeas corpus com réu preso saltando como urgente) já está pronta para o</p>
+<p data-k="k509">instrutor conduzir. Depois da demonstração, os alunos replicam a triagem com um lote próprio,</p>
+<p data-k="k510">trazido ou fornecido pelo instrutor, e conferem manualmente se a classificação da IA bate com o</p>
+<p data-k="k511">critério de urgência da unidade.</p>
+<h4 id="cad-19" data-k="k512">Bloco 3.2 — Resumo de peças (a22 · 60 min · OA3.2)</h4>
+<p data-k="k513"><strong>EX3.1 — Resumir uma peça e conferir contra o original</strong></p>
+<p data-k="k514"><strong>Objetivo de aprendizagem:</strong> OA3.2</p>
+<p data-k="k515"><strong>Slide de origem:</strong> a22 · <strong>Bloco:</strong> Resumo de peças · <strong>Tempo:</strong> 40 min</p>
+<p data-k="k516"><strong>Formato:</strong> individual</p>
+<p data-k="k517"><strong>Enunciado (ler para a turma):</strong></p>
+<p data-k="k518">Vocês vão pedir à IA um resumo da petição inicial fictícia abaixo e depois conferir esse resumo,</p>
+<p data-k="k519">linha por linha, contra o texto original. Antes de colar qualquer peça real numa ferramenta de</p>
+<p data-k="k520">IA na sua rotina, lembrem-se de anonimizar; esta peça já está pronta, fictícia, para colar direto.</p>
+<p data-k="k521">Usem o prompt-mestre M1 (Resumir documento longo) do Banco. Ao final, cada um aponta pelo menos</p>
+<p data-k="k522">uma diferença entre o resumo da IA e o que a peça realmente diz.</p>
+<p data-k="k523"><strong>Insumo (colar no chat):</strong></p>
+<blockquote data-k="k524">EXCELENTÍSSIMO(A) SENHOR(A) DOUTOR(A) JUIZ(A) FEDERAL DA ___ VARA FEDERAL DA SEÇÃO JUDICIÁRIA</blockquote>
+<blockquote data-k="k525">DO CEARÁ (exemplo fictício)</blockquote>
+<p data-k="k526">&gt;</p>
+<blockquote data-k="k527">Processo n. 0000000-00.2026.4.05.8100 (numeração fictícia)</blockquote>
+<p data-k="k528">&gt;</p>
+<blockquote data-k="k529">ANTÔNIO RIBEIRO FILHO, brasileiro, solteiro, auxiliar de produção, CPF nº 000.000.000-00</blockquote>
+<blockquote data-k="k530">(fictício), residente na Rua das Palmeiras, nº 123, Fortaleza/CE, vem, por sua procuradora que</blockquote>
+<blockquote data-k="k531">esta subscreve, com fundamento no art. 59 e seguintes da Lei nº 8.213/91, propor</blockquote>
+<p data-k="k532">&gt;</p>
+<blockquote data-k="k533">AÇÃO DE RESTABELECIMENTO DE AUXÍLIO POR INCAPACIDADE TEMPORÁRIA, COM PEDIDO ALTERNATIVO DE</blockquote>
+<blockquote data-k="k534">CONVERSÃO EM APOSENTADORIA POR INCAPACIDADE PERMANENTE</blockquote>
+<p data-k="k535">&gt;</p>
+<blockquote data-k="k536">em face do INSTITUTO NACIONAL DO SEGURO SOCIAL - INSS, pelos fatos e fundamentos a seguir.</blockquote>
+<p data-k="k537">&gt;</p>
+<blockquote data-k="k538">DOS FATOS</blockquote>
+<p data-k="k539">&gt;</p>
+<blockquote data-k="k540">O autor é segurado da Previdência Social na qualidade de empregado, com contribuições</blockquote>
+<blockquote data-k="k541">regulares desde 2014, conforme CNIS anexo (documento fictício).</blockquote>
+<p data-k="k542">&gt;</p>
+<blockquote data-k="k543">Em razão de quadro de hérnia discal lombar, o autor ficou impossibilitado de exercer sua</blockquote>
+<blockquote data-k="k544">atividade habitual, tendo requerido administrativamente o auxílio por incapacidade temporária</blockquote>
+<blockquote data-k="k545">em 14/01/2025 (DER), benefício que foi concedido e pago até 30/09/2025.</blockquote>
+<p data-k="k546">&gt;</p>
+<blockquote data-k="k547">Em 30/09/2025, o benefício foi cessado por decisão administrativa, sob a alegação de</blockquote>
+<blockquote data-k="k548">&quot;recuperação da capacidade laboral&quot;, com base em perícia realizada pelo próprio INSS.</blockquote>
+<p data-k="k549">&gt;</p>
+<blockquote data-k="k550">Ocorre que o autor permanece incapacitado, conforme atestado do médico assistente, Dr.</blockquote>
+<blockquote data-k="k551">Raimundo Nonato de Souza (fictício), CRM-CE 00000 (fictício), datado de 05/10/2025, que</blockquote>
+<blockquote data-k="k552">descreve limitação funcional compatível com o quadro anterior.</blockquote>
+<p data-k="k553">&gt;</p>
+<blockquote data-k="k554">O autor tentou retornar ao trabalho, sem êxito, em razão de dores persistentes, o que o levou</blockquote>
+<blockquote data-k="k555">a buscar nova avaliação médica particular, que reforça a incapacidade relatada.</blockquote>
+<p data-k="k556">&gt;</p>
+<blockquote data-k="k557">Diante da cessação do benefício, o autor está impossibilitado de prover o próprio sustento e o</blockquote>
+<blockquote data-k="k558">de sua família.</blockquote>
+<p data-k="k559">&gt;</p>
+<blockquote data-k="k560">DO DIREITO</blockquote>
+<p data-k="k561">&gt;</p>
+<blockquote data-k="k562">O art. 59 da Lei nº 8.213/91 assegura o auxílio por incapacidade temporária ao segurado</blockquote>
+<blockquote data-k="k563">incapacitado para o trabalho por mais de 15 dias consecutivos.</blockquote>
+<p data-k="k564">&gt;</p>
+<blockquote data-k="k565">A cessação do benefício sem reabilitação profissional prévia, quando a incapacidade persiste,</blockquote>
+<blockquote data-k="k566">contraria o art. 62 da mesma lei.</blockquote>
+<p data-k="k567">&gt;</p>
+<blockquote data-k="k568">Caso se demonstre que a incapacidade é total e permanente, o benefício deve ser convertido em</blockquote>
+<blockquote data-k="k569">aposentadoria por incapacidade permanente, nos termos do art. 42 da Lei nº 8.213/91.</blockquote>
+<p data-k="k570">&gt;</p>
+<blockquote data-k="k571">DA TUTELA DE URGÊNCIA</blockquote>
+<p data-k="k572">&gt;</p>
+<blockquote data-k="k573">Presentes os requisitos do art. 300 do CPC — probabilidade do direito, pelos documentos</blockquote>
+<blockquote data-k="k574">médicos anexos, e perigo de dano, pela ausência de renda —, requer-se tutela de urgência para</blockquote>
+<blockquote data-k="k575">restabelecimento imediato do benefício, com implantação em até 15 (quinze) dias.</blockquote>
+<p data-k="k576">&gt;</p>
+<blockquote data-k="k577">DOS PEDIDOS</blockquote>
+<p data-k="k578">&gt;</p>
+<blockquote data-k="k579">Diante do exposto, requer-se:</blockquote>
+<p data-k="k580">&gt;</p>
+<blockquote data-k="k581">a) a concessão de tutela de urgência para restabelecimento imediato do auxílio;</blockquote>
+<p data-k="k582">&gt;</p>
+<blockquote data-k="k583">b) a citação do réu para, querendo, contestar a ação;</blockquote>
+<p data-k="k584">&gt;</p>
+<blockquote data-k="k585">c) a produção de prova pericial médica, com nomeação de perito de confiança do Juízo;</blockquote>
+<p data-k="k586">&gt;</p>
+<blockquote data-k="k587">d) ao final, a procedência do pedido, condenando o réu a restabelecer o auxílio desde a</blockquote>
+<blockquote data-k="k588">cessação (30/09/2025), convertendo-se em aposentadoria por incapacidade permanente caso a</blockquote>
+<blockquote data-k="k589">perícia judicial constate incapacidade total e definitiva;</blockquote>
+<p data-k="k590">&gt;</p>
+<blockquote data-k="k591">e) a condenação do réu ao pagamento das parcelas vencidas e vincendas, com correção monetária</blockquote>
+<blockquote data-k="k592">e juros de mora;</blockquote>
+<p data-k="k593">&gt;</p>
+<blockquote data-k="k594">f) a condenação do réu ao pagamento de honorários advocatícios;</blockquote>
+<p data-k="k595">&gt;</p>
+<blockquote data-k="k596">g) os benefícios da justiça gratuita, nos termos do art. 98 do CPC, por não ter o autor</blockquote>
+<blockquote data-k="k597">condições de arcar com as custas sem prejuízo do próprio sustento.</blockquote>
+<p data-k="k598">&gt;</p>
+<blockquote data-k="k599">Dá-se à causa o valor de R$ 18.000,00 (dezoito mil reais, fictício).</blockquote>
+<p data-k="k600">&gt;</p>
+<blockquote data-k="k601">Nestes termos, pede deferimento.</blockquote>
+<p data-k="k602">&gt;</p>
+<blockquote data-k="k603">Fortaleza/CE, data fictícia. [assinatura fictícia da procuradora]</blockquote>
+<p data-k="k604"><strong>Passo a passo do aluno:</strong></p>
+<ol>
+<li data-k="k605">Cole a peça acima na ferramenta de IA usando o prompt-mestre M1 (Resumir documento longo) do</li>
+</ol>
+<p data-k="k606">Banco, pedindo um resumo de até 10 linhas com partes, pedido e fundamento.</p>
+<ol>
+<li data-k="k607">Leia o resumo gerado e, ao lado, releia a peça original.</li>
+<li data-k="k608">Marque: (a) algo que está na peça e o resumo NÃO trouxe; (b) algo que o resumo afirma e não</li>
+</ol>
+<p data-k="k609">está na peça (ou está diferente); (c) algo que o resumo tratou como simples e na peça é</p>
+<p data-k="k610">condicional ou ambíguo.</p>
+<ol>
+<li data-k="k611">Compartilhe no chat uma das três marcações.</li>
+</ol>
+<p data-k="k612"><strong>Produto esperado:</strong> um resumo da peça revisado pelo próprio aluno, com pelo menos uma</p>
+<p data-k="k613">divergência anotada em relação ao original.</p>
+<h3 id="cad-19" data-k="k614">Tarefa entre encontros</h3>
+<p data-k="k615"><strong>TE5 — Resumir uma peça real da sua rotina (15 min)</strong></p>
+<p data-k="k616"><strong>Objetivo de aprendizagem:</strong> OA3.2 (reforço) e OA1.4 (recorte e sigilo)</p>
+<p data-k="k617"><strong>Quando:</strong> entre a Aula 1 e a Aula 2 do Módulo 3.</p>
+<p data-k="k618"><strong>Tarefa:</strong> escolha uma peça real e curta da sua rotina (petição, manifestação ou parecer),</p>
+<p data-k="k619"><strong>anonimize</strong> nome de partes e números de documento, cole na ferramenta de IA com o</p>
+<p data-k="k620">prompt-mestre M1 e gere um resumo. Confira o resumo contra a peça. Traga para a Aula 2 uma frase</p>
+<p data-k="k621">sobre o que o resumo acertou e uma sobre o que precisou corrigir.</p>
+<p data-k="k622"><strong>Se não puder usar peça real:</strong> use a petição fictícia do EX3.1 e repita o exercício sozinho.</p>
+<h4 id="cad-20" data-k="k623">Bloco 3.3 — Minutas e despachos (a23 · 40 min · OA3.3)</h4>
+<p data-k="k624">O instrutor demonstra a geração de uma minuta de despacho com o prompt-mestre M3 (Redigir</p>
+<p data-k="k625">minuta) e reforça: a revisão e a assinatura são sempre humanas — a IA prepara o rascunho, não</p>
+<p data-k="k626">decide.</p>
+<h4 id="cad-20" data-k="k627">Bloco 3.4 — Pesquisa de jurisprudência (a24 · 40 min · OA3.4)</h4>
+<p data-k="k628"><strong>EF3 — Jurisprudência inventada: o que fazer antes de citar</strong></p>
+<p data-k="k629"><strong>Objetivo de aprendizagem:</strong> OA3.4</p>
+<p data-k="k630"><strong>Slide de origem:</strong> a24 · <strong>Bloco:</strong> Pesquisa de jurisprudência · <strong>Tempo:</strong> 40 min</p>
+<p data-k="k631"><strong>Formato:</strong> em salas (breakout) de 3 a 4</p>
+<p data-k="k632"><strong>Enunciado (ler para a turma):</strong></p>
+<p data-k="k633">Abaixo está um trecho de minuta que cita três julgados. Sem pesquisar nada ainda, cada grupo vai</p>
+<p data-k="k634">dizer, para cada um dos três: o que faria para conferir se ele existe e diz o que a minuta diz</p>
+<p data-k="k635">que ele diz, e por que essa conferência é obrigatória antes de citar qualquer julgado numa peça</p>
+<p data-k="k636">real.</p>
+<p data-k="k637"><strong>Insumo (colar no chat):</strong></p>
+<blockquote data-k="k638">Nesse sentido, é pacífico o entendimento jurisprudencial: &quot;o termo inicial do benefício por</blockquote>
+<blockquote data-k="k639">incapacidade deve corresponder à data do requerimento administrativo, salvo prova de</blockquote>
+<blockquote data-k="k640">incapacidade anterior&quot; (STJ, REsp 1.847.230/CE, Rel. Min. Ariovaldo Nunes Bezerra, julgado em</blockquote>
+<blockquote data-k="k641">14/08/2019).</blockquote>
+<p data-k="k642">&gt;</p>
+<blockquote data-k="k643">No mesmo sentido, o Tribunal Regional Federal da 5ª Região já decidiu que &quot;a ausência de</blockquote>
+<blockquote data-k="k644">perícia judicial não impede a concessão do benefício quando há laudo particular robusto&quot;</blockquote>
+<blockquote data-k="k645">(TRF5, AC 0009988-22.2021.4.05.0000, Rel. Desembargadora Federal Marina Coutinho Aragão,</blockquote>
+<blockquote data-k="k646">julgado em 03/02/2022).</blockquote>
+<p data-k="k647">&gt;</p>
+<blockquote data-k="k648">Por fim, aplica-se ao caso a Súmula 111 do STJ, segundo a qual os honorários advocatícios, nas</blockquote>
+<blockquote data-k="k649">ações previdenciárias, não incidem sobre as prestações vencidas após a sentença.</blockquote>
+<p data-k="k650"><strong>Passo a passo do aluno:</strong></p>
+<ol>
+<li data-k="k651">Para cada um dos três julgados citados, escreva onde exatamente iria conferi-lo (nome do</li>
+</ol>
+<p data-k="k652">sistema ou site oficial: consulta processual do STJ, consulta processual do TRF5, súmulas do</p>
+<p data-k="k653">STJ).</p>
+<ol>
+<li data-k="k654">Diga o que esperaria encontrar se o julgado for verdadeiro (relator existente, número</li>
+</ol>
+<p data-k="k655">correspondendo à classe e ao tribunal certos, inteiro teor disponível).</p>
+<ol>
+<li data-k="k656">Aponte, se conseguir, algum sinal de alerta já no próprio texto (nome de ministro, formato do</li>
+</ol>
+<p data-k="k657">número, tribunal indicado).</p>
+<ol>
+<li data-k="k658">Compartilhe a conclusão do grupo no plenário.</li>
+</ol>
+<p data-k="k659"><strong>Produto esperado:</strong> uma lista, por grupo, com a fonte oficial de conferência de cada um dos</p>
+<p data-k="k660">três julgados e o sinal de alerta identificado em cada um.</p>
+<h4 id="cad-20" data-k="k661">Bloco 3.5 — Comparar e conferir (a25 · 40 min · OA3.5)</h4>
+<p data-k="k662"><strong>EX3.2 — Minuta e comparação com o modelo padrão</strong></p>
+<p data-k="k663"><strong>Objetivo de aprendizagem:</strong> OA3.5 (com apoio de OA3.3)</p>
+<p data-k="k664"><strong>Slide de origem:</strong> a23/a25 · <strong>Bloco:</strong> Minutas e despachos / Comparar e conferir · <strong>Tempo:</strong> 30 min</p>
+<p data-k="k665"><strong>Formato:</strong> em salas (breakout) de 3 a 4</p>
+<p data-k="k666"><strong>Enunciado (ler para a turma):</strong></p>
+<p data-k="k667">Um colega já pediu à IA, com o prompt-mestre M3, uma minuta de despacho saneador para o processo</p>
+<p data-k="k668">fictício abaixo. Vocês vão cotejar essa minuta com o modelo padrão da Vara, usando o</p>
+<p data-k="k669">prompt-mestre M5, e apontar as divergências antes de a minuta seguir para revisão do gestor.</p>
+<p data-k="k670"><strong>Insumo (colar no chat) — fatos usados para gerar a minuta:</strong></p>
+<blockquote data-k="k671">Processo 0002233-11.2026.4.05.8100 (fictício). Autor: Francisco Erivan Barbosa. Ação de</blockquote>
+<blockquote data-k="k672">restabelecimento de auxílio por incapacidade temporária. O INSS já contestou, impugnando o</blockquote>
+<blockquote data-k="k673">laudo do médico assistente. Não há preliminares pendentes de decisão. A gratuidade da justiça</blockquote>
+<blockquote data-k="k674">já foi deferida na decisão que apreciou a tutela de urgência (fl. 45, fictícia). Falta apenas</blockquote>
+<blockquote data-k="k675">saneiar o feito e determinar a perícia médica judicial.</blockquote>
+<p data-k="k676"><strong>Comando usado para gerar a minuta (prompt-mestre M3):</strong></p>
+<pre data-k="k677">Aja como assessor de gabinete de Vara Federal previdenciária. Com base nos fatos abaixo,
+redija uma minuta de despacho saneador que: (1) declare o feito saneado; (2) determine
+perícia médica judicial, nomeando o perito; (3) fixe os quesitos padrão do Juízo e abra
+prazo para quesitos e assistente técnico das partes; (4) determine a intimação das partes.
+Fatos: [colar os fatos acima]. Formato: despacho numerado, linguagem forense, pronto para
+revisão humana antes da assinatura.</pre>
+<p data-k="k678"><strong>Minuta gerada pela IA (já pronta, para cotejar):</strong></p>
+<blockquote data-k="k679">Vistos, etc.</blockquote>
+<p data-k="k680">&gt;</p>
+<blockquote data-k="k681">1. Não havendo preliminares pendentes, declaro o feito saneado.</blockquote>
+<p data-k="k682">&gt;</p>
+<blockquote data-k="k683">2. Defiro a produção de prova pericial médica, a ser realizada por perito a ser designado.</blockquote>
+<p data-k="k684">&gt;</p>
+<blockquote data-k="k685">3. Fixem-se os quesitos padrão deste Juízo (Anexo I).</blockquote>
+<p data-k="k686">&gt;</p>
+<blockquote data-k="k687">4. Abra-se prazo de 5 (cinco) dias para que as partes apresentem quesitos e indiquem</blockquote>
+<blockquote data-k="k688">   assistente técnico, nos termos do art. 480 do CPC.</blockquote>
+<p data-k="k689">&gt;</p>
+<blockquote data-k="k690">5. O autor deverá adiantar os honorários periciais, conforme tabela do Juízo.</blockquote>
+<p data-k="k691">&gt;</p>
+<blockquote data-k="k692">6. Intimem-se as partes.</blockquote>
+<p data-k="k693"><strong>Modelo padrão da Vara (institucional, fictício):</strong></p>
+<blockquote data-k="k694">Vistos, etc.</blockquote>
+<p data-k="k695">&gt;</p>
+<blockquote data-k="k696">1. Não havendo preliminares pendentes, declaro o feito saneado.</blockquote>
+<p data-k="k697">&gt;</p>
+<blockquote data-k="k698">2. Defiro a produção de prova pericial médica e nomeio perito o Dr. Carlos Eduardo Matias</blockquote>
+<blockquote data-k="k699">   Furtado (fictício), cadastrado junto a este Juízo.</blockquote>
+<p data-k="k700">&gt;</p>
+<blockquote data-k="k701">3. Fixem-se os quesitos padrão deste Juízo (Anexo I).</blockquote>
+<p data-k="k702">&gt;</p>
+<blockquote data-k="k703">4. Abra-se prazo de 10 (dez) dias para que as partes apresentem quesitos e indiquem assistente</blockquote>
+<blockquote data-k="k704">   técnico, nos termos do art. 465 do CPC.</blockquote>
+<p data-k="k705">&gt;</p>
+<blockquote data-k="k706">5. Tendo em vista a gratuidade da justiça já deferida à fl. 45, fica o autor dispensado do</blockquote>
+<blockquote data-k="k707">   adiantamento dos honorários periciais, que serão custeados na forma da tabela de peritos</blockquote>
+<blockquote data-k="k708">   do convênio.</blockquote>
+<p data-k="k709">&gt;</p>
+<blockquote data-k="k710">6. Intimem-se as partes.</blockquote>
+<p data-k="k711"><strong>Comando de comparação (prompt-mestre M5):</strong></p>
+<pre data-k="k712">Compare o TEXTO 1 (minuta gerada) com o TEXTO 2 (modelo padrão da Vara) e liste, item por
+item, toda divergência de conteúdo, prazo, nomeação ou fundamento legal entre os dois,
+indicando exatamente onde o TEXTO 1 se afasta do padrão institucional.
+TEXTO 1: [colar a minuta gerada]
+TEXTO 2: [colar o modelo padrão]</pre>
+<p data-k="k713"><strong>Passo a passo do aluno:</strong></p>
+<ol>
+<li data-k="k714">Rode o comando de comparação acima com os dois textos.</li>
+<li data-k="k715">Confira, um a um, se os itens que a IA apontou como divergência realmente divergem.</li>
+<li data-k="k716">Verifique também se sobrou alguma divergência que a IA NÃO apontou.</li>
+<li data-k="k717">Liste as divergências encontradas e diga qual delas, se não corrigida, causaria mais</li>
+</ol>
+<p data-k="k718">problema prático.</p>
+<p data-k="k719"><strong>Produto esperado:</strong> lista de divergências entre a minuta e o modelo padrão, com indicação de</p>
+<p data-k="k720">qual é a mais grave.</p>
+<h3 id="cad-20" data-k="k721">Tarefa entre encontros</h3>
+<p data-k="k722"><strong>TE6 — Começar o &quot;antes&quot; do projeto integrador (15 min)</strong></p>
+<p data-k="k723"><strong>Objetivo de aprendizagem:</strong> OA3.8 (preparação)</p>
+<p data-k="k724"><strong>Quando:</strong> entre a Aula 2 e a Aula 3 do Módulo 3.</p>
+<p data-k="k725"><strong>Tarefa:</strong> escolha, sozinho ou com o grupo que fará o projeto integrador, uma tarefa repetitiva</p>
+<p data-k="k726">da sua rotina (triagem, resumo, minuta ou relatório) e comece a preencher, na ficha do projeto</p>
+<p data-k="k727">(modelo entregue no bloco do Projeto Integrador), apenas as duas primeiras colunas: **situação</p>
+<p data-k="k728">atual<strong> e </strong>tempo médio por unidade hoje**. Cronometre ou estime com base no que já faz — sem</p>
+<p data-k="k729">isso registrado, não há &quot;depois&quot; para comparar na Aula 3.</p>
+<p data-k="k730"><strong>Se não souber estimar o tempo:</strong> conte quantas unidades você processa numa manhã típica e</p>
+<p data-k="k731">divida o tempo da manhã pelo número de unidades.</p>
+<h4 id="cad-21" data-k="k732">Bloco 3.6 — Relatórios e organização (a26 · 45 min · OA3.6)</h4>
+<p data-k="k733"><strong>EX3.3 — Transformar anotações soltas em relatório</strong></p>
+<p data-k="k734"><strong>Objetivo de aprendizagem:</strong> OA3.6</p>
+<p data-k="k735"><strong>Slide de origem:</strong> a26 · <strong>Bloco:</strong> Relatórios e organização · <strong>Tempo:</strong> 45 min</p>
+<p data-k="k736"><strong>Formato:</strong> individual</p>
+<p data-k="k737"><strong>Enunciado (ler para a turma):</strong></p>
+<p data-k="k738">Abaixo estão anotações soltas e desorganizadas sobre a movimentação de vários processos</p>
+<p data-k="k739">fictícios, como costumam ficar num bloco de notas do gabinete. Vocês vão pedir à IA, com o</p>
+<p data-k="k740">prompt-mestre M6, que organize essas anotações numa tabela, ordenada pela urgência da</p>
+<p data-k="k741">providência pendente, e depois conferir a tabela contra o texto original.</p>
+<p data-k="k742"><strong>Insumo (colar no chat):</strong></p>
+<blockquote data-k="k743">Proc. 0011223-45.2026.4.05.8100 (fictício), autora Maria Edilene: laudo pericial juntado dia</blockquote>
+<blockquote data-k="k744">02/06, aguardando manifestação das partes. — 0022334-56.2026.4.05.8100: já tem sentença</blockquote>
+<blockquote data-k="k745">assinada em 10/06, aguardando publicação. — Processo de José Wellington (fictício),</blockquote>
+<blockquote data-k="k746">0033445-67.2026.4.05.8100: voltou de perícia em 28/05, perito enviou o laudo em 15/06, ainda</blockquote>
+<blockquote data-k="k747">não juntado nos autos. — Audiência de conciliação marcada para 25/06 no processo</blockquote>
+<blockquote data-k="k748">0044556-78.2026.4.05.8100, autora Francisca Nogueira. — 0055667-89.2026.4.05.8100: despacho de</blockquote>
+<blockquote data-k="k749">emenda à inicial expedido em 01/06, prazo de 15 dias, ainda não decorrido. — Processo de</blockquote>
+<blockquote data-k="k750">Antônio Bezerra, 0066778-90.2026.4.05.8100: concluso para sentença desde 20/05, sem</blockquote>
+<blockquote data-k="k751">movimentação desde então. — Réu contestou o processo 0077889-01.2026.4.05.8100 em 05/06; falta</blockquote>
+<blockquote data-k="k752">abrir prazo de réplica. — Processo 0088990-12.2026.4.05.8100: tutela de urgência deferida em</blockquote>
+<blockquote data-k="k753">30/05, benefício ainda não implantado pelo INSS — checar ofício. — 0099001-23.2026.4.05.8100,</blockquote>
+<blockquote data-k="k754">autora Raimunda Alves: processo suspenso por convênio até 10/07. — Processo</blockquote>
+<blockquote data-k="k755">0100112-34.2026.4.05.8100: recurso de apelação interposto pelo INSS em 08/06, aguardando</blockquote>
+<blockquote data-k="k756">contrarrazões. — Processo de Pedro Lima, 0111223-45.2026.4.05.8100: perícia marcada para</blockquote>
+<blockquote data-k="k757">30/06, ainda não realizada. — 0122334-56.2026.4.05.8100: decisão de saneamento publicada em</blockquote>
+<blockquote data-k="k758">12/06, sem recurso. — Processo de Sebastiana Rocha, 0133445-67.2026.4.05.8100: cumprimento de</blockquote>
+<blockquote data-k="k759">sentença, cálculo da contadoria juntado em 18/06, aguardando homologação. — Processo</blockquote>
+<blockquote data-k="k760">0144556-78.2026.4.05.8100: audiência de instrução realizada em 22/05, aguardando alegações</blockquote>
+<blockquote data-k="k761">finais, prazo até 22/06.</blockquote>
+<p data-k="k762"><strong>Comando usado (prompt-mestre M6):</strong></p>
+<pre data-k="k763">Organize as anotações abaixo em uma tabela com as colunas: Processo, Parte, Situação atual,
+Data do evento mais recente, Providência pendente. Ordene as linhas pela urgência da
+providência pendente (prazo mais curto ou dependência de terceiro primeiro). Não invente
+nenhum dado que não esteja no texto; se faltar uma informação, escreva &quot;não informado&quot;.
+Texto: [colar as anotações acima]</pre>
+<p data-k="k764"><strong>Passo a passo do aluno:</strong></p>
+<ol>
+<li data-k="k765">Rode o comando acima.</li>
+<li data-k="k766">Confira cada linha da tabela contra a anotação correspondente no texto original.</li>
+<li data-k="k767">Verifique se algum processo ficou de fora ou se algum dado foi acrescentado sem estar no</li>
+</ol>
+<p data-k="k768">texto.</p>
+<ol>
+<li data-k="k769">Compare a ordenação da tabela com a gabarito e diga se concorda com a ordem de urgência.</li>
+</ol>
+<p data-k="k770"><strong>Produto esperado:</strong> tabela estruturada dos 14 processos, conferida contra as anotações.</p>
+<div class="tw"><table>
+<tr><th data-k="k771">Processo</th><th data-k="k772">Parte</th><th data-k="k773">Situação atual</th><th data-k="k774">Data do evento mais recente</th><th data-k="k775">Providência pendente</th></tr>
+<tr><td data-k="k776">0088990-12.2026</td><td data-k="k777">não informado</td><td data-k="k778">tutela deferida, benefício não implantado</td><td data-k="k779">30/05</td><td data-k="k780">checar ofício ao INSS — mais urgente: direito já reconhecido e não cumprido</td></tr>
+<tr><td data-k="k781">0044556-78.2026</td><td data-k="k782">Francisca Nogueira</td><td data-k="k783">audiência de conciliação marcada</td><td data-k="k784">25/06</td><td data-k="k785">preparar pauta/audiência</td></tr>
+<tr><td data-k="k786">0111223-45.2026</td><td data-k="k787">Pedro Lima</td><td data-k="k788">perícia marcada, ainda não realizada</td><td data-k="k789">30/06</td><td data-k="k790">acompanhar realização da perícia</td></tr>
+<tr><td data-k="k791">0055667-89.2026</td><td data-k="k792">não informado</td><td data-k="k793">emenda à inicial, prazo em curso</td><td data-k="k794">01/06 (prazo de 15 dias)</td><td data-k="k795">aguardar decurso do prazo</td></tr>
+<tr><td data-k="k796">0100112-34.2026</td><td data-k="k797">não informado</td><td data-k="k798">apelação do INSS interposta</td><td data-k="k799">08/06</td><td data-k="k800">aguardar/intimar contrarrazões</td></tr>
+<tr><td data-k="k801">0077889-01.2026</td><td data-k="k802">não informado</td><td data-k="k803">contestação apresentada</td><td data-k="k804">05/06</td><td data-k="k805">abrir prazo de réplica</td></tr>
+<tr><td data-k="k806">0144556-78.2026</td><td data-k="k807">não informado</td><td data-k="k808">audiência de instrução realizada</td><td data-k="k809">22/05 (prazo até 22/06)</td><td data-k="k810">aguardar alegações finais</td></tr>
+<tr><td data-k="k811">0033445-67.2026</td><td data-k="k812">José Wellington</td><td data-k="k813">laudo pericial enviado, não juntado</td><td data-k="k814">15/06</td><td data-k="k815">juntar laudo aos autos</td></tr>
+<tr><td data-k="k816">0011223-45.2026</td><td data-k="k817">Maria Edilene</td><td data-k="k818">laudo pericial juntado</td><td data-k="k819">02/06</td><td data-k="k820">aguardar manifestação das partes</td></tr>
+<tr><td data-k="k821">0133445-67.2026</td><td data-k="k822">Sebastiana Rocha</td><td data-k="k823">cálculo da contadoria juntado</td><td data-k="k824">18/06</td><td data-k="k825">homologar cálculo</td></tr>
+<tr><td data-k="k826">0066778-90.2026</td><td data-k="k827">Antônio Bezerra</td><td data-k="k828">concluso para sentença, sem movimentação</td><td data-k="k829">20/05</td><td data-k="k830">elaborar sentença</td></tr>
+<tr><td data-k="k831">0022334-56.2026</td><td data-k="k832">não informado</td><td data-k="k833">sentença assinada</td><td data-k="k834">10/06</td><td data-k="k835">aguardar publicação</td></tr>
+<tr><td data-k="k836">0122334-56.2026</td><td data-k="k837">não informado</td><td data-k="k838">saneamento publicado, sem recurso</td><td data-k="k839">12/06</td><td data-k="k840">nenhuma (aguardar fase seguinte)</td></tr>
+<tr><td data-k="k841">0099001-23.2026</td><td data-k="k842">Raimunda Alves</td><td data-k="k843">processo suspenso por convênio</td><td data-k="k844">não informado (suspenso até 10/07)</td><td data-k="k845">nenhuma até o fim da suspensão</td></tr>
+</table></div>
+<p data-k="k846">Pontos de atenção que costumam escapar: (a) vários processos não trazem o nome da parte na</p>
+<p data-k="k847">anotação original — a tabela deve dizer &quot;não informado&quot;, nunca inventar um nome; (b) o processo</p>
+<p data-k="k848">suspenso por convênio (0099001-23.2026) não tem &quot;providência pendente&quot; real — é comum a IA</p>
+<p data-k="k849">inventar uma ação a fazer só para preencher a célula; (c) a ordenação por urgência é uma escolha</p>
+<p data-k="k850">interpretativa (por que o ofício ao INSS vem antes da audiência?) — o gabarito é uma referência,</p>
+<p data-k="k851">não a única ordem aceitável, desde que o aluno justifique o critério usado.</p>
+<h4 id="cad-21" data-k="k852">Bloco 3.7 — Modelos e trabalho em lote (a27 · 45 min · OA3.7)</h4>
+<p data-k="k853">A demonstração ao vivo (roteiro E2 do Banco: gerar um lote de intimações a partir de uma tabela,</p>
+<p data-k="k854">com o cuidado de anonimizar antes de montar o lote) já está pronta para o instrutor conduzir.</p>
+<h4 id="cad-21" data-k="k855">Projeto integrador — PI (90 min · OA3.8, integra OA3.1 a OA3.7)</h4>
+<p data-k="k856"><strong>Enunciado (ler para a turma):</strong></p>
+<p data-k="k857">Em salas (breakout), cada grupo vai resolver, ponta a ponta, um caso real e recorrente da sua</p>
+<p data-k="k858">Vara ou Gabinete usando o que o módulo ensinou: triar, resumir, minutar e conferir com apoio da</p>
+<p data-k="k859">IA. Antes de montar qualquer coisa, o grupo registra o &quot;antes&quot; — como a tarefa é feita hoje e</p>
+<p data-k="k860">quanto tempo ela leva, por unidade. Sem esse registro, nenhum ganho depois pode ser demonstrado;</p>
+<p data-k="k861">com ele, o resultado do projeto vira número institucional, comparável entre turmas e unidades.</p>
+<p data-k="k862"><strong>Passo obrigatório — registrar o &quot;antes&quot;:</strong></p>
+<p data-k="k863">Antes de aplicar qualquer prompt, o grupo preenche a ficha do projeto (modelo abaixo) só até a</p>
+<p data-k="k864">coluna &quot;tempo médio por unidade hoje&quot;. Essa etapa não pode ser pulada nem feita depois, de</p>
+<p data-k="k865">memória — é o baseline que sustenta a comparação final.</p>
+<p data-k="k866"><strong>Roteiro ponta a ponta:</strong></p>
+<ol>
+<li data-k="k867"><strong>Escolher a tarefa:</strong> uma tarefa repetitiva e recorrente da unidade (ex.: triagem de</li>
+</ol>
+<p data-k="k868">petições, resumo de peças para despacho, minutas-padrão, relatórios de andamento).</p>
+<ol>
+<li data-k="k869"><strong>Registrar o &quot;antes&quot;:</strong> situação atual e tempo médio por unidade hoje, na ficha do projeto.</li>
+<li data-k="k870"><strong>Triar:</strong> se a tarefa envolver lote, aplicar o prompt-mestre M9 (ou o roteiro E1) para</li>
+</ol>
+<p data-k="k871">organizar por urgência ou tipo.</p>
+<ol>
+<li data-k="k872"><strong>Resumir:</strong> se envolver peça longa, aplicar o prompt-mestre M1 para gerar o resumo.</li>
+<li data-k="k873"><strong>Minutar:</strong> se envolver despacho ou minuta, aplicar o prompt-mestre M3 e cotejar com o</li>
+</ol>
+<p data-k="k874">modelo padrão da unidade usando o prompt-mestre M5.</p>
+<ol>
+<li data-k="k875"><strong>Conferir:</strong> aplicar o checklist de quatro perguntas do a36 (confere com a fonte? faz sentido</li>
+</ol>
+<p data-k="k876">no caso concreto? tem dado que pode ter sido inventado? trata casos iguais de forma igual?)</p>
+<p data-k="k877">a cada saída gerada.</p>
+<ol>
+<li data-k="k878"><strong>Registrar o &quot;depois&quot;:</strong> tempo estimado por unidade com o apoio da IA, incluindo o tempo</li>
+</ol>
+<p data-k="k879">gasto na conferência humana — a conferência faz parte do tempo &quot;depois&quot;, não é descontada.</p>
+<ol>
+<li data-k="k880"><strong>Preencher a ficha completa</strong> e preparar a apresentação ao plenário.</li>
+</ol>
+<p data-k="k881"><strong>Modelo de ficha do projeto (o grupo preenche e traz para o plenário):</strong></p>
+<div class="tw"><table>
+<tr><th data-k="k882">Campo</th><th data-k="k883">Preenchimento do grupo</th></tr>
+<tr><td data-k="k884">Tarefa escolhida</td><td data-k="k885"></td></tr>
+<tr><td data-k="k886">Situação atual (como é feita hoje)</td><td data-k="k887"></td></tr>
+<tr><td data-k="k888">Tempo médio por unidade hoje</td><td data-k="k889"></td></tr>
+<tr><td data-k="k890">Como será feita com apoio de IA (prompts-mestre usados)</td><td data-k="k891"></td></tr>
+<tr><td data-k="k892">Tempo estimado por unidade depois (incluindo conferência humana)</td><td data-k="k893"></td></tr>
+<tr><td data-k="k894">Riscos de sigilo identificados e como foram tratados (anonimização, dado que não pode sair)</td><td data-k="k895"></td></tr>
+<tr><td data-k="k896">Quem confere cada saída antes de virar ato oficial</td><td data-k="k897"></td></tr>
+</table></div>
+<p data-k="k898"><strong>Formato da apresentação ao plenário (antes × depois):</strong></p>
+<p data-k="k899">Cada grupo tem até 5 minutos para apresentar: (1) a tarefa escolhida e por que ela pesa na</p>
+<p data-k="k900">rotina; (2) o &quot;antes&quot; registrado (tempo por unidade, hoje); (3) uma demonstração rápida de um dos</p>
+<p data-k="k901">passos (triagem, resumo, minuta ou relatório) com o prompt-mestre usado; (4) o &quot;depois&quot; estimado,</p>
+<p data-k="k902">com o tempo de conferência humana incluído; (5) um risco de sigilo identificado e como foi</p>
+<p data-k="k903">tratado. O plenário pode perguntar sobre qualquer etapa, especialmente sobre como o &quot;antes&quot; foi</p>
+<p data-k="k904">medido — um &quot;depois&quot; sem &quot;antes&quot; registrado não é aceito como resultado do projeto.</p>
+<p data-k="k905"><strong>Produto esperado:</strong> ficha do projeto preenchida por completo e apresentação antes × depois ao</p>
+<p data-k="k906">plenário, com pelo menos um prompt-mestre do Banco efetivamente aplicado e conferido.</p>
+<p data-k="k907"><strong>Avaliação:</strong> a rubrica-projeto-integrador-v2, já existente e oficial do curso, é a referência</p>
+<p data-k="k908">de avaliação deste projeto. Não há rubrica nova aqui — o instrutor aplica a rubrica-projeto-</p>
+<p data-k="k909">-integrador-v2 (7 dimensões, 4 níveis) sobre a ficha e a apresentação de cada grupo.</p>
+<h2 id="cad-21" data-k="k910">Módulo 4 — Ética, LGPD e governança</h2>
+<p data-k="k911">*2h · encontro único · online ao vivo. Módulo curto: os exercícios abaixo cabem dentro dos</p>
+<p data-k="k912">blocos já previstos no Plano de Aula — EX4.1 ocupa o bloco &quot;Estudo de casos&quot; (25 min) e EF4</p>
+<p data-k="k913">cabe dentro do Bloco 4.3 (25 min: exposição breve de a44/a45 seguida direto da prática). Nenhum</p>
+<p data-k="k914">tempo extra é somado ao módulo.*</p>
+<h4 id="cad-22" data-k="k915">Quadro de anonimização (job aid) — OA4.3</h4>
+<p data-k="k916">Use este quadro antes de colar qualquer trecho de autos, mesmo sem sigilo declarado. Ele não</p>
+<p data-k="k917">substitui a checagem de sigilo: primeiro confere-se o sigilo: se for &quot;sim&quot; ou &quot;desconhecido&quot;,</p>
+<p data-k="k918">não se anonimiza — não se envia, ponto. Anonimizar só faz sentido quando o envio já é permitido.</p>
+<div class="tw"><table>
+<tr><th data-k="k919">O que aparece no texto</th><th data-k="k920">Substituir por</th><th data-k="k921">Marcador sugerido</th></tr>
+<tr><td data-k="k922">Nome de parte</td><td data-k="k923">Identificador genérico</td><td data-k="k924"><code>[PARTE]</code> ou <code>[PARTE 1]</code> / <code>[PARTE 2]</code></td></tr>
+<tr><td data-k="k925">CPF ou CNPJ</td><td data-k="k926">Identificador genérico</td><td data-k="k927"><code>[CPF]</code> / <code>[CNPJ]</code></td></tr>
+<tr><td data-k="k928">Número do processo</td><td data-k="k929">Identificador genérico</td><td data-k="k930"><code>[Nº DO PROCESSO]</code></td></tr>
+<tr><td data-k="k931">Endereço</td><td data-k="k932">Identificador genérico</td><td data-k="k933"><code>[ENDEREÇO]</code></td></tr>
+<tr><td data-k="k934">Data que identifica (nascimento, protocolo, fato específico)</td><td data-k="k935">Referência relativa, quando possível</td><td data-k="k936"><code>[DATA]</code> (ou &quot;há cerca de 3 meses&quot;)</td></tr>
+<tr><td data-k="k937">Nome de servidor ou magistrado</td><td data-k="k938">Identificador genérico</td><td data-k="k939"><code>[SERVIDOR]</code> / <code>[MAGISTRADO]</code></td></tr>
+</table></div>
+<p data-k="k940"><strong>Exemplo — antes (texto fictício):</strong></p>
+<p data-k="k941">&quot;Maria da Silva Souza, CPF 000.111.222-33, residente na Rua das Acácias, 123, Fortaleza,</p>
+<p data-k="k942">ajuizou em 14/03/2024 a ação nº 0001234-56.2024.4.05.8100, distribuída à 3ª Vara. O servidor</p>
+<p data-k="k943">João Pereira elaborou a triagem inicial em 20/03/2024.&quot;</p>
+<p data-k="k944"><strong>Exemplo — depois (anonimizado):</strong></p>
+<p data-k="k945">&quot;[PARTE], CPF [CPF], residente em [ENDEREÇO], ajuizou em [DATA] a ação nº [Nº DO PROCESSO],</p>
+<p data-k="k946">distribuída à 3ª Vara. O servidor [SERVIDOR] elaborou a triagem inicial em [DATA].&quot;</p>
+<p data-k="k947"><em>Nota: todos os nomes, números e datas acima são fictícios, criados apenas para este material.</em></p>
+<h4 id="cad-22" data-k="k948">EX4.1 — Semáforo de sigilo</h4>
+<p data-k="k949"><strong>Objetivo de aprendizagem:</strong> OA4.2 (com apoio de OA4.3)</p>
+<p data-k="k950"><strong>Slide de origem:</strong> a42 · a43 · <strong>Bloco:</strong> Estudo de casos · <strong>Tempo:</strong> 25 min</p>
+<p data-k="k951"><strong>Formato:</strong> em salas (breakout) de 3 a 4</p>
+<p data-k="k952"><strong>Enunciado (ler para a turma):</strong></p>
+<p data-k="k953">Vocês vão decidir, caso a caso, se um conteúdo fictício pode ser colado numa ferramenta de IA.</p>
+<p data-k="k954">Para cada caso, a sala escolhe uma entre quatro respostas: <strong>pode</strong> · <strong>não pode</strong> · **não</p>
+<p data-k="k955">pode sem anonimizar<strong> · </strong>bloqueio por sigilo desconhecido**. Em seguida, justifiquem em uma</p>
+<p data-k="k956">frase e digam qual é a base (Resolução CNJ 615/2025, LGPD ou dever de sigilo). Lembrete: sigilo</p>
+<p data-k="k957">&quot;sim&quot; ou &quot;desconhecido&quot; é sempre bloqueio, sem exceção.</p>
+<p data-k="k958"><strong>Insumo (colar no chat) — oito casos fictícios:</strong></p>
+<ol>
+<li data-k="k959">Um processo de adoção corre em segredo de justiça. O servidor quer pedir à IA um resumo</li>
+</ol>
+<p data-k="k960">da petição inicial para agilizar a leitura.</p>
+<ol>
+<li data-k="k961">Uma petição inicial de ação previdenciária, sem nenhuma restrição de sigilo, já está</li>
+</ol>
+<p data-k="k962">disponível para consulta pública no PJe 2.x. O servidor quer colar o texto para gerar um</p>
+<p data-k="k963">resumo.</p>
+<ol>
+<li data-k="k964">Um processo sem sigilo menciona, entre outras informações, o diagnóstico de saúde da parte</li>
+</ol>
+<p data-k="k965">autora, citado no relato dos fatos.</p>
+<ol>
+<li data-k="k966">Um servidor escreveu, por conta própria, um texto explicando um procedimento interno da</li>
+</ol>
+<p data-k="k967">Vara, sem citar processo, parte ou qualquer dado de terceiro, e quer pedir à IA que revise</p>
+<p data-k="k968">a redação.</p>
+<ol>
+<li data-k="k969">Chegou um documento à mesa do servidor e não há, no momento, informação sobre se aquele</li>
+</ol>
+<p data-k="k970">processo tramita ou não em segredo de justiça.</p>
+<ol>
+<li data-k="k971">Um laudo pericial médico, anexado a um processo sem sigilo declarado, traz o nome completo</li>
+</ol>
+<p data-k="k972">do periciando e detalhes clínicos.</p>
+<ol>
+<li data-k="k973">Uma planilha de controle interno da unidade lista nomes e números de CPF de partes com</li>
+</ol>
+<p data-k="k974">valores bloqueados judicialmente, para conferência de uma rotina de cumprimento de sentença.</p>
+<ol>
+<li data-k="k975">A ementa de um acórdão do TRF5, já publicada no site oficial do tribunal, sem qualquer</li>
+</ol>
+<p data-k="k976">sigilo, será usada como referência de fundamentação.</p>
+<p data-k="k977"><strong>Passo a passo do aluno:</strong></p>
+<ol>
+<li data-k="k978">Na sala, cada caso é lido em voz alta por um integrante diferente.</li>
+<li data-k="k979">O grupo decide a resposta (uma das quatro opções) e anota a razão em uma frase.</li>
+<li data-k="k980">O grupo aponta a base normativa que sustenta a resposta.</li>
+<li data-k="k981">Ao final, o grupo escolhe dois casos para levar ao plenário (um fácil e um difícil).</li>
+</ol>
+<p data-k="k982"><strong>Produto esperado:</strong> uma lista com os oito casos, a resposta escolhida, a razão em uma frase</p>
+<p data-k="k983">e a base normativa de cada um.</p>
+<div class="tw"><table>
+<tr><th data-k="k984">#</th><th data-k="k985">Caso (resumo)</th><th data-k="k986">Resposta</th><th data-k="k987">Razão</th><th data-k="k988">Base</th></tr>
+<tr><td data-k="k989">1</td><td data-k="k990">Processo em segredo de justiça</td><td data-k="k991">Não pode</td><td data-k="k992">Sigilo declarado é bloqueio, mesmo para resumo</td><td data-k="k993">Res. CNJ 615/2025; dever de sigilo</td></tr>
+<tr><td data-k="k994">2</td><td data-k="k995">Peça pública já publicada no PJe 2.x</td><td data-k="k996">Pode</td><td data-k="k997">Sem sigilo e já é de acesso público</td><td data-k="k998">Res. CNJ 615/2025</td></tr>
+<tr><td data-k="k999">3</td><td data-k="k1000">Dado de saúde da parte, sem sigilo declarado</td><td data-k="k1001">Não pode sem anonimizar</td><td data-k="k1002">Dado sensível de saúde exige remoção antes do envio</td><td data-k="k1003">LGPD</td></tr>
+<tr><td data-k="k1004">4</td><td data-k="k1005">Texto próprio do servidor, sem dado de terceiro</td><td data-k="k1006">Pode</td><td data-k="k1007">Não há dado pessoal de terceiro nem processo envolvido</td><td data-k="k1008">Res. CNJ 615/2025</td></tr>
+<tr><td data-k="k1009">5</td><td data-k="k1010">Sigilo não verificado</td><td data-k="k1011">Bloqueio por sigilo desconhecido</td><td data-k="k1012">Regra dura do curso: na dúvida, não se envia</td><td data-k="k1013">Res. CNJ 615/2025</td></tr>
+<tr><td data-k="k1014">6</td><td data-k="k1015">Laudo médico com identificação</td><td data-k="k1016">Não pode sem anonimizar</td><td data-k="k1017">Nome e dado clínico juntos exigem anonimização</td><td data-k="k1018">LGPD</td></tr>
+<tr><td data-k="k1019">7</td><td data-k="k1020">Lista de nomes e CPFs</td><td data-k="k1021">Não pode sem anonimizar</td><td data-k="k1022">Dado pessoal direto em lote</td><td data-k="k1023">LGPD</td></tr>
+<tr><td data-k="k1024">8</td><td data-k="k1025">Ementa de julgado público</td><td data-k="k1026">Pode</td><td data-k="k1027">Jurisprudência já pública, sem partes sigilosas</td><td data-k="k1028">Res. CNJ 615/2025</td></tr>
+</table></div>
+<p data-k="k1029">Onde a resposta não for óbvia para a turma (casos 3 e 6 costumam gerar dúvida: &quot;é sigiloso ou</p>
+<p data-k="k1030">só sensível?&quot;), o encaminhamento correto é sempre o mesmo: na dúvida, escalar para a chefia,</p>
+<p data-k="k1031">o DTIC ou o INOVAJUS antes de decidir sozinho — este exercício é didático, não parecer</p>
+<p data-k="k1032">jurídico definitivo.</p>
+<h4 id="cad-22" data-k="k1033">EF4 — Exercício de falha: viés na triagem</h4>
+<p data-k="k1034"><strong>Objetivo de aprendizagem:</strong> OA4.4</p>
+<p data-k="k1035"><strong>Slide de origem:</strong> a44 · <strong>Bloco:</strong> Vieses algorítmicos · <strong>Tempo:</strong> 20 min (dentro dos 25</p>
+<p data-k="k1036">min do Bloco 4.3: exposição breve de a44/a45, seguida direto da prática)</p>
+<p data-k="k1037"><strong>Formato:</strong> em salas (breakout) de 3 a 4, com fechamento em plenário</p>
+<p data-k="k1038"><strong>Enunciado (ler para a turma):</strong></p>
+<p data-k="k1039">Vocês vão receber o resultado fictício de uma triagem feita por IA (no estilo do</p>
+<p data-k="k1040">prompt-mestre M9, roteiro E1), com dois pedidos que têm a mesma urgência clínica segundo o</p>
+<p data-k="k1041">laudo anexado. A tarefa é achar o que não deveria ter influenciado a classificação.</p>
+<p data-k="k1042"><strong>Insumo (colar no chat) — triagem fictícia gerada por IA:</strong></p>
+<blockquote data-k="k1043"><strong>Pedido A</strong> — Autor representado por advogado. Petição formal, bem redigida, requer</blockquote>
+<blockquote data-k="k1044">fornecimento urgente de medicamento; laudo médico fictício anexo: &quot;risco à saúde do paciente</blockquote>
+<blockquote data-k="k1045">em caso de não fornecimento em até 15 dias.&quot;</blockquote>
+<blockquote data-k="k1046"><strong>Classificação da IA:</strong> URGENTE — encaminhar para decisão imediata.</blockquote>
+<p data-k="k1047">&gt;</p>
+<blockquote data-k="k1048"><strong>Pedido B</strong> — Autor sem advogado (postulação própria), petição informal, redação mais</blockquote>
+<blockquote data-k="k1049">simples, requer fornecimento urgente de medicamento; laudo médico fictício anexo, com o</blockquote>
+<blockquote data-k="k1050">mesmo teor: &quot;risco à saúde do paciente em caso de não fornecimento em até 15 dias.&quot;</blockquote>
+<blockquote data-k="k1051"><strong>Classificação da IA:</strong> BAIXA PRIORIDADE — pedido informal; sugerido aguardar fila regular.</blockquote>
+<p data-k="k1052"><strong>Passo a passo do aluno:</strong></p>
+<ol>
+<li data-k="k1053">Comparar os dois laudos: o que muda entre eles, de fato?</li>
+<li data-k="k1054">Comparar as duas classificações: o que a IA usou como critério, na prática?</li>
+<li data-k="k1055">Responder: existe viés aqui? Qual característica da parte (e não do mérito) influenciou a</li>
+</ol>
+<p data-k="k1056">diferença de tratamento?</p>
+<ol>
+<li data-k="k1057">Responder: como o servidor perceberia isso na rotina, sem parar para investigar cada caso?</li>
+<li data-k="k1058">Responder: o que o servidor faz diante disso, antes de decidir?</li>
+</ol>
+<p data-k="k1059"><strong>Produto esperado:</strong> uma frase nomeando o viés, um sinal prático de alerta para reconhecê-lo</p>
+<p data-k="k1060">na rotina e a ação concreta diante dele.</p>
+<h3 id="cad-22" data-k="k1061">Fechamento do módulo (após o Estudo de casos, no Encerramento)</h3>
+  </section>
+
+  <div class="rodape">
+    <p>Todos os exemplos, nomes, números e casos deste material são fictícios. A conferência e a
+    decisão sobre qualquer saída de inteligência artificial são sempre humanas
+    (Resolução CNJ 615/2025).</p>
+  </div>
+</main>
+</div>
+
+<div class="barra">
+  <button class="btn" id="b-edit">Editar</button>
+  <button class="btn" id="b-baixar">Baixar HTML</button>
+  <button class="btn" id="b-restaurar">Restaurar original</button>
+</div>
+
+<script>
+(function () {
+  var CHAVE = 'servidor-mais-ia:material-aluno';
+  var alvos = function () { return document.querySelectorAll('[data-k]'); };
+
+  function aplicarSalvos() {
+    var d = {};
+    try { d = JSON.parse(localStorage.getItem(CHAVE) || '{}'); } catch (e) { return; }
+    alvos().forEach(function (el) {
+      if (d[el.dataset.k] !== undefined) el.innerHTML = d[el.dataset.k];
+    });
+  }
+
+  function salvar() {
+    var d = {};
+    alvos().forEach(function (el) { d[el.dataset.k] = el.innerHTML; });
+    localStorage.setItem(CHAVE, JSON.stringify(d));
+  }
+
+  var editando = false;
+  document.getElementById('b-edit').addEventListener('click', function () {
+    editando = !editando;
+    this.classList.toggle('on', editando);
+    this.textContent = editando ? 'Editando (clique para sair)' : 'Editar';
+    alvos().forEach(function (el) {
+      el.contentEditable = editando ? 'true' : 'false';
+      if (!editando) el.removeAttribute('contenteditable');
+    });
+    if (!editando) salvar();
+  });
+
+  document.addEventListener('input', function (e) {
+    if (editando && e.target.closest('[data-k]')) salvar();
+  });
+
+  document.getElementById('b-baixar').addEventListener('click', function () {
+    salvar();
+    alvos().forEach(function (el) { el.removeAttribute('contenteditable'); });
+    var doc = '<!doctype html>\n' + document.documentElement.outerHTML;
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([doc], { type: 'text/html' }));
+    a.download = 'material-do-aluno.html';
+    a.click();
+  });
+
+  document.getElementById('b-restaurar').addEventListener('click', function () {
+    if (!confirm('Descartar as edições feitas neste navegador e recarregar a versão original?')) return;
+    localStorage.removeItem(CHAVE);
+    location.reload();
+  });
+
+  aplicarSalvos();
+})();
+</script>
+</body>
+</html>
