@@ -3,391 +3,352 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Portfólio de Capacitações · INOVAJUS — Justiça Federal no Ceará</title>
-<meta name="description" content="Portfólio de capacitações em inteligência artificial do INOVAJUS — Laboratório de Inovação da Justiça Federal no Ceará. Submetido a credenciamento.">
-<!-- Documento institucional em apreciação: acessível por link, fora dos buscadores.
-     Remover esta linha quando a Coordenação autorizar a indexação pública. -->
-<meta name="robots" content="noindex, nofollow">
+<title>Portfólio de Capacitações em IA · INOVAJUS · Justiça Federal no Ceará</title>
+<meta name="description" content="Portfólio de capacitações em inteligência artificial do INOVAJUS, Laboratório de Inovação da Justiça Federal no Ceará.">
 <link rel="icon" href="logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Plus+Jakarta+Sans:wght@200..800&family=JetBrains+Mono:wght@400..600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 /* ═══════════════════════════════════════════════════════════════
-   Tokens — derivados de decks-web/_shared/tokens.css (ADR-0002).
-   As cores institucionais recebem AQUI um papel semântico fixo,
-   e esse papel é mantido em toda a página:
-     azul     → 1ª linha de defesa / curso Servidor + IA
-     magenta  → 2ª e 3ª linhas / curso Transformação Administrativa
-     verde    → controle já formalizado em norma
-     laranja  → lacuna normativa declarada
-     amarelo  → em construção / previsto
+   Design system MIRA (mira-dark), reimplementado em CSS puro.
+   Tokens conforme mira-templates/themes/mira-dark.css.
+   Regras herdadas do MIRA respeitadas aqui:
+     · fundo preto puro, laranja como ÚNICA cor de marca dominante
+     · uma família tipográfica só (Inter), hierarquia por peso e tamanho
+     · glassmorphism, cantos sempre arredondados, glow laranja
+     · pílulas com raio total; hover levanta o elemento
+     · sem travessão no texto visível
    ═══════════════════════════════════════════════════════════════ */
 :root{
-  --ink:#121212; --ink-2:#1b1b1d; --ink-3:#25252a;
-  --paper:#FFFFFF; --paper-off:#F9F9F8; --paper-2:#F3F3F1;
-  --border:#E6E6E2; --border-mid:#CECEC8;
-  --sub:#484848; --muted:#767676;
-  --on-ink:#F3F3F1; --on-ink-soft:rgba(243,243,241,.72); --on-ink-faint:rgba(243,243,241,.42);
-  --border-ink:rgba(243,243,241,.14);
-  --blue:#00A0E3; --green:#7AB648; --magenta:#D41876; --orange:#F7941D; --yellow:#FFC107;
-  --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
-  --sans:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
-  --mono:'JetBrains Mono',ui-monospace,'Courier New',monospace;
-  --ease:cubic-bezier(.22,.61,.36,1);
-  --pad:clamp(20px,5vw,72px);
-  --measure:74ch;
+  --mira-primary:#FF904D;
+  --mira-primary-deep:#FF6B2C;
+  --mira-accent-2:#FFC766;
+  --mira-bg:#000000;
+  --mira-text:#ffffff;
+  --mira-text-soft:rgba(255,255,255,.70);
+  --mira-text-softer:rgba(255,255,255,.50);
+  --mira-card-bg:rgba(255,255,255,.05);
+  --mira-card-border:rgba(255,255,255,.10);
+  --mira-glow-soft:rgba(255,144,77,.15);
+  --mira-glow-strong:rgba(255,144,77,.25);
+  --mira-icon-bg:rgba(255,144,77,.15);
+  --mira-icon-border:rgba(255,144,77,.30);
+  --mira-pill-bg:rgba(255,255,255,.04);
+  --mira-pill-border:rgba(255,255,255,.08);
+  --mira-stage-glow:rgba(255,144,77,.06);
+  --font:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --ease:cubic-bezier(.2,.8,.2,1);
+  --pad:clamp(20px,5vw,64px);
+  --maxw:1180px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{
-  font-family:var(--sans);font-size:clamp(15px,.42vw + 14px,17px);
-  line-height:1.65;color:var(--ink);background:var(--paper-off);
-  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  font-family:var(--font);
+  font-size:clamp(15px,.4vw + 14px,17px);
+  line-height:1.6;
+  color:var(--mira-text);
+  background:var(--mira-bg);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
 }
 img{max-width:100%;height:auto;display:block}
-a{color:inherit}
-:focus-visible{outline:2.5px solid var(--blue);outline-offset:3px;border-radius:2px}
+:focus-visible{outline:2.5px solid var(--mira-primary);outline-offset:3px;border-radius:6px}
 
 /* ── Tipografia ─────────────────────────────────────────────── */
-.eyebrow{
-  font-family:var(--mono);font-size:.68rem;font-weight:500;
-  letter-spacing:.18em;text-transform:uppercase;color:var(--muted);max-width:none;
+h1,h2,h3,h4{letter-spacing:-.02em;line-height:1.05}
+.kicker{
+  font-size:.72rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--mira-text-softer);
 }
-.on-dark .eyebrow{color:var(--on-ink-faint)}
-h2.h{
-  font-family:var(--serif);font-weight:500;
-  font-size:clamp(2.1rem,4.4vw,3.5rem);line-height:1.04;letter-spacing:-.018em;
-  max-width:19ch;
+.h-sec{font-size:clamp(1.9rem,4.2vw,3.1rem);font-weight:800;max-width:20ch}
+.h-sec em{color:var(--mira-primary);font-style:italic}
+.h-sub{font-size:clamp(1.15rem,1.8vw,1.5rem);font-weight:700}
+.lede{
+  font-size:clamp(1rem,1vw + .78rem,1.2rem);line-height:1.5;
+  color:var(--mira-text-soft);max-width:52ch;
 }
-h3.sh{
-  font-family:var(--serif);font-weight:600;
-  font-size:clamp(1.4rem,2.1vw,1.85rem);line-height:1.12;letter-spacing:-.012em;
-}
-h4{font-size:.95rem;font-weight:700;letter-spacing:-.005em}
-p{max-width:var(--measure)}
-.lede{font-size:clamp(1.06rem,1.15vw + .8rem,1.32rem);line-height:1.5;color:var(--sub);max-width:58ch}
-.on-dark .lede{color:var(--on-ink-soft)}
-.small{font-size:.86rem;line-height:1.55;color:var(--sub)}
-.on-dark .small{color:var(--on-ink-soft)}
-.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
-em.turn{font-style:italic;font-family:var(--serif)}
+.soft{color:var(--mira-text-soft)}
+.softer{color:var(--mira-text-softer)}
+.primary{color:var(--mira-primary)}
+.gold{color:var(--mira-accent-2)}
+.num{font-variant-numeric:tabular-nums}
+p{max-width:70ch}
 
 /* ── Estrutura ──────────────────────────────────────────────── */
-.wrap{max-width:1200px;margin:0 auto;padding-inline:var(--pad)}
-section{padding-block:clamp(64px,9vw,132px);position:relative}
-.on-dark{background:var(--ink);color:var(--on-ink)}
-.on-dark h2.h,.on-dark h3.sh,.on-dark h4{color:var(--on-ink)}
-.sec-head{margin-bottom:clamp(36px,5vw,64px)}
-.sec-head .eyebrow{display:block;margin-bottom:14px}
-.sec-head .lede{margin-top:20px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--pad);width:100%}
+section{padding-block:clamp(60px,8vw,120px);position:relative}
+.sec-head{margin-bottom:clamp(32px,4.5vw,58px)}
+.sec-head .kicker{display:block;margin-bottom:14px}
+.sec-head .lede{margin-top:18px}
 
-/* Marcador de seção no estilo do próprio dossiê de origem (§) */
-.sec-mark{
-  font-family:var(--mono);font-size:.68rem;font-weight:600;letter-spacing:.1em;
-  color:var(--muted);display:inline-block;margin-right:14px;
+/* Pílula, idioma central do MIRA */
+.pill{
+  display:inline-flex;align-items:center;gap:9px;
+  background:var(--mira-pill-bg);border:1px solid var(--mira-pill-border);
+  border-radius:9999px;padding:7px 16px;
+  font-size:.74rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--mira-text-soft);transition:all .25s ease;
 }
-.on-dark .sec-mark{color:var(--on-ink-faint)}
+.pill:hover{background:var(--mira-icon-bg);border-color:var(--mira-icon-border);transform:translateY(-3px)}
+.pill.on{color:var(--mira-primary);border-color:var(--mira-icon-border);background:var(--mira-icon-bg)}
+.pill.plain{text-transform:none;letter-spacing:0;font-weight:500;font-size:.8rem}
 
-/* ── Trilho de navegação ────────────────────────────────────── */
-.rail{
-  position:fixed;left:22px;top:50%;transform:translateY(-50%);z-index:60;
-  display:flex;flex-direction:column;gap:2px;mix-blend-mode:difference;
+/* Glass card */
+.glass{
+  background:var(--mira-card-bg);backdrop-filter:blur(10px);
+  border:1px solid var(--mira-card-border);border-radius:.75rem;
+  box-shadow:0 10px 30px var(--mira-glow-soft);
+  transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease;
 }
+.glass:hover{transform:translateY(-8px);box-shadow:0 20px 40px var(--mira-glow-strong)}
+
+/* ── Trilho ─────────────────────────────────────────────────── */
+.rail{position:fixed;left:20px;top:50%;transform:translateY(-50%);z-index:60;
+  display:flex;flex-direction:column;gap:3px}
 .rail a{
-  font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;
-  color:#8a8a8a;text-decoration:none;padding:5px 6px;border-radius:3px;
-  display:flex;align-items:center;gap:8px;transition:color .3s var(--ease);
+  font-size:.62rem;font-weight:600;letter-spacing:.08em;color:rgba(255,255,255,.3);
+  text-decoration:none;padding:5px 6px;border-radius:9999px;
+  display:flex;align-items:center;gap:9px;transition:color .3s var(--ease);
 }
-.rail a::before{content:"";width:14px;height:1.5px;background:currentColor;transition:width .35s var(--ease)}
-.rail a:hover,.rail a.on{color:#fff}
+.rail a::before{content:"";width:14px;height:2px;border-radius:2px;background:currentColor;
+  transition:width .35s var(--ease)}
+.rail a:hover,.rail a.on{color:var(--mira-primary)}
 .rail a.on::before{width:30px}
 .rail span{opacity:0;transition:opacity .3s var(--ease);white-space:nowrap}
 .rail a:hover span,.rail a.on span{opacity:1}
-@media(max-width:1180px){.rail{display:none}}
+@media(max-width:1160px){.rail{display:none}}
 
 /* ── Capa ───────────────────────────────────────────────────── */
 .hero{
   min-height:100svh;display:flex;flex-direction:column;justify-content:space-between;
+  padding-block:clamp(26px,4vw,46px);overflow:hidden;
   background:
-    radial-gradient(ellipse 70% 44% at 12% -6%,rgba(0,160,227,.16),transparent 62%),
-    radial-gradient(ellipse 60% 40% at 96% 106%,rgba(212,24,118,.13),transparent 62%),
-    var(--ink);
-  padding-block:clamp(28px,5vw,52px);
+    radial-gradient(ellipse 62% 46% at 14% -8%,var(--mira-glow-strong),transparent 62%),
+    radial-gradient(ellipse 55% 40% at 96% 108%,rgba(255,199,102,.12),transparent 62%),
+    var(--mira-bg);
 }
-.hero > .wrap{width:100%}   /* auto-margin em flex-column cancela o stretch */
-.hero-top{display:flex;align-items:flex-start;justify-content:space-between;gap:28px;flex-wrap:wrap}
-/* A marca tem tipografia em tinta escura: sobre o fundo ink ela precisa de placa clara. */
-.hero-mark{background:var(--paper);border-radius:3px;padding:12px 14px;line-height:0}
-.hero-mark img{width:104px}
-.hero-org{text-align:right;font-family:var(--mono);font-size:.66rem;letter-spacing:.13em;
-  text-transform:uppercase;color:var(--on-ink-faint);line-height:2}
-.hero-mid{padding-block:clamp(28px,4vw,48px)}
+.hero > .wrap{width:100%}
+.hero-top{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.hero-mark{background:#fff;border-radius:.75rem;padding:11px 13px;line-height:0}
+.hero-mark img{width:100px}
+.hero-org{text-align:right;font-size:.7rem;font-weight:500;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--mira-text-softer);line-height:2}
+.hero-mid{padding-block:clamp(20px,2.6vw,34px)}
 .hero h1{
-  font-family:var(--serif);font-weight:400;color:var(--on-ink);
-  font-size:clamp(2.5rem,6.4vw,5.3rem);line-height:1;letter-spacing:-.026em;
-  max-width:16ch;margin-top:10px;
+  font-size:clamp(2.3rem,5.5vw,4.5rem);font-weight:900;line-height:1.02;
+  letter-spacing:-.03em;max-width:16ch;margin:20px 0 0;text-wrap:balance;
 }
-.hero h1 .turn{color:#fff;font-weight:500}
-.hero .lede{margin-top:30px;max-width:52ch}
-.hero-foot{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.hero h1 .g{
+  background:linear-gradient(100deg,#fff 12%,var(--mira-accent-2) 52%,var(--mira-primary) 92%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero .lede{margin-top:26px;max-width:50ch}
 
-/* Faixa das capacitações na capa */
-.strip{display:flex;flex-wrap:wrap;gap:0;border-top:1px solid var(--border-ink);width:100%}
+.strip{display:flex;flex-wrap:wrap;gap:10px;width:100%}
 .strip div{
-  flex:1 1 128px;padding:16px 18px 4px 0;border-right:1px solid var(--border-ink);
-  padding-right:18px;
+  flex:1 1 168px;background:var(--mira-card-bg);border:1px solid var(--mira-card-border);
+  border-radius:.75rem;padding:16px 18px;transition:all .3s ease;
 }
-.strip div:last-child{border-right:0}
-.strip b{
-  display:block;font-family:var(--mono);font-size:1.42rem;font-weight:500;
-  color:var(--on-ink);letter-spacing:-.02em;
+.strip div:hover{border-color:var(--mira-icon-border);transform:translateY(-4px)}
+.strip b{display:block;font-size:1.55rem;font-weight:800;color:var(--mira-primary);letter-spacing:-.03em}
+.strip span{display:block;font-size:.78rem;color:var(--mira-text-softer);margin-top:4px;line-height:1.35}
+.cue{font-size:.68rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--mira-text-softer);margin-top:22px}
+.cue::after{content:" ↓";display:inline-block;animation:bob 2.6s var(--ease) infinite}
+@keyframes bob{0%,100%{opacity:.35;transform:translateY(0)}50%{opacity:1;transform:translateY(3px)}}
+
+/* ── Cartões do portfólio ───────────────────────────────────── */
+.cards{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,268px),1fr))}
+.card{padding:clamp(22px,2.3vw,30px);display:flex;flex-direction:column;gap:11px}
+.card .tag{font-size:.66rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--mira-text-softer)}
+.card.feat .tag{color:var(--mira-primary)}
+.card.feat{border-color:var(--mira-icon-border);box-shadow:0 10px 34px var(--mira-glow-strong)}
+.card h3{font-size:1.3rem;font-weight:700}
+.card .ch{font-size:.86rem;font-weight:700;color:var(--mira-accent-2)}
+.card.feat .ch{color:var(--mira-primary)}
+.card p{font-size:.88rem;color:var(--mira-text-soft);margin-top:auto}
+
+/* ── Bloco de destaque normativo ────────────────────────────── */
+.claim{
+  border-radius:.75rem;border:1px solid var(--mira-icon-border);
+  background:linear-gradient(140deg,rgba(255,144,77,.10),rgba(255,144,77,.02) 62%);
+  padding:clamp(26px,3.4vw,46px);
 }
-.strip span{display:block;font-size:.76rem;color:var(--on-ink-faint);margin-top:3px;line-height:1.4}
-.scroll-cue{font-family:var(--mono);font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--on-ink-faint);margin-top:26px}
-.scroll-cue::after{content:" ↓";animation:bob 2.6s var(--ease) infinite}
-@keyframes bob{0%,100%{opacity:.4}50%{opacity:1}}
+.claim h3{font-size:clamp(1.35rem,2.5vw,2rem);font-weight:800;max-width:26ch;margin-bottom:14px}
+.claim p{color:var(--mira-text-soft);max-width:76ch}
+.arts{display:grid;gap:12px;margin-top:24px;
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,208px),1fr))}
+.art{background:rgba(0,0,0,.35);border:1px solid var(--mira-card-border);
+  border-radius:.75rem;padding:16px 18px}
+.art b{display:block;font-size:.78rem;font-weight:700;color:var(--mira-primary);
+  letter-spacing:.04em;margin-bottom:5px}
+.art span{font-size:.83rem;color:var(--mira-text-soft);line-height:1.45}
 
-/* ── Malha do portfólio ─────────────────────────────────────── */
-.grid-port{display:grid;gap:1px;background:var(--border);border:1px solid var(--border);
-  grid-template-columns:repeat(auto-fit,minmax(min(100%,258px),1fr))}
-.card{background:var(--paper);padding:clamp(22px,2.4vw,32px);display:flex;flex-direction:column;gap:12px;
-  position:relative;transition:background .3s var(--ease)}
-.card:hover{background:var(--paper-off)}
-.card .tag{
-  font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;
-  display:inline-flex;align-items:center;gap:7px;color:var(--sub);
+/* ── Módulos ────────────────────────────────────────────────── */
+.mods{display:flex;flex-direction:column;gap:10px}
+.mod{
+  background:var(--mira-card-bg);border:1px solid var(--mira-card-border);
+  border-radius:.75rem;padding:18px clamp(16px,2vw,24px);
+  display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:baseline;
+  transition:all .3s ease;
 }
-.card .tag::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--c,var(--muted));flex:none}
-.card h3{font-family:var(--serif);font-size:1.5rem;font-weight:600;line-height:1.1;letter-spacing:-.012em}
-.card .ch{font-family:var(--mono);font-size:.82rem;color:var(--ink);font-weight:500}
-.card p{font-size:.88rem;color:var(--sub);margin-top:auto}
-.card .status{font-size:.74rem;font-family:var(--mono);color:var(--muted);padding-top:10px;
-  border-top:1px solid var(--border);margin-top:12px}
-.card.feat{outline:2px solid var(--c);outline-offset:-2px;z-index:1}
-.card.feat .ch{color:var(--c)}
-
-/* ── Destaques de curso ─────────────────────────────────────── */
-.feature{--c:var(--blue)}
-.feature .rule{height:3px;background:var(--c);width:64px;margin-bottom:22px}
-.feature .badge{
-  font-family:var(--mono);font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--c);font-weight:600;
+.mod:hover{border-color:var(--mira-icon-border);transform:translateY(-4px)}
+.mod .mi{font-size:.72rem;font-weight:800;color:var(--mira-primary);letter-spacing:.08em}
+.mod .mh{font-weight:700;font-size:1rem}
+.mod .mch{font-size:.86rem;font-weight:700;color:var(--mira-accent-2);white-space:nowrap}
+.mod .mp{grid-column:2/-1;font-size:.87rem;color:var(--mira-text-soft);margin-top:6px;max-width:74ch}
+@media(max-width:560px){
+  .mod{grid-template-columns:auto 1fr}
+  .mod .mch{grid-column:2;justify-self:start;margin-top:4px}
 }
-.cols{display:grid;gap:clamp(28px,4vw,56px);grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);align-items:start}
-@media(max-width:900px){.cols{grid-template-columns:1fr}}
 
-/* Ficha técnica */
-.ficha{border-top:1px solid var(--ink);font-size:.87rem}
-.on-dark .ficha{border-top-color:var(--on-ink-faint)}
-.ficha div{display:grid;grid-template-columns:minmax(120px,.42fr) 1fr;gap:16px;
-  padding:11px 0;border-bottom:1px solid var(--border)}
-.on-dark .ficha div{border-bottom-color:var(--border-ink)}
-.ficha dt{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--muted);padding-top:3px}
-.on-dark .ficha dt{color:var(--on-ink-faint)}
-.ficha dd{font-weight:500}
+/* ── Diferenciais ───────────────────────────────────────────── */
+.marks{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,232px),1fr))}
+.mark{background:var(--mira-card-bg);border:1px solid var(--mira-card-border);
+  border-radius:.75rem;padding:20px 22px;transition:all .3s ease}
+.mark:hover{border-color:var(--mira-icon-border);transform:translateY(-4px)}
+.mark b{display:block;font-size:.95rem;font-weight:700;margin-bottom:6px}
+.mark span{font-size:.85rem;color:var(--mira-text-soft);line-height:1.5}
 
-/* Módulos (trilha) */
-.mods{display:flex;flex-direction:column;gap:1px;background:var(--border);border:1px solid var(--border)}
-.mod{background:var(--paper);padding:20px clamp(18px,2vw,26px);display:grid;
-  grid-template-columns:auto 1fr auto;gap:18px;align-items:baseline}
-.mod .mi{font-family:var(--mono);font-size:.7rem;font-weight:600;color:var(--c);letter-spacing:.06em}
-.mod .mh{font-weight:600;font-size:1rem;letter-spacing:-.01em}
-.mod .mp{grid-column:2/-1;font-size:.86rem;color:var(--sub);margin-top:5px}
-.mod .mch{font-family:var(--mono);font-size:.86rem;font-weight:500;white-space:nowrap}
-@media(max-width:560px){.mod{grid-template-columns:auto 1fr}.mod .mch{grid-column:2;justify-self:start;margin-top:4px}}
-
-/* Unidades atendidas (accordion) */
-.units{border:1px solid var(--border);background:var(--paper)}
-.units details{border-bottom:1px solid var(--border)}
-.units details:last-child{border-bottom:0}
+/* ── Unidades ───────────────────────────────────────────────── */
+.units{display:flex;flex-direction:column;gap:8px}
+.units details{background:var(--mira-card-bg);border:1px solid var(--mira-card-border);
+  border-radius:.75rem;overflow:hidden;transition:border-color .3s ease}
+.units details[open]{border-color:var(--mira-icon-border)}
 .units summary{
-  padding:15px clamp(16px,2vw,24px);cursor:pointer;display:flex;gap:14px;align-items:center;
-  font-weight:600;font-size:.92rem;list-style:none;transition:background .2s var(--ease);
+  padding:15px clamp(16px,2vw,22px);cursor:pointer;display:flex;gap:12px;align-items:center;
+  flex-wrap:wrap;font-weight:600;font-size:.93rem;list-style:none;transition:background .25s ease;
 }
 .units summary::-webkit-details-marker{display:none}
-.units summary:hover{background:var(--paper-off)}
-.units summary::after{content:"+";margin-left:auto;font-family:var(--mono);color:var(--muted);
-  font-size:1.05rem;transition:transform .3s var(--ease)}
+.units summary:hover{background:rgba(255,255,255,.03)}
+.units summary::after{content:"+";margin-left:auto;color:var(--mira-primary);
+  font-size:1.15rem;font-weight:300;transition:transform .3s var(--ease)}
 .units details[open] summary::after{transform:rotate(45deg)}
-.units summary .u-ch{font-family:var(--mono);font-size:.74rem;color:var(--muted);font-weight:500}
-.units summary .dot{width:8px;height:8px;border-radius:50%;background:var(--magenta);flex:none;opacity:.85}
-.units summary.line2 .dot{background:var(--magenta)}
-.units .u-body{padding:2px clamp(16px,2vw,24px) 22px;font-size:.88rem;color:var(--sub)}
-.units .u-body ul{margin:8px 0 0 18px;display:grid;gap:5px}
-.units .u-body .day{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--ink);font-weight:600;margin-top:14px;display:block}
-.units .u-body .day:first-child{margin-top:0}
-.lin-badge{font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;
-  padding:3px 7px;border:1px solid var(--border-mid);border-radius:2px;color:var(--sub);white-space:nowrap}
-.lin-badge.l2{border-color:var(--magenta);color:var(--magenta)}
-.lin-badge.l3{border-color:var(--magenta);color:var(--magenta);background:rgba(212,24,118,.07)}
+.units .u-ch{font-size:.76rem;font-weight:700;color:var(--mira-accent-2)}
+.units .u-body{padding:0 clamp(16px,2vw,22px) 20px}
+.units .u-body ul{margin:0 0 0 17px;display:grid;gap:6px}
+.units .u-body li{font-size:.87rem;color:var(--mira-text-soft);line-height:1.5}
+.units .u-body li::marker{color:var(--mira-primary)}
+.badge-l{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  padding:4px 10px;border-radius:9999px;white-space:nowrap;
+  background:var(--mira-icon-bg);border:1px solid var(--mira-icon-border);color:var(--mira-primary)}
 
-/* ── Risco: régua de sigilo ─────────────────────────────────── */
-.regua{display:grid;gap:1px;background:var(--border-ink);border:1px solid var(--border-ink);margin-top:8px}
-.regua > div{background:var(--ink-2);padding:18px 20px;display:grid;
-  grid-template-columns:26px 1fr auto;gap:16px;align-items:start}
-.regua .lv{font-family:var(--mono);font-size:.72rem;font-weight:600;color:var(--on-ink-faint)}
-.regua b{display:block;font-size:.96rem;font-weight:600;letter-spacing:-.008em}
-.regua p{font-size:.84rem;color:var(--on-ink-soft);margin-top:4px;max-width:none}
-.regua .verdict{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;
-  padding:5px 9px;border-radius:2px;white-space:nowrap;font-weight:600;align-self:center}
-.v-ok{background:rgba(122,182,72,.16);color:#9ED170;border:1px solid rgba(122,182,72,.4)}
-.v-warn{background:rgba(255,193,7,.14);color:#FFCE3A;border:1px solid rgba(255,193,7,.36)}
-.v-no{background:rgba(247,148,29,.15);color:#FFAB4A;border:1px solid rgba(247,148,29,.4)}
-.v-stop{background:rgba(212,24,118,.18);color:#FF6BAE;border:1px solid rgba(212,24,118,.5)}
+/* ── Risco ──────────────────────────────────────────────────── */
+.risk{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,258px),1fr))}
+.risk > div{background:var(--mira-card-bg);border:1px solid var(--mira-card-border);
+  border-radius:.75rem;padding:24px 22px;transition:all .3s ease}
+.risk > div:hover{transform:translateY(-6px);box-shadow:0 18px 38px var(--mira-glow-soft)}
+.risk .lbl{font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+  margin-bottom:12px;display:flex;align-items:center;gap:9px}
+.risk .lbl::before{content:"";width:9px;height:9px;border-radius:50%;background:currentColor;flex:none}
+.risk .r1 .lbl{color:var(--mira-primary)}
+.risk .r2 .lbl{color:var(--mira-accent-2)}
+.risk .r3 .lbl{color:var(--mira-text-soft)}
+.risk .r1{border-color:var(--mira-icon-border)}
+.risk p{font-size:.87rem;color:var(--mira-text-soft);max-width:none}
+.risk ul{margin:10px 0 0 16px;display:grid;gap:4px}
+.risk li{font-size:.82rem;color:var(--mira-text-softer);line-height:1.45}
+.risk .src{margin-top:14px;padding-top:12px;border-top:1px solid var(--mira-card-border);
+  font-size:.72rem;font-weight:600;color:var(--mira-text-softer)}
 
-/* Classificação de risco */
-/* Empilhado: a escada de severidade se lê de cima para baixo, em paralelo à régua ao lado. */
-.risk3{display:grid;gap:1px;background:var(--border-ink);border:1px solid var(--border-ink)}
-.risk3 > div{background:var(--ink-2);padding:20px 22px}
-.risk3 .lbl{font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;
-  font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:8px}
-.risk3 .lbl::before{content:"";width:9px;height:9px;border-radius:50%;background:currentColor}
-.risk3 .r-lo .lbl{color:#9ED170}.risk3 .r-md .lbl{color:#FFCE3A}.risk3 .r-hi .lbl{color:#FF8A3D}
-.risk3 p{font-size:.87rem;color:var(--on-ink-soft);max-width:none}
-.risk3 .req{margin-top:14px;padding-top:12px;border-top:1px solid var(--border-ink);
-  font-family:var(--mono);font-size:.72rem;color:var(--on-ink)}
-
-/* ── Assinatura: as três linhas ─────────────────────────────── */
-.linhas{display:flex;flex-direction:column;gap:1px;background:var(--border-ink);
-  border:1px solid var(--border-ink);margin-top:10px}
-.linha{background:var(--ink-2);padding:clamp(22px,2.6vw,34px);
-  display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:clamp(20px,3vw,42px)}
+/* ── Três linhas ────────────────────────────────────────────── */
+.linhas{display:flex;flex-direction:column;gap:14px}
+.linha{
+  background:var(--mira-card-bg);border:1px solid var(--mira-card-border);border-radius:.75rem;
+  padding:clamp(22px,2.6vw,34px);
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(20px,3vw,40px);
+  transition:all .3s ease;
+}
+.linha:hover{border-color:var(--mira-icon-border);box-shadow:0 16px 40px var(--mira-glow-soft)}
 @media(max-width:860px){.linha{grid-template-columns:1fr}}
-.linha-id{display:flex;align-items:baseline;gap:12px;margin-bottom:14px}
-.linha-id .n{font-family:var(--serif);font-size:2.6rem;font-weight:500;line-height:.8;color:var(--lc)}
-.linha-id .t{font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--lc);font-weight:600}
-.linha h3{font-family:var(--serif);font-size:1.5rem;font-weight:600;line-height:1.12;margin-bottom:8px}
-.linha .who{font-size:.88rem;color:var(--on-ink-soft)}
-.linha .who b{color:var(--on-ink);font-weight:600}
+.linha-id{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.linha-id .n{font-size:2.4rem;font-weight:900;line-height:.8;color:var(--lc);letter-spacing:-.05em}
+.linha-id .t{font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--lc)}
+.linha h3{font-size:1.35rem;font-weight:700;margin-bottom:8px}
+.linha .who{font-size:.9rem;color:var(--mira-text-soft)}
+.linha .who b{color:var(--mira-text);font-weight:700}
 .ctrls{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px}
-.ctrl{
-  font-size:.76rem;padding:6px 11px;border-radius:2px;border:1px solid var(--border-ink);
-  background:rgba(255,255,255,.03);color:var(--on-ink-soft);display:inline-flex;align-items:center;gap:7px;
-  cursor:help;transition:border-color .25s var(--ease),color .25s var(--ease);
-}
-.ctrl:hover{border-color:rgba(243,243,241,.4);color:var(--on-ink)}
-.ctrl::before{content:"";width:6px;height:6px;border-radius:50%;flex:none}
-.ctrl.ok::before{background:var(--green)}
-.ctrl.gap::before{background:var(--orange)}
-.ctrl.soon::before{background:var(--yellow)}
-.dock{border-left:2px solid var(--lc);padding-left:clamp(16px,2vw,24px);align-self:start}
-.dock .dl{font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--on-ink-faint);margin-bottom:12px}
-.dock .dcourse{margin-bottom:16px}
-.dock .dcourse:last-child{margin-bottom:0}
-.dock .dcourse b{display:block;font-size:1.02rem;font-weight:600;letter-spacing:-.01em}
-.dock .dcourse span{display:block;font-size:.83rem;color:var(--on-ink-soft);margin-top:3px}
-.dock .dcourse .dch{font-family:var(--mono);font-size:.74rem;color:var(--lc);margin-top:5px;display:block}
-.dock .none{font-size:.86rem;color:var(--on-ink-soft);font-style:italic}
+.ctrl{font-size:.76rem;font-weight:500;padding:6px 13px;border-radius:9999px;
+  background:var(--mira-pill-bg);border:1px solid var(--mira-pill-border);
+  color:var(--mira-text-soft);transition:all .25s ease}
+.ctrl:hover{background:var(--mira-icon-bg);border-color:var(--mira-icon-border);transform:translateY(-3px)}
+.dock{border-left:2px solid var(--lc);padding-left:clamp(16px,2vw,22px);align-self:start}
+.dock .dl{font-size:.64rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--mira-text-softer);margin-bottom:12px}
+.dcourse{margin-bottom:16px}
+.dcourse:last-child{margin-bottom:0}
+.dcourse b{display:block;font-size:1rem;font-weight:700}
+.dcourse span{display:block;font-size:.85rem;color:var(--mira-text-soft);margin-top:4px}
+.dcourse .dch{display:block;font-size:.76rem;font-weight:700;color:var(--lc);margin-top:6px}
 
-.legend{display:flex;flex-wrap:wrap;gap:18px;margin-top:22px;font-size:.76rem;color:var(--on-ink-soft);
-  font-family:var(--mono);letter-spacing:.02em}
-.legend i{display:inline-flex;align-items:center;gap:7px;font-style:normal}
-.legend i::before{content:"";width:7px;height:7px;border-radius:50%}
-.legend .lg-ok::before{background:var(--green)}
-.legend .lg-gap::before{background:var(--orange)}
-.legend .lg-soon::before{background:var(--yellow)}
+/* ── Tabela ─────────────────────────────────────────────────── */
+.tablewrap{overflow-x:auto;border:1px solid var(--mira-card-border);border-radius:.75rem;
+  background:var(--mira-card-bg)}
+table{border-collapse:collapse;width:100%;min-width:720px;font-size:.87rem}
+th,td{text-align:left;padding:14px 16px;border-bottom:1px solid var(--mira-card-border);
+  vertical-align:top}
+thead th{font-size:.66rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--mira-text-softer);background:rgba(255,255,255,.03)}
+tbody th{font-weight:700;color:var(--mira-text);width:26%}
+tbody td{color:var(--mira-text-soft)}
+tbody tr:last-child th,tbody tr:last-child td{border-bottom:0}
+tbody tr:hover td,tbody tr:hover th{background:rgba(255,144,77,.05)}
 
-/* Nota de lacuna */
-.gapnote{
-  border-left:3px solid var(--orange);background:rgba(247,148,29,.07);
-  padding:22px clamp(18px,2.4vw,28px);margin-top:36px;
-}
-.gapnote .eyebrow{color:var(--orange);display:block;margin-bottom:10px}
-.gapnote p{font-size:.94rem;color:var(--on-ink-soft);max-width:70ch}
-.gapnote p + p{margin-top:10px}
-.gapnote b{color:var(--on-ink)}
-
-/* ── Tabela de credenciamento ───────────────────────────────── */
-.tablewrap{overflow-x:auto;border:1px solid var(--border);background:var(--paper)}
-table{border-collapse:collapse;width:100%;min-width:760px;font-size:.86rem}
-th,td{text-align:left;padding:13px 16px;border-bottom:1px solid var(--border);vertical-align:top}
-thead th{
-  font-family:var(--mono);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--muted);font-weight:600;background:var(--paper-off);position:sticky;top:0;
-  border-bottom:1px solid var(--border-mid);
-}
-tbody th{font-weight:600;font-size:.92rem;width:24%}
-tbody tr:last-child td,tbody tr:last-child th{border-bottom:0}
-tbody tr:hover{background:var(--paper-off)}
-td .num{font-weight:500}
-.cdot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:8px;vertical-align:1px}
-
-/* ── Normas ─────────────────────────────────────────────────── */
-.norms{display:grid;gap:1px;background:var(--border);border:1px solid var(--border);
-  grid-template-columns:repeat(auto-fit,minmax(min(100%,232px),1fr))}
-.norms div{background:var(--paper);padding:20px 22px}
-.norms b{font-family:var(--mono);font-size:.82rem;font-weight:600;display:block;letter-spacing:-.01em}
-.norms span{display:block;font-size:.82rem;color:var(--sub);margin-top:6px}
-
-/* ── Bibliografia ───────────────────────────────────────────── */
-.biblio{margin-top:20px;padding-left:0;list-style:none;counter-reset:b;
-  border-top:1px solid var(--border);max-width:88ch}
-.biblio li{counter-increment:b;padding:14px 0 14px 42px;border-bottom:1px solid var(--border);
-  font-size:.88rem;line-height:1.6;position:relative;text-indent:0}
-.biblio li::before{content:counter(b,decimal-leading-zero);position:absolute;left:0;top:15px;
-  font-family:var(--mono);font-size:.7rem;color:var(--muted)}
-.biblio em{font-style:italic}
-
-/* ── Docentes ───────────────────────────────────────────────── */
-.docentes{display:grid;gap:clamp(20px,3vw,40px);grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
-.doc{border-top:2px solid var(--ink);padding-top:18px}
-.doc b{font-family:var(--serif);font-size:1.32rem;font-weight:600;display:block;letter-spacing:-.01em}
-.doc .role{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--muted);margin:6px 0 12px;display:block}
-.doc p{font-size:.87rem;color:var(--sub)}
+/* ── Normas e docentes ──────────────────────────────────────── */
+.norms{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,244px),1fr))}
+.norms > div{background:var(--mira-card-bg);border:1px solid var(--mira-card-border);
+  border-radius:.75rem;padding:20px 22px;transition:all .3s ease}
+.norms > div:hover{border-color:var(--mira-icon-border);transform:translateY(-4px)}
+.norms b{display:block;font-size:.9rem;font-weight:700;color:var(--mira-primary)}
+.norms span{display:block;font-size:.83rem;color:var(--mira-text-soft);margin-top:7px;line-height:1.5}
+.docentes{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,296px),1fr))}
+.doc{background:var(--mira-card-bg);border:1px solid var(--mira-card-border);
+  border-radius:.75rem;padding:24px}
+.doc b{font-size:1.15rem;font-weight:700;display:block}
+.doc .role{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--mira-primary);margin:7px 0 12px;display:block}
+.doc p{font-size:.86rem;color:var(--mira-text-soft)}
 
 /* ── Fecho ──────────────────────────────────────────────────── */
-.close h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.9rem,4.2vw,3.2rem);
-  line-height:1.08;letter-spacing:-.02em;max-width:20ch;color:var(--on-ink)}
-.close .turn{font-style:italic}
-footer{border-top:1px solid var(--border-ink);margin-top:clamp(48px,7vw,88px);padding-top:26px;
-  display:flex;justify-content:space-between;gap:22px;flex-wrap:wrap;
-  font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;color:var(--on-ink-faint)}
+.close h2{font-size:clamp(1.8rem,4vw,3rem);font-weight:900;line-height:1.08;max-width:20ch}
+.close h2 em{color:var(--mira-primary);font-style:italic}
+footer{border-top:1px solid var(--mira-card-border);margin-top:clamp(44px,6vw,80px);
+  padding-top:24px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
+  font-size:.72rem;font-weight:500;letter-spacing:.05em;color:var(--mira-text-softer)}
 
-/* ── Revelação em scroll ────────────────────────────────────── */
-.rv{opacity:0;transform:translateY(22px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+/* ── Reveal ─────────────────────────────────────────────────── */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
 .rv.in{opacity:1;transform:none}
 .rv-d1{transition-delay:.08s}.rv-d2{transition-delay:.16s}.rv-d3{transition-delay:.24s}
 
-/* ── Modo de edição ─────────────────────────────────────────── */
-#editbar{
-  position:fixed;right:16px;bottom:16px;z-index:90;display:flex;gap:6px;align-items:center;
-  background:rgba(18,18,18,.94);border:1px solid rgba(243,243,241,.18);border-radius:100px;
-  padding:6px;backdrop-filter:blur(10px);box-shadow:0 8px 32px rgba(0,0,0,.3);
-}
+/* ── Edição ─────────────────────────────────────────────────── */
+#editbar{position:fixed;right:16px;bottom:16px;z-index:90;display:flex;gap:6px;align-items:center;
+  background:rgba(20,20,20,.92);border:1px solid var(--mira-card-border);border-radius:9999px;
+  padding:6px;backdrop-filter:blur(10px);box-shadow:0 10px 30px rgba(0,0,0,.5)}
 #editbar .tools{display:flex;gap:4px;align-items:center}
 #editbar.collapsed .tools{display:none}
-#btn-toggle{
-  width:34px;height:34px;padding:0;border-radius:50%;flex:none;font-size:.9rem!important;
-  letter-spacing:0!important;display:grid;place-items:center;
-}
+#btn-toggle{width:34px;height:34px;padding:0;border-radius:50%;flex:none;
+  font-size:.9rem!important;letter-spacing:0!important;display:grid;place-items:center}
 #editbar button{
-  font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;
-  background:transparent;border:0;color:rgba(243,243,241,.66);padding:7px 13px;border-radius:100px;
-  cursor:pointer;transition:background .2s,color .2s;
+  font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  font-family:var(--font);background:transparent;border:0;color:var(--mira-text-soft);
+  padding:7px 13px;border-radius:9999px;cursor:pointer;transition:all .2s ease;
 }
-#editbar button:hover{background:rgba(243,243,241,.1);color:#fff}
-#editbar button.active{background:var(--blue);color:#04121a;font-weight:600}
-body.editing [data-edit]{outline:1px dashed rgba(0,160,227,.55);outline-offset:3px;border-radius:2px}
-body.editing [data-edit]:focus{outline:2px solid var(--blue);background:rgba(0,160,227,.07)}
-#toast{
-  position:fixed;left:50%;bottom:78px;transform:translate(-50%,14px);z-index:95;
-  background:var(--ink);color:var(--on-ink);font-family:var(--mono);font-size:.72rem;
-  padding:10px 18px;border-radius:100px;border:1px solid rgba(243,243,241,.2);
-  opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;
-}
+#editbar button:hover{background:var(--mira-icon-bg);color:var(--mira-primary)}
+#editbar button.active{background:var(--mira-primary);color:#1a0d04;font-weight:800}
+body.editing [data-edit]{outline:1px dashed var(--mira-icon-border);outline-offset:3px;border-radius:4px}
+body.editing [data-edit]:focus{outline:2px solid var(--mira-primary);background:rgba(255,144,77,.07)}
+#toast{position:fixed;left:50%;bottom:76px;transform:translate(-50%,14px);z-index:95;
+  background:rgba(20,20,20,.96);color:var(--mira-text);font-size:.74rem;font-weight:500;
+  padding:10px 18px;border-radius:9999px;border:1px solid var(--mira-card-border);
+  opacity:0;pointer-events:none;transition:opacity .3s,transform .3s}
 #toast.show{opacity:1;transform:translate(-50%,0)}
 
 @media(max-width:640px){
   .hero-org{text-align:left}
-  .strip > div{border-right:0;border-bottom:1px solid var(--border-ink);padding-bottom:14px}
-  .strip > div:last-child{border-bottom:0}
 }
 @media(prefers-reduced-motion:reduce){
   *{animation-duration:.01ms!important;animation-iteration-count:1!important;
@@ -395,49 +356,28 @@ body.editing [data-edit]:focus{outline:2px solid var(--blue);background:rgba(0,1
   .rv{opacity:1;transform:none}
 }
 
-/* ── Impressão / anexo ao SEI ───────────────────────────────── */
+/* ── Impressão: o preto do MIRA não vai para o papel ────────── */
 @media print{
-  body{background:#fff;color:#000;font-size:10.5pt}
-  .rail,#editbar,#toast,.scroll-cue{display:none!important}
+  body{background:#fff!important;color:#000;font-size:10.5pt}
+  .rail,#editbar,#toast,.cue{display:none!important}
   .rv{opacity:1!important;transform:none!important}
-  .hero{min-height:auto;display:block;background:#fff!important;color:#000;page-break-after:always}
-  .hero-mid{padding-block:18pt}
-  /* .turn é branco na tela; sem esta regra some no papel */
-  .hero h1,.hero h1 .turn,.hero .lede,.hero-org,.strip b,.strip span{color:#000!important}
+  *{color:#000!important;background:transparent!important;background-image:none!important;
+    box-shadow:none!important;text-shadow:none!important;transform:none!important}
+  .hero{min-height:auto;display:block;page-break-after:always}
+  .hero h1 .g{-webkit-text-fill-color:#000!important;color:#000!important}
   .hero-mark{padding:0}
-  /* Regra de base: tudo que era claro sobre tinta vira preto no papel.
-     As cores de acento voltam nas regras abaixo, que vêm depois. */
-  .on-dark{background:#fff!important}
-  .on-dark *{color:#000!important;background-color:transparent!important}
-  .linha,.regua > div,.risk3 > div{border:1px solid #ccc}
-  .on-dark .eyebrow,.on-dark .sec-mark{color:#555!important}
-  .ctrl{border-color:#bbb!important}
-  .verdict{border-width:1px!important}
-  .regua .v-ok{color:#3F6B1E!important;border-color:#3F6B1E!important}
-  .regua .v-warn{color:#8A6100!important;border-color:#8A6100!important}
-  .regua .v-no{color:#A65B00!important;border-color:#A65B00!important}
-  .regua .v-stop{color:#A00F58!important;border-color:#A00F58!important}
-  .risk3 .lbl::before,.ctrl::before,.legend i::before{
-    -webkit-print-color-adjust:exact;print-color-adjust:exact}
-  #risco .tablewrap{border-color:#ccc!important}
-  #risco thead th{background:#f2f2f2!important;color:#444!important;border-color:#ccc!important;
-    -webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .risk3 .r-lo .lbl{color:#3F6B1E!important}
-  .risk3 .r-md .lbl{color:#8A6100!important}
-  .risk3 .r-hi .lbl{color:#A65B00!important}
-  .risk3 .req,.regua .lv,.dock .dl,.dock .dcourse .dch{color:#333!important}
-  .gapnote{border-left-color:#A65B00!important}
-  .gapnote .eyebrow{color:#A65B00!important}
-  .dock{border-left-color:#999!important}
-  #risco table td,#risco table th{border-color:#ddd!important}
-  section{padding-block:22pt;page-break-inside:avoid}
-  .units details{page-break-inside:avoid}
+  .glass,.mod,.mark,.linha,.risk > div,.norms > div,.doc,.units details,.claim,.art,.strip div,
+  .tablewrap{border:1px solid #ccc!important;border-radius:6px}
+  .pill,.ctrl,.badge-l{border:1px solid #999!important}
+  .primary,.gold,.risk .lbl,.linha-id .n,.linha-id .t,.norms b,.doc .role,.mod .mi,.mod .mch,
+  .card .ch,.strip b,.dcourse .dch,.units .u-ch,.art b{color:#B45309!important}
+  section{padding-block:20pt;page-break-inside:avoid}
   .units details[open] .u-body{display:block}
-  table{min-width:0;font-size:9pt}
   .tablewrap{overflow:visible}
+  table{min-width:0;font-size:9pt}
   thead{display:table-header-group}
   tr{page-break-inside:avoid}
-  a{text-decoration:none}
+  th,td{border-bottom:1px solid #ddd!important}
 }
 </style>
 </head>
@@ -445,6 +385,7 @@ body.editing [data-edit]:focus{outline:2px solid var(--blue);background:rgba(0,1
 
 <nav class="rail" aria-label="Seções">
   <a href="#portfolio" data-rail><span>Portfólio</span></a>
+  <a href="#dever" data-rail><span>O dever normativo</span></a>
   <a href="#transformacao" data-rail><span>Transformação Adm.</span></a>
   <a href="#servidor-ia" data-rail><span>Servidor + IA</span></a>
   <a href="#risco" data-rail><span>Risco no uso da IA</span></a>
@@ -454,9 +395,9 @@ body.editing [data-edit]:focus{outline:2px solid var(--blue);background:rgba(0,1
 </nav>
 
 <!-- ═══════════ CAPA ═══════════ -->
-<header class="hero on-dark">
+<header class="hero">
   <div class="wrap hero-top">
-    <div class="hero-mark"><img src="logo.png" alt="INOVAJUS — Laboratório de Inovação da JFCE"></div>
+    <div class="hero-mark"><img src="logo.png" alt="INOVAJUS, Laboratório de Inovação da JFCE"></div>
     <div class="hero-org">
       Justiça Federal no Ceará<br>
       Laboratório de Inovação · INOVAJUS<br>
@@ -465,422 +406,356 @@ body.editing [data-edit]:focus{outline:2px solid var(--blue);background:rgba(0,1
   </div>
 
   <div class="wrap hero-mid">
-    <p class="eyebrow" data-edit>Portfólio de capacitações · 2026 · submetido a credenciamento</p>
-    <h1 data-edit>Não formamos usuários de IA.<br><span class="turn">Formamos quem responde por ela.</span></h1>
-    <p class="lede" data-edit>Cinco capacitações que cobrem a instituição inteira — de quem redige o despacho a quem audita o processo. A gestão de risco não é um módulo no fim do curso: é o eixo que organiza o portfólio.</p>
+    <span class="pill" data-edit>Portfólio de capacitações em inteligência artificial · 2026</span>
+    <h1 data-edit>Não formamos usuários de IA.<br><span class="g">Formamos quem responde por ela.</span></h1>
+    <p class="lede" data-edit>Cinco capacitações que cobrem a instituição inteira, de quem redige o despacho a quem audita o processo. A gestão de risco não é um módulo no fim do curso: é o eixo que organiza o portfólio.</p>
   </div>
 
-  <div class="wrap hero-foot">
-    <div style="width:100%">
-      <div class="strip">
-        <div><b class="num">56h</b><span data-edit>Transformação Administrativa com IA</span></div>
-        <div><b class="num">24h</b><span data-edit>Servidor + IA</span></div>
-        <div><b class="num">24h</b><span data-edit>Oficina Prompt Lab (8 edições)</span></div>
-        <div><b class="num">16h</b><span data-edit>Servidor + Dados (Eixo II)</span></div>
-        <div><b class="num">8–12h</b><span data-edit>Programa de Multiplicadores</span></div>
-      </div>
-      <p class="scroll-cue">Role para percorrer o portfólio</p>
+  <div class="wrap">
+    <div class="strip">
+      <div><b class="num">56h</b><span data-edit>Transformação Administrativa com IA</span></div>
+      <div><b class="num">24h</b><span data-edit>Servidor + IA</span></div>
+      <div><b class="num">24h</b><span data-edit>Oficina Prompt Lab, em 8 edições</span></div>
+      <div><b class="num">16h</b><span data-edit>Servidor + Dados</span></div>
+      <div><b class="num">8 a 12h</b><span data-edit>Programa de Multiplicadores</span></div>
     </div>
+    <p class="cue">Role para percorrer o portfólio</p>
   </div>
 </header>
 
-<!-- ═══════════ § 1 — PORTFÓLIO ═══════════ -->
+<!-- ═══════════ § 1 ═══════════ -->
 <section id="portfolio">
   <div class="wrap">
     <div class="sec-head rv">
-      <p class="eyebrow"><span class="sec-mark">§ 1</span>O portfólio</p>
-      <h2 class="h" data-edit>Uma instituição não se capacita por camada única.</h2>
-      <p class="lede" data-edit>O INOVAJUS oferta capacitações de alcance e profundidade distintos, porque as responsabilidades sobre o uso da IA também são distintas. Quem opera, quem orienta e quem audita não precisam do mesmo curso.</p>
+      <span class="kicker">§ 1 · O portfólio</span>
+      <h2 class="h-sec" data-edit>Uma instituição não se capacita por <em>camada única</em>.</h2>
+      <p class="lede" data-edit>As capacitações têm alcance e profundidade distintos porque as responsabilidades sobre o uso da IA também são. Quem opera, quem orienta e quem audita não precisam do mesmo curso.</p>
     </div>
 
-    <div class="grid-port rv rv-d1">
-      <article class="card feat" style="--c:var(--magenta)">
-        <p class="tag">Eixo III · Destaque</p>
+    <div class="cards rv rv-d1">
+      <article class="glass card feat">
+        <p class="tag">Destaque</p>
         <h3 data-edit>Transformação Administrativa com IA</h3>
-        <p class="ch"><span class="num">56h</span> no total · <span class="num">14,5h</span> por cursista</p>
-        <p data-edit>Módulo comum de fundamentos, ética e prompt engineering, seguido de módulos desenhados para cada núcleo — inclusive auditoria interna, governança e assessoria jurídica.</p>
-        <p class="status" data-edit>Presencial · ministrado separadamente para cada unidade administrativa</p>
+        <p class="ch"><span class="num">56h</span> · presencial · 9 unidades administrativas</p>
+        <p data-edit>Módulo comum de fundamentos, ética e prompt engineering, seguido de um módulo próprio para cada núcleo, inclusive auditoria interna, governança e assessoria jurídica.</p>
       </article>
 
-      <article class="card feat" style="--c:var(--blue)">
-        <p class="tag">Eixo III · Destaque</p>
+      <article class="glass card feat">
+        <p class="tag">Destaque</p>
         <h3 data-edit>Servidor + IA</h3>
         <p class="ch"><span class="num">24h</span> · online ao vivo · área-fim</p>
-        <p data-edit>Curso modular em quatro módulos, do prompt ao pensamento causal, da prática forense à governança. Material didático publicado e projeto integrador com medição antes × depois.</p>
-        <p class="status" data-edit>Ementa v2.0 aprovada · Turma 1 em agosto/2026</p>
+        <p data-edit>Curso modular em quatro módulos, do prompt ao pensamento causal, da prática forense à governança, com projeto aplicado ao trabalho real da unidade.</p>
       </article>
 
-      <article class="card" style="--c:var(--blue)">
-        <p class="tag">Eixo III</p>
-        <h3 data-edit>Oficina Prompt Lab</h3>
+      <article class="glass card">
+        <p class="tag">Oficina</p>
+        <h3 data-edit>Prompt Lab</h3>
         <p class="ch"><span class="num">3h</span> por edição · <span class="num">24h</span> na série</p>
-        <p data-edit>Oito edições mensais presenciais em laboratório, cada uma autocontida e certificável, alternando turmas de área-fim e área-meio.</p>
-        <p class="status" data-edit>Ementa-mestre v1.0 · abr–nov/2026 · 15–20 vagas por edição</p>
+        <p data-edit>Oito edições mensais em laboratório, cada uma autocontida e certificável, alternando turmas de área-fim e de área-meio.</p>
       </article>
 
-      <article class="card" style="--c:var(--green)">
-        <p class="tag">Eixo II</p>
+      <article class="glass card">
+        <p class="tag">Proteção de dados</p>
         <h3 data-edit>Servidor + Dados</h3>
         <p class="ch"><span class="num">16h</span> · 5 módulos</p>
-        <p data-edit>Proteção de dados na rotina: LGPD aplicada, a régua do TCU, segurança no dia a dia e exercício de resposta a incidente.</p>
-        <p class="status" data-edit>Esboço instrucional aprovado para construção · deck publicado</p>
+        <p data-edit>Proteção de dados na rotina: LGPD aplicada, segurança no dia a dia e exercício prático de resposta a incidente.</p>
       </article>
 
-      <article class="card" style="--c:var(--yellow)">
-        <p class="tag">Eixo III</p>
+      <article class="glass card">
+        <p class="tag">Formação de formadores</p>
         <h3 data-edit>Programa de Multiplicadores</h3>
-        <p class="ch"><span class="num">8–12h</span> de formação adicional</p>
-        <p data-edit>Formação docente para servidores certificados no Servidor + IA, com prática supervisionada e mentoria continuada, para replicar os conteúdos na JFCE e na Rede de Inovação.</p>
-        <p class="status" data-edit>Programa v1.0 · formação prevista para janeiro/2027</p>
+        <p class="ch"><span class="num">8 a 12h</span> de formação adicional</p>
+        <p data-edit>Formação docente para servidores já certificados, com prática supervisionada e mentoria continuada, para replicar os conteúdos em outras unidades e seccionais.</p>
       </article>
     </div>
   </div>
 </section>
 
-<!-- ═══════════ § 2 — TRANSFORMAÇÃO ADMINISTRATIVA ═══════════ -->
-<section id="transformacao" class="feature" style="--c:var(--magenta);background:var(--paper)">
+<!-- ═══════════ § 2 — O DEVER NORMATIVO ═══════════ -->
+<section id="dever">
   <div class="wrap">
     <div class="sec-head rv">
-      <div class="rule"></div>
-      <p class="badge">Destaque · § 2</p>
-      <h2 class="h" style="margin-top:14px" data-edit>Transformação Administrativa com IA</h2>
-      <p class="lede" data-edit>O curso que chega às unidades que respondem pela conformidade da Casa. Nove núcleos e seções administrativas, cada um com um módulo escrito a partir dos documentos que ele realmente produz.</p>
+      <span class="kicker">§ 2 · Por que este portfólio existe</span>
+    </div>
+    <div class="claim rv rv-d1">
+      <h3 data-edit>A norma não recomenda capacitar. Ela <span class="primary">condiciona o uso da IA</span> à capacitação.</h3>
+      <p data-edit>A Resolução CNJ n.º 615/2025 tratou o letramento em inteligência artificial como requisito, não como boa intenção. Antes de usar IA generativa, o servidor precisa ter sido treinado; e a responsabilidade por oferecer esse treinamento recai expressamente sobre os tribunais e suas escolas, com acompanhamento do Comitê Nacional. Este portfólio é o que a Justiça Federal no Ceará construiu para cumprir esse dever.</p>
+      <div class="arts">
+        <div class="art"><b>Art. 3.º, VIII</b><span data-edit>Capacitação contínua, pelos tribunais e suas escolas, sobre riscos da automação, vieses algorítmicos e análise crítica dos resultados.</span></div>
+        <div class="art"><b>Art. 19, § 3.º, I</b><span data-edit>O uso de IA generativa exige capacitação e treinamento prévios sobre limitações, riscos e uso ético e responsável.</span></div>
+        <div class="art"><b>Art. 19, § 5.º</b><span data-edit>Cabe aos tribunais e às suas escolas promover capacitação e treinamentos continuados.</span></div>
+        <div class="art"><b>Art. 16, VII</b><span data-edit>O Comitê Nacional de IA do Judiciário monitora a oferta de capacitação pelos tribunais.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ § 3 — TRANSFORMAÇÃO ADMINISTRATIVA ═══════════ -->
+<section id="transformacao">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="kicker">§ 3 · Destaque</span>
+      <h2 class="h-sec" data-edit>Transformação Administrativa com IA</h2>
+      <p class="lede" data-edit>O curso que chega às unidades que respondem pela conformidade da instituição. Nove núcleos e seções administrativas, cada um com um módulo escrito a partir dos documentos que ele realmente produz.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:22px">
+        <span class="pill on"><span class="num">56h</span></span>
+        <span class="pill plain">Presencial</span>
+        <span class="pill plain">9 unidades administrativas</span>
+      </div>
     </div>
 
-    <div class="cols">
-      <div class="rv rv-d1">
-        <h3 class="sh" data-edit>Como o curso se organiza</h3>
-        <p class="small" style="margin:12px 0 22px" data-edit>Todo cursista faz o módulo comum de 9 horas. Depois, cada unidade tem seu próprio módulo, com os casos, os documentos e os riscos daquela área. Como o curso foi ministrado <strong>separadamente para cada unidade administrativa</strong>, as duas cargas horárias medem coisas distintas: <strong>56 horas</strong> é o total efetivamente ministrado pelo INOVAJUS; <strong>14,5 horas</strong> é o percurso de cada cursista — as 9 horas do módulo comum mais as 5,5 horas do módulo da sua unidade.</p>
+    <div class="rv rv-d1" style="margin-bottom:clamp(30px,4vw,48px)">
+      <h3 class="h-sub" style="margin-bottom:14px" data-edit>O que distingue este curso</h3>
+      <div class="marks">
+        <div class="mark"><b data-edit>Um módulo por unidade</b><span data-edit>Cada núcleo estuda os próprios documentos e os próprios riscos, não exemplos genéricos.</span></div>
+        <div class="mark"><b data-edit>Base comum obrigatória</b><span data-edit>Todo cursista passa pelas mesmas 9 horas de fundamentos, ética e prompt engineering antes do conteúdo da sua área.</span></div>
+        <div class="mark"><b data-edit>Entrega, não prova</b><span data-edit>O produto do curso é um processo de trabalho efetivamente otimizado e documentado pelo próprio servidor.</span></div>
+        <div class="mark"><b data-edit>Acervo que fica</b><span data-edit>Cada turma constrói uma biblioteca de prompts da sua área, que permanece na unidade depois do curso.</span></div>
+      </div>
+    </div>
 
-        <div class="mods">
-          <div class="mod">
-            <span class="mi">DIA 1</span>
-            <span class="mh" data-edit>Fundamentos atualizados da IA</span>
-            <span class="mch">3h</span>
-            <span class="mp" data-edit>Panorama do que a IA é e não é; IA multimodal em ação sobre documentos administrativos; casos práticos já em uso na administração pública brasileira.</span>
-          </div>
-          <div class="mod">
-            <span class="mi">DIA 2</span>
-            <span class="mh" data-edit>Ética, segurança e avaliação crítica</span>
-            <span class="mch">3h</span>
-            <span class="mp" data-edit>Princípios éticos e legais; o que pode e o que não pode ser compartilhado com ferramentas de IA; vieses; identificação de alucinações e técnicas de verificação.</span>
-          </div>
-          <div class="mod">
-            <span class="mi">DIA 3</span>
-            <span class="mh" data-edit>Prompt engineering avançado</span>
-            <span class="mch">3h</span>
-            <span class="mp" data-edit>Estrutura do prompt eficaz; prompting estruturado, cadeia de raciocínio e exemplos; construção e versionamento da biblioteca pessoal de prompts.</span>
-          </div>
-          <div class="mod" style="background:var(--paper-2)">
-            <span class="mi">+</span>
-            <span class="mh" data-edit>Módulos específicos por unidade</span>
-            <span class="mch">47h</span>
-            <span class="mp" data-edit>Oito unidades com 5,5h cada (dois encontros: aplicações da área + projeto prático documentado) e o NIST com 3h em encontro único.</span>
-          </div>
+    <div class="rv rv-d2" style="margin-bottom:clamp(30px,4vw,48px)">
+      <h3 class="h-sub" style="margin-bottom:14px" data-edit>Módulo comum</h3>
+      <div class="mods">
+        <div class="mod">
+          <span class="mi">DIA 1</span><span class="mh" data-edit>Fundamentos atualizados da IA</span><span class="mch">3h</span>
+          <span class="mp" data-edit>Panorama do que a IA é e do que não é; IA multimodal aplicada a documentos administrativos; casos práticos já em uso na administração pública brasileira.</span>
+        </div>
+        <div class="mod">
+          <span class="mi">DIA 2</span><span class="mh" data-edit>Ética, segurança e avaliação crítica</span><span class="mch">3h</span>
+          <span class="mp" data-edit>Princípios éticos e legais; o que pode e o que não pode ser compartilhado com ferramentas de IA; vieses; identificação de alucinações e técnicas de verificação.</span>
+        </div>
+        <div class="mod">
+          <span class="mi">DIA 3</span><span class="mh" data-edit>Prompt engineering avançado</span><span class="mch">3h</span>
+          <span class="mp" data-edit>Estrutura do prompt eficaz; prompting estruturado, cadeia de raciocínio e uso de exemplos; construção e versionamento da biblioteca pessoal de prompts.</span>
+        </div>
+        <div class="mod">
+          <span class="mi">+</span><span class="mh" data-edit>Módulos específicos por unidade</span><span class="mch">47h</span>
+          <span class="mp" data-edit>Oito unidades com 5,5h cada, em dois encontros (aplicações da área e projeto prático documentado), e o NIST com 3h em encontro único.</span>
         </div>
       </div>
-
-      <div class="rv rv-d2">
-        <h3 class="sh" data-edit>Ficha para credenciamento</h3>
-        <dl class="ficha" style="margin-top:16px">
-          <div><dt>Modalidade</dt><dd data-edit>Presencial — Sala de Treinamento, 1º andar, EDIRB</dd></div>
-          <div><dt>Carga total</dt><dd data-edit><span class="num">56 horas</span> ministradas (9h comuns + 47h específicas) — o curso foi ministrado separadamente a cada unidade administrativa</dd></div>
-          <div><dt>Carga por cursista</dt><dd data-edit><span class="num">14,5 horas</span> (9h do módulo comum + 5,5h do módulo da unidade)</dd></div>
-          <div><dt>Vagas</dt><dd data-edit><span class="num">30</span></dd></div>
-          <div><dt>Aprovação</dt><dd data-edit><span class="num">70%</span> da pontuação das atividades e <span class="num">75%</span> de frequência</dd></div>
-          <div><dt>Avaliação</dt><dd data-edit>Biblioteca de prompts 30% · processo otimizado documentado 30% · casos práticos 20% · documentação de melhorias 10% · participação 10%</dd></div>
-          <div><dt>Docentes</dt><dd data-edit>Victor César Falcão Viana e Vinícius Sousa e Silva</dd></div>
-          <div><dt>Tipo</dt><dd data-edit>Curso de capacitação técnica e administrativa</dd></div>
-        </dl>
-      </div>
     </div>
 
-    <div class="rv" style="margin-top:clamp(38px,5vw,64px)">
-      <h3 class="sh" data-edit>As nove unidades atendidas</h3>
-      <p class="small" style="margin:10px 0 20px;max-width:62ch" data-edit>Três delas — assinaladas — são exatamente as que exercem função de controle sobre o uso da IA na Casa. Abra para ver o conteúdo de cada módulo.</p>
+    <div class="rv">
+      <h3 class="h-sub" style="margin-bottom:8px" data-edit>As nove unidades atendidas</h3>
+      <p class="soft" style="font-size:.9rem;margin-bottom:18px;max-width:64ch" data-edit>Três delas exercem função de controle sobre o uso da IA na instituição e estão assinaladas com a linha de defesa correspondente, tratada no § 6.</p>
 
       <div class="units">
         <details>
-          <summary class="line2"><span class="dot"></span><span data-edit>Núcleo de Auditoria Interna (NUAUD) e Seção de Apoio à Secretaria Administrativa</span> <span class="lin-badge l3">3ª linha</span> <span class="u-ch">5,5h</span></summary>
-          <div class="u-body">
-            <span class="day">Dia 1 · 3h — IA avançada em auditoria e apoio administrativo</span>
-            <ul data-edit>
-              <li>Prompts para análise de conformidade com técnicas avançadas e detecção de anomalias em documentos</li>
-              <li>Checklists dinâmicos baseados em critérios específicos; revisão de documentos de auditoria</li>
-              <li>Análise comparativa de processos, verificação de conformidade com normas, identificação de padrões e inconsistências</li>
-              <li>Laboratório: análise de conformidade documental com IA multimodal e estruturação de evidências (casos anonimizados)</li>
-            </ul>
-            <span class="day">Dia 2 · 2,5h — Relatórios, achados e projeto prático</span>
-            <ul data-edit>
-              <li>Elaboração estruturada de relatórios de auditoria; documentação sistemática de achados e evidências</li>
-              <li>Síntese de recomendações baseadas em precedentes e acompanhamento de sua implementação</li>
-              <li>Biblioteca de prompts de auditoria e implementação de processo otimizado, com resultados documentados</li>
-            </ul>
-          </div>
+          <summary><span data-edit>Núcleo de Auditoria Interna e Seção de Apoio à Secretaria Administrativa</span> <span class="badge-l">3.ª linha</span> <span class="u-ch">5,5h</span></summary>
+          <div class="u-body"><ul data-edit>
+            <li>Análise de conformidade documental e detecção de anomalias em documentos</li>
+            <li>Checklists dinâmicos baseados em critérios específicos e revisão de documentos de auditoria</li>
+            <li>Análise comparativa de processos e identificação de padrões e inconsistências</li>
+            <li>Estruturação de evidências e documentação sistemática de achados</li>
+            <li>Síntese de recomendações e acompanhamento de sua implementação</li>
+          </ul></div>
         </details>
 
         <details>
-          <summary class="line2"><span class="dot"></span><span data-edit>Núcleo de Estratégia, Governança e Integridade (NEGI)</span> <span class="lin-badge l2">2ª linha</span> <span class="u-ch">5,5h</span></summary>
-          <div class="u-body">
-            <span class="day">Dia 1 · 3h — IA avançada na gestão estratégica</span>
-            <ul data-edit>
-              <li>Análise de dados estratégicos estruturados e não estruturados; relatórios executivos dinâmicos</li>
-              <li>Gestão de indicadores: correlação entre métricas institucionais, projeções e cenários assistidos</li>
-              <li>Laboratório: painéis dinâmicos de indicadores e projeções sobre dados institucionais anonimizados</li>
-            </ul>
-            <span class="day">Dia 2 · 2,5h — Comunicação estratégica e projeto prático</span>
-            <ul data-edit>
-              <li>Apresentações executivas, relatórios visuais e comunicação de dados complexos de forma acessível</li>
-              <li>Análise de cenários e modelagem de impactos; biblioteca de prompts estratégicos</li>
-            </ul>
-          </div>
+          <summary><span data-edit>Núcleo de Estratégia, Governança e Integridade</span> <span class="badge-l">2.ª linha</span> <span class="u-ch">5,5h</span></summary>
+          <div class="u-body"><ul data-edit>
+            <li>Análise de dados estratégicos estruturados e não estruturados</li>
+            <li>Gestão de indicadores, correlação entre métricas institucionais e cenários assistidos</li>
+            <li>Painéis dinâmicos de indicadores sobre dados institucionais anonimizados</li>
+            <li>Apresentações executivas e comunicação de dados complexos de forma acessível</li>
+          </ul></div>
         </details>
 
         <details>
-          <summary class="line2"><span class="dot"></span><span data-edit>Assessoria Especial da Direção do Foro e Seção de Assessoria Jurídica</span> <span class="lin-badge l2">2ª linha</span> <span class="u-ch">5,5h</span></summary>
-          <div class="u-body">
-            <span class="day">Dia 1 · 3h — IA avançada no apoio jurídico e administrativo</span>
-            <ul data-edit>
-              <li>Processamento de petições e documentos jurídicos com recursos multimodais; extração de informações de documentos digitalizados</li>
-              <li>Elaboração assistida de minutas, despachos e pareceres; revisão e refinamento de textos jurídicos</li>
-              <li>Pesquisa jurídica: análise de legislação e jurisprudência, identificação de precedentes, verificação de conformidade com normas vigentes</li>
-              <li>Laboratório: prompts para casos jurídicos reais e workflows de processamento de demandas</li>
-            </ul>
-            <span class="day">Dia 2 · 2,5h — Gestão da informação jurídica e projeto prático</span>
-            <ul data-edit>
-              <li>Relatórios jurídicos customizados e síntese de informações para tomada de decisão</li>
-              <li>Organização estruturada de casos e precedentes; automação de rotinas jurídicas recorrentes</li>
-            </ul>
-          </div>
+          <summary><span data-edit>Assessoria Especial da Direção do Foro e Seção de Assessoria Jurídica</span> <span class="badge-l">2.ª linha</span> <span class="u-ch">5,5h</span></summary>
+          <div class="u-body"><ul data-edit>
+            <li>Processamento de documentos jurídicos com recursos multimodais</li>
+            <li>Elaboração assistida de minutas, despachos e pareceres, com revisão crítica</li>
+            <li>Análise de legislação e jurisprudência e identificação de precedentes</li>
+            <li>Verificação de conformidade de atos com as normas vigentes</li>
+          </ul></div>
         </details>
 
         <details>
-          <summary><span class="dot" style="background:var(--border-mid)"></span><span data-edit>Setor Técnico de Governança de Aquisições e Contratações e Apoio aos Núcleos</span> <span class="u-ch">5,5h</span></summary>
-          <div class="u-body">
-            <ul data-edit>
-              <li>Análise de contratos e termos com visão computacional; verificação de conformidade em editais e contratos</li>
-              <li>Elaboração assistida de termos de referência; extração de dados de propostas e documentação técnica</li>
-              <li>Gestão de contratos: aditivos e apostilamentos, consolidação de informações dispersas, padrões e tendências em aquisições</li>
-              <li>Dia 2: relatórios de aquisições, painéis a partir de dados contratuais e automação de verificações de conformidade</li>
-            </ul>
-          </div>
+          <summary><span data-edit>Setor Técnico de Governança de Aquisições e Contratações</span> <span class="u-ch">5,5h</span></summary>
+          <div class="u-body"><ul data-edit>
+            <li>Análise de contratos e verificação de conformidade em editais</li>
+            <li>Elaboração assistida de termos de referência e extração de dados de propostas</li>
+            <li>Gestão contratual: aditivos, apostilamentos e consolidação de informações dispersas</li>
+            <li>Painéis a partir de dados contratuais e automação de verificações</li>
+          </ul></div>
         </details>
 
         <details>
-          <summary><span class="dot" style="background:var(--border-mid)"></span><span data-edit>Núcleo de Gestão Orçamentária, Financeira, Contábil e Patrimonial (NUFIP)</span> <span class="u-ch">5,5h</span></summary>
-          <div class="u-body">
-            <ul data-edit>
-              <li>Extração de dados de notas fiscais e documentos financeiros; verificação automática de conformidade documental</li>
-              <li>Gestão patrimonial: relatórios patrimoniais, inventários, consolidação de informações dispersas</li>
-              <li>Laboratório: extração de dados de documentos financeiros complexos e análise comparativa de contratos</li>
-              <li>Dia 2: relatórios financeiros customizados, painéis a partir de dados não estruturados, automação de verificações</li>
-            </ul>
-          </div>
+          <summary><span data-edit>Núcleo de Gestão Orçamentária, Financeira, Contábil e Patrimonial</span> <span class="u-ch">5,5h</span></summary>
+          <div class="u-body"><ul data-edit>
+            <li>Extração de dados de notas fiscais e documentos financeiros</li>
+            <li>Gestão patrimonial: relatórios, inventários e consolidação de informações</li>
+            <li>Análise comparativa de contratos e verificação de conformidade documental</li>
+            <li>Relatórios financeiros customizados a partir de dados não estruturados</li>
+          </ul></div>
         </details>
 
         <details>
-          <summary><span class="dot" style="background:var(--border-mid)"></span><span data-edit>Núcleo de Gestão de Pessoas (NGP)</span> <span class="u-ch">5,5h</span></summary>
-          <div class="u-body">
-            <ul data-edit>
-              <li>Análise e produção de documentos de RH; prompts para elaboração de portarias e normativos</li>
-              <li>Análise normativa: legislação e normativas de pessoal, pareceres técnicos, verificação de conformidade de processos</li>
-              <li>Laboratório: workflows para processamento de solicitações comuns com documentos funcionais típicos</li>
-              <li>Dia 2: relatórios gerenciais customizados, análise de dados funcionais e automação de relatórios periódicos</li>
-            </ul>
-          </div>
+          <summary><span data-edit>Núcleo de Gestão de Pessoas</span> <span class="u-ch">5,5h</span></summary>
+          <div class="u-body"><ul data-edit>
+            <li>Produção de documentos de RH e elaboração de portarias e normativos</li>
+            <li>Análise de legislação e normativas de pessoal e pareceres técnicos</li>
+            <li>Workflows para processamento de solicitações comuns</li>
+            <li>Relatórios gerenciais e análise de dados funcionais</li>
+          </ul></div>
         </details>
 
         <details>
-          <summary><span class="dot" style="background:var(--border-mid)"></span><span data-edit>Setor Técnico de Apoio à Diretoria e Núcleo Judiciário (NUJUD)</span> <span class="u-ch">5,5h</span></summary>
-          <div class="u-body">
-            <ul data-edit>
-              <li>Análise de documentos administrativos e judiciais com recursos multimodais; minutas de apoio à Diretoria</li>
-              <li>Organização de dados processuais administrativos; classificação automática de processos e demandas</li>
-              <li>Identificação de precedentes e análise comparativa de procedimentos administrativos</li>
-              <li>Dia 2: relatórios gerenciais dinâmicos, documentação estruturada de procedimentos e automação de fluxos</li>
-            </ul>
-          </div>
+          <summary><span data-edit>Setor Técnico de Apoio à Diretoria e Núcleo Judiciário</span> <span class="u-ch">5,5h</span></summary>
+          <div class="u-body"><ul data-edit>
+            <li>Análise de documentos administrativos e judiciais com recursos multimodais</li>
+            <li>Classificação de processos e demandas e organização de dados processuais</li>
+            <li>Análise comparativa de procedimentos administrativos</li>
+            <li>Relatórios gerenciais e automação de fluxos de trabalho</li>
+          </ul></div>
         </details>
 
         <details>
-          <summary><span class="dot" style="background:var(--border-mid)"></span><span data-edit>Seção de Comunicação Social (SECOM)</span> <span class="u-ch">5,5h</span></summary>
-          <div class="u-body">
-            <ul data-edit>
-              <li>Produção multimodal: textos para diferentes públicos, elementos visuais, adaptação de conteúdo por canal</li>
-              <li>Análise de comunicações institucionais com feedback estruturado; pautas e planejamento editorial</li>
-              <li>Laboratório: materiais de comunicação com IA alinhados à identidade institucional</li>
-              <li>Dia 2: releases e comunicados estratégicos, pacotes de comunicação por canal, automação de rotinas</li>
-            </ul>
-          </div>
+          <summary><span data-edit>Seção de Comunicação Social</span> <span class="u-ch">5,5h</span></summary>
+          <div class="u-body"><ul data-edit>
+            <li>Produção multimodal de conteúdo e adaptação por canal</li>
+            <li>Análise de comunicações institucionais e planejamento editorial</li>
+            <li>Materiais alinhados à identidade institucional</li>
+            <li>Releases, comunicados e automação de rotinas de comunicação</li>
+          </ul></div>
         </details>
 
         <details>
-          <summary><span class="dot" style="background:var(--border-mid)"></span><span data-edit>Núcleo de Inteligência, Segurança e Transporte (NIST)</span> <span class="u-ch">3h</span></summary>
-          <div class="u-body">
-            <ul data-edit>
-              <li>Processamento de documentos de segurança com recursos multimodais; relatórios de inteligência estruturados</li>
-              <li>Análise de padrões e tendências em dados de segurança; identificação de riscos e vulnerabilidades</li>
-              <li>Gestão de transporte: otimização de rotas e recursos, dados de frota e manutenção, relatórios automatizados</li>
-              <li>Projeto prático integrado com prompts específicos da área</li>
-            </ul>
-          </div>
+          <summary><span data-edit>Núcleo de Inteligência, Segurança e Transporte</span> <span class="u-ch">3h</span></summary>
+          <div class="u-body"><ul data-edit>
+            <li>Processamento de documentos de segurança e relatórios estruturados</li>
+            <li>Análise de padrões e identificação de riscos e vulnerabilidades</li>
+            <li>Gestão de transporte: rotas, frota, manutenção e relatórios automatizados</li>
+          </ul></div>
         </details>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════ § 3 — SERVIDOR + IA ═══════════ -->
-<section id="servidor-ia" class="feature" style="--c:var(--blue)">
+<!-- ═══════════ § 4 — SERVIDOR + IA ═══════════ -->
+<section id="servidor-ia">
   <div class="wrap">
     <div class="sec-head rv">
-      <div class="rule"></div>
-      <p class="badge">Destaque · § 3</p>
-      <h2 class="h" style="margin-top:14px" data-edit>Servidor + IA</h2>
-      <p class="lede" data-edit>O curso da área-fim: quem redige o despacho, tria o acervo e responde ao jurisdicionado. Vinte e quatro horas construídas em torno de uma exigência — a decisão continua sendo humana, e é preciso saber por quê.</p>
+      <span class="kicker">§ 4 · Destaque</span>
+      <h2 class="h-sec" data-edit>Servidor + IA</h2>
+      <p class="lede" data-edit>O curso da área-fim: quem redige o despacho, tria o acervo e responde ao jurisdicionado. Vinte e quatro horas construídas em torno de uma exigência: a decisão continua sendo humana, e é preciso saber por quê.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:22px">
+        <span class="pill on"><span class="num">24h</span></span>
+        <span class="pill plain">Online ao vivo, síncrono</span>
+        <span class="pill plain">Servidores, assessores e magistrados</span>
+      </div>
     </div>
 
-    <div class="cols">
-      <div class="rv rv-d1">
-        <h3 class="sh" data-edit>Quatro módulos, uma progressão</h3>
-        <p class="small" style="margin:12px 0 22px" data-edit>A sequência não é temática, é de responsabilidade crescente: primeiro operar a ferramenta, depois desconfiar dela, depois aplicá-la ao processo, e só então responder institucionalmente pelo que ela produziu.</p>
-
-        <div class="mods">
-          <div class="mod">
-            <span class="mi">M1</span>
-            <span class="mh" data-edit>Fundamentos de IA e prompt engineering</span>
-            <span class="mch">6h</span>
-            <span class="mp" data-edit>Como a IA funciona e por que alucina; anatomia do prompt em seis etapas — contexto, tom, tarefa, exemplos, qualidade, formato; Banco de Prompts com 14 prompts-mestre.</span>
-          </div>
-          <div class="mod">
-            <span class="mi">M2</span>
-            <span class="mh" data-edit>Pensamento crítico e causal com IA</span>
-            <span class="mch">6h</span>
-            <span class="mp" data-edit>Correlação não é causa; confundidor, contrafactual e baseline; detecção de alucinações, validação em fonte e checklist de supervisão humana.</span>
-          </div>
-          <div class="mod">
-            <span class="mi">M3</span>
-            <span class="mh" data-edit>Prática forense</span>
-            <span class="mch">10h</span>
-            <span class="mp" data-edit>Triagem e classificação assistidas, minutas e despachos com supervisão, jurisprudência com salvaguardas, trabalho em lote com anonimização e o projeto integrador.</span>
-          </div>
-          <div class="mod">
-            <span class="mi">M4</span>
-            <span class="mh" data-edit>Ética, LGPD e governança de IA</span>
-            <span class="mch">2h</span>
-            <span class="mp" data-edit>Resolução CNJ n.º 615/2025 e supervisão humana; bloqueio absoluto de dado sob segredo de justiça em ferramenta externa; anonimização; vieses; horizonte dos sistemas agênticos.</span>
-          </div>
-        </div>
+    <div class="rv rv-d1" style="margin-bottom:clamp(30px,4vw,48px)">
+      <h3 class="h-sub" style="margin-bottom:14px" data-edit>O que distingue este curso</h3>
+      <div class="marks">
+        <div class="mark"><b data-edit>Progressão por responsabilidade</b><span data-edit>Primeiro operar a ferramenta, depois desconfiar dela, depois aplicá-la ao processo, e só então responder institucionalmente pelo resultado.</span></div>
+        <div class="mark"><b data-edit>Avaliação por aplicação</b><span data-edit>Não há prova teórica. O cursista entrega um projeto aplicado ao trabalho real, com registro de como a tarefa era antes e como passou a ser.</span></div>
+        <div class="mark"><b data-edit>Prática majoritária</b><span data-edit>A carga é predominantemente prática, com demonstrações ao vivo e exercícios sobre documentos da própria unidade.</span></div>
+        <div class="mark"><b data-edit>Material aberto</b><span data-edit>Deck, banco de prompts e comparativo de ferramentas ficam publicados e acessíveis depois do curso.</span></div>
       </div>
+    </div>
 
-      <div class="rv rv-d2">
-        <h3 class="sh" data-edit>Ficha para credenciamento</h3>
-        <dl class="ficha" style="margin-top:16px">
-          <div><dt>Modalidade</dt><dd data-edit>Online ao vivo, síncrona, por videoconferência, com demonstrações em tempo real</dd></div>
-          <div><dt>Carga horária</dt><dd data-edit><span class="num">24 horas</span> · 4 módulos</dd></div>
-          <div><dt>Público</dt><dd data-edit>Servidores de Varas e Turmas, assessores de gabinete e magistrados. Turma 1: área-fim</dd></div>
-          <div><dt>Pré-requisito</dt><dd data-edit>Não há pré-requisito formal. Recomenda-se a Oficina Prompt Lab</dd></div>
-          <div><dt>Vagas</dt><dd data-edit><span class="num">25 a 30</span> por turma · 2 turmas em 2026</dd></div>
-          <div><dt>Frequência</dt><dd data-edit>Mínimo de <span class="num">80%</span> da carga horária</dd></div>
-          <div><dt>Avaliação</dt><dd data-edit>Por aplicação, não por prova: uma entrega validada por módulo e projeto integrador com registro de baseline antes × depois</dd></div>
-          <div><dt>Acompanhamento</dt><dd data-edit>Verificação de aplicação real em D+30, D+60 e D+90</dd></div>
-          <div><dt>Certificação</dt><dd data-edit><span class="num">24h</span> pela Direção do Foro da JFCE, com carga por módulo e identificador de turma</dd></div>
-        </dl>
-
-        <h4 style="margin:32px 0 12px" data-edit>Metas pactuadas para 2026</h4>
-        <dl class="ficha">
-          <div><dt>Certificados</dt><dd data-edit><span class="num">50 a 60</span> servidores</dd></div>
-          <div><dt>Avaliação</dt><dd data-edit>Nota média <span class="num">≥ 8,5</span> (0–10)</dd></div>
-          <div><dt>Projeto</dt><dd data-edit><span class="num">≥ 90%</span> dos certificados concluem o projeto integrador</dd></div>
-          <div><dt>Aplicação D+90</dt><dd data-edit><span class="num">≥ 70%</span> usam IA ao menos semanalmente</dd></div>
-        </dl>
-
-        <p class="small" style="margin-top:22px" data-edit>Material didático publicado e de acesso aberto: deck do curso, comparativo de ferramentas e Banco de Prompts em <strong>inovajus.github.io</strong>.</p>
+    <div class="rv rv-d2">
+      <h3 class="h-sub" style="margin-bottom:14px" data-edit>Quatro módulos</h3>
+      <div class="mods">
+        <div class="mod">
+          <span class="mi">M1</span><span class="mh" data-edit>Fundamentos de IA e prompt engineering</span><span class="mch">6h</span>
+          <span class="mp" data-edit>Como a IA funciona e por que alucina; anatomia do prompt em seis etapas (contexto, tom, tarefa, exemplos, qualidade e formato); construção da biblioteca pessoal de prompts.</span>
+        </div>
+        <div class="mod">
+          <span class="mi">M2</span><span class="mh" data-edit>Pensamento crítico e causal com IA</span><span class="mch">6h</span>
+          <span class="mp" data-edit>Correlação não é causa; confundidor, contrafactual e linha de base; detecção de alucinações, validação em fonte e checklist de supervisão humana.</span>
+        </div>
+        <div class="mod">
+          <span class="mi">M3</span><span class="mh" data-edit>Prática forense</span><span class="mch">10h</span>
+          <span class="mp" data-edit>Triagem e classificação assistidas, minutas e despachos com supervisão, pesquisa de jurisprudência com salvaguardas, trabalho em lote com anonimização e projeto aplicado.</span>
+        </div>
+        <div class="mod">
+          <span class="mi">M4</span><span class="mh" data-edit>Ética, LGPD e governança de IA</span><span class="mch">2h</span>
+          <span class="mp" data-edit>Resolução CNJ n.º 615/2025 e supervisão humana; dados sob segredo de justiça em ferramentas externas; anonimização; vieses; horizonte dos sistemas agênticos.</span>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════ § 4 — RISCO NO USO DA IA ═══════════ -->
-<section id="risco" class="on-dark">
+<!-- ═══════════ § 5 — RISCO NO USO DA IA ═══════════ -->
+<section id="risco">
   <div class="wrap">
     <div class="sec-head rv">
-      <p class="eyebrow"><span class="sec-mark">§ 4</span>Gestão de risco no uso da IA</p>
-      <h2 class="h" data-edit>O risco da IA não está no que ela erra. Está no que ninguém confere.</h2>
-      <p class="lede" data-edit>Um output falso que é lido criticamente é um incidente sem consequência. O mesmo output incorporado a um ato administrativo é um dano institucional. A diferença entre os dois é uma pessoa treinada — e é isso que a capacitação entrega.</p>
+      <span class="kicker">§ 5 · Gestão de risco no uso da IA</span>
+      <h2 class="h-sec" data-edit>O risco da IA não está no que ela erra. Está no que <em>ninguém confere</em>.</h2>
+      <p class="lede" data-edit>Um resultado falso que é lido criticamente é um incidente sem consequência. O mesmo resultado incorporado a um ato é um dano institucional. A diferença entre os dois é uma pessoa treinada.</p>
     </div>
 
-    <div class="cols rv rv-d1" style="align-items:start">
-      <div>
-        <h3 class="sh" data-edit>Classificação de risco por consequência</h3>
-        <p class="small" style="margin:12px 0 20px" data-edit>A minuta de Diretrizes Internas de IA da JFCE classifica o uso não pela tecnologia empregada, mas pelo efeito possível da saída sobre direito de pessoa. Cada nível impõe um regime de supervisão distinto.</p>
-        <div class="risk3">
-          <div class="r-lo">
-            <p class="lbl">Risco baixo</p>
-            <p data-edit>A saída produz insumo informativo cuja eventual incorreção é detectável em revisão humana trivial e não tem efeito relevante sobre direito de pessoa ou sobre ato administrativo ou processual.</p>
-            <p class="req" data-edit>→ Leitura crítica</p>
-          </div>
-          <div class="r-md">
-            <p class="lbl">Risco médio</p>
-            <p data-edit>A saída pode integrar ato administrativo ou processual após revisão crítica humana, com efeito moderado sobre direito de pessoa.</p>
-            <p class="req" data-edit>→ Revisão crítica</p>
-          </div>
-          <div class="r-hi">
-            <p class="lbl">Risco alto</p>
-            <p data-edit>A saída, ainda que indiretamente, pode afetar direito de pessoa ou interferir em decisão substantiva.</p>
-            <p class="req" data-edit>→ Revisão dupla, por duas pessoas competentes em momentos sucessivos</p>
-          </div>
+    <div class="rv rv-d1" style="margin-bottom:clamp(30px,4vw,48px)">
+      <h3 class="h-sub" style="margin-bottom:8px" data-edit>A classificação de risco da Resolução CNJ n.º 615/2025</h3>
+      <p class="soft" style="font-size:.9rem;margin-bottom:18px;max-width:70ch" data-edit>A norma não classifica o risco pela tecnologia empregada, mas pelo que a aplicação faz. É esse critério que o portfólio ensina a aplicar, antes de qualquer discussão sobre ferramenta.</p>
+      <div class="risk">
+        <div class="r1">
+          <p class="lbl">Risco excessivo</p>
+          <p data-edit>Vedado ao Poder Judiciário. Abrange soluções sem revisão humana possível, perfilamento para prever reincidência criminal, ranqueamento de pessoas por comportamento ou mérito e reconhecimento biométrico de emoções.</p>
+          <p class="src">Art. 10</p>
         </div>
-        <p class="small" style="margin-top:14px;font-family:var(--mono);font-size:.72rem" data-edit>Minuta de Diretrizes Internas de IA da JFCE, arts. 5º a 7º e 13</p>
-      </div>
-
-      <div>
-        <h3 class="sh" data-edit>A régua do sigilo</h3>
-        <p class="small" style="margin:12px 0 0" data-edit>A Política de Uso de IA Generativa organiza o dado em quatro níveis. Ela é o controle mais ensinável do portfólio — e o mais violável, porque depende de uma decisão tomada em segundos, diante da tela.</p>
-        <div class="regua">
-          <div>
-            <span class="lv">01</span>
-            <div><b data-edit>Dados públicos</b><p data-edit>Normas, jurisprudência publicada, textos de acesso irrestrito.</p></div>
-            <span class="verdict v-ok">Liberado</span>
-          </div>
-          <div>
-            <span class="lv">02</span>
-            <div><b data-edit>Dados internos</b><p data-edit>Informação institucional não pública, sem dado pessoal.</p></div>
-            <span class="verdict v-warn">Só interno</span>
-          </div>
-          <div>
-            <span class="lv">03</span>
-            <div><b data-edit>Dados pessoais</b><p data-edit>Qualquer informação que identifique pessoa natural.</p></div>
-            <span class="verdict v-no">Vedado externo</span>
-          </div>
-          <div>
-            <span class="lv">04</span>
-            <div><b data-edit>Sensíveis e sigilosos</b><p data-edit>Dado sensível, processo sob sigilo ou segredo de justiça. Vedado a sistema externo <strong>ainda que após anonimização</strong>.</p></div>
-            <span class="verdict v-stop">Bloqueio</span>
-          </div>
+        <div class="r2">
+          <p class="lbl">Alto risco</p>
+          <p data-edit>Exige controles reforçados. O Anexo lista, entre outras:</p>
+          <ul data-edit>
+            <li>Elaboração de perfis comportamentais</li>
+            <li>Valoração de provas</li>
+            <li>Tipificação penal</li>
+            <li>Juízos sobre aplicação de norma jurídica</li>
+            <li>Biometria facial para monitoramento</li>
+          </ul>
+          <p class="src">Art. 11 e Anexo, AR1 a AR5</p>
         </div>
-        <p class="small" style="margin-top:14px;font-family:var(--mono);font-size:.72rem" data-edit>Política de Uso de IA Generativa da JFCE, itens 9 e 11 · Minuta de Diretrizes, art. 11</p>
+        <div class="r3">
+          <p class="lbl">Baixo risco</p>
+          <p data-edit>Onde se concentra o uso cotidiano ensinado no portfólio:</p>
+          <ul data-edit>
+            <li>Atos ordinatórios</li>
+            <li>Subsídios gerenciais e jurimetria</li>
+            <li>Textos de apoio e aprimoramento da atividade humana</li>
+            <li>Análises estatísticas e transcrição de áudio e vídeo</li>
+            <li>Anonimização de documentos</li>
+          </ul>
+          <p class="src">Art. 11 e Anexo, BR1 a BR8</p>
+        </div>
       </div>
     </div>
 
-    <div class="rv" style="margin-top:clamp(40px,5vw,68px)">
-      <h3 class="sh" data-edit>O que o portfólio ensina a fazer com cada risco</h3>
-      <div class="tablewrap" style="margin-top:20px;background:var(--ink-2);border-color:var(--border-ink)">
+    <div class="rv rv-d2">
+      <h3 class="h-sub" style="margin-bottom:14px" data-edit>Os quatro riscos que o portfólio ensina a tratar</h3>
+      <div class="tablewrap">
         <table>
-          <thead style="background:var(--ink-3)">
-            <tr>
-              <th style="background:var(--ink-3);color:var(--on-ink-faint);border-color:var(--border-ink)">Risco</th>
-              <th style="background:var(--ink-3);color:var(--on-ink-faint);border-color:var(--border-ink)">Como está formulado na norma da JFCE</th>
-              <th style="background:var(--ink-3);color:var(--on-ink-faint);border-color:var(--border-ink)">Onde é tratado</th>
-            </tr>
+          <thead>
+            <tr><th scope="col">Risco</th><th scope="col">O que a norma exige</th><th scope="col">Onde é tratado</th></tr>
           </thead>
-          <tbody style="color:var(--on-ink-soft)">
-            <tr><th style="color:var(--on-ink);border-color:var(--border-ink)" data-edit>Alucinação</th><td style="border-color:var(--border-ink)" data-edit>Output factualmente incorreto, que aparenta verossimilhança mas não corresponde a fonte verificável.</td><td style="border-color:var(--border-ink)" data-edit>Servidor + IA, M2 · Transformação Adm., Dia 2</td></tr>
-            <tr><th style="color:var(--on-ink);border-color:var(--border-ink)" data-edit>Vazamento de dado</th><td style="border-color:var(--border-ink)" data-edit>Incidente de segurança envolvendo sistema de IA, com comunicação obrigatória à DTIC em até 2 horas.</td><td style="border-color:var(--border-ink)" data-edit>Servidor + IA, M4 · Servidor + Dados, M5</td></tr>
-            <tr><th style="color:var(--on-ink);border-color:var(--border-ink)" data-edit>Viés e discriminação</th><td style="border-color:var(--border-ink)" data-edit>O uso de IA não pode aprofundar vieses estruturais ou produzir tratamento discriminatório a pessoas ou grupos.</td><td style="border-color:var(--border-ink)" data-edit>Servidor + IA, M4 · Transformação Adm., Dia 2</td></tr>
-            <tr><th style="color:var(--on-ink);border-color:var(--border-ink)" data-edit>Injeção de instrução</th><td style="border-color:var(--border-ink)" data-edit>Instruções ocultas em documento, dirigidas ao sistema de IA, para fazê-lo agir contra a finalidade institucional.</td><td style="border-color:var(--border-ink)" data-edit>Banco de Prompts (salvaguardas) · roteiro de ataque simulado em aula</td></tr>
-            <tr><th style="color:var(--on-ink);border-color:var(--border-ink)" data-edit>Dependência de fornecedor</th><td style="border-color:var(--border-ink)" data-edit>Continuidade institucional: evitar dependências que comprometam a sustentabilidade do serviço público.</td><td style="border-color:var(--border-ink)" data-edit>Comparativo de ferramentas · catálogo da DTIC</td></tr>
-            <tr><th style="color:var(--on-ink);border-color:var(--border-ink)" data-edit>Uso paralelo à norma</th><td style="border-color:var(--border-ink)" data-edit>Servidores assinam o termo e fazem diferente no dia a dia, quando a ferramenta institucional não entrega.</td><td style="border-color:var(--border-ink)" data-edit>Risco endereçado pelo desenho do portfólio, não por norma</td></tr>
+          <tbody>
+            <tr>
+              <th scope="row" data-edit>Decisão sem supervisão</th>
+              <td data-edit>É vedado usar IA como instrumento autônomo de decisão. O magistrado permanece integralmente responsável, e o sistema deve permitir modificar qualquer produto gerado (arts. 19, § 3.º, II, e 34).</td>
+              <td data-edit>Servidor + IA, M2 e M4 · Transformação Adm., Dia 2</td>
+            </tr>
+            <tr>
+              <th scope="row" data-edit>Dado sigiloso em ferramenta externa</th>
+              <td data-edit>É vedado usar IA generativa privada ou externa sobre documentos sigilosos ou sob segredo de justiça, salvo anonimização na origem ou mecanismos que garantam proteção efetiva (art. 19, § 3.º, IV).</td>
+              <td data-edit>Servidor + IA, M3 e M4 · Servidor + Dados</td>
+            </tr>
+            <tr>
+              <th scope="row" data-edit>Alucinação incorporada ao ato</th>
+              <td data-edit>Decorre do dever de análise crítica dos resultados gerados, previsto como objeto obrigatório de capacitação (art. 3.º, VIII).</td>
+              <td data-edit>Servidor + IA, M2 · Transformação Adm., Dia 2</td>
+            </tr>
+            <tr>
+              <th scope="row" data-edit>Viés algorítmico</th>
+              <td data-edit>Os vieses algorítmicos são objeto expresso da capacitação continuada devida pelos tribunais e suas escolas (art. 3.º, VIII).</td>
+              <td data-edit>Servidor + IA, M4 · Transformação Adm., Dia 2</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -888,212 +763,146 @@ body.editing [data-edit]:focus{outline:2px solid var(--blue);background:rgba(0,1
   </div>
 </section>
 
-<!-- ═══════════ § 5 — CONTROLE INTERNO (ASSINATURA) ═══════════ -->
-<section id="linhas" class="on-dark" style="padding-top:0">
+<!-- ═══════════ § 6 — CONTROLE INTERNO ═══════════ -->
+<section id="linhas">
   <div class="wrap">
     <div class="sec-head rv">
-      <p class="eyebrow"><span class="sec-mark">§ 5</span>Gestão de risco como controle interno</p>
-      <h2 class="h" data-edit>Cada linha de defesa precisa de um curso diferente.</h2>
-      <p class="lede" data-edit>A JFCE já opera o modelo de três linhas de defesa em contratações, com base no art. 169 da Lei n.º 14.133/2021. O portfólio do INOVAJUS foi desenhado para alimentar as três — e é isso que distingue os dois cursos em destaque.</p>
+      <span class="kicker">§ 6 · Gestão de risco como controle interno</span>
+      <h2 class="h-sec" data-edit>Cada linha de defesa precisa de um <em>curso diferente</em>.</h2>
+      <p class="lede" data-edit>O modelo de três linhas de defesa, previsto no art. 169 da Lei n.º 14.133/2021, organiza quem executa, quem orienta e quem audita. O portfólio foi desenhado para alimentar as três, e é isso que distingue os dois cursos em destaque.</p>
     </div>
 
     <div class="linhas rv rv-d1">
-      <!-- 1ª linha -->
-      <div class="linha" style="--lc:var(--blue)">
+      <div class="linha" style="--lc:var(--mira-primary)">
         <div>
           <div class="linha-id"><span class="n num">1</span><span class="t">Primeira linha · quem executa</span></div>
           <h3 data-edit>Quem usa a IA no ato</h3>
-          <p class="who" data-edit>Servidores de Varas e Turmas, assessores de gabinete, magistrados e servidores dos núcleos administrativos. São eles que decidem, diante da tela, o que colar na ferramenta e o que conferir antes de assinar.</p>
+          <p class="who" data-edit>Servidores de varas e gabinetes e servidores dos núcleos administrativos. São eles que decidem, diante da tela, o que submeter à ferramenta e o que conferir antes de assinar.</p>
           <div class="ctrls">
-            <span class="ctrl ok" title="Política de Uso de IA Generativa, itens 9 e 11">Régua de sigilo em 4 níveis</span>
-            <span class="ctrl ok" title="Política de Uso de IA Generativa, item 18">Nota de transparência no documento</span>
-            <span class="ctrl ok" title="Termo de Responsabilidade — IA e Low-Code, v7">Termo de responsabilidade assinado</span>
-            <span class="ctrl ok" title="Minuta de Diretrizes Internas de IA da JFCE, art. 13">Supervisão humana graduada por risco</span>
-            <span class="ctrl ok" title="Política de Uso de IA Generativa, item 12">Comunicação de incidente em 2h</span>
+            <span class="ctrl">Triagem do que pode ir para a IA</span>
+            <span class="ctrl">Anonimização antes do envio</span>
+            <span class="ctrl">Validação do resultado em fonte</span>
+            <span class="ctrl">Checklist de supervisão humana</span>
           </div>
         </div>
         <div class="dock">
           <p class="dl">Formada por</p>
           <div class="dcourse">
             <b data-edit>Servidor + IA</b>
-            <span data-edit>Forma a competência de conferir: alucinação, validação em fonte, checklist de supervisão e projeto com baseline medido.</span>
-            <span class="dch">24h · online ao vivo · 50–60 certificados previstos</span>
+            <span data-edit>Forma a competência de conferir: alucinação, validação em fonte, checklist de supervisão e projeto com medição do antes e do depois.</span>
+            <span class="dch">24h · online ao vivo</span>
           </div>
           <div class="dcourse">
             <b data-edit>Oficina Prompt Lab</b>
             <span data-edit>Porta de entrada mensal, com anonimização e limites de confiança praticados em laboratório.</span>
-            <span class="dch">3h por edição · 120–150 servidores previstos</span>
+            <span class="dch">3h por edição</span>
           </div>
         </div>
       </div>
 
-      <!-- 2ª linha -->
-      <div class="linha" style="--lc:var(--magenta)">
+      <div class="linha" style="--lc:var(--mira-accent-2)">
         <div>
           <div class="linha-id"><span class="n num">2</span><span class="t">Segunda linha · quem orienta e monitora</span></div>
           <h3 data-edit>Quem define a regra e acompanha o cumprimento</h3>
-          <p class="who" data-edit>Por analogia ao modelo já vigente em contratações: <b>assessoramento jurídico</b>, <b>controle interno</b>, <b>NEGI</b> (estratégia, governança e integridade) e <b>DTIC</b> — a quem cabe manter o catálogo de ferramentas autorizadas e classificar o risco de cada uma.</p>
+          <p class="who" data-edit>Assessoramento jurídico, controle interno, <b>governança e integridade</b> e a área de tecnologia, a quem cabe manter o inventário de soluções em uso e classificar o risco de cada uma.</p>
           <div class="ctrls">
-            <span class="ctrl ok" title="Política de Uso de IA Generativa, item 6 — revisão semestral">Catálogo de ferramentas autorizadas (DTIC)</span>
-            <span class="ctrl ok" title="Portaria LowCodeJud v2, art. 38, VII">Registro na plataforma Sinapses do CNJ</span>
-            <span class="ctrl ok" title="Portaria LowCodeJud v2 — vedado dado real, vedada conexão à produção sem autorização">Sandbox obrigatório para desenvolvimento</span>
-            <span class="ctrl soon" title="Minuta de Diretrizes Internas de IA da JFCE, art. 18">Comitê de IA e relatórios trimestrais</span>
-            <span class="ctrl gap" title="Nenhuma norma de governança de IA da JFCE atribui competência nominal ao NEGI">NEGI sem competência nominal em IA</span>
+            <span class="ctrl">Inventário de soluções em uso</span>
+            <span class="ctrl">Classificação por grau de risco</span>
+            <span class="ctrl">Registro no Sinapses do CNJ</span>
+            <span class="ctrl">Verificação de conformidade normativa</span>
           </div>
         </div>
         <div class="dock">
           <p class="dl">Formada por</p>
           <div class="dcourse">
             <b data-edit>Transformação Administrativa com IA</b>
-            <span data-edit>Módulos próprios para o NEGI e para a Assessoria Jurídica: análise de conformidade normativa, indicadores institucionais e verificação de conformidade de processos com as normas vigentes.</span>
-            <span class="dch">5,5h por unidade · dentro das 56h</span>
+            <span data-edit>Módulos próprios para governança e integridade e para a assessoria jurídica: análise de conformidade normativa, indicadores institucionais e verificação de atos frente às normas vigentes.</span>
+            <span class="dch">5,5h por unidade, dentro das 56h</span>
           </div>
           <div class="dcourse">
-            <b data-edit>Servidor + Dados (Eixo II)</b>
-            <span data-edit>A régua do TCU e o protocolo de resposta a incidente, exercitado em formato de mesa.</span>
+            <b data-edit>Servidor + Dados</b>
+            <span data-edit>Proteção de dados aplicada e o protocolo de resposta a incidente, exercitado em formato de mesa.</span>
             <span class="dch">16h · 5 módulos</span>
           </div>
         </div>
       </div>
 
-      <!-- 3ª linha -->
-      <div class="linha" style="--lc:var(--magenta)">
+      <div class="linha" style="--lc:#ffffff">
         <div>
           <div class="linha-id"><span class="n num">3</span><span class="t">Terceira linha · quem audita</span></div>
           <h3 data-edit>Quem verifica se o controle funcionou</h3>
-          <p class="who" data-edit>Auditoria interna e, externamente, TCU, CNJ e CJF. A minuta de Diretrizes prevê <b>auditoria anual sobre o uso de IA na seccional</b>, com escopo mínimo: lista de ferramentas autorizadas, análise de incidentes e verificação amostral da supervisão humana.</p>
+          <p class="who" data-edit>A auditoria interna e, externamente, os órgãos de controle. Auditar uso de IA exige competência específica: é preciso saber o que procurar num acervo que foi, ele próprio, produzido com apoio de IA.</p>
           <div class="ctrls">
-            <span class="ctrl soon" title="Minuta de Diretrizes Internas de IA da JFCE, art. 24">Auditoria anual sobre uso de IA (prevista)</span>
-            <span class="ctrl soon" title="Minuta de Diretrizes, art. 24, §1º">Verificação amostral da supervisão humana</span>
-            <span class="ctrl gap" title="Acórdão TCU 1372/2025, Rec. 9.1.8.2 — envolvimento da auditoria interna na gestão de riscos de privacidade">LGPD ainda fora do plano anual de auditoria</span>
-            <span class="ctrl gap" title="A minuta fala em &quot;auditoria interna&quot; genérica, sem nomear o núcleo">NUAUD sem competência nominal em IA</span>
+            <span class="ctrl">Verificação amostral da supervisão humana</span>
+            <span class="ctrl">Detecção de anomalias em documentos</span>
+            <span class="ctrl">Estruturação de evidências</span>
+            <span class="ctrl">Análise de incidentes</span>
           </div>
         </div>
         <div class="dock">
           <p class="dl">Formada por</p>
           <div class="dcourse">
             <b data-edit>Transformação Administrativa com IA</b>
-            <span data-edit>O módulo do NUAUD é o único do portfólio escrito para o ato de auditar: detecção de anomalias em documentos, checklists dinâmicos de conformidade, estruturação de evidências e documentação sistemática de achados.</span>
-            <span class="dch">5,5h · dois encontros · dentro das 56h</span>
+            <span data-edit>O módulo da auditoria interna é o único do portfólio escrito para o ato de auditar: detecção de anomalias, checklists dinâmicos de conformidade, estruturação de evidências e documentação sistemática de achados.</span>
+            <span class="dch">5,5h, dentro das 56h</span>
           </div>
         </div>
       </div>
     </div>
-
-    <div class="legend rv">
-      <i class="lg-ok">controle já formalizado em norma da JFCE</i>
-      <i class="lg-soon">previsto em minuta, ainda não vigente</i>
-      <i class="lg-gap">lacuna documentada</i>
-    </div>
-
-    <div class="gapnote rv">
-      <p class="eyebrow">Declaração de lacuna</p>
-      <p data-edit><b>Nenhuma norma de governança de IA da JFCE atribui hoje competência nominal ao NUAUD ou ao NEGI.</b> A minuta de Diretrizes prevê auditoria anual com apoio da “auditoria interna”, sem nomear a unidade; o NEGI não figura em nenhuma das instâncias de governança previstas. No campo da proteção de dados, a mesma ausência já foi reconhecida internamente como falha de segunda linha de defesa e é objeto da Recomendação 9.1.8.2 do Acórdão TCU n.º 1372/2025.</p>
-      <p data-edit>Este portfólio não corrige uma lacuna normativa — nenhuma capacitação corrige. Mas prepara, desde já, as pessoas que ocuparão essas posições quando a norma as nomear. <b>Hoje, a capacitação é o controle de primeira linha que a instituição efetivamente possui sobre o uso da IA.</b> Credenciá-la é o que a transforma de iniciativa em controle.</p>
-    </div>
   </div>
 </section>
 
-<!-- ═══════════ § 6 — QUADRO COMPARATIVO ═══════════ -->
-<section id="quadro" style="background:var(--paper)">
+<!-- ═══════════ § 7 — QUADRO ═══════════ -->
+<section id="quadro">
   <div class="wrap">
     <div class="sec-head rv">
-      <p class="eyebrow"><span class="sec-mark">§ 6</span>Quadro comparativo</p>
-      <h2 class="h" data-edit>As cinco capacitações, lado a lado.</h2>
+      <span class="kicker">§ 7 · Quadro comparativo</span>
+      <h2 class="h-sec" data-edit>As cinco capacitações, <em>lado a lado</em>.</h2>
     </div>
     <div class="tablewrap rv rv-d1">
       <table>
-        <caption class="sr-only" style="position:absolute;left:-9999px">Comparativo das capacitações do INOVAJUS</caption>
         <thead>
           <tr>
-            <th scope="col">Capacitação</th>
-            <th scope="col">Carga</th>
-            <th scope="col">Modalidade</th>
-            <th scope="col">Público</th>
-            <th scope="col">Vagas</th>
-            <th scope="col">Aprovação</th>
-            <th scope="col">Linha</th>
+            <th scope="col">Capacitação</th><th scope="col">Carga</th><th scope="col">Modalidade</th>
+            <th scope="col">Público</th><th scope="col">Linha de defesa</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row"><span class="cdot" style="background:var(--magenta)"></span>Transformação Administrativa com IA</th>
-            <td class="num">56h no total<br>14,5h por cursista</td>
-            <td>Presencial (EDIRB)</td>
-            <td>9 unidades administrativas</td>
-            <td class="num">30</td>
-            <td class="num">70% nota<br>75% frequência</td>
-            <td>2ª e 3ª</td>
-          </tr>
-          <tr>
-            <th scope="row"><span class="cdot" style="background:var(--blue)"></span>Servidor + IA</th>
-            <td class="num">24h</td>
-            <td>Online ao vivo</td>
-            <td>Área-fim (varas, turmas, gabinetes)</td>
-            <td class="num">25–30 · 2 turmas</td>
-            <td class="num">80% frequência<br>+ projeto integrador</td>
-            <td>1ª</td>
-          </tr>
-          <tr>
-            <th scope="row"><span class="cdot" style="background:var(--blue)"></span>Oficina Prompt Lab</th>
-            <td class="num">3h/edição<br>24h na série</td>
-            <td>Presencial (laboratório)</td>
-            <td>Área-fim e área-meio, alternadas</td>
-            <td class="num">15–20 por edição</td>
-            <td>Presença integral + prompt validado</td>
-            <td>1ª</td>
-          </tr>
-          <tr>
-            <th scope="row"><span class="cdot" style="background:var(--green)"></span>Servidor + Dados</th>
-            <td class="num">16h · 5 módulos</td>
-            <td>A definir</td>
-            <td>Todos os servidores</td>
-            <td class="num">20–25 por turma</td>
-            <td>A definir no plano de aula</td>
-            <td>1ª e 2ª</td>
-          </tr>
-          <tr>
-            <th scope="row"><span class="cdot" style="background:var(--yellow)"></span>Programa de Multiplicadores</th>
-            <td class="num">8–12h adicionais</td>
-            <td>Presencial + mentoria</td>
-            <td>Certificados no Servidor + IA</td>
-            <td>Seleção qualitativa</td>
-            <td class="num">90% de frequência no curso base</td>
-            <td>Transversal</td>
-          </tr>
+          <tr><th scope="row">Transformação Administrativa com IA</th><td class="num">56h</td><td>Presencial</td><td>Nove unidades administrativas</td><td>2.ª e 3.ª</td></tr>
+          <tr><th scope="row">Servidor + IA</th><td class="num">24h</td><td>Online ao vivo</td><td>Área-fim: varas, turmas e gabinetes</td><td>1.ª</td></tr>
+          <tr><th scope="row">Oficina Prompt Lab</th><td class="num">3h por edição, 24h na série</td><td>Presencial, em laboratório</td><td>Área-fim e área-meio, alternadas</td><td>1.ª</td></tr>
+          <tr><th scope="row">Servidor + Dados</th><td class="num">16h, 5 módulos</td><td>A definir</td><td>Todos os servidores</td><td>1.ª e 2.ª</td></tr>
+          <tr><th scope="row">Programa de Multiplicadores</th><td class="num">8 a 12h adicionais</td><td>Presencial e mentoria</td><td>Servidores já certificados</td><td>Transversal</td></tr>
         </tbody>
       </table>
     </div>
-    <p class="small rv" style="margin-top:16px;font-size:.78rem;color:var(--muted)" data-edit>“Linha” indica a linha de defesa que a capacitação forma, conforme o § 5.</p>
   </div>
 </section>
 
-<!-- ═══════════ § 7 — BASE NORMATIVA E DOCENTES ═══════════ -->
-<section id="base" style="background:var(--paper-off)">
+<!-- ═══════════ § 8 — BASE ═══════════ -->
+<section id="base">
   <div class="wrap">
     <div class="sec-head rv">
-      <p class="eyebrow"><span class="sec-mark">§ 7</span>Base normativa, corpo docente e bibliografia</p>
-      <h2 class="h" data-edit>Do que o portfólio se sustenta.</h2>
+      <span class="kicker">§ 8 · Base normativa e corpo docente</span>
+      <h2 class="h-sec" data-edit>Do que o portfólio se sustenta.</h2>
     </div>
 
     <div class="norms rv rv-d1">
-      <div><b>Resolução CNJ n.º 615/2025</b><span data-edit>Uso de inteligência artificial no Poder Judiciário. Base comum das três capacitações do Eixo III.</span></div>
-      <div><b>Resolução CNJ n.º 332/2020</b><span data-edit>Ética, transparência e governança na produção e uso de IA no Judiciário.</span></div>
-      <div><b>Lei n.º 13.709/2018 — LGPD</b><span data-edit>Tratamento de dados pessoais; base do Eixo II e do Módulo 4 do Servidor + IA.</span></div>
-      <div><b>Lei n.º 14.133/2021, art. 169</b><span data-edit>Modelo de três linhas de defesa já formalizado na JFCE para gestão e fiscalização de contratos.</span></div>
-      <div><b>Acórdão TCU n.º 1372/2025</b><span data-edit>Monitoramento da conformidade à LGPD; a Recomendação 9.1.8.2 trata do envolvimento da auditoria interna na gestão de riscos.</span></div>
-      <div><b>Resoluções CNJ n.º 308 e 309/2020</b><span data-edit>Auditoria interna do Poder Judiciário — competência da terceira linha de defesa.</span></div>
+      <div><b>Resolução CNJ n.º 615/2025</b><span data-edit>Diretrizes para desenvolvimento, utilização e governança de soluções de IA no Poder Judiciário. Base comum de todo o portfólio.</span></div>
+      <div><b>Lei n.º 13.709/2018 (LGPD)</b><span data-edit>Tratamento de dados pessoais, com aplicação direta na anonimização praticada nos cursos.</span></div>
+      <div><b>Lei n.º 14.133/2021, art. 169</b><span data-edit>Modelo de três linhas de defesa na administração pública, que organiza a seção § 6.</span></div>
+      <div><b>Resoluções CNJ n.º 308 e 309/2020</b><span data-edit>Auditoria interna do Poder Judiciário, competência da terceira linha de defesa.</span></div>
+      <div><b>Resolução CD/ANPD n.º 15/2024</b><span data-edit>Comunicação de incidente de segurança envolvendo dados pessoais.</span></div>
       <div><b>Portaria DF n.º 161/2025</b><span data-edit>Criação e competências do INOVAJUS na Justiça Federal no Ceará.</span></div>
-      <div><b>Resolução CD/ANPD n.º 15/2024</b><span data-edit>Comunicação de incidente de segurança com dados pessoais.</span></div>
     </div>
 
-    <div class="rv" style="margin-top:clamp(44px,6vw,76px)">
-      <h3 class="sh" data-edit>Corpo docente</h3>
-      <div class="docentes" style="margin-top:24px">
+    <div class="rv" style="margin-top:clamp(40px,5vw,68px)">
+      <h3 class="h-sub" style="margin-bottom:16px" data-edit>Corpo docente</h3>
+      <div class="docentes">
         <div class="doc">
           <b data-edit>Victor César Falcão Viana</b>
           <span class="role" data-edit>Coordenação do Eixo III · Docente</span>
-          <p data-edit>Servidor da Justiça Federal no Ceará e Diretor de Secretaria da 3ª Vara Federal. Especialista em Direito Constitucional, em Processo Civil e em Gestão de Pessoas na Justiça Federal. Estudioso da transformação digital e da IA aplicada à Administração Pública.</p>
+          <p data-edit>Servidor da Justiça Federal no Ceará e Diretor de Secretaria da 3.ª Vara Federal. Especialista em Direito Constitucional, em Processo Civil e em Gestão de Pessoas na Justiça Federal. Estudioso da transformação digital e da IA aplicada à Administração Pública.</p>
         </div>
         <div class="doc">
           <b data-edit>Vinícius Sousa e Silva</b>
@@ -1101,29 +910,17 @@ body.editing [data-edit]:focus{outline:2px solid var(--blue);background:rgba(0,1
           <p data-edit>Servidor da Justiça Federal no Ceará. Especialista em Direito Público, em Direito e Gestão do Judiciário e em Tecnologia da Informação. Estudioso da automação, da inovação e das tecnologias aplicadas.</p>
         </div>
       </div>
-      <p class="small" style="margin-top:24px;max-width:70ch" data-edit>A partir da segunda turma, multiplicadores formados pelo Programa (Ação 1.3) podem co-conduzir módulos sob supervisão da Coordenação do Eixo III.</p>
-    </div>
-
-    <div class="rv" style="margin-top:clamp(44px,6vw,76px)">
-      <h3 class="sh" data-edit>Bibliografia</h3>
-      <ol class="biblio">
-        <li data-edit>FACELI, Katti; LORENA, Ana C.; GAMA, João; CARVALHO, André C. P. L. F. <em>Inteligência artificial: uma abordagem de aprendizado de máquina</em>. Rio de Janeiro: LTC, 2021.</li>
-        <li data-edit>KAHNEMAN, Daniel. <em>Rápido e devagar: duas formas de pensar</em>. Rio de Janeiro: Objetiva, 2012.</li>
-        <li data-edit>MASOOD, Adnan; DAWE, Heather. <em>Responsible AI in the enterprise: practical AI risk management for explainable, auditable, and safe models with hyperscalers and Azure OpenAI</em>. Birmingham: Packt Publishing, 2023.</li>
-        <li data-edit>RUSSELL, Stuart; NORVIG, Peter. <em>Inteligência artificial</em>. Rio de Janeiro: Campus, 2013.</li>
-        <li data-edit>BURKOV, Andriy. <em>Machine learning engineering</em>. Montreal: True Positive Inc., 2020.</li>
-      </ol>
     </div>
   </div>
 </section>
 
 <!-- ═══════════ FECHO ═══════════ -->
-<section class="on-dark close" style="background:
-    radial-gradient(ellipse 62% 44% at 88% 4%,rgba(212,24,118,.14),transparent 62%),
-    radial-gradient(ellipse 60% 40% at 4% 100%,rgba(0,160,227,.13),transparent 62%),
-    var(--ink)">
+<section class="close" style="background:
+    radial-gradient(ellipse 58% 44% at 88% 6%,var(--mira-glow-strong),transparent 62%),
+    radial-gradient(ellipse 56% 40% at 4% 100%,rgba(255,199,102,.10),transparent 62%),
+    var(--mira-bg)">
   <div class="wrap">
-    <h2 class="rv" data-edit>A instituição vai usar IA de qualquer modo.<br><span class="turn">A escolha é se vai usar com quem saiba responder por ela.</span></h2>
+    <h2 class="rv" data-edit>A instituição vai usar IA de qualquer modo.<br><em>A escolha é se vai usar com quem saiba responder por ela.</em></h2>
     <footer>
       <span>INOVAJUS · Laboratório de Inovação da Justiça Federal no Ceará</span>
       <span data-edit>Portfólio de capacitações · 2026</span>
@@ -1145,7 +942,6 @@ body.editing [data-edit]:focus{outline:2px solid var(--blue);background:rgba(0,1
 (function(){
   "use strict";
 
-  /* ── Revelação em scroll ─────────────────────────────────── */
   var rvs = document.querySelectorAll('.rv');
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function(entries){
@@ -1158,7 +954,6 @@ body.editing [data-edit]:focus{outline:2px solid var(--blue);background:rgba(0,1
     rvs.forEach(function(el){ el.classList.add('in'); });
   }
 
-  /* ── Trilho ativo ────────────────────────────────────────── */
   var links = Array.prototype.slice.call(document.querySelectorAll('.rail a[data-rail]'));
   var targets = links.map(function(a){ return document.querySelector(a.getAttribute('href')); });
   if ('IntersectionObserver' in window) {
@@ -1174,8 +969,7 @@ body.editing [data-edit]:focus{outline:2px solid var(--blue);background:rgba(0,1
     targets.forEach(function(t){ if (t) io2.observe(t); });
   }
 
-  /* ── Modo de edição ──────────────────────────────────────── */
-  var KEY = 'inovajus-portfolio-v1';
+  var KEY = 'inovajus-portfolio-v2';
   var fields = Array.prototype.slice.call(document.querySelectorAll('[data-edit]'));
   fields.forEach(function(el, i){ el.setAttribute('data-k', 'f' + i); });
 
