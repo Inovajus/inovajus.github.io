@@ -41,6 +41,14 @@ table { border-collapse:collapse; width:100%; font-size:.92rem; }
 th, td { border:1px solid var(--borda); padding:7px 10px; text-align:left; vertical-align:top; }
 th { background:var(--laranja-claro); }
 .secao { scroll-margin-top:20px; }
+.cta-banco { display:block; margin:1.1em 0 .5em; padding:14px 18px; text-decoration:none;
+  background:var(--creme); border:1px solid var(--borda); border-left:4px solid var(--laranja);
+  border-radius:6px; color:var(--tinta); transition:background .15s, border-color .15s; }
+.cta-banco:hover { background:var(--laranja-claro); border-left-color:var(--laranja); }
+.cta-banco-tit { display:block; font-weight:700; color:var(--laranja); font-size:1.02rem; }
+.cta-banco-tit::after { content:' →'; }
+.cta-banco-sub { display:block; color:var(--cinza); font-size:.9rem; margin-top:2px; }
+.nota-banco { color:var(--cinza); font-size:.9rem; }
 .rodape { border-top:1px solid var(--borda); margin-top:60px; padding-top:16px;
   color:var(--cinza); font-size:.85rem; }
 @media (max-width:900px) {
@@ -51,6 +59,9 @@ th { background:var(--laranja-claro); }
   nav, header.topo { display:none; }
   body { font-size:11pt; } .wrap { display:block; padding:0; }
   h2 { page-break-after:avoid; } table, pre { page-break-inside:avoid; }
+  /* no papel o link precisa mostrar o endereço */
+  .cta-banco { break-inside:avoid; page-break-inside:avoid; }
+  .cta-banco-sub::after { content:" — inovajus.github.io/banco-de-prompts.html"; font-weight:700; }
 }
 </style>
 </head>
@@ -216,7 +227,12 @@ Lista de expedientes (dados fictícios):
 <p data-k="k154"><strong>Antes:</strong> &quot;João da Silva Pereira, CPF 000.000.000-00, residente na Rua das Flores, 123, requer...&quot;</p>
 <p data-k="k155"><strong>Depois:</strong> &quot;[NOME], [DOCUMENTO], residente em [ENDEREÇO], requer...&quot;</p>
 <h2 id="man-17" data-k="k156">Como usar o Banco de Prompts</h2>
-<p data-k="k157">O <strong>Banco de Prompts — Servidor + IA</strong> é um documento à parte, entregue no início do curso, com <strong>14 prompts-mestre</strong> — modelos prontos, um para cada tipo de tarefa recorrente de Vara e Gabinete — e cinco apêndices de aprofundamento.</p>
+<p data-k="k157">O <strong>Banco de Prompts — Servidor + IA</strong> reúne <strong>14 prompts-mestre</strong> — modelos prontos, um para cada tipo de tarefa recorrente de Vara e Gabinete — e cinco apêndices de aprofundamento.</p>
+<a class="cta-banco" href="https://inovajus.github.io/banco-de-prompts.html">
+  <span class="cta-banco-tit">Abrir o Banco de Prompts</span>
+  <span class="cta-banco-sub">Copie qualquer prompt com um clique · busque pela tarefa · filtre por módulo</span>
+</a>
+<p class="nota-banco">O mesmo conteúdo também é entregue em documento (.docx) no início do curso.</p>
 <p data-k="k158">Cada prompt-mestre já vem nas seis etapas do prompt e com as instruções de qualidade embutidas (a primeira camada de defesa do Módulo 2). Seu trabalho é adaptá-lo: trocar o exemplo genérico pelo caso da sua unidade, ajustar o tom se necessário, e sempre revisar o resultado com o checklist de quatro perguntas.</p>
 <p data-k="k159">Os apêndices cobrem o que não cabe num prompt-mestre único: <strong>Apêndice A</strong> (prática forense, aprofunda o Módulo 3), <strong>Apêndice B</strong> (pensamento crítico e causal, aprofunda o Módulo 2), <strong>Apêndice C</strong> (ética, LGPD e anonimização, aprofunda o Módulo 4), <strong>Apêndice D</strong> (duas técnicas avançadas de análise de documento — D1, técnica creditada ao Prof. George Marmelstein, e D2, um assistente de revisão) e <strong>Apêndice E</strong> (roteiros passo a passo das demonstrações ao vivo do curso: E1 triagem, E2 modelos e lote, E3 auditoria da &quot;resposta boa demais&quot;).</p>
 <h3 id="man-18" data-k="k160">Tabela — qual prompt-mestre usar para cada tarefa</h3>
