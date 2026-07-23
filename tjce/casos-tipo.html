@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Casos-tipo do projeto integrador · Curso Servidor + IA (Turma TJCE)</title>
+<style>
+:root {
+  --laranja:#C05A1E; --laranja-claro:#F2E4D8; --tinta:#23201d; --cinza:#5c554e;
+  --fundo:#FFFDFA; --borda:#e6ddd3; --creme:#FFF7EF;
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--fundo); color:var(--tinta);
+  font:16px/1.65 -apple-system,"Segoe UI",Inter,Roboto,sans-serif; }
+header.topo { background:var(--laranja); color:#fff; padding:26px 20px; }
+header.topo h1 { margin:0 0 4px; font-size:1.5rem; letter-spacing:-.01em; }
+header.topo p { margin:0; opacity:.92; font-size:.95rem; }
+.wrap { display:flex; gap:32px; max-width:1240px; margin:0 auto; padding:28px 20px 80px; }
+nav { flex:0 0 264px; position:sticky; top:20px; align-self:flex-start;
+  max-height:calc(100vh - 40px); overflow:auto; font-size:.9rem; }
+nav ul { list-style:none; margin:0; padding:0; }
+nav a { color:var(--cinza); text-decoration:none; display:block; padding:5px 10px;
+  border-left:2px solid transparent; border-radius:0 4px 4px 0; }
+nav a:hover { background:var(--creme); color:var(--laranja); border-left-color:var(--laranja); }
+.nav-sec a { font-weight:700; color:var(--tinta); margin-top:14px; }
+.n2 a { padding-left:20px; }
+main { flex:1; min-width:0; }
+h2 { font-size:1.32rem; margin:2.2em 0 .5em; color:var(--laranja);
+  border-bottom:1px solid var(--borda); padding-bottom:.3em; }
+h3 { font-size:1.08rem; margin:1.7em 0 .4em; }
+h4 { font-size:.98rem; margin:1.4em 0 .3em; color:var(--cinza); }
+p, li { margin:.5em 0; }
+code { background:var(--creme); padding:1px 5px; border-radius:3px; font-size:.9em; }
+pre { background:var(--creme); border:1px solid var(--borda); border-left:3px solid var(--laranja);
+  padding:14px 16px; border-radius:6px; overflow-x:auto; white-space:pre-wrap;
+  font:13px/1.5 ui-monospace,Consolas,monospace; }
+blockquote { margin:.8em 0; padding:.4em 0 .4em 14px; border-left:3px solid var(--laranja-claro);
+  color:var(--cinza); font-style:italic; }
+.tw { overflow-x:auto; margin:1em 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { border:1px solid var(--borda); padding:7px 10px; text-align:left; vertical-align:top; }
+th { background:var(--laranja-claro); }
+.secao { scroll-margin-top:20px; }
+.rodape { border-top:1px solid var(--borda); margin-top:60px; padding-top:16px;
+  color:var(--cinza); font-size:.85rem; }
+@media (max-width:900px) {
+  .wrap { flex-direction:column; padding:16px; }
+  nav { position:static; max-height:none; flex:none; }
+}
+@media print {
+  nav, header.topo { display:none; }
+  body { font-size:11pt; } .wrap { display:block; padding:0; }
+  h2 { page-break-after:avoid; } table, pre { page-break-inside:avoid; }
+}
+</style>
+</head>
+<body>
+<header class="topo">
+  <h1>Casos-tipo do projeto integrador · Turma TJCE</h1>
+  <p>Curso Servidor + IA · Justiça Federal no Ceará · INOVAJUS Eixo III · anexo do Módulo 3</p>
+</header>
+
+<div class="wrap">
+<nav>
+  <ul>
+<li class="nav-sec"><a href="#como-usar">Como usar</a></li>
+<li class="nav-sec"><a href="#quadro-comparativo">Quadro comparativo</a></li>
+<li class="nav-sec"><a href="#caso-tipo-a-triagem-de-petições-iniciais">Caso-tipo A — Triagem
+de petições iniciais</a></li>
+<li class="nav-sec"><a href="#caso-tipo-b-resumo-de-peças-para-despacho">Caso-tipo B — Resumo
+de peças para despacho</a></li>
+<li class="nav-sec"><a href="#caso-tipo-c-minutas-padrão-de-expediente">Caso-tipo C —
+Minutas-padrão de expediente</a></li>
+<li class="nav-sec"><a href="#caso-tipo-d-relatório-de-andamento-do-acervo">Caso-tipo D —
+Relatório de andamento do acervo</a></li>
+<li class="nav-sec"><a href="#ficha-do-projeto-a-mesma-para-os-quatro-casos">Ficha do projeto
+(a mesma para os quatro casos)</a></li>
+<li class="nav-sec"><a href="#nota-de-sigilo">Nota de sigilo</a></li>
+  </ul>
+</nav>
+
+<main>
+  <section class="secao">
+
+<p>Anexo do curso “Servidor + IA”. Quatro cenários fictícios de Vara
+Cível para o projeto integrador do Módulo 3. Turma TJCE, versão 1 ·
+julho de 2026. Justiça Federal no Ceará · INOVAJUS Eixo III
+(ministrante).</p>
+<hr />
+<h2 id="como-usar">Como usar</h2>
+<p>O projeto integrador desta turma é <strong>individual</strong> e roda
+sobre um <strong>caso-tipo</strong>: um cenário fictício de Vara Cível
+que já vem com a rotina descrita e o tempo médio por unidade medido.
+Isso existe por um motivo prático — a turma não trabalha um caso real da
+própria unidade, e sem um “antes” registrado não há ganho demonstrável
+no “depois”.</p>
+<p><strong>Para o participante.</strong> Escolha <strong>um</strong> dos
+quatro casos-tipo abaixo, ainda na TE6 (entre o Encontro 3 e o Encontro
+4). Transcreva a situação atual e o tempo médio por unidade para as duas
+primeiras linhas da ficha do projeto. Só depois disso comece a aplicar
+prompts.</p>
+<p><strong>Para o instrutor.</strong> Distribua este anexo ao final do
+Encontro 3, junto com a ficha do projeto. Os quatro casos cobrem os
+quatro caminhos do roteiro (triar, resumir, minutar, organizar), de modo
+que a turma inteira exercite o método sem repetir a mesma demonstração.
+Os números de tempo são plausíveis e servem de baseline; não são
+estatística de vara real.</p>
+<p><strong>Se o participante já tiver rotina própria
+equivalente</strong>, pode usá-la no lugar do caso-tipo, desde que
+registre situação atual e tempo médio por unidade sem qualquer dado
+sigiloso ou identificável.</p>
+<blockquote>
+<p>Todos os nomes, números de processo, datas, valores e unidades deste
+anexo são <strong>fictícios</strong>. A numeração segue o padrão do
+Tribunal de Justiça do Ceará (<code>…8.06.0001</code>) apenas para dar
+realismo ao exercício.</p>
+</blockquote>
+<hr />
+<h2 id="quadro-comparativo">Quadro comparativo</h2>
+<div class="tw"><table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Caso-tipo</th>
+<th>Tarefa central</th>
+<th>Prompts-mestre previstos</th>
+<th>Tempo médio hoje</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>A</strong></td>
+<td>Triagem de petições iniciais</td>
+<td>classificar e priorizar um lote</td>
+<td>M9 (+ roteiro E1)</td>
+<td>6 min por petição</td>
+</tr>
+<tr class="even">
+<td><strong>B</strong></td>
+<td>Resumo de peças para despacho</td>
+<td>resumir e conferir contra o original</td>
+<td>M1</td>
+<td>18 min por peça</td>
+</tr>
+<tr class="odd">
+<td><strong>C</strong></td>
+<td>Minutas-padrão de expediente</td>
+<td>minutar e cotejar com o modelo da Vara</td>
+<td>M3 + M5</td>
+<td>12 min por minuta</td>
+</tr>
+<tr class="even">
+<td><strong>D</strong></td>
+<td>Relatório de andamento do acervo</td>
+<td>estruturar dados soltos em relatório</td>
+<td>M6</td>
+<td>3 h por relatório mensal</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="caso-tipo-a-triagem-de-petições-iniciais">Caso-tipo A — Triagem
+de petições iniciais</h2>
+<p><strong>Unidade fictícia:</strong> 7ª Vara Cível da Comarca de
+Fortaleza.</p>
+<p><strong>Situação atual.</strong> Todo dia útil chegam entre 25 e 40
+petições iniciais novas. Um servidor lê cada uma para classificar em
+três filas: <strong>urgente</strong> (pedido de tutela de urgência,
+processo com prioridade legal — idoso, pessoa com deficiência ou doença
+grave —, prazo legal em 48h), <strong>normal</strong> e
+<strong>devolver</strong> (falta documento essencial ou incompetência
+evidente). A classificação é feita direto no sistema, sem registro do
+critério aplicado. Quando o servidor titular da triagem falta, o lote do
+dia acumula para o dia seguinte.</p>
+<p><strong>Tempo médio por unidade hoje:</strong> <strong>6 minutos por
+petição</strong> — cerca de 3 horas para um lote de 30.</p>
+<p><strong>Lote de exemplo (fictício), para aplicar o prompt-mestre
+M9:</strong></p>
+<div class="tw"><table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Nº do processo (fictício)</th>
+<th>Objeto</th>
+<th>Observação constante da inicial</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0011223-45.2026.8.06.0001</td>
+<td>Obrigação de fazer — plano de saúde</td>
+<td>pede tutela de urgência; laudo do médico assistente anexado</td>
+</tr>
+<tr class="even">
+<td>0022334-56.2026.8.06.0001</td>
+<td>Cobrança — contrato de prestação de serviços</td>
+<td>sem pedido de urgência; documentos completos</td>
+</tr>
+<tr class="odd">
+<td>0033445-67.2026.8.06.0001</td>
+<td>Obrigação de fazer — plano de saúde</td>
+<td>pede tutela de urgência; <strong>sem</strong> laudo anexado</td>
+</tr>
+<tr class="even">
+<td>0044556-78.2026.8.06.0001</td>
+<td>Indenização por danos materiais</td>
+<td>valor da causa não informado</td>
+</tr>
+<tr class="odd">
+<td>0002233-11.2026.8.06.0001</td>
+<td>Revisão de contrato bancário</td>
+<td>pede gratuidade; declaração de hipossuficiência anexada</td>
+</tr>
+<tr class="even">
+<td>0009988-22.2021.8.06.0001</td>
+<td>Execução de título extrajudicial</td>
+<td>petição de reiteração; processo já distribuído em 2021</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Onde o exercício costuma travar.</strong> Duas armadilhas
+plantadas: a inicial sem laudo (pede urgência mas não instrui o pedido —
+é urgente ou é caso de emenda?) e a petição de reiteração de 2021, que
+não é inicial nova. Um bom prompt força a IA a justificar cada
+classificação em uma frase e a marcar como “não classificável” o que não
+se encaixa — em vez de chutar.</p>
+<p><strong>O que o “depois” precisa mostrar:</strong> tempo por petição
+<strong>com a conferência humana incluída</strong>. A triagem assistida
+não dispensa a leitura de conferência; ela muda o que se lê
+primeiro.</p>
+<hr />
+<h2 id="caso-tipo-b-resumo-de-peças-para-despacho">Caso-tipo B — Resumo
+de peças para despacho</h2>
+<p><strong>Unidade fictícia:</strong> 9ª Vara Cível da Comarca de
+Fortaleza.</p>
+<p><strong>Situação atual.</strong> Antes de cada despacho, o assessor
+lê a peça mais recente do processo (contestação, réplica ou manifestação
+sobre laudo, entre 15 e 40 páginas) e escreve à mão um resumo de meia
+página para o magistrado, indicando pedido, fundamento e prazo pendente.
+O resumo não segue estrutura fixa — cada assessor organiza do seu jeito
+—, e por isso o magistrado frequentemente volta com a mesma pergunta: “e
+o pedido subsidiário?”.</p>
+<p><strong>Tempo médio por unidade hoje:</strong> <strong>18 minutos por
+peça</strong>.</p>
+<p><strong>Peça de exemplo (fictícia), para aplicar o prompt-mestre M1 —
+trecho de contestação:</strong></p>
+<blockquote>
+<p>Processo nº 0001234-56.2024.8.06.0001 SAÚDE VIDA PLENA OPERADORA DE
+PLANOS DE SAÚDE LTDA. (fictícia), já qualificada, apresenta CONTESTAÇÃO
+à ação de obrigação de fazer proposta por MARIA DE SOUSA LIMA
+(fictícia). Preliminarmente, sustenta a ausência de interesse de agir,
+porque a autora não formulou pedido administrativo de reanálise após a
+negativa de 30/09/2025. No mérito, afirma que o procedimento requerido
+não consta do rol da agência reguladora e que o parecer do médico
+auditor da operadora, de 12/10/2025, concluiu pela ausência de indicação
+clínica. Sustenta a legalidade da cláusula 14.3 do contrato, que exclui
+a cobertura pretendida. Subsidiariamente, caso deferida a obrigação,
+requer que o custeio se limite à rede credenciada e que a multa diária
+não ultrapasse R$ 200,00, limitada a 30 dias. Requer a improcedência.
+Protesta por prova pericial médica.</p>
+</blockquote>
+<p><strong>Onde o exercício costuma travar.</strong> O pedido
+subsidiário (limitação de multa e rede credenciada) é exatamente o que
+costuma sumir num resumo apressado — e é o que o magistrado precisa para
+despachar. A conferência tem de ser contra o texto original, parágrafo
+por parágrafo: um resumo fluente que omite o subsidiário está
+<em>errado</em>, mesmo sem nenhuma frase falsa.</p>
+<p><strong>O que o “depois” precisa mostrar:</strong> tempo por peça
+incluindo a releitura de conferência, e a lista do que foi conferido
+(pedido principal, subsidiário, preliminares, prazo, prova
+requerida).</p>
+<hr />
+<h2 id="caso-tipo-c-minutas-padrão-de-expediente">Caso-tipo C —
+Minutas-padrão de expediente</h2>
+<p><strong>Unidade fictícia:</strong> 3ª Vara Cível da Comarca de
+Fortaleza.</p>
+<p><strong>Situação atual.</strong> A secretaria produz cerca de 60
+minutas de despacho de expediente por semana (citação, intimação para
+réplica, especificação de provas, remessa ao contador). Cada servidor
+copia a última minuta parecida que encontra na própria pasta e edita.
+Não há um modelo único consolidado: circulam três versões do mesmo
+despacho de intimação para réplica, com prazos escritos de formas
+diferentes (“quinze dias”, “15 (quinze) dias”, “prazo legal”).</p>
+<p><strong>Tempo médio por unidade hoje:</strong> <strong>12 minutos por
+minuta</strong>.</p>
+<p><strong>Modelo padrão da Vara (fictício), para o cotejo com o
+prompt-mestre M5:</strong></p>
+<blockquote>
+<p><strong>DESPACHO — intimação para réplica</strong> Vistos.
+Apresentada contestação, intime-se a parte autora para, querendo,
+apresentar réplica no prazo de 15 (quinze) dias (arts. 350 e 351 do
+CPC). Após, venham conclusos para saneamento. Cumpra-se. Fortaleza/CE,
+data da assinatura eletrônica.</p>
+</blockquote>
+<p><strong>Minuta gerada por IA (fictícia), para o participante
+cotejar:</strong></p>
+<blockquote>
+<p><strong>DESPACHO</strong> Vistos. Tendo em vista a contestação
+apresentada, intime-se a parte autora para apresentar réplica no prazo
+de 10 (dez) dias. Não havendo manifestação, os autos serão arquivados.
+Publique-se. Intime-se. Fortaleza/CE, 12 de agosto de 2026.</p>
+</blockquote>
+<p><strong>Onde o exercício costuma travar.</strong> Três divergências
+plantadas, de gravidades diferentes: o prazo errado (10 em vez de 15 —
+<strong>é a grave</strong>, contraria os arts. 350 e 351 do CPC), o
+arquivamento indevido pela ausência de réplica (que é faculdade da
+parte, não causa de arquivamento) e a data fixa no lugar da assinatura
+eletrônica. Um bom cotejo não só lista as três: ordena por gravidade e
+diz qual delas impediria a assinatura.</p>
+<p><strong>O que o “depois” precisa mostrar:</strong> tempo por minuta
+incluindo o cotejo com o modelo padrão — e a constatação de que
+consolidar um modelo único é parte do ganho, não efeito colateral.</p>
+<hr />
+<h2 id="caso-tipo-d-relatório-de-andamento-do-acervo">Caso-tipo D —
+Relatório de andamento do acervo</h2>
+<p><strong>Unidade fictícia:</strong> 7ª Vara Cível da Comarca de
+Fortaleza.</p>
+<p><strong>Situação atual.</strong> Toda primeira semana do mês, o
+diretor de secretaria monta à mão um relatório de andamento para a
+reunião de gestão. Os dados vêm de três lugares: a extração do sistema
+processual (planilha), as anotações do supervisor sobre pendências de
+cumprimento (bloco de notas) e os e-mails de cobrança da Corregedoria.
+Consolidar isso em texto corrido, com número e comentário, consome uma
+manhã inteira.</p>
+<p><strong>Tempo médio por unidade hoje:</strong> <strong>3 horas por
+relatório mensal</strong>.</p>
+<p><strong>Anotações soltas de exemplo (fictícias), para aplicar o
+prompt-mestre M6:</strong></p>
+<blockquote>
+<ul>
+<li>conclusos p/ sentença: 212 (mês passado 198)</li>
+<li>conclusos p/ decisão: 87</li>
+<li>cumprimento pendente na secretaria: 143, sendo 26 com prazo
+vencido</li>
+<li>audiências realizadas no mês: 34; redesignadas: 6 (2 por ausência de
+perito)</li>
+<li>mutirão de conciliação (semana 3): 41 acordos homologados</li>
+<li>reclamação de advogado sobre demora em expedição de alvará — 3
+registros na ouvidoria</li>
+<li>servidor da equipe de cumprimento em licença desde 12/07, sem
+substituição</li>
+<li>meta do mês: reduzir cumprimento pendente para menos de 120</li>
+</ul>
+</blockquote>
+<p><strong>Onde o exercício costuma travar.</strong> O número que sobe
+(212 conclusos para sentença) convive com uma causa que não está na
+planilha: o servidor em licença desde 12/07. Um relatório que apresenta
+o número sem a causa oculta convida à conclusão errada — é o gancho
+direto do Módulo 2. O relatório bom separa o que é <strong>dado</strong>
+do que é <strong>hipótese explicativa</strong>, e diz qual dado
+confirmaria cada hipótese.</p>
+<p><strong>O que o “depois” precisa mostrar:</strong> tempo de
+consolidação incluindo a conferência de cada número contra a fonte —
+nenhum número entra em relatório de gestão sem alguém ter olhado de onde
+ele veio.</p>
+<hr />
+<h2 id="ficha-do-projeto-a-mesma-para-os-quatro-casos">Ficha do projeto
+(a mesma para os quatro casos)</h2>
+<div class="tw"><table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Campo</th>
+<th>Seu preenchimento</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Caso-tipo escolhido</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Situação atual (como a tarefa é feita hoje, conforme o
+caso-tipo)</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Tempo médio por unidade hoje (conforme o caso-tipo)</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Como será feita com apoio de IA (prompts-mestre usados)</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Tempo estimado por unidade depois (incluindo conferência
+humana)</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Riscos de sigilo identificados e como foram tratados (anonimização,
+dado que não pode sair)</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Quem confere cada saída antes de virar ato oficial</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Avaliação:</strong> rubrica-projeto-integrador-v2 (7
+dimensões, 4 níveis), aplicada sobre a ficha preenchida e a apresentação
+de até 5 minutos para a turma.</p>
+<hr />
+<h2 id="nota-de-sigilo">Nota de sigilo</h2>
+<p>Os insumos deste anexo são fictícios justamente para que possam ser
+colados numa ferramenta de IA sem restrição. Ao substituir um caso-tipo
+por rotina própria, vale a regra do curso: confere-se primeiro o
+<strong>sigilo</strong> — se for “sim” ou “desconhecido”, não se envia,
+ponto; anonimizar só faz sentido quando o envio já é permitido
+(Resolução CNJ 615/2025, arts. 7º e 19).</p>
+
+  </section>
+</main>
+</div>
+
+</body>
+</html>
