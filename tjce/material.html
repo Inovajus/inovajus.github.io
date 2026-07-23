@@ -41,13 +41,6 @@ table { border-collapse:collapse; width:100%; font-size:.92rem; }
 th, td { border:1px solid var(--borda); padding:7px 10px; text-align:left; vertical-align:top; }
 th { background:var(--laranja-claro); }
 .secao { scroll-margin-top:20px; }
-.barra { position:fixed; left:16px; bottom:16px; display:flex; gap:8px; z-index:50; }
-.btn { background:#fff; border:1px solid var(--borda); color:var(--tinta); padding:8px 14px;
-  border-radius:999px; font-size:.85rem; cursor:pointer; box-shadow:0 2px 10px rgba(0,0,0,.09); }
-.btn:hover { border-color:var(--laranja); color:var(--laranja); }
-.btn.on { background:var(--laranja); color:#fff; border-color:var(--laranja); }
-[contenteditable="true"] { outline:1px dashed var(--laranja); outline-offset:2px;
-  background:rgba(192,90,30,.04); }
 .rodape { border-top:1px solid var(--borda); margin-top:60px; padding-top:16px;
   color:var(--cinza); font-size:.85rem; }
 @media (max-width:900px) {
@@ -55,7 +48,7 @@ th { background:var(--laranja-claro); }
   nav { position:static; max-height:none; flex:none; }
 }
 @media print {
-  nav, .barra, header.topo { display:none; }
+  nav, header.topo { display:none; }
   body { font-size:11pt; } .wrap { display:block; padding:0; }
   h2 { page-break-after:avoid; } table, pre { page-break-inside:avoid; }
 }
@@ -74,7 +67,7 @@ th { background:var(--laranja-claro); }
 <li class="n2"><a href="#man-0">Boas-vindas</a></li>
 <li class="n2"><a href="#man-4">Como acompanhar as aulas</a></li>
 <li class="n2"><a href="#man-7">O essencial de cada módulo</a></li>
-<li class="n2"><a href="#man-12">Job aids — fichas de consulta rápida</a></li>
+<li class="n2"><a href="#man-12">Fichas de consulta rápida</a></li>
 <li class="n2"><a href="#man-17">Como usar o Banco de Prompts</a></li>
 <li class="n2"><a href="#man-19">Os 30 dias seguintes</a></li>
 <li class="n2"><a href="#man-21">Perguntas frequentes</a></li>
@@ -121,17 +114,17 @@ th { background:var(--laranja-claro); }
 <ul>
 <li data-k="k29"><strong>Frequência nos encontros síncronos.</strong> O curso é ao vivo; a certificação exige frequência mínima de 80% da carga horária (19,2 das 24 horas). Se precisar faltar, avise a coordenação do curso com antecedência sempre que possível.</li>
 <li data-k="k30"><strong>Participação nos exercícios.</strong> Cada bloco tem uma prática — individual, em duplas ou em salas (breakout). O aprendizado deste curso é fazer, não só assistir.</li>
-<li data-k="k31"><strong>Entrega do projeto integrador</strong>, no Módulo 3: em grupo, você aplica o que aprendeu a um caso real da sua unidade, ponta a ponta, e apresenta o resultado à turma. É avaliado por uma rubrica institucional própria (rubrica do projeto integrador), com sete dimensões e quatro níveis de desempenho.</li>
+<li data-k="k31"><strong>Entrega do projeto integrador</strong>, no Módulo 3: individualmente, você aplica o que aprendeu a um <strong>caso-tipo de Vara Cível</strong> entregue pelo instrutor, ponta a ponta, e apresenta o resultado à turma. É avaliado por uma rubrica institucional própria (rubrica do projeto integrador), com sete dimensões e quatro níveis de desempenho.</li>
 <li data-k="k32"><strong>Disposição para questionar.</strong> Você não precisa concordar com tudo nem chegar sabendo programar. Precisa perguntar quando algo não fizer sentido na sua rotina — isso também é conteúdo do curso.</li>
 </ul>
 <h3 id="man-3" data-k="k33">Como obter o certificado</h3>
-<p data-k="k34">Ao final do curso, quem cumpriu a frequência mínima e entregou o projeto integrador recebe o <strong>certificado de 24 horas, conforme a política da escola de formação responsável pela turma</strong>. Não há prova teórica: a avaliação é pela aplicação prática, pela rubrica do projeto integrador.</p>
+<p data-k="k34">Ao final do curso, quem cumpriu a frequência mínima e entregou o projeto integrador recebe o <strong>certificado de 24 horas emitido pela ESMEC — Escola Superior da Magistratura do Estado do Ceará</strong>. Não há prova teórica: a avaliação é pela aplicação prática, pela rubrica do projeto integrador.</p>
 <h2 id="man-4" data-k="k35">Como acompanhar as aulas</h2>
 <p data-k="k36">O instrutor conduz por videoconferência e compartilha a tela com o deck (a apresentação) e com a ferramenta de IA, ao vivo. Você acompanha os slides no seu próprio dispositivo, por um link ou QR code mostrado na capa de cada módulo — ter o deck aberto na sua tela ajuda a seguir os exemplos com calma, no seu próprio ritmo.</p>
 <h3 id="man-5" data-k="k37">Etiqueta do encontro online</h3>
 <ul>
 <li data-k="k38"><strong>Câmera</strong> ligada sempre que sua conexão permitir — ajuda o instrutor a perceber se a turma está acompanhando.</li>
-<li data-k="k39"><strong>Microfone fechado</strong> fora da sua fala; abra para falar e feche em seguida. Evita ruído de fundo para todo mundo.</li>
+<li data-k="k39"><strong>Microfone fechado</strong> durante todo o encontro, salvo autorização dos instrutores. Para participar, use o chat; quando os instrutores abrirem espaço para fala, o microfone é liberado.</li>
 <li data-k="k40"><strong>Dúvidas pelo chat.</strong> O instrutor monitora o chat continuamente e responde nas pausas ou ao vivo, conforme o caso.</li>
 <li data-k="k41"><strong>Salas (breakout rooms):</strong> nos exercícios em grupo, você será movido automaticamente para uma sala de 3 a 4 pessoas. O instrutor circula entre as salas — chame pelo chat da sala se precisar de ajuda.</li>
 <li data-k="k42"><strong>Enquetes:</strong> algumas perguntas do instrutor viram enquete rápida na plataforma; participe, é assim que a turma se enxerga.</li>
@@ -174,7 +167,7 @@ th { background:var(--laranja-claro); }
 <p data-k="k78"><strong>Boas práticas de segurança.</strong> Usar contas e ferramentas homologadas pela instituição, não reutilizar prompts com dado real &quot;só para testar&quot;, e reportar qualquer incidente de vazamento pelo canal institucional, não informalmente.</p>
 <p data-k="k79"><strong>Ideia boa demais para morrer com o autor.</strong> Governança não é freio contra o servidor — é o que transforma a boa ideia da ponta em solução homologada e permanente. Uma solução criada &quot;por fora&quot;, sem registro institucional, morre quando o autor sai da função e, até lá, expõe a unidade a um risco que ninguém mapeou. A via institucional (coordenação do curso, repositório de prompts) é o que faz a ideia da ponta escalar para a unidade inteira — e é o tema da última seção deste Manual.</p>
 <p data-k="k80"><strong>Uma nota sobre o horizonte.</strong> O curso fecha distinguindo um assistente de IA (que responde ao que você pede, um passo de cada vez) de um agente de IA (que executa várias etapas em sequência com menos intervenção). Nos dois casos, quem comanda o serviço e mantém o juízo é o servidor — a autonomia da ferramenta cresce com responsabilidade proporcional, nunca por conta própria.</p>
-<h2 id="man-12" data-k="k81">Job aids — fichas de consulta rápida</h2>
+<h2 id="man-12" data-k="k81">Fichas de consulta rápida</h2>
 <p data-k="k82">As quatro fichas abaixo são para impressão avulsa (uma página cada) e uso na mesa. Elas não substituem o Manual completo — são o resumo que você consulta enquanto trabalha.</p>
 <h3 id="man-13" data-k="k83">Ficha 1 — As seis etapas do prompt</h3>
 <div class="tw"><table>
@@ -258,7 +251,7 @@ Lista de expedientes (dados fictícios):
 <h2 id="man-19" data-k="k194">Os 30 dias seguintes</h2>
 <p data-k="k195">O curso termina no Módulo 4, mas o ganho real aparece depois, na aplicação sustentada. O plano dos 30 dias seguintes é individual e simples:</p>
 <ol>
-<li data-k="k196"><strong>Escolha uma tarefa</strong> da sua rotina que se beneficie de IA — de preferência a mesma do seu projeto integrador, ou uma nova, mais simples.</li>
+<li data-k="k196"><strong>Escolha uma tarefa</strong> da sua rotina que se beneficie de IA — de preferência do mesmo tipo do caso-tipo que você trabalhou no projeto integrador, ou uma nova, mais simples.</li>
 <li data-k="k197"><strong>Registre o &quot;antes&quot;</strong>: como a tarefa é feita hoje e quanto tempo consome por unidade (por peça, por expediente, por lote).</li>
 <li data-k="k198"><strong>Aplique por quatro semanas</strong>, usando o prompt-mestre adequado (ver a tabela da seção anterior), sempre com conferência humana.</li>
 <li data-k="k199"><strong>Meça o &quot;depois&quot;</strong>: tempo por unidade ao final das quatro semanas, nas mesmas condições de medição do &quot;antes&quot;.</li>
@@ -285,7 +278,7 @@ Lista de expedientes (dados fictícios):
 <p data-k="k228"><strong>Posso colar o processo inteiro na IA para pedir um resumo ou uma minuta?</strong></p>
 <p data-k="k229">Evite. Recorte o trecho necessário à tarefa. Isso reduz o consumo desnecessário da janela de contexto e, principalmente, limita a quantidade de dado sensível exposto. E, antes de colar qualquer trecho, confira o semáforo de sigilo (ficha 3): sigilo &quot;sim&quot; ou &quot;desconhecido&quot; bloqueia o envio, independentemente do recorte.</p>
 <p data-k="k230"><strong>E se a IA errar e eu assinar mesmo assim?</strong></p>
-<p data-k="k231">A responsabilidade pelo conteúdo assinado é de quem assina, não da ferramenta. É exatamente para isso que existe o checklist de quatro perguntas (ficha 2) e a regra de conferir na fonte oficial toda citação normativa ou jurisprudencial antes de levar à peça.</p>
+<p data-k="k231">A responsabilidade nunca é da ferramenta. Ela é de quem assina — e, no nosso contexto de trabalho, alcança também quem minuta: quem prepara o texto responde pelo cuidado na elaboração, e quem assina responde pelo conteúdo do ato. Nenhuma das duas responsabilidades se transfere para a IA. É exatamente para isso que existe o checklist de quatro perguntas (ficha 2) e a regra de conferir na fonte oficial toda citação normativa ou jurisprudencial antes de levar à peça.</p>
 <p data-k="k232"><strong>Posso usar minha conta pessoal de IA para tarefas do trabalho?</strong></p>
 <p data-k="k233">Utilize a ferramenta e a conta orientadas pela sua unidade e pela governança institucional. Misturar conta pessoal com dado de trabalho real cria um risco de rastreabilidade e de sigilo que a instituição não consegue gerenciar.</p>
 <p data-k="k234"><strong>O que eu faço se não tenho acesso a nenhuma ferramenta de IA na minha estação de trabalho?</strong></p>
@@ -316,14 +309,14 @@ Lista de expedientes (dados fictícios):
 
   <section id="caderno" class="secao">
     <h2>Caderno de Exercícios</h2>
-    <p data-k="k264"><strong>Justiça Federal no Ceará · INOVAJUS Eixo III · Frente 1 · Ações 1.2 e 1.3</strong></p>
+    <p data-k="k264"><strong>Justiça Federal no Ceará · INOVAJUS Eixo III · Frente 1 · Ação 1.2</strong></p>
 <p data-k="k265">24 horas · 4 módulos · online ao vivo (síncrono)</p>
 <h2 id="cad-0" data-k="k266">Como usar este caderno</h2>
 <p data-k="k267">Este caderno reúne todas as atividades práticas do curso, com o insumo pronto para uso e, na</p>
 <p data-k="k268">edição do instrutor, o gabarito comentado. Ele complementa o Plano de Aula, que continua sendo o</p>
 <p data-k="k269">roteiro cronometrado de cada encontro, e o Guia Metodológico, que explica o método por trás das</p>
 <p data-k="k270">atividades.</p>
-<p data-k="k271"><strong>A organização é por bloco temático, não por encontro.</strong> Cada atividade indica o slide de origem</p>
+<p data-k="k271"><strong>A organização é por bloco temático, não por encontro.</strong> Cada atividade indica em que módulo e em que aula do curso o assunto foi visto</p>
 <p data-k="k272">e, entre parênteses, onde o bloco cai no calendário de 24 horas da turma. Isso</p>
 <p data-k="k273">permite redistribuir os blocos em outros arranjos de calendário sem refazer o material.</p>
 <h3 id="cad-1" data-k="k274">Os cinco tipos de atividade</h3>
@@ -333,7 +326,7 @@ Lista de expedientes (dados fictícios):
 <tr><td data-k="k283"><strong>EX</strong></td><td data-k="k284">Exercício de fixação</td><td data-k="k285">25 a 45 min</td><td data-k="k286">é a prática principal do bloco</td></tr>
 <tr><td data-k="k287"><strong>EF</strong></td><td data-k="k288">Exercício de falha</td><td data-k="k289">20 a 40 min</td><td data-k="k290">um por módulo; o aluno diagnostica uma saída defeituosa</td></tr>
 <tr><td data-k="k291"><strong>TE</strong></td><td data-k="k292">Tarefa entre encontros</td><td data-k="k293">15 min</td><td data-k="k294">mantém o vínculo entre um encontro e o seguinte (na Turma TJCE, três das seis viram tarefa de intervalo de 10 min entre turnos do mesmo encontro)</td></tr>
-<tr><td data-k="k295"><strong>PI</strong></td><td data-k="k296">Projeto integrador</td><td data-k="k297">90 min</td><td data-k="k298">Módulo 3; avaliado pela rubrica do projeto integrador v2</td></tr>
+<tr><td data-k="k295"><strong>PI</strong></td><td data-k="k296">Projeto integrador</td><td data-k="k297">90 min</td><td data-k="k298">Módulo 3; individual, sobre caso-tipo; avaliado pela rubrica do projeto integrador v2</td></tr>
 </table></div>
 <h3 id="cad-2" data-k="k299">Regras que valem para todas as atividades</h3>
 <ol>
@@ -372,12 +365,12 @@ Lista de expedientes (dados fictícios):
 </ul>
 <h2 id="cad-4" data-k="k318">Módulo 1 — Fundamentos de IA e prompt engineering</h2>
 <p data-k="k319">Peças do Módulo 1, organizadas por bloco temático (não por encontro), para servir tanto ao</p>
-<p data-k="k320">calendário de 6h em 2 encontros da JFCE quanto a outras variantes de calendário. Cobre os oito</p>
+<p data-k="k320">calendário do Encontro 1 da Turma TJCE (dois turnos de 3h) quanto a outras variantes. Cobre os oito</p>
 <p data-k="k321">objetivos de aprendizagem do módulo (OA1.1 a OA1.8): seis micro-verificações (uma por bloco),</p>
 <p data-k="k322">dois exercícios de fixação, um exercício de falha e duas tarefas entre encontros.</p>
 <h4 id="cad-5" data-k="k323">EX1.1 — Escreva seu prompt em 6 etapas</h4>
-<p data-k="k324"><strong>Objetivo de aprendizagem:</strong> OA1.3</p>
-<p data-k="k325"><strong>Slide de origem:</strong> a13 · <strong>Bloco:</strong> Anatomia do prompt em 6 etapas · <strong>Tempo:</strong> 25 min</p>
+<p data-k="k324"><strong>O que você vai treinar:</strong> escrever um prompt completo aplicando as seis etapas <em>(objetivo OA1.3 da ementa)</em></p>
+<p data-k="k325"><strong>Onde isso foi visto na aula:</strong> Módulo 1 · Aula 4 — Anatomia do prompt em 6 etapas · <strong>Tempo:</strong> 25 min</p>
 <p data-k="k326"><strong>Formato:</strong> individual (com 2 a 3 compartilhamentos no chat ao final)</p>
 <p data-k="k327"><strong>Enunciado (ler para a turma):</strong></p>
 <p data-k="k328">Escolha uma tarefa real e repetitiva da sua rotina na Vara ou no Gabinete. Usando o roteiro das 6 etapas — contexto, tom, tarefa, exemplos, qualidade, formato —, escreva um prompt completo para essa tarefa. Não pule nenhuma etapa: se alguma parecer desnecessária, escreva mesmo assim em uma frase curta.</p>
@@ -415,8 +408,8 @@ Vara/Gabinete):
 </ol>
 <p data-k="k336"><strong>Produto esperado:</strong> um prompt completo, com as 6 etapas preenchidas, pronto para ser testado na ferramenta.</p>
 <h4 id="cad-5" data-k="k337">EX1.2 — Adapte dois prompts-mestre à sua unidade</h4>
-<p data-k="k338"><strong>Objetivo de aprendizagem:</strong> OA1.7</p>
-<p data-k="k339"><strong>Slides de origem:</strong> a16 e a17 · <strong>Bloco:</strong> Biblioteca de prompts + qual ferramenta usar · <strong>Tempo:</strong> 35 min</p>
+<p data-k="k338"><strong>O que você vai treinar:</strong> localizar no Banco o prompt-mestre adequado a uma tarefa e adaptá-lo à própria unidade <em>(objetivo OA1.7 da ementa)</em></p>
+<p data-k="k339"><strong>Onde isso foi visto na aula:</strong> Módulo 1 · Aula 7 — Biblioteca de prompts · e Aula 8 — Qual ferramenta usar · <strong>Tempo:</strong> 35 min</p>
 <p data-k="k340"><strong>Formato:</strong> em salas (breakout) de 3 a 4, com apresentação em plenário</p>
 <p data-k="k341"><strong>Enunciado (ler para a turma):</strong></p>
 <p data-k="k342">Em grupo, vocês vão adaptar dois prompts-mestre do Banco de Prompts às tarefas reais da própria unidade. A base de cada prompt já está pronta abaixo — o trabalho do grupo é substituir os colchetes pelo conteúdo específico da sua Vara ou Gabinete, mantendo as 6 etapas.</p>
@@ -456,8 +449,8 @@ LISTA:
 </ol>
 <p data-k="k351"><strong>Produto esperado:</strong> dois prompts adaptados, prontos para uso na unidade, e uma frase de apresentação para cada um.</p>
 <h4 id="cad-5" data-k="k352">EF1 — Diagnostique o defeito do prompt</h4>
-<p data-k="k353"><strong>Objetivo de aprendizagem:</strong> OA1.3 e OA1.5</p>
-<p data-k="k354"><strong>Slides de origem:</strong> a13 · a14 · actx · <strong>Bloco:</strong> Prompt fraco × prompt forte · <strong>Tempo:</strong> 25 min</p>
+<p data-k="k353"><strong>O que você vai treinar:</strong> escrever um prompt completo nas seis etapas e nomear o que causou a diferença entre um prompt fraco e um forte <em>(objetivos OA1.3 e OA1.5 da ementa)</em></p>
+<p data-k="k354"><strong>Onde isso foi visto na aula:</strong> Módulo 1 · Aula 3 — Contexto e tokens · Aula 4 — Anatomia do prompt · Aula 5 — Prompt fraco × prompt forte · <strong>Tempo:</strong> 25 min</p>
 <p data-k="k355"><strong>Formato:</strong> em salas (breakout) de 3 a 4, com plenário final</p>
 <p data-k="k356"><strong>Enunciado (ler para a turma):</strong></p>
 <p data-k="k357">Vocês vão receber um prompt real (fictício) que um colega usou para pedir o resumo de um processo, e a resposta que a IA devolveu. A resposta parece pronta para uso, mas tem um defeito — e o defeito não é do conteúdo, é do prompt. Em grupo, encontrem o que falta no prompt usando as 6 etapas como checklist, reescrevam um prompt melhor e prevejam o que deve mudar na resposta.</p>
@@ -484,14 +477,14 @@ unidade.&quot;</pre>
 </ol>
 <p data-k="k366"><strong>Produto esperado:</strong> um prompt reescrito com as 6 etapas e uma lista de três previsões de mudança na saída.</p>
 <h4 id="cad-5" data-k="k367">TE1 — Leve um caso (anonimizado) para o turno seguinte</h4>
-<p data-k="k368"><strong>Objetivo de aprendizagem:</strong> OA1.4</p>
+<p data-k="k368"><strong>O que você vai treinar:</strong> recortar o contexto enviado à IA em vez de despejar o processo inteiro, por custo e por sigilo <em>(objetivo OA1.4 da ementa)</em></p>
 <p data-k="k369"><strong>Quando entra:</strong> fim do Turno 1 do Encontro 1, após o bloco de mão na massa, para uso no Turno 2 do Encontro 1</p>
 <p data-k="k370"><strong>Tempo estimado:</strong> 10 min (tarefa de intervalo)</p>
 <p data-k="k371"><strong>Enunciado (ler para a turma):</strong></p>
 <p data-k="k372">No intervalo, escolha uma tarefa real da sua rotina para usar como exemplo pessoal nos próximos exercícios — pode ser a mesma que você já usou hoje no prompt de 6 etapas. Escreva, em poucas linhas, o essencial do caso já sem dado sigiloso: troque nome de parte, número de processo e qualquer identificação por termos genéricos ou fictícios. Guarde esse texto para o turno seguinte, depois do intervalo.</p>
 <p data-k="k373"><strong>Produto esperado:</strong> um parágrafo curto (5 a 10 linhas), sem dado sigiloso, pronto para ser colado num prompt no turno seguinte.</p>
 <h4 id="cad-5" data-k="k374">TE2 — Teste um prompt-mestre adaptado e observe a resposta</h4>
-<p data-k="k375"><strong>Objetivo de aprendizagem:</strong> OA1.7</p>
+<p data-k="k375"><strong>O que você vai treinar:</strong> adaptar um prompt-mestre do Banco à sua própria unidade <em>(objetivo OA1.7 da ementa)</em></p>
 <p data-k="k376"><strong>Quando entra:</strong> fim do Encontro 1, para uso na abertura do Encontro 2</p>
 <p data-k="k377"><strong>Tempo estimado:</strong> 15 min</p>
 <p data-k="k378"><strong>Enunciado (ler para a turma):</strong></p>
@@ -501,14 +494,14 @@ unidade.&quot;</pre>
 <p data-k="k382">6 horas. Público: servidores de Vara e assessores de Gabinete (área-fim). Sistema de referência: PJe 2.x. Todos os números, nomes, processos e julgados citados neste módulo são <strong>fictícios</strong> — nenhum dado real de unidade, parte, servidor ou magistrado aparece aqui.</p>
 <p data-k="k383">Este módulo tem seis blocos temáticos (2.1 a 2.6). A condução expositiva de quatro deles já está escrita nos <strong>roteiros B1 a B4 do Anexo B do Plano de Aula (Instrutor)</strong> — este caderno não os repete. Aqui entram apenas o que falta ao redor deles: as micro-verificações de cada bloco e os exercícios com insumo e gabarito prontos para uso. No calendário de 4 encontros de 6h da Turma TJCE, os blocos 2.1 a 2.3 caem no Turno 1 do Encontro 2 e os blocos 2.4 a 2.6 no Turno 2 do Encontro 2.</p>
 <h3 id="cad-6" data-k="k384">Bloco 2.1 — Por que questionar a IA</h3>
-<p data-k="k385"><strong>Slide de origem:</strong> a31 · <strong>Tempo:</strong> 10 min (abertura) · <strong>Condução:</strong> roteiro B1 do Anexo B do Plano de Aula.</p>
+<p data-k="k385"><strong>Onde isso é visto na aula:</strong> Módulo 2 · Aula 1 — Por que questionar a IA · <strong>Tempo:</strong> 10 min (abertura) · <strong>Condução:</strong> roteiro B1 do Anexo B do Plano de Aula.</p>
 <h3 id="cad-7" data-k="k386">Bloco 2.2 — Correlação e causa oculta</h3>
-<p data-k="k387"><strong>Slide de origem:</strong> a32 · <strong>Tempo:</strong> 45 min · <strong>Condução:</strong> roteiro B2 do Anexo B do Plano de Aula (inclui o exemplo do mutirão e o da mistura do acervo).</p>
+<p data-k="k387"><strong>Onde isso é visto na aula:</strong> Módulo 2 · Aula 2 — Causa oculta · <strong>Tempo:</strong> 45 min · <strong>Condução:</strong> roteiro B2 do Anexo B do Plano de Aula (inclui o exemplo do mutirão e o da mistura do acervo).</p>
 <h3 id="cad-8" data-k="k388">Bloco 2.3 — Contrafactual</h3>
-<p data-k="k389"><strong>Slide de origem:</strong> a33 · <strong>Tempo:</strong> 45 min · <strong>Condução:</strong> roteiro B3 do Anexo B do Plano de Aula (inclui a conta da tendência anterior).</p>
+<p data-k="k389"><strong>Onde isso é visto na aula:</strong> Módulo 2 · Aula 3 — Contrafactual · <strong>Tempo:</strong> 45 min · <strong>Condução:</strong> roteiro B3 do Anexo B do Plano de Aula (inclui a conta da tendência anterior).</p>
 <h3 id="cad-9" data-k="k390">EX2.1 — Causas alternativas e confundidores</h3>
-<p data-k="k391"><strong>Objetivo de aprendizagem:</strong> OA2.2</p>
-<p data-k="k392"><strong>Slide de origem:</strong> a32/a33 · <strong>Bloco:</strong> Mão na massa do Turno 1 (Encontro 2) · <strong>Tempo:</strong> 45 min</p>
+<p data-k="k391"><strong>O que você vai treinar:</strong> identificar a causa oculta por trás de dois números que sobem juntos <em>(objetivo OA2.2 da ementa)</em></p>
+<p data-k="k392"><strong>Onde isso foi visto na aula:</strong> Módulo 2 · Aula 2 — Causa oculta · e Aula 3 — Contrafactual · <strong>Momento:</strong> mão na massa do Turno 1 (Encontro 2) · <strong>Tempo:</strong> 45 min</p>
 <p data-k="k393"><strong>Formato:</strong> em salas (breakout) de 3 a 4</p>
 <p data-k="k394"><strong>Enunciado (ler para a turma):</strong></p>
 <p data-k="k395">Vou trazer uma conclusão com dado, do jeito que costuma aparecer em relatório de gestão. Em grupo, vocês vão fazer duas listas: (1) pelo menos cinco explicações alternativas para o número, além da que o relatório defende; (2) para cada explicação, qual dado eu precisaria olhar para confirmar ou descartar aquela hipótese. Não vale aceitar a explicação só porque ela é a que a gente já queria provar — essa é justamente a armadilha do bloco de hoje.</p>
@@ -524,24 +517,24 @@ unidade.&quot;</pre>
 <p data-k="k403"><strong>Produto esperado:</strong> uma lista de ao menos cinco causas alternativas, cada uma amarrada ao dado que a separaria da hipótese do relatório.</p>
 <p data-k="k404"><strong>Ponte com a IA:</strong> o prompt B1 do Apêndice B do Banco de Prompts (&quot;teste de correlação × causalidade&quot;) faz exatamente este exercício: cole a conclusão do relatório e peça à ferramenta que liste explicações alternativas e o dado que separaria cada uma. A IA é boa gerando hipóteses rivais; quem decide entre elas é o servidor.</p>
 <h3 id="cad-10" data-k="k405">TE3 — Teste sua conclusão antes do turno seguinte</h3>
-<p data-k="k406"><strong>Objetivo de aprendizagem:</strong> OA2.2 / OA2.3</p>
+<p data-k="k406"><strong>O que você vai treinar:</strong> identificar causas ocultas e estimar o contrafactual de uma afirmação do tipo &quot;isso melhorou depois daquilo&quot; <em>(objetivos OA2.2 e OA2.3 da ementa)</em></p>
 <p data-k="k407"><strong>Tempo:</strong> 10 min (tarefa de intervalo) · <strong>Quando:</strong> no intervalo entre os dois turnos do Encontro 2 (depois do Turno 1, antes do Turno 2)</p>
 <p data-k="k408"><strong>Formato:</strong> individual, assíncrono</p>
 <p data-k="k409"><strong>Enunciado:</strong> Pense em uma frase do tipo &quot;isso melhorou depois daquilo&quot; que já circulou na sua unidade (reunião, relatório, conversa de corredor) — pode ser sobre prazo, produtividade, número de audiências, o que for. Usando o prompt-mestre M11 do Banco de Prompts (&quot;Analisar criticamente: premissas, riscos, causalidade&quot;), peça à ferramenta de IA que liste explicações alternativas para essa frase e o dado que separaria cada uma. Guarde o resultado — não precisa entregar nada, mas o instrutor vai pedir dois ou três relatos voluntários na abertura do Turno 2.</p>
 <p data-k="k410"><strong>Produto esperado:</strong> uma lista pessoal de causas alternativas para uma afirmação real da própria rotina, pronta para compartilhar em até um minuto no início do turno seguinte.</p>
 <p data-k="k411"><strong>Como abrir no turno seguinte (instrutor):</strong> peça dois ou três voluntários para contar, em uma frase, a afirmação e a causa alternativa mais interessante que a IA sugeriu. Use isso como ponte para o Turno 2 (alucinação, validação, checklist).</p>
 <h3 id="cad-11" data-k="k412">Bloco 2.4 — Detectar alucinações</h3>
-<p data-k="k413"><strong>Slide de origem:</strong> a34 · <strong>Tempo:</strong> 40 min · <strong>Condução:</strong> roteiro B4 do Anexo B do Plano de Aula (parte da demonstração da citação inventada).</p>
+<p data-k="k413"><strong>Onde isso é visto na aula:</strong> Módulo 2 · Aula 4 — Alucinações · <strong>Tempo:</strong> 40 min · <strong>Condução:</strong> roteiro B4 do Anexo B do Plano de Aula (parte da demonstração da citação inventada).</p>
 <h3 id="cad-12" data-k="k414">Bloco 2.5 — Validar antes de confiar</h3>
-<p data-k="k415"><strong>Slide de origem:</strong> a35 · <strong>Tempo:</strong> 40 min · <strong>Condução:</strong> roteiro B4 do Anexo B do Plano de Aula (parte da validação, as duas camadas de defesa).</p>
+<p data-k="k415"><strong>Onde isso é visto na aula:</strong> Módulo 2 · Aula 5 — Validar antes de confiar · <strong>Tempo:</strong> 40 min · <strong>Condução:</strong> roteiro B4 do Anexo B do Plano de Aula (parte da validação, as duas camadas de defesa).</p>
 <h3 id="cad-13" data-k="k416">Bloco 2.6 — Checklist e decisão humana</h3>
-<p data-k="k417"><strong>Slide de origem:</strong> a36 · <strong>Tempo:</strong> 30 min · <strong>Condução:</strong> roteiro B4 do Anexo B do Plano de Aula (parte final, as quatro perguntas do checklist).</p>
+<p data-k="k417"><strong>Onde isso é visto na aula:</strong> Módulo 2 · Aula 6 — Checklist das quatro perguntas · <strong>Tempo:</strong> 30 min · <strong>Condução:</strong> roteiro B4 do Anexo B do Plano de Aula (parte final, as quatro perguntas do checklist).</p>
 <h3 id="cad-14" data-k="k418">EX2.2 — Aplicando o checklist a uma resposta com erros plantados</h3>
-<p data-k="k419"><strong>Objetivo de aprendizagem:</strong> OA2.6 (reforça também OA2.4)</p>
-<p data-k="k420"><strong>Slide de origem:</strong> a36 · <strong>Bloco:</strong> Mão na massa do Turno 2 (Encontro 2) · <strong>Tempo:</strong> 40 min</p>
+<p data-k="k419"><strong>O que você vai treinar:</strong> aplicar as quatro perguntas do checklist a uma resposta de IA <em>(objetivo OA2.6 da ementa; reforça também o OA2.4, detectar alucinação)</em></p>
+<p data-k="k420"><strong>Onde isso foi visto na aula:</strong> Módulo 2 · Aula 6 — Checklist das quatro perguntas · <strong>Momento:</strong> mão na massa do Turno 2 (Encontro 2) · <strong>Tempo:</strong> 40 min</p>
 <p data-k="k421"><strong>Formato:</strong> individual, com posta em comum em plenário</p>
 <p data-k="k422"><strong>Enunciado (ler para a turma):</strong></p>
-<p data-k="k423">Vocês vão receber uma resposta de IA sobre um caso fictício de triagem de prioridade. Ela contém pelo menos quatro problemas diferentes, um para cada uma das quatro perguntas do checklist de a36. Trabalhem sozinhos por 15 minutos, depois discutimos juntos: o objetivo não é achar &quot;um erro qualquer&quot;, é dizer exatamente qual pergunta do checklist pegou cada problema.</p>
+<p data-k="k423">Vocês vão receber uma resposta de IA sobre um caso fictício de triagem de prioridade. Ela contém pelo menos quatro problemas diferentes, um para cada uma das quatro perguntas do checklist (Módulo 2 · Aula 6). Trabalhem sozinhos por 15 minutos, depois discutimos juntos: o objetivo não é achar &quot;um erro qualquer&quot;, é dizer exatamente qual pergunta do checklist pegou cada problema.</p>
 <p data-k="k424"><strong>Insumo (colar no chat):</strong></p>
 <p data-k="k425">&quot;Prompt do servidor: &#x27;Analise os quatro processos abaixo e recomende a ordem de prioridade de decisão.&#x27; Resposta da IA (exemplo fictício, para fins de exercício):</p>
 <p data-k="k426">&#x27;A IA analisou quatro processos fictícios da Vara e recomendou a seguinte ordem de prioridade:</p>
@@ -553,14 +546,14 @@ unidade.&quot;</pre>
 <p data-k="k432"><strong>Passo a passo do aluno:</strong></p>
 <ol>
 <li data-k="k433">Leia a resposta inteira uma vez, sem marcar nada.</li>
-<li data-k="k434">Releia pergunta por pergunta do checklist de a36, marcando no texto onde cada uma &quot;acende o alerta&quot;.</li>
+<li data-k="k434">Releia pergunta por pergunta do checklist das quatro perguntas (Módulo 2 · Aula 6), marcando no texto onde cada uma &quot;acende o alerta&quot;.</li>
 <li data-k="k435">Para cada problema encontrado, escreva: (a) onde está; (b) qual das quatro perguntas o pegou.</li>
 <li data-k="k436">Traga ao plenário o problema que você acha mais fácil de um colega não perceber.</li>
 </ol>
 <p data-k="k437"><strong>Produto esperado:</strong> uma lista de pelo menos quatro problemas, cada um localizado no texto e amarrado a uma das quatro perguntas do checklist.</p>
 <h3 id="cad-15" data-k="k438">EX2.3 — A resposta boa demais (remissão ao Anexo A)</h3>
-<p data-k="k439"><strong>Objetivo de aprendizagem:</strong> OA2.7</p>
-<p data-k="k440"><strong>Slide de origem:</strong> a36 · <strong>Bloco:</strong> Exercício alternativo do Turno 2 (mesmos 40 min do EX2.2) · <strong>Tempo:</strong> 40 min</p>
+<p data-k="k439"><strong>O que você vai treinar:</strong> identificar a lacuna numa resposta correta, fluente e incompleta <em>(objetivo OA2.7 da ementa)</em></p>
+<p data-k="k440"><strong>Onde isso foi visto na aula:</strong> Módulo 2 · Aula 6 — Checklist das quatro perguntas · <strong>Momento:</strong> exercício alternativo do Turno 2 (Encontro 2, mesmos 40 min do EX2.2) · <strong>Tempo:</strong> 40 min</p>
 <p data-k="k441"><strong>Formato:</strong> em salas (breakout) de 3 a 4</p>
 <p data-k="k442">Este exercício <strong>já existe pronto</strong> no Anexo A do Plano de Aula (Instrutor) — &quot;Exercício de auditoria (Módulo 2): a resposta boa demais&quot; — e está publicado para os alunos como <strong>roteiro E3 do Banco de Prompts</strong>. Não é reescrito aqui: use o texto e o gabarito do Anexo A tal como estão.</p>
 <p data-k="k443"><strong>Enunciado (ler para a turma):</strong> este exercício não tem erro plantado — o texto está correto. A tarefa é achar o que FALTA antes de levar esse conselho adiante. É a habilidade mais difícil do módulo: detectar lacuna é mais difícil que detectar erro.</p>
@@ -568,8 +561,8 @@ unidade.&quot;</pre>
 <p data-k="k445"><strong>Produto esperado:</strong> a lista de lacunas do grupo, comparada ao gabarito do Anexo A (medir o &quot;antes&quot;, proteção de dados, dono do processo, risco normativo).</p>
 <p data-k="k446"><strong>Quando usar EX2.2 ou EX2.3:</strong> são alternativos entre si, no mesmo intervalo de 40 minutos do Turno 2. Use EX2.2 quando quiser reforçar o checklist das quatro perguntas sobre um erro plantado; use EX2.3 (Anexo A) quando quiser trabalhar a detecção de lacuna numa resposta sem erro algum. Turmas maiores podem dividir metade em cada exercício e trocar achados no plenário.</p>
 <h3 id="cad-16" data-k="k447">EF2 — O contrafactual mal feito</h3>
-<p data-k="k448"><strong>Objetivo de aprendizagem:</strong> OA2.3</p>
-<p data-k="k449"><strong>Slide de origem:</strong> a33 · <strong>Bloco:</strong> Exercício de falha do módulo · <strong>Tempo:</strong> 30 min</p>
+<p data-k="k448"><strong>O que você vai treinar:</strong> estimar o contrafactual pela tendência anterior, em vez de comparar com o pior mês <em>(objetivo OA2.3 da ementa)</em></p>
+<p data-k="k449"><strong>Onde isso foi visto na aula:</strong> Módulo 2 · Aula 3 — Contrafactual · <strong>Momento:</strong> exercício de falha do módulo · <strong>Tempo:</strong> 30 min</p>
 <p data-k="k450"><strong>Formato:</strong> individual, com correção conduzida em plenário</p>
 <p data-k="k451"><strong>Enunciado (ler para a turma):</strong></p>
 <p data-k="k452">Vou apresentar um &quot;relatório de resultado&quot; de uma unidade fictícia. Ele compara o depois com o pior mês do antes, e comemora um ganho que a conta correta não confirma. Vocês vão refazer a conta usando a tendência que já vinha em curso antes da medida — o mesmo método do bloco 2.3 — e dizer se o ganho comemorado é real.</p>
@@ -596,10 +589,10 @@ unidade.&quot;</pre>
 </ol>
 <p data-k="k486"><strong>Produto esperado:</strong> a projeção da tendência anterior para os meses 7 a 9, o número do efeito real estimado da medida, e a identificação do erro de método do relatório (comparar com o pior mês, em vez de comparar com a tendência).</p>
 <h3 id="cad-17" data-k="k487">TE4 — Do pensamento crítico à prática forense</h3>
-<p data-k="k488"><strong>Objetivo de aprendizagem:</strong> OA2.6</p>
+<p data-k="k488"><strong>O que você vai treinar:</strong> adaptar as quatro perguntas do checklist à tarefa que você vai praticar no Módulo 3 <em>(objetivo OA2.6 da ementa)</em></p>
 <p data-k="k489"><strong>Tempo:</strong> 15 min · <strong>Quando:</strong> entre o Encontro 2 e o Encontro 3</p>
 <p data-k="k490"><strong>Formato:</strong> individual, assíncrono</p>
-<p data-k="k491"><strong>Enunciado:</strong> Escolha uma tarefa da sua rotina que você vai praticar no Módulo 3 (triagem, resumo de peça, minuta, pesquisa de jurisprudência ou relatório). Para essa tarefa específica, escreva uma frase para cada uma das quatro perguntas do checklist de a36, dizendo o que, na prática, você vai checar. Exemplo de formato de resposta (não é o conteúdo esperado, apenas o modelo): &quot;Tarefa: resumo de peça. Confere com a fonte → reler o parágrafo do original que embasa cada frase do resumo. Faz sentido no caso concreto → ver se o resumo cita o pedido que está realmente nos autos. Dado que pode ter sido inventado → nomes, datas e valores citados no resumo. Casos iguais tratados de forma igual → não se aplica a este resumo isolado.&quot;</p>
+<p data-k="k491"><strong>Enunciado:</strong> Escolha uma tarefa da sua rotina que você vai praticar no Módulo 3 (triagem, resumo de peça, minuta, pesquisa de jurisprudência ou relatório). Para essa tarefa específica, escreva uma frase para cada uma das quatro perguntas do checklist (Módulo 2 · Aula 6), dizendo o que, na prática, você vai checar. Exemplo de formato de resposta (não é o conteúdo esperado, apenas o modelo): &quot;Tarefa: resumo de peça. Confere com a fonte → reler o parágrafo do original que embasa cada frase do resumo. Faz sentido no caso concreto → ver se o resumo cita o pedido que está realmente nos autos. Dado que pode ter sido inventado → nomes, datas e valores citados no resumo. Casos iguais tratados de forma igual → não se aplica a este resumo isolado.&quot;</p>
 <p data-k="k492"><strong>Produto esperado:</strong> um checklist de quatro linhas, já adaptado à tarefa que o aluno vai praticar no Módulo 3.</p>
 <p data-k="k493"><strong>Como abrir no encontro seguinte (instrutor):</strong> no início do Encontro 3, peça que dois ou três alunos leiam o checklist que escreveram; use isso para justificar por que a prática forense de M3 (triagem com o prompt-mestre M9, resumo, minuta, pesquisa de jurisprudência) sempre vem acompanhada de conferência — a base construída no Módulo 2 não fica para trás, ela vira hábito de trabalho.</p>
 <h2 id="cad-18" data-k="k494">Módulo 3 — Prática forense</h2>
@@ -614,16 +607,16 @@ unidade.&quot;</pre>
 <p data-k="k503">parte, número de documento pessoal, endereço e qualquer dado que identifique alguém. Nos</p>
 <p data-k="k504">exercícios abaixo isso já foi feito nos insumos fictícios; na vida real, é o primeiro passo,</p>
 <p data-k="k505">sempre.</p>
-<h4 id="cad-19" data-k="k506">Bloco 3.1 — Triagem (a21 · 50 min · OA3.1)</h4>
+<h4 id="cad-19" data-k="k506">Bloco 3.1 — Triagem (Módulo 3 · Aula 1 · 50 min · objetivo OA3.1)</h4>
 <p data-k="k507">A demonstração ao vivo (roteiro E1 do Banco: lote de 6 demandas classificado com o</p>
 <p data-k="k508">prompt-mestre M9, o habeas corpus com réu preso saltando como urgente) já está pronta para o</p>
 <p data-k="k509">instrutor conduzir. Depois da demonstração, os alunos replicam a triagem com um lote próprio,</p>
 <p data-k="k510">trazido ou fornecido pelo instrutor, e conferem manualmente se a classificação da IA bate com o</p>
 <p data-k="k511">critério de urgência da unidade.</p>
-<h4 id="cad-19" data-k="k512">Bloco 3.2 — Resumo de peças (a22 · 60 min · OA3.2)</h4>
+<h4 id="cad-19" data-k="k512">Bloco 3.2 — Resumo de peças (Módulo 3 · Aula 2 · 60 min · objetivo OA3.2)</h4>
 <p data-k="k513"><strong>EX3.1 — Resumir uma peça e conferir contra o original</strong></p>
-<p data-k="k514"><strong>Objetivo de aprendizagem:</strong> OA3.2</p>
-<p data-k="k515"><strong>Slide de origem:</strong> a22 · <strong>Bloco:</strong> Resumo de peças · <strong>Tempo:</strong> 40 min</p>
+<p data-k="k514"><strong>O que você vai treinar:</strong> resumir uma peça e conferir o resumo contra o documento original <em>(objetivo OA3.2 da ementa)</em></p>
+<p data-k="k515"><strong>Onde isso foi visto na aula:</strong> Módulo 3 · Aula 2 — Resumo de peças · <strong>Tempo:</strong> 40 min</p>
 <p data-k="k516"><strong>Formato:</strong> individual</p>
 <p data-k="k517"><strong>Enunciado (ler para a turma):</strong></p>
 <p data-k="k518">Vocês vão pedir à IA um resumo da petição inicial fictícia abaixo e depois conferir esse resumo,</p>
@@ -730,21 +723,21 @@ unidade.&quot;</pre>
 <p data-k="k613">divergência anotada em relação ao original.</p>
 <h3 id="cad-19" data-k="k614">Tarefa de intervalo</h3>
 <p data-k="k615"><strong>TE5 — Resumir uma peça real da sua rotina (10 min)</strong></p>
-<p data-k="k616"><strong>Objetivo de aprendizagem:</strong> OA3.2 (reforço) e OA1.4 (recorte e sigilo)</p>
+<p data-k="k616"><strong>O que você vai treinar:</strong> resumir e conferir uma peça da sua rotina, com recorte e anonimização antes do envio <em>(objetivos OA3.2 e OA1.4 da ementa)</em></p>
 <p data-k="k617"><strong>Quando:</strong> no intervalo entre o Turno 1 e o Turno 2 do Encontro 3.</p>
 <p data-k="k618"><strong>Tarefa:</strong> escolha uma peça real e curta da sua rotina (petição, manifestação ou parecer),</p>
 <p data-k="k619"><strong>anonimize</strong> nome de partes e números de documento, cole na ferramenta de IA com o</p>
 <p data-k="k620">prompt-mestre M1 e gere um resumo. Confira o resumo contra a peça. Traga para o Turno 2 uma frase</p>
 <p data-k="k621">sobre o que o resumo acertou e uma sobre o que precisou corrigir.</p>
 <p data-k="k622"><strong>Se não puder usar peça real:</strong> use a petição fictícia do EX3.1 e repita o exercício sozinho.</p>
-<h4 id="cad-20" data-k="k623">Bloco 3.3 — Minutas e despachos (a23 · 40 min · OA3.3)</h4>
+<h4 id="cad-20" data-k="k623">Bloco 3.3 — Minutas e despachos (Módulo 3 · Aula 3 · 40 min · objetivo OA3.3)</h4>
 <p data-k="k624">O instrutor demonstra a geração de uma minuta de despacho com o prompt-mestre M3 (Redigir</p>
 <p data-k="k625">minuta) e reforça: a revisão e a assinatura são sempre humanas — a IA prepara o rascunho, não</p>
 <p data-k="k626">decide.</p>
-<h4 id="cad-20" data-k="k627">Bloco 3.4 — Pesquisa de jurisprudência (a24 · 40 min · OA3.4)</h4>
+<h4 id="cad-20" data-k="k627">Bloco 3.4 — Pesquisa de jurisprudência (Módulo 3 · Aula 4 · 40 min · objetivo OA3.4)</h4>
 <p data-k="k628"><strong>EF3 — Jurisprudência inventada: o que fazer antes de citar</strong></p>
-<p data-k="k629"><strong>Objetivo de aprendizagem:</strong> OA3.4</p>
-<p data-k="k630"><strong>Slide de origem:</strong> a24 · <strong>Bloco:</strong> Pesquisa de jurisprudência · <strong>Tempo:</strong> 40 min</p>
+<p data-k="k629"><strong>O que você vai treinar:</strong> conferir na fonte oficial toda jurisprudência citada pela IA, antes de usá-la <em>(objetivo OA3.4 da ementa)</em></p>
+<p data-k="k630"><strong>Onde isso foi visto na aula:</strong> Módulo 3 · Aula 4 — Pesquisa de jurisprudência · <strong>Tempo:</strong> 40 min</p>
 <p data-k="k631"><strong>Formato:</strong> em salas (breakout) de 3 a 4</p>
 <p data-k="k632"><strong>Enunciado (ler para a turma):</strong></p>
 <p data-k="k633">Abaixo está um trecho de minuta que cita três julgados. Sem pesquisar nada ainda, cada grupo vai</p>
@@ -783,10 +776,10 @@ unidade.&quot;</pre>
 </ol>
 <p data-k="k659"><strong>Produto esperado:</strong> uma lista, por grupo, com a fonte oficial de conferência de cada um dos</p>
 <p data-k="k660">três julgados e o sinal de alerta identificado em cada um.</p>
-<h4 id="cad-20" data-k="k661">Bloco 3.5 — Comparar e conferir (a25 · 40 min · OA3.5)</h4>
+<h4 id="cad-20" data-k="k661">Bloco 3.5 — Comparar e conferir (Módulo 3 · Aula 5 · 40 min · objetivo OA3.5)</h4>
 <p data-k="k662"><strong>EX3.2 — Minuta e comparação com o modelo padrão</strong></p>
-<p data-k="k663"><strong>Objetivo de aprendizagem:</strong> OA3.5 (com apoio de OA3.3)</p>
-<p data-k="k664"><strong>Slide de origem:</strong> a23/a25 · <strong>Bloco:</strong> Minutas e despachos / Comparar e conferir · <strong>Tempo:</strong> 30 min</p>
+<p data-k="k663"><strong>O que você vai treinar:</strong> cotejar uma minuta com o modelo padrão da unidade e apontar as divergências <em>(objetivo OA3.5 da ementa, com apoio do OA3.3)</em></p>
+<p data-k="k664"><strong>Onde isso foi visto na aula:</strong> Módulo 3 · Aula 3 — Minutas e despachos · e Aula 5 — Comparar e conferir · <strong>Tempo:</strong> 30 min</p>
 <p data-k="k665"><strong>Formato:</strong> em salas (breakout) de 3 a 4</p>
 <p data-k="k666"><strong>Enunciado (ler para a turma):</strong></p>
 <p data-k="k667">Um colega já pediu à IA, com o prompt-mestre M3, uma minuta de despacho saneador para o processo</p>
@@ -856,19 +849,19 @@ TEXTO 2: [colar o modelo padrão]</pre>
 <p data-k="k720">qual é a mais grave.</p>
 <h3 id="cad-20" data-k="k721">Tarefa entre encontros</h3>
 <p data-k="k722"><strong>TE6 — Começar o &quot;antes&quot; do projeto integrador (15 min)</strong></p>
-<p data-k="k723"><strong>Objetivo de aprendizagem:</strong> OA3.8 (preparação)</p>
+<p data-k="k723"><strong>O que você vai treinar:</strong> registrar o baseline (o &quot;antes&quot;) do caso-tipo que você vai levar ao projeto integrador <em>(objetivo OA3.8 da ementa, etapa de preparação)</em></p>
 <p data-k="k724"><strong>Quando:</strong> entre o Turno 2 do Encontro 3 e o Turno 1 do Encontro 4.</p>
-<p data-k="k725"><strong>Tarefa:</strong> escolha, sozinho ou com o grupo que fará o projeto integrador, uma tarefa repetitiva</p>
-<p data-k="k726">da sua rotina (triagem, resumo, minuta ou relatório) e comece a preencher, na ficha do projeto</p>
+<p data-k="k725"><strong>Tarefa:</strong> escolha um dos casos-tipo de Vara Cível entregues pelo instrutor ao final do</p>
+<p data-k="k726">Encontro 3 (triagem, resumo, minuta ou relatório) e comece a preencher, na ficha do projeto</p>
 <p data-k="k727">(modelo entregue no bloco do Projeto Integrador), apenas as duas primeiras colunas: **situação</p>
-<p data-k="k728">atual<strong> e </strong>tempo médio por unidade hoje**. Cronometre ou estime com base no que já faz — sem</p>
+<p data-k="k728">atual<strong> e </strong>tempo médio por unidade hoje**, transcrevendo o que o caso-tipo informa — sem</p>
 <p data-k="k729">isso registrado, não há &quot;depois&quot; para comparar no Turno 1 do Encontro 4.</p>
-<p data-k="k730"><strong>Se não souber estimar o tempo:</strong> conte quantas unidades você processa numa manhã típica e</p>
-<p data-k="k731">divida o tempo da manhã pelo número de unidades.</p>
-<h4 id="cad-21" data-k="k732">Bloco 3.6 — Relatórios e organização (a26 · 45 min · OA3.6)</h4>
+<p data-k="k730"><strong>Se você já tiver uma rotina própria equivalente:</strong> pode usá-la no lugar do caso-tipo, desde que</p>
+<p data-k="k731">registre a situação atual e o tempo médio por unidade sem qualquer dado sigiloso ou identificável.</p>
+<h4 id="cad-21" data-k="k732">Bloco 3.6 — Relatórios e organização (Módulo 3 · Aula 6 · 45 min · objetivo OA3.6)</h4>
 <p data-k="k733"><strong>EX3.3 — Transformar anotações soltas em relatório</strong></p>
-<p data-k="k734"><strong>Objetivo de aprendizagem:</strong> OA3.6</p>
-<p data-k="k735"><strong>Slide de origem:</strong> a26 · <strong>Bloco:</strong> Relatórios e organização · <strong>Tempo:</strong> 45 min</p>
+<p data-k="k734"><strong>O que você vai treinar:</strong> estruturar dados soltos em tabela ou relatório e conferir o resultado <em>(objetivo OA3.6 da ementa)</em></p>
+<p data-k="k735"><strong>Onde isso foi visto na aula:</strong> Módulo 3 · Aula 6 — Relatórios e organização · <strong>Tempo:</strong> 45 min</p>
 <p data-k="k736"><strong>Formato:</strong> individual</p>
 <p data-k="k737"><strong>Enunciado (ler para a turma):</strong></p>
 <p data-k="k738">Abaixo estão anotações soltas e desorganizadas sobre a movimentação de vários processos</p>
@@ -935,27 +928,27 @@ Texto: [colar as anotações acima]</pre>
 <p data-k="k849">inventar uma ação a fazer só para preencher a célula; (c) a ordenação por urgência é uma escolha</p>
 <p data-k="k850">interpretativa (por que o ofício à operadora vem antes da audiência?) — o gabarito é uma referência,</p>
 <p data-k="k851">não a única ordem aceitável, desde que o aluno justifique o critério usado.</p>
-<h4 id="cad-21" data-k="k852">Bloco 3.7 — Modelos e trabalho em lote (a27 · 45 min · OA3.7)</h4>
+<h4 id="cad-21" data-k="k852">Bloco 3.7 — Modelos e trabalho em lote (Módulo 3 · Aula 7 · 45 min · objetivo OA3.7)</h4>
 <p data-k="k853">A demonstração ao vivo (roteiro E2 do Banco: gerar um lote de intimações a partir de uma tabela,</p>
 <p data-k="k854">com o cuidado de anonimizar antes de montar o lote) já está pronta para o instrutor conduzir.</p>
-<h4 id="cad-21" data-k="k855">Projeto integrador — PI (90 min · OA3.8, integra OA3.1 a OA3.7)</h4>
+<h4 id="cad-21" data-k="k855">Projeto integrador — PI (90 min · objetivo OA3.8, integra os objetivos OA3.1 a OA3.7)</h4>
 <p data-k="k856"><strong>Enunciado (ler para a turma):</strong></p>
-<p data-k="k857">Em salas (breakout), cada grupo vai resolver, ponta a ponta, um caso real e recorrente da sua</p>
-<p data-k="k858">Vara ou Gabinete usando o que o módulo ensinou: triar, resumir, minutar e conferir com apoio da</p>
-<p data-k="k859">IA. Antes de montar qualquer coisa, o grupo registra o &quot;antes&quot; — como a tarefa é feita hoje e</p>
-<p data-k="k860">quanto tempo ela leva, por unidade. Sem esse registro, nenhum ganho depois pode ser demonstrado;</p>
-<p data-k="k861">com ele, o resultado do projeto vira número institucional, comparável entre turmas e unidades.</p>
+<p data-k="k857">Individualmente, você vai resolver, ponta a ponta, o <strong>caso-tipo</strong> de Vara Cível que escolheu na</p>
+<p data-k="k858">TE6, usando o que o módulo ensinou: triar, resumir, minutar e conferir com apoio da</p>
+<p data-k="k859">IA. O caso-tipo já descreve como a tarefa é feita hoje e quanto tempo ela leva, por unidade — esse</p>
+<p data-k="k860">é o &quot;antes&quot; do projeto. Sem esse registro, nenhum ganho depois pode ser demonstrado;</p>
+<p data-k="k861">com ele, o resultado do projeto vira número comparável entre participantes e entre turmas.</p>
 <p data-k="k862"><strong>Passo obrigatório — registrar o &quot;antes&quot;:</strong></p>
-<p data-k="k863">Antes de aplicar qualquer prompt, o grupo preenche a ficha do projeto (modelo abaixo) só até a</p>
-<p data-k="k864">coluna &quot;tempo médio por unidade hoje&quot;. Essa etapa não pode ser pulada nem feita depois, de</p>
-<p data-k="k865">memória — é o baseline que sustenta a comparação final.</p>
+<p data-k="k863">Antes de aplicar qualquer prompt, você preenche a ficha do projeto (modelo abaixo) só até a</p>
+<p data-k="k864">coluna &quot;tempo médio por unidade hoje&quot;, transcrevendo o que o caso-tipo informa. Essa etapa não</p>
+<p data-k="k865">pode ser pulada — é o baseline que sustenta a comparação final.</p>
 <p data-k="k866"><strong>Roteiro ponta a ponta:</strong></p>
 <ol>
-<li data-k="k867"><strong>Escolher a tarefa:</strong> uma tarefa repetitiva e recorrente da unidade (ex.: triagem de</li>
+<li data-k="k867"><strong>Escolher o caso-tipo:</strong> um dos quatro cenários fictícios de Vara Cível entregues pelo instrutor (triagem de</li>
 </ol>
-<p data-k="k868">petições, resumo de peças para despacho, minutas-padrão, relatórios de andamento).</p>
+<p data-k="k868">petições iniciais, resumo de peças para despacho, minutas-padrão de expediente, relatório de andamento do acervo).</p>
 <ol>
-<li data-k="k869"><strong>Registrar o &quot;antes&quot;:</strong> situação atual e tempo médio por unidade hoje, na ficha do projeto.</li>
+<li data-k="k869"><strong>Registrar o &quot;antes&quot;:</strong> situação atual e tempo médio por unidade informados no caso-tipo, na ficha do projeto.</li>
 <li data-k="k870"><strong>Triar:</strong> se a tarefa envolver lote, aplicar o prompt-mestre M9 (ou o roteiro E1) para</li>
 </ol>
 <p data-k="k871">organizar por urgência ou tipo.</p>
@@ -965,7 +958,7 @@ Texto: [colar as anotações acima]</pre>
 </ol>
 <p data-k="k874">modelo padrão da unidade usando o prompt-mestre M5.</p>
 <ol>
-<li data-k="k875"><strong>Conferir:</strong> aplicar o checklist de quatro perguntas do a36 (confere com a fonte? faz sentido</li>
+<li data-k="k875"><strong>Conferir:</strong> aplicar o checklist de quatro perguntas do Módulo 2 · Aula 6 (confere com a fonte? faz sentido</li>
 </ol>
 <p data-k="k876">no caso concreto? tem dado que pode ter sido inventado? trata casos iguais de forma igual?)</p>
 <p data-k="k877">a cada saída gerada.</p>
@@ -974,37 +967,38 @@ Texto: [colar as anotações acima]</pre>
 </ol>
 <p data-k="k879">gasto na conferência humana — a conferência faz parte do tempo &quot;depois&quot;, não é descontada.</p>
 <ol>
-<li data-k="k880"><strong>Preencher a ficha completa</strong> e preparar a apresentação ao plenário.</li>
+<li data-k="k880"><strong>Preencher a ficha completa</strong> e preparar a apresentação para a turma.</li>
 </ol>
-<p data-k="k881"><strong>Modelo de ficha do projeto (o grupo preenche e traz para o plenário):</strong></p>
+<p data-k="k881"><strong>Modelo de ficha do projeto (você preenche e traz para a apresentação):</strong></p>
 <div class="tw"><table>
-<tr><th data-k="k882">Campo</th><th data-k="k883">Preenchimento do grupo</th></tr>
-<tr><td data-k="k884">Tarefa escolhida</td><td data-k="k885"></td></tr>
-<tr><td data-k="k886">Situação atual (como é feita hoje)</td><td data-k="k887"></td></tr>
-<tr><td data-k="k888">Tempo médio por unidade hoje</td><td data-k="k889"></td></tr>
+<tr><th data-k="k882">Campo</th><th data-k="k883">Seu preenchimento</th></tr>
+<tr><td data-k="k884">Caso-tipo escolhido</td><td data-k="k885"></td></tr>
+<tr><td data-k="k886">Situação atual (como a tarefa é feita hoje, conforme o caso-tipo)</td><td data-k="k887"></td></tr>
+<tr><td data-k="k888">Tempo médio por unidade hoje (conforme o caso-tipo)</td><td data-k="k889"></td></tr>
 <tr><td data-k="k890">Como será feita com apoio de IA (prompts-mestre usados)</td><td data-k="k891"></td></tr>
 <tr><td data-k="k892">Tempo estimado por unidade depois (incluindo conferência humana)</td><td data-k="k893"></td></tr>
 <tr><td data-k="k894">Riscos de sigilo identificados e como foram tratados (anonimização, dado que não pode sair)</td><td data-k="k895"></td></tr>
 <tr><td data-k="k896">Quem confere cada saída antes de virar ato oficial</td><td data-k="k897"></td></tr>
 </table></div>
-<p data-k="k898"><strong>Formato da apresentação ao plenário (antes × depois):</strong></p>
-<p data-k="k899">Cada grupo tem até 5 minutos para apresentar: (1) a tarefa escolhida e por que ela pesa na</p>
-<p data-k="k900">rotina; (2) o &quot;antes&quot; registrado (tempo por unidade, hoje); (3) uma demonstração rápida de um dos</p>
+<p data-k="k898"><strong>Formato da apresentação para a turma (antes × depois):</strong></p>
+<p data-k="k899">Cada participante tem até 5 minutos para apresentar: (1) o caso-tipo escolhido e por que aquela tarefa pesa na</p>
+<p data-k="k900">rotina de uma Vara; (2) o &quot;antes&quot; registrado (tempo por unidade, hoje); (3) uma demonstração rápida de um dos</p>
 <p data-k="k901">passos (triagem, resumo, minuta ou relatório) com o prompt-mestre usado; (4) o &quot;depois&quot; estimado,</p>
 <p data-k="k902">com o tempo de conferência humana incluído; (5) um risco de sigilo identificado e como foi</p>
-<p data-k="k903">tratado. O plenário pode perguntar sobre qualquer etapa, especialmente sobre como o &quot;antes&quot; foi</p>
+<p data-k="k903">tratado. A turma pode perguntar sobre qualquer etapa, especialmente sobre como o &quot;antes&quot; foi</p>
 <p data-k="k904">medido — um &quot;depois&quot; sem &quot;antes&quot; registrado não é aceito como resultado do projeto.</p>
-<p data-k="k905"><strong>Produto esperado:</strong> ficha do projeto preenchida por completo e apresentação antes × depois ao</p>
-<p data-k="k906">plenário, com pelo menos um prompt-mestre do Banco efetivamente aplicado e conferido.</p>
+<p data-k="k905"><strong>Produto esperado:</strong> ficha do projeto preenchida por completo e apresentação antes × depois para</p>
+<p data-k="k906">a turma, com pelo menos um prompt-mestre do Banco efetivamente aplicado e conferido.</p>
 <p data-k="k907"><strong>Avaliação:</strong> a rubrica-projeto-integrador-v2, já existente e oficial do curso, é a referência</p>
 <p data-k="k908">de avaliação deste projeto. Não há rubrica nova aqui — o instrutor aplica a rubrica-projeto-</p>
-<p data-k="k909">-integrador-v2 (7 dimensões, 4 níveis) sobre a ficha e a apresentação de cada grupo.</p>
+<p data-k="k909">-integrador-v2 (7 dimensões, 4 níveis) sobre a ficha e a apresentação de cada participante.</p>
 <h2 id="cad-21" data-k="k910">Módulo 4 — Ética, LGPD e governança</h2>
 <p data-k="k911">*2h · Turno 2 do Encontro 4 · online ao vivo. Módulo curto: os exercícios abaixo cabem dentro dos</p>
-<p data-k="k912">blocos já previstos no Plano de Aula — EX4.1 ocupa o bloco &quot;Estudo de casos&quot; (25 min) e EF4</p>
-<p data-k="k913">cabe dentro do Bloco 4.3 (25 min: exposição breve de a44/a45 seguida direto da prática). Nenhum</p>
+<p data-k="k912">blocos já previstos no Plano de Aula — EX4.1 ocupa o bloco &quot;Estudo de casos&quot; (25 min) e o EF4</p>
+<p data-k="k913">cabe dentro do Bloco 4.3 (25 min: exposição breve das Aulas 4 e 5 do Módulo 4 — Vieses e</p>
+<p data-k="k913b">Segurança — seguida direto da prática). Nenhum</p>
 <p data-k="k914">tempo extra é somado ao módulo.*</p>
-<h4 id="cad-22" data-k="k915">Quadro de anonimização (job aid) — OA4.3</h4>
+<h4 id="cad-22" data-k="k915">Quadro de anonimização — ficha de consulta rápida</h4>
 <p data-k="k916">Use este quadro antes de colar qualquer trecho de autos, mesmo sem sigilo declarado. Ele não</p>
 <p data-k="k917">substitui a checagem de sigilo: primeiro confere-se o sigilo: se for &quot;sim&quot; ou &quot;desconhecido&quot;,</p>
 <p data-k="k918">não se anonimiza — não se envia, ponto. Anonimizar só faz sentido quando o envio já é permitido.</p>
@@ -1026,8 +1020,8 @@ Texto: [colar as anotações acima]</pre>
 <p data-k="k946">distribuída à 3ª Vara. O servidor [SERVIDOR] elaborou a triagem inicial em [DATA].&quot;</p>
 <p data-k="k947"><em>Nota: todos os nomes, números e datas acima são fictícios, criados apenas para este material.</em></p>
 <h4 id="cad-22" data-k="k948">EX4.1 — Semáforo de sigilo</h4>
-<p data-k="k949"><strong>Objetivo de aprendizagem:</strong> OA4.2 (com apoio de OA4.3)</p>
-<p data-k="k950"><strong>Slide de origem:</strong> a42 · a43 · <strong>Bloco:</strong> Estudo de casos · <strong>Tempo:</strong> 25 min</p>
+<p data-k="k949"><strong>O que você vai treinar:</strong> decidir o que pode e o que não pode ser enviado a uma IA externa <em>(objetivo OA4.2 da ementa, com apoio do OA4.3, anonimização)</em></p>
+<p data-k="k950"><strong>Onde isso foi visto na aula:</strong> Módulo 4 · Aula 2 — Sigilo · e Aula 3 — LGPD · <strong>Momento:</strong> estudo de casos · <strong>Tempo:</strong> 25 min</p>
 <p data-k="k951"><strong>Formato:</strong> em salas (breakout) de 3 a 4</p>
 <p data-k="k952"><strong>Enunciado (ler para a turma):</strong></p>
 <p data-k="k953">Vocês vão decidir, caso a caso, se um conteúdo fictício pode ser colado numa ferramenta de IA.</p>
@@ -1095,9 +1089,9 @@ Texto: [colar as anotações acima]</pre>
 <p data-k="k1031">a área de TI ou a coordenação do curso antes de decidir sozinho — este exercício é didático, não parecer</p>
 <p data-k="k1032">jurídico definitivo.</p>
 <h4 id="cad-22" data-k="k1033">EF4 — Exercício de falha: viés na triagem</h4>
-<p data-k="k1034"><strong>Objetivo de aprendizagem:</strong> OA4.4</p>
-<p data-k="k1035"><strong>Slide de origem:</strong> a44 · <strong>Bloco:</strong> Vieses algorítmicos · <strong>Tempo:</strong> 20 min (dentro dos 25</p>
-<p data-k="k1036">min do Bloco 4.3: exposição breve de a44/a45, seguida direto da prática)</p>
+<p data-k="k1034"><strong>O que você vai treinar:</strong> reconhecer viés algorítmico numa saída de IA e dizer o que fazer diante dele <em>(objetivo OA4.4 da ementa)</em></p>
+<p data-k="k1035"><strong>Onde isso foi visto na aula:</strong> Módulo 4 · Aula 4 — Vieses algorítmicos · <strong>Tempo:</strong> 20 min (dentro dos 25</p>
+<p data-k="k1036">min do Bloco 4.3: exposição breve das Aulas 4 e 5 do Módulo 4, seguida direto da prática)</p>
 <p data-k="k1037"><strong>Formato:</strong> em salas (breakout) de 3 a 4, com fechamento em plenário</p>
 <p data-k="k1038"><strong>Enunciado (ler para a turma):</strong></p>
 <p data-k="k1039">Vocês vão receber o resultado fictício de uma triagem feita por IA (no estilo do</p>
@@ -1137,65 +1131,5 @@ Texto: [colar as anotações acima]</pre>
 </main>
 </div>
 
-<div class="barra">
-  <button class="btn" id="b-edit">Editar</button>
-  <button class="btn" id="b-baixar">Baixar HTML</button>
-  <button class="btn" id="b-restaurar">Restaurar original</button>
-</div>
-
-<script>
-(function () {
-  var CHAVE = 'servidor-mais-ia:material-aluno-tjce';
-  var alvos = function () { return document.querySelectorAll('[data-k]'); };
-
-  function aplicarSalvos() {
-    var d = {};
-    try { d = JSON.parse(localStorage.getItem(CHAVE) || '{}'); } catch (e) { return; }
-    alvos().forEach(function (el) {
-      if (d[el.dataset.k] !== undefined) el.innerHTML = d[el.dataset.k];
-    });
-  }
-
-  function salvar() {
-    var d = {};
-    alvos().forEach(function (el) { d[el.dataset.k] = el.innerHTML; });
-    localStorage.setItem(CHAVE, JSON.stringify(d));
-  }
-
-  var editando = false;
-  document.getElementById('b-edit').addEventListener('click', function () {
-    editando = !editando;
-    this.classList.toggle('on', editando);
-    this.textContent = editando ? 'Editando (clique para sair)' : 'Editar';
-    alvos().forEach(function (el) {
-      el.contentEditable = editando ? 'true' : 'false';
-      if (!editando) el.removeAttribute('contenteditable');
-    });
-    if (!editando) salvar();
-  });
-
-  document.addEventListener('input', function (e) {
-    if (editando && e.target.closest('[data-k]')) salvar();
-  });
-
-  document.getElementById('b-baixar').addEventListener('click', function () {
-    salvar();
-    alvos().forEach(function (el) { el.removeAttribute('contenteditable'); });
-    var doc = '<!doctype html>\n' + document.documentElement.outerHTML;
-    var a = document.createElement('a');
-    a.href = URL.createObjectURL(new Blob([doc], { type: 'text/html' }));
-    a.download = 'material-do-aluno-tjce.html';
-    a.click();
-  });
-
-  document.getElementById('b-restaurar').addEventListener('click', function () {
-    if (!confirm('Descartar as edições feitas neste navegador e recarregar a versão original?')) return;
-    localStorage.removeItem(CHAVE);
-    location.reload();
-  });
-
-  aplicarSalvos();
-})();
-</script>
 </body>
 </html>
