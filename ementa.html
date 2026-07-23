@@ -1,0 +1,673 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ementa Formal v2.0 · Curso Servidor + IA · JFCE</title>
+<style>
+:root {
+  --laranja:#C05A1E; --laranja-claro:#F2E4D8; --tinta:#23201d; --cinza:#5c554e;
+  --fundo:#FFFDFA; --borda:#e6ddd3; --creme:#FFF7EF;
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--fundo); color:var(--tinta);
+  font:16px/1.65 -apple-system,"Segoe UI",Inter,Roboto,sans-serif; }
+header.topo { background:var(--laranja); color:#fff; padding:26px 20px; }
+header.topo h1 { margin:0 0 4px; font-size:1.5rem; letter-spacing:-.01em; }
+header.topo p { margin:0; opacity:.92; font-size:.95rem; }
+.wrap { display:flex; gap:32px; max-width:1240px; margin:0 auto; padding:28px 20px 80px; }
+nav { flex:0 0 264px; position:sticky; top:20px; align-self:flex-start;
+  max-height:calc(100vh - 40px); overflow:auto; font-size:.9rem; }
+nav ul { list-style:none; margin:0; padding:0; }
+nav a { color:var(--cinza); text-decoration:none; display:block; padding:5px 10px;
+  border-left:2px solid transparent; border-radius:0 4px 4px 0; }
+nav a:hover { background:var(--creme); color:var(--laranja); border-left-color:var(--laranja); }
+.nav-sec a { font-weight:700; color:var(--tinta); margin-top:14px; }
+.n2 a { padding-left:20px; }
+main { flex:1; min-width:0; }
+h2 { font-size:1.32rem; margin:2.2em 0 .5em; color:var(--laranja);
+  border-bottom:1px solid var(--borda); padding-bottom:.3em; }
+h3 { font-size:1.08rem; margin:1.7em 0 .4em; }
+h4 { font-size:.98rem; margin:1.4em 0 .3em; color:var(--cinza); }
+p, li { margin:.5em 0; }
+code { background:var(--creme); padding:1px 5px; border-radius:3px; font-size:.9em; }
+pre { background:var(--creme); border:1px solid var(--borda); border-left:3px solid var(--laranja);
+  padding:14px 16px; border-radius:6px; overflow-x:auto; white-space:pre-wrap;
+  font:13px/1.5 ui-monospace,Consolas,monospace; }
+blockquote { margin:.8em 0; padding:.4em 0 .4em 14px; border-left:3px solid var(--laranja-claro);
+  color:var(--cinza); font-style:italic; }
+.tw { overflow-x:auto; margin:1em 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { border:1px solid var(--borda); padding:7px 10px; text-align:left; vertical-align:top; }
+th { background:var(--laranja-claro); }
+.secao { scroll-margin-top:20px; }
+.rodape { border-top:1px solid var(--borda); margin-top:60px; padding-top:16px;
+  color:var(--cinza); font-size:.85rem; }
+@media (max-width:900px) {
+  .wrap { flex-direction:column; padding:16px; }
+  nav { position:static; max-height:none; flex:none; }
+}
+@media print {
+  nav, header.topo { display:none; }
+  body { font-size:11pt; } .wrap { display:block; padding:0; }
+  h2 { page-break-after:avoid; } table, pre { page-break-inside:avoid; }
+}
+</style>
+</head>
+<body>
+<header class="topo">
+  <h1>Ementa Formal · Curso Servidor + IA</h1>
+  <p>Versão 2.0 — julho de 2026 · 24 horas · Justiça Federal no Ceará · INOVAJUS Eixo III</p>
+</header>
+
+<div class="wrap">
+<nav>
+  <ul>
+<li class="nav-sec"><a href="#identificação">1. Identificação</a></li>
+<li class="nav-sec"><a href="#calendário">2. Calendário</a></li>
+<li class="nav-sec"><a href="#público-alvo">3. Público-alvo</a></li>
+<li class="nav-sec"><a href="#pré-requisitos">4. Pré-requisitos</a></li>
+<li class="nav-sec"><a href="#objetivo-geral">5. Objetivo geral</a></li>
+<li class="nav-sec"><a href="#objetivos-específicos">6. Objetivos específicos</a></li>
+<li class="nav-sec"><a href="#estrutura-modular">7. Estrutura modular</a></li>
+<li class="nav-sec"><a href="#conteúdo-programático-por-módulo">8. Conteúdo programático por
+módulo</a></li>
+<li class="n2"><a href="#módulo-1-fundamentos-de-ia-e-prompt-engineering-6h">8.1 Módulo 1
+— Fundamentos de IA e Prompt Engineering (6h)</a></li>
+<li class="n2"><a href="#módulo-2-pensamento-crítico-e-causal-com-ia-6h">8.2 Módulo 2 —
+Pensamento Crítico e Causal com IA (6h)</a></li>
+<li class="n2"><a href="#módulo-3-prática-forense-10h">8.3 Módulo 3 — Prática Forense
+(10h)</a></li>
+<li class="n2"><a href="#módulo-4-ética-lgpd-e-governança-de-ia-2h">8.4 Módulo 4 — Ética,
+LGPD e Governança de IA (2h)</a></li>
+<li class="nav-sec"><a href="#metodologia">9. Metodologia</a></li>
+<li class="nav-sec"><a href="#recursos-didáticos">10. Recursos didáticos</a></li>
+<li class="nav-sec"><a href="#avaliação">11. Avaliação</a></li>
+<li class="nav-sec"><a href="#certificação">12. Certificação</a></li>
+<li class="nav-sec"><a href="#indicadores-institucionais">13. Indicadores institucionais</a></li>
+<li class="nav-sec"><a href="#articulação-com-outras-ações-do-eixo-iii">14. Articulação com
+outras ações do Eixo III</a></li>
+<li class="nav-sec"><a href="#comunidade-de-prática">15. Comunidade de prática</a></li>
+<li class="nav-sec"><a href="#disposições-finais-e-registro-de-alterações">16. Disposições
+finais e registro de alterações</a></li>
+  </ul>
+</nav>
+
+<main>
+  <section class="secao">
+<blockquote>
+<p><strong>Documento institucional do curso modular de capacitação em
+inteligência artificial generativa para servidoras, servidores,
+magistradas e magistrados da Justiça Federal no Ceará.</strong> Versão
+2.0 — julho de 2026. <strong>Substitui a Versão 1.0 (maio de
+2026).</strong> Esta versão constitui o ato formal previsto na seção 16
+da ementa anterior: reajuste da carga horária (21 → 24 horas),
+reordenação pedagógica dos módulos, atualização do formato (online, ao
+vivo) e do método de construção de prompts, aprovados pela Coordenação
+<strong>antes do início da Turma 1</strong>. Fundamentação: Ação 1.2 do
+Plano de Trabalho 2026 — Eixo III; KR 2.5.2; ações 2.4 e 2.5 do Plano
+Nacional de Inovação da Justiça Federal — 2026; Resolução CNJ nº
+615/2025; Portaria DF nº 161/2025.</p>
+</blockquote>
+<h2 id="identificação">1. Identificação</h2>
+<div class="tw"><table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Item</th>
+<th>Conteúdo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Nome</strong></td>
+<td>Servidor + IA — Inteligência Artificial Generativa Aplicada ao
+Trabalho Judicial e Administrativo</td>
+</tr>
+<tr class="even">
+<td><strong>Modalidade</strong></td>
+<td>Capacitação institucional <strong>online, ao vivo
+(síncrona)</strong>, por videoconferência, com demonstrações em tempo
+real</td>
+</tr>
+<tr class="odd">
+<td><strong>Carga horária total</strong></td>
+<td><strong>24 (vinte e quatro) horas</strong>, em quatro módulos</td>
+</tr>
+<tr class="even">
+<td><strong>Turmas em 2026</strong></td>
+<td>2 turmas, conduzidas em períodos distintos</td>
+</tr>
+<tr class="odd">
+<td><strong>Vagas por turma</strong></td>
+<td>25 a 30 participantes</td>
+</tr>
+<tr class="even">
+<td><strong>Ambiente</strong></td>
+<td>Plataforma institucional de videoconferência + material do curso em
+endereço público (deck de apresentação e Banco de Prompts)</td>
+</tr>
+<tr class="odd">
+<td><strong>Promoção</strong></td>
+<td>INOVAJUS — Eixo III, com certificação pela Direção do Foro</td>
+</tr>
+<tr class="even">
+<td><strong>Coordenação</strong></td>
+<td>Victor César Falcão Viana — Coordenador do Eixo III</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="calendário">2. Calendário</h2>
+<div class="tw"><table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Turma</th>
+<th>Período</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Turma 1</strong></td>
+<td>agosto/2026 — módulos em sequência, encontros distribuídos ao longo
+do mês</td>
+</tr>
+<tr class="even">
+<td><strong>Turma 2</strong></td>
+<td>segundo semestre de 2026 — datas divulgadas junto à abertura das
+inscrições</td>
+</tr>
+</tbody>
+</table></div>
+<p>Datas específicas dos encontros são publicadas junto à abertura das
+inscrições e podem ser ajustadas pela Coordenação por necessidade
+institucional, com comunicação prévia aos inscritos.</p>
+<h2 id="público-alvo">3. Público-alvo</h2>
+<p>A Turma 1 é dirigida à <strong>área-fim</strong>:</p>
+<ul>
+<li>Servidoras e servidores em exercício em Varas e Turmas da JFCE;</li>
+<li>Assessoras e assessores de gabinete;</li>
+<li>Magistradas e magistrados;</li>
+<li>Estagiárias e estagiários lotados nessas unidades (em vagas
+reservadas, com anuência da chefia imediata).</li>
+</ul>
+<p>O recorte é deliberado: todos os exemplos, exercícios e roteiros de
+demonstração do curso partem do fluxo de trabalho judicial (processo,
+despacho, minuta, jurisprudência, triagem, audiência). A extensão à
+área-meio, com banco de exemplos próprio, poderá ser feita em turmas
+futuras, a critério da Coordenação.</p>
+<h2 id="pré-requisitos">4. Pré-requisitos</h2>
+<p>Não há pré-requisito formal. Recomenda-se:</p>
+<ul>
+<li>Conclusão prévia da Oficina Prompt Lab (qualquer edição) — não
+obrigatória, mas facilita o aproveitamento;</li>
+<li>Familiaridade com o Sistema PJe e com os fluxos de trabalho da
+própria unidade;</li>
+<li>Navegador atualizado, conta institucional de e-mail e condições de
+participar dos encontros por videoconferência (áudio e,
+preferencialmente, câmera).</li>
+</ul>
+<p>A Coordenação reserva o direito de redirecionar candidatos sem perfil
+mínimo para a Oficina Prompt Lab antes do ingresso no curso, com vaga
+garantida em turma posterior.</p>
+<h2 id="objetivo-geral">5. Objetivo geral</h2>
+<p>Formar servidoras, servidores, magistradas e magistrados da Justiça
+Federal no Ceará para utilizar inteligência artificial generativa de
+forma crítica, segura e produtiva no exercício de suas atribuições, com
+consciência das limitações da tecnologia, das responsabilidades
+institucionais e das exigências normativas, em particular as da
+Resolução CNJ nº 615/2025 e da LGPD.</p>
+<h2 id="objetivos-específicos">6. Objetivos específicos</h2>
+<p>Ao concluir o curso, o participante deverá ser capaz de:</p>
+<p>I — Construir e refinar prompts para tarefas judiciais reais pelo
+método do <strong>prompt em 6 etapas</strong> (contexto, tom, tarefa,
+exemplos, qualidade, formato), aplicando técnicas complementares:
+raciocínio passo a passo, exemplos calibradores (<em>few-shot</em>),
+saída estruturada e <strong>separação entre instrução e
+documento</strong> — inclusive como defesa contra instruções embutidas
+em documento de terceiro;</p>
+<p>II — Avaliar criticamente outputs de IA generativa, detectando
+alucinações, vieses, inconsistências e lacunas, com aplicação imediata
+da supervisão humana exigida pela Resolução CNJ nº 615/2025;</p>
+<p>III — Aplicar pensamento crítico e causal a dados e análises
+auxiliadas por IA, distinguindo correlação de causa, identificando
+confundidores e raciocinando por contrafactuais — inclusive registrando
+a situação-base (<em>baseline</em>) antes de adotar qualquer mudança de
+fluxo;</p>
+<p>IV — Integrar IA generativa às tarefas forenses do dia a dia —
+triagem e classificação, resumo de peças, minutas e despachos, pesquisa
+de jurisprudência com salvaguardas, comparação e conferência de
+documentos, relatórios e trabalho em lote;</p>
+<p>V — Anonimizar documentos e gerir tratamento de dados pessoais
+conforme a LGPD, respeitando o bloqueio absoluto a dados sob sigilo em
+ferramentas externas;</p>
+<p>VI — Reconhecer riscos de IA no trabalho judicial, classificá-los
+segundo a Resolução CNJ nº 615/2025 e propor mitigações;</p>
+<p>VII — Construir, <strong>individualmente</strong>, <strong>um projeto
+integrador</strong> que resolva um problema real de sua unidade, com
+registro do antes e do depois (<em>baseline</em>), integrando os
+conteúdos dos quatro módulos.</p>
+<h2 id="estrutura-modular">7. Estrutura modular</h2>
+<pre><code>   ┌────────────────────────────────────────────────────────────┐
+   │ MÓDULO 1 — Fundamentos de IA e Prompt Engineering          │
+   │ 6 horas — 2 encontros online ao vivo de 3 horas cada       │
+   │ Reaproveita conteúdo das Oficinas Prompt Lab #1 e #2       │
+   └────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+   ┌────────────────────────────────────────────────────────────┐
+   │ MÓDULO 2 — Pensamento Crítico e Causal com IA              │
+   │ 6 horas — 2 encontros online ao vivo de 3 horas cada       │
+   │ Base crítica ANTES da aplicação; conecta-se ao Lab de      │
+   │ Impacto (Frente 3)                                         │
+   └────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+   ┌────────────────────────────────────────────────────────────┐
+   │ MÓDULO 3 — Prática Forense                                 │
+   │ 10 horas — 3 aulas online ao vivo (3h + 3h + 4h)           │
+   │ Tarefas reais da Vara e do Gabinete; inclui o projeto      │
+   │ integrador com registro de baseline                        │
+   └────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+   ┌────────────────────────────────────────────────────────────┐
+   │ MÓDULO 4 — Ética, LGPD e Governança de IA                  │
+   │ 2 horas — 1 encontro online ao vivo                        │
+   │ Encerramento com estudo de casos e o bloco-horizonte       │
+   │ &quot;Sistemas agênticos&quot; (panorama, sem tutorial)              │
+   └────────────────────────────────────────────────────────────┘
+
+   CARGA TOTAL: 24 HORAS</code></pre>
+<p>A ordem dos módulos é decisão pedagógica da Coordenação: o pensamento
+crítico e causal (Módulo 2) precede a prática intensiva (Módulo 3), para
+que o participante chegue às tarefas reais já equipado com a postura de
+verificação; a curva de dificuldade cresce de forma contínua e a ética
+(Módulo 4) fecha o curso conectada a tudo o que foi praticado.</p>
+<h2 id="conteúdo-programático-por-módulo">8. Conteúdo programático por
+módulo</h2>
+<h3 id="módulo-1-fundamentos-de-ia-e-prompt-engineering-6h">8.1 Módulo 1
+— Fundamentos de IA e Prompt Engineering (6h)</h3>
+<p>Encontro 1 — O que é IA e como pedir bem (3h) - Como a IA funciona:
+prever a próxima palavra; onde nasce a alucinação - O que faz bem e onde
+falha — com exemplos do contexto judicial - Contexto e tokens: por que
+não despejar o processo inteiro na ferramenta - Anatomia do
+<strong>prompt em 6 etapas</strong>: contexto, tom, tarefa, exemplos,
+qualidade, formato</p>
+<p>Encontro 2 — Prompts melhores e biblioteca (3h) - Prompt fraco ×
+prompt forte: o mesmo pedido, duas saídas - Técnicas que elevam a
+qualidade: raciocínio passo a passo, exemplos calibradores, separação
+entre instrução e documento (inclusive contra instrução embutida),
+iteração - Biblioteca de prompts da unidade: o Banco de Prompts (14
+prompts-mestre + apêndices) - Qual ferramenta usar: escolha pela tarefa,
+não pela marca — o método importa mais que a ferramenta</p>
+<h3 id="módulo-2-pensamento-crítico-e-causal-com-ia-6h">8.2 Módulo 2 —
+Pensamento Crítico e Causal com IA (6h)</h3>
+<p>Encontro 1 — Correlação, causa oculta e contrafactual (3h) - Por que
+questionar a IA: copiloto, não juiz - Correlação não é causa: a causa
+oculta (confundidor) — do cotidiano ao judicial - Pensamento
+contrafactual: “e se não tivéssemos adotado?” — tendência anterior,
+grupo de comparação e registro de baseline</p>
+<p>Encontro 2 — Alucinações, validação e checklist (3h) - Detectar
+alucinações: sinais de alerta; citação inventada e conferência na fonte
+oficial - Validar antes de confiar: cruzar fontes; pedir à IA que aponte
+as próprias fraquezas - Checklist de supervisão e decisão humana;
+auditoria da “resposta boa demais” (detectar lacuna, não só erro)</p>
+<h3 id="módulo-3-prática-forense-10h">8.3 Módulo 3 — Prática Forense
+(10h)</h3>
+<p>Aula 1 — Triagem e resumo (3h) - Triagem e classificação assistida
+(demonstração ao vivo com lote de demandas — incluindo defesa contra
+instrução embutida em item do lote) - Resumo de peças e processos, com
+conferência contra o original</p>
+<p>Aula 2 — Minutas, jurisprudência e conferência (3h) - Minutas e
+despachos com supervisão crítica — o conteúdo jurídico e a assinatura
+são sempre do servidor - Pesquisa de jurisprudência com salvaguardas
+contra alucinação — conferência na fonte oficial - Comparação e
+conferência de documentos</p>
+<p>Aula 3 — Relatórios, lote e projeto integrador (4h) - Relatórios e
+organização de dados - Modelos e trabalho em lote, com anonimização
+prévia - <strong>Projeto integrador</strong>: cada participante resolve
+um caso da própria unidade ponta a ponta, com registro do antes e do
+depois (<em>baseline</em>)</p>
+<h3 id="módulo-4-ética-lgpd-e-governança-de-ia-2h">8.4 Módulo 4 — Ética,
+LGPD e Governança de IA (2h)</h3>
+<p>Encontro único — Usar a IA dentro da lei e do sigilo (2h) - Resolução
+CNJ nº 615/2025: governança e supervisão humana obrigatória - Sigilo: o
+que pode e o que não pode ir para a IA — bloqueio absoluto a dados sob
+segredo de justiça em ferramenta externa - LGPD e anonimização na
+prática - Vieses algorítmicos e boas práticas de segurança - Estudo de
+casos (“posso colar este processo na IA?”): cada participante decide
+caso a caso e justifica; a discussão é feita com a turma inteira -
+Bloco-horizonte de encerramento: sistemas agênticos — assistente ×
+agente, o servidor como regente, autonomia com responsabilidade</p>
+<h2 id="metodologia">9. Metodologia</h2>
+<p>O curso adota o princípio andragógico de <strong>70% prática e 30%
+teoria</strong>, no ciclo <em>conceito → exemplo da Vara → demonstração
+ao vivo na IA → mão na massa</em>. O instrutor conduz por
+videoconferência, compartilhando o deck do curso e a ferramenta de IA em
+tempo real; os participantes acompanham o deck no próprio dispositivo e
+praticam com os prompts do Banco. <strong>A prática é
+individual</strong>: cada participante trabalha na própria tarefa, com a
+sala aberta e o instrutor disponível durante todo o bloco — não há salas
+de videoconferência (<em>breakout</em>) nem entrega em dupla ou grupo.
+Ao fim de cada bloco, dois ou três participantes compartilham o
+resultado com a turma; dúvidas e “termômetro” da turma correm pelo chat
+e por enquetes.</p>
+<p>Cada participante constrói, no Módulo 3, um <strong>projeto
+integrador</strong> que resolve problema real de sua unidade. O projeto
+exige o registro da situação anterior (<em>baseline</em>) e do resultado
+obtido — o “antes × depois” que alimenta os indicadores do Eixo III e a
+articulação com o Lab de Impacto (Frente 3).</p>
+<p>A facilitação é conduzida por instrutor com prática real em uso de IA
+no trabalho judicial. A partir da Turma 2, multiplicadores formados
+(Ação 1.3) podem co-conduzir módulos específicos com supervisão.</p>
+<h2 id="recursos-didáticos">10. Recursos didáticos</h2>
+<div class="tw"><table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Recurso</th>
+<th>Origem</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Plataforma de videoconferência com chat e enquetes</td>
+<td>Infraestrutura institucional</td>
+</tr>
+<tr class="even">
+<td>Deck do curso (apresentação animada, endereço público)</td>
+<td>Material do Eixo III, acessível por link e QR</td>
+</tr>
+<tr class="odd">
+<td>Banco de Prompts — 14 prompts-mestre + apêndices temáticos e
+roteiros de demonstração</td>
+<td>Documento institucional do curso (endereço público)</td>
+</tr>
+<tr class="even">
+<td>Conta de uso individual em ferramenta de IA generativa</td>
+<td>Acesso institucional ou conta pessoal do participante</td>
+</tr>
+<tr class="odd">
+<td>Plano de aula do instrutor, com blocos cronometrados e roteiros
+didáticos</td>
+<td>Documento interno do curso</td>
+</tr>
+<tr class="even">
+<td>Material de apoio</td>
+<td>Handout <em>Regras de Ouro</em>, ficha de validação, formulários de
+avaliação</td>
+</tr>
+<tr class="odd">
+<td>Repositório de Prompts da JFCE</td>
+<td>Acesso curado para consulta e contribuição</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="avaliação">11. Avaliação</h2>
+<p>A avaliação é por <strong>aplicação</strong>, não por prova
+teórica.</p>
+<div class="tw"><table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Critério</th>
+<th>Peso</th>
+<th>Forma</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Frequência</strong></td>
+<td>requisito</td>
+<td>Presença em pelo menos 80% da carga horária</td>
+</tr>
+<tr class="even">
+<td><strong>Entregas dos módulos</strong></td>
+<td>requisito</td>
+<td>Entrega de pelo menos um exercício validado por módulo</td>
+</tr>
+<tr class="odd">
+<td><strong>Projeto integrador</strong></td>
+<td>nota final</td>
+<td>Individual. Avaliação por rubrica pelo facilitador, com <em>peer
+review</em> da turma após cada apresentação; exige baseline antes ×
+depois</td>
+</tr>
+<tr class="even">
+<td><strong>Aplicação real</strong></td>
+<td>acompanhamento</td>
+<td>Avaliação D+30, D+60 e D+90 — uso efetivo no trabalho</td>
+</tr>
+</tbody>
+</table></div>
+<p>Os critérios da rubrica do projeto integrador constam do documento
+próprio do curso (rubrica). Não há nota numérica única — a avaliação
+resulta em <strong>aprovação com certificação</strong> ou
+<strong>complementação dos requisitos</strong>.</p>
+<h2 id="certificação">12. Certificação</h2>
+<p>Cada participante que cumprir os requisitos recebe certificado
+individual de <strong>24 (vinte e quatro) horas</strong>, emitido pela
+Direção do Foro da JFCE, com assinatura da Coordenação do Eixo III.</p>
+<p>O certificado contém:</p>
+<ul>
+<li>Nome completo do participante</li>
+<li>Carga horária por módulo</li>
+<li>Período de realização</li>
+<li>Identificador institucional do curso</li>
+<li>Identificador da turma</li>
+</ul>
+<p>A certificação habilita o servidor a:</p>
+<ul>
+<li>Submeter prompts ao Repositório com tag de coautoria</li>
+<li>Candidatar-se ao Programa de Multiplicadores (Ação 1.3) na turma
+seguinte</li>
+<li>Participar de eventos institucionais do Eixo III com prioridade</li>
+</ul>
+<h2 id="indicadores-institucionais">13. Indicadores institucionais</h2>
+<div class="tw"><table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Indicador</th>
+<th>Meta para 2026</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Servidores certificados ao final de 2026</td>
+<td>50 a 60</td>
+</tr>
+<tr class="even">
+<td>Avaliação média do curso (escala 0-10)</td>
+<td>igual ou superior a 8,5</td>
+</tr>
+<tr class="odd">
+<td>Taxa de cumprimento do projeto integrador</td>
+<td>igual ou superior a 90% dos certificados</td>
+</tr>
+<tr class="even">
+<td>Taxa de aplicação real (D+90)</td>
+<td>igual ou superior a 70% dos certificados usam IA pelo menos
+semanalmente</td>
+</tr>
+<tr class="odd">
+<td>Multiplicadores indicados a partir das turmas</td>
+<td>5 a 10 (cumulativo, conforme Ação 1.3)</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="articulação-com-outras-ações-do-eixo-iii">14. Articulação com
+outras ações do Eixo III</h2>
+<p>O Curso é o produto de capacitação mais robusto do Eixo. Articula-se
+diretamente com:</p>
+<div class="tw"><table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Ação</th>
+<th>Articulação</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>1.1 — Oficinas Prompt Lab</strong></td>
+<td>Conteúdo do Módulo 1 reaproveita material das Oficinas; oficina é
+entrada natural para o curso</td>
+</tr>
+<tr class="even">
+<td><strong>1.3 — Multiplicadores</strong></td>
+<td>Pool de candidatos a multiplicador são certificados das turmas</td>
+</tr>
+<tr class="odd">
+<td><strong>2.1 — Adote um Experimento</strong></td>
+<td>Projetos integradores do curso podem evoluir para experimentos
+pilotos</td>
+</tr>
+<tr class="even">
+<td><strong>2.2 — Publicações Periódicas</strong></td>
+<td>Cases dos projetos integradores alimentam pautas</td>
+</tr>
+<tr class="odd">
+<td><strong>3.1 — Lab de Impacto</strong></td>
+<td>O Módulo 2 (pensamento crítico e causal) fornece a base teórica do
+Lab; o baseline do projeto integrador gera a evidência; certificados são
+candidatos a auxiliar no Lab</td>
+</tr>
+<tr class="even">
+<td><strong>4.1 — Repositório de Prompts</strong></td>
+<td>Cada projeto integrador contribui com prompts validados</td>
+</tr>
+<tr class="odd">
+<td><strong>4.3 — Diretrizes Internas de IA</strong></td>
+<td>Conteúdo do Módulo 4 antecipa e prepara recepção das Diretrizes</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="comunidade-de-prática">15. Comunidade de prática</h2>
+<p>Após a certificação, o participante é incluído, mediante adesão
+voluntária, em <strong>comunidade de prática institucional</strong>
+mantida pelo Eixo III. A comunidade tem por funções:</p>
+<ul>
+<li>Tirar dúvidas sobre uso de IA no trabalho diário</li>
+<li>Compartilhar prompts validados</li>
+<li>Discutir mudanças regulatórias e de ferramenta</li>
+<li>Trocar cases entre unidades</li>
+</ul>
+<p>A comunidade conta com encontros mensais opcionais (1 hora) e canal
+assíncrono de mensagens.</p>
+<h2 id="disposições-finais-e-registro-de-alterações">16. Disposições
+finais e registro de alterações</h2>
+<p>Esta ementa é revisada anualmente, em janeiro, em paralelo à
+publicação do novo Plano de Trabalho do Eixo III. A Coordenação se
+reserva o direito de ajustar conteúdo de módulos diante de
+superveniência normativa, de evolução tecnológica relevante ou de lições
+aprendidas das turmas anteriores. Alterações de carga horária ou de
+estrutura modular exigem ato formal e nova versão de ementa.</p>
+<p><strong>Registro de alterações da Versão 2.0</strong> (em relação à
+Versão 1.0, maio/2026), aprovadas pela Coordenação antes do início da
+Turma 1:</p>
+<div class="tw"><table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Item</th>
+<th>Versão 1.0</th>
+<th>Versão 2.0</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Carga horária total</td>
+<td>21 horas</td>
+<td><strong>24 horas</strong></td>
+</tr>
+<tr class="even">
+<td>Ordem e carga dos módulos</td>
+<td>M2 Prática Forense (8h) · M3 Pensamento Crítico e Causal (4h) · M4
+(3h)</td>
+<td><strong>M2 Pensamento Crítico e Causal (6h) · M3 Prática Forense
+(10h) · M4 (2h)</strong></td>
+</tr>
+<tr class="odd">
+<td>Modalidade</td>
+<td>Presencial em laboratório, com componente assíncrono</td>
+<td><strong>Online, ao vivo (síncrona)</strong></td>
+</tr>
+<tr class="even">
+<td>Método de construção de prompts</td>
+<td>Framework PICE</td>
+<td><strong>Prompt em 6 etapas</strong> (contexto, tom, tarefa,
+exemplos, qualidade, formato)</td>
+</tr>
+<tr class="odd">
+<td>Público da Turma 1</td>
+<td>Misto (área-fim e área-meio)</td>
+<td><strong>Área-fim</strong> (Varas, Turmas e gabinetes)</td>
+</tr>
+<tr class="even">
+<td>Calendário 2026</td>
+<td>Módulos distribuídos de maio a novembro</td>
+<td><strong>Turma 1 em agosto/2026</strong>; Turma 2 no 2º semestre</td>
+</tr>
+<tr class="odd">
+<td>Avaliação final</td>
+<td>Defesa de projeto aplicado no Módulo 4</td>
+<td><strong>Projeto integrador no Módulo 3</strong> (Aula 3), com
+baseline antes × depois</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Ajuste da Turma 1 (2026-07-23) — prática 100%
+individual.</strong> A partir da Turma 1, toda a prática do curso é
+<strong>individual</strong>: não há exercício em dupla, sala de
+videoconferência (<em>breakout</em>) nem apresentação em plenário de
+grupo. A decisão não altera carga horária, estrutura modular, conteúdo
+programático nem critérios de avaliação — por isso não constitui nova
+versão de ementa (seção 16, <em>caput</em>) —, e alcança: objetivo
+específico VII, item de projeto integrador do Módulo 3 (seção 8.3),
+estudo de casos do Módulo 4 (seção 8.4), metodologia (seção 9), recursos
+didáticos (seção 10) e a forma de avaliação do projeto integrador (seção
+11). Fundamento: o formato online ao vivo, com turma heterogênea em
+unidades distintas, produz mais aprendizagem quando cada participante
+executa a tarefa no próprio teclado, com a sala aberta, do que quando a
+execução é delegada dentro de um grupo. A mesma decisão consta da
+rubrica do projeto integrador (nota “Ajuste da turma JFCE”, 2026-07-22)
+e vale igualmente para a turma do TJCE.</p>
+<hr />
+<p><em>Fortaleza/CE — julho de 2026.</em></p>
+<p><em>Victor César Falcão Viana</em> <em>Coordenador do Eixo III —
+INOVAJUS — JFCE</em></p>
+
+  <p class="rodape">Documento institucional do curso (Ação 1.2 do Plano de Trabalho 2026 — Eixo III).
+  Esta página é a versão de consulta; o documento formal em <code>.docx</code> está em
+  <a href="Ementa-Formal-Curso-Servidor-IA-v2.docx">Ementa-Formal-Curso-Servidor-IA-v2.docx</a>.</p>
+  </section>
+</main>
+</div>
+
+</body>
+</html>
