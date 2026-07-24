@@ -1,0 +1,1536 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guia metodológico · Curso Servidor + IA (Turma TJCE)</title>
+<style>
+:root {
+  --laranja:#C05A1E; --laranja-claro:#F2E4D8; --tinta:#23201d; --cinza:#5c554e;
+  --fundo:#FFFDFA; --borda:#e6ddd3; --creme:#FFF7EF;
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--fundo); color:var(--tinta);
+  font:16px/1.65 -apple-system,"Segoe UI",Inter,Roboto,sans-serif; }
+header.topo { background:var(--laranja); color:#fff; padding:26px 20px; }
+header.topo h1 { margin:0 0 4px; font-size:1.5rem; letter-spacing:-.01em; }
+header.topo p { margin:0; opacity:.92; font-size:.95rem; }
+.wrap { display:flex; gap:32px; max-width:1240px; margin:0 auto; padding:28px 20px 80px; }
+nav { flex:0 0 264px; position:sticky; top:20px; align-self:flex-start;
+  max-height:calc(100vh - 40px); overflow:auto; font-size:.9rem; }
+nav ul { list-style:none; margin:0; padding:0; }
+nav a { color:var(--cinza); text-decoration:none; display:block; padding:5px 10px;
+  border-left:2px solid transparent; border-radius:0 4px 4px 0; }
+nav a:hover { background:var(--creme); color:var(--laranja); border-left-color:var(--laranja); }
+.nav-sec a { font-weight:700; color:var(--tinta); margin-top:14px; }
+.n2 a { padding-left:20px; }
+main { flex:1; min-width:0; }
+h2 { font-size:1.32rem; margin:2.2em 0 .5em; color:var(--laranja);
+  border-bottom:1px solid var(--borda); padding-bottom:.3em; }
+h3 { font-size:1.08rem; margin:1.7em 0 .4em; }
+h4 { font-size:.98rem; margin:1.4em 0 .3em; color:var(--cinza); }
+p, li { margin:.5em 0; }
+code { background:var(--creme); padding:1px 5px; border-radius:3px; font-size:.9em; }
+pre { background:var(--creme); border:1px solid var(--borda); border-left:3px solid var(--laranja);
+  padding:14px 16px; border-radius:6px; overflow-x:auto; white-space:pre-wrap;
+  font:13px/1.5 ui-monospace,Consolas,monospace; }
+blockquote { margin:.8em 0; padding:.4em 0 .4em 14px; border-left:3px solid var(--laranja-claro);
+  color:var(--cinza); font-style:italic; }
+.tw { overflow-x:auto; margin:1em 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { border:1px solid var(--borda); padding:7px 10px; text-align:left; vertical-align:top; }
+th { background:var(--laranja-claro); }
+.secao { scroll-margin-top:20px; }
+.barra { position:fixed; left:16px; bottom:16px; display:flex; gap:8px; z-index:50; }
+.btn { background:#fff; border:1px solid var(--borda); color:var(--tinta); padding:8px 14px;
+  border-radius:999px; font-size:.85rem; cursor:pointer; box-shadow:0 2px 10px rgba(0,0,0,.09); }
+.btn:hover { border-color:var(--laranja); color:var(--laranja); }
+.btn.on { background:var(--laranja); color:#fff; border-color:var(--laranja); }
+[contenteditable="true"] { outline:1px dashed var(--laranja); outline-offset:2px;
+  background:rgba(192,90,30,.04); }
+.rodape { border-top:1px solid var(--borda); margin-top:60px; padding-top:16px;
+  color:var(--cinza); font-size:.85rem; }
+@media (max-width:900px) {
+  .wrap { flex-direction:column; padding:16px; }
+  nav { position:static; max-height:none; flex:none; }
+}
+@media print {
+  nav, .barra, header.topo { display:none; }
+  body { font-size:11pt; } .wrap { display:block; padding:0; }
+  h2 { page-break-after:avoid; } table, pre { page-break-inside:avoid; }
+}
+.aviso { background:var(--laranja-claro); border-left:4px solid var(--laranja);
+  padding:12px 16px; border-radius:0 6px 6px 0; margin:0 0 24px; font-size:.92rem; }
+.aviso a { color:var(--laranja); }
+</style>
+</head>
+<body>
+<header class="topo">
+  <h1>Curso Servidor + IA · guia metodológico · Turma TJCE</h1>
+  <p>Justiça Federal no Ceará · INOVAJUS Eixo III · 24 horas · 4 módulos · 4 encontros de 6h · presencial · documento do instrutor</p>
+</header>
+
+<div class="wrap">
+<nav>
+  <ul>
+<li class="nav-sec"><a href="#para-que-serve-este-guia">1. Para que serve este guia</a></li>
+<li class="nav-sec"><a href="#quem-está-do-outro-lado">2. Quem está do outro lado</a></li>
+<li class="nav-sec"><a href="#o-modelo-pedagógico-em-quatro-camadas">3. O modelo pedagógico,
+em quatro camadas</a></li>
+<li class="n2"><a href="#camada-1-o-ciclo-do-bloco-ver-fazer-conferir-levar">Camada 1 — O
+ciclo do bloco: Ver, Fazer, Conferir, Levar</a></li>
+<li class="n2"><a href="#camada-2-prática-deliberada-com-insumo-pronto">Camada 2 —
+Prática deliberada com insumo pronto</a></li>
+<li class="n2"><a href="#camada-3-o-erro-como-conteúdo">Camada 3 — O erro como
+conteúdo</a></li>
+<li class="n2"><a href="#camada-4-a-espiral-de-retenção">Camada 4 — A espiral de
+retenção</a></li>
+<li class="nav-sec"><a href="#objetivos-de-aprendizagem">4. Objetivos de aprendizagem</a></li>
+<li class="n2"><a href="#módulo-1-fundamentos-de-ia-e-prompt-engineering-6h">Módulo 1 —
+Fundamentos de IA e prompt engineering (6h)</a></li>
+<li class="n2"><a href="#módulo-2-pensamento-crítico-e-causal-6h">Módulo 2 — Pensamento
+crítico e causal (6h)</a></li>
+<li class="n2"><a href="#módulo-3-prática-forense-10h">Módulo 3 — Prática forense
+(10h)</a></li>
+<li class="n2"><a href="#módulo-4-ética-lgpd-e-governança-2h">Módulo 4 — Ética, LGPD e
+governança (2h)</a></li>
+<li class="nav-sec"><a href="#mapa-de-amarração">5. Mapa de amarração</a></li>
+<li class="nav-sec"><a href="#roteiro-de-condução-aula-a-aula">6. Roteiro de condução, aula a
+aula</a></li>
+<li class="n2"><a href="#módulo-4-ética-lgpd-e-governança-2-h-encontro-4-turno-2">Módulo
+4 — Ética, LGPD e governança · 2 h · Encontro 4 · Turno 2</a></li>
+<li class="n2"><a href="#checklist-de-preparação-antes-de-cada-encontro">Checklist de
+preparação (antes de cada encontro)</a></li>
+<li class="nav-sec"><a href="#como-conduzir-um-bloco-de-40-minutos">7. Como conduzir um bloco
+de 40 minutos</a></li>
+<li class="nav-sec"><a href="#conduzindo-presencialmente-ao-vivo">8. Conduzindo
+presencialmente, ao vivo</a></li>
+<li class="nav-sec"><a href="#a-demonstração-ao-vivo-regras-invariantes">9. A demonstração ao
+vivo: regras invariantes</a></li>
+<li class="nav-sec"><a href="#avaliação-o-que-se-mede-e-por-quê">10. Avaliação: o que se mede
+e por quê</a></li>
+<li class="nav-sec"><a href="#as-peças-do-curso-e-como-elas-se-encaixam">11. As peças do curso
+e como elas se encaixam</a></li>
+<li class="nav-sec"><a href="#variantes-de-calendário">12. Variantes de calendário</a></li>
+<li class="nav-sec"><a href="#encaixes-e-anexos-onde-foram-parar">13. Encaixes e Anexos: onde
+foram parar</a></li>
+<li class="nav-sec"><a href="#erros-comuns-de-quem-conduz-este-curso">14. Erros comuns de quem
+conduz este curso</a></li>
+  </ul>
+</nav>
+
+<main>
+  <div class="aviso">
+    <strong>Documento de uso exclusivo dos instrutores.</strong> Este guia traz o método do curso
+    e o roteiro de condução aula a aula (seção 6). Não é material de participante e não deve ser
+    distribuído à turma. Peça irmã: <a href="material-do-instrutor.html">caderno do instrutor</a>.
+  </div>
+  <section class="secao">
+<p data-k="g2"><strong>Justiça Federal no Ceará · INOVAJUS Eixo III</strong> Turma
+TJCE · Documento do instrutor · 24 horas · 4 módulos em 4 encontros de 6
+horas · presencial Versão adaptada para a turma TJCE (2026-07-21)</p>
+<blockquote data-k="g3">
+<p data-k="g4"><strong>Revisão de 2026-07-23.</strong> Incorporado o <strong>Roteiro
+de condução, aula a aula</strong> (seção 6), que passa a fazer o
+encadeamento de cada aula junto do material — deck e Caderno. As
+referências ao Plano de Aula (descontinuado, Ementa v1) foram religadas
+a este guia e ao Caderno, e o guia foi alinhado à turma TJCE
+(presencial, 100% individual). O conteúdo de método das seções originais
+foi preservado.</p>
+</blockquote>
+<hr />
+<h2 data-k="g5" id="para-que-serve-este-guia">1. Para que serve este guia</h2>
+<p data-k="g6">Este guia responde a uma pergunta que o deck e o Caderno não
+respondem — <strong>por que a aula é assim</strong> — e, desde a revisão
+de 2026-07-23, também a <em>como</em> conduzi-la, aula a aula (seção
+6).</p>
+<p data-k="g7">O curso tem peças de condução maduras. O <strong>deck</strong> de 39
+seções entrega o conteúdo com animação e exemplos. O <strong>Caderno de
+Exercícios (Instrutor)</strong> entrega, para cada bloco, o enunciado, o
+insumo fictício pronto, o gabarito comentado e a micro-verificação.
+Faltavam duas camadas: o método — o desenho de aprendizagem que sustenta
+a certificação de 24 horas — e o <strong>encadeamento de condução, aula
+a aula</strong>, que diz como levar cada aula do início ao fim, na
+ordem. As duas passaram a morar aqui: o método nas seções 1 a 5 e 7 a
+14; o roteiro aula a aula na seção 6. (O antigo Plano de Aula, escrito
+para a Ementa v1 — com os Módulos 2 e 3 invertidos —, foi descontinuado;
+o que nele valia de condução foi absorvido por este guia e pelo
+Caderno.)</p>
+<p data-k="g8">As peças de condução se dividem assim:</p>
+<div class="tw"><table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+
+<tr class="header">
+<th data-k="g9">Peça</th>
+<th data-k="g10">Responde a</th>
+</tr>
+
+
+<tr class="odd">
+<td data-k="g11"><strong>Guia Metodológico</strong> (este documento)</td>
+<td data-k="g12">por que a aula é assim; o que o aluno precisa ser capaz de fazer; e
+como conduzir cada aula, na sequência (seção 6)</td>
+</tr>
+<tr class="even">
+<td data-k="g13"><strong>Caderno de Exercícios</strong></td>
+<td data-k="g14">o enunciado, o insumo pronto e o gabarito de cada atividade</td>
+</tr>
+<tr class="odd">
+<td data-k="g15"><strong>Deck</strong></td>
+<td data-k="g16">o que aparece na tela</td>
+</tr>
+<tr class="even">
+<td data-k="g17"><strong>Banco de Prompts</strong></td>
+<td data-k="g18">o que o aluno cola na ferramenta</td>
+</tr>
+
+</table></div>
+<p data-k="g19">Ele é dirigido a quem conduz: o instrutor desta turma.</p>
+<hr />
+<h2 data-k="g20" id="quem-está-do-outro-lado">2. Quem está do outro lado</h2>
+<p data-k="g21">A turma é de <strong>área-fim</strong>: servidores de Vara e
+assessores de Gabinete. Isso determina três escolhas que atravessam todo
+o curso.</p>
+<p data-k="g22"><strong>A turma é heterogênea e o instrutor não sabe de antemão o
+quanto.</strong> Numa mesma sala há quem nunca abriu uma ferramenta de
+IA e quem já usa todo dia, às vezes de um jeito arriscado. O curso
+resolve isso começando cada conceito por uma analogia do cotidiano e só
+depois indo ao caso judicial; quem já sabe não se ofende com a analogia,
+e quem não sabe não se perde no caso. O pré-teste existe justamente para
+o instrutor saber com quem está falando antes do primeiro encontro.</p>
+<p data-k="g23"><strong>A turma chega com medo, e o medo não pode ficar
+implícito.</strong> A pergunta “isso vai me substituir?” não desaparece
+por não ser dita: ela apenas para de ser dita. O curso a endereça de
+frente, uma vez, cedo, no bloco sobre o que a IA faz bem e onde falha. A
+formulação é a que já se fixou no curso: a IA assume tarefas, não
+pessoas, e tira do servidor a parte do trabalho da qual ele não vai
+sentir falta.</p>
+<p data-k="g24"><strong>A turma opera sob sigilo.</strong> Diferentemente de um curso
+de IA genérico, aqui um erro de manuseio de dado não é um
+constrangimento: é uma violação. Por isso o sigilo não é um módulo no
+fim, é uma regra presente desde o primeiro exemplo, e a única regra do
+curso que não admite ponderação: processo em segredo de justiça ou
+sigilo desconhecido não vai para IA externa. Não é uma recomendação, é
+um bloqueio.</p>
+<hr />
+<h2 data-k="g25" id="o-modelo-pedagógico-em-quatro-camadas">3. O modelo pedagógico,
+em quatro camadas</h2>
+<h3 data-k="g26" id="camada-1-o-ciclo-do-bloco-ver-fazer-conferir-levar">Camada 1 — O
+ciclo do bloco: Ver, Fazer, Conferir, Levar</h3>
+<p data-k="g27">Cada bloco expositivo do curso segue quatro tempos. Os dois primeiros
+o curso já fazia bem; os dois últimos são o que este guia
+acrescenta.</p>
+<p data-k="g28"><strong>Ver (o conceito e a demonstração).</strong> O instrutor
+apresenta o conceito com a analogia do cotidiano, mostra o caso judicial
+e demonstra ao vivo na ferramenta. A tecla P congela a animação enquanto
+ele fala, para o slide não competir com a voz.</p>
+<p data-k="g29"><strong>Fazer (a mão do aluno no teclado).</strong> O aluno pratica,
+individualmente ou em salas. Este é o tempo que mais se perde quando o
+cronograma atrasa, e é justamente o que não pode ser cortado: sem
+produzir um prompt próprio, o aluno sai sabendo <em>sobre</em> IA sem
+saber <em>usar</em> IA. Se faltar tempo, corte a extensão do exercício,
+não o exercício.</p>
+<p data-k="g30"><strong>Conferir (a micro-verificação de três minutos).</strong> Ao
+fim de cada bloco, uma pergunta curta à turma, de mão levantada ou em
+voz, com resposta esperada definida. Serve a dois propósitos: o aluno
+descobre se entendeu antes de o assunto virar pré-requisito do bloco
+seguinte, e o instrutor descobre se pode avançar. É a peça mais barata
+do curso e a que mais evita o acúmulo silencioso de dúvida. Cada
+micro-verificação traz, no Caderno, o que fazer se a turma errar.</p>
+<p data-k="g31"><strong>Levar (a ponte com a segunda-feira).</strong> O bloco fecha
+com uma frase de aplicação concreta: onde, na rotina daquela pessoa,
+isso entra ainda esta semana. Sem esse tempo, o curso vira informação;
+com ele, vira hábito. É também o insumo do plano de 30 dias do Manual do
+Aluno.</p>
+<h3 data-k="g32" id="camada-2-prática-deliberada-com-insumo-pronto">Camada 2 —
+Prática deliberada com insumo pronto</h3>
+<p data-k="g33">O Plano de Aula descrevia cada momento de prática em uma linha: “cada
+aluno resume uma peça e confere o resultado”. Isso funciona quando quem
+conduz é quem desenhou o curso. Não funciona quando o curso precisa ser
+replicado por outros instrutores em unidades diferentes: cada um
+improvisa um insumo diferente, com dificuldade diferente, e o resultado
+deixa de ser comparável.</p>
+<p data-k="g34">Por isso todo exercício deste curso passou a ter <strong>formato
+fixo</strong>: objetivo de aprendizagem, tempo, formato de trabalho,
+enunciado para ler em voz alta, insumo fictício pronto para colar, passo
+a passo do aluno, produto esperado, gabarito comentado, erro típico a
+nomear e uma variação para quando sobra ou falta tempo.</p>
+<p data-k="g35">O item mais importante dessa lista é o <strong>insumo
+pronto</strong>. Uma peça fictícia já escrita, uma tabela já montada, um
+lote de demandas já redigido. É o que garante que a demonstração não
+dependa de o instrutor ter um caso à mão, e é o que garante, sobretudo,
+que <strong>nenhum dado real precise ser usado em aula</strong>.</p>
+<p data-k="g36">O segundo mais importante é o <strong>erro típico a nomear</strong>.
+Dizer em voz alta o erro que a maioria vai cometer, antes ou logo depois
+de ela cometer, é o que transforma o exercício em aprendizado. Cada
+exercício do Caderno traz um, com a frase pronta.</p>
+<h3 data-k="g37" id="camada-3-o-erro-como-conteúdo">Camada 3 — O erro como
+conteúdo</h3>
+<p data-k="g38">A habilidade que o curso precisa instalar não é escrever prompt: é
+<strong>desconfiar bem</strong>. O produto final do curso é um servidor
+que recebe uma saída fluente e sabe onde ela pode estar errada.</p>
+<p data-k="g39">Isso não se ensina explicando. Ensina-se pondo a pessoa diante de uma
+saída defeituosa e pedindo o diagnóstico. O Módulo 2 já fazia isso muito
+bem, com a citação inventada e com o exercício da “resposta boa demais”.
+Este guia estende o padrão a <strong>todos os módulos</strong>: cada um
+tem um exercício de falha, com um defeito de natureza diferente.</p>
+<div class="tw"><table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+
+<tr class="header">
+<th data-k="g40">Módulo</th>
+<th data-k="g41">Natureza do defeito</th>
+<th data-k="g42">O que se aprende</th>
+</tr>
+
+
+<tr class="odd">
+<td data-k="g43">1</td>
+<td data-k="g44">defeito de <strong>pedido</strong> — prompt vago produz resposta
+genérica</td>
+<td data-k="g45">o problema costuma estar no prompt, não na ferramenta</td>
+</tr>
+<tr class="even">
+<td data-k="g46">2</td>
+<td data-k="g47">defeito de <strong>raciocínio</strong> — contrafactual mal feito,
+ganho inexistente</td>
+<td data-k="g48">número plausível não é número verdadeiro</td>
+</tr>
+<tr class="odd">
+<td data-k="g49">3</td>
+<td data-k="g50">defeito de <strong>lastro</strong> — jurisprudência inventada em
+minuta pronta</td>
+<td data-k="g51">conferir na fonte antes de citar não é opcional</td>
+</tr>
+<tr class="even">
+<td data-k="g52">4</td>
+<td data-k="g53">defeito de <strong>justiça</strong> — viés que trata casos
+equivalentes de forma diferente</td>
+<td data-k="g54">supervisão humana também é olhar para quem é afetado</td>
+</tr>
+
+</table></div>
+<p data-k="g55">Há uma progressão deliberada nessa coluna: o erro grosseiro no
+início, o erro sutil no fim. E há um degrau final, o mais difícil de
+todos, que o curso já tinha e que se mantém no lugar de honra: detectar
+<strong>lacuna</strong> numa resposta correta. Achar o que está errado é
+trabalho de revisor; achar o que falta é trabalho de quem conhece o
+caso.</p>
+<h3 data-k="g56" id="camada-4-a-espiral-de-retenção">Camada 4 — A espiral de
+retenção</h3>
+<p data-k="g57">São 24 horas distribuídas ao longo de semanas. Sem reforço
+deliberado, o Módulo 1 já evaporou quando o Módulo 3 começa. A espiral
+tem cinco pontos de contato:</p>
+<ol>
+<li data-k="g58"><strong>Pré-teste (antes do primeiro encontro).</strong>
+Diagnóstico, sem nota. Calibra o instrutor e ancora o aluno: ele
+descobre o que não sabe e passa a escutar com pergunta na cabeça.</li>
+<li data-k="g59"><strong>Micro-verificação (fim de cada bloco).</strong> Três
+minutos, resposta esperada definida.</li>
+<li data-k="g60"><strong>Tarefa de intervalo (10 minutos) e tarefa entre encontros
+(15 minutos).</strong> Uma aplicação pequena e obrigatória: entre os
+dois turnos do mesmo Encontro, retomada na abertura do turno seguinte;
+entre um Encontro e outro, retomada na abertura do Encontro seguinte. É
+o que impede o intervalo de virar esquecimento.</li>
+<li data-k="g61"><strong>Pós-teste (fim do Módulo 4).</strong> Espelhado do pré, mede
+o ganho da turma.</li>
+<li data-k="g62"><strong>Plano de 30 dias (depois do curso).</strong> O aluno escolhe
+uma tarefa, registra o antes, aplica por quatro semanas e mede o depois.
+Os formulários de impacto D+30, D+60 e D+90 já existem no pacote de
+certificação e são o instrumento desta etapa.</li>
+</ol>
+<p data-k="g63">Repare que os pontos 1, 4 e 5 aplicam ao próprio curso a exigência
+que o curso faz ao aluno no projeto integrador: <strong>registrar o
+antes</strong>. Um curso que cobra baseline e não mede o próprio é um
+curso que não acredita no que ensina.</p>
+<hr />
+<h2 data-k="g64" id="objetivos-de-aprendizagem">4. Objetivos de aprendizagem</h2>
+<p data-k="g65">Cada bloco do curso existe para produzir uma capacidade observável.
+Esta é a lista completa; ela é a espinha do Caderno de Exercícios e do
+pré e pós-teste, e é o que dá lastro documental ao certificado de 24
+horas.</p>
+<h3 data-k="g66" id="módulo-1-fundamentos-de-ia-e-prompt-engineering-6h">Módulo 1 —
+Fundamentos de IA e prompt engineering (6h)</h3>
+<div class="tw"><table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+
+<tr class="header">
+<th data-k="g67">Código</th>
+<th data-k="g68">Ao fim do módulo, o participante é capaz de</th>
+</tr>
+
+
+<tr class="odd">
+<td data-k="g69">OA1.1</td>
+<td data-k="g70">explicar, com palavras próprias, que a IA prevê a próxima palavra
+provável, e por que isso gera resposta plausível e não conferida</td>
+</tr>
+<tr class="even">
+<td data-k="g71">OA1.2</td>
+<td data-k="g72">distinguir, na rotina da Vara ou do Gabinete, tarefas em que a IA
+apoia daquelas que exigem decisão humana</td>
+</tr>
+<tr class="odd">
+<td data-k="g73">OA1.3</td>
+<td data-k="g74">escrever um prompt completo aplicando as seis etapas</td>
+</tr>
+<tr class="even">
+<td data-k="g75">OA1.4</td>
+<td data-k="g76">recortar o contexto enviado em vez de despejar o processo inteiro,
+justificando por custo e por sigilo</td>
+</tr>
+<tr class="odd">
+<td data-k="g77">OA1.5</td>
+<td data-k="g78">comparar as saídas de um prompt fraco e de um forte e nomear o que
+causou a diferença</td>
+</tr>
+<tr class="even">
+<td data-k="g79">OA1.6</td>
+<td data-k="g80">aplicar três técnicas: pensar passo a passo, dar exemplos, separar a
+instrução do documento</td>
+</tr>
+<tr class="odd">
+<td data-k="g81">OA1.7</td>
+<td data-k="g82">localizar no Banco o prompt-mestre adequado a uma tarefa e adaptá-lo
+à própria unidade</td>
+</tr>
+<tr class="even">
+<td data-k="g83">OA1.8</td>
+<td data-k="g84">escolher a ferramenta pelo objetivo da tarefa, não pela marca</td>
+</tr>
+
+</table></div>
+<h3 data-k="g85" id="módulo-2-pensamento-crítico-e-causal-6h">Módulo 2 — Pensamento
+crítico e causal (6h)</h3>
+<div class="tw"><table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+
+<tr class="header">
+<th data-k="g86">Código</th>
+<th data-k="g87">Ao fim do módulo, o participante é capaz de</th>
+</tr>
+
+
+<tr class="odd">
+<td data-k="g88">OA2.1</td>
+<td data-k="g89">justificar por que fluência não é fidelidade</td>
+</tr>
+<tr class="even">
+<td data-k="g90">OA2.2</td>
+<td data-k="g91">identificar a causa oculta por trás de duas variáveis que sobem
+juntas</td>
+</tr>
+<tr class="odd">
+<td data-k="g92">OA2.3</td>
+<td data-k="g93">estimar o contrafactual por tendência anterior ou por grupo de
+comparação</td>
+</tr>
+<tr class="even">
+<td data-k="g94">OA2.4</td>
+<td data-k="g95">detectar sinais de alucinação e conferir a citação na fonte
+oficial</td>
+</tr>
+<tr class="odd">
+<td data-k="g96">OA2.5</td>
+<td data-k="g97">aplicar as duas camadas de defesa: instrução dentro do prompt e
+checklist humano depois</td>
+</tr>
+<tr class="even">
+<td data-k="g98">OA2.6</td>
+<td data-k="g99">aplicar as quatro perguntas do checklist a uma saída de IA</td>
+</tr>
+<tr class="odd">
+<td data-k="g100">OA2.7</td>
+<td data-k="g101">identificar a lacuna numa resposta correta, fluente e
+incompleta</td>
+</tr>
+
+</table></div>
+<h3 data-k="g102" id="módulo-3-prática-forense-10h">Módulo 3 — Prática forense
+(10h)</h3>
+<div class="tw"><table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+
+<tr class="header">
+<th data-k="g103">Código</th>
+<th data-k="g104">Ao fim do módulo, o participante é capaz de</th>
+</tr>
+
+
+<tr class="odd">
+<td data-k="g105">OA3.1</td>
+<td data-k="g106">triar um lote de demandas e conferir a classificação</td>
+</tr>
+<tr class="even">
+<td data-k="g107">OA3.2</td>
+<td data-k="g108">resumir uma peça e conferir o resumo contra o original</td>
+</tr>
+<tr class="odd">
+<td data-k="g109">OA3.3</td>
+<td data-k="g110">minutar despacho e revisar antes de levar à assinatura</td>
+</tr>
+<tr class="even">
+<td data-k="g111">OA3.4</td>
+<td data-k="g112">conferir na fonte oficial toda jurisprudência citada pela IA</td>
+</tr>
+<tr class="odd">
+<td data-k="g113">OA3.5</td>
+<td data-k="g114">cotejar minuta e modelo apontando divergências</td>
+</tr>
+<tr class="even">
+<td data-k="g115">OA3.6</td>
+<td data-k="g116">estruturar dados soltos em tabela ou relatório</td>
+</tr>
+<tr class="odd">
+<td data-k="g117">OA3.7</td>
+<td data-k="g118">gerar um lote a partir de uma tabela, anonimizando antes</td>
+</tr>
+<tr class="even">
+<td data-k="g119">OA3.8</td>
+<td data-k="g120">registrar o baseline e demonstrar o ganho como antes e depois</td>
+</tr>
+
+</table></div>
+<h3 data-k="g121" id="módulo-4-ética-lgpd-e-governança-2h">Módulo 4 — Ética, LGPD e
+governança (2h)</h3>
+<div class="tw"><table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+
+<tr class="header">
+<th data-k="g122">Código</th>
+<th data-k="g123">Ao fim do módulo, o participante é capaz de</th>
+</tr>
+
+
+<tr class="odd">
+<td data-k="g124">OA4.1</td>
+<td data-k="g125">aplicar a Resolução CNJ 615/2025 quanto à supervisão humana
+obrigatória</td>
+</tr>
+<tr class="even">
+<td data-k="g126">OA4.2</td>
+<td data-k="g127">decidir o que pode e o que não pode ser enviado a uma IA
+externa</td>
+</tr>
+<tr class="odd">
+<td data-k="g128">OA4.3</td>
+<td data-k="g129">anonimizar um texto antes do envio</td>
+</tr>
+<tr class="even">
+<td data-k="g130">OA4.4</td>
+<td data-k="g131">reconhecer viés algorítmico numa saída e dizer o que fazer diante
+dele</td>
+</tr>
+<tr class="odd">
+<td data-k="g132">OA4.5</td>
+<td data-k="g133">aplicar boas práticas de segurança no uso cotidiano</td>
+</tr>
+<tr class="even">
+<td data-k="g134">OA4.6</td>
+<td data-k="g135">encaminhar uma boa ideia pela via institucional em vez de criar
+solução por fora</td>
+</tr>
+
+</table></div>
+<hr />
+<h2 data-k="g136" id="mapa-de-amarração">5. Mapa de amarração</h2>
+<p data-k="g137">Cada linha liga o que se ensina, onde se ensina, como se pratica e
+onde se verifica. É o documento que se apresenta quando alguém pergunta
+em que a certificação se apoia.</p>
+<div class="tw"><table style="width:100%;">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+</colgroup>
+
+<tr class="header">
+<th data-k="g138">Módulo</th>
+<th data-k="g139">Aula</th>
+<th data-k="g140">Bloco temático</th>
+<th data-k="g141">Objetivos</th>
+<th data-k="g142">Prática</th>
+<th data-k="g143">Verificação</th>
+</tr>
+
+
+<tr class="odd">
+<td data-k="g144">1</td>
+<td data-k="g145">1</td>
+<td data-k="g146">Como a IA funciona</td>
+<td data-k="g147">OA1.1</td>
+<td data-k="g148">—</td>
+<td data-k="g149">MV1.1 · pré e pós-teste</td>
+</tr>
+<tr class="even">
+<td data-k="g150">1</td>
+<td data-k="g151">2</td>
+<td data-k="g152">O que faz bem e onde falha</td>
+<td data-k="g153">OA1.2</td>
+<td data-k="g154">—</td>
+<td data-k="g155">MV1.2</td>
+</tr>
+<tr class="odd">
+<td data-k="g156">1</td>
+<td data-k="g157">3 e 4</td>
+<td data-k="g158">Prompt em 6 etapas e contexto</td>
+<td data-k="g159">OA1.3, OA1.4</td>
+<td data-k="g160">EX1.1</td>
+<td data-k="g161">MV1.3 · pré e pós-teste</td>
+</tr>
+<tr class="even">
+<td data-k="g162">1</td>
+<td data-k="g163">5</td>
+<td data-k="g164">Prompt fraco e prompt forte</td>
+<td data-k="g165">OA1.5</td>
+<td data-k="g166">EF1</td>
+<td data-k="g167">MV1.4</td>
+</tr>
+<tr class="odd">
+<td data-k="g168">1</td>
+<td data-k="g169">6</td>
+<td data-k="g170">Técnicas</td>
+<td data-k="g171">OA1.6</td>
+<td data-k="g172">EF1</td>
+<td data-k="g173">MV1.5</td>
+</tr>
+<tr class="even">
+<td data-k="g174">1</td>
+<td data-k="g175">7 e 8</td>
+<td data-k="g176">Biblioteca e escolha de ferramenta</td>
+<td data-k="g177">OA1.7, OA1.8</td>
+<td data-k="g178">EX1.2</td>
+<td data-k="g179">MV1.6 · TE1</td>
+</tr>
+<tr class="odd">
+<td data-k="g180">2</td>
+<td data-k="g181">1</td>
+<td data-k="g182">Por que questionar</td>
+<td data-k="g183">OA2.1</td>
+<td data-k="g184">—</td>
+<td data-k="g185">MV2.1</td>
+</tr>
+<tr class="even">
+<td data-k="g186">2</td>
+<td data-k="g187">2</td>
+<td data-k="g188">Correlação e causa oculta</td>
+<td data-k="g189">OA2.2</td>
+<td data-k="g190">EX2.1</td>
+<td data-k="g191">MV2.2 · pré e pós-teste</td>
+</tr>
+<tr class="odd">
+<td data-k="g192">2</td>
+<td data-k="g193">3</td>
+<td data-k="g194">Contrafactual</td>
+<td data-k="g195">OA2.3</td>
+<td data-k="g196">EF2</td>
+<td data-k="g197">MV2.3 · TE3</td>
+</tr>
+<tr class="even">
+<td data-k="g198">2</td>
+<td data-k="g199">4</td>
+<td data-k="g200">Alucinações</td>
+<td data-k="g201">OA2.4</td>
+<td data-k="g202">EX2.2</td>
+<td data-k="g203">MV2.4</td>
+</tr>
+<tr class="odd">
+<td data-k="g204">2</td>
+<td data-k="g205">5</td>
+<td data-k="g206">Validar antes de confiar</td>
+<td data-k="g207">OA2.5</td>
+<td data-k="g208">EX2.2</td>
+<td data-k="g209">MV2.5</td>
+</tr>
+<tr class="even">
+<td data-k="g210">2</td>
+<td data-k="g211">6</td>
+<td data-k="g212">Checklist e decisão humana</td>
+<td data-k="g213">OA2.6, OA2.7</td>
+<td data-k="g214">EX2.2, EX2.3</td>
+<td data-k="g215">MV2.6 · TE4</td>
+</tr>
+<tr class="odd">
+<td data-k="g216">3</td>
+<td data-k="g217">1</td>
+<td data-k="g218">Triagem</td>
+<td data-k="g219">OA3.1</td>
+<td data-k="g220">demonstração E1</td>
+<td data-k="g221">MV3.1</td>
+</tr>
+<tr class="even">
+<td data-k="g222">3</td>
+<td data-k="g223">2</td>
+<td data-k="g224">Resumo de peças</td>
+<td data-k="g225">OA3.2</td>
+<td data-k="g226">EX3.1</td>
+<td data-k="g227">MV3.2</td>
+</tr>
+<tr class="odd">
+<td data-k="g228">3</td>
+<td data-k="g229">3</td>
+<td data-k="g230">Minutas e despachos</td>
+<td data-k="g231">OA3.3</td>
+<td data-k="g232">EX3.2</td>
+<td data-k="g233">MV3.3</td>
+</tr>
+<tr class="even">
+<td data-k="g234">3</td>
+<td data-k="g235">4</td>
+<td data-k="g236">Jurisprudência</td>
+<td data-k="g237">OA3.4</td>
+<td data-k="g238">EF3</td>
+<td data-k="g239">MV3.4 · pré e pós-teste</td>
+</tr>
+<tr class="odd">
+<td data-k="g240">3</td>
+<td data-k="g241">5</td>
+<td data-k="g242">Comparar e conferir</td>
+<td data-k="g243">OA3.5</td>
+<td data-k="g244">EX3.2</td>
+<td data-k="g245">MV3.5</td>
+</tr>
+<tr class="even">
+<td data-k="g246">3</td>
+<td data-k="g247">6</td>
+<td data-k="g248">Relatórios</td>
+<td data-k="g249">OA3.6</td>
+<td data-k="g250">EX3.3</td>
+<td data-k="g251">MV3.6</td>
+</tr>
+<tr class="odd">
+<td data-k="g252">3</td>
+<td data-k="g253">7</td>
+<td data-k="g254">Modelos e lote</td>
+<td data-k="g255">OA3.7</td>
+<td data-k="g256">demonstração E2</td>
+<td data-k="g257">MV3.7</td>
+</tr>
+<tr class="even">
+<td data-k="g258">3</td>
+<td data-k="g259">—</td>
+<td data-k="g260">Projeto integrador</td>
+<td data-k="g261">OA3.8 e todos</td>
+<td data-k="g262">PI</td>
+<td data-k="g263">rubrica do projeto integrador v2</td>
+</tr>
+<tr class="odd">
+<td data-k="g264">4</td>
+<td data-k="g265">1</td>
+<td data-k="g266">Governança e Res. 615</td>
+<td data-k="g267">OA4.1, OA4.6</td>
+<td data-k="g268">—</td>
+<td data-k="g269">MV4.1</td>
+</tr>
+<tr class="even">
+<td data-k="g270">4</td>
+<td data-k="g271">2 e 3</td>
+<td data-k="g272">Sigilo, LGPD e anonimização</td>
+<td data-k="g273">OA4.2, OA4.3</td>
+<td data-k="g274">EX4.1</td>
+<td data-k="g275">MV4.2 · pré e pós-teste</td>
+</tr>
+<tr class="odd">
+<td data-k="g276">4</td>
+<td data-k="g277">4 e 5</td>
+<td data-k="g278">Vieses e segurança</td>
+<td data-k="g279">OA4.4, OA4.5</td>
+<td data-k="g280">EF4</td>
+<td data-k="g281">MV4.3, MV4.4</td>
+</tr>
+<tr class="even">
+<td data-k="g282">—</td>
+<td data-k="g283">—</td>
+<td data-k="g284">Horizonte: sistemas agênticos</td>
+<td data-k="g285">ampliação de repertório</td>
+<td data-k="g286">—</td>
+<td data-k="g287">não avaliado</td>
+</tr>
+
+</table></div>
+<p data-k="g288">O bloco Horizonte é deliberadamente o único sem objetivo avaliável.
+Ele fecha o curso apontando o que vem depois, e não deve virar tutorial
+nem entrar em prova.</p>
+<hr />
+<h2 data-k="g289" id="roteiro-de-condução-aula-a-aula">6. Roteiro de condução, aula a
+aula</h2>
+<p data-k="g290">O Mapa de amarração (seção 5) diz <em>o que</em> cada aula produz.
+Esta seção diz <em>como conduzi-la</em>, na ordem em que ela acontece —
+o encadeamento que faz o curso soar como uma coisa só, e não como blocos
+avulsos. Cada aula traz as quatro batidas do ciclo do bloco (seção 3):
+<strong>Ver</strong> (conceito, caso e demonstração),
+<strong>Fazer</strong> (a prática do participante, com o exercício exato
+do Caderno), <strong>Conferir</strong> (a micro-verificação) e
+<strong>Levar</strong> (a frase de aplicação). A linha <strong>Puxa
+para</strong> é a transição para a aula seguinte.</p>
+<p data-k="g291">O detalhe de cada exercício — enunciado, insumo fictício pronto,
+gabarito comentado, erro típico e a variação de “se sobrar / se faltar
+tempo” — está no <strong>Caderno de Exercícios (Instrutor)</strong>,
+citado pela sigla (EX, EF, MV, TE). Os insumos são de <strong>matéria
+estadual</strong> (Vara Cível: plano de saúde e CDC, obrigação de fazer,
+despacho saneador), e o projeto integrador roda sobre um
+<strong>caso-tipo</strong> entregue pelo instrutor, não sobre um caso
+real da unidade. Os tempos são de referência para o calendário de 24 h
+da turma TJCE — quatro encontros de seis horas, cada um em dois turnos
+de três horas, exceto o Encontro 4 (um turno de quatro horas e um de
+duas).</p>
+<h3 data-k="g292"
+id="módulo-1-fundamentos-de-ia-e-prompt-engineering-6-h-encontro-1-dois-turnos-de-3-h">Módulo
+1 — Fundamentos de IA e prompt engineering · 6 h · Encontro 1 (dois
+turnos de 3 h)</h3>
+<h4 data-k="g293" id="turno-1">Turno 1</h4>
+<p data-k="g294"><strong>Aula 1 · Como a IA funciona</strong> — ~30 min -
+<strong>Ver.</strong> Analogia do cotidiano (a IA completa a frase mais
+provável), depois o caso judicial e uma demonstração ao vivo de uma
+alucinação. A fala que não pode faltar: ela gera a palavra
+estatisticamente mais provável, não consulta uma fonte — por isso erra
+com a mesma segurança com que acerta. - <strong>Fazer.</strong> Bloco
+conceitual, sem exercício de teclado. - <strong>Conferir.</strong> MV1.1
+— “por que a IA escreve uma resposta errada com a mesma segurança de uma
+certa?”. Se a turma errar, repita a analogia e refaça rápido a
+demonstração da alucinação. - <strong>Levar.</strong> Toda resposta de
+IA é hipótese bem escrita, não fato conferido. - <strong>Puxa para
+→</strong> se ela responde sempre com confiança, onde ela ajuda e onde a
+decisão tem de continuar sendo humana? (Aula 2)</p>
+<p data-k="g295"><strong>Aula 2 · O que a IA faz bem e onde falha</strong> — ~30 min -
+<strong>Ver.</strong> As tarefas em que a IA apoia × as que exigem
+decisão humana. É aqui, cedo e uma única vez, que se endereça de frente
+o medo da turma: a IA assume <strong>tarefas, não pessoas</strong>, e
+tira do servidor a parte do trabalho da qual ele não vai sentir falta. -
+<strong>Fazer.</strong> Bloco conceitual. - <strong>Conferir.</strong>
+MV1.2 — citar uma tarefa da Vara em que a IA apoia e uma que exige o
+servidor. - <strong>Levar.</strong> Uma tarefa sua que a IA já poderia
+rascunhar amanhã — e uma que continua sendo só sua. - <strong>Puxa para
+→</strong> se ela apoia, como se faz um bom pedido? (Aulas 3 e 4)</p>
+<p data-k="g296"><strong>Aulas 3 e 4 · Contexto e tokens · Anatomia do prompt em 6
+etapas</strong> — ~50 minOA1.4 - <strong>Ver.</strong> O prompt em seis
+etapas (contexto, tom, tarefa, exemplos, qualidade, formato) e por que
+não se despeja o processo inteiro: a janela de contexto enche de ruído,
+custa mais e expõe dado à toa. Recortar é decisão de qualidade
+<strong>e</strong> de sigilo. - <strong>Fazer.</strong> <strong>EX1.1 —
+Escreva seu prompt em 6 etapas</strong> (25 min): cada participante
+monta um prompt completo para uma tarefa real da própria rotina. -
+<strong>Conferir.</strong> MV1.3 — por que não colar 200 páginas mesmo
+quando a ferramenta aceita. - <strong>Levar.</strong> Recortar e
+anonimizar <strong>antes</strong> de enviar — o hábito de sigilo começa
+aqui, não espera o Módulo 4. - <strong>Fim do Turno 1 → TE1:</strong>
+trazer, para o Turno 2, um caso da própria rotina já anonimizado (5 a 10
+linhas, sem dado sigiloso).</p>
+<h4 data-k="g297" id="turno-2">Turno 2</h4>
+<p data-k="g298"><strong>Aula 5 · Prompt fraco × prompt forte</strong> — ~30 min -
+<strong>Ver.</strong> Duas respostas à mesma tarefa, mesma ferramenta: o
+que mudou foi o prompt, não uma “IA mais inteligente”. -
+<strong>Fazer.</strong> <strong>EF1 — Diagnostique o defeito do
+prompt</strong> (25 min, exercício de falha): o participante recebe um
+prompt raso (“resuma isso pra mim”) e a saída genérica que ele produz, e
+descobre que o defeito é do <strong>pedido</strong>, não da ferramenta.
+- <strong>Conferir.</strong> MV1.4 — na demonstração, o que mudou: a
+ferramenta ou o prompt? - <strong>Levar.</strong> Quando a resposta vier
+ruim, olhe primeiro o seu prompt. - <strong>Puxa para →</strong> que
+técnicas deixam o prompt forte de propósito? (Aula 6)</p>
+<p data-k="g299"><strong>Aula 6 · Técnicas de prompt</strong> — ~30 min -
+<strong>Ver.</strong> Três técnicas: pensar passo a passo, dar exemplos,
+e separar a instrução do documento (marcar “INSTRUÇÃO:” e “DOCUMENTO:”
+para a IA não confundir ordem com conteúdo). - <strong>Fazer.</strong>
+As técnicas são exercitadas dentro da adaptação da aula seguinte
+(EX1.2). - <strong>Conferir.</strong> MV1.5 — qual técnica evita que a
+IA confunda o pedido do autor com a manifestação da parte contrária. -
+<strong>Levar.</strong> Separar instrução de documento é o que mais
+evita erro em tarefa de resumo. - <strong>Puxa para →</strong> onde
+encontrar prompts já prontos para não começar do zero? (Aulas 7 e 8)</p>
+<p data-k="g300"><strong>Aulas 7 e 8 · Biblioteca de prompts · Qual ferramenta
+usar</strong> — ~40 minOA1.8 - <strong>Ver.</strong> O Banco de Prompts
+como ponto de partida; a ferramenta se escolhe pelo <strong>objetivo da
+tarefa</strong>, não pela marca. - <strong>Fazer.</strong> <strong>EX1.2
+— Adapte dois prompts-mestre à sua unidade</strong> (35 min): localizar
+no Banco e adaptar, mantendo as seis etapas. -
+<strong>Conferir.</strong> MV1.6 — o critério de escolha é a marca mais
+conhecida ou o objetivo da tarefa? - <strong>Levar.</strong> O que muda
+o resultado é achar o prompt-mestre certo e adaptá-lo, não a marca. -
+<strong>Fim do Módulo 1 (Encontro 1) → TE2:</strong> testar um dos
+prompts adaptados e anotar o que pareceu “bom demais para ser verdade” —
+isso abre o Módulo 2 sem antecipar o conteúdo.</p>
+<h3 data-k="g301"
+id="módulo-2-pensamento-crítico-e-causal-6-h-encontro-2-dois-turnos-de-3-h">Módulo
+2 — Pensamento crítico e causal · 6 h · Encontro 2 (dois turnos de 3
+h)</h3>
+<p data-k="g302">Este é o módulo que instala a habilidade central do curso:
+<strong>desconfiar bem</strong>.</p>
+<h4 data-k="g303" id="turno-1-1">Turno 1</h4>
+<p data-k="g304"><strong>Aula 1 · Por que questionar a IA</strong> — ~10 min
+(abertura) - <strong>Ver.</strong> A analogia do <strong>GPS</strong>: o
+aplicativo não mente, só não vê a obra na rua. Fluência não é fidelidade
+— a forma perfeita não prova que o conteúdo bate com os autos. -
+<strong>Fazer.</strong> Bloco de abertura. - <strong>Conferir.</strong>
+MV2.1 — português impecável e artigo certo do CPC garantem que a minuta
+está correta? - <strong>Levar.</strong> O que dá para conferir em dois
+minutos, e o que só quem conhece os autos pega. - <strong>Puxa para
+→</strong> quando dois números sobem juntos, um causou o outro? (Aula
+2)</p>
+<p data-k="g305"><strong>Aula 2 · Causa oculta (correlação × causa)</strong> — ~45 min
+- <strong>Ver.</strong> A analogia do <strong>sorvete e do
+afogamento</strong> (o calor é a causa oculta dos dois) e o exemplo do
+mutirão que empurra pauta e acordos ao mesmo tempo. -
+<strong>Fazer.</strong> <strong>EX2.1 — Causas alternativas e
+confundidores</strong> (45 min, a mão na massa do turno): diante de uma
+conclusão de relatório de gestão, listar cinco explicações rivais e o
+dado que separaria cada uma. Cobre também a Aula 3. -
+<strong>Conferir.</strong> MV2.2 — mais audiências e mais acordos no
+mesmo semestre provam que um causou o outro? - <strong>Levar.</strong>
+Antes de concluir “X causou Y”, pergunte o que mais mudou na mesma
+época. - <strong>Puxa para →</strong> e quando querem provar que
+“melhorou por causa da medida”? (Aula 3)</p>
+<p data-k="g306"><strong>Aula 3 · Contrafactual</strong> — ~45 min -
+<strong>Ver.</strong> A conta da <strong>tendência anterior</strong>
+(uma queda de 50/mês que já vinha antes da medida) e o grupo de
+comparação: estimar o que teria acontecido sem a medida. -
+<strong>Fazer.</strong> <strong>EF2 — O contrafactual mal feito</strong>
+(30 min, exercício de falha): refazer a conta de um relatório que
+comemora ganho comparando o depois com o <strong>pior mês</strong> do
+antes. - <strong>Conferir.</strong> MV2.3 — o estoque caiu depois da
+nova triagem; isso garante que a triagem foi a causa? -
+<strong>Levar.</strong> Comparar com a tendência, não com o pior mês. -
+<strong>Entre os turnos → TE3:</strong> rodar o prompt-mestre M11 sobre
+uma frase do tipo “isso melhorou depois daquilo” da própria unidade.</p>
+<h4 data-k="g307" id="turno-2-1">Turno 2</h4>
+<p data-k="g308"><strong>Aula 4 · Detectar alucinações</strong> — ~40 min -
+<strong>Ver.</strong> A demonstração da <strong>citação
+inventada</strong>: número de recurso, relator e data formatados de
+forma perfeita — e o julgado não existe. Aviso obrigatório: nunca usar
+número de processo real no exercício. - <strong>Fazer.</strong> Prepara
+o EX2.2 do fim do turno. - <strong>Conferir.</strong> MV2.4 — formatação
+perfeita prova que o julgado existe? - <strong>Levar.</strong> Conferir
+na fonte oficial antes de citar — sempre. - <strong>Puxa para →</strong>
+dá para reduzir o erro antes de ele acontecer? (Aula 5)</p>
+<p data-k="g309"><strong>Aula 5 · Validar antes de confiar</strong> — ~40 min -
+<strong>Ver.</strong> As <strong>duas camadas de defesa</strong>:
+instrução dentro do prompt (pedir que a IA aponte as próprias fraquezas
+e a origem dos dados) e checklist humano depois. Uma reduz o erro antes,
+a outra confere depois; nenhuma dispensa a outra. -
+<strong>Fazer.</strong> Prepara o EX2.2. - <strong>Conferir.</strong>
+MV2.5 — quais são as duas camadas, e uma substitui a outra? -
+<strong>Levar.</strong> Instrução no prompt não aposenta o olho humano.
+- <strong>Puxa para →</strong> qual é o roteiro humano de conferência?
+(Aula 6)</p>
+<p data-k="g310"><strong>Aula 6 · Checklist das quatro perguntas</strong> — ~30
+minOA2.7 - <strong>Ver.</strong> As quatro perguntas: confere com a
+fonte? faz sentido no caso concreto? tem dado que pode ter sido
+inventado? a conclusão trata casos iguais de forma igual? -
+<strong>Fazer.</strong> <strong>EX2.2 — Aplicar o checklist a uma
+resposta com erros plantados</strong> (40 min): quatro problemas, um
+para cada pergunta. Alternativa: <strong>EX2.3 — A resposta boa
+demais</strong> (mesmos 40 min), que treina a detecção de
+<strong>lacuna</strong> numa resposta sem erro algum — o degrau mais
+difícil do módulo. O insumo do EX2.3 é o <strong>roteiro E3 do Banco de
+Prompts</strong>. - <strong>Conferir.</strong> MV2.6 — quais são as
+quatro perguntas? - <strong>Levar.</strong> Adaptar as quatro perguntas
+à tarefa que você vai praticar no Módulo 3. - <strong>Fim do Módulo 2
+(Encontro 2) → TE4:</strong> escrever o checklist de quatro linhas já
+ajustado à tarefa que o participante levará ao Módulo 3.</p>
+<h3 data-k="g311"
+id="módulo-3-prática-forense-10-h-encontro-3-dois-turnos-de-3-h-e-encontro-4-turno-1-4-h">Módulo
+3 — Prática forense · 10 h · Encontro 3 (dois turnos de 3 h) e Encontro
+4 · Turno 1 (4 h)</h3>
+<p data-k="g312">O módulo em que o curso vira trabalho. As demonstrações ao vivo
+(roteiro E1 — Triagem, roteiro E2 — Modelos e lote) estão publicadas no
+<strong>Banco de Prompts</strong>. Lembrete de sigilo válido para todo o
+módulo: antes de colar qualquer peça, remover ou substituir nome,
+documento, endereço e tudo que identifique alguém.</p>
+<h4 data-k="g313" id="encontro-3-turno-1-triagem-e-resumo">Encontro 3 · Turno 1 —
+Triagem e resumo</h4>
+<p data-k="g314"><strong>Aula 1 · Triagem</strong> — ~50 min - <strong>Ver.</strong>
+Demonstração E1 (Banco): um lote de demandas cíveis classificado com o
+prompt-mestre M9; o pedido de <strong>tutela de urgência para custeio de
+tratamento, instruído com laudo</strong>, saltando como urgente, e a
+inicial que pede urgência <strong>sem</strong> laudo caindo para
+conferência. - <strong>Fazer.</strong> O participante replica a triagem
+com um lote fictício e confere a classificação contra o critério de
+urgência (tutela de urgência, prioridade legal, prazo curto). -
+<strong>Conferir.</strong> MV3.1 — depois de a IA classificar, o que o
+servidor ainda precisa fazer? - <strong>Levar.</strong> A IA organiza;
+quem decide a urgência final é o servidor. - <strong>Puxa para
+→</strong> e quando a peça é longa demais para ler inteira? (Aula 2)</p>
+<p data-k="g315"><strong>Aula 2 · Resumo de peças</strong> — ~60 min -
+<strong>Ver.</strong> Gerar um resumo com o prompt-mestre M1 e
+conferi-lo contra o original. - <strong>Fazer.</strong> <strong>EX3.1 —
+Resumir uma peça e conferir contra o original</strong> (40 min): sobre
+uma petição inicial fictícia de obrigação de fazer contra plano de saúde
+(Lei 9.656/98 e CDC), com armadilhas plantadas — em especial o
+<strong>pedido alternativo de custeio integral</strong>, que o resumo
+apressado corta e o magistrado precisa para despachar. -
+<strong>Conferir.</strong> MV3.2 — resumo bem escrito é garantia de
+resumo correto? - <strong>Levar.</strong> Fluência não é fidelidade
+também no resumo: confira frase a frase o que importa. - <strong>Entre
+os turnos → TE5:</strong> resumir uma peça real e curta da própria
+rotina, anonimizada antes.</p>
+<h4 data-k="g316"
+id="encontro-3-turno-2-minutas-jurisprudência-e-conferência">Encontro 3
+· Turno 2 — Minutas, jurisprudência e conferência</h4>
+<p data-k="g317"><strong>Aula 3 · Minutas e despachos</strong> — ~40 min -
+<strong>Ver.</strong> Gerar uma minuta de despacho saneador com o
+prompt-mestre M3; a revisão e a assinatura são sempre humanas. -
+<strong>Fazer.</strong> Prepara o EX3.2 (Aula 5). -
+<strong>Conferir.</strong> MV3.3 — minuta impecável na forma pode seguir
+direto para assinatura? - <strong>Levar.</strong> Rascunho é da IA; a
+decisão e a assinatura são suas. - <strong>Puxa para →</strong> e a
+jurisprudência que a IA cita? (Aula 4)</p>
+<p data-k="g318"><strong>Aula 4 · Pesquisa de jurisprudência</strong> — ~40 min -
+<strong>Ver.</strong> Como a IA inventa julgados com aparência perfeita.
+- <strong>Fazer.</strong> <strong>EF3 — Jurisprudência
+inventada</strong> (40 min, exercício de falha): julgados citados numa
+minuta, com decisões <strong>fabricadas de propósito</strong> (relatores
+inexistentes) e uma súmula real que ainda assim exige conferir se
+<strong>se aplica</strong> ao caso. - <strong>Conferir.</strong> MV3.4 —
+número, relator e data corretos bastam para citar? -
+<strong>Levar.</strong> Número e formatação corretos não provam que o
+julgado existe — conferir na fonte oficial do tribunal (TJCE, STJ). -
+<strong>Puxa para →</strong> e como saber se a minuta seguiu o padrão da
+Vara? (Aula 5)</p>
+<p data-k="g319"><strong>Aula 5 · Comparar e conferir</strong> — ~40 min -
+<strong>Ver.</strong> Cotejar minuta gerada × modelo padrão da unidade
+com o prompt-mestre M5. - <strong>Fazer.</strong> <strong>EX3.2 — Minuta
+e comparação com o modelo padrão</strong> (30 min): sobre um despacho
+saneador, a divergência mais grave plantada é a minuta mandar a parte
+adiantar custas/honorários <strong>contra</strong> a gratuidade da
+justiça já deferida na decisão da tutela de urgência. -
+<strong>Conferir.</strong> MV3.5 — a forma mais confiável de saber se a
+minuta se afastou do modelo. - <strong>Levar.</strong> “Parecer certo”
+não é o mesmo que “seguir o padrão da Vara e o que já foi decidido”. -
+<strong>Fim do Encontro 3 → TE6:</strong> começar a ficha do projeto
+integrador registrando o “antes” do caso-tipo escolhido (situação atual
+e tempo médio por unidade hoje).</p>
+<h4 data-k="g320"
+id="encontro-4-turno-1-4-h-relatórios-lote-e-projeto-integrador">Encontro
+4 · Turno 1 (4 h) — Relatórios, lote e projeto integrador</h4>
+<p data-k="g321"><strong>Aula 6 · Relatórios e organização</strong> — ~45 min -
+<strong>Ver.</strong> Estruturar anotações soltas em tabela ou relatório
+sem deixar a IA preencher lacuna com invenção. - <strong>Fazer.</strong>
+<strong>EX3.3 — Transformar anotações soltas em relatório</strong> (45
+min). - <strong>Conferir.</strong> MV3.6 — o que instruir para não
+receber dado inventado? - <strong>Levar.</strong> Peça “não informado”
+no lugar de invenção e confira a tabela contra as anotações. -
+<strong>Puxa para →</strong> e quando é o mesmo modelo aplicado a muitos
+casos? (Aula 7)</p>
+<p data-k="g322"><strong>Aula 7 · Modelos e trabalho em lote</strong> — ~45 min -
+<strong>Ver.</strong> Demonstração E2 (Banco): gerar um lote a partir de
+uma tabela, <strong>anonimizando antes</strong>. -
+<strong>Fazer.</strong> Prepara o Projeto Integrador. -
+<strong>Conferir.</strong> MV3.7 — a conferência do lote gerado. -
+<strong>Levar.</strong> Anonimizar antes de gerar em lote não é etapa
+opcional. - <strong>Puxa para →</strong> agora, tudo junto no caso-tipo.
+(Projeto integrador)</p>
+<p data-k="g323"><strong>Projeto integrador — PI</strong> — ~90 min (integra as
+práticas dos blocos anteriores) - <strong>O que é.</strong>
+Individualmente, o participante resolve ponta a ponta um
+<strong>caso-tipo de Vara Cível</strong> entregue pelo instrutor (triar,
+resumir, minutar ou organizar), com apoio da IA. Quem tiver rotina
+própria equivalente pode usá-la, sem dado identificável. - <strong>Passo
+obrigatório.</strong> Registrar o <strong>“antes”</strong> — situação
+atual e tempo médio por unidade, conforme o caso-tipo — na ficha,
+<strong>antes</strong> de aplicar qualquer prompt. Sem baseline não há
+ganho demonstrável. - <strong>Entrega do instrutor.</strong> Distribuir
+os <strong>casos-tipo</strong> ao fim do Encontro 3, junto da ficha do
+projeto — sem esse insumo a TE6 não tem sobre o que trabalhar. -
+<strong>Produto.</strong> Ficha do projeto preenchida + apresentação de
+até 5 min (antes × depois), com pelo menos um prompt-mestre efetivamente
+aplicado e conferido, e um risco de sigilo tratado. -
+<strong>Avaliação.</strong> Rubrica do projeto integrador v2 (7
+dimensões, 4 níveis). Um “depois” sem “antes” registrado não é aceito
+como resultado.</p>
+<h3 data-k="g324" id="módulo-4-ética-lgpd-e-governança-2-h-encontro-4-turno-2">Módulo
+4 — Ética, LGPD e governança · 2 h · Encontro 4 · Turno 2</h3>
+<p data-k="g325">Módulo curto e denso: os exercícios cabem dentro dos próprios blocos,
+sem somar tempo. Sigilo e supervisão humana <strong>não</strong> são o
+aviso legal do fim — são conteúdo desde o primeiro exemplo do Módulo 1;
+aqui eles fecham o arco.</p>
+<p data-k="g326"><strong>Aula 1 · Governança e Resolução CNJ 615/2025</strong> — ~25
+minOA4.6 - <strong>Ver.</strong> A supervisão humana é obrigatória; a
+governança não é freio contra o servidor — é o que transforma a boa
+ideia da ponta em solução homologada e perene. - <strong>Fazer.</strong>
+Bloco expositivo. - <strong>Conferir.</strong> MV4.1 — a Resolução
+permite que a IA finalize ou assine um despacho sozinha? -
+<strong>Levar.</strong> “Apoio” nunca significa “decisão automática”. -
+<strong>Puxa para →</strong> então o que pode e o que não pode sair da
+unidade? (Aulas 2 e 3)</p>
+<p data-k="g327"><strong>Aulas 2 e 3 · Sigilo, LGPD e anonimização</strong> — ~30
+minOA4.3 - <strong>Ver.</strong> A regra dura do curso: sigilo “sim”
+<strong>ou</strong> “desconhecido” é bloqueio, sem exceção. O quadro de
+anonimização (ficha de consulta rápida) só entra <strong>depois</strong>
+que o envio já é permitido. - <strong>Fazer.</strong> <strong>EX4.1 —
+Semáforo de sigilo</strong> (25 min, estudo de casos): oito casos
+fictícios, quatro respostas possíveis (pode · não pode · não pode sem
+anonimizar · bloqueio por sigilo desconhecido), com a base normativa de
+cada um. - <strong>Conferir.</strong> MV4.2 — na dúvida sobre segredo de
+justiça, pode colar e verificar depois? - <strong>Levar.</strong>
+Ausência de informação sobre sigilo não é ausência de sigilo. -
+<strong>Puxa para →</strong> e quando a própria classificação da IA é
+injusta? (Aulas 4 e 5)</p>
+<p data-k="g328"><strong>Aulas 4 e 5 · Vieses algorítmicos e segurança</strong> — ~25
+minOA4.5 - <strong>Ver.</strong> Exposição breve, seguida direto da
+prática. - <strong>Fazer.</strong> <strong>EF4 — Viés na
+triagem</strong> (20 min, exercício de falha): dois pedidos com a
+<strong>mesma urgência</strong> classificados de forma desigual por
+causa da formalidade da petição e da presença de advogado — um viés de
+classe. Fecha com a quarta pergunta do checklist do Módulo 2. -
+<strong>Conferir.</strong> MV4.3 — uma boa prática de segurança válida
+mesmo com o texto já anonimizado. - <strong>Levar.</strong> Anonimizar o
+conteúdo não anonimiza o comportamento de quem usa a ferramenta. -
+<strong>Puxa para →</strong> e se a ideia for boa demais para morrer com
+quem teve? (Fechamento)</p>
+<p data-k="g329"><strong>Fechamento do curso</strong> — encerramento -
+<strong>Conferir.</strong> MV4.4 — o colega que achou um bom uso e já
+aplica por conta própria está certo? - <strong>Levar.</strong> A boa
+ideia vai pela via institucional (chefia, área de TI e inovação do
+Tribunal, repositório de prompts) para virar solução homologada — não
+morre com quem a teve nem expõe a unidade a um uso não avaliado.</p>
+<p data-k="g330"><strong>Horizonte — sistemas agênticos</strong> — não avaliado -
+Fecha o curso apontando o que vem depois. É deliberadamente o único
+bloco sem objetivo avaliável: <strong>não</strong> vira tutorial nem
+entra em prova. Amplia repertório e devolve a turma ao trabalho com uma
+pergunta, não com uma tarefa.</p>
+<h3 data-k="g331" id="checklist-de-preparação-antes-de-cada-encontro">Checklist de
+preparação (antes de cada encontro)</h3>
+<p data-k="g332">Para conferir antes de abrir a sala:</p>
+<ul>
+<li data-k="g333">Ferramenta de IA <strong>aberta e logada</strong> em cada
+computador, testada minutos antes.</li>
+<li data-k="g334"><strong>Insumos fictícios</strong> do encontro já copiados e à mão
+(do Caderno e dos roteiros E1, E2 e E3 do Banco), para nunca precisar
+improvisar com um processo aberto na outra aba.</li>
+<li data-k="g335">Roteiro desta seção e o Caderno abertos na aula do dia;
+<strong>Banco de Prompts</strong> acessível.</li>
+<li data-k="g336">Micro-verificações do encontro escolhidas e a forma de aplicá-las
+(voz ou mão levantada) definida.</li>
+<li data-k="g337">Laboratório ou sala equipada preparados, controle de presença e
+plano B se a ferramenta de IA cair (a falha ao vivo é conteúdo, não
+acidente — ver seção 9); no Encontro 3, os <strong>casos-tipo</strong>
+impressos ou prontos para distribuir ao fim do dia.</li>
+</ul>
+<hr />
+<h2 data-k="g338" id="como-conduzir-um-bloco-de-40-minutos">7. Como conduzir um bloco
+de 40 minutos</h2>
+<p data-k="g339">Modelo de referência. Ajuste as proporções, preserve os quatro
+tempos.</p>
+<div class="tw"><table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+
+<tr class="header">
+<th data-k="g340">Tempo</th>
+<th data-k="g341">O quê</th>
+</tr>
+
+
+<tr class="odd">
+<td data-k="g342">0–3 min</td>
+<td data-k="g343"><strong>Ponte.</strong> Retomar o bloco anterior em uma frase e
+anunciar o que este resolve.</td>
+</tr>
+<tr class="even">
+<td data-k="g344">3–13 min</td>
+<td data-k="g345"><strong>Ver, conceito.</strong> Analogia do cotidiano primeiro, caso
+judicial depois. Animação pausada com a tecla P enquanto se
+explica.</td>
+</tr>
+<tr class="odd">
+<td data-k="g346">13–23 min</td>
+<td data-k="g347"><strong>Ver, demonstração.</strong> A ferramenta na tela, ao vivo,
+com insumo fictício. Narrar o que se está fazendo e por quê.</td>
+</tr>
+<tr class="even">
+<td data-k="g348">23–35 min</td>
+<td data-k="g349"><strong>Fazer.</strong> O aluno pratica. O instrutor circula pela
+sala e recolhe dois ou três exemplos para comentar.</td>
+</tr>
+<tr class="odd">
+<td data-k="g350">35–38 min</td>
+<td data-k="g351"><strong>Conferir.</strong> A micro-verificação.</td>
+</tr>
+<tr class="even">
+<td data-k="g352">38–40 min</td>
+<td data-k="g353"><strong>Levar.</strong> Uma frase: onde isso entra na sua
+semana.</td>
+</tr>
+
+</table></div>
+<p data-k="g354"><strong>O que fazer quando atrasa.</strong> Encurte a exposição,
+nunca a prática. Um bloco em que o aluno não tocou no teclado não
+cumpriu o objetivo, por mais bem explicado que tenha sido. As variações
+de tempo estão previstas em cada exercício do Caderno, no item “se
+sobrar tempo, se faltar tempo”.</p>
+<hr />
+<h2 data-k="g355" id="conduzindo-presencialmente-ao-vivo">8. Conduzindo
+presencialmente, ao vivo</h2>
+<p data-k="g356">O curso é presencial e síncrono, em laboratório ou sala equipada, um
+computador por participante. Isso não é detalhe logístico: é o formato,
+e tem regras próprias.</p>
+<p data-k="g357"><strong>Combinados no início do primeiro encontro.</strong> Perguntas
+a qualquer momento, de mão levantada ou em voz; ninguém é chamado de
+surpresa para falar. Anunciar que a prática é individual, cada um na
+própria máquina, e que o instrutor circula pela sala o tempo todo.</p>
+<p data-k="g358"><strong>Circular pela sala é o principal instrumento de leitura da
+turma.</strong> É andando entre as máquinas que se faz a
+micro-verificação, se toma a temperatura e se colhem exemplos — quem
+travou, quem avançou, qual erro se repete. Vale mais do que perguntar
+“todo mundo entendeu?” para a sala em bloco, que quase sempre responde
+com silêncio.</p>
+<p data-k="g359"><strong>Prática individual, sala aberta.</strong> Cada participante
+trabalha na própria tarefa, com o instrutor disponível o tempo todo.
+Sempre com uma tarefa escrita e um produto esperado, ambos disponíveis
+no Caderno de Exercícios. Circule entre as máquinas, peça a dois ou três
+participantes que compartilhem o resultado ao fim do bloco e traga duas
+conclusões para a turma, nomeando quem contribuiu.</p>
+<p data-k="g360"><strong>Intervalo de dez minutos a cada noventa.</strong> Não é
+cortesia, é condição de atenção. Nos encontros de quatro horas, quinze
+minutos.</p>
+<p data-k="g361"><strong>A turma heterogênea.</strong> Três posturas recorrentes e o
+que fazer com cada uma:</p>
+<ul>
+<li data-k="g362"><em>O cético</em> (“isso não serve para o meu trabalho”). Não
+discuta em tese. Peça a tarefa concreta dele e demonstre nela, ao vivo.
+Se não servir, diga que não serve: o curso ganha credibilidade quando
+admite limite.</li>
+<li data-k="g363"><em>O ansioso</em> (“vou ser substituído”). Já endereçado na Aula 2
+do Módulo 1 (o que a IA faz bem e onde falha). Se voltar, responda uma
+vez, com a mesma formulação, e siga. Repetir demais alimenta.</li>
+<li data-k="g364"><em>Quem já usa de um jeito arriscado.</em> É o participante mais
+importante da sala e o mais delicado. Nunca exponha. Reforce a regra de
+sigilo para todos, sem endereço, e procure a pessoa depois.</li>
+</ul>
+<p data-k="g365"><strong>Se a ferramenta falhar na frente da turma</strong>, e vai
+falhar, trate como conteúdo. Uma resposta ruim ao vivo é a melhor
+demonstração possível de por que a conferência humana existe. Diga em
+voz alta o que aconteceu, mostre como você percebeu e o que faria em
+seguida.</p>
+<hr />
+<h2 data-k="g366" id="a-demonstração-ao-vivo-regras-invariantes">9. A demonstração ao
+vivo: regras invariantes</h2>
+<p data-k="g367">Estas regras não se adaptam. Valem para o instrutor desta turma.</p>
+<ol>
+<li data-k="g368"><strong>Nenhum dado real.</strong> Todo insumo de demonstração é
+fictício ou anonimizado. Os insumos prontos estão no Caderno de
+Exercícios e nos roteiros E1, E2 e E3 do Banco de Prompts, justamente
+para que ninguém precise improvisar com um processo aberto na outra
+aba.</li>
+<li data-k="g369"><strong>Nenhum número de processo real</strong>, nem em exercício de
+alucinação. Quando o exercício exigir um julgado inventado, diga em voz
+alta que é inventado de propósito e que não pode ser citado em
+peça.</li>
+<li data-k="g370"><strong>Sigilo desconhecido é bloqueio.</strong> Se em aula alguém
+perguntar sobre um caso concreto e não for possível afirmar que não há
+sigilo, a resposta é não enviar.</li>
+<li data-k="g371"><strong>A conferência aparece em toda demonstração.</strong> Nunca
+termine uma demonstração na saída da IA. Termine na conferência: abra a
+fonte, compare com o original, mostre o passo humano.</li>
+<li data-k="g372"><strong>Preparar antes.</strong> Ferramenta aberta e logada, insumos
+copiados, roteiro à mão. O checklist de preparação, ao fim da seção 6,
+cobre isso.</li>
+</ol>
+<hr />
+<h2 data-k="g373" id="avaliação-o-que-se-mede-e-por-quê">10. Avaliação: o que se mede
+e por quê</h2>
+<div class="tw"><table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+
+<tr class="header">
+<th data-k="g374">Instrumento</th>
+<th data-k="g375">Mede</th>
+<th data-k="g376">Compõe nota?</th>
+<th data-k="g377">Onde está</th>
+</tr>
+
+
+<tr class="odd">
+<td data-k="g378">Pré-teste</td>
+<td data-k="g379">ponto de partida da turma</td>
+<td data-k="g380">não</td>
+<td data-k="g381">Pré e Pós-teste</td>
+</tr>
+<tr class="even">
+<td data-k="g382">Micro-verificações</td>
+<td data-k="g383">compreensão bloco a bloco</td>
+<td data-k="g384">não</td>
+<td data-k="g385">Caderno de Exercícios</td>
+</tr>
+<tr class="odd">
+<td data-k="g386">Exercícios e participação</td>
+<td data-k="g387">prática</td>
+<td data-k="g388">sim</td>
+<td data-k="g389">Caderno de Exercícios</td>
+</tr>
+<tr class="even">
+<td data-k="g390">Projeto integrador</td>
+<td data-k="g391">aplicação real, com antes e depois</td>
+<td data-k="g392">sim</td>
+<td data-k="g393">rubrica do projeto integrador v2</td>
+</tr>
+<tr class="odd">
+<td data-k="g394">Pós-teste</td>
+<td data-k="g395">ganho da turma</td>
+<td data-k="g396">não</td>
+<td data-k="g397">Pré e Pós-teste</td>
+</tr>
+<tr class="even">
+<td data-k="g398">Formulário de reação</td>
+<td data-k="g399">percepção do participante</td>
+<td data-k="g400">não</td>
+<td data-k="g401">pacote de certificado e formulários</td>
+</tr>
+<tr class="odd">
+<td data-k="g402">Impacto D+30, D+60, D+90</td>
+<td data-k="g403">transferência para o trabalho</td>
+<td data-k="g404">não</td>
+<td data-k="g405">pacote de certificado e formulários</td>
+</tr>
+
+</table></div>
+<p data-k="g406">Duas escolhas merecem justificativa.</p>
+<p data-k="g407"><strong>Por que o pós-teste não vale nota.</strong> Porque a função
+dele é medir o curso, não o aluno. Se valesse nota, o participante
+estudaria para a prova e o número deixaria de dizer o que o curso
+precisa saber: qual objetivo não pegou. O percentual de acerto por
+objetivo é o dado mais útil que o curso produz sobre si mesmo.</p>
+<p data-k="g408"><strong>Por que o projeto integrador é o centro da
+avaliação.</strong> Porque é o único instrumento que exige o que o
+desenho do curso precisa demonstrar: uma tarefa real, um baseline
+registrado e um ganho medido. O passo obrigatório de registrar o antes
+não é burocracia. Sem ele não existe ganho demonstrável, e o resultado
+da turma não vira número institucional.</p>
+<hr />
+<h2 data-k="g409" id="as-peças-do-curso-e-como-elas-se-encaixam">11. As peças do curso
+e como elas se encaixam</h2>
+<div class="tw"><table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+
+<tr class="header">
+<th data-k="g410">Peça</th>
+<th data-k="g411">Público</th>
+<th data-k="g412">Quando entra</th>
+</tr>
+
+
+<tr class="odd">
+<td data-k="g413">Deck (39 seções)</td>
+<td data-k="g414">turma</td>
+<td data-k="g415">durante as aulas, na tela e no computador do participante</td>
+</tr>
+<tr class="even">
+<td data-k="g416">Guia Metodológico</td>
+<td data-k="g417">instrutor</td>
+<td data-k="g418">antes de conduzir pela primeira vez</td>
+</tr>
+<tr class="odd">
+<td data-k="g419">Caderno de Exercícios (Instrutor)</td>
+<td data-k="g420">instrutor</td>
+<td data-k="g421">em cada momento de prática, com gabarito</td>
+</tr>
+<tr class="even">
+<td data-k="g422">Caderno de Exercícios (Aluno)</td>
+<td data-k="g423">turma</td>
+<td data-k="g424">durante os exercícios, sem gabarito</td>
+</tr>
+<tr class="odd">
+<td data-k="g425">Banco de Prompts</td>
+<td data-k="g426">turma</td>
+<td data-k="g427">durante e depois do curso</td>
+</tr>
+<tr class="even">
+<td data-k="g428">Manual do Aluno</td>
+<td data-k="g429">turma</td>
+<td data-k="g430">entregue no início; é o que fica depois</td>
+</tr>
+<tr class="odd">
+<td data-k="g431">Pré e Pós-teste</td>
+<td data-k="g432">instrutor</td>
+<td data-k="g433">antes do primeiro encontro e no fim do Módulo 4</td>
+</tr>
+<tr class="even">
+<td data-k="g434">Rubrica do projeto integrador v2</td>
+<td data-k="g435">instrutor</td>
+<td data-k="g436">avaliação do projeto</td>
+</tr>
+<tr class="odd">
+<td data-k="g437">Certificado e formulários</td>
+<td data-k="g438">coordenação</td>
+<td data-k="g439">encerramento e acompanhamento</td>
+</tr>
+
+</table></div>
+<hr />
+<h2 data-k="g440" id="variantes-de-calendário">12. Variantes de calendário</h2>
+<p data-k="g441">A turma do TJCE tem 24 horas em quatro encontros de seis horas, cada
+um dividido em dois turnos, realizados em 3, 4, 5 e 7 de agosto de 2026
+(segunda, terça, quarta e sexta). O Encontro 1 reúne, um por turno, os
+dois blocos do Módulo 1; o Encontro 2 reúne, um por turno, os dois
+blocos do Módulo 2; o Encontro 3 reúne, um por turno, as duas primeiras
+aulas do Módulo 3; o Encontro 4 fecha com a terceira aula do Módulo 3 no
+primeiro turno (quatro horas) e com o Módulo 4 no segundo turno (duas
+horas), encerrando com o Horizonte.</p>
+<p data-k="g442">Por isso o Caderno de Exercícios é organizado <strong>por bloco
+temático</strong>, e não por encontro: o mesmo material serve a outros
+arranjos de calendário sem retrabalho, bastando redistribuir os blocos.
+Ao adaptar, três coisas não podem ser tocadas:</p>
+<ul>
+<li data-k="g443"><strong>A ordem dos módulos.</strong> A base crítica vem antes da
+aplicação. O Módulo 2 antes do Módulo 3 é decisão pedagógica, não acaso
+de agenda.</li>
+<li data-k="g444"><strong>A proporção de prática.</strong> Se o encontro encolhe,
+encolhem exposição e demonstração; a prática é a última a ceder.</li>
+<li data-k="g445"><strong>O Módulo 4.</strong> Ética, sigilo e governança não são o
+resto do tempo. São duas horas próprias.</li>
+</ul>
+<hr />
+<h2 data-k="g446" id="encaixes-e-anexos-onde-foram-parar">13. Encaixes e Anexos: onde
+foram parar</h2>
+<p data-k="g447">Antes, a condução aula a aula ficava no Plano de Aula, e a ideia era
+aplicar nele uma lista de referências cruzadas (“neste bloco entra o
+EX3.1”, “aqui a MV3.2”). Com o Plano de Aula descontinuado, esses
+encaixes deixaram de ter onde ser aplicados: eles <strong>já estão
+feitos</strong> no Roteiro de condução (seção 6), onde cada aula aponta
+o próprio exercício e a própria micro-verificação.</p>
+<p data-k="g448">Os dois Anexos que o Caderno citava como “do Plano de Aula” foram
+reancorados:</p>
+<ul>
+<li data-k="g449"><strong>Anexo B</strong> (roteiros de condução dos conceitos
+abstratos do Módulo 2 — o GPS, a causa oculta, a conta do contrafactual,
+a citação inventada) foi <strong>absorvido pela seção 6</strong>, na
+batida <em>Ver</em> de cada aula do Módulo 2.</li>
+<li data-k="g450"><strong>Anexo A</strong> (“a resposta boa demais”, do EX2.3) vive
+publicado como <strong>roteiro E3 do Banco de Prompts</strong> — é de lá
+que se tira o insumo.</li>
+</ul>
+<hr />
+<h2 data-k="g451" id="erros-comuns-de-quem-conduz-este-curso">14. Erros comuns de quem
+conduz este curso</h2>
+<ol>
+<li data-k="g452"><strong>Explicar mais e praticar menos.</strong> É a falha mais
+comum e a mais custosa. O aluno não sai sabendo usar porque assistiu a
+alguém usando.</li>
+<li data-k="g453"><strong>Ensinar a ferramenta em vez do método.</strong> As
+ferramentas mudam de nome e de tela; as seis etapas e as quatro
+perguntas continuam valendo. A Aula 8 do Módulo 1 (Qual ferramenta usar)
+existe para dizer exatamente isso.</li>
+<li data-k="g454"><strong>Pular a conferência na demonstração.</strong> Termina-se na
+saída bonita da IA e o recado do curso inteiro se perde.</li>
+<li data-k="g455"><strong>Prometer produtividade.</strong> O curso não promete número.
+O número quem produz é o projeto integrador de cada participante, com
+baseline.</li>
+<li data-k="g456"><strong>Usar caso real por comodidade.</strong> É o erro que tem
+consequência jurídica, não só pedagógica.</li>
+<li data-k="g457"><strong>Tratar o Módulo 4 como aviso legal no fim.</strong> Sigilo e
+supervisão humana são conteúdo desde o primeiro exemplo do Módulo
+1.</li>
+<li data-k="g458"><strong>Deixar o cético sem resposta concreta.</strong> Discussão em
+tese não convence ninguém; demonstração na tarefa dele convence ou
+revela um limite honesto.</li>
+</ol>
+<hr />
+<p data-k="g459"><em>Documento do instrutor. Os exemplos citados aqui e em todo o
+material do curso são fictícios. A supervisão humana sobre qualquer
+saída de IA é obrigatória (Resolução CNJ 615/2025).</em></p>
+  </section>
+
+  <div class="rodape">
+    <p>Documento do instrutor · Turma TJCE. Todos os exemplos citados neste material são fictícios.
+    A supervisão humana sobre qualquer saída de inteligência artificial é obrigatória
+    (Resolução CNJ 615/2025).</p>
+  </div>
+</main>
+</div>
+
+<div class="barra">
+  <button class="btn" id="b-edit">Editar</button>
+  <button class="btn" id="b-baixar">Baixar HTML</button>
+  <button class="btn" id="b-restaurar">Restaurar original</button>
+</div>
+
+<script>
+(function () {
+  var CHAVE = 'servidor-mais-ia:guia-metodologico-tjce';
+  var alvos = function () { return document.querySelectorAll('[data-k]'); };
+
+  function aplicarSalvos() {
+    var d = {};
+    try { d = JSON.parse(localStorage.getItem(CHAVE) || '{}'); } catch (e) { return; }
+    alvos().forEach(function (el) {
+      if (d[el.dataset.k] !== undefined) el.innerHTML = d[el.dataset.k];
+    });
+  }
+
+  function salvar() {
+    var d = {};
+    alvos().forEach(function (el) { d[el.dataset.k] = el.innerHTML; });
+    localStorage.setItem(CHAVE, JSON.stringify(d));
+  }
+
+  var editando = false;
+  document.getElementById('b-edit').addEventListener('click', function () {
+    editando = !editando;
+    this.classList.toggle('on', editando);
+    this.textContent = editando ? 'Editando (clique para sair)' : 'Editar';
+    alvos().forEach(function (el) {
+      el.contentEditable = editando ? 'true' : 'false';
+      if (!editando) el.removeAttribute('contenteditable');
+    });
+    if (!editando) salvar();
+  });
+
+  document.addEventListener('input', function (e) {
+    if (editando && e.target.closest('[data-k]')) salvar();
+  });
+
+  document.getElementById('b-baixar').addEventListener('click', function () {
+    salvar();
+    alvos().forEach(function (el) { el.removeAttribute('contenteditable'); });
+    var doc = '<!doctype html>\n' + document.documentElement.outerHTML;
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([doc], { type: 'text/html' }));
+    a.download = 'guia-metodologico-tjce.html';
+    a.click();
+  });
+
+  document.getElementById('b-restaurar').addEventListener('click', function () {
+    if (!confirm('Descartar as edições feitas neste navegador e recarregar a versão original?')) return;
+    localStorage.removeItem(CHAVE);
+    location.reload();
+  });
+
+  aplicarSalvos();
+})();
+</script>
+</body>
+</html>
