@@ -171,7 +171,7 @@ th { background:var(--laranja-claro); }
 <p data-k="k62"><strong>A resposta boa demais (a lacuna).</strong> Existe um tipo de erro mais difícil de pegar que uma alucinação: a resposta correta, fluente, bem estruturada — e incompleta. Ela passa em todas as conferências de forma e ainda assim deixa de fora algo essencial ao seu contexto (por exemplo, um conselho sobre adoção de IA que nunca menciona sigilo ou LGPD). Detectar a <strong>lacuna</strong>, não só o erro, é a habilidade que diferencia quem revisa por hábito de quem revisa de fato.</p>
 <h3 id="man-10" data-k="k63">Módulo 3 — Prática forense</h3>
 <p data-k="k64">Este é o módulo mais longo porque é aqui que os Módulos 1 e 2 se encontram com a rotina real de Vara e Gabinete, tarefa por tarefa.</p>
-<p data-k="k65"><strong>Triagem de demandas.</strong> Colar um lote de expedientes ou petições e pedir à IA que classifique por tipo e urgência acelera uma tarefa repetitiva — mas a classificação sugerida sempre passa por conferência antes de virar prioridade de fato (um habeas corpus com réu preso, por exemplo, precisa saltar aos olhos, e é o servidor quem confirma isso).</p>
+<p data-k="k65"><strong>Triagem de demandas.</strong> Colar um lote de expedientes ou petições e pedir à IA que classifique por tipo e urgência acelera uma tarefa repetitiva — mas a classificação sugerida sempre passa por conferência antes de virar prioridade de fato (um pedido de tutela de urgência com laudo, por exemplo, precisa saltar aos olhos, e é o servidor quem confirma isso).</p>
 <p data-k="k66"><strong>Resumo de peças.</strong> Pedir o resumo de uma peça longa economiza tempo de leitura, mas o resumo entregue pela IA é conferido contra o documento original antes de ser usado para qualquer decisão — resumir não é o mesmo que ler.</p>
 <p data-k="k67"><strong>Minutas e despachos.</strong> A IA pode produzir uma minuta de despacho ou decisão em segundos, com estrutura e linguagem corretas. A minuta é sempre revisada linha a linha antes de seguir para assinatura e juntada nos autos eletrônicos do PJe: a redação pode estar impecável e ainda presumir um pedido que não existe nos autos daquele processo específico. A decisão continua sendo do servidor e, quando aplicável, do magistrado — nunca da ferramenta.</p>
 <p data-k="k68"><strong>Jurisprudência: atenção redobrada.</strong> Ao pedir referências de jurisprudência à IA, o risco de alucinação é mais alto do que em outras tarefas, porque um julgado inventado costuma vir com número, relator e ementa plausíveis. Toda citação de jurisprudência sugerida pela IA é conferida na base oficial do tribunal antes de entrar em qualquer peça.</p>
@@ -206,14 +206,14 @@ e preciso apoiar a triagem de expedientes recebidos hoje.
 [Tarefa] Classifique cada item da lista abaixo por tipo de demanda e por
 urgência (alta, média, baixa), justificando a urgência em uma linha.
 [Exemplos] Siga este padrão de saída:
-&quot;1. Pedido de tutela de urgência — Urgência: alta — Justificativa: réu preso.&quot;
+&quot;1. Pedido de tutela de urgência — Urgência: alta — Justificativa: risco à saúde com laudo médico.&quot;
 [Qualidade] Ao final, indique se algum item ficou ambíguo e por quê.
 [Formato] Entregue em tabela com as colunas: item, tipo, urgência, justificativa.
 
 Lista de expedientes (dados fictícios):
 1. Petição solicitando liminar em mandado de segurança...
 2. Manifestação sobre laudo pericial...
-3. Pedido de habeas corpus com informação de prisão em flagrante...</pre>
+3. Pedido de tutela de urgência para custeio de cirurgia, com laudo médico indicando risco...</pre>
 <h3 id="man-14" data-k="k107">Ficha 2 — As quatro perguntas do checklist</h3>
 <p data-k="k108">Responder &quot;no atacado&quot; (&quot;li, está tudo certo&quot;) não vale. Cada pergunta exige uma ação distinta.</p>
 <div class="tw"><table>
@@ -415,7 +415,7 @@ Exemplo já preenchido (fictício, apenas para servir de modelo — não copie, 
 2. Tom: direto, sem formalidade excessiva, para uso interno da equipe.
 3. Tarefa: a partir da lista de processos abaixo, separe os despachos em &quot;urgente&quot; (prazo até
    amanhã) e &quot;normal&quot; (sem prazo apertado).
-4. Exemplos: urgente = processo com pedido de liminar ou réu preso; normal = despacho de mero
+4. Exemplos: urgente = processo com pedido de liminar ou tutela de urgência; normal = despacho de mero
    expediente.
 5. Qualidade: não inclua nenhum processo em &quot;urgente&quot; sem justificar o motivo em uma frase.
 6. Formato: tabela com três colunas — número do processo (fictício), classificação, motivo.
@@ -458,7 +458,7 @@ Prompt-mestre M9 — Classificar e triar demandas (base para adaptar):
 &quot;Contexto: você é [função] e recebeu uma lista de [processos ou demandas] para priorizar.
 Tom: objetivo, para decisão rápida.
 Tarefa: classifique cada item da lista abaixo em &#x27;urgente&#x27; ou &#x27;normal&#x27;, segundo o critério
-[exemplo: réu preso, liminar, prazo em 48h].
+[exemplo: tutela de urgência, liminar, prazo em 48h].
 Exemplos: urgente = [exemplo]; normal = [exemplo].
 Qualidade: justifique cada classificação em uma frase; não classifique como urgente sem motivo
 explícito no texto.
@@ -635,7 +635,7 @@ unidade.&quot;</pre>
 <p data-k="k505">sempre.</p>
 <h4 id="cad-19" data-k="k506">Bloco 3.1 — Triagem (Módulo 3 · Aula 1 · 50 min · objetivo OA3.1)</h4>
 <p data-k="k507">A demonstração ao vivo (roteiro E1 do Banco: lote de 6 demandas classificado com o</p>
-<p data-k="k508">prompt-mestre M9, o habeas corpus com réu preso saltando como urgente) já está pronta para o</p>
+<p data-k="k508">prompt-mestre M9, o pedido de tutela de urgência para custeio de tratamento, com laudo, saltando como urgente) já está pronta para o</p>
 <p data-k="k509">instrutor conduzir. Depois da demonstração, os alunos replicam a triagem com um lote próprio,</p>
 <p data-k="k510">trazido ou fornecido pelo instrutor, e conferem manualmente se a classificação da IA bate com o</p>
 <p data-k="k511">critério de urgência da unidade.</p>
