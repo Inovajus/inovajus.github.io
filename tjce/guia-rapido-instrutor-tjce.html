@@ -1,0 +1,854 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guia Rápido do Instrutor · Curso Servidor + IA (Turma TJCE)</title>
+<style>
+:root {
+  --laranja:#C05A1E; --laranja-claro:#F2E4D8; --tinta:#23201d; --cinza:#5c554e;
+  --fundo:#FFFDFA; --borda:#e6ddd3; --creme:#FFF7EF;
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--fundo); color:var(--tinta);
+  font:16px/1.65 -apple-system,"Segoe UI",Inter,Roboto,sans-serif; }
+header.topo { background:var(--laranja); color:#fff; padding:26px 20px; }
+header.topo h1 { margin:0 0 4px; font-size:1.5rem; letter-spacing:-.01em; }
+header.topo p { margin:0; opacity:.92; font-size:.95rem; }
+.wrap { display:flex; gap:32px; max-width:1240px; margin:0 auto; padding:28px 20px 80px; }
+nav { flex:0 0 264px; position:sticky; top:20px; align-self:flex-start;
+  max-height:calc(100vh - 40px); overflow:auto; font-size:.9rem; }
+nav ul { list-style:none; margin:0; padding:0; }
+nav a { color:var(--cinza); text-decoration:none; display:block; padding:5px 10px;
+  border-left:2px solid transparent; border-radius:0 4px 4px 0; }
+nav a:hover { background:var(--creme); color:var(--laranja); border-left-color:var(--laranja); }
+.nav-sec a { font-weight:700; color:var(--tinta); margin-top:14px; }
+.n2 a { padding-left:20px; }
+main { flex:1; min-width:0; }
+h2 { font-size:1.32rem; margin:2.2em 0 .5em; color:var(--laranja);
+  border-bottom:1px solid var(--borda); padding-bottom:.3em; }
+h3 { font-size:1.08rem; margin:1.7em 0 .4em; }
+h4 { font-size:.98rem; margin:1.4em 0 .3em; color:var(--cinza); }
+p, li { margin:.5em 0; }
+code { background:var(--creme); padding:1px 5px; border-radius:3px; font-size:.9em; }
+pre { background:var(--creme); border:1px solid var(--borda); border-left:3px solid var(--laranja);
+  padding:14px 16px; border-radius:6px; overflow-x:auto; white-space:pre-wrap;
+  font:13px/1.5 ui-monospace,Consolas,monospace; }
+blockquote { margin:.8em 0; padding:.4em 0 .4em 14px; border-left:3px solid var(--laranja-claro);
+  color:var(--cinza); font-style:italic; }
+.tw { overflow-x:auto; margin:1em 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { border:1px solid var(--borda); padding:7px 10px; text-align:left; vertical-align:top; }
+th { background:var(--laranja-claro); }
+.secao { scroll-margin-top:20px; }
+.barra { position:fixed; left:16px; bottom:16px; display:flex; gap:8px; z-index:50; }
+.btn { background:#fff; border:1px solid var(--borda); color:var(--tinta); padding:8px 14px;
+  border-radius:999px; font-size:.85rem; cursor:pointer; box-shadow:0 2px 10px rgba(0,0,0,.09); }
+.btn:hover { border-color:var(--laranja); color:var(--laranja); }
+.btn.on { background:var(--laranja); color:#fff; border-color:var(--laranja); }
+[contenteditable="true"] { outline:1px dashed var(--laranja); outline-offset:2px;
+  background:rgba(192,90,30,.04); }
+.rodape { border-top:1px solid var(--borda); margin-top:60px; padding-top:16px;
+  color:var(--cinza); font-size:.85rem; }
+@media (max-width:900px) {
+  .wrap { flex-direction:column; padding:16px; }
+  nav { position:static; max-height:none; flex:none; }
+}
+@media print {
+  nav, .barra, header.topo { display:none; }
+  body { font-size:11pt; } .wrap { display:block; padding:0; }
+  h2 { page-break-after:avoid; } table, pre { page-break-inside:avoid; }
+}
+.aviso { background:var(--laranja-claro); border-left:4px solid var(--laranja);
+  padding:12px 16px; border-radius:0 6px 6px 0; margin:0 0 24px; font-size:.92rem; }
+.aviso a { color:var(--laranja); }
+</style>
+</head>
+<body>
+<header class="topo">
+  <h1>Curso Servidor + IA · guia rápido do instrutor (Turma TJCE)</h1>
+  <p>Tribunal de Justiça do Estado do Ceará · 24 horas · 4 encontros de 6h · presencial · documento do instrutor</p>
+</header>
+
+<div class="wrap">
+<nav>
+  <ul>
+<li class="nav-sec"><a href="#como-usar">Como usar</a></li>
+<li class="nav-sec"><a href="#módulo-1-fundamentos-de-ia-e-prompt-engineering-6-h-encontro-1-2-turnos-de-3-h">Módulo
+1 — Fundamentos de IA e prompt engineering · 6 h · Encontro 1 (2 turnos
+de 3 h)</a></li>
+<li class="n2"><a href="#turno-1">Turno 1</a></li>
+<li class="n2"><a href="#a11-aula-1-de-8-como-a-ia-funciona-30-min">a11 · Aula 1 de 8 ·
+Como a IA funciona (~30 min)</a></li>
+<li class="n2"><a href="#a12-aula-2-de-8-o-que-faz-bem-onde-falha-30-min">a12 · Aula 2 de
+8 · O que faz bem, onde falha (~30 min)</a></li>
+<li class="n2"><a href="#a13-aulas-3-e-4-de-8-contexto-e-tokens-anatomia-do-prompt-em-6-etapas-50-min">a13
+· Aulas 3 e 4 de 8 · Contexto e tokens · Anatomia do prompt em 6 etapas
+(~50 min)</a></li>
+<li class="n2"><a href="#turno-2">Turno 2</a></li>
+<li class="n2"><a href="#a14-aula-5-de-8-prompt-fraco-prompt-forte-30-min">a14 · Aula 5
+de 8 · Prompt fraco × prompt forte (~30 min)</a></li>
+<li class="n2"><a href="#a15-aula-6-de-8-técnicas-que-turbinam-o-prompt-30-min">a15 ·
+Aula 6 de 8 · Técnicas que turbinam o prompt (~30 min)</a></li>
+<li class="n2"><a href="#a16-aula-7-de-8-sua-biblioteca-de-prompts-20-min">a16 · Aula 7
+de 8 · Sua biblioteca de prompts (~20 min)</a></li>
+<li class="n2"><a href="#a17-aula-8-de-8-qual-ferramenta-usar-20-min">a17 · Aula 8 de 8 ·
+Qual ferramenta usar (~20 min)</a></li>
+<li class="nav-sec"><a href="#módulo-2-pensamento-crítico-e-causal-6-h-encontro-2-2-turnos-de-3-h">Módulo
+2 — Pensamento crítico e causal · 6 h · Encontro 2 (2 turnos de 3
+h)</a></li>
+<li class="n2"><a href="#turno-1-1">Turno 1</a></li>
+<li class="n2"><a href="#a31-aula-1-de-6-por-que-questionar-a-ia-10-min-abertura">a31 ·
+Aula 1 de 6 · Por que questionar a IA (~10 min, abertura)</a></li>
+<li class="n2"><a href="#a32-aula-2-de-6-correlação-e-causa-oculta-45-min">a32 · Aula 2
+de 6 · Correlação e causa oculta (~45 min)</a></li>
+<li class="n2"><a href="#a33-aula-3-de-6-e-se-o-contrafactual-45-min">a33 · Aula 3 de 6 ·
+E se? O contrafactual (~45 min)</a></li>
+<li class="n2"><a href="#turno-2-1">Turno 2</a></li>
+<li class="n2"><a href="#a34-aula-4-de-6-detectar-alucinações-40-min">a34 · Aula 4 de 6 ·
+Detectar alucinações (~40 min)</a></li>
+<li class="n2"><a href="#a35-aula-5-de-6-validar-antes-de-confiar-40-min">a35 · Aula 5 de
+6 · Validar antes de confiar (~40 min)</a></li>
+<li class="n2"><a href="#a36-aula-6-de-6-checklist-e-decisão-humana-30-min">a36 · Aula 6
+de 6 · Checklist e decisão humana (~30 min)</a></li>
+<li class="nav-sec"><a href="#módulo-3-prática-forense-10-h-encontro-3-2-turnos-encontro-4-turno-1-4-h">Módulo
+3 — Prática forense · 10 h · Encontro 3 (2 turnos) + Encontro 4 Turno 1
+(4 h)</a></li>
+<li class="n2"><a href="#encontro-3-turno-1">Encontro 3 · Turno 1</a></li>
+<li class="n2"><a href="#a21-aula-1-de-7-triagem-e-classificação-50-min">a21 · Aula 1 de
+7 · Triagem e classificação (~50 min)</a></li>
+<li class="n2"><a href="#a22-aula-2-de-7-resumo-de-peças-e-processos-60-min">a22 · Aula 2
+de 7 · Resumo de peças e processos (~60 min)</a></li>
+<li class="n2"><a href="#encontro-3-turno-2">Encontro 3 · Turno 2</a></li>
+<li class="n2"><a href="#a23-aula-3-de-7-minutas-e-despachos-40-min">a23 · Aula 3 de 7 ·
+Minutas e despachos (~40 min)</a></li>
+<li class="n2"><a href="#a24-aula-4-de-7-pesquisa-de-jurisprudência-40-min">a24 · Aula 4
+de 7 · Pesquisa de jurisprudência (~40 min)</a></li>
+<li class="n2"><a href="#a25-aula-5-de-7-comparar-e-conferir-40-min">a25 · Aula 5 de 7 ·
+Comparar e conferir (~40 min)</a></li>
+<li class="n2"><a href="#encontro-4-turno-1-4-h">Encontro 4 · Turno 1 (4 h)</a></li>
+<li class="n2"><a href="#a26-aula-6-de-7-relatórios-e-organização-45-min">a26 · Aula 6 de
+7 · Relatórios e organização (~45 min)</a></li>
+<li class="n2"><a href="#a27-aula-7-de-7-modelos-e-trabalho-em-lote-45-min">a27 · Aula 7
+de 7 · Modelos e trabalho em lote (~45 min)</a></li>
+<li class="n2"><a href="#projeto-integrador-pi-90-min">Projeto Integrador — PI (~90
+min)</a></li>
+<li class="nav-sec"><a href="#módulo-4-ética-lgpd-e-governança-2-h-encontro-4-turno-2">Módulo
+4 — Ética, LGPD e governança · 2 h · Encontro 4 · Turno 2</a></li>
+<li class="n2"><a href="#a41-aula-1-de-5-governança-e-supervisão-humana-25-min">a41 ·
+Aula 1 de 5 · Governança e supervisão humana (~25 min)</a></li>
+<li class="n2"><a href="#a42-aula-2-de-5-o-que-pode-ir-para-a-ia-sigilo-15-min">a42 ·
+Aula 2 de 5 · O que pode ir para a IA — sigilo (~15 min)</a></li>
+<li class="n2"><a href="#a43-aula-3-de-5-lgpd-e-anonimização-15-min">a43 · Aula 3 de 5 ·
+LGPD e anonimização (~15 min)</a></li>
+<li class="n2"><a href="#a44-aula-4-de-5-vieses-algorítmicos-12-min">a44 · Aula 4 de 5 ·
+Vieses algorítmicos (~12 min)</a></li>
+<li class="n2"><a href="#a45-aula-5-de-5-boas-práticas-de-segurança-13-min">a45 · Aula 5
+de 5 · Boas práticas de segurança (~13 min)</a></li>
+<li class="n2"><a href="#fechamento-do-curso-mv4.4">Fechamento do curso — MV4.4</a></li>
+<li class="n2"><a href="#horizonte-sistemas-agênticos-a18-a19-a20-não-avaliado">Horizonte
+— sistemas agênticos (a18, a19, a20) — não avaliado</a></li>
+<li class="nav-sec"><a href="#referências-rápidas-se-precisar-de-mais-que-este-cartão">Referências
+rápidas (se precisar de mais que este cartão)</a></li>
+  </ul>
+</nav>
+
+<main>
+  <div class="aviso">
+    <strong>Documento de uso exclusivo dos instrutores — consulta de palco, não de preparação.</strong>
+    Comprime o deck, o Guia Metodológico e o Caderno de Exercícios num cartão por slide, para
+    abrir durante a aula. Não substitui as três peças-fonte e não deve ser distribuído à turma.
+  </div>
+  <section class="secao">
+<blockquote data-k="gr2">
+<p data-k="gr3"><strong>Consulta de palco, não de preparação.</strong> Este documento
+não substitui o Guia Metodológico nem o Caderno de Exercícios
+(Instrutor) — ele os comprime num cartão por slide, para abrir na tela
+ao lado (ou impresso, sala presencial) durante a aula e saber, num
+olhar, o que desenvolver na explanação. Prepare a aula com o Guia
+Metodológico; conduza a aula com este documento. Versão 1.0 — julho de
+2026. Turma TJCE — presencial, 4 encontros de 6 h.</p>
+</blockquote>
+<h2 data-k="gr4" id="como-usar">Como usar</h2>
+<p data-k="gr5">Cada cartão corresponde a um slide do deck
+(<code>servidor-mais-ia/index-tjce.html</code>), identificado pelo
+código interno (<code>a11</code>, <code>a12</code>…) só para você
+localizar o slide — nunca leia o código em voz alta para a turma, que
+enxerga apenas o rótulo
+(<code>Encontro 1 · Módulo 1 · Aula 1 de 8</code>).</p>
+<p data-k="gr6">Estrutura de cada cartão:</p>
+<ul>
+<li data-k="gr7"><strong>O que está no slide</strong> — os bullets exatos que a turma
+está lendo.</li>
+<li data-k="gr8"><strong>Desenvolva assim</strong> — o que dizer além do slide: a
+analogia, o exemplo de Vara Cível, a fala que não pode faltar.</li>
+<li data-k="gr9"><strong>Gancho local</strong> — a ferramenta do Hub Digital do
+Tribunal que aterrissa o conceito na casa do aluno (AURI, Clóvis, BERNA,
+MIDAS, SARA…). É o que mais diferencia esta turma da JFCE — não
+pule.</li>
+<li data-k="gr10"><strong>Armadilha da turma</strong> — o erro típico que aparece
+quase sempre.</li>
+<li data-k="gr11"><strong>Confira</strong> — a micro-verificação (MV) e o que fazer se
+a turma errar.</li>
+<li data-k="gr12"><strong>Ponte →</strong> — a frase que leva à próxima aula.</li>
+<li data-k="gr13"><strong>Prática</strong> — o exercício (EX/EF/TE) associado, com
+tempo.</li>
+</ul>
+<p data-k="gr14">Este guia <strong>não cria conteúdo novo</strong>: tudo aqui já está
+no deck, no Guia Metodológico (seção 6) ou no Caderno de Exercícios da
+turma TJCE. Se um conceito mudar, corrija na fonte.</p>
+<hr />
+<h2 data-k="gr15"
+id="módulo-1-fundamentos-de-ia-e-prompt-engineering-6-h-encontro-1-2-turnos-de-3-h">Módulo
+1 — Fundamentos de IA e prompt engineering · 6 h · Encontro 1 (2 turnos
+de 3 h)</h2>
+<h3 data-k="gr16" id="turno-1">Turno 1</h3>
+<h3 data-k="gr17" id="a11-aula-1-de-8-como-a-ia-funciona-30-min">a11 · Aula 1 de 8 ·
+Como a IA funciona (~30 min)</h3>
+<p data-k="gr18"><strong>No slide:</strong> “Ela prevê a próxima palavra por
+probabilidade: gera o texto mais provável, não a verdade.”</p>
+<p data-k="gr19"><strong>Desenvolva assim:</strong> analogia do cotidiano (a IA
+completa a frase mais provável) → caso judicial → demonstração ao vivo
+de uma alucinação. A fala que não pode faltar: <em>ela gera a palavra
+estatisticamente mais provável, não consulta uma fonte — por isso erra
+com a mesma segurança com que acerta.</em></p>
+<p data-k="gr20"><strong>Confira:</strong> MV1.1 — por que a IA escreve uma resposta
+errada com a mesma segurança de uma certa? Se errar, repita a analogia e
+refaça rápido a demonstração da alucinação.</p>
+<p data-k="gr21"><strong>Leve:</strong> toda resposta de IA é hipótese bem escrita,
+não fato conferido.</p>
+<p data-k="gr22"><strong>Ponte →</strong> se ela responde sempre com confiança, onde
+ela ajuda e onde a decisão tem de continuar sendo humana?</p>
+<hr />
+<h3 data-k="gr23" id="a12-aula-2-de-8-o-que-faz-bem-onde-falha-30-min">a12 · Aula 2 de
+8 · O que faz bem, onde falha (~30 min)</h3>
+<p data-k="gr24"><strong>No slide:</strong> faz bem — resumir, redigir minutas,
+organizar/comparar, localizar trechos e citações; cuidado — pode
+inventar jurisprudência e reproduzir vieses; quem decide é sempre o
+servidor ou o magistrado; <strong>no TJCE, os dois mundos têm nome: Robô
+Clóvis (automação por regras) e AURI (IA) — só a IA exige
+conferência.</strong></p>
+<p data-k="gr25"><strong>Desenvolva assim:</strong> endereço direto do medo da turma —
+a IA assume <strong>tarefas, não pessoas</strong>.</p>
+<p data-k="gr26"><strong>Gancho local:</strong> pergunte “quem já usa um robô do
+Clóvis?” — fixa a distinção: robô segue regra fixa, IA gera texto
+provável; só a IA exige a conferência que o curso ensina.</p>
+<p data-k="gr27"><strong>Confira:</strong> MV1.2 — citar uma tarefa da Vara em que a
+IA apoia e uma que exige o servidor.</p>
+<p data-k="gr28"><strong>Leve:</strong> uma tarefa sua que a IA já poderia rascunhar
+amanhã — e uma que continua sendo só sua.</p>
+<p data-k="gr29"><strong>Ponte →</strong> se ela apoia, como se faz um bom pedido?</p>
+<hr />
+<h3 data-k="gr30"
+id="a13-aulas-3-e-4-de-8-contexto-e-tokens-anatomia-do-prompt-em-6-etapas-50-min">a13
+· Aulas 3 e 4 de 8 · Contexto e tokens · Anatomia do prompt em 6 etapas
+(~50 min)</h3>
+<p data-k="gr31"><strong>No slide:</strong> o prompt em 6 etapas (contexto, tom,
+tarefa, exemplos, qualidade, formato).</p>
+<p data-k="gr32"><strong>Desenvolva assim:</strong> por que não se despeja o processo
+inteiro — a janela de contexto enche de ruído, custa mais e expõe dado à
+toa. Recortar é decisão de qualidade <strong>e</strong> de sigilo.</p>
+<p data-k="gr33"><strong>Confira:</strong> MV1.3 — por que não colar 200 páginas mesmo
+quando a ferramenta aceita.</p>
+<p data-k="gr34"><strong>Leve:</strong> recortar e anonimizar <strong>antes</strong>
+de enviar.</p>
+<p data-k="gr35"><strong>Ponte →</strong> fim do Turno 1. TE1: trazer, para o Turno 2,
+um caso da própria rotina já anonimizado (5 a 10 linhas, sem dado
+sigiloso).</p>
+<p data-k="gr36"><strong>Prática:</strong> EX1.1 — Escreva seu prompt em 6 etapas (25
+min).</p>
+<hr />
+<h3 data-k="gr37" id="turno-2">Turno 2</h3>
+<h3 data-k="gr38" id="a14-aula-5-de-8-prompt-fraco-prompt-forte-30-min">a14 · Aula 5
+de 8 · Prompt fraco × prompt forte (~30 min)</h3>
+<p data-k="gr39"><strong>No slide:</strong> fraco — “faça um resumo” (genérico); forte
+— diga o quê, para quem, com quais limites e em que formato.</p>
+<p data-k="gr40"><strong>Desenvolva assim:</strong> duas respostas à mesma tarefa,
+mesma ferramenta — o que mudou foi o prompt, não uma “IA mais
+inteligente”.</p>
+<p data-k="gr41"><strong>Armadilha da turma:</strong> <em>“o prompt raso produz
+resposta genérica, e a turma tende a culpar a ferramenta, quando o
+defeito está no pedido, não na IA.”</em></p>
+<p data-k="gr42"><strong>Confira:</strong> MV1.4 — na demonstração, o que mudou: a
+ferramenta ou o prompt?</p>
+<p data-k="gr43"><strong>Leve:</strong> quando a resposta vier ruim, olhe primeiro o
+seu prompt.</p>
+<p data-k="gr44"><strong>Ponte →</strong> que técnicas deixam o prompt forte de
+propósito?</p>
+<p data-k="gr45"><strong>Prática:</strong> EF1 — Diagnostique o defeito do prompt (25
+min, exercício de falha).</p>
+<hr />
+<h3 data-k="gr46" id="a15-aula-6-de-8-técnicas-que-turbinam-o-prompt-30-min">a15 ·
+Aula 6 de 8 · Técnicas que turbinam o prompt (~30 min)</h3>
+<p data-k="gr47"><strong>No slide:</strong> pensar passo a passo; dar exemplos;
+separar instrução do documento; iterar.</p>
+<p data-k="gr48"><strong>Desenvolva assim:</strong> “separar instrução do documento”
+tem nome em segurança da informação — <strong>defesa contra injeção de
+prompt</strong>. Nomeie o termo; reaparece no Módulo 3 com documento
+real.</p>
+<p data-k="gr49"><strong>Confira:</strong> MV1.5 — qual técnica evita que a IA
+confunda o pedido do autor com a manifestação da <strong>parte
+contrária</strong>.</p>
+<p data-k="gr50"><strong>Leve:</strong> separar instrução de documento é o que mais
+evita erro em tarefa de resumo.</p>
+<p data-k="gr51"><strong>Ponte →</strong> onde encontrar prompts já prontos para não
+começar do zero?</p>
+<hr />
+<h3 data-k="gr52" id="a16-aula-7-de-8-sua-biblioteca-de-prompts-20-min">a16 · Aula 7
+de 8 · Sua biblioteca de prompts (~20 min)</h3>
+<p data-k="gr53"><strong>No slide:</strong> salve os prompts que deram certo;
+padronize com [campos editáveis]; comece pelo Banco de Prompts do curso;
+<strong>no TJCE, a biblioteca institucional já existe: o Prompt Hub, no
+AURI, com fluxo de aprovação.</strong></p>
+<p data-k="gr54"><strong>Desenvolva assim:</strong> todo prompt que funciona vira
+modelo reutilizável seu e da unidade.</p>
+<p data-k="gr55"><strong>Gancho local:</strong> a biblioteca pessoal tem destino
+institucional — o prompt que sobreviver ao uso real é candidato a
+patrimônio da unidade via Prompt Hub.</p>
+<p data-k="gr56"><strong>Ponte →</strong> e qual ferramenta usar para aplicar esses
+prompts?</p>
+<hr />
+<h3 data-k="gr57" id="a17-aula-8-de-8-qual-ferramenta-usar-20-min">a17 · Aula 8 de 8 ·
+Qual ferramenta usar (~20 min)</h3>
+<p data-k="gr58"><strong>No slide:</strong> escolha pela tarefa, não pela marca; o
+método importa mais que a ferramenta; a mesma IA responde diferente em
+cada ferramenta.</p>
+<p data-k="gr59"><strong>Desenvolva assim:</strong> a ferramenta se escolhe pelo
+<strong>objetivo da tarefa</strong> — síntese que fecha as Aulas 7 e
+8.</p>
+<p data-k="gr60"><strong>Confira:</strong> MV1.6 — o critério de escolha é a marca
+mais conhecida ou o objetivo da tarefa?</p>
+<p data-k="gr61"><strong>Leve:</strong> o que muda o resultado é achar o prompt-mestre
+certo e adaptá-lo, não a marca.</p>
+<p data-k="gr62"><strong>Ponte →</strong> fim do Módulo 1 (Encontro 1). TE2: testar um
+prompt adaptado e anotar o que pareceu “bom demais para ser
+verdade”.</p>
+<p data-k="gr63"><strong>Prática:</strong> EX1.2 — Adapte dois prompts-mestre à sua
+unidade (35 min, cobre as Aulas 7 e 8).</p>
+<hr />
+<h2 data-k="gr64"
+id="módulo-2-pensamento-crítico-e-causal-6-h-encontro-2-2-turnos-de-3-h">Módulo
+2 — Pensamento crítico e causal · 6 h · Encontro 2 (2 turnos de 3
+h)</h2>
+<h3 data-k="gr65" id="turno-1-1">Turno 1</h3>
+<h3 data-k="gr66" id="a31-aula-1-de-6-por-que-questionar-a-ia-10-min-abertura">a31 ·
+Aula 1 de 6 · Por que questionar a IA (~10 min, abertura)</h3>
+<p data-k="gr67"><strong>No slide:</strong> copiloto, não juiz; a Resolução CNJ
+615/2025 exige supervisão humana.</p>
+<p data-k="gr68"><strong>Desenvolva assim:</strong> analogia do <strong>GPS</strong> —
+não mente, só não vê a obra na rua. Fluência não é fidelidade.</p>
+<p data-k="gr69"><strong>Confira:</strong> MV2.1 — português impecável e artigo certo
+do CPC garantem que a minuta está correta?</p>
+<p data-k="gr70"><strong>Leve:</strong> o que dá para conferir em dois minutos, e o
+que só quem conhece os autos pega.</p>
+<p data-k="gr71"><strong>Ponte →</strong> quando dois números sobem juntos, um causou
+o outro?</p>
+<hr />
+<h3 data-k="gr72" id="a32-aula-2-de-6-correlação-e-causa-oculta-45-min">a32 · Aula 2
+de 6 · Correlação e causa oculta (~45 min)</h3>
+<p data-k="gr73"><strong>No slide:</strong> junto ≠ causar; causa oculta; não conclua
+cedo.</p>
+<p data-k="gr74"><strong>Desenvolva assim:</strong> analogia do <strong>sorvete e do
+afogamento</strong> → exemplo do mutirão que empurra pauta e acordos ao
+mesmo tempo.</p>
+<p data-k="gr75"><strong>Armadilha da turma:</strong> <em>“aceitar de primeira a
+explicação que já bate com o que a gente queria fazer” — a causa oculta
+favorita é sempre invisível para quem tem pressa de concluir.</em></p>
+<p data-k="gr76"><strong>Confira:</strong> MV2.2 — mais audiências e mais acordos no
+mesmo semestre provam que um causou o outro?</p>
+<p data-k="gr77"><strong>Leve:</strong> antes de dizer “X causou Y”, pergunte o que
+mais mudou na mesma época.</p>
+<p data-k="gr78"><strong>Ponte →</strong> e quando querem provar que “melhorou por
+causa da medida”?</p>
+<p data-k="gr79"><strong>Prática:</strong> EX2.1 — Causas alternativas e confundidores
+(45 min, cobre também a Aula 3).</p>
+<hr />
+<h3 data-k="gr80" id="a33-aula-3-de-6-e-se-o-contrafactual-45-min">a33 · Aula 3 de 6 ·
+E se? O contrafactual (~45 min)</h3>
+<p data-k="gr81"><strong>No slide:</strong> e se não tivesse acontecido? compare
+trajetórias; efeito = diferença.</p>
+<p data-k="gr82"><strong>Desenvolva assim:</strong> conta da <strong>tendência
+anterior</strong> + grupo de comparação.</p>
+<p data-k="gr83"><strong>Armadilha da turma:</strong> <em>“comparar o depois com o
+pior momento do antes” — o ganho aparece na conta mesmo quando, na
+prática, ele não existe.</em></p>
+<p data-k="gr84"><strong>Confira:</strong> MV2.3 — o estoque caiu depois da nova
+triagem; isso garante que a triagem foi a causa?</p>
+<p data-k="gr85"><strong>Leve:</strong> comparar com a tendência, não com o pior
+mês.</p>
+<p data-k="gr86"><strong>Ponte →</strong> fim do Turno 1. TE3: rodar o prompt-mestre
+M11 sobre uma frase do tipo “isso melhorou depois daquilo” da própria
+unidade.</p>
+<p data-k="gr87"><strong>Prática:</strong> EF2 — O contrafactual mal feito (30 min,
+exercício de falha).</p>
+<hr />
+<h3 data-k="gr88" id="turno-2-1">Turno 2</h3>
+<h3 data-k="gr89" id="a34-aula-4-de-6-detectar-alucinações-40-min">a34 · Aula 4 de 6 ·
+Detectar alucinações (~40 min)</h3>
+<p data-k="gr90"><strong>No slide:</strong> confiante ≠ correto; bom demais? suspeite;
+confirme na fonte.</p>
+<p data-k="gr91"><strong>Desenvolva assim:</strong> demonstração da <strong>citação
+inventada</strong>. <strong>Aviso obrigatório: nunca usar número de
+processo real no exercício.</strong></p>
+<p data-k="gr92"><strong>Confira:</strong> MV2.4 — formatação perfeita prova que o
+julgado existe?</p>
+<p data-k="gr93"><strong>Leve:</strong> conferir na fonte oficial antes de citar —
+sempre.</p>
+<p data-k="gr94"><strong>Ponte →</strong> dá para reduzir o erro antes de ele
+acontecer?</p>
+<hr />
+<h3 data-k="gr95" id="a35-aula-5-de-6-validar-antes-de-confiar-40-min">a35 · Aula 5 de
+6 · Validar antes de confiar (~40 min)</h3>
+<p data-k="gr96"><strong>No slide:</strong> confira na fonte; cruze fontes; convergiu?
+use.</p>
+<p data-k="gr97"><strong>Desenvolva assim:</strong> as <strong>duas camadas de
+defesa</strong> — instrução no prompt + checklist humano depois.</p>
+<p data-k="gr98"><strong>Confira:</strong> MV2.5 — quais são as duas camadas, e uma
+substitui a outra?</p>
+<p data-k="gr99"><strong>Leve:</strong> instrução no prompt não aposenta o olho
+humano.</p>
+<p data-k="gr100"><strong>Ponte →</strong> qual é o roteiro humano de conferência?</p>
+<hr />
+<h3 data-k="gr101" id="a36-aula-6-de-6-checklist-e-decisão-humana-30-min">a36 · Aula 6
+de 6 · Checklist e decisão humana (~30 min)</h3>
+<p data-k="gr102"><strong>No slide:</strong> roteiro mínimo; sem dado inventado;
+decisão é humana.</p>
+<p data-k="gr103"><strong>Desenvolva assim:</strong> as quatro perguntas — confere com
+a fonte? faz sentido no caso concreto? tem dado inventado? trata casos
+iguais de forma igual?</p>
+<p data-k="gr104"><strong>Armadilha da turma:</strong> EX2.2: <em>“responder o
+checklist ‘no atacado’ — marcar tudo como ‘confere, parece certo’ sem
+checar pergunta por pergunta.”</em> EX2.3: <em>“aprovar a resposta só
+porque ela ‘soa completa e bem escrita’ — a resposta correta e fluente
+também precisa de supervisão humana.”</em></p>
+<p data-k="gr105"><strong>Confira:</strong> MV2.6 — quais são as quatro perguntas?</p>
+<p data-k="gr106"><strong>Leve:</strong> adapte as quatro perguntas à tarefa que você
+vai praticar no Módulo 3.</p>
+<p data-k="gr107"><strong>Ponte →</strong> fim do Módulo 2 (Encontro 2). TE4: escrever
+o checklist de quatro linhas já ajustado à tarefa do Módulo 3.</p>
+<p data-k="gr108"><strong>Prática:</strong> EX2.2 — Checklist com erros plantados (40
+min) <strong>ou</strong> EX2.3 — A resposta boa demais (40 min, insumo
+no roteiro E3 do Banco de Prompts).</p>
+<hr />
+<h2 data-k="gr109"
+id="módulo-3-prática-forense-10-h-encontro-3-2-turnos-encontro-4-turno-1-4-h">Módulo
+3 — Prática forense · 10 h · Encontro 3 (2 turnos) + Encontro 4 Turno 1
+(4 h)</h2>
+<p data-k="gr110">Lembrete de sigilo válido para todo o módulo: antes de colar qualquer
+peça, remover ou substituir nome, documento, endereço e tudo que
+identifique alguém. Insumos são de <strong>matéria estadual</strong>
+(Vara Cível: plano de saúde/CDC, obrigação de fazer, despacho
+saneador).</p>
+<h3 data-k="gr111" id="encontro-3-turno-1">Encontro 3 · Turno 1</h3>
+<h3 data-k="gr112" id="a21-aula-1-de-7-triagem-e-classificação-50-min">a21 · Aula 1 de
+7 · Triagem e classificação (~50 min)</h3>
+<p data-k="gr113"><strong>No slide:</strong> classificar por assunto e rito; sinalizar
+urgências (tutela de urgência, prazo curto); indicar competência e
+destino; <strong>no TJCE, BERNA e MIDAS (AURI) agrupam processos e atos
+similares — organizam; a decisão continua humana.</strong></p>
+<p data-k="gr114"><strong>Desenvolva assim:</strong> demonstração E1 (Banco) — lote de
+demandas cíveis com o prompt-mestre M9; o pedido de <strong>tutela de
+urgência para custeio de tratamento, instruído com laudo</strong>,
+saltando como urgente, e a inicial que pede urgência
+<strong>sem</strong> laudo caindo para conferência. Um item do lote traz
+instrução embutida na própria petição — mesma defesa contra injeção de
+prompt do Módulo 1, agora com documento real.</p>
+<p data-k="gr115"><strong>Gancho local:</strong> BERNA agrupa processos similares;
+MIDAS agrupa atos por fila via SEI — ambos organizam, como a triagem
+deste bloco; a decisão sobre cada processo continua humana.</p>
+<p data-k="gr116"><strong>Confira:</strong> MV3.1 — depois da IA classificar, o que o
+servidor ainda precisa fazer?</p>
+<p data-k="gr117"><strong>Leve:</strong> a IA organiza; quem decide a urgência final é
+o servidor.</p>
+<p data-k="gr118"><strong>Ponte →</strong> e quando a peça é longa demais para ler
+inteira?</p>
+<hr />
+<h3 data-k="gr119" id="a22-aula-2-de-7-resumo-de-peças-e-processos-60-min">a22 · Aula 2
+de 7 · Resumo de peças e processos (~60 min)</h3>
+<p data-k="gr120"><strong>No slide:</strong> resumir inicial, contestação, laudos,
+decisões; extrair pedidos/prazos/valores; apontar pontos controvertidos;
+conferir contra o original; <strong>não cole o processo
+inteiro.</strong></p>
+<p data-k="gr121"><strong>Desenvolva assim:</strong> gerar resumo com o prompt-mestre
+M1 — sobre petição inicial fictícia de <strong>obrigação de fazer contra
+plano de saúde</strong> (Lei 9.656/98 e CDC), com armadilha plantada no
+<strong>pedido alternativo de custeio integral</strong>, que o resumo
+apressado corta e o magistrado precisa para despachar.</p>
+<p data-k="gr122"><strong>Armadilha da turma:</strong> <em>“conferir só a forma do
+resumo (se ficou bem escrito, claro, organizado) e não o conteúdo linha
+a linha contra a peça original.”</em></p>
+<p data-k="gr123"><strong>Confira:</strong> MV3.2 — resumo bem escrito é garantia de
+resumo correto?</p>
+<p data-k="gr124"><strong>Leve:</strong> fluência não é fidelidade também no resumo:
+confira frase a frase o que importa.</p>
+<p data-k="gr125"><strong>Ponte →</strong> fim do Turno 1. TE5: resumir uma peça real e
+curta da própria rotina, anonimizada antes.</p>
+<p data-k="gr126"><strong>Prática:</strong> EX3.1 — Resumir uma peça e conferir contra
+o original (40 min).</p>
+<hr />
+<h3 data-k="gr127" id="encontro-3-turno-2">Encontro 3 · Turno 2</h3>
+<h3 data-k="gr128" id="a23-aula-3-de-7-minutas-e-despachos-40-min">a23 · Aula 3 de 7 ·
+Minutas e despachos (~40 min)</h3>
+<p data-k="gr129"><strong>No slide:</strong> redigir despachos de mero expediente;
+rascunhar decisões simples; reaproveitar modelos da vara; conteúdo e
+assinatura são sempre seus; <strong>no TJCE, o SARA (AURI) gera
+pré-minutas com o seu prompt — as 6 etapas e a revisão humana valem lá
+dentro.</strong></p>
+<p data-k="gr130"><strong>Desenvolva assim:</strong> gerar minuta de <strong>despacho
+saneador</strong> com o prompt-mestre M3; revisão e assinatura sempre
+humanas.</p>
+<p data-k="gr131"><strong>Gancho local — o mais importante do curso:</strong> o SARA
+gera pré-minutas a partir das peças, com prompt padrão <strong>ou do
+usuário</strong>. O curso é o que separa quem usa o SARA no piloto
+automático de quem o dirige — a conferência ensinada aqui é a revisão
+humana que a <strong>Portaria TJCE 153/2026</strong> exige. Não abrevie
+esta fala.</p>
+<p data-k="gr132"><strong>Confira:</strong> MV3.3 — minuta impecável na forma pode
+seguir direto para assinatura?</p>
+<p data-k="gr133"><strong>Leve:</strong> rascunho é da IA; a decisão e a assinatura são
+suas.</p>
+<p data-k="gr134"><strong>Ponte →</strong> e a jurisprudência que a IA cita?</p>
+<hr />
+<h3 data-k="gr135" id="a24-aula-4-de-7-pesquisa-de-jurisprudência-40-min">a24 · Aula 4
+de 7 · Pesquisa de jurisprudência (~40 min)</h3>
+<p data-k="gr136"><strong>No slide:</strong> acha e resume precedentes; atenção: pode
+inventar julgados; confira na fonte; <strong>no TJCE: Gestão de Acervo
+(busca semântica no PJe) e PRECEDENTES — nada dispensa a fonte
+oficial.</strong></p>
+<p data-k="gr137"><strong>Desenvolva assim:</strong> como a IA inventa julgados com
+aparência perfeita.</p>
+<p data-k="gr138"><strong>Gancho local:</strong> Gestão de Acervo busca por texto ou
+documento anexado; PRECEDENTES recomenda temas repetitivos. Formular bem
+a busca é a mesma competência do prompt.</p>
+<p data-k="gr139"><strong>Armadilha da turma:</strong> <em>“o julgado parece formatado
+direito, então deve existir.”</em></p>
+<p data-k="gr140"><strong>Confira:</strong> MV3.4 — número, relator e data corretos
+bastam para citar?</p>
+<p data-k="gr141"><strong>Leve:</strong> número e formatação corretos não provam que o
+julgado existe — conferir na fonte oficial (TJCE, STJ).</p>
+<p data-k="gr142"><strong>Ponte →</strong> e como saber se a minuta seguiu o padrão da
+Vara?</p>
+<p data-k="gr143"><strong>Prática:</strong> EF3 — Jurisprudência inventada (40 min):
+decisões fabricadas de propósito (relatores inexistentes) e uma súmula
+real que ainda exige conferir se <strong>se aplica</strong> ao caso.</p>
+<hr />
+<h3 data-k="gr144" id="a25-aula-5-de-7-comparar-e-conferir-40-min">a25 · Aula 5 de 7 ·
+Comparar e conferir (~40 min)</h3>
+<p data-k="gr145"><strong>No slide:</strong> cotejar minuta com modelo padrão; comparar
+versões; destacar divergências de risco.</p>
+<p data-k="gr146"><strong>Desenvolva assim:</strong> cotejar minuta gerada × modelo
+padrão com o prompt-mestre M5 — sobre um <strong>despacho
+saneador</strong>, a divergência mais grave plantada é a minuta mandar a
+parte adiantar custas/honorários <strong>contra</strong> a gratuidade da
+justiça já deferida na decisão da tutela de urgência.</p>
+<p data-k="gr147"><strong>Armadilha da turma:</strong> <em>“a minuta está bem escrita,
+então deve estar certa” — sem cotejar com o modelo e com o que já foi
+decidido nos autos, o erro mais grave passaria direto para a
+assinatura.</em></p>
+<p data-k="gr148"><strong>Confira:</strong> MV3.5 — a forma mais confiável de saber se
+a minuta se afastou do modelo.</p>
+<p data-k="gr149"><strong>Leve:</strong> “parecer certo” não é o mesmo que “seguir o
+padrão da Vara e o que já foi decidido”.</p>
+<p data-k="gr150"><strong>Ponte →</strong> fim do Encontro 3. TE6: começar a ficha do
+projeto integrador registrando o “antes” do caso-tipo escolhido.</p>
+<p data-k="gr151"><strong>Prática:</strong> EX3.2 — Minuta e comparação com o modelo
+padrão (30 min).</p>
+<hr />
+<h3 data-k="gr152" id="encontro-4-turno-1-4-h">Encontro 4 · Turno 1 (4 h)</h3>
+<h3 data-k="gr153" id="a26-aula-6-de-7-relatórios-e-organização-45-min">a26 · Aula 6 de
+7 · Relatórios e organização (~45 min)</h3>
+<p data-k="gr154"><strong>No slide:</strong> montar relatórios de acervo/produtividade;
+organizar pendências e prazos; resumir para a chefia; transformar listas
+em painéis.</p>
+<p data-k="gr155"><strong>Desenvolva assim:</strong> estruturar anotações soltas sem
+deixar a IA preencher lacuna com invenção.</p>
+<p data-k="gr156"><strong>Armadilha da turma:</strong> <em>“aceitar a tabela pronta sem
+contar se as 14 linhas batem com as 14 anotações do texto
+original.”</em></p>
+<p data-k="gr157"><strong>Confira:</strong> MV3.6 — o que instruir para não receber
+dado inventado?</p>
+<p data-k="gr158"><strong>Leve:</strong> peça “não informado” no lugar de invenção e
+confira a tabela contra as anotações.</p>
+<p data-k="gr159"><strong>Ponte →</strong> e quando é o mesmo modelo aplicado a muitos
+casos?</p>
+<p data-k="gr160"><strong>Prática:</strong> EX3.3 — Transformar anotações soltas em
+relatório (45 min).</p>
+<hr />
+<h3 data-k="gr161" id="a27-aula-7-de-7-modelos-e-trabalho-em-lote-45-min">a27 · Aula 7
+de 7 · Modelos e trabalho em lote (~45 min)</h3>
+<p data-k="gr162"><strong>No slide:</strong> padronizar tarefas repetitivas; gerar
+lotes; criar checklists reutilizáveis; liberar tempo para o que exige
+análise.</p>
+<p data-k="gr163"><strong>Desenvolva assim:</strong> demonstração E2 (Banco) — gerar
+lote a partir de tabela, <strong>anonimizando antes</strong>.</p>
+<p data-k="gr164"><strong>Confira:</strong> MV3.7 — a conferência do lote gerado.</p>
+<p data-k="gr165"><strong>Leve:</strong> anonimizar antes de gerar em lote não é etapa
+opcional.</p>
+<p data-k="gr166"><strong>Ponte →</strong> agora, tudo junto no caso-tipo — Projeto
+Integrador.</p>
+<hr />
+<h3 data-k="gr167" id="projeto-integrador-pi-90-min">Projeto Integrador — PI (~90
+min)</h3>
+<p data-k="gr168"><strong>O que é:</strong> individualmente, o participante resolve
+ponta a ponta um <strong>caso-tipo de Vara Cível</strong> entregue pelo
+instrutor (triar, resumir, minutar, organizar), com apoio da IA. Quem
+tiver rotina própria equivalente pode usá-la, sem dado
+identificável.</p>
+<p data-k="gr169"><strong>Passo obrigatório:</strong> registrar o
+<strong>“antes”</strong> — conforme o caso-tipo — <strong>antes</strong>
+de aplicar qualquer prompt.</p>
+<p data-k="gr170"><strong>Entrega do instrutor:</strong> distribuir os casos-tipo ao
+fim do Encontro 3, junto da ficha do projeto — sem esse insumo a TE6 não
+tem sobre o que trabalhar.</p>
+<p data-k="gr171"><strong>Armadilha da turma:</strong> <em>“pular o registro do antes e
+tentar reconstituí-lo de memória na hora da apresentação” — o número
+vira opinião, não evidência.</em></p>
+<p data-k="gr172"><strong>Produto:</strong> ficha preenchida + apresentação de até 5
+min (antes × depois), com pelo menos um prompt-mestre aplicado e
+conferido, e um risco de sigilo tratado.</p>
+<p data-k="gr173"><strong>Avaliação:</strong> Rubrica do Projeto Integrador v2 (7
+dimensões, 4 níveis).</p>
+<hr />
+<h2 data-k="gr174" id="módulo-4-ética-lgpd-e-governança-2-h-encontro-4-turno-2">Módulo
+4 — Ética, LGPD e governança · 2 h · Encontro 4 · Turno 2</h2>
+<p data-k="gr175">Módulo curto e denso: os exercícios cabem dentro dos próprios blocos.
+<strong>Conteúdo atualizado em 2026-07</strong> (citações da Res. 615
+conferidas; blocos novos de LAI e camada normativa própria — ver anexo
+técnico se precisar da fonte exata).</p>
+<h3 data-k="gr176" id="a41-aula-1-de-5-governança-e-supervisão-humana-25-min">a41 ·
+Aula 1 de 5 · Governança e supervisão humana (~25 min)</h3>
+<p data-k="gr177"><strong>No slide:</strong> a IA é apoio, a decisão é sempre humana;
+princípios; registre o uso; cada tribunal define o autorizado;
+<strong>na casa do aluno: Portaria TJCE 153/2026 — cadastro, trilha de
+auditoria e revisão humana das decisões automatizadas</strong>;
+<strong>IA da internet — art. 19, § 3º, condiciona a 5 requisitos; este
+curso cumpre o 1º.</strong></p>
+<p data-k="gr178"><strong>Desenvolva assim:</strong> a supervisão humana é obrigatória;
+a governança transforma a boa ideia da ponta em solução homologada.
+Diga: fazer este curso é cumprir uma condição normativa do uso que já
+fazem (art. 19, § 3º, I).</p>
+<p data-k="gr179"><strong>Gancho local:</strong> a regra já aterrissou na casa do aluno
+— Portaria TJCE 153/2026. O checklist do Módulo 2 é exatamente essa
+supervisão.</p>
+<p data-k="gr180"><strong>Confira:</strong> MV4.1 — a Resolução permite que a IA
+finalize ou assine um despacho sozinha? Se errar, retome a fala-chave e
+deixe claro que “apoio” nunca significa “decisão automática”.</p>
+<p data-k="gr181"><strong>Nota do instrutor (3 min, ao fechar este bloco):</strong>
+três números do TCU — iLGPD médio <strong>44%</strong>; pior dimensão,
+compartilhamento com terceiros, <strong>22%</strong>;
+<strong>43,93%</strong> nem avaliaram se compartilham dados, só
+<strong>9,3%</strong> avaliaram risco em nuvem. Colar trecho de processo
+em IA de mercado <strong>é</strong> compartilhar dado pessoal com
+terceiro, em nuvem. <strong>Advertência: os números são do conjunto de
+387 organizações federais auditadas — a auditoria nem é sobre tribunais
+estaduais. Nunca atribua percentual a um tribunal
+específico.</strong></p>
+<p data-k="gr182"><strong>Leve:</strong> “apoio” nunca significa “decisão
+automática”.</p>
+<p data-k="gr183"><strong>Ponte →</strong> então o que pode e o que não pode sair da
+unidade?</p>
+<hr />
+<h3 data-k="gr184" id="a42-aula-2-de-5-o-que-pode-ir-para-a-ia-sigilo-15-min">a42 ·
+Aula 2 de 5 · O que pode ir para a IA — sigilo (~15 min)</h3>
+<p data-k="gr185"><strong>No slide:</strong> pode — textos públicos, normas, peças sem
+dados pessoais; não pode — segredo de justiça e dados sensíveis; use só
+ferramentas homologadas; <strong>o semáforo decide o que vai para a
+ferramenta — para quem pede no balcão vale outra régua, a LAI: processo
+público pode ter informação restrita. Tarje, em vez de negar
+tudo.</strong></p>
+<p data-k="gr186"><strong>Desenvolva assim:</strong> a regra dura — sigilo “sim”
+<strong>ou</strong> “desconhecido” é bloqueio, sem exceção. A Resolução
+(art. 19, § 3º, IV) admite exceção para dado anonimizado na origem; a
+regra da casa é mais restritiva por opção deliberada de segurança.</p>
+<p data-k="gr187"><strong>Gancho local:</strong> anonimização é prática viva no
+Tribunal — o <strong>CAMALEÃO</strong> (AURI) anonimiza imagem e voz em
+audiência no Teams por determinação judicial. Para dado processual, a
+via preferencial são as ferramentas internas; LLM externa só com insumo
+fictício ou anonimizado, nunca sob sigilo.</p>
+<p data-k="gr188"><strong>Armadilha da turma:</strong> tratar “não achei sigilo
+declarado” como sinônimo de “não é sigiloso”.</p>
+<p data-k="gr189"><strong>Confira:</strong> MV4.2 — na dúvida sobre segredo de justiça,
+pode colar e verificar depois? (Não.)</p>
+<p data-k="gr190"><strong>Nova régua (LAI):</strong> aponte a Ficha 6 do Manual do
+Aluno — “Duas saídas, duas perguntas”. Processo público pode conter
+informação de acesso restrito (LAI, art. 31, § 1º, I); a solução é
+tarjar, não negar tudo nem entregar tudo.</p>
+<p data-k="gr191"><strong>Leve:</strong> ausência de informação sobre sigilo não é
+ausência de sigilo.</p>
+<p data-k="gr192"><strong>Ponte →</strong> e depois de confirmar que pode enviar, o que
+ainda precisa ser feito antes?</p>
+<hr />
+<h3 data-k="gr193" id="a43-aula-3-de-5-lgpd-e-anonimização-15-min">a43 · Aula 3 de 5 ·
+LGPD e anonimização (~15 min)</h3>
+<p data-k="gr194"><strong>No slide:</strong> substitua nomes/CPF por marcadores; tire
+processo/endereço/datas; anonimizar protege o jurisdicionado e você;
+<strong>regra do mínimo — dado público não é dado liberado para qualquer
+uso (art. 7º, § 3º).</strong></p>
+<p data-k="gr195"><strong>Desenvolva assim:</strong> o quadro de anonimização entra
+<strong>depois</strong> que o envio já é permitido pelo semáforo.
+Objeção comum: “o processo é público, então não há problema” — responda
+com o art. 7º, § 3º: dado publicamente acessível não autoriza reuso para
+finalidade diversa.</p>
+<p data-k="gr196"><strong>Armadilha da turma (mudou em 2026-07 — não é a
+antiga):</strong> no EX4.1, o <strong>caso 2</strong> (“peça pública já
+publicada no PJe”) tem gabarito <strong>“não pode sem
+anonimizar”</strong>, não “pode”. Se aparecer “pode” citando a
+publicidade, é a deixa perfeita para a discussão.</p>
+<p data-k="gr197"><strong>Leve:</strong> anonimizar protege o jurisdicionado e protege
+você.</p>
+<p data-k="gr198"><strong>Ponte →</strong> e quando a própria classificação da IA é
+injusta?</p>
+<p data-k="gr199"><strong>Prática:</strong> EX4.1 — Semáforo de sigilo (25 min): oito
+casos fictícios, quatro respostas possíveis.</p>
+<hr />
+<h3 data-k="gr200" id="a44-aula-4-de-5-vieses-algorítmicos-12-min">a44 · Aula 4 de 5 ·
+Vieses algorítmicos (~12 min)</h3>
+<p data-k="gr201"><strong>No slide:</strong> a IA pode tratar casos parecidos de forma
+desigual; pode refletir preconceitos dos dados de treino; casos iguais
+merecem resposta igual.</p>
+<p data-k="gr202"><strong>Desenvolva assim:</strong> exposição breve, seguida direto da
+prática.</p>
+<p data-k="gr203"><strong>Armadilha da turma:</strong> aceitar a classificação porque
+“a IA deve ter visto algo que eu não vi” — diga: “a IA não viu mais que
+você; ela só reproduziu um padrão de texto, e o padrão pode estar
+errado.”</p>
+<p data-k="gr204"><strong>Confira:</strong> MV4.3 — uma boa prática de segurança válida
+mesmo com o texto já anonimizado (ver a45).</p>
+<p data-k="gr205"><strong>Leve:</strong> anonimizar o conteúdo não anonimiza o
+comportamento de quem usa a ferramenta.</p>
+<p data-k="gr206"><strong>Ponte →</strong> e como se proteger de quem usa a própria IA
+contra você?</p>
+<p data-k="gr207"><strong>Prática:</strong> EF4 — Viés na triagem (20 min): dois
+pedidos com a mesma urgência, classificados desigualmente por
+formalidade da petição e presença de advogado. Fecha com a 4ª pergunta
+do checklist do Módulo 2. Se sobrar tempo: discussão opcional sobre
+áudio “da chefia da unidade” pedindo liberação urgente de documento fora
+do sistema.</p>
+<hr />
+<h3 data-k="gr208" id="a45-aula-5-de-5-boas-práticas-de-segurança-13-min">a45 · Aula 5
+de 5 · Boas práticas de segurança (~13 min)</h3>
+<p data-k="gr209"><strong>No slide:</strong> use só ferramentas homologadas; nunca cole
+credenciais; não compartilhe conta; <strong>a IA também engana —
+phishing, deepfake; pedido urgente fora do canal? Pare e
+confirme.</strong></p>
+<p data-k="gr210"><strong>Desenvolva assim:</strong> a segurança tem duas direções —
+usar a IA com cuidado, e reconhecer quando a IA é usada
+<strong>contra</strong> você. O padrão do golpe não muda; a defesa
+também não: parar e confirmar pelo canal institucional.</p>
+<p data-k="gr211"><strong>Confira:</strong> MV4.3 (mesma da a44).</p>
+<p data-k="gr212"><strong>Leve:</strong> a mesma cautela vale para quem tenta enganar
+você com IA.</p>
+<p data-k="gr213"><strong>Ponte →</strong> e se a ideia for boa demais para morrer com
+quem teve?</p>
+<hr />
+<h3 data-k="gr214" id="fechamento-do-curso-mv4.4">Fechamento do curso — MV4.4</h3>
+<p data-k="gr215"><strong>Confira:</strong> o colega que achou um bom uso e já aplica
+por conta própria está certo? (Não.)</p>
+<p data-k="gr216"><strong>Leve:</strong> a boa ideia vai pela via institucional
+(chefia, área de TI e inovação do Tribunal, repositório de prompts) para
+virar solução homologada.</p>
+<p data-k="gr217"><strong>Gancho local — o mapa da mina (feche com isto):</strong> três
+caminhos concretos da casa do aluno — (1) o <strong>AURI</strong> se
+acessa com matrícula e senha de rede (dúvida de acesso → central de TI);
+(2) tarefa repetitiva e bem descrita que nenhum robô cobre vira
+<strong>pedido de robô novo por SEI</strong> (descrever passos é a mesma
+habilidade do prompt); (3) a <strong>Ficha 5 do Manual do Aluno</strong>
+é o mapa completo, com o Hub Digital como fonte viva.</p>
+<hr />
+<h3 data-k="gr218" id="horizonte-sistemas-agênticos-a18-a19-a20-não-avaliado">Horizonte
+— sistemas agênticos (a18, a19, a20) — não avaliado</h3>
+<p data-k="gr219">Fecha o curso apontando o que vem depois. <strong>Deliberadamente sem
+objetivo avaliável.</strong> Sem armadilha, sem MV.</p>
+<hr />
+<h2 data-k="gr220"
+id="referências-rápidas-se-precisar-de-mais-que-este-cartão">Referências
+rápidas (se precisar de mais que este cartão)</h2>
+<ul>
+<li data-k="gr221"><strong>Enunciado completo, insumo e gabarito de cada
+EX/EF/MV:</strong>
+<code>tjce/caderno-exercicios-instrutor-tjce-v1.md</code></li>
+<li data-k="gr222"><strong>Método, objetivos de aprendizagem e mapa de
+amarração:</strong>
+<code>tjce/guia-metodologico-curso-tjce-v1.md</code></li>
+<li data-k="gr223"><strong>Citação normativa exata (Res. 615, LGPD, LAI, camada TJCE)
+conferida na fonte:</strong>
+<code>anexo-tecnico-normativo-lgpd-lai-615.md</code></li>
+<li data-k="gr224"><strong>Ficha “Duas saídas, duas perguntas” (LAI) na
+íntegra:</strong> Ficha 6 do
+<code>tjce/manual-do-aluno-tjce-v1.md</code></li>
+<li data-k="gr225"><strong>Ficha 5 “As ferramentas de IA da sua casa” (AURI, Clóvis,
+BERNA, MIDAS, SARA, CAMALEÃO):</strong> mesmo manual, Ficha 5</li>
+</ul>
+  </section>
+
+  <div class="rodape">
+    <p>Documento do instrutor. Todos os exemplos citados neste material são fictícios. A
+    supervisão humana sobre qualquer saída de inteligência artificial é obrigatória
+    (Resolução CNJ 615/2025).</p>
+  </div>
+</main>
+</div>
+
+<div class="barra">
+  <button class="btn" id="b-edit">Editar</button>
+  <button class="btn" id="b-baixar">Baixar HTML</button>
+  <button class="btn" id="b-restaurar">Restaurar original</button>
+</div>
+
+<script>
+(function () {
+  var CHAVE = 'servidor-mais-ia:guia-rapido-tjce';
+  var alvos = function () { return document.querySelectorAll('[data-k]'); };
+
+  function aplicarSalvos() {
+    var d = {};
+    try { d = JSON.parse(localStorage.getItem(CHAVE) || '{}'); } catch (e) { return; }
+    alvos().forEach(function (el) {
+      if (d[el.dataset.k] !== undefined) el.innerHTML = d[el.dataset.k];
+    });
+  }
+
+  function salvar() {
+    var d = {};
+    alvos().forEach(function (el) { d[el.dataset.k] = el.innerHTML; });
+    localStorage.setItem(CHAVE, JSON.stringify(d));
+  }
+
+  var editando = false;
+  document.getElementById('b-edit').addEventListener('click', function () {
+    editando = !editando;
+    this.classList.toggle('on', editando);
+    this.textContent = editando ? 'Editando (clique para sair)' : 'Editar';
+    alvos().forEach(function (el) {
+      el.contentEditable = editando ? 'true' : 'false';
+      if (!editando) el.removeAttribute('contenteditable');
+    });
+    if (!editando) salvar();
+  });
+
+  document.addEventListener('input', function (e) {
+    if (editando && e.target.closest('[data-k]')) salvar();
+  });
+
+  document.getElementById('b-baixar').addEventListener('click', function () {
+    salvar();
+    alvos().forEach(function (el) { el.removeAttribute('contenteditable'); });
+    var doc = '<!doctype html>\n' + document.documentElement.outerHTML;
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([doc], { type: 'text/html' }));
+    a.download = 'guia-rapido-instrutor-tjce.html';
+    a.click();
+  });
+
+  document.getElementById('b-restaurar').addEventListener('click', function () {
+    if (!confirm('Descartar as edições feitas neste navegador e recarregar a versão original?')) return;
+    localStorage.removeItem(CHAVE);
+    location.reload();
+  });
+
+  aplicarSalvos();
+})();
+</script>
+</body>
+</html>
