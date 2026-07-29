@@ -1,0 +1,8 @@
+
+# backups manuais: o historico do git assume essa funcao
+*.bak
+*.bak-*
+*.bak.*
+*.old
+*.orig
+*~
