@@ -303,9 +303,11 @@ inteiro (200 páginas) num prompt, mesmo quando a ferramenta aceita o
 arquivo completo?</p>
 <p data-k="i59"><strong>Resposta esperada (uma linha):</strong> Por dois motivos: a
 janela de contexto (o “espaço” que a IA consegue processar de uma vez)
-fica cheia de informação irrelevante, o que piora a resposta e custa
-mais; e por sigilo — quanto menos dado se expõe, menor o risco. O certo
-é recortar só o trecho necessário à tarefa.</p>
+fica cheia de informação irrelevante, o que dilui a atenção do modelo e
+piora a resposta; e por sigilo — quanto menos dado se expõe, menor o
+risco. O certo é recortar só o trecho necessário à tarefa — e incluir de
+propósito o que ela exige: o núcleo do caso e a referência estável da
+unidade (modelo, critério, glossário).</p>
 <p data-k="i60"><strong>Se a turma errar:</strong> mostre de novo a Aula 3 do Módulo
 1 (Contexto e tokens) e o contraste entre “3 páginas relevantes” e
 “processo completo colado”.</p>
@@ -395,10 +397,13 @@ Vara/Gabinete):
 - resumir uma petição inicial em cinco linhas para o gabinete decidir a prioridade;
 - separar, numa lista de intimações, quais têm prazo em aberto e quais já venceram.</code></pre>
 <p data-k="i82"><strong>Passo a passo do aluno:</strong> 1. Escolha a tarefa (a
-própria ou uma das sugeridas). 2. Preencha as 6 etapas no roteiro, uma
-frase por etapa. 3. Releia e verifique se alguém de fora entenderia o
-que você quer sem perguntar nada a mais. 4. Se houver tempo, cole o
-prompt na ferramenta de IA e veja a resposta.</p>
+própria ou uma das sugeridas). 2. Passo zero do contexto (5 min): liste
+os insumos da tarefa e classifique cada um em <strong>incluir, resumir
+ou excluir</strong>, justificando cada exclusão por qualidade ou por
+sigilo. 3. Preencha as 6 etapas no roteiro, uma frase por etapa. 4.
+Releia e verifique se alguém de fora entenderia o que você quer sem
+perguntar nada a mais. 5. Se houver tempo, cole o prompt na ferramenta
+de IA e veja a resposta.</p>
 <p data-k="i83"><strong>Produto esperado:</strong> um prompt completo, com as 6
 etapas preenchidas, pronto para ser testado na ferramenta.</p>
 <p data-k="i84"><strong>Gabarito comentado (instrutor):</strong> uma boa resposta tem
@@ -523,7 +528,11 @@ com pedido, fundamento e data), fixa um critério de qualidade (“não
 invente; se faltar dado, escreva ‘não consta’”) e um formato (lista de
 até 5 itens). A resposta prevista deve trazer: menção ao pedido e à data
 (fictícios) constantes na petição, o fundamento citado no texto, e
-ausência de mistura com o despacho anterior.</p>
+ausência de mistura com o despacho anterior. A reescrita exemplar também
+organiza o insumo, não só o recorta: uma instrução rotulada e cada
+documento separado e identificado (os marcadores “INSTRUÇÃO:” e
+“DOCUMENTO:” da Aula 6), com indicação do que ficou de fora e por
+quê.</p>
 <p data-k="i106"><strong>Erro típico a nomear em voz alta:</strong> “o prompt raso
 (‘resuma isso pra mim’) produz resposta genérica, que serviria para
 qualquer processo do mesmo tipo — e a turma tende a culpar a ferramenta,
@@ -1388,7 +1397,9 @@ do Juízo.</p></li>
 <li data-k="i308"><p data-k="i309">Intimem-se as partes.</p></li>
 </ol>
 </blockquote>
-<p data-k="i310"><strong>Modelo padrão da Vara (institucional, fictício):</strong></p>
+<p data-k="i310"><strong>Modelo padrão da Vara (institucional, fictício) — repare:
+este é um documento de referência estável da unidade. Vale mantê-lo
+salvo junto ao prompt M5, em vez de recolá-lo a cada uso:</strong></p>
 <blockquote data-k="i311">
 <p data-k="i312">Vistos, etc.</p>
 <ol>
@@ -1661,8 +1672,11 @@ pronta sem contar se as 14 linhas batem com as 14 anotações do texto
 original.”</p>
 <p data-k="i424"><strong>Se sobrar tempo / se faltar tempo:</strong> Sobrando tempo,
 peça que o aluno adicione uma coluna de “prazo em dias corridos até a
-providência”. Faltando tempo, reduza o insumo para as primeiras 8
-anotações.</p>
+providência” — ou, para treinar conversa longa, peça três refinamentos
+sucessivos da mesma tabela e confira se a instrução “não invente / não
+informado” sobreviveu à última rodada; se derivou, o participante
+escreve a mensagem de recapitulação que reancora a conversa. Faltando
+tempo, reduza o insumo para as primeiras 8 anotações.</p>
 <hr />
 <h4 data-k="i425"
 id="bloco-3.7-modelos-e-trabalho-em-lote-módulo-3-aula-7-45-min-objetivo-oa3.7">Bloco
@@ -2067,8 +2081,13 @@ sigilo declarado” como sinônimo de “não é sigiloso” — o instrutor diz
 sigilo.”</p>
 <p data-k="i558"><strong>Se sobrar tempo / se faltar tempo:</strong> se sobrar, cada
 participante cria um nono caso da própria rotina (sem dado real) e leva
-à turma. Se faltar tempo, reduzir para os casos 1, 3, 5 e 8 (um de cada
-resposta) e resolver diretamente com a turma.</p>
+à turma; se a turma travar, proponha o nono caso pronto: “a ferramenta
+guarda o histórico das minhas conversas de trabalho — posso deixar a
+memória ligada?” (resposta: não sem decisão consciente e sem conferir a
+configuração; histórico de trabalho também é dado, e o art. 19, §3º,
+III, da Resolução 615 exige fornecedor proibido de usar seus dados para
+treinar o modelo). Se faltar tempo, reduzir para os casos 1, 3, 5 e 8
+(um de cada resposta) e resolver diretamente com a turma.</p>
 <p data-k="i559"><strong>Atenção ao caso 2 (mudança de gabarito na revisão de
 julho/2026):</strong> a resposta correta é “não pode sem anonimizar”,
 não “pode”. O critério binário “é público, então pode” é exatamente o
@@ -2118,16 +2137,18 @@ dia a dia da IA, válida mesmo quando o texto já está anonimizado.
 <strong>Resposta esperada (uma linha):</strong> Qualquer prática
 coerente — por exemplo: usar apenas a ferramenta homologada pela
 unidade; não reaproveitar a mesma conversa para casos diferentes sem
-necessidade; nunca colar senha ou credencial no prompt; encerrar a
-sessão em computador compartilhado; e, na direção inversa, desconfiar de
-um pedido urgente por áudio, vídeo ou e-mail fora do canal oficial,
-mesmo com voz ou assinatura conhecidas — a IA hoje reproduz isso com
-facilidade, e a defesa é sempre a mesma: parar e confirmar pelo canal
-institucional antes de agir. <strong>Se a turma errar:</strong> retomar
-a lista da Aula 5 do Módulo 4 (Segurança) e fechar com uma frase:
-anonimizar o conteúdo não anonimiza o comportamento de quem usa a
-ferramenta — e a mesma cautela vale para quem tenta enganar você com IA,
-não só para quem usa a IA.</p>
+necessidade (higiene de contexto: conversa nova para caso novo, porque
+uma resposta errada anterior contamina as seguintes — e conferir o que a
+ferramenta guarda de memória entre conversas); nunca colar senha ou
+credencial no prompt; encerrar a sessão em computador compartilhado; e,
+na direção inversa, desconfiar de um pedido urgente por áudio, vídeo ou
+e-mail fora do canal oficial, mesmo com voz ou assinatura conhecidas — a
+IA hoje reproduz isso com facilidade, e a defesa é sempre a mesma: parar
+e confirmar pelo canal institucional antes de agir. <strong>Se a turma
+errar:</strong> retomar a lista da Aula 5 do Módulo 4 (Segurança) e
+fechar com uma frase: anonimizar o conteúdo não anonimiza o
+comportamento de quem usa a ferramenta — e a mesma cautela vale para
+quem tenta enganar você com IA, não só para quem usa a IA.</p>
 <h4 data-k="i569" id="ef4-exercício-de-falha-viés-na-triagem">EF4 — Exercício de
 falha: viés na triagem</h4>
 <p data-k="i570"><strong>O que você vai treinar:</strong> reconhecer viés algorítmico
