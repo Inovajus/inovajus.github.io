@@ -683,8 +683,8 @@ function abertura(c) {
     '<div class="avisos">' +
     '<div class="aviso"><b>Não tem nota</b><span>Este teste não entra em nenhum critério de ' +
     'aprovação. Ele existe para o curso, não para avaliar você.</span></div>' +
-    '<div class="aviso"><b>Serve para calibrar a aula</b><span>Com ele o instrutor sabe onde a ' +
-    'turma já chega segura e onde precisa investir mais tempo.</span></div>' +
+    '<div class="aviso"><b>Serve para calibrar a aula</b><span>Com ele a aula já começa sabendo onde a ' +
+    'turma chega segura e onde precisa de mais tempo.</span></div>' +
     '<div class="aviso"><b>Responda sem consultar</b><span>Chutar é melhor do que pesquisar: o ' +
     'objetivo é medir o ponto de partida real. Leva de 15 a 20 minutos.</span></div>' +
     '</div>' +
@@ -757,7 +757,7 @@ function objetiva(c, q) {
 function abertas(c) {
   var b = elem("div", "bloco");
   b.appendChild(elem("h2", null, "Últimas duas"));
-  b.appendChild(elem("p", "obs", "Sem alternativas e sem gabarito. Uma ou duas frases bastam."));
+  b.appendChild(elem("p", "obs", "Sem alternativas e sem resposta certa pré-definida. Uma ou duas frases bastam."));
   ABERTAS.forEach(function (q, i) {
     var cx = elem("div", "campo-bloco");
     cx.appendChild(elem("label", "rot", q.rotulo));
