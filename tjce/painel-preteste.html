@@ -99,6 +99,16 @@ main{max-width:1020px;margin:0 auto;padding:26px clamp(14px,3vw,28px) 90px}
   border-radius:.75rem;padding:20px 22px}
 .fonte-dados h2{font-size:17px;margin-bottom:6px}
 .fonte-dados>p{color:var(--soft);font-size:14.5px;margin:0 0 16px}
+.modo{display:flex;gap:14px;align-items:flex-start;padding:16px 18px;margin:0 0 12px;
+  border:1px solid var(--card-bd);border-radius:.75rem;background:var(--recuo);transition:all .2s}
+.modo.sobre{border-color:var(--pri);background:var(--icon-bg);box-shadow:0 0 0 3px var(--glow-s)}
+.modo:focus-visible{border-color:var(--pri)}
+.modo-n{flex:0 0 auto;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;
+  background:var(--icon-bg);border:1px solid var(--icon-bd);color:var(--pri);font-weight:800;font-size:13px}
+.modo>div{flex:1}
+.modo b{display:block;font-size:14.5px;margin-bottom:3px}
+.modo p{margin:0 0 11px;font-size:13.5px;color:var(--softer);line-height:1.5}
+label.bt{display:inline-block}
 .linha-campo{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
 .linha-campo input{flex:1 1 340px;padding:11px 14px;border-radius:9999px;
   border:1px solid var(--card-bd);background:var(--recuo);color:var(--txt);
@@ -208,18 +218,40 @@ b.boa{color:var(--verde)} b.media{color:var(--ambar)} b.fraca{color:var(--vermel
 <main>
   <section class="fonte-dados">
     <h2>De onde vêm os dados</h2>
-    <p>Cole o endereço da <b>planilha de respostas</b> criada junto com o formulário. Ela precisa
-    estar compartilhada como <i>“qualquer pessoa com o link pode ver”</i> — o painel só lê, nunca
-    escreve. O endereço fica guardado neste navegador.</p>
-    <div class="linha-campo">
-      <input type="text" id="campo-id" spellcheck="false"
-             placeholder="https://docs.google.com/spreadsheets/d/…  ou só o ID">
-      <button type="button" class="bt primario" id="bt-carregar">Apurar</button>
+    <p>Duas maneiras, e a primeira é a recomendada porque <b>não exige publicar a planilha</b>.</p>
+
+    <div class="modo" id="zona-csv" tabindex="0">
+      <span class="modo-n">1</span>
+      <div>
+        <b>Arquivo de respostas (recomendado)</b>
+        <p>No Forms, aba <i>Respostas</i> → menu ⋮ → <i>Baixar respostas (.csv)</i>. Arraste o
+        arquivo aqui, escolha abaixo, ou cole o conteúdo com este quadro em foco.</p>
+        <label class="bt" for="arq-csv">Escolher arquivo .csv</label>
+        <input type="file" id="arq-csv" accept=".csv,text/csv" hidden>
+      </div>
+    </div>
+
+    <div class="modo">
+      <span class="modo-n">2</span>
+      <div>
+        <b>Planilha ao vivo</b>
+        <p>Atualiza sozinha durante a aplicação, mas exige a planilha compartilhada como
+        <i>“qualquer pessoa com o link pode ver”</i>. O painel só lê, nunca escreve.</p>
+        <div class="linha-campo">
+          <input type="text" id="campo-id" spellcheck="false"
+                 placeholder="https://docs.google.com/spreadsheets/d/…  ou só o ID">
+          <button type="button" class="bt primario" id="bt-carregar">Apurar</button>
+        </div>
+      </div>
+    </div>
+
+    <p class="estado" id="estado"></p>
+    <div class="linha-campo" style="margin-top:6px">
       <button type="button" class="bt" id="bt-exemplo">Ver com dados de exemplo</button>
     </div>
-    <p class="estado" id="estado"></p>
-    <p class="dica-lgpd">O pré-teste não coleta nome, matrícula nem e-mail. Se a turma for pequena,
-    lembre que lotação e função podem identificar — trate a planilha como material interno.</p>
+    <p class="dica-lgpd">O pré-teste não coleta nome, matrícula nem e-mail. Ainda assim, lotação e
+    função podem identificar numa turma pequena — por isso a via do arquivo é preferível: nada
+    precisa ficar público, e o cálculo acontece só no seu navegador.</p>
   </section>
 
   <div id="vazio"></div>
@@ -526,6 +558,40 @@ function buscaPlanilha(id) {
   });
 }
 
+/* ---------------------------------------------------------------- CSV --- */
+/* O Forms exporta as respostas em CSV. Ler o arquivo evita ter de publicar a
+   planilha como "qualquer pessoa com o link pode ver" — o que é uma exigência
+   chata e, num teste com lotação e função, uma exposição desnecessária. */
+function leCSV(texto) {
+  var linhas = [], campo = "", linha = [], aspas = false;
+  texto = texto.replace(/^﻿/, "");                    // BOM do Excel
+  for (var i = 0; i < texto.length; i++) {
+    var c = texto[i];
+    if (aspas) {
+      if (c === '"') {
+        if (texto[i + 1] === '"') { campo += '"'; i++; } else { aspas = false; }
+      } else { campo += c; }
+    } else if (c === '"') { aspas = true; }
+    else if (c === ",") { linha.push(campo); campo = ""; }
+    else if (c === "\r") { /* ignora */ }
+    else if (c === "\n") { linha.push(campo); linhas.push(linha); linha = []; campo = ""; }
+    else { campo += c; }
+  }
+  if (campo !== "" || linha.length) { linha.push(campo); linhas.push(linha); }
+  return linhas.filter(function (l) { return l.some(function (v) { return String(v).trim(); }); });
+}
+
+function tabelaDoCSV(texto) {
+  var l = leCSV(texto);
+  if (l.length < 2) throw new Error("o arquivo não tem cabeçalho e respostas");
+  return {
+    cols: l[0].map(function (h) { return { label: h }; }),
+    rows: l.slice(1).map(function (r) {
+      return { c: r.map(function (v) { return { v: v }; }) };
+    })
+  };
+}
+
 /* --------------------------------------------------------- apuração --- */
 function acha(cols, teste) {
   for (var i = 0; i < cols.length; i++) {
@@ -750,6 +816,51 @@ $("#bt-carregar").addEventListener("click", function () {
     estado("Não consegui ler: " + e.message + ". Confira se a planilha está compartilhada como " +
            "“qualquer pessoa com o link pode ver”.", "erro");
   });
+});
+
+function apuraTabela(tabela, fonte) {
+  var a = apura(tabela);
+  if (!a.n) { estado("Li o arquivo, mas não encontrei nenhuma resposta.", "erro"); return; }
+  estado("", "");
+  $("#painel").classList.remove("exemplo");
+  desenha(a, fonte);
+}
+
+/* CSV: arquivo escolhido, arrastado, ou colado */
+function comTexto(txt, nome) {
+  try {
+    apuraTabela(tabelaDoCSV(txt), (nome || "arquivo CSV"));
+  } catch (e) {
+    estado("Não consegui ler o CSV: " + e.message, "erro");
+  }
+}
+
+$("#arq-csv").addEventListener("change", function (ev) {
+  var f = ev.target.files && ev.target.files[0];
+  if (!f) return;
+  var fr = new FileReader();
+  fr.onload = function () { comTexto(String(fr.result), f.name); };
+  fr.onerror = function () { estado("Não consegui abrir o arquivo.", "erro"); };
+  fr.readAsText(f, "utf-8");
+});
+
+var zona = $("#zona-csv");
+["dragenter", "dragover"].forEach(function (e) {
+  zona.addEventListener(e, function (ev) { ev.preventDefault(); zona.classList.add("sobre"); });
+});
+["dragleave", "drop"].forEach(function (e) {
+  zona.addEventListener(e, function (ev) { ev.preventDefault(); zona.classList.remove("sobre"); });
+});
+zona.addEventListener("drop", function (ev) {
+  var f = ev.dataTransfer.files && ev.dataTransfer.files[0];
+  if (!f) return;
+  var fr = new FileReader();
+  fr.onload = function () { comTexto(String(fr.result), f.name); };
+  fr.readAsText(f, "utf-8");
+});
+zona.addEventListener("paste", function (ev) {
+  var t = (ev.clipboardData || window.clipboardData).getData("text");
+  if (t && t.indexOf(",") > 0) { ev.preventDefault(); comTexto(t, "conteúdo colado"); }
 });
 
 $("#bt-exemplo").addEventListener("click", function () {
