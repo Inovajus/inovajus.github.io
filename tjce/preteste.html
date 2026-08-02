@@ -280,10 +280,7 @@ var PERFIL = [
 var QUESTOES = [
  {
   "n": 1,
-  "oa": "OA1.1",
-  "modulo": "Módulo 1",
   "enunciado": "Um servidor pede à IA que explique, em linguagem simples, o rito de um mandado de segurança em um caso fictício, colando o texto da petição inicial. A resposta sai bem escrita e menciona um prazo específico que não constava do texto colado. O que explica essa informação a mais, mesmo com o texto correto?",
-  "correta": "c",
   "alts": [
    {
     "l": "a",
@@ -301,20 +298,11 @@ var QUESTOES = [
     "l": "d",
     "t": "O texto colado estava incompleto e a IA identificou a falha, avisando o usuário sobre isso."
    }
-  ],
-  "resumo": "A IA gera texto por previsão estatística de palavra, não por consulta a uma fonte.",
-  "porques": {
-   "a": "atribui à IA uma intenção consciente de \"ajudar\" que ela não tem — é o erro de tratar a IA como um agente que raciocina sobre a própria lacuna.",
-   "b": "descreve um modelo de \"memória permanente de outros processos\" que não corresponde a como a ferramenta funciona numa conversa isolada; reforça o medo equivocado de que dados de um processo \"vazam\" automaticamente para outro atendimento.",
-   "d": "inverte o problema — descreve um comportamento de alerta que a IA não teve; a IA não avisou nada, apenas completou a lacuna sem sinalizar."
-  }
+  ]
  },
  {
   "n": 2,
-  "oa": "OA1.2",
-  "modulo": "Módulo 1",
   "enunciado": "Numa mesma semana, a Vara fictícia recebe três demandas: (1) organizar a triagem de 50 petições recém-protocoladas no PJe 2.x; (2) redigir um relatório com dados extraídos de uma tabela; (3) decidir se defere ou não um pedido de tutela de urgência. Qual afirmação descreve corretamente o papel da IA nessas três tarefas?",
-  "correta": "a",
   "alts": [
    {
     "l": "a",
@@ -332,20 +320,11 @@ var QUESTOES = [
     "l": "d",
     "t": "Nenhuma das três tarefas deve envolver IA, por fazerem parte de processo judicial."
    }
-  ],
-  "resumo": "Tarefas mecânicas de organização podem ser apoiadas; o mérito da tutela de urgência é decisão humana.",
-  "porques": {
-   "b": "trata \"produzir texto\" como sinônimo de \"poder ser decidido pela IA\", confundindo forma da tarefa com natureza da tarefa (mecânica × decisória).",
-   "c": "inverte o critério do curso — quanto mais decisória e mais urgente a tarefa, maior a necessidade de decisão humana, não menor.",
-   "d": "é a postura excessivamente conservadora que o curso também corrige — nem toda tarefa da rotina judicial exige exclusão total da IA; tarefas de apoio mecânico podem se beneficiar dela."
-  }
+  ]
  },
  {
   "n": 3,
-  "oa": "OA1.4",
-  "modulo": "Módulo 1",
   "enunciado": "Faltam 20 minutos para uma audiência e o servidor precisa que a IA resuma um processo fictício de 300 páginas. Qual é a prática mais adequada?",
-  "correta": "d",
   "alts": [
    {
     "l": "a",
@@ -363,20 +342,11 @@ var QUESTOES = [
     "l": "d",
     "t": "Selecionar e colar apenas as peças relevantes à audiência (petição inicial, última decisão, manifestações recentes), evitando expor dados de terceiros que não são necessários à tarefa."
    }
-  ],
-  "resumo": "Recortar o essencial preserva a janela de contexto e reduz exposição de dado.",
-  "porques": {
-   "a": "reproduz a crença comum de que \"mais contexto = resposta melhor\", ignorando que excesso de informação irrelevante piora a resposta e amplia o risco de exposição de dado.",
-   "b": "é logisticamente inviável no prazo (20 minutos) e não resolve o problema de fundo — o servidor continuaria sem saber o que recortar, só transferindo o trabalho de leitura para si.",
-   "c": "descreve um uso ingênuo de conversas separadas, sem nenhuma curadoria prévia, que não corresponde a como o recorte de contexto deve ser feito."
-  }
+  ]
  },
  {
   "n": 4,
-  "oa": "OA1.8",
-  "modulo": "Módulo 1",
   "enunciado": "Um colega afirma: \"a ferramenta de IA mais divulgada na mídia é sempre a melhor escolha, para qualquer tarefa.\" Qual critério o curso recomenda para escolher entre as ferramentas de IA disponíveis na unidade?",
-  "correta": "c",
   "alts": [
    {
     "l": "a",
@@ -394,20 +364,11 @@ var QUESTOES = [
     "l": "d",
     "t": "Escolher sempre a ferramenta de uso gratuito, pois ferramentas pagas violariam a política de dados da unidade."
    }
-  ],
-  "resumo": "O critério é o objetivo da tarefa e a homologação da unidade, não a fama da ferramenta.",
-  "porques": {
-   "a": "reproduz exatamente a crença que a questão testa — \"mais divulgada = melhor\" — sem qualquer relação com o objetivo da tarefa.",
-   "b": "troca um critério (fama midiática) por outro igualmente inválido (pressão de grupo), sem nenhuma ligação com a adequação à tarefa.",
-   "d": "confunde custo da ferramenta com política de dados institucional — são questões independentes; uma ferramenta gratuita pode não ser homologada, e uma paga pode ser."
-  }
+  ]
  },
  {
   "n": 5,
-  "oa": "OA2.2",
-  "modulo": "Módulo 2",
   "enunciado": "Na Vara Alfa (fictícia), foram realizadas 120 audiências de conciliação no semestre e 60 acordos foram homologados. Na Vara Beta (fictícia), 40 audiências e 12 acordos. Um colega conclui: \"fazer mais audiências causa mais acordos.\" Qual é a avaliação correta dessa conclusão?",
-  "correta": "d",
   "alts": [
    {
     "l": "a",
@@ -425,20 +386,11 @@ var QUESTOES = [
     "l": "d",
     "t": "Antes de aceitar a conclusão, é preciso investigar se algum outro fator ocorreu ao mesmo tempo nas duas Varas — como um mutirão que tenha trazido, simultaneamente, mais pauta e casos já maduros para conciliação."
    }
-  ],
-  "resumo": "É preciso investigar o fator comum (causa oculta) antes de aceitar a causalidade.",
-  "porques": {
-   "a": "toma a correlação observada como prova de causa, o erro central que o Módulo 2 existe para corrigir.",
-   "b": "nega qualquer relação de forma absoluta, sem investigação — é a correção exagerada do mesmo erro, tão problemática quanto aceitar a causalidade sem exame.",
-   "c": "desloca a atenção para uma variável (número de servidores) que não foi apresentada como relevante no caso, distraindo do verdadeiro exercício de buscar o confundidor."
-  }
+  ]
  },
  {
   "n": 6,
-  "oa": "OA2.3",
-  "modulo": "Módulo 2",
   "enunciado": "Uma unidade fictícia adotou, em março, uma triagem assistida por IA. O estoque de processos conclusos caiu de 900 para 700 até junho. Antes de atribuir essa queda de 200 processos à triagem por IA, qual informação é indispensável para estimar o efeito real da medida?",
-  "correta": "b",
   "alts": [
    {
     "l": "a",
@@ -456,20 +408,11 @@ var QUESTOES = [
     "l": "d",
     "t": "A opinião dos servidores sobre se a triagem por IA pareceu útil."
    }
-  ],
-  "resumo": "Sem tendência anterior ou grupo de comparação, não se estima o contrafactual.",
-  "porques": {
-   "a": "o número de servidores no mês final não ajuda a saber o que aconteceria sem a medida; não é comparador temporal nem estrutural.",
-   "c": "o total de audiências é um dado sobre outra dimensão do trabalho da unidade, sem relação direta com o estoque de conclusos nem com o que aconteceria sem a triagem.",
-   "d": "opinião subjetiva não é evidência de causa; a pergunta pede um dado que permita estimar o que teria ocorrido sem a mudança, não uma impressão."
-  }
+  ]
  },
  {
   "n": 7,
-  "oa": "OA2.4",
-  "modulo": "Módulo 2",
   "enunciado": "Ao ser consultada sobre jurisprudência aplicável a um tema raro e específico, a IA apresenta um número de recurso especial, relator e data, tudo com formatação impecável (exemplo fictício, criado apenas para este teste — não deve ser citado em nenhuma peça real). Qual é a conduta correta diante dessa resposta?",
-  "correta": "a",
   "alts": [
    {
     "l": "a",
@@ -487,20 +430,11 @@ var QUESTOES = [
     "l": "d",
     "t": "Pedir à própria IA que confirme se inventou o julgado, e aceitar essa resposta como verificação suficiente."
    }
-  ],
-  "resumo": "Formatação impecável não substitui a conferência na fonte oficial.",
-  "porques": {
-   "b": "é a armadilha central da alucinação — tratar fluência e formatação corretas como prova de veracidade.",
-   "c": "é a reação de pânico oposta, que descarta uma ferramenta útil por causa de um risco que se mitiga com um hábito simples (conferir), não com abandono total.",
-   "d": "confunde a instrução dada à própria IA (pedir que aponte fraquezas) com verificação externa; essa é uma camada de defesa complementar, não substitui checar a fonte oficial."
-  }
+  ]
  },
  {
   "n": 8,
-  "oa": "OA3.1",
-  "modulo": "Módulo 3",
   "enunciado": "Um servidor usa a IA para classificar um lote fictício de 6 demandas recebidas na semana, obtendo uma tabela com a urgência sugerida para cada uma. Qual é o passo indispensável antes de dar seguimento às classificações sugeridas?",
-  "correta": "c",
   "alts": [
    {
     "l": "a",
@@ -518,20 +452,11 @@ var QUESTOES = [
     "l": "d",
     "t": "Enviar a tabela pronta diretamente para decisão, sem revisão da secretaria."
    }
-  ],
-  "resumo": "Conferir cada item, sobretudo os marcados como não urgentes, é o que evita o risco maior (falso negativo de urgência).",
-  "porques": {
-   "a": "dispensa qualquer conferência humana, indo direto contra a supervisão exigida pela Res. CNJ 615/2025.",
-   "b": "trata repetição da mesma pergunta como um substituto válido para conferência humana — três respostas da mesma IA não equivalem a checar contra o conteúdo real da demanda.",
-   "d": "pula a etapa de revisão da secretaria antes da decisão, quando o risco maior de uma triagem malfeita é justamente uma urgência real classificada como não urgente."
-  }
+  ]
  },
  {
   "n": 9,
-  "oa": "OA3.8",
-  "modulo": "Módulo 3",
   "enunciado": "Um grupo de servidores quer demonstrar que uma nova forma de elaborar minutas, com apoio de IA, reduziu o tempo gasto por unidade na tarefa. O que é indispensável para que esse ganho possa ser demonstrado de forma confiável?",
-  "correta": "a",
   "alts": [
    {
     "l": "a",
@@ -549,20 +474,11 @@ var QUESTOES = [
     "l": "d",
     "t": "Apresentar apenas o tempo obtido depois da mudança, pois a redução será evidente pela percepção da equipe."
    }
-  ],
-  "resumo": "Sem baseline registrado antes da mudança, não há \"antes\" para comparar.",
-  "porques": {
-   "b": "substitui medição por impressão subjetiva da equipe, que não constitui evidência de ganho.",
-   "c": "usa um comparador (outra unidade, perfil muito diferente) sem registro anterior — não serve como estimativa válida de contrafactual.",
-   "d": "mostra só o \"depois\", sem nenhum \"antes\" para comparação — o erro mais direto que a questão testa."
-  }
+  ]
  },
  {
   "n": 10,
-  "oa": "OA4.2",
-  "modulo": "Módulo 4",
   "enunciado": "Um servidor quer usar uma ferramenta de IA externa, não homologada pela unidade, para obter sugestões de redação em um despacho fictício de um processo que corre em segredo de justiça. Qual é a conduta correta?",
-  "correta": "d",
   "alts": [
    {
     "l": "a",
@@ -580,20 +496,11 @@ var QUESTOES = [
     "l": "d",
     "t": "Não deve enviar nenhum dado do processo a uma ferramenta externa não homologada: o sigilo de justiça é vedação independente de anonimização."
    }
-  ],
-  "resumo": "Sigilo de justiça bloqueia o envio a ferramenta externa não homologada, independentemente de anonimização.",
-  "porques": {
-   "a": "trata a substituição do nome por iniciais como suficiente, quando o sigilo de justiça é vedação por si só, não condicionada ao grau de anonimização.",
-   "b": "repete a crença de que \"a ferramenta não guarda o dado de forma identificável\" resolveria o problema — o risco de sigilo de justiça independe de como a ferramenta trata o dado internamente.",
-   "c": "confunde uma instrução dada dentro da conversa (\"trate como confidencial\") com proteção jurídica real — pedir sigilo à IA não cria nenhuma garantia de proteção de dado."
-  }
+  ]
  },
  {
   "n": 11,
-  "oa": "LAI — processo público × informação de acesso restrito",
-  "modulo": "Módulo 4",
   "enunciado": "No balcão de uma vara cível fictícia, uma pessoa pede para consultar a íntegra de um processo que não corre em segredo de justiça. Entre os documentos há um laudo pericial com o diagnóstico de saúde da parte autora. Qual é a conduta correta?",
-  "correta": "c",
   "alts": [
    {
     "l": "a",
@@ -611,20 +518,11 @@ var QUESTOES = [
     "l": "d",
     "t": "Exigir que a pessoa apresente decisão judicial autorizando qualquer consulta."
    }
-  ],
-  "resumo": "Informação sobre intimidade, vida privada, honra e imagem tem acesso restrito \"independentemente de classificação de sigilo\" (LAI, art. 31, § 1º, I): processo público pode conter informação que não circula.",
-  "porques": {
-   "a": "é o critério binário \"não é sigiloso, então pode tudo\" — exatamente o que o art. 31 da LAI desmonta.",
-   "b": "negar todo o acesso é o erro oposto — a restrição alcança a informação pessoal, não o processo inteiro; negar o que é público também é conduta ilícita (art. 32, I).",
-   "d": "cria exigência que a lei não faz para a consulta a processo público; a resposta proporcional é dar acesso resguardando a informação restrita, não burocratizar tudo."
-  }
+  ]
  },
  {
   "n": 12,
-  "oa": "LAI — as duas maneiras de errar",
-  "modulo": "Módulo 4",
   "enunciado": "Uma pessoa pede cópia de uma decisão proferida em processo público de uma vara cível fictícia. O texto da decisão menciona nome, CPF e endereço de um terceiro que nem é parte no processo. Qual é a conduta correta?",
-  "correta": "c",
   "alts": [
    {
     "l": "a",
@@ -642,20 +540,11 @@ var QUESTOES = [
     "l": "d",
     "t": "Encaminhar todo pedido de cópia à chefia, pois balcão não entrega documento de processo."
    }
-  ],
-  "resumo": "Entregar com tarja é a solução proporcional: nega-se o excesso, não o acesso.",
-  "porques": {
-   "a": "negar por precaução é uma das duas maneiras de errar — recusar informação devida também é conduta ilícita (LAI, art. 32, I).",
-   "b": "entregar tudo é a outra maneira de errar — dar acesso indevido a informação pessoal é conduta ilícita (LAI, art. 32, IV), com sanção administrativa mínima de suspensão (art. 32, § 1º, II).",
-   "d": "transfere a decisão que o próprio quadro da Ficha 6 resolve; escalar é para os casos de dúvida, não regra geral para todo pedido de cópia."
-  }
+  ]
  },
  {
   "n": 13,
-  "oa": "Resolução CNJ 615/2025 — configuração da conta",
-  "modulo": "Módulo 4",
   "enunciado": "Ao configurar a conta pessoal que usará para trabalhar com IA generativa, o servidor encontra a opção \"usar minhas conversas para treinar e melhorar o modelo\", que vem ativada de fábrica. O que a norma diz sobre isso?",
-  "correta": "b",
   "alts": [
    {
     "l": "a",
@@ -673,20 +562,11 @@ var QUESTOES = [
     "l": "d",
     "t": "A exigência de desativar vale apenas para magistrados, não para servidores."
    }
-  ],
-  "resumo": "O art. 19, § 3º, III, da Resolução CNJ 615/2025 veda o uso dos dados fornecidos (e dos inferidos) para treinamento — desativar a opção é cumprimento de norma, não preferência.",
-  "porques": {
-   "a": "trata como escolha pessoal o que é exigência normativa expressa.",
-   "c": "a suposta melhoria não altera a vedação — e conversas de trabalho podem conter mais do que se percebe (dados inferidos também são alcançados pela vedação).",
-   "d": "a condição vale para qualquer usuário do Poder Judiciário que use a ferramenta em atividade funcional, não só para magistrados."
-  }
+  ]
  },
  {
   "n": 14,
-  "oa": "classificação de risco — texto de apoio × juízo conclusivo",
-  "modulo": "Módulo 4",
   "enunciado": "Um servidor planeja duas tarefas com IA generativa: (1) pedir um texto de apoio organizando os fatos e os dispositivos aplicáveis, para uma minuta que ele revisará e o magistrado assinará; (2) pedir que a IA diga se, aplicando a norma ao caso concreto, o pedido deve ser deferido e em que valor. Como as duas tarefas se classificam pela Resolução CNJ 615/2025?",
-  "correta": "b",
   "alts": [
    {
     "l": "a",
@@ -704,13 +584,7 @@ var QUESTOES = [
     "l": "d",
     "t": "A tarefa 2 é permitida em ferramenta externa desde que a resposta seja conferida depois."
    }
-  ],
-  "resumo": "O Anexo da Resolução põe o texto de apoio supervisionado no baixo risco (BR4) e o juízo conclusivo sobre aplicação de norma a fatos concretos no alto risco (AR4).",
-  "porques": {
-   "a": "revisão posterior não reclassifica a tarefa 2 — formular a conclusão jurídica é alto risco por natureza, e alto risco não vai a ferramenta externa (art. 19, § 3º, V).",
-   "c": "generaliza o alto risco; a produção de texto de apoio com supervisão é exemplo literal de baixo risco no Anexo.",
-   "d": "mesma confusão da alternativa a — conferir depois não autoriza o que a norma veda antes."
-  }
+  ]
  }
 ];
 var ABERTAS = [
