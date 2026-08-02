@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Roteiro dos encontros · Curso Servidor + IA · Turma TJCE</title>
+<style>
+:root{--laranja:#C05A1E;--claro:#F2E4D8;--tinta:#23201d;--cinza:#5c554e;
+       --fundo:#FFFDFA;--borda:#e6ddd3;--creme:#FFF7EF}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fundo);color:var(--tinta);
+     font:16px/1.6 -apple-system,"Segoe UI",Inter,Roboto,sans-serif}
+header.topo{background:var(--laranja);color:#fff;padding:26px 20px}
+header.topo h1{margin:0 0 4px;font-size:1.5rem;letter-spacing:-.01em}
+header.topo p{margin:0;opacity:.92;font-size:.95rem}
+.wrap{max-width:920px;margin:0 auto;padding:28px 20px 80px}
+.intro{background:var(--creme);border:1px solid var(--borda);border-radius:10px;
+       padding:16px 18px;margin-bottom:28px;font-size:.95rem}
+.intro b{color:var(--laranja)}
+.enc{border:1px solid var(--borda);border-radius:12px;margin:0 0 26px;overflow:hidden;
+     background:#fff;break-inside:avoid}
+.enc>h2{margin:0;background:var(--claro);color:#7a3a12;padding:14px 18px;font-size:1.15rem}
+.enc>h2 small{display:block;font-weight:400;color:var(--cinza);font-size:.82rem;margin-top:3px}
+.turno{padding:6px 18px 14px}
+.turno h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.09em;color:var(--cinza);
+          margin:16px 0 8px;font-weight:700}
+table{width:100%;border-collapse:collapse;font-size:.94rem}
+td{padding:8px 6px;border-bottom:1px solid #f0e9e1;vertical-align:top}
+td.q{white-space:nowrap;color:var(--cinza);width:96px;font-variant-numeric:tabular-nums}
+td.t{white-space:nowrap;color:var(--cinza);width:66px;text-align:right;
+     font-variant-numeric:tabular-nums}
+tr.pr td{background:#FFF9F4}
+tr.pr td.q{color:var(--laranja);font-weight:700}
+a.at{color:var(--laranja);font-weight:600;text-decoration:none;border-bottom:1px solid #e8c6ab}
+a.at:hover{border-bottom-color:var(--laranja)}
+.tarefa{margin:10px 18px 16px;padding:11px 14px;background:var(--creme);
+        border-left:3px solid var(--laranja);border-radius:0 8px 8px 0;font-size:.92rem}
+.tarefa b{color:#7a3a12}
+.nota{margin:0 18px 16px;font-size:.86rem;color:var(--cinza)}
+.rod{margin-top:34px;font-size:.86rem;color:var(--cinza);border-top:1px solid var(--borda);
+     padding-top:16px}
+@media print{
+  body{background:#fff}
+  header.topo{background:#fff;color:var(--tinta);border-bottom:2px solid var(--laranja);padding:0 0 10px}
+  .wrap{padding:0}
+  .enc{page-break-after:always;border:0;margin:0 0 18px}
+  .enc>h2{background:#fff;border-bottom:1px solid var(--borda)}
+  .intro{background:#fff}
+  a.at{color:var(--tinta);border:0}
+}
+</style>
+</head>
+<body>
+<header class="topo">
+  <h1>Roteiro dos encontros</h1>
+  <p>Curso Servidor + IA · Turma TJCE · Presencial · 3, 4, 5 e 7 de agosto de 2026 · quatro encontros de 6 horas</p>
+</header>
+<div class="wrap">
+  <p class="intro">Esta é a ordem do que acontece em cada encontro. As linhas em destaque são as
+  <b>práticas</b> — clique no nome e o material do participante abre direto no exercício. No fim
+  de cada bloco, a <b>tarefa</b> para fazer antes do próximo. Os tempos são de referência: podem
+  variar conforme o andamento da turma.</p>
+<section class="enc">
+<h2>Encontro 1<small>segunda-feira, 3 de agosto · Módulo 1 — Fundamentos e prompt engineering</small></h2>
+<div class="turno">
+<h3>Turno 1 · 3 horas</h3>
+<table>
+<tr><td class="q">Aula 1</td><td>Como a IA funciona</td><td class="t">30 min</td></tr>
+<tr><td class="q">Aula 2</td><td>O que a IA faz bem e onde falha</td><td class="t">30 min</td></tr>
+<tr><td class="q">Aulas 3 e 4</td><td>Contexto e tokens · Anatomia do prompt em 6 etapas</td><td class="t">50 min</td></tr>
+<tr class="pr"><td class="q">Prática</td><td><a class="at" href="material.html#cad-prática-1-escreva-seu-prompt-em-6-etapas">Prática 1</a> — Escreva seu prompt em 6 etapas</td><td class="t">25 min</td></tr>
+</table></div>
+<p class="tarefa"><b>Antes do próximo:</b> <a class="at" href="material.html#cad-tarefa-1-leve-um-caso-anonimizado-para-o-turno-seguinte">Tarefa 1</a></p>
+<div class="turno">
+<h3>Turno 2 · 3 horas</h3>
+<table>
+<tr><td class="q">Aula 5</td><td>Prompt fraco × prompt forte</td><td class="t">30 min</td></tr>
+<tr class="pr"><td class="q">Prática</td><td><a class="at" href="material.html#cad-prática-3-diagnostique-o-defeito-do-prompt">Prática 3</a> — Diagnostique o defeito do prompt</td><td class="t">25 min</td></tr>
+<tr><td class="q">Aula 6</td><td>Técnicas de prompt</td><td class="t">30 min</td></tr>
+<tr><td class="q">Aulas 7 e 8</td><td>Biblioteca de prompts · Qual ferramenta usar</td><td class="t">40 min</td></tr>
+<tr class="pr"><td class="q">Prática</td><td><a class="at" href="material.html#cad-prática-2-adapte-dois-prompts-mestre-à-sua-unidade">Prática 2</a> — Adapte dois prompts-mestre à sua unidade</td><td class="t">35 min</td></tr>
+</table></div>
+<p class="tarefa"><b>Antes do próximo:</b> <a class="at" href="material.html#cad-tarefa-2-teste-um-prompt-mestre-adaptado-e-observe-a-resposta">Tarefa 2</a></p>
+</section>
+<section class="enc">
+<h2>Encontro 2<small>terça-feira, 4 de agosto · Módulo 2 — Pensamento crítico e causal</small></h2>
+<div class="turno">
+<h3>Turno 1 · 3 horas</h3>
+<table>
+<tr><td class="q">Aula 1</td><td>Por que questionar a IA</td><td class="t">10 min</td></tr>
+<tr><td class="q">Aula 2</td><td>Causa oculta (correlação × causa)</td><td class="t">45 min</td></tr>
+<tr class="pr"><td class="q">Prática</td><td><a class="at" href="material.html#cad-prática-4-causas-alternativas-e-confundidores">Prática 4</a> — Causas alternativas e confundidores</td><td class="t">45 min</td></tr>
+<tr><td class="q">Aula 3</td><td>Contrafactual</td><td class="t">45 min</td></tr>
+<tr class="pr"><td class="q">Prática</td><td><a class="at" href="material.html#cad-prática-7-o-contrafactual-mal-feito">Prática 7</a> — O contrafactual mal feito</td><td class="t">30 min</td></tr>
+</table></div>
+<p class="tarefa"><b>Antes do próximo:</b> <a class="at" href="material.html#cad-tarefa-3-teste-sua-conclusão-antes-do-turno-seguinte">Tarefa 3</a></p>
+<div class="turno">
+<h3>Turno 2 · 3 horas</h3>
+<table>
+<tr><td class="q">Aula 4</td><td>Detectar alucinações</td><td class="t">40 min</td></tr>
+<tr><td class="q">Aula 5</td><td>Validar antes de confiar</td><td class="t">40 min</td></tr>
+<tr><td class="q">Aula 6</td><td>Checklist das quatro perguntas</td><td class="t">30 min</td></tr>
+<tr class="pr"><td class="q">Prática</td><td><a class="at" href="material.html#cad-prática-5-aplicando-o-checklist-a-uma-resposta-com-erros-plantados">Prática 5</a> — Aplicando o checklist a uma resposta com erros plantados</td><td class="t">40 min</td></tr>
+</table></div>
+<p class="tarefa"><b>Antes do próximo:</b> <a class="at" href="material.html#cad-tarefa-4-do-pensamento-crítico-à-prática-forense">Tarefa 4</a></p>
+<p class="nota">A <b>Prática 6 — A resposta boa demais</b> é alternativa à Prática 5, no mesmo intervalo.</p>
+</section>
+<section class="enc">
+<h2>Encontro 3<small>quarta-feira, 5 de agosto · Módulo 3 — Prática forense (primeira parte)</small></h2>
+<div class="turno">
+<h3>Turno 1 · 3 horas</h3>
+<table>
+<tr><td class="q">Aula 1</td><td>Triagem — demonstração ao vivo e réplica com lote fictício</td><td class="t">50 min</td></tr>
+<tr><td class="q">Aula 2</td><td>Resumo de peças</td><td class="t">60 min</td></tr>
+<tr class="pr"><td class="q">Prática</td><td><a class="at" href="material.html#cad-prática-8-resumir-uma-peça-e-conferir-contra-o-original">Prática 8</a> — Resumir uma peça e conferir contra o original</td><td class="t">40 min</td></tr>
+</table></div>
+<p class="tarefa"><b>Antes do próximo:</b> <a class="at" href="material.html#cad-tarefa-5-resumir-uma-peça-real-da-sua-rotina">Tarefa 5</a></p>
+<div class="turno">
+<h3>Turno 2 · 3 horas</h3>
+<table>
+<tr><td class="q">Aula 3</td><td>Minutas e despachos</td><td class="t">40 min</td></tr>
+<tr><td class="q">Aula 4</td><td>Pesquisa de jurisprudência</td><td class="t">40 min</td></tr>
+<tr class="pr"><td class="q">Prática</td><td><a class="at" href="material.html#cad-prática-9-jurisprudência-inventada-o-que-fazer-antes-de-citar">Prática 9</a> — Jurisprudência inventada: o que fazer antes de citar</td><td class="t">40 min</td></tr>
+<tr><td class="q">Aula 5</td><td>Comparar e conferir</td><td class="t">40 min</td></tr>
+<tr class="pr"><td class="q">Prática</td><td><a class="at" href="material.html#cad-prática-10-minuta-e-comparação-com-o-modelo-padrão">Prática 10</a> — Minuta e comparação com o modelo padrão</td><td class="t">30 min</td></tr>
+</table></div>
+<p class="tarefa"><b>Antes do próximo:</b> <a class="at" href="material.html#cad-tarefa-6-escolha-o-caso-tipo-do-exercício-final">Tarefa 6</a></p>
+</section>
+<section class="enc">
+<h2>Encontro 4<small>sexta-feira, 7 de agosto · Módulo 3 (segunda parte) e Módulo 4</small></h2>
+<div class="turno">
+<h3>Turno 1 · 4 horas — Módulo 3</h3>
+<table>
+<tr><td class="q">Aula 6</td><td>Relatórios e organização</td><td class="t">45 min</td></tr>
+<tr class="pr"><td class="q">Prática</td><td><a class="at" href="material.html#cad-prática-11-transformar-anotações-soltas-em-relatório">Prática 11</a> — Transformar anotações soltas em relatório</td><td class="t">45 min</td></tr>
+<tr><td class="q">Aula 7</td><td>Modelos e trabalho em lote</td><td class="t">45 min</td></tr>
+<tr class="pr"><td class="q">Prática</td><td><a class="at" href="material.html#cad-prática-12-uma-tarefa-ponta-a-ponta">Prática 12</a> — Uma tarefa ponta a ponta, sobre o caso-tipo que você escolheu</td><td class="t">90 min</td></tr>
+</table></div>
+<div class="turno">
+<h3>Turno 2 · 2 horas — Módulo 4</h3>
+<table>
+<tr><td class="q">Aula 1</td><td>Governança e Resolução CNJ 615/2025</td><td class="t">25 min</td></tr>
+<tr><td class="q">Aulas 2 e 3</td><td>Sigilo, LGPD e anonimização</td><td class="t">30 min</td></tr>
+<tr class="pr"><td class="q">Prática</td><td><a class="at" href="material.html#cad-prática-13-semáforo-de-sigilo">Prática 13</a> — Semáforo de sigilo</td><td class="t">25 min</td></tr>
+<tr><td class="q">Aulas 4 e 5</td><td>Vieses algorítmicos e segurança</td><td class="t">25 min</td></tr>
+<tr class="pr"><td class="q">Prática</td><td><a class="at" href="material.html#cad-prática-14-viés-na-triagem">Prática 14</a> — Viés na triagem</td><td class="t">20 min</td></tr>
+</table></div>
+</section>
+  <p class="rod">Todo o material continua no ar depois do curso:
+  <a class="at" href="material.html">material do participante</a>.</p>
+</div>
+</body>
+</html>
