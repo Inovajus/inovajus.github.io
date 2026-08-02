@@ -283,7 +283,7 @@ code.codigo{display:block;font-family:var(--mono);font-size:12.5px;line-height:1
 var QUESTOES = [
  {
   "n": 1,
-  "oa": "OA1.1",
+  "oa": "por que a IA inventa — plausível não é conferido",
   "modulo": "Módulo 1",
   "enunciado": "Um servidor pede à IA que explique, em linguagem simples, o rito de um mandado de segurança em um caso fictício, colando o texto da petição inicial. A resposta sai bem escrita e menciona um prazo específico que não constava do texto colado. O que explica essa informação a mais, mesmo com o texto correto?",
   "correta": "c",
@@ -314,7 +314,7 @@ var QUESTOES = [
  },
  {
   "n": 2,
-  "oa": "OA1.2",
+  "oa": "apoio da IA × decisão humana",
   "modulo": "Módulo 1",
   "enunciado": "Numa mesma semana, a Vara Federal fictícia recebe três demandas: (1) organizar a triagem de 50 petições recém-protocoladas no PJe 2.x; (2) redigir um relatório com dados extraídos de uma tabela; (3) decidir se defere ou não um pedido de tutela de urgência. Qual afirmação descreve corretamente o papel da IA nessas três tarefas?",
   "correta": "a",
@@ -345,7 +345,7 @@ var QUESTOES = [
  },
  {
   "n": 3,
-  "oa": "OA1.4",
+  "oa": "recortar o contexto — por custo e por sigilo",
   "modulo": "Módulo 1",
   "enunciado": "Faltam 20 minutos para uma audiência e o servidor precisa que a IA resuma um processo fictício de 300 páginas. Qual é a prática mais adequada?",
   "correta": "d",
@@ -376,7 +376,7 @@ var QUESTOES = [
  },
  {
   "n": 4,
-  "oa": "OA1.8",
+  "oa": "escolha da ferramenta — pela tarefa, não pela marca",
   "modulo": "Módulo 1",
   "enunciado": "Um colega afirma: \"a ferramenta de IA mais divulgada na mídia é sempre a melhor escolha, para qualquer tarefa.\" Qual critério o curso recomenda para escolher entre as ferramentas de IA disponíveis na unidade?",
   "correta": "c",
@@ -407,7 +407,7 @@ var QUESTOES = [
  },
  {
   "n": 5,
-  "oa": "OA2.2",
+  "oa": "causa oculta — correlação não é causa",
   "modulo": "Módulo 2",
   "enunciado": "Na Vara Alfa (fictícia), foram realizadas 120 audiências de conciliação no semestre e 60 acordos foram homologados. Na Vara Beta (fictícia), 40 audiências e 12 acordos. Um colega conclui: \"fazer mais audiências causa mais acordos.\" Qual é a avaliação correta dessa conclusão?",
   "correta": "d",
@@ -438,7 +438,7 @@ var QUESTOES = [
  },
  {
   "n": 6,
-  "oa": "OA2.3",
+  "oa": "contrafactual — o que teria acontecido sem a medida",
   "modulo": "Módulo 2",
   "enunciado": "Uma unidade fictícia adotou, em março, uma triagem assistida por IA. O estoque de processos conclusos caiu de 900 para 700 até junho. Antes de atribuir essa queda de 200 processos à triagem por IA, qual informação é indispensável para estimar o efeito real da medida?",
   "correta": "b",
@@ -469,7 +469,7 @@ var QUESTOES = [
  },
  {
   "n": 7,
-  "oa": "OA2.4",
+  "oa": "alucinação — conferir na fonte antes de citar",
   "modulo": "Módulo 2",
   "enunciado": "Ao ser consultada sobre jurisprudência aplicável a um tema raro e específico, a IA apresenta um número de recurso especial, relator e data, tudo com formatação impecável (exemplo fictício, criado apenas para este teste — não deve ser citado em nenhuma peça real). Qual é a conduta correta diante dessa resposta?",
   "correta": "a",
@@ -500,7 +500,7 @@ var QUESTOES = [
  },
  {
   "n": 8,
-  "oa": "OA3.1",
+  "oa": "triagem em lote — a conferência antes de seguir",
   "modulo": "Módulo 3",
   "enunciado": "Um servidor usa a IA para classificar um lote fictício de 6 demandas recebidas na semana, obtendo uma tabela com a urgência sugerida para cada uma. Qual é o passo indispensável antes de dar seguimento às classificações sugeridas?",
   "correta": "c",
@@ -531,7 +531,7 @@ var QUESTOES = [
  },
  {
   "n": 9,
-  "oa": "OA3.8",
+  "oa": "medir o ganho — registrar o antes",
   "modulo": "Módulo 3",
   "enunciado": "Um grupo de servidores quer demonstrar que uma nova forma de elaborar minutas, com apoio de IA, reduziu o tempo gasto por unidade na tarefa. O que é indispensável para que esse ganho possa ser demonstrado de forma confiável?",
   "correta": "a",
@@ -562,7 +562,7 @@ var QUESTOES = [
  },
  {
   "n": 10,
-  "oa": "OA4.2",
+  "oa": "segredo de justiça — bloqueio, mesmo anonimizado",
   "modulo": "Módulo 4",
   "enunciado": "Um servidor quer usar uma ferramenta de IA externa, não homologada pela unidade, para obter sugestões de redação em um despacho fictício de um processo que corre em segredo de justiça. Qual é a conduta correta?",
   "correta": "d",
@@ -893,7 +893,7 @@ function sintese(c) {
     });
   b.appendChild(topo);
 
-  b.appendChild(elem("p", "obs", "Os objetivos em que a turma chega com mais dificuldade — " +
+  b.appendChild(elem("p", "obs", "Os temas em que a turma chega com mais dificuldade — " +
     "é neles que o curso vai investir mais tempo."));
   var ul = elem("ul", "ranking");
   comDados.slice().sort(function (x, y) { return x.p - y.p; }).forEach(function (d) {
