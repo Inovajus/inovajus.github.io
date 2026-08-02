@@ -239,7 +239,7 @@
     .cat-right{grid-column:1/-1;justify-content:flex-start;padding-left:56px;margin-top:-6px}
   }
 </style>
-<style id="modo-aula">/* publicado p/ alunos: sem edição */ #editbar,.editflag{display:none!important;}</style>
+<style id="modo-aula">/* publicado p/ alunos: sem edição (barra e script removidos do arquivo em 02/08/2026) */ #editbar,.editflag,[contenteditable]{display:none!important;}</style>
 </head>
 <body>
 
@@ -463,13 +463,6 @@
   </div>
 </div>
 
-<div id="editbar">
-  <button id="ed-toggle">✎ Editar</button>
-  <button id="ed-save" style="display:none">⬇ Baixar HTML</button>
-  <button id="ed-reset" style="display:none">↺ Restaurar</button>
-</div>
-<div class="editflag">Modo de edição ligado · clique nos textos para alterar</div>
-
 <footer class="foot">
   <div class="wrap" data-k="foot">
     <b>Comparativo de LLMs</b> · material de apoio do curso Servidor + IA (INOVAJUS Eixo III, Justiça Federal no Ceará).
@@ -602,33 +595,7 @@ document.querySelectorAll('.src').forEach(a=>{
   });
 });
 
-/* ---------- MODO DE EDIÇÃO ---------- */
-const LS='comparativo-llms';
-const T=document.getElementById('ed-toggle'),S=document.getElementById('ed-save'),R=document.getElementById('ed-reset');
-function applySaved(){try{const d=JSON.parse(localStorage.getItem(LS+':text')||'{}');
-  document.querySelectorAll('[data-k]').forEach(e=>{if(d[e.dataset.k]!=null)e.innerHTML=d[e.dataset.k];});}catch(e){}}
-applySaved();
-let editing=false;
-T.addEventListener('click',()=>{
-  editing=!editing; document.body.classList.toggle('editing',editing);
-  document.querySelectorAll('[data-k]').forEach(e=>e.contentEditable=editing);
-  T.classList.toggle('live',editing); T.textContent=editing?'✓ Concluir':'✎ Editar';
-  S.style.display=R.style.display=editing?'inline-block':'none';
-  if(!editing)save();
-});
-function save(){const d={};document.querySelectorAll('[data-k]').forEach(e=>d[e.dataset.k]=e.innerHTML);
-  localStorage.setItem(LS+':text',JSON.stringify(d));}
-document.addEventListener('input',e=>{if(editing&&e.target.dataset&&e.target.dataset.k)save();});
-R.addEventListener('click',()=>{if(confirm('Restaurar o texto original e descartar suas edições?')){localStorage.removeItem(LS+':text');location.reload();}});
-S.addEventListener('click',()=>{
-  const clone=document.documentElement.cloneNode(true);
-  clone.querySelectorAll('#editbar,.editflag').forEach(n=>n.remove());
-  clone.classList.remove('editing');
-  clone.querySelectorAll('[contenteditable]').forEach(n=>n.removeAttribute('contenteditable'));
-  const html='<!DOCTYPE html>\n'+clone.outerHTML;
-  const b=new Blob([html],{type:'text/html'}),u=URL.createObjectURL(b),a=document.createElement('a');
-  a.href=u;a.download='comparativo-llms.html';a.click();URL.revokeObjectURL(u);
-});
+/* Modo de edição removido em 02/08/2026: esta é uma página de participante. */
 </script>
 </body>
 </html>

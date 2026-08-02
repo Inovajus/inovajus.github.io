@@ -16,4 +16,23 @@ Deck HTML autocontido (1 arquivo), com animações e modo de apresentação:
 - **Pausar a animação:** botão play/pause no canto ou tecla **P** (útil ao apresentar).
 - Tela cheia: tecla **F**.
 
+## Regra de publicação: páginas de participante não têm edição
+
+Desde 02/08/2026, **nenhuma página entregue aos participantes pode ter botão de edição de
+conteúdo** (Editar / Baixar HTML / Restaurar, `contenteditable`). A barra e o script de edição
+foram removidos do arquivo, não apenas ocultados por CSS.
+
+- **Sem edição (participantes):** `index.html`, `tjce/index.html`, `banco-de-prompts.html`,
+  `tjce/banco-de-prompts.html`, `comparativo-llms.html`, `material-do-aluno.html`,
+  `tjce/material.html`, `ebook-servidor-ia.html` (e o da TJCE), `ementa.html`,
+  `tjce/casos-tipo.html`, `preteste.html`, `tjce/preteste.html`, e a Biblioteca do Iracema
+  (repositório `iracema-biblioteca-prompts`).
+- **Com edição (instrutores):** `editar.html`, `tjce/editar.html`,
+  `laboratorio-demonstracoes.html`, `painel-preteste.html`, `resultados-preteste.html`,
+  `material-do-instrutor.html`, `guia-metodologico.html`, `guia-rapido-instrutor.html`.
+
+Ao regerar qualquer página de participante a partir dos geradores (`gen_banco_prompts_html.py`
+e afins, em `mira-slides/decks/servidor-mais-ia/`), **conferir e remover a barra de edição
+antes do push** — os geradores continuam produzindo a versão editável, que é a de trabalho.
+
 Material institucional de capacitação. Uso interno da Justiça Federal no Ceará.

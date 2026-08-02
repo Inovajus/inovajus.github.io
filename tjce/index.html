@@ -402,7 +402,7 @@ body {
         }
         .igf-stat i { color: var(--mira-primary); width: 14px; height: 14px; }
     </style>
-<style id="mira-readonly">/* versão do aluno: sem edição */ #mira-edit-bar{display:none !important;}</style>
+<style id="mira-readonly">/* versão do aluno: sem edição (barra e script removidos do arquivo em 02/08/2026) */ #mira-edit-bar,.mira-edit-ui,[contenteditable]{display:none !important;}</style>
 </head>
 
 <body>
@@ -416,18 +416,6 @@ body {
     </button>
     <div id="mira-pause-badge">Animação pausada</div>
 
-    <!-- Barra do modo de edição -->
-    <div id="mira-edit-bar" class="mira-edit-ui">
-        <button id="mira-edit-toggle" class="mira-btn primary" type="button">
-            <i data-lucide="pencil" class="w-4 h-4"></i><span id="mira-edit-label">Editar</span>
-        </button>
-        <button id="mira-edit-download" class="mira-btn ghost" type="button">
-            <i data-lucide="download" class="w-4 h-4"></i>Baixar HTML
-        </button>
-        <button id="mira-edit-reset" class="mira-btn ghost" type="button">
-            <i data-lucide="rotate-ccw" class="w-4 h-4"></i>Restaurar original
-        </button>
-    </div>
     <div id="mira-toast" class="mira-edit-ui"></div>
 
     <!-- ============ SLIDE 1: CAPA ============ -->
@@ -3365,147 +3353,6 @@ body {
             });
         })();
 
-        // ============================================================
-        // MODO DE EDIÇÃO
-        // ============================================================
-        (function () {
-            let editing = false;
-            const toggle = document.getElementById('mira-edit-toggle');
-            const label = document.getElementById('mira-edit-label');
-            const dlBtn = document.getElementById('mira-edit-download');
-            const resetBtn = document.getElementById('mira-edit-reset');
-            const toast = document.getElementById('mira-toast');
-            let toastTimer;
-
-            function showToast(msg) {
-                toast.textContent = msg;
-                toast.classList.add('show');
-                clearTimeout(toastTimer);
-                toastTimer = setTimeout(() => toast.classList.remove('show'), 3200);
-            }
-
-            const debounce = (fn, ms) => { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; };
-            const reRunModulos = debounce(animateModulos, 400);
-            const reRunCausal = debounce(animateCausal, 400);
-
-            function field(labelTxt, value, onInput) {
-                const wrap = document.createElement('div'); wrap.className = 'mira-field';
-                const lb = document.createElement('label'); lb.textContent = labelTxt;
-                const inp = document.createElement('input'); inp.type = 'text'; inp.value = value;
-                inp.addEventListener('input', () => onInput(inp.value));
-                wrap.appendChild(lb); wrap.appendChild(inp); return wrap;
-            }
-            function panel(title) {
-                const p = document.createElement('div'); p.className = 'mira-label-panel';
-                const h = document.createElement('h4'); h.textContent = title;
-                const g = document.createElement('div'); g.className = 'mira-label-grid';
-                p.appendChild(h); p.appendChild(g); p.__grid = g; return p;
-            }
-
-            function buildLabelPanels() {
-                // Slide 2, módulos
-                const p2 = panel('Rótulos dos módulos (texto da animação)');
-                getData().modulos.forEach((m, i) => {
-                    p2.__grid.appendChild(field(`Estação ${i + 1}, título`, m.titulo, v => { const d = getData(); d.modulos[i].titulo = v; setData(d); reRunModulos(); }));
-                    p2.__grid.appendChild(field(`Estação ${i + 1}, detalhe e carga`, m.carga, v => { const d = getData(); d.modulos[i].carga = v; setData(d); reRunModulos(); }));
-                });
-                document.getElementById('card-modulos').appendChild(p2);
-
-                // Slide 3, causal
-                const p3 = panel('Rótulos da animação causal');
-                const c = getData().causal;
-                p3.__grid.appendChild(field('Centro, linha 1', c.causaL1, v => { const d = getData(); d.causal.causaL1 = v; setData(d); reRunCausal(); }));
-                p3.__grid.appendChild(field('Centro, linha 2', c.causaL2, v => { const d = getData(); d.causal.causaL2 = v; setData(d); reRunCausal(); }));
-                p3.__grid.appendChild(field('Efeito da esquerda', c.efeitoA, v => { const d = getData(); d.causal.efeitoA = v; setData(d); reRunCausal(); }));
-                p3.__grid.appendChild(field('Efeito da direita', c.efeitoB, v => { const d = getData(); d.causal.efeitoB = v; setData(d); reRunCausal(); }));
-                p3.__grid.appendChild(field('Texto da ligação falsa', c.corr, v => { const d = getData(); d.causal.corr = v; setData(d); reRunCausal(); }));
-                document.getElementById('card-causal').appendChild(p3);
-
-            }
-            function removeLabelPanels() {
-                document.querySelectorAll('.mira-label-panel').forEach(el => el.remove());
-            }
-
-            function setEdit(on) {
-                editing = on;
-                document.body.classList.toggle('mira-editing', on);
-                document.querySelectorAll('[data-k]').forEach(el => el.contentEditable = on ? 'true' : 'false');
-                label.textContent = on ? 'Concluir edição' : 'Editar';
-                toggle.querySelector('[data-lucide]').setAttribute('data-lucide', on ? 'check' : 'pencil');
-                lucide.createIcons();
-                if (on) { buildLabelPanels(); buildDeleteHandles(); showToast('Modo de edição ligado. Clique num texto para editar; passe o mouse num bloco (pílula, item, quadro ou slide) e use o X vermelho no canto para excluí-lo inteiro. Tudo é salvo automaticamente.'); }
-                else { removeLabelPanels(); removeDeleteHandles(); saveText(); showToast('Edição salva neste navegador. Use "Baixar HTML" para guardar o arquivo final.'); }
-            }
-
-            toggle.addEventListener('click', () => setEdit(!editing));
-
-            // Exclusão de blocos inteiros: cada bloco ganha SEU PRÓPRIO X (vinculado a ele),
-            // visível só quando o bloco está sob o cursor. Sem alvo compartilhado: clicar num X
-            // sempre exclui o bloco a que ele pertence, sem ambiguidade.
-            function deleteBlock(el) {
-                if (el.tagName === 'SECTION' && !confirm('Excluir o slide inteiro?')) return;
-                const set = getDelSet(); set[el.dataset.del] = true; localStorage.setItem(LSKEY_DEL, JSON.stringify(set));
-                el.style.transition = 'opacity 0.25s ease, transform 0.25s ease'; el.style.opacity = '0'; el.style.transform = 'scale(0.97)';
-                setTimeout(() => el.remove(), 250);
-            }
-            function buildDeleteHandles() {
-                document.querySelectorAll('[data-del]').forEach(el => {
-                    if (el.querySelector(':scope > .mira-del-x')) return;
-                    const b = document.createElement('button');
-                    b.className = 'mira-del-x mira-edit-ui'; b.type = 'button'; b.tabIndex = -1;
-                    b.setAttribute('aria-label', 'Excluir este bloco');
-                    b.innerHTML = '<i data-lucide="x"></i>';
-                    b.addEventListener('click', (e) => { e.stopPropagation(); e.preventDefault(); deleteBlock(el); });
-                    el.appendChild(b);
-                });
-                lucide.createIcons();
-            }
-            function removeDeleteHandles() {
-                document.querySelectorAll('.mira-del-x').forEach(b => b.remove());
-                document.querySelectorAll('.mira-del-hot').forEach(e => e.classList.remove('mira-del-hot'));
-            }
-            // Realça apenas o bloco mais específico sob o cursor (mostra só o X dele)
-            document.addEventListener('mouseover', (e) => {
-                if (!editing || !e.target.closest) return;
-                if (e.target.closest('.mira-label-panel') || e.target.closest('#mira-edit-bar')) return;
-                const t = e.target.closest('[data-del]');
-                document.querySelectorAll('[data-del].mira-del-hot').forEach(el => { if (el !== t) el.classList.remove('mira-del-hot'); });
-                if (t) t.classList.add('mira-del-hot');
-            });
-
-            const debouncedSaveText = debounce(saveText, 500);
-            document.addEventListener('input', (e) => {
-                const el = e.target.closest && e.target.closest('[data-k]');
-                if (editing && el) debouncedSaveText();
-            });
-
-            dlBtn.addEventListener('click', () => {
-                saveText();
-                const clone = document.documentElement.cloneNode(true);
-                clone.querySelectorAll('[contenteditable]').forEach(el => el.removeAttribute('contenteditable'));
-                const b = clone.querySelector('body'); if (b) b.classList.remove('mira-editing');
-                clone.querySelectorAll('.mira-label-panel').forEach(el => el.remove());
-                clone.querySelectorAll('.mira-del-x').forEach(el => el.remove());
-                clone.querySelectorAll('[data-del]').forEach(el => el.removeAttribute('data-del'));
-                clone.querySelectorAll('.mira-del-hot').forEach(el => el.classList.remove('mira-del-hot'));
-                // mantém a barra de edição no arquivo (para editar de novo depois), mas oculta o toast
-                const t = clone.querySelector('#mira-toast'); if (t) t.classList.remove('show');
-                const html = '<!DOCTYPE html>\n' + clone.outerHTML;
-                const blob = new Blob([html], { type: 'text/html' });
-                const a = document.createElement('a');
-                a.href = URL.createObjectURL(blob); a.download = 'index.html'; a.click();
-                URL.revokeObjectURL(a.href);
-                showToast('Arquivo "index.html" baixado com suas edições. Salve-o por cima do original.');
-            });
-
-            resetBtn.addEventListener('click', () => {
-                if (!confirm('Restaurar o conteúdo original? Isso apaga todas as edições feitas neste navegador.')) return;
-                localStorage.removeItem(LSKEY_TEXT);
-                localStorage.removeItem(LSKEY_DATA);
-                localStorage.removeItem(LSKEY_DEL);
-                location.reload();
-            });
-        })();
 
         // === CONTROLES DE SLIDE: navegação card-a-card (progresso + botão + teclado) ===
         (function () {

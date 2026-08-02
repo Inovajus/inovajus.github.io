@@ -395,9 +395,6 @@ body.editing [data-edit]:focus{outline:2px solid var(--mira-accent-2); backgroun
       <button class="fbtn" type="button" data-f="m4" aria-pressed="false">Módulo 4</button>
     </div>
     <div class="tools">
-      <button class="tbtn" type="button" id="btn-edit" title="Editar os textos direto na página">✎ Editar</button>
-      <button class="tbtn" type="button" id="btn-save" title="Baixar esta página com suas edições" hidden>⬇ Salvar HTML</button>
-      <button class="tbtn" type="button" id="btn-reset" title="Descartar edições" hidden>↺ Original</button>
       <button class="tbtn" type="button" id="btn-print" title="Imprimir ou gerar PDF">⎙ PDF</button>
     </div>
     <div class="count" id="count"></div>
@@ -1311,106 +1308,9 @@ Para conduzir a transformação, três processos são fundamentais. Primeiro, di
     selecionarFiltro('all', false);
   });
 
-  /* ---------- modo de edicao ---------- */
-  var KEY = 'banco-prompts-servidor-ia.v1';
-  var EDIT_SEL = [
-    '[data-edit]', '.cb-body',
-    '.sec-head h2', '.lead', '.passo b', '.passo p',
-    '.step h4', '.step > p', '.step-ex',
-    '.regras li', '.mapa-item p', '.mapa-ids', '.mapa-ch',
-    '.prompt-card h3', '.pc-when', '.ex', '.bul li', '.check-list li', '.check h5',
-    '.mini-card h4', '.confira',
-    '.ap-head h3', '.ap-sub', '.demo-quote',
-    '.ficha-row dt', '.ficha-row dd'
-  ].join(',');
-
-  var editables = [];
-  (function(){
-    var seen = [], all = $$(EDIT_SEL);
-    all.forEach(function(el){ if(seen.indexOf(el) === -1) seen.push(el); });
-    /* remove os que estao dentro de outro editavel (evita contenteditable aninhado) */
-    editables = seen.filter(function(el){
-      return !seen.some(function(o){ return o !== el && o.contains(el); });
-    });
-  })();
-  editables.forEach(function(el, i){ el.setAttribute('data-k', 'k' + i); });
-
-  function temEdicoes(){
-    try{ return !!localStorage.getItem(KEY); }catch(err){ return false; }
-  }
-  function loadEdits(){
-    var raw;
-    try{ raw = localStorage.getItem(KEY); }catch(err){ return false; }
-    if(!raw) return false;
-    var data;
-    try{ data = JSON.parse(raw); }catch(err){ return false; }
-    var n = 0;
-    editables.forEach(function(el){
-      var k = el.getAttribute('data-k');
-      if(Object.prototype.hasOwnProperty.call(data, k)){ el.innerHTML = data[k]; n++; }
-    });
-    return n > 0;
-  }
-  function saveEdits(){
-    var data = {};
-    editables.forEach(function(el){ data[el.getAttribute('data-k')] = el.innerHTML; });
-    try{ localStorage.setItem(KEY, JSON.stringify(data)); }
-    catch(err){ toast('Não consegui salvar as edições neste navegador.'); }
-  }
-
-  var editing = false;
-  var bEdit = $('#btn-edit'), bSave = $('#btn-save'), bReset = $('#btn-reset');
-
-  function setEditing(on){
-    editing = on;
-    document.body.classList.toggle('editing', on);
-    editables.forEach(function(el){
-      if(on) el.setAttribute('contenteditable', 'true');
-      else el.removeAttribute('contenteditable');
-    });
-    bEdit.classList.toggle('on', on);
-    bEdit.textContent = on ? '✓ Concluir edição' : '✎ Editar';
-    bSave.hidden = !on;
-    /* "Original" continua à mão fora do modo de edição enquanto houver rascunho salvo,
-       senão quem editou sem querer não tem como voltar ao texto oficial */
-    bReset.hidden = !(on || temEdicoes());
-    if(on) toast('Modo de edição ativo. Clique em qualquer texto e escreva — salva sozinho neste navegador.');
-  }
-
-  bEdit.addEventListener('click', function(){ setEditing(!editing); if(!editing) saveEdits(); });
-  document.addEventListener('input', function(ev){
-    if(!editing) return;
-    if(ev.target.closest && ev.target.closest('[contenteditable]')){
-      clearTimeout(window.__saveT);
-      window.__saveT = setTimeout(function(){ saveEdits(); cards.forEach(function(c){ c.__n = norm(c.innerText); }); }, 600);
-    }
-  });
-
-  bReset.addEventListener('click', function(){
-    if(!confirm('Descartar todas as suas edições e voltar ao texto original?')) return;
-    try{ localStorage.removeItem(KEY); }catch(err){}
-    location.reload();
-  });
-
-  bSave.addEventListener('click', function(){
-    saveEdits();
-    var clone = document.documentElement.cloneNode(true);
-    clone.querySelectorAll('[contenteditable]').forEach(function(el){ el.removeAttribute('contenteditable'); });
-    clone.querySelectorAll('.hidden').forEach(function(el){ el.classList.remove('hidden'); });
-    var body = clone.querySelector('body');
-    if(body) body.classList.remove('editing');
-    var out = '<!DOCTYPE html>\n' + clone.outerHTML;
-    var blob = new Blob([out], {type:'text/html;charset=utf-8'});
-    var a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'banco-de-prompts.html';
-    document.body.appendChild(a); a.click(); document.body.removeChild(a);
-    setTimeout(function(){ URL.revokeObjectURL(a.href); }, 4000);
-    toast('Arquivo baixado com suas edições.');
-  });
+  /* Modo de edição removido em 02/08/2026: esta é uma página de participante. */
 
   $('#btn-print').addEventListener('click', function(){
-    if(editing) setEditing(false);
     var before = { q: q.value, f: filtro };
     q.value = '';
     selecionarFiltro('all', false);
@@ -1421,11 +1321,6 @@ Para conduzir a transformação, três processos são fundamentais. Primeiro, di
     }, 60);
   });
 
-  if(loadEdits()){
-    bReset.hidden = false;
-    bReset.title = 'Descartar suas edições e voltar ao texto original';
-    toast('Suas edições anteriores foram restauradas. Use "↺ Original" para voltar ao texto oficial.');
-  }
   cards.forEach(function(c){ c.__n = norm(c.innerText); });
   apply();
 })();
