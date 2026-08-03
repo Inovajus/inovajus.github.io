@@ -1,0 +1,808 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gestão de risco no uso de IA no Judiciário</title>
+</head>
+<body>
+<style>
+  :root{
+    --paper:#E8EAED;
+    --paper-2:#F2F3F5;
+    --paper-3:#DCDFE4;
+    --ink:#14181C;
+    --ink-2:#3D4650;
+    --ink-3:#6C7783;
+    --rule:#C6CBD2;
+    --accent:#3B4A5A;
+    --vedado:#8F2226;
+    --alto:#A06A12;
+    --baixo:#2E6B5C;
+    --vedado-bg:#8f22261a;
+    --alto-bg:#a06a121a;
+    --baixo-bg:#2e6b5c1a;
+    --shadow:0 1px 0 #ffffff80, 0 12px 32px -20px #14181c66;
+
+    --serif:Georgia,"Iowan Old Style","Times New Roman",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --paper:#0E1216; --paper-2:#161C22; --paper-3:#1E262E;
+      --ink:#E4E8EC; --ink-2:#A8B3BE; --ink-3:#78848F;
+      --rule:#2A343E; --accent:#8FA5BC;
+      --vedado:#E0787B; --alto:#D9A648; --baixo:#5FB39D;
+      --vedado-bg:#e0787b1f; --alto-bg:#d9a6481f; --baixo-bg:#5fb39d1f;
+      --shadow:0 0 0 1px #ffffff0a, 0 16px 40px -24px #000;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#0E1216; --paper-2:#161C22; --paper-3:#1E262E;
+    --ink:#E4E8EC; --ink-2:#A8B3BE; --ink-3:#78848F;
+    --rule:#2A343E; --accent:#8FA5BC;
+    --vedado:#E0787B; --alto:#D9A648; --baixo:#5FB39D;
+    --vedado-bg:#e0787b1f; --alto-bg:#d9a6481f; --baixo-bg:#5fb39d1f;
+    --shadow:0 0 0 1px #ffffff0a, 0 16px 40px -24px #000;
+  }
+  :root[data-theme="light"]{
+    --paper:#E8EAED; --paper-2:#F2F3F5; --paper-3:#DCDFE4;
+    --ink:#14181C; --ink-2:#3D4650; --ink-3:#6C7783;
+    --rule:#C6CBD2; --accent:#3B4A5A;
+    --vedado:#8F2226; --alto:#A06A12; --baixo:#2E6B5C;
+    --vedado-bg:#8f22261a; --alto-bg:#a06a121a; --baixo-bg:#2e6b5c1a;
+    --shadow:0 1px 0 #ffffff80, 0 12px 32px -20px #14181c66;
+  }
+
+  html{scroll-snap-type:y proximity;scroll-behavior:smooth;background:var(--paper);}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:var(--sans);font-size:clamp(15px,1.05vw,18px);line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---------- rail ---------- */
+  .rail{
+    position:fixed;left:0;top:0;bottom:0;width:14px;z-index:40;
+    display:flex;flex-direction:column;justify-content:center;gap:6px;
+    padding-inline:10px;
+  }
+  .rail a{
+    display:block;height:14px;width:2px;background:var(--rule);
+    border-radius:2px;transition:background .2s,height .2s,width .2s;
+    position:relative;
+  }
+  .rail a:hover,.rail a:focus-visible{background:var(--accent);width:4px;outline:none;}
+  .rail a[aria-current="true"]{background:var(--ink);height:22px;width:4px;}
+  .rail a span{
+    position:absolute;left:16px;top:50%;transform:translateY(-50%);
+    white-space:nowrap;font-family:var(--mono);font-size:11px;letter-spacing:.04em;
+    color:var(--ink-2);background:var(--paper-2);border:1px solid var(--rule);
+    padding:3px 8px;border-radius:3px;opacity:0;pointer-events:none;transition:opacity .15s;
+  }
+  .rail a:hover span,.rail a:focus-visible span{opacity:1;}
+  @media (max-width:820px){.rail{display:none;}}
+
+  .hint{
+    position:fixed;right:16px;bottom:14px;z-index:40;
+    font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:var(--ink-3);
+    background:color-mix(in srgb,var(--paper) 80%,transparent);
+    border:1px solid var(--rule);border-radius:3px;padding:5px 9px;
+    backdrop-filter:blur(6px);
+  }
+  @media (max-width:820px){.hint{display:none;}}
+
+  /* ---------- section shell ---------- */
+  .s{
+    scroll-snap-align:start;min-height:100svh;
+    display:flex;flex-direction:column;justify-content:center;
+    padding:clamp(38px,5vw,72px) clamp(24px,6vw,96px);
+    border-bottom:1px solid var(--rule);
+    position:relative;
+  }
+  .wrap{width:100%;max-width:1180px;margin:0 auto;}
+
+  .eyebrow{
+    font-family:var(--mono);font-size:clamp(10px,.8vw,12px);
+    letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3);
+    display:flex;align-items:baseline;gap:12px;margin-bottom:clamp(14px,2vw,26px);
+  }
+  .eyebrow b{color:var(--accent);font-weight:600;}
+  .eyebrow i{flex:1;height:1px;background:var(--rule);font-style:normal;}
+
+  h1{
+    font-family:var(--serif);font-weight:400;
+    font-size:clamp(34px,5.6vw,76px);line-height:1.03;letter-spacing:-.02em;
+    text-wrap:balance;margin:0 0 .5em;
+  }
+  h2{
+    font-family:var(--serif);font-weight:400;
+    font-size:clamp(26px,3.5vw,48px);line-height:1.1;letter-spacing:-.015em;
+    text-wrap:balance;margin:0 0 .45em;
+  }
+  h3{
+    font-size:clamp(14px,1.15vw,17px);font-weight:650;letter-spacing:-.005em;
+    margin:0 0 .35em;
+  }
+  p{margin:0 0 .85em;max-width:66ch;color:var(--ink-2);}
+  p.lead{font-size:clamp(16px,1.35vw,21px);color:var(--ink);max-width:60ch;}
+  strong{color:var(--ink);font-weight:650;}
+  .num,.cite{font-family:var(--mono);font-variant-numeric:tabular-nums;}
+  .cite{font-size:.86em;color:var(--accent);letter-spacing:-.01em;}
+  .src{font-family:var(--mono);font-size:clamp(10px,.78vw,12px);color:var(--ink-3);letter-spacing:.01em;margin-top:1.4em;max-width:82ch;}
+
+  /* ---------- cover ---------- */
+  .cover{justify-content:space-between;}
+  .cover-top{display:flex;justify-content:space-between;align-items:baseline;gap:24px;flex-wrap:wrap;
+    font-family:var(--mono);font-size:clamp(10px,.8vw,12px);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);}
+  .cover h1{font-size:clamp(38px,7.4vw,104px);margin-bottom:.28em;}
+  .thesis{
+    font-family:var(--serif);font-style:italic;
+    font-size:clamp(19px,2.3vw,32px);line-height:1.28;color:var(--ink);
+    border-left:3px solid var(--vedado);padding-left:clamp(16px,1.6vw,24px);
+    max-width:26ch;margin:clamp(18px,2.4vw,30px) 0 0;
+  }
+  .cover-bot{display:flex;gap:clamp(20px,3vw,56px);flex-wrap:wrap;align-items:flex-end;justify-content:space-between;}
+  .keyfacts{display:flex;gap:clamp(20px,3vw,52px);flex-wrap:wrap;}
+  .kf{display:flex;flex-direction:column;gap:2px;}
+  .kf b{font-family:var(--mono);font-size:clamp(22px,2.6vw,38px);font-variant-numeric:tabular-nums;letter-spacing:-.03em;line-height:1;}
+  .kf span{font-family:var(--mono);font-size:clamp(9.5px,.75vw,11.5px);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);max-width:22ch;}
+
+  /* ---------- grids ---------- */
+  .cols{display:grid;gap:clamp(18px,2.4vw,36px);}
+  .c2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr));}
+  .c3{grid-template-columns:repeat(auto-fit,minmax(230px,1fr));}
+  .c4{grid-template-columns:repeat(auto-fit,minmax(190px,1fr));}
+  .c5{grid-template-columns:repeat(auto-fit,minmax(160px,1fr));}
+
+  .card{
+    background:var(--paper-2);border:1px solid var(--rule);border-radius:4px;
+    padding:clamp(14px,1.5vw,22px);display:flex;flex-direction:column;gap:8px;
+  }
+  .card p{margin:0;font-size:.92em;}
+  .card .tag{
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--ink-3);
+  }
+
+  /* ---------- bars ---------- */
+  .bars{display:flex;flex-direction:column;gap:clamp(9px,1.1vw,15px);}
+  .bar{display:grid;grid-template-columns:clamp(84px,9vw,130px) 1fr auto;align-items:center;gap:clamp(10px,1.4vw,20px);}
+  .bar .lb{font-family:var(--mono);font-size:clamp(11px,.9vw,13.5px);color:var(--ink-2);letter-spacing:.02em;}
+  .bar .tr{height:clamp(16px,1.8vw,26px);background:var(--paper-3);border-radius:2px;overflow:hidden;}
+  .bar .fl{height:100%;background:var(--accent);border-radius:2px;transform-origin:left;}
+  .bar .vl{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:clamp(13px,1.3vw,20px);font-weight:600;min-width:4.2ch;text-align:right;}
+  .bar.v .fl{background:var(--vedado);} .bar.v .vl{color:var(--vedado);}
+  .bar.a .fl{background:var(--alto);} .bar.a .vl{color:var(--alto);}
+  .bar.b .fl{background:var(--baixo);} .bar.b .vl{color:var(--baixo);}
+
+  /* ---------- classificador ---------- */
+  .clf{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin-top:6px;}
+  .task{
+    text-align:left;font:inherit;color:var(--ink);cursor:pointer;
+    background:var(--paper-2);border:1px solid var(--rule);border-radius:4px;
+    padding:13px 14px;display:flex;flex-direction:column;gap:9px;
+    transition:border-color .18s,background .18s,transform .18s;
+  }
+  .task:hover{border-color:var(--accent);transform:translateY(-1px);}
+  .task:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+  .task .q{font-size:.93em;line-height:1.4;}
+  .task .ans{
+    display:flex;align-items:center;gap:8px;
+    font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;
+    opacity:0;transition:opacity .22s;
+  }
+  .task .ans .dot{width:9px;height:9px;border-radius:50%;background:var(--ink-3);flex:none;}
+  .task .ans .why{text-transform:none;letter-spacing:0;font-size:11.5px;color:var(--ink-3);}
+  .task[data-open="1"] .ans{opacity:1;}
+  .task[data-open="1"][data-r="v"]{background:var(--vedado-bg);border-color:var(--vedado);}
+  .task[data-open="1"][data-r="v"] .dot{background:var(--vedado);}
+  .task[data-open="1"][data-r="v"] .ans strong{color:var(--vedado);}
+  .task[data-open="1"][data-r="a"]{background:var(--alto-bg);border-color:var(--alto);}
+  .task[data-open="1"][data-r="a"] .dot{background:var(--alto);}
+  .task[data-open="1"][data-r="a"] .ans strong{color:var(--alto);}
+  .task[data-open="1"][data-r="b"]{background:var(--baixo-bg);border-color:var(--baixo);}
+  .task[data-open="1"][data-r="b"] .dot{background:var(--baixo);}
+  .task[data-open="1"][data-r="b"] .ans strong{color:var(--baixo);}
+  .clf-bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:14px;}
+  .btn{
+    font:inherit;font-family:var(--mono);font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;
+    background:transparent;color:var(--ink-2);border:1px solid var(--rule);border-radius:3px;
+    padding:7px 13px;cursor:pointer;transition:border-color .18s,color .18s;
+  }
+  .btn:hover{border-color:var(--accent);color:var(--ink);}
+  .btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--ink-3);}
+  .legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:baseline;}
+
+  /* ---------- risk strata ---------- */
+  .strata{display:flex;flex-direction:column;gap:10px;}
+  .stratum{
+    display:grid;grid-template-columns:clamp(96px,11vw,150px) 1fr;gap:clamp(14px,2vw,28px);
+    border:1px solid var(--rule);border-left-width:5px;border-radius:4px;
+    background:var(--paper-2);padding:clamp(13px,1.5vw,20px);
+  }
+  .stratum.v{border-left-color:var(--vedado);}
+  .stratum.a{border-left-color:var(--alto);}
+  .stratum.b{border-left-color:var(--baixo);}
+  .stratum h3{font-family:var(--mono);font-size:clamp(11px,.92vw,13px);letter-spacing:.1em;text-transform:uppercase;margin:0;}
+  .stratum.v h3{color:var(--vedado);} .stratum.a h3{color:var(--alto);} .stratum.b h3{color:var(--baixo);}
+  .stratum .codes{font-family:var(--mono);font-size:11.5px;color:var(--ink-3);margin-top:4px;}
+  .stratum p{margin:0;font-size:.92em;}
+
+  /* ---------- chain ---------- */
+  .chain{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:8px;}
+  .link{
+    background:var(--paper-2);border:1px solid var(--rule);border-radius:4px;
+    padding:12px 13px;display:flex;flex-direction:column;gap:6px;position:relative;
+  }
+  .link .n{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--ink-3);}
+  .link .t{font-size:.9em;line-height:1.35;font-weight:600;}
+  .link .d{font-family:var(--mono);font-size:11px;color:var(--ink-3);font-variant-numeric:tabular-nums;}
+  .link.hot{border-color:var(--baixo);background:var(--baixo-bg);}
+  .link.hot .n{color:var(--baixo);}
+
+  /* ---------- misc ---------- */
+  .bignum{
+    font-family:var(--mono);font-variant-numeric:tabular-nums;font-weight:600;
+    font-size:clamp(46px,9vw,132px);line-height:.88;letter-spacing:-.045em;
+    display:block;
+  }
+  .bignum.v{color:var(--vedado);} .bignum.b{color:var(--baixo);}
+  .caption{font-family:var(--mono);font-size:clamp(10.5px,.85vw,13px);letter-spacing:.06em;color:var(--ink-3);text-transform:uppercase;margin-top:8px;max-width:26ch;}
+
+  .quote{
+    font-family:var(--serif);font-style:italic;font-size:clamp(17px,1.9vw,27px);
+    line-height:1.35;color:var(--ink);border-left:3px solid var(--accent);
+    padding-left:clamp(14px,1.5vw,22px);max-width:46ch;margin:0;
+  }
+  .quote cite{display:block;font-style:normal;font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;color:var(--ink-3);margin-top:12px;text-transform:uppercase;}
+
+  .tbl{width:100%;overflow-x:auto;}
+  table{width:100%;border-collapse:collapse;font-size:clamp(12.5px,1vw,15px);min-width:640px;}
+  th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--rule);vertical-align:top;}
+  th{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);font-weight:500;}
+  td strong{font-weight:650;}
+  td .cite{display:block;margin-top:2px;}
+
+  .dont{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px;}
+  .dont .card{border-left:4px solid var(--vedado);}
+  .dont .card .tag{color:var(--vedado);}
+  .dont .card .fix{font-size:.88em;color:var(--ink-2);border-top:1px dashed var(--rule);padding-top:8px;margin-top:2px;}
+
+  .steps{display:flex;flex-direction:column;gap:2px;}
+  .step{
+    display:grid;grid-template-columns:auto 1fr auto;gap:clamp(12px,1.6vw,24px);align-items:baseline;
+    padding:clamp(11px,1.3vw,17px) 0;border-bottom:1px solid var(--rule);
+  }
+  .step:last-child{border-bottom:0;}
+  .step .k{font-family:var(--mono);font-size:clamp(15px,1.6vw,22px);font-weight:600;color:var(--accent);font-variant-numeric:tabular-nums;}
+  .step .b{font-size:clamp(13.5px,1.1vw,17px);}
+  .step .b em{font-style:normal;color:var(--ink-3);display:block;font-size:.88em;margin-top:3px;}
+  .step .m{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);white-space:nowrap;}
+
+  a{color:var(--accent);}
+  a:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+
+  @media print{
+    html{scroll-snap-type:none;}
+    .rail,.hint{display:none;}
+    .s{min-height:auto;page-break-after:always;border-bottom:0;padding:24px 0;}
+    .task .ans{opacity:1 !important;}
+  }
+</style>
+
+<nav class="rail" aria-label="Seções">
+  <a href="#s1" aria-current="true"><span>01 · Abertura</span></a>
+  <a href="#s2"><span>02 · A escala</span></a>
+  <a href="#s3"><span>03 · A ferramenta não resolve</span></a>
+  <a href="#s4"><span>04 · Cinco erros</span></a>
+  <a href="#s5"><span>05 · BR4 × AR4 — exercício</span></a>
+  <a href="#s6"><span>06 · Três camadas da norma</span></a>
+  <a href="#s7"><span>07 · Gradiente de legitimidade</span></a>
+  <a href="#s8"><span>08 · A aritmética</span></a>
+  <a href="#s9"><span>09 · A cadeia causal</span></a>
+  <a href="#s10"><span>10 · Proibir não funciona</span></a>
+  <a href="#s11"><span>11 · Casos</span></a>
+  <a href="#s12"><span>12 · O que não dizer</span></a>
+  <a href="#s13"><span>13 · Cinco controles</span></a>
+  <a href="#s14"><span>14 · O ciclo em seis fases</span></a>
+  <a href="#s15"><span>15 · Formação</span></a>
+</nav>
+<div class="hint">← → navega</div>
+
+<!-- 01 -->
+<section class="s cover" id="s1">
+  <div class="cover-top wrap">
+    <span>Palestra · curso · apresentação</span>
+    <span>Base normativa: Res. CNJ 615/2025</span>
+  </div>
+  <div class="wrap">
+    <h1>Gestão de risco no uso de&nbsp;IA no Judiciário</h1>
+    <blockquote class="thesis">Quem assina responde — e o protocolo de revisão que você herdou não foi feito para este tipo de erro.</blockquote>
+  </div>
+  <div class="cover-bot wrap">
+    <div class="keyfacts">
+      <div class="kf"><b>1.809</b><span>decisões no mundo com material alucinado constatado</span></div>
+      <div class="kf"><b>17–33%</b><span>alucinação em ferramentas jurídicas comerciais</span></div>
+      <div class="kf"><b>2.558</b><span>processos baixados por magistrado em 2025</span></div>
+      <div class="kf"><b>5,9%</b><span>dos órgãos com diretriz interna bem definida</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 -->
+<section class="s" id="s2">
+  <div class="wrap">
+    <div class="eyebrow"><b>02</b> A escala <i></i> Base AI Hallucination Cases · consulta 25/07/2026</div>
+    <h2>Não é hipótese. É progressão geométrica.</h2>
+    <p class="lead">Decisões em que <strong>um tribunal constatou</strong> que uma parte se apoiou em material alucinado. Só entra o que o juízo explicitou — <strong>o número real é necessariamente maior</strong>.</p>
+    <div class="bars" style="margin-top:clamp(16px,2.2vw,30px)">
+      <div class="bar"><span class="lb">2023</span><span class="tr"><span class="fl" data-w="1.8"></span></span><span class="vl">16</span></div>
+      <div class="bar"><span class="lb">2024</span><span class="tr"><span class="fl" data-w="6.5"></span></span><span class="vl">59</span></div>
+      <div class="bar a"><span class="lb">2025</span><span class="tr"><span class="fl" data-w="91"></span></span><span class="vl">828</span></div>
+      <div class="bar v"><span class="lb">2026 <em style="font-style:normal;color:var(--ink-3)">até 25/07</em></span><span class="tr"><span class="fl" data-w="100"></span></span><span class="vl">906</span></div>
+    </div>
+    <div class="cols c4" style="margin-top:clamp(20px,2.6vw,34px)">
+      <div class="card"><span class="tag">Por autor</span><p><strong class="num">1.060</strong> parte sem advogado · <strong class="num">703</strong> advogado · <strong class="num">26</strong> juiz ou tribunal</p></div>
+      <div class="card"><span class="tag">Brasil</span><p><strong class="num">10</strong> casos catalogados — <strong>todos de advogados</strong></p></div>
+      <div class="card"><span class="tag">Ferramenta identificável</span><p>Em <strong class="num">~88%</strong> dos casos <strong>não se sabe qual foi</strong>. Não há trilha de auditoria.</p></div>
+      <div class="card"><span class="tag">Sanção</span><p><strong class="num">~93%</strong> dos casos <strong>sem</strong> encaminhamento disciplinar</p></div>
+    </div>
+    <p class="src">Fonte: AI Hallucination Cases Database (Damien Charlotin, HEC Paris), CSV processado em 26/07/2026. Números de 1.227, 1.598 ou 1.668 que circulam em outros materiais estão defasados — cite sempre com data de consulta.</p>
+  </div>
+</section>
+
+<!-- 03 -->
+<section class="s" id="s3">
+  <div class="wrap">
+    <div class="eyebrow"><b>03</b> O argumento que não sobrevive ao dado <i></i> Stanford RegLab · JELS 2025</div>
+    <h2>“É só usar a ferramenta jurídica certa.”</h2>
+    <p class="lead">Avaliação <strong>pré-registrada</strong>, mais de 200 consultas avaliadas por especialistas. São produtos jurídicos especializados, com RAG sobre bases proprietárias, vendidos com promessa explícita de <span class="cite">hallucination-free</span>.</p>
+    <div class="bars" style="margin-top:clamp(16px,2.2vw,30px)">
+      <div class="bar b"><span class="lb">Lexis+ AI</span><span class="tr"><span class="fl" data-w="39.5"></span></span><span class="vl">17%</span></div>
+      <div class="bar a"><span class="lb">Westlaw AI-AR</span><span class="tr"><span class="fl" data-w="76.7"></span></span><span class="vl">33%</span></div>
+      <div class="bar v"><span class="lb">GPT-4 puro</span><span class="tr"><span class="fl" data-w="100"></span></span><span class="vl">43%</span></div>
+    </div>
+    <div class="cols c2" style="margin-top:clamp(20px,2.6vw,34px)">
+      <blockquote class="quote">Providers’ claims are overstated.<cite>Magesh, Surani, Dahl, Suzgun, Manning &amp; Ho — Journal of Empirical Legal Studies, 2025</cite></blockquote>
+      <div>
+        <h3>E o achado que quase ninguém cita</h3>
+        <p>Respostas mais longas <strong>escondem mais erros e custam mais para verificar</strong>: cada proposição e cada citação precisa ser avaliada independentemente. O Westlaw produzia respostas de <span class="num">350</span> palavras em média — e teve a maior taxa.</p>
+        <p><strong>O ganho de produtividade e o custo de verificação crescem juntos.</strong> Quando o incentivo institucional premia o output e não a verificação, o sistema converge para a não-verificação. Isso não é falha moral — é desenho de incentivo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 -->
+<section class="s" id="s4">
+  <div class="wrap">
+    <div class="eyebrow"><b>04</b> Tipologia <i></i> O que o revisor precisa saber procurar</div>
+    <h2>Cinco erros — e os dois piores passam por qualquer revisão</h2>
+    <p class="lead">A alucinação jurídica <strong>não parece errada. Parece certa.</strong> <span class="cite">AgInt no REsp 1.988.733/SP</span> tem classe, número e unidade federativa perfeitamente verossímeis. E não existe.</p>
+    <div class="cols c5" style="margin-top:clamp(16px,2.2vw,28px)">
+      <div class="card"><span class="tag">Detectabilidade média</span><h3>Fabricação total</h3><p>O acórdão não existe. Basta buscar.</p></div>
+      <div class="card"><span class="tag">Detectabilidade baixa</span><h3>Colagem</h3><p>Número real e relator real — de processos diferentes.</p></div>
+      <div class="card"><span class="tag">Detectabilidade baixa</span><h3>Deslocamento temporal</h3><p>Precedente atribuído a ministro <strong>já aposentado</strong>, com data posterior.</p></div>
+      <div class="card" style="border-left:4px solid var(--vedado)"><span class="tag" style="color:var(--vedado)">Muito baixa</span><h3>Distorção de tese</h3><p>O acórdão existe, a citação confere — <strong>mas a fonte não sustenta a afirmação</strong>.</p></div>
+      <div class="card" style="border-left:4px solid var(--vedado)"><span class="tag" style="color:var(--vedado)">Muito baixa</span><h3>Superação silenciosa</h3><p>Existia e dizia aquilo. <strong>Foi superado.</strong></p></div>
+    </div>
+    <div class="cols c2" style="margin-top:clamp(20px,2.6vw,32px)">
+      <div>
+        <h3>Por que o protocolo herdado falha</h3>
+        <p>O Judiciário sempre delegou redação. Funcionava porque o assessor é <strong>identificável</strong>, <strong>erra de forma humana</strong> — detectável por leitura — e <strong>não inventa precedentes</strong>.</p>
+        <p>A IA quebra as três propriedades <strong>sem alterar o ritual da assinatura</strong>. Verificar existência não basta: as duas últimas categorias exigem conferir <strong>se o precedente diz o que a minuta afirma</strong>.</p>
+      </div>
+      <div>
+        <h3>Não é preciso abrir o ChatGPT</h3>
+        <p>Em <span class="cite">Ayinde v Haringey</span> <span class="cite">[2025] EWHC 1383 (Admin)</span>, uma <em>pupil barrister</em> assinou peça na High Court com cinco autoridades inexistentes — e <strong>afirmou não saber que havia usado IA</strong>. Hoje entende que Google e Safari por vezes produzem resumos gerados por IA.</p>
+        <p><strong>A IA está no caminho de quem não a procurou.</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 -->
+<section class="s" id="s5">
+  <div class="wrap">
+    <div class="eyebrow"><b>05</b> Exercício de sala <i></i> Res. CNJ 615/2025 · Anexo de Classificação de Riscos</div>
+    <h2>A fronteira que quase ninguém percebe</h2>
+    <p class="lead">Classifique cada tarefa antes de revelar. <strong>Deixe a turma errar</strong> — o aprendizado se torna irreversível.</p>
+    <div class="clf">
+      <button class="task" data-r="b" data-why="BR1 — sumarização com supervisão humana"><span class="q">Resumir um laudo pericial de 300 páginas</span><span class="ans"><span class="dot"></span><strong>Baixo risco</strong> <span class="why"></span></span></button>
+      <button class="task" data-r="a" data-why="AR4 — juízo conclusivo sobre aplicação de precedente"><span class="q">Sugerir qual tese se aplica a este conjunto de fatos</span><span class="ans"><span class="dot"></span><strong>Alto risco</strong> <span class="why"></span></span></button>
+      <button class="task" data-r="b" data-why="BR4 — texto de apoio, versão final do magistrado"><span class="q">Redigir a estrutura de um despacho conforme minhas instruções</span><span class="ans"><span class="dot"></span><strong>Baixo risco</strong> <span class="why"></span></span></button>
+      <button class="task" data-r="a" data-why="AR4 — quantificação de danos"><span class="q">Estimar o valor do dano moral neste caso</span><span class="ans"><span class="dot"></span><strong>Alto risco</strong> <span class="why"></span></span></button>
+      <button class="task" data-r="b" data-why="BR2 — detecção de padrões, sem substituir avaliação humana"><span class="q">Identificar o padrão decisório da turma sobre um tema</span><span class="ans"><span class="dot"></span><strong>Baixo risco</strong> <span class="why"></span></span></button>
+      <button class="task" data-r="a" data-why="AR2 — aferição e valoração de meios de prova"><span class="q">Avaliar se a prova produzida é suficiente</span><span class="ans"><span class="dot"></span><strong>Alto risco</strong> <span class="why"></span></span></button>
+      <button class="task" data-r="v" data-why="Art. 10, II — vedação absoluta"><span class="q">Estimar a probabilidade de reincidência do réu</span><span class="ans"><span class="dot"></span><strong>Vedado</strong> <span class="why"></span></span></button>
+      <button class="task" data-r="v" data-why="Art. 10, IV — reconhecimento de emoções por biometria"><span class="q">Detectar o estado emocional da testemunha em vídeo</span><span class="ans"><span class="dot"></span><strong>Vedado</strong> <span class="why"></span></span></button>
+    </div>
+    <div class="clf-bar">
+      <button class="btn" id="revealAll">Revelar tudo</button>
+      <button class="btn" id="resetAll">Reiniciar</button>
+      <span class="legend">
+        <span><i style="background:var(--vedado)"></i>Risco excessivo — vedado (art. 10)</span>
+        <span><i style="background:var(--alto)"></i>Alto risco (AR1–AR5)</span>
+        <span><i style="background:var(--baixo)"></i>Baixo risco (BR1–BR8)</span>
+      </span>
+    </div>
+    <div class="cols c2" style="margin-top:clamp(18px,2.2vw,28px)">
+      <div style="border-left:4px solid var(--vedado);padding-left:clamp(14px,1.5vw,20px)">
+        <h3>A linha divisória</h3>
+        <p>IA <strong>pode</strong> escrever texto de apoio — <span class="cite">BR4</span>. IA <strong>não pode</strong> formular o juízo conclusivo de subsunção — <span class="cite">AR4</span>. E, sendo alto risco, o <span class="cite">art. 19, §3º, V</span> <strong>proíbe o uso de LLM privada ou externa</strong>.</p>
+        <p><strong>A diferença está na formulação do prompt, não na ferramenta.</strong> No cotidiano, essa fronteira é cruzada sem percepção.</p>
+      </div>
+      <div>
+        <h3>A contradição que expõe pessoalmente</h3>
+        <p>O <span class="cite">art. 19, §2º</span> <strong>autoriza</strong> contratar assinatura privada quando não há solução corporativa. O <span class="cite">art. 19, §3º, III</span> <strong>exige</strong> que o fornecedor esteja contratualmente proibido de treinar com os dados — condição que <strong>nenhum plano consumer satisfaz</strong>.</p>
+        <p>Quem lê só o §2º acredita estar amparado. E o <span class="cite">§7º</span> impõe <strong>dever ativo de declarar ao tribunal</strong> o uso individual — omitir elimina qualquer alegação futura de boa-fé.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 -->
+<section class="s" id="s6">
+  <div class="wrap">
+    <div class="eyebrow"><b>06</b> O regime aplicável <i></i> Vigente desde 14/07/2025 · revoga a Res. 332/2020</div>
+    <h2>Três camadas, e um ponto cego</h2>
+    <div class="strata">
+      <div class="stratum v">
+        <div><h3>Risco excessivo</h3><div class="codes">art. 10, I–IV</div></div>
+        <p><strong>Vedação absoluta</strong>, com <strong>descontinuidade obrigatória</strong> (§2º). Soluções sem revisão humana ou que gerem <strong>dependência absoluta do usuário</strong>; predição de crime ou reincidência na fundamentação; ranqueamento de pessoas para avaliar plausibilidade de direitos, méritos ou testemunhos; biometria para <strong>reconhecimento de emoções</strong>.</p>
+      </div>
+      <div class="stratum a">
+        <div><h3>Alto risco</h3><div class="codes">AR1 · AR2 · AR3 · AR4 · AR5</div></div>
+        <p>Auditoria regular, monitoramento contínuo, <strong>avaliação de impacto algorítmico</strong> (art. 14) e revisão anual da categorização. Perfis comportamentais · <strong>valoração de provas</strong> · tipificação de fatos como crimes · <strong>juízos conclusivos sobre aplicação de norma ou precedentes</strong> · biometria para monitoramento. <strong>Vedado LLM privada ou externa</strong> (art. 19, §3º, V).</p>
+      </div>
+      <div class="stratum b">
+        <div><h3>Baixo risco</h3><div class="codes">BR1 … BR8</div></div>
+        <p>Atos ordinatórios, sumarização e gestão processual · detecção de padrões e precedentes · jurimetria · <strong>produção de textos de apoio para atos judiciais, com supervisão e versão final do magistrado</strong> · formatação · estatística · transcrição com revisão · anonimização.</p>
+      </div>
+    </div>
+    <div class="cols c3" style="margin-top:clamp(18px,2.2vw,28px)">
+      <div class="card"><span class="tag">Responsabilidade — art. 19, §3º, II</span><p>Uso <strong>auxiliar e complementar</strong>; vedado como instrumento autônomo. O magistrado <strong>permanece integralmente responsável pelas decisões e pelas informações nelas contidas</strong>.</p></div>
+      <div class="card"><span class="tag">Autoridade final — art. 32, § único</span><p>“Em nenhum momento o sistema de IA poderá <strong>restringir ou substituir a autoridade final</strong> dos usuários internos.”</p></div>
+      <div class="card" style="border-left:4px solid var(--vedado)"><span class="tag" style="color:var(--vedado)">O ponto cego — art. 19, §6º</span><p>A menção ao uso de IA no corpo da decisão é <strong>faculdade do magistrado</strong>. O log interno é obrigatório; <strong>o jurisdicionado é o único que não sabe</strong>.</p></div>
+    </div>
+    <p class="src">Correção material frequente: o prazo de 12 meses de adequação dos projetos existentes (art. 45, § único) conta <strong>da publicação — 14/03/2025</strong> —, e venceu em 14/03/2026. A vigência (14/07/2025) decorre de dispositivo distinto (art. 47). A Res. CNJ 674/2026 alterou <strong>apenas</strong> a composição do Comitê Nacional.</p>
+  </div>
+</section>
+
+<!-- 07 -->
+<section class="s" id="s7">
+  <div class="wrap">
+    <div class="eyebrow"><b>07</b> Legitimidade social <i></i> Rev/YouGov · fev 2026 · n=1.140 · ±4%</div>
+    <h2>A tolerância pública tem uma fronteira nítida</h2>
+    <div class="cols c3" style="margin-top:clamp(10px,1.6vw,22px);align-items:end">
+      <div>
+        <span class="bignum b">53%</span>
+        <span class="caption">veem benefícios concretos da IA no sistema de justiça</span>
+      </div>
+      <div>
+        <span class="bignum v">10%</span>
+        <span class="caption">aceitam que a IA recomende duração de pena — <strong style="color:var(--vedado)">72% dizem que não deve</strong></span>
+      </div>
+      <div>
+        <span class="bignum">75%</span>
+        <span class="caption">exigem divulgação obrigatória quando a IA for usada</span>
+      </div>
+    </div>
+    <div class="cols c2" style="margin-top:clamp(22px,3vw,40px)">
+      <div>
+        <h3>A leitura</h3>
+        <p><strong>A aceitação é alta para IA-instrumento e colapsa para IA-decisor.</strong> A Resolução 615/2025 acertou ao construir a classificação de risco exatamente sobre esse eixo — e <strong>errou ao tornar facultativa a divulgação do uso</strong>, que é justamente a exigência com maior respaldo popular.</p>
+      </div>
+      <div>
+        <h3>E o pior momento possível</h3>
+        <p>O Judiciário está adotando IA com a <strong>desconfiança no STF em <span class="num">53%</span></strong> — primeira vez majoritária desde 2022 <span class="cite">(Quaest, abr/2026)</span> — e <strong>“não confia na Justiça” em <span class="num">36%</span></strong>, maior índice da série iniciada em 2017 <span class="cite">(Datafolha, mar/2026)</span>.</p>
+        <p><strong>Isto não é conformidade regulatória. É risco reputacional de primeira ordem.</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 08 -->
+<section class="s" id="s8">
+  <div class="wrap">
+    <div class="eyebrow"><b>08</b> A causa raiz <i></i> Justiça em Números 2026 · ano-base 2025</div>
+    <h2>A inobservância é aritmética, não moral</h2>
+    <div class="cols c4" style="margin-top:clamp(12px,1.8vw,24px)">
+      <div><span class="bignum">2.558</span><span class="caption">processos baixados por magistrado em 2025</span></div>
+      <div><span class="bignum">11</span><span class="caption">casos por dia útil — sem descontar férias</span></div>
+      <div><span class="bignum">7.082</span><span class="caption">processos de carga por magistrado</span></div>
+      <div><span class="bignum">40,9<span style="font-size:.42em;letter-spacing:0"> mi</span></span><span class="caption">casos novos — maior da série histórica</span></div>
+    </div>
+    <div class="cols c2" style="margin-top:clamp(22px,3vw,38px)">
+      <blockquote class="quote">2.558 processos baixados por magistrado, ou seja, uma média de 11 casos solucionados por dia útil do ano, sem descontar períodos de férias.<cite>Conselho Nacional de Justiça — Justiça em Números 2026</cite></blockquote>
+      <div>
+        <p><strong>≈40 a 45 minutos por processo</strong> — e esse é o tempo <em>total</em>, incluindo audiências, despachos e gestão de gabinete. Verificar uma minuta de IA exige checar cada proposição e cada citação independentemente.</p>
+        <p><strong>A norma criou uma obrigação aritmeticamente incompatível com a meta imposta pela mesma instituição.</strong> Enquanto isso não for resolvido — reduzindo meta, criando tempo protegido para revisão ou reclassificando o que conta como produtividade — a inobservância é o equilíbrio racional do sistema.</p>
+        <p class="src" style="margin-top:.6em">Ressalva de honestidade intelectual: os indicadores <strong>melhoraram</strong> em 2025 — congestionamento no menor patamar em 17 anos. O argumento não é que o Judiciário vai mal; é que <strong>mesmo no melhor momento da série</strong> a revisão substantiva está fora do orçamento de tempo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 09 -->
+<section class="s" id="s9">
+  <div class="wrap">
+    <div class="eyebrow"><b>09</b> Diagnóstico <i></i> Seis causas encadeadas — não seis causas somadas</div>
+    <h2>Onde a corrente se fecha — e onde cortá-la</h2>
+    <div class="chain" style="margin-top:clamp(14px,2vw,26px)">
+      <div class="link"><span class="n">Elo 1</span><span class="t">Meta de produtividade</span><span class="d">11 decisões/dia útil</span></div>
+      <div class="link"><span class="n">Elo 2</span><span class="t">Demanda por velocidade</span><span class="d">pressão estrutural</span></div>
+      <div class="link hot"><span class="n">Elo 3 — cortar aqui</span><span class="t">Ferramenta institucional inexistente ou ruim</span><span class="d">54,2% sem IAG · Sinapses nota 6,01</span></div>
+      <div class="link"><span class="n">Elo 4</span><span class="t">Shadow AI</span><span class="d">57,6% por conta pessoal · 96% ChatGPT</span></div>
+      <div class="link"><span class="n">Elo 5</span><span class="t">Uso não comunicado</span><span class="d">83% dos servidores</span></div>
+      <div class="link"><span class="n">Elo 6</span><span class="t">Sem trilha, sem detecção, sem consequência</span><span class="d">~88% sem ferramenta identificável</span></div>
+    </div>
+    <div class="cols c2" style="margin-top:clamp(20px,2.8vw,34px)">
+      <div>
+        <h3>Por que o elo 3</h3>
+        <p><strong>O ponto de maior alavancagem não é o magistrado.</strong> Fornecer ferramenta institucional adequada, auditável e com log obrigatório é o único ponto que quebra a cadeia <strong>sem exigir mudança de comportamento individual</strong>.</p>
+      </div>
+      <div>
+        <h3>E onde a norma se auto-desarma</h3>
+        <p><span class="num">26,3%</span> dos órgãos <strong>não têm diretriz alguma</strong>; apenas <span class="num">5,9%</span> têm diretrizes bem definidas. <span class="num">80,6%</span> dos projetos estão <strong>fora do Sinapses</strong> — a plataforma que a norma elege como instrumento central de auditoria. E o <span class="cite">art. 40</span> declara que o monitoramento se dá <strong>“sem caráter disciplinar”</strong>.</p>
+        <p><strong>Em 3 de cada 4 tribunais, quem quisesse cumprir a norma não encontraria o procedimento a seguir. Não é desobediência — é impossibilidade operacional.</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 -->
+<section class="s" id="s10">
+  <div class="wrap">
+    <div class="eyebrow"><b>10</b> A resposta intuitiva está errada <i></i> KPMG &amp; Univ. Melbourne 2025 · n=48.340 · 47 países</div>
+    <h2>Proibir aumenta o vazamento</h2>
+    <p class="lead">Percentual de trabalhadores que <strong>fizeram upload de informação sensível em ferramenta pública de IA</strong>, por regime da organização:</p>
+    <div class="bars" style="margin-top:clamp(16px,2.2vw,28px)">
+      <div class="bar v"><span class="lb">IA banida</span><span class="tr"><span class="fl" data-w="100"></span></span><span class="vl">67%</span></div>
+      <div class="bar a"><span class="lb">Há política</span><span class="tr"><span class="fl" data-w="83.6"></span></span><span class="vl">56%</span></div>
+      <div class="bar"><span class="lb">Não sabe</span><span class="tr"><span class="fl" data-w="56.7"></span></span><span class="vl">38%</span></div>
+      <div class="bar b"><span class="lb">Sem política</span><span class="tr"><span class="fl" data-w="49.3"></span></span><span class="vl">33%</span></div>
+    </div>
+    <blockquote class="quote" style="margin-top:clamp(20px,2.6vw,32px)">Outright bans may be ineffective, and simply having policies does not guarantee compliance; clear guidance and education on responsible AI use is needed.<cite>KPMG &amp; University of Melbourne — Trust, attitudes and use of AI, 2025</cite></blockquote>
+    <div class="cols c3" style="margin-top:clamp(18px,2.4vw,30px)">
+      <div class="card"><span class="tag">Confiança acrítica</span><p><strong class="num">66%</strong> confiaram no output <strong>sem avaliá-lo criticamente</strong></p></div>
+      <div class="card"><span class="tag">Esforço</span><p><strong class="num">72%</strong> colocaram <strong>menos esforço</strong> sabendo que podiam confiar na IA</p></div>
+      <div class="card"><span class="tag">Opacidade</span><p><strong class="num">57%</strong> usaram IA de forma <strong>não transparente</strong> — apresentando o conteúdo como próprio</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 11 -->
+<section class="s" id="s11">
+  <div class="wrap">
+    <div class="eyebrow"><b>11</b> Casuística <i></i> Os quatro casos de maior rendimento em sala</div>
+    <h2>A falha entra pela assessoria, não pelo decisor</h2>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Caso</th><th>Quem falhou</th><th>O que aconteceu</th><th>Desfecho</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>TST, 6ª Turma</strong><span class="cite">RR-0000284-92.2024.5.06.0351 · 10/03/2026</span></td>
+            <td>Empresa e advogado</td>
+            <td>Precedentes falsos — um atribuído a ministro <strong>em data posterior à sua aposentadoria</strong></td>
+            <td><strong>1% à empresa e 1% ao advogado</strong>; honorários; ofícios à <strong>OAB e ao MPF</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Caso Parauapebas</strong> — TRT-8<span class="cite">ATOrd 0001062-55.2025.5.08.0130 · 12/05/2026</span></td>
+            <td>Advogadas</td>
+            <td><em>Prompt injection</em>: comando oculto <strong>em fonte branca sobre fundo branco</strong> para enganar a IA do tribunal</td>
+            <td><strong>10% do valor da causa (~R$ 84.250)</strong>; ato atentatório à dignidade da justiça; <strong>OAB/PA suspendeu por 30 dias</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Juízes Neals e Wingate</strong><span class="cite">D.N.J. e S.D. Miss. · julho de 2025</span></td>
+            <td><strong>Dois juízes federais</strong></td>
+            <td>Um <strong>estagiário</strong> usou ChatGPT; um <em>law clerk</em> usou Perplexity. <strong>Nenhum dos juízes usou pessoalmente</strong></td>
+            <td>Decisões <strong>retiradas</strong>; inquérito do Senado; orientação nacional do Judiciário federal em 31/07/2025</td>
+          </tr>
+          <tr>
+            <td><strong>TJSP — Órgão Especial</strong><span class="cite">08/07/2026</span></td>
+            <td><strong>Magistrado</strong></td>
+            <td>Sentença com precedentes inexistentes gerados por IA</td>
+            <td><strong>Arquivado sem punição</strong> — “neste momento em que estamos aprendendo a utilizar a inteligência artificial”</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="cols c2" style="margin-top:clamp(18px,2.4vw,30px)">
+      <div>
+        <h3>A assimetria — e a leitura correta dela</h3>
+        <p>Todos os <span class="num">10</span> casos brasileiros catalogados envolvem <strong>advogados</strong>. O único procedimento contra magistrado com desfecho conhecido foi <strong>arquivado</strong> — pelo mesmo tribunal que multava advogados por conduta materialmente idêntica.</p>
+      </div>
+      <div>
+        <h3>Por quê</h3>
+        <p>A peça do advogado é lida por um adversário com <strong>incentivo econômico direto</strong> para achar a falha. A decisão judicial não tem adversário com o mesmo incentivo e acesso.</p>
+        <p><strong>Isso não significa que juízes alucinem menos — significa que se detecta menos.</strong> Os 26 casos judiciais na base mundial são um piso, não uma estimativa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 12 -->
+<section class="s" id="s12">
+  <div class="wrap">
+    <div class="eyebrow"><b>12</b> Higiene factual <i></i> Numa palestra sobre alucinação, um fato errado destrói o argumento inteiro</div>
+    <h2>O que <em>não</em> dizer</h2>
+    <div class="dont" style="margin-top:clamp(14px,2vw,26px)">
+      <div class="card"><span class="tag">Refutado</span><h3>“Ministro do STJ usou ChatGPT e citou jurisprudência inexistente em voto”</h3><p class="fix"><strong>O caso real:</strong> juiz federal de 1º grau citando jurisprudência falsa <em>atribuída ao</em> STJ. Nenhuma fonte vincula qualquer ministro.</p></div>
+      <div class="card"><span class="tag">Desmentido oficialmente</span><h3>“A Estônia tem um juiz-robô para pequenas causas”</h3><p class="fix">O Ministério da Justiça estoniano publicou em <strong>16/02/2022</strong>: <em>“não houve tal projeto nem sequer ambição no setor público estoniano”</em>. O país faz transcrição, anonimização e injunção de pagamento.</p></div>
+      <div class="card"><span class="tag">Não confirmado</span><h3>Desfecho do caso do juiz do TRF-1 no CNJ</h3><p class="fix">Diga apenas: <strong>“o CNJ avocou; não há desfecho público confirmado”</strong>. Nunca afirme que houve punição — e o número de processo que circula associado ao caso <strong>é atribuição falsa</strong>.</p></div>
+      <div class="card"><span class="tag">Leitura incorreta</span><h3>“27% dos magistrados usam IA”</h3><p class="fix">Os 27% incidem <strong>sobre quem já teve experiência com IA generativa</strong>, não sobre o total. No universo: <strong>≈13,3%</strong> dos magistrados. O próprio relatório descreve como <strong>“um sexto”</strong>.</p></div>
+      <div class="card"><span class="tag">Números defasados</span><h3>“1.227 / 1.598 / 1.668 casos na base mundial”</h3><p class="fix">Em <strong>25/07/2026 são 1.809</strong>. Cite sempre com data de consulta — a base é atualizada diariamente.</p></div>
+      <div class="card"><span class="tag">Contraditório obrigatório</span><h3>COMPAS: “45% contra 23%”</h3><p class="fix">Use <strong>“o dobro da frequência”</strong>, que está confirmado — e cite a réplica: é <strong>matematicamente impossível</strong> satisfazer calibração e paridade de taxas de erro ao mesmo tempo quando as taxas-base diferem.</p></div>
+      <div class="card"><span class="tag">Desinformação em circulação</span><h3>“A Lei nº 14.850/2026 sancionou o Marco Legal da IA”</h3><p class="fix"><strong>Esse número não existe.</strong> É contraditado pelas bases oficiais do Senado e da Câmara. O <strong>PL 2338/2023 aguarda parecer do relator</strong> na Comissão Especial da Câmara — não votado, não sancionado.</p></div>
+      <div class="card"><span class="tag">Provavelmente inexistente</span><h3>“O referencial de governança de IA do TCU”</h3><p class="fix">A lista oficial de referenciais do TCU <strong>não contém item sobre IA</strong>. O que existe é o <strong>Acórdão 1139/2022-Plenário</strong> (Rel. Min. Aroldo Cedraz), cujo item 9.5 <em>determinou</em> à Sefti elaborar um guia — <strong>sem publicação confirmada</strong>.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 13 -->
+<section class="s" id="s13">
+  <div class="wrap">
+    <div class="eyebrow"><b>13</b> O que fazer <i></i> Ordenado por retorno sobre custo</div>
+    <h2>Cinco controles</h2>
+    <div class="steps" style="margin-top:clamp(10px,1.6vw,22px)">
+      <div class="step"><span class="k">01</span><span class="b">Fornecer ferramenta institucional <strong>antes</strong> de proibir qualquer coisa<em>Único controle que quebra a cadeia sem depender de mudança de comportamento individual — e o único com evidência empírica direta contra a alternativa.</em></span><span class="m">Elo 3</span></div>
+      <div class="step"><span class="k">02</span><span class="b">Verificação de <strong>100% das citações</strong> na fonte oficial — elemento a elemento<em>Grade mínima: número · relator · data · órgão julgador · <strong>tese efetivamente afirmada</strong>. Verificar existência não basta.</em></span><span class="m">Custo ~zero</span></div>
+      <div class="step"><span class="k">03</span><span class="b">Menção expressa ao uso de IA na decisão, <strong>ainda que a norma a torne facultativa</strong><em>Custo zero. Mitiga nulidade e reputação, e atende à exigência com maior respaldo social. A faculdade normativa é o piso do sancionável, não uma boa prática.</em></span><span class="m">art. 19, §6º</span></div>
+      <div class="step"><span class="k">04</span><span class="b"><strong>Anonimização na origem</strong> como controle técnico, não como orientação de conduta<em>Dado anonimizado não é dado pessoal, não viola o art. 189 do CPC e reduz a gravidade de qualquer incidente. Para infância e juventude: supressão inclusive das iniciais.</em></span><span class="m">art. 30, §1º</span></div>
+      <div class="step"><span class="k">05</span><span class="b">Mapear <strong>“conteúdo colado em IA pública”</strong> como categoria própria de incidente<em>Dois prazos que quase nenhum plano de tribunal tem: <strong>72 horas</strong> ao Comitê Nacional e <strong>3 dias úteis</strong> à ANPD.</em></span><span class="m">art. 42 · Res. ANPD 15/2024</span></div>
+    </div>
+    <div class="cols c2" style="margin-top:clamp(20px,2.6vw,32px)">
+      <div style="border-left:4px solid var(--vedado);padding-left:clamp(14px,1.5vw,20px)">
+        <h3>A lacuna que torna tudo isso urgente</h3>
+        <p><strong>Nenhum tribunal brasileiro publica taxa de erro ou acurácia de qualquer sistema de IA.</strong> Há métricas de produtividade em toda parte e <strong>nenhuma métrica de acerto</strong>. O sistema é medido apenas pelo que acelera, nunca pelo que erra.</p>
+      </div>
+      <div>
+        <h3>Indicadores mínimos a instituir</h3>
+        <p>Taxa de citações efetivamente verificadas · taxa de erro em amostragem · <strong>tempo médio entre geração e assinatura da minuta</strong> — tempo curto demais é o indicador de que a revisão não ocorreu · % de decisões com IA reformadas em grau recursal · taxa de reversão da triagem automatizada · cobertura de capacitação certificada.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 14 -->
+<section class="s" id="s14">
+  <div class="wrap">
+    <div class="eyebrow"><b>14</b> Implantação <i></i> NIST AI RMF · ISO/IEC 42001 e 42005:2025 · Res. CNJ 615/2025</div>
+    <h2>O ciclo, em seis fases</h2>
+    <p class="lead">A norma nacional existe. <strong>O que falta em 3 de cada 4 tribunais é a tradução operacional local</strong> — o procedimento que o servidor segue às 18h de uma sexta-feira.</p>
+    <div class="cols c3" style="margin-top:clamp(14px,2vw,26px)">
+      <div class="card"><span class="tag">Fase 1 · 10 itens</span><h3>Planejar</h3><p>Inventário antes do piloto · <strong>triagem de vedação do art. 10 por escrito</strong> · classificação AR/BR · cadastro no Sinapses <em>(alto risco: antes do desenvolvimento)</em> · tolerância a risco definida <strong>antes</strong> de avaliar fornecedor · <strong>avaliar a alternativa sem IA</strong></p></div>
+      <div class="card"><span class="tag">Fase 2 · 9 itens</span><h3>Contratar</h3><p><strong>Não-treinamento, inclusive com dados inferidos</strong> · <em>zero data retention</em> auditável · DPA e localização em território nacional · direito de auditoria · <strong>congelamento de versão com direito de recusar a atualização</strong> · plano de saída em formato aberto</p></div>
+      <div class="card"><span class="tag">Fase 3 · 9 itens</span><h3>Homologar</h3><p>Conjunto de avaliação próprio: <strong>150–300 casos reais anonimizados</strong>, versionado, com gabarito de magistrados · medir <strong>citação inválida <em>e</em> citação impertinente</strong> · <em>red team</em> de <em>prompt injection</em> · <strong>riscos residuais aceitos por escrito</strong></p></div>
+      <div class="card"><span class="tag">Fase 4 · 9 itens</span><h3>Usar</h3><p><strong>Bloqueio técnico de acesso sem capacitação válida</strong> · verificação de citação na fonte · conferência dos dados do processo contra os autos · nada sigiloso em solução externa sem anonimização na origem · registro automático do uso</p></div>
+      <div class="card"><span class="tag">Fase 5 · 7 itens</span><h3>Monitorar</h3><p>Amostragem mensal de <strong>30 documentos por unidade</strong> · conjunto canário semanal para detectar deriva · <strong>auditoria por quem não desenvolveu nem implantou</strong> · reclassificação a cada troca de modelo, <em>prompt</em> ou base</p></div>
+      <div class="card" style="border-left:4px solid var(--vedado)"><span class="tag" style="color:var(--vedado)">Fase 6 · 6 itens</span><h3>Responder a incidente</h3><p>Triagem em <strong>24h</strong> · suspensão imediata do caso de uso · <strong>comunicação ao Comitê Nacional em 72h</strong> · causa raiz incorporada ao conjunto de avaliação · <strong>descontinuação obrigatória em caso de viés insanável</strong></p></div>
+    </div>
+    <div class="cols c2" style="margin-top:clamp(18px,2.4vw,30px)">
+      <div>
+        <h3>As três cláusulas contratuais inegociáveis</h3>
+        <p><strong>1.</strong> Vedação de treinamento que alcance também os <strong>dados inferidos</strong> e que <strong>sobreviva à extinção do contrato</strong>. <strong>2.</strong> Retenção zero com <strong>evidência técnica auditável</strong> — não confie no padrão do fornecedor. <strong>3.</strong> Notificação prévia de mudança de versão, com <strong>direito de recusar</strong>: fornecedor que atualiza o modelo sem aviso <strong>quebra a homologação</strong>.</p>
+      </div>
+      <div>
+        <h3>O que ainda depende do CNJ</h3>
+        <p>Os critérios de avaliação de risco, o <strong>protocolo de auditoria e monitoramento</strong> (arts. 9º, §2º; 14, §1º; 41) e o <strong>manual de boas práticas</strong> (art. 19, §4º) são atribuição do Comitê Nacional. <strong>Não foi possível confirmar se já foram publicados</strong> — são dependências externas do plano de implantação de qualquer tribunal.</p>
+      </div>
+    </div>
+    <p class="src">Checklist completo com os 47 itens e evidência esperada por item, política-modelo em 22 seções e as 12 cláusulas contratuais redigidas: <span class="cite">fontes/06-frameworks-operacionais.md</span>.</p>
+  </div>
+</section>
+
+<!-- 15 -->
+<section class="s" id="s15">
+  <div class="wrap">
+    <div class="eyebrow"><b>15</b> Formação <i></i> Res. CNJ 615/2025, art. 3º, VIII · art. 19, §3º, I</div>
+    <h2>O legislador já entregou o currículo mínimo</h2>
+    <p class="lead">Os tribunais e suas escolas <strong>devem</strong> ofertar capacitação contínua sobre <strong>riscos da automação, vieses algorítmicos e análise crítica dos resultados</strong>. Estruture a ementa nesses três eixos e você está literalmente cumprindo a norma.</p>
+    <p><strong>E o argumento que prende a plateia:</strong> pelo <span class="cite">art. 19, §3º, I</span>, a capacitação prévia é <strong>condição de licitude do uso</strong>. Quem usa assinatura pessoal só está regular se tiver feito a capacitação.</p>
+    <div class="cols c3" style="margin-top:clamp(18px,2.4vw,30px)">
+      <div class="card"><span class="tag">Camada 1 · 4 h · EaD</span><h3>Letramento obrigatório</h3><p><strong>100% do quadro.</strong> Certificado com 70%. Satisfaz o art. 19, §3º, I e produz a evidência documentada que o Comitê Nacional monitora.</p></div>
+      <div class="card"><span class="tag">Camada 2 · 20 h · semipresencial</span><h3>Uso qualificado</h3><p>Magistrados e assessores de gabinete. Entregável: <strong>o protocolo de uso de IA da unidade</strong>. Formato idêntico ao de curso credenciado pela ENFAM.</p></div>
+      <div class="card"><span class="tag">Camada 3 · 40 h</span><h3>Governança</h3><p>Comitê de IA, TI, corregedoria e gestores. Entregável: proposta de política institucional, auditoria e avaliação de impacto algorítmico.</p></div>
+    </div>
+    <div class="cols c2" style="margin-top:clamp(20px,2.6vw,32px)">
+      <div>
+        <h3>Por que essa proposta é aceita</h3>
+        <p>Ela <strong>responde a uma obrigação que o tribunal já tem</strong> e que é monitorada pelo Comitê Nacional. <strong>Não é oferta de curso — é oferta de conformidade.</strong></p>
+      </div>
+      <div>
+        <h3>Calibragem de tom</h3>
+        <p>Nem alarmismo — que empurra o uso para a clandestinidade — nem entusiasmo, que produz adoção sem verificação. <strong>“A ferramenta é útil e a responsabilidade é sua, e é integral.”</strong> É também, textualmente, a posição da Resolução 615/2025.</p>
+      </div>
+    </div>
+    <p class="src">Dossiê completo, com as três ementas (60 min, 4 h, 20 h), objetivos de aprendizagem mensuráveis, rubrica de avaliação e dez exercícios de sala: <span class="cite">DOSSIE-CONSOLIDADO.md</span> e <span class="cite">fontes/10-capacitacao-e-didatica.md</span>.</p>
+  </div>
+</section>
+
+<script>
+(function(){
+  var secs = Array.prototype.slice.call(document.querySelectorAll('.s'));
+  var links = Array.prototype.slice.call(document.querySelectorAll('.rail a'));
+
+  /* bar fills animate in on reveal */
+  var bars = Array.prototype.slice.call(document.querySelectorAll('.fl'));
+  bars.forEach(function(b){ b.style.width='0%'; });
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var barObs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(!e.isIntersecting) return;
+      var f = e.target.querySelectorAll('.fl');
+      Array.prototype.forEach.call(f, function(el,i){
+        var w = el.getAttribute('data-w')+'%';
+        if(reduce){ el.style.width = w; return; }
+        el.style.transition='width .7s cubic-bezier(.22,.8,.3,1) '+(i*90)+'ms';
+        requestAnimationFrame(function(){ el.style.width = w; });
+      });
+      barObs.unobserve(e.target);
+    });
+  },{threshold:.25});
+  document.querySelectorAll('.bars').forEach(function(g){ barObs.observe(g); });
+
+  /* rail current-section tracking */
+  var navObs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(!e.isIntersecting) return;
+      var id = e.target.id;
+      links.forEach(function(a){
+        a.setAttribute('aria-current', a.getAttribute('href')==='#'+id ? 'true':'false');
+      });
+    });
+  },{threshold:.5});
+  secs.forEach(function(s){ navObs.observe(s); });
+
+  /* keyboard navigation */
+  function currentIndex(){
+    var best=0, bestD=Infinity;
+    secs.forEach(function(s,i){
+      var d = Math.abs(s.getBoundingClientRect().top);
+      if(d<bestD){bestD=d;best=i;}
+    });
+    return best;
+  }
+  document.addEventListener('keydown', function(ev){
+    var t = ev.target;
+    if(t && (t.tagName==='INPUT'||t.tagName==='TEXTAREA')) return;
+    var i = currentIndex(), n = null;
+    if(ev.key==='ArrowRight'||ev.key==='PageDown') n = Math.min(i+1, secs.length-1);
+    else if(ev.key==='ArrowLeft'||ev.key==='PageUp') n = Math.max(i-1, 0);
+    else if(ev.key==='Home') n = 0;
+    else if(ev.key==='End') n = secs.length-1;
+    if(n===null) return;
+    ev.preventDefault();
+    secs[n].scrollIntoView({behavior: reduce ? 'auto':'smooth', block:'start'});
+  });
+
+  /* classificador */
+  var tasks = Array.prototype.slice.call(document.querySelectorAll('.task'));
+  tasks.forEach(function(b){
+    var why = b.querySelector('.why');
+    if(why) why.textContent = '— ' + b.getAttribute('data-why');
+    b.setAttribute('aria-pressed','false');
+    b.addEventListener('click', function(){
+      var open = b.getAttribute('data-open')==='1';
+      b.setAttribute('data-open', open ? '0':'1');
+      b.setAttribute('aria-pressed', open ? 'false':'true');
+    });
+  });
+  var ra = document.getElementById('revealAll');
+  var rs = document.getElementById('resetAll');
+  if(ra) ra.addEventListener('click', function(){
+    tasks.forEach(function(b){ b.setAttribute('data-open','1'); b.setAttribute('aria-pressed','true'); });
+  });
+  if(rs) rs.addEventListener('click', function(){
+    tasks.forEach(function(b){ b.setAttribute('data-open','0'); b.setAttribute('aria-pressed','false'); });
+  });
+})();
+</script>
+</body>
+</html>

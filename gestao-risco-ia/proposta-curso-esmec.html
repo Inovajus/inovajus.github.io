@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Proposta de curso — Gestão de risco no uso de IA no Judiciário | ESMEC</title>
+</head>
+<body>
+<style>
+  :root{
+    --paper:#E8EAED; --paper-2:#F2F3F5; --paper-3:#DCDFE4;
+    --ink:#14181C; --ink-2:#3D4650; --ink-3:#6C7783;
+    --rule:#C6CBD2; --accent:#3B4A5A;
+    --vedado:#8F2226; --alto:#A06A12; --baixo:#2E6B5C;
+    --serif:Georgia,"Iowan Old Style","Times New Roman",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{--paper:#0E1216;--paper-2:#161C22;--paper-3:#1E262E;--ink:#E4E8EC;--ink-2:#A8B3BE;--ink-3:#78848F;--rule:#2A343E;--accent:#8FA5BC;--vedado:#E0787B;--alto:#D9A648;--baixo:#5FB39D;}
+  }
+  :root[data-theme="dark"]{--paper:#0E1216;--paper-2:#161C22;--paper-3:#1E262E;--ink:#E4E8EC;--ink-2:#A8B3BE;--ink-3:#78848F;--rule:#2A343E;--accent:#8FA5BC;--vedado:#E0787B;--alto:#D9A648;--baixo:#5FB39D;}
+  :root[data-theme="light"]{--paper:#E8EAED;--paper-2:#F2F3F5;--paper-3:#DCDFE4;--ink:#14181C;--ink-2:#3D4650;--ink-3:#6C7783;--rule:#C6CBD2;--accent:#3B4A5A;--vedado:#8F2226;--alto:#A06A12;--baixo:#2E6B5C;}
+
+  html{scroll-behavior:smooth;background:var(--paper);}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+    font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+
+  .shell{display:grid;grid-template-columns:minmax(0,1fr);max-width:1360px;margin:0 auto;}
+  @media (min-width:1080px){.shell{grid-template-columns:250px minmax(0,1fr);gap:56px;}}
+
+  /* ---- sumário ---- */
+  .toc{display:none;}
+  @media (min-width:1080px){
+    .toc{display:block;position:sticky;top:0;align-self:start;max-height:100vh;overflow-y:auto;
+      padding:56px 0 56px 40px;font-size:13px;}
+    .toc h2{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+      color:var(--ink-3);font-weight:500;margin:0 0 14px;}
+    .toc ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1px;counter-reset:t;}
+    .toc a{display:flex;gap:9px;text-decoration:none;color:var(--ink-2);padding:5px 10px 5px 0;
+      border-left:2px solid transparent;padding-left:12px;transition:color .15s,border-color .15s;line-height:1.35;}
+    .toc a:hover{color:var(--ink);border-left-color:var(--rule);}
+    .toc a[aria-current="true"]{color:var(--ink);border-left-color:var(--accent);font-weight:600;}
+    .toc a i{font-family:var(--mono);font-style:normal;font-size:11px;color:var(--ink-3);min-width:1.6em;}
+  }
+
+  main{padding:clamp(30px,4vw,60px) clamp(20px,4vw,44px) 90px;min-width:0;}
+  @media (min-width:1080px){main{padding-left:0;padding-right:60px;}}
+
+  /* ---- cabeçalho ---- */
+  .brand{display:flex;justify-content:space-between;align-items:baseline;gap:20px;flex-wrap:wrap;
+    padding-bottom:14px;border-bottom:2px solid var(--ink);
+    font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-2);}
+  .brand b{color:var(--ink);font-weight:600;}
+  .doctype{margin:26px 0 0;font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--accent);}
+  h1{font-family:var(--serif);font-weight:400;font-size:clamp(30px,4.2vw,50px);line-height:1.07;
+    letter-spacing:-.02em;text-wrap:balance;margin:.24em 0 .3em;max-width:20ch;}
+  .sub{font-size:clamp(15px,1.35vw,19px);color:var(--ink-2);max-width:56ch;margin:0;}
+
+  .notice{margin:30px 0 0;padding:14px 18px;background:var(--paper-2);border:1px solid var(--rule);
+    border-left:4px solid var(--accent);border-radius:3px;font-size:14px;color:var(--ink-2);}
+  .notice strong{color:var(--ink);}
+
+  /* ---- seções ---- */
+  section{margin-top:clamp(42px,5vw,72px);scroll-margin-top:24px;}
+  .snum{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--accent);display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+  .snum i{flex:1;height:1px;background:var(--rule);}
+  h2{font-family:var(--serif);font-weight:400;font-size:clamp(22px,2.6vw,33px);line-height:1.14;
+    letter-spacing:-.015em;margin:0 0 .55em;text-wrap:balance;}
+  h3{font-size:16px;font-weight:650;margin:1.9em 0 .5em;letter-spacing:-.005em;}
+  h4{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--ink-3);font-weight:500;margin:1.7em 0 .55em;}
+  p{margin:0 0 1em;max-width:70ch;color:var(--ink-2);}
+  p.lead{font-size:17px;color:var(--ink);max-width:62ch;}
+  strong{color:var(--ink);font-weight:650;}
+  em{font-style:italic;}
+  .mono,.num{font-family:var(--mono);font-variant-numeric:tabular-nums;}
+  .cite{font-family:var(--mono);font-size:.87em;color:var(--accent);letter-spacing:-.01em;}
+
+  ul,ol{margin:0 0 1em;padding-left:1.35em;max-width:70ch;color:var(--ink-2);}
+  li{margin-bottom:.42em;}
+  li::marker{color:var(--ink-3);}
+  ol.obj{list-style:none;padding-left:0;counter-reset:o;}
+  ol.obj li{counter-increment:o;position:relative;padding-left:2.6em;margin-bottom:.85em;}
+  ol.obj li::before{content:counter(o);position:absolute;left:0;top:.06em;font-family:var(--mono);
+    font-size:12px;font-weight:600;color:var(--accent);background:var(--paper-2);
+    border:1px solid var(--rule);border-radius:3px;width:1.85em;height:1.85em;
+    display:flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums;}
+
+  /* ---- tabelas ---- */
+  .tw{overflow-x:auto;margin:0 0 1.2em;border:1px solid var(--rule);border-radius:4px;background:var(--paper-2);}
+  table{width:100%;border-collapse:collapse;font-size:14px;min-width:520px;}
+  th,td{text-align:left;padding:9px 14px;border-bottom:1px solid var(--rule);vertical-align:top;color:var(--ink-2);}
+  tr:last-child td{border-bottom:0;}
+  th{font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;
+    color:var(--ink-3);font-weight:500;background:var(--paper-3);}
+  td strong{font-weight:650;}
+  table.id td:first-child{font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;
+    text-transform:uppercase;color:var(--ink-3);white-space:nowrap;width:1%;}
+  table.id td:last-child{color:var(--ink);}
+
+  .fill{background:color-mix(in srgb,var(--alto) 14%,transparent);color:var(--alto);
+    font-family:var(--mono);font-size:.9em;padding:1px 5px;border-radius:2px;font-weight:600;}
+
+  /* ---- blocos ---- */
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(228px,1fr));gap:12px;margin:0 0 1.2em;}
+  .card{background:var(--paper-2);border:1px solid var(--rule);border-radius:4px;padding:15px 17px;}
+  .card h4{margin-top:0;}
+  .card p{margin:0;font-size:14px;}
+
+  .mod{border:1px solid var(--rule);border-left:4px solid var(--accent);border-radius:4px;
+    background:var(--paper-2);padding:18px 20px;margin:0 0 14px;}
+  .mod .mh{display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:4px;}
+  .mod .mt{font-weight:650;font-size:16px;color:var(--ink);}
+  .mod .mc{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);}
+  .mod .mi{font-size:13.5px;color:var(--ink-3);margin:0 0 12px;font-style:italic;}
+  .mod ol.obj{margin-bottom:0;}
+  .mod ol.obj li{font-size:14.5px;}
+
+  .alert{background:color-mix(in srgb,var(--vedado) 9%,transparent);border:1px solid var(--vedado);
+    border-radius:4px;padding:15px 18px;margin:0 0 1.2em;}
+  .alert h4{color:var(--vedado);margin-top:0;}
+  .alert p{margin:0;color:var(--ink-2);font-size:14.5px;}
+
+  .refs{font-size:14px;color:var(--ink-2);max-width:74ch;}
+  .refs p{margin:0 0 .62em;padding-left:2.1em;text-indent:-2.1em;max-width:none;}
+  .refs p b{color:var(--ink);font-weight:650;}
+
+  footer{margin-top:70px;padding-top:22px;border-top:1px solid var(--rule);
+    font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:var(--ink-3);}
+  footer p{color:var(--ink-3);max-width:74ch;font-size:11.5px;line-height:1.65;}
+
+  a{color:var(--accent);}
+  a:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+
+  @media print{
+    :root{--paper:#fff;--paper-2:#fff;--paper-3:#f2f2f2;--ink:#000;--ink-2:#1a1a1a;--ink-3:#555;--rule:#bbb;--accent:#333;}
+    body{font-size:10.5pt;line-height:1.45;}
+    .shell{display:block;max-width:none;}
+    .toc,.notice{display:none;}
+    main{padding:0;}
+    h1{font-size:22pt;}
+    h2{font-size:14pt;page-break-after:avoid;}
+    h3,h4{page-break-after:avoid;}
+    section{margin-top:20pt;page-break-inside:auto;}
+    .mod,.card,.alert,.tw{page-break-inside:avoid;}
+    table{font-size:9pt;min-width:0;}
+    .brand{border-bottom:1.5pt solid #000;}
+    a{color:#000;text-decoration:none;}
+  }
+</style>
+
+<div class="shell">
+
+<nav class="toc" aria-label="Sumário">
+  <h2>Sumário</h2>
+  <ol>
+    <li><a href="#s1"><i>1</i>Identificação da atividade</a></li>
+    <li><a href="#s2"><i>2</i>Temas, eixos e subeixos</a></li>
+    <li><a href="#s3"><i>3</i>Ementa</a></li>
+    <li><a href="#s4"><i>4</i>Justificativa</a></li>
+    <li><a href="#s5"><i>5</i>Objetivo geral</a></li>
+    <li><a href="#s6"><i>6</i>Objetivos específicos</a></li>
+    <li><a href="#s7"><i>7</i>Metodologia</a></li>
+    <li><a href="#s8"><i>8</i>Cronograma</a></li>
+    <li><a href="#s9"><i>9</i>Avaliação</a></li>
+    <li><a href="#s10"><i>10</i>Bibliografia</a></li>
+    <li><a href="#s11"><i>11</i>Corpo docente</a></li>
+    <li><a href="#s12"><i>12</i>Detalhes da atividade</a></li>
+    <li><a href="#s13"><i>13</i>Variantes de carga horária</a></li>
+  </ol>
+</nav>
+
+<main>
+  <div class="brand">
+    <span><b>ESMEC</b> · Escola Superior da Magistratura do Estado do Ceará</span>
+    <span>Proposta de atividade formativa</span>
+  </div>
+
+  <div class="doctype">Curso de aperfeiçoamento · formação continuada</div>
+  <h1>Gestão de risco no uso de inteligência artificial no Poder Judiciário</h1>
+  <p class="sub">Proposta de curso semipresencial de <strong>20 horas-aula</strong>, destinado a magistrados e servidores, em atendimento ao dever de capacitação contínua do art. 3º, VIII, da Resolução CNJ nº 615/2025.</p>
+
+  <div class="notice">
+    <strong>Nota de preenchimento.</strong> Os campos assinalados como <span class="fill">a preencher</span> são institucionais e dependem da ESMEC. A referência à norma de credenciamento no campo <em>Tipo de atividade</em> reproduz o formulário-modelo consultado — <strong>confirme a norma vigente da ENFAM antes da submissão</strong>. Confirme igualmente a denominação e a vinculação institucional da Escola no cabeçalho.
+  </div>
+
+  <!-- 1 -->
+  <section id="s1">
+    <div class="snum"><span>Seção 1</span><i></i></div>
+    <h2>Identificação da atividade</h2>
+    <div class="tw"><table class="id">
+      <tbody>
+        <tr><td>Escola</td><td><strong>Escola Superior da Magistratura do Estado do Ceará — ESMEC</strong></td></tr>
+        <tr><td>Responsável técnico</td><td><span class="fill">nome, cargo e titulação</span></td></tr>
+        <tr><td>Título</td><td><strong>Gestão de risco no uso de inteligência artificial no Poder Judiciário</strong></td></tr>
+        <tr><td>Tipo de atividade</td><td>Curso de aperfeiçoamento — formação continuada</td></tr>
+        <tr><td>Carga horária</td><td><strong>20 (vinte) horas-aula</strong> — 16h presenciais + 4h em Ambiente Virtual de Aprendizagem</td></tr>
+        <tr><td>Modalidade</td><td>Semipresencial</td></tr>
+        <tr><td>Período de inscrição</td><td><span class="fill">dd/mm a dd/mm</span></td></tr>
+        <tr><td>Data e horário</td><td><span class="fill">4 encontros presenciais de 4h</span> + AVA aberto durante todo o período</td></tr>
+        <tr><td>Local</td><td><span class="fill">sede da ESMEC — laboratório com acesso à internet</span></td></tr>
+        <tr><td>Vagas</td><td><strong>40</strong></td></tr>
+        <tr><td>Público-alvo</td><td>Magistrados e servidores com atuação em gabinete, secretaria de vara, assessoria e núcleos de inovação. <strong>Sem pré-requisito técnico.</strong></td></tr>
+        <tr><td>Infraestrutura</td><td>Notebook ou tablet por participante, com acesso à internet e a ferramenta de IA generativa; laboratório com projeção; acesso às bases de jurisprudência do Tribunal, do STJ e do STF</td></tr>
+        <tr><td>Certificação</td><td>Aproveitamento mínimo de <strong>70%</strong> e frequência mínima de <strong>75%</strong> nos encontros presenciais</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <!-- 2 -->
+  <section id="s2">
+    <div class="snum"><span>Seção 2</span><i></i></div>
+    <h2>Temas gerais, eixos e subeixos</h2>
+    <div class="cards">
+      <div class="card"><h4>Eixo 1</h4><p>Boas práticas e Atualizações em Fontes / Pensamento Jurídico Teórico e Aplicado</p></div>
+      <div class="card"><h4>Eixo 2</h4><p>Construção de Pensamento Crítico e/ou Compreensivo Teórico e Aplicado: Temas em Tecnologia, Inteligência Artificial e Redes Sociais; Democracia 4.0</p></div>
+    </div>
+    <h4>Subeixos</h4>
+    <p>Governança e gestão de risco tecnológico no Judiciário · fundamentação da decisão judicial e vícios de motivação · proteção de dados pessoais e segredo de justiça · ética e responsabilidade funcional no uso de ferramentas automatizadas · letramento digital do magistrado.</p>
+  </section>
+
+  <!-- 3 -->
+  <section id="s3">
+    <div class="snum"><span>Seção 3</span><i></i></div>
+    <h2>Ementa</h2>
+    <p>Fundamentos operacionais de inteligência artificial generativa: capacidades, limites e mecanismo da alucinação. Tipologia de erros em conteúdo jurídico gerado por sistemas generativos. Viés algorítmico e viés de automação. Regime jurídico do uso de IA no Poder Judiciário: <strong>Resolução CNJ nº 615/2025</strong> — princípios, governança, vedações de risco excessivo, Anexo de Classificação de Riscos, uso de modelos de linguagem, responsabilidade do magistrado, proteção de dados e segredo de justiça. Fundamentação da decisão judicial e <span class="cite">art. 489, §1º, do CPC</span>. Referências comparadas: Regulamento (UE) 2024/1689, NIST AI Risk Management Framework, ISO/IEC 42001 e 42005, orientação judicial da Inglaterra e País de Gales, ABA Formal Opinion 512 e Recomendação do Conselho Federal da OAB. Protocolos de verificação de conteúdo gerado. Avaliação de impacto algorítmico e auditoria. Elaboração do protocolo de uso de inteligência artificial da unidade judiciária.</p>
+  </section>
+
+  <!-- 4 -->
+  <section id="s4">
+    <div class="snum"><span>Seção 4</span><i></i></div>
+    <h2>Justificativa</h2>
+    <p class="lead">O dever de capacitação não é recomendação: é obrigação normativa da escola judicial, monitorada nacionalmente — e, para o usuário individual, é <strong>condição de licitude do uso</strong>.</p>
+
+    <p>O <span class="cite">art. 3º, VIII</span>, da Resolução CNJ nº 615, de 11 de março de 2025, impõe aos tribunais <strong>e às suas escolas</strong> o dever de ofertar <em>"capacitação contínua para magistrados e servidores sobre riscos da automação, vieses algorítmicos e análise crítica dos resultados gerados por IA"</em>. O <span class="cite">art. 2º, X</span> erige a conscientização e a capacitação contínua a princípio da norma. O <span class="cite">art. 16, VII</span> atribui ao Comitê Nacional de Inteligência Artificial do Judiciário a competência de <strong>monitorar a oferta dessa capacitação pelos tribunais</strong> e de sugerir à ENFAM e à ENAMAT o desenvolvimento de parâmetros curriculares. E o <span class="cite">art. 19, §3º, I</span> condiciona o uso de soluções de IA generativa contratadas individualmente à realização prévia de capacitação específica.</p>
+
+    <h3>O diagnóstico empírico</h3>
+    <p>A necessidade não é apenas normativa. A pesquisa do Conselho Nacional de Justiça sobre o uso de IA generativa no Judiciário registrou que a maioria dos respondentes <strong>não revela o uso da ferramenta a pares ou superiores</strong>, que <strong class="num">57,6%</strong> acessam por conta pessoal de e-mail e que <strong class="num">96%</strong> dos magistrados usuários empregam ferramenta aberta da internet. A mesma pesquisa apurou que <strong class="num">33,9%</strong> dos órgãos não ofertaram treinamento algum em IA generativa e que a inexperiência e a falta de mão de obra especializada receberam grau máximo de criticidade de <strong class="num">48,1%</strong> dos tribunais. O levantamento subsequente do CNJ registrou que <strong>apenas <span class="num">5,9%</span> dos órgãos possuem diretrizes internas bem definidas</strong> sobre o tema, enquanto <strong class="num">26,3%</strong> não possuem diretriz alguma.</p>
+
+    <h3>A resposta jurisdicional já consolidada</h3>
+    <p>Simultaneamente, firmou-se resposta às falhas decorrentes do uso não verificado. Tribunais brasileiros vêm aplicando multa por litigância de má-fé, com expedição de ofício às seccionais da Ordem dos Advogados do Brasil e, em caso do Tribunal Superior do Trabalho, também ao Ministério Público Federal, assentando que <strong>a responsabilidade pela verificação da veracidade das informações permanece integralmente com quem subscreve a peça</strong>, independentemente da participação de estagiários ou de ferramentas de inteligência artificial.</p>
+
+    <h3>Por que treinar a escolha da ferramenta não basta</h3>
+    <p>Avaliação empírica pré-registrada publicada no <em>Journal of Empirical Legal Studies</em> (2025) demonstrou que <strong>ferramentas jurídicas comerciais especializadas, com recuperação sobre bases proprietárias de jurisprudência, produzem conteúdo alucinado entre <span class="num">17%</span> e <span class="num">33%</span> das consultas</strong>. Isso afasta a suposição de que a escolha da ferramenta adequada, isoladamente, resolva o risco. <strong>O controle eficaz é procedimental</strong>: verificação de cada referência na fonte oficial, elemento a elemento.</p>
+
+    <p>O curso responde diretamente a essas exigências e converte dever normativo em <strong>competência verificável</strong>, entregando à unidade judiciária um produto imediatamente aplicável — o protocolo de uso de inteligência artificial do próprio gabinete ou secretaria.</p>
+  </section>
+
+  <!-- 5 -->
+  <section id="s5">
+    <div class="snum"><span>Seção 5</span><i></i></div>
+    <h2>Objetivo geral</h2>
+    <p class="lead">Formar magistrados e servidores para <strong>identificar, classificar, mitigar e documentar</strong> riscos decorrentes do uso de inteligência artificial na atividade judiciária, e para <strong>elaborar o protocolo de uso de inteligência artificial da própria unidade</strong> em conformidade com a Resolução CNJ nº 615/2025.</p>
+  </section>
+
+  <!-- 6 -->
+  <section id="s6">
+    <div class="snum"><span>Seção 6</span><i></i></div>
+    <h2>Objetivos específicos</h2>
+    <p>Redigidos por bloco de aulas, com verbo de desempenho e critério mensurável.</p>
+
+    <div class="mod">
+      <div class="mh"><span class="mt">Módulo I — Fundamentos e falhas</span><span class="mc">Aulas 1 e 2 · 4h presenciais</span></div>
+      <p class="mi">Ao final das aulas 1 e 2, o magistrado estará apto a:</p>
+      <ol class="obj">
+        <li><strong>Explicar</strong>, em linguagem não técnica e em até três frases, o mecanismo de geração probabilística de texto, e <strong>deduzir</strong> dele por que a alucinação é propriedade estrutural do sistema e não defeito ocasional.</li>
+        <li><strong>Classificar</strong> erros de conteúdo jurídico gerado nas cinco categorias da tipologia — fabricação total, colagem, deslocamento temporal, distorção de tese e superação silenciosa —, com acerto mínimo de <strong>80%</strong> em exercício de dez itens.</li>
+        <li><strong>Distinguir</strong> viés algorítmico, situado nos dados e no modelo, de viés de automação, situado no operador, apresentando um exemplo funcional de cada extraído da própria rotina.</li>
+        <li><strong>Identificar</strong>, em conteúdo gerado, os indícios que exigem verificação imediata, e <strong>justificar</strong> por que a verificação da existência do precedente é insuficiente.</li>
+      </ol>
+    </div>
+
+    <div class="mod">
+      <div class="mh"><span class="mt">Módulo II — Regime jurídico</span><span class="mc">Aulas 3 e 4 · 4h presenciais</span></div>
+      <p class="mi">Ao final das aulas 3 e 4, o magistrado estará apto a:</p>
+      <ol class="obj" start="5" style="counter-reset:o 4">
+        <li><strong>Localizar e citar</strong> os dispositivos da Resolução CNJ nº 615/2025 aplicáveis a uma situação concreta apresentada, indicando o artigo e o inciso pertinentes.</li>
+        <li><strong>Classificar</strong> quinze casos de uso reais nas categorias de risco excessivo <span class="cite">(art. 10)</span>, alto risco <span class="cite">(AR1 a AR5)</span> e baixo risco <span class="cite">(BR1 a BR8)</span>, com acerto mínimo de <strong>80%</strong>, e <strong>explicar</strong> a fronteira entre BR4 e AR4.</li>
+        <li><strong>Justificar</strong>, por escrito e em até dez linhas, a licitude ou ilicitude de submeter determinado documento a modelo de linguagem externo, fundamentando no <span class="cite">art. 19, §3º, III e IV</span> e no <span class="cite">art. 189 do CPC</span>.</li>
+        <li><strong>Relacionar</strong> o vício de conteúdo gerado por IA às hipóteses do <span class="cite">art. 489, §1º, do CPC</span>, e <strong>avaliar</strong> a aplicabilidade da tese do <strong>Tema Repetitivo 1.306 do STJ</strong> à decisão que incorpora texto de terceiro.</li>
+        <li><strong>Comparar</strong> o dever de capacitação do <span class="cite">art. 3º, VIII</span> da Resolução CNJ nº 615/2025 com o dever de <em>AI literacy</em> do <span class="cite">art. 4º do Regulamento (UE) 2024/1689</span>, apontando duas convergências e uma diferença.</li>
+      </ol>
+    </div>
+
+    <div class="mod">
+      <div class="mh"><span class="mt">Módulo III — Verificação e prática supervisionada</span><span class="mc">Aulas 5 e 6 · 4h presenciais</span></div>
+      <p class="mi">Ao final das aulas 5 e 6, o magistrado estará apto a:</p>
+      <ol class="obj" style="counter-reset:o 9">
+        <li><strong>Executar</strong> o protocolo de verificação elemento a elemento — número do processo, órgão julgador, relator, data de julgamento e tese efetivamente afirmada — sobre peça contendo cinco não conformidades plantadas, identificando a totalidade delas.</li>
+        <li><strong>Redigir</strong> minuta de despacho ou decisão com auxílio de ferramenta de IA e <strong>documentar</strong> o rastro de verificação de cada elemento externo utilizado.</li>
+        <li><strong>Aplicar</strong> a técnica de auditoria adversarial entre pares, examinando a produção de outro participante e emitindo parecer estruturado quanto à conformidade com o protocolo.</li>
+        <li><strong>Reconhecer</strong>, em documento processual, indícios de injeção de comando dirigido a sistema de inteligência artificial, e <strong>adotar</strong> a providência cabível.</li>
+      </ol>
+    </div>
+
+    <div class="mod">
+      <div class="mh"><span class="mt">Módulo IV — Governança e produto final</span><span class="mc">Aulas 7 e 8 · 4h presenciais</span></div>
+      <p class="mi">Ao final das aulas 7 e 8, o magistrado estará apto a:</p>
+      <ol class="obj" style="counter-reset:o 13">
+        <li><strong>Elaborar</strong> o protocolo de uso de inteligência artificial da unidade, contendo, no mínimo: usos permitidos por classe de risco, usos vedados, fluxo de verificação obrigatória, regra de tratamento de dados sigilosos e registro de capacitação.</li>
+        <li><strong>Propor</strong> ao menos dois indicadores verificáveis de monitoramento do protocolo, compatíveis com o dever de monitoramento contínuo dos <span class="cite">arts. 10, §1º, e 11, §§1º a 3º</span>.</li>
+        <li><strong>Descrever</strong> o fluxo de resposta a evento adverso, com os prazos de comunicação ao Comitê Nacional de Inteligência Artificial do Judiciário e à Autoridade Nacional de Proteção de Dados.</li>
+        <li><strong>Sustentar oralmente</strong> o protocolo elaborado perante banca de pares, respondendo a objeções de exequibilidade e de conformidade.</li>
+      </ol>
+    </div>
+
+    <div class="mod" style="border-left-color:var(--baixo)">
+      <div class="mh"><span class="mt">Módulo V — Ambiente Virtual de Aprendizagem</span><span class="mc">4h assíncronas</span></div>
+      <p class="mi">Ao final do módulo, o magistrado estará apto a:</p>
+      <ol class="obj" style="counter-reset:o 17">
+        <li><strong>Relacionar</strong>, em fórum de discussão, um ponto de cada um dos módulos <em>Algorithmic Bias and its Implications for Judicial Decision Making</em> e <em>AI Ethics and Governance Concerning Judicial Operators</em>, do curso aberto da UNESCO, ao regime da Resolução CNJ nº 615/2025.</li>
+        <li><strong>Analisar</strong> o <em>AI Guidance for Judicial Office Holders</em> do Judiciário da Inglaterra e País de Gales e <strong>identificar</strong> duas recomendações ausentes da normativa brasileira.</li>
+        <li><strong>Responder</strong> à avaliação final objetiva com aproveitamento mínimo de <strong>70%</strong>.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section id="s7">
+    <div class="snum"><span>Seção 7</span><i></i></div>
+    <h2>Metodologia</h2>
+    <p>A atividade adota abordagem andragógica centrada em <strong>aprendizagem baseada em casos e em descoberta assistida</strong>, com proporção mínima de <strong>60% de atividade prática e debate</strong> e máxima de 40% de exposição.</p>
+    <p>O desenho parte de três premissas relativas ao público:</p>
+    <div class="cards">
+      <div class="card"><h4>Competência existente</h4><p>O participante domina o raciocínio jurídico e desconhece o funcionamento da tecnologia. A atividade deve <strong>mobilizar a competência existente</strong>, não substituí-la.</p></div>
+      <div class="card"><h4>Motivação funcional</h4><p>A motivação dominante é <strong>não errar e não ser responsabilizado</strong> — não é tecnológica. O ancoramento é a responsabilidade integral do signatário.</p></div>
+      <div class="card"><h4>Descoberta, não correção</h4><p>O público adulto sênior rejeita a correção e aceita a descoberta. <strong>Os erros conceituais são produzidos pelo próprio participante</strong> em exercício controlado, não apresentados prontos pelo docente.</p></div>
+    </div>
+    <p>Cada bloco encerra com a <strong>conversão do caso discutido em item de checklist</strong>, de modo que o conjunto dos módulos produza um artefato acumulativo. O produto final do curso é o protocolo da unidade, testado em caso real durante o Módulo III.</p>
+    <h4>Técnicas empregadas</h4>
+    <p>Diagnóstico anônimo de entrada por enquete eletrônica · exercício de indução e desmontagem de alucinação em fonte oficial · classificação colaborativa de casos de uso contra o Anexo da Resolução CNJ nº 615/2025 · auditoria cruzada de peça com não conformidades plantadas · debate estruturado com inversão de posições · simulação de resposta a incidente com linha do tempo · sustentação oral do produto final perante banca de pares.</p>
+  </section>
+
+  <!-- 8 -->
+  <section id="s8">
+    <div class="snum"><span>Seção 8</span><i></i></div>
+    <h2>Cronograma</h2>
+    <div class="tw"><table>
+      <thead><tr><th>Encontro</th><th>CH</th><th>Conteúdo</th><th>Produto do bloco</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1º</strong></td><td class="num">4h</td><td><strong>Módulo I.</strong> Diagnóstico de entrada. Mecanismo da geração probabilística. Tipologia dos cinco erros. Exercício de indução e verificação. Viés algorítmico e viés de automação. Casos brasileiros e estrangeiros com desfecho.</td><td>Tipologia construída coletivamente + primeiro item de checklist</td></tr>
+        <tr><td><strong>2º</strong></td><td class="num">4h</td><td><strong>Módulo II.</strong> Resolução CNJ nº 615/2025: princípios, vedações do art. 10, Anexo AR1–AR5 e BR1–BR8. Exercício de classificação. Fronteira BR4 × AR4. Uso de modelos externos, sigilo e segredo de justiça. Art. 489, §1º, do CPC e Tema 1.306 do STJ. Panorama comparado.</td><td>Matriz de classificação de risco da unidade</td></tr>
+        <tr><td><strong>3º</strong></td><td class="num">4h</td><td><strong>Módulo III.</strong> Protocolo de verificação elemento a elemento. Prática supervisionada de elaboração de minuta com rastro de verificação. Auditoria cruzada de peça plantada. Injeção de comando em documento processual.</td><td>Checklist de verificação do gabinete <em>(máx. 7 itens)</em></td></tr>
+        <tr><td><strong>4º</strong></td><td class="num">4h</td><td><strong>Módulo IV.</strong> Governança: inventário, cadastro no Sinapses, avaliação de impacto algorítmico, auditoria e indicadores. Simulação de resposta a incidente. Elaboração e <strong>sustentação oral do protocolo</strong> perante banca de pares.</td><td><strong>Protocolo de uso de IA da unidade</strong></td></tr>
+        <tr><td><strong>AVA</strong></td><td class="num">4h</td><td><strong>Módulo V.</strong> Módulos 4 e 6 do curso aberto da UNESCO. Leitura dirigida do guia judicial britânico. Fórum de discussão. Avaliação final objetiva.</td><td>Participação em fórum + avaliação final</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <!-- 9 -->
+  <section id="s9">
+    <div class="snum"><span>Seção 9</span><i></i></div>
+    <h2>Avaliação</h2>
+    <p>Avaliação <strong>formativa e somativa</strong>, com aproveitamento mínimo de <strong>70%</strong>.</p>
+    <div class="tw"><table>
+      <thead><tr><th>Instrumento</th><th style="width:1%">Peso</th></tr></thead>
+      <tbody>
+        <tr><td>Exercício de classificação de risco <em>(Módulo II)</em> — acerto mínimo de 80% em 15 casos</td><td class="num">20%</td></tr>
+        <tr><td>Auditoria de peça com não conformidades plantadas <em>(Módulo III)</em> — detecção das cinco</td><td class="num">20%</td></tr>
+        <tr><td><strong>Protocolo de uso de IA da unidade</strong> <em>(Módulo IV)</em> — rubrica abaixo</td><td class="num">40%</td></tr>
+        <tr><td>Participação no fórum e avaliação final objetiva <em>(Módulo V)</em></td><td class="num">20%</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Rubrica do produto final — protocolo da unidade</h3>
+    <div class="tw"><table>
+      <thead><tr><th>Critério</th><th style="width:1%">Peso</th><th>Insuficiente</th><th>Suficiente</th><th>Proficiente</th></tr></thead>
+      <tbody>
+        <tr><td>Cobertura das classes de risco</td><td class="num">25%</td><td>Ignora o Anexo</td><td>Cita AR/BR genericamente</td><td><strong>Mapeia casos de uso reais da unidade a códigos AR/BR específicos</strong></td></tr>
+        <tr><td>Regra de sigilo e segredo de justiça</td><td class="num">20%</td><td>Ausente</td><td>Enunciada</td><td><strong>Operacionalizada com fluxo de decisão aplicável</strong></td></tr>
+        <tr><td>Fluxo de verificação</td><td class="num">25%</td><td>Genérico <em>("conferir")</em></td><td>Passos definidos</td><td><strong>Verificação elemento a elemento, com registro de evidência</strong></td></tr>
+        <tr><td>Responsabilidade e rastro documental</td><td class="num">15%</td><td>Ausente</td><td>Mencionada</td><td><strong>Define quem registra o quê, onde e por quanto tempo</strong></td></tr>
+        <tr><td>Exequibilidade na rotina</td><td class="num">15%</td><td>Inaplicável</td><td>Aplicável com esforço</td><td><strong>Testado em caso real durante o curso</strong></td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <!-- 10 -->
+  <section id="s10">
+    <div class="snum"><span>Seção 10</span><i></i></div>
+    <h2>Bibliografia</h2>
+
+    <h4>Normas e atos</h4>
+    <div class="refs">
+      <p>BRASIL. <b>Constituição da República Federativa do Brasil de 1988</b>, arts. 5º, LIII, LIV e LV; 37, §6º; 93, IX.</p>
+      <p>BRASIL. <b>Lei nº 13.105/2015 (Código de Processo Civil)</b>, arts. 10, 11, 77, 80, 81, 189, 371, 489 e 1.022.</p>
+      <p>BRASIL. <b>Lei nº 13.709/2018 (Lei Geral de Proteção de Dados Pessoais)</b>, arts. 5º, 6º, 7º, 11, 20, 23, 33, 38, 46 a 48 e 52.</p>
+      <p>BRASIL. <b>Lei nº 12.527/2011 (Lei de Acesso à Informação)</b>, arts. 3º, 8º, 31 e 32.</p>
+      <p>BRASIL. <b>Lei Complementar nº 35/1979 (Loman)</b>, arts. 35, 41 e 42.</p>
+      <p>CONSELHO NACIONAL DE JUSTIÇA. <b>Resolução nº 615, de 11 de março de 2025.</b></p>
+      <p>CONSELHO NACIONAL DE JUSTIÇA. <b>Resolução nº 674, de 25 de março de 2026.</b></p>
+      <p>CONSELHO NACIONAL DE JUSTIÇA. <b>Resolução nº 363, de 12 de janeiro de 2021</b> (adequação à LGPD).</p>
+      <p>CONSELHO NACIONAL DE JUSTIÇA. <b>Resolução nº 215, de 16 de dezembro de 2015</b> (LAI no Poder Judiciário).</p>
+      <p>CONSELHO FEDERAL DA ORDEM DOS ADVOGADOS DO BRASIL. <b>Recomendação sobre o uso de inteligência artificial na prática jurídica</b>, aprovada em 11 nov. 2024.</p>
+      <p>UNIÃO EUROPEIA. <b>Regulamento (UE) 2024/1689</b>, arts. 4º, 14, 26, 27 e 50 e Anexo III, ponto 8.</p>
+    </div>
+
+    <h4>Relatórios e pesquisas institucionais</h4>
+    <div class="refs">
+      <p>CONSELHO NACIONAL DE JUSTIÇA. <b>Justiça em Números 2026</b> (ano-base 2025). Brasília: CNJ, 2026.</p>
+      <p>CONSELHO NACIONAL DE JUSTIÇA. <b>Pesquisa Inteligência Artificial no Judiciário 2024 — Resumo Executivo.</b> Brasília: CNJ, set. 2025.</p>
+      <p>PESSOA, Olívia Gomes; MARANHÃO, Juliano Souza de Albuquerque (coords.). <b>O uso da Inteligência Artificial Generativa no Poder Judiciário Brasileiro.</b> Brasília: CNJ, set. 2024.</p>
+      <p>CONSELHO NACIONAL DE JUSTIÇA. <b>Relatório de Mapeamento de Projetos e Iniciativas de Inteligência Artificial no Poder Judiciário Nacional.</b> Brasília: CNJ, dez. 2025.</p>
+      <p>SALOMÃO, Luis Felipe (coord.); NUNES, Dierle (coord. científica). <b>Inteligência Artificial no Poder Judiciário Brasileiro</b>, 4. ed. Rio de Janeiro: FGV Justiça, 2025.</p>
+    </div>
+
+    <h4>Literatura</h4>
+    <div class="refs">
+      <p>DAHL, Matthew; MAGESH, Varun; SUZGUN, Mirac; HO, Daniel E. <b>Large Legal Fictions: Profiling Legal Hallucinations in Large Language Models.</b> <em>Journal of Legal Analysis</em>, v. 16, n. 1, p. 64-93, 2024.</p>
+      <p>MAGESH, Varun; SURANI, Faiz; DAHL, Matthew; SUZGUN, Mirac; MANNING, Christopher D.; HO, Daniel E. <b>Hallucination-Free? Assessing the Reliability of Leading AI Legal Research Tools.</b> <em>Journal of Empirical Legal Studies</em>, 2025.</p>
+      <p>PARASURAMAN, Raja; RILEY, Victor. <b>Humans and Automation: Use, Misuse, Disuse, Abuse.</b> <em>Human Factors</em>, v. 39, n. 2, p. 230-253, 1997.</p>
+      <p>SKITKA, Linda J.; MOSIER, Kathleen L.; BURDICK, Mark D. <b>Accountability and automation bias.</b> <em>International Journal of Human-Computer Studies</em>, v. 52, n. 4, p. 701-717, 2000.</p>
+      <p>ALON-BARKAT, Saar; BUSUIOC, Madalina. <b>Human–AI Interactions in Public Sector Decision Making: "Automation Bias" and "Selective Adherence" to Algorithmic Advice.</b> <em>Journal of Public Administration Research and Theory</em>, v. 33, n. 1, p. 153-169, 2023.</p>
+      <p>GABRIEL, Anderson de Paiva; PORTO, Fabio Ribeiro; ARAÚJO, Valter Shuenquener de. <b>Inteligência artificial, precedentes e a Resolução CNJ 615/2025.</b> <em>Revista da EMERJ</em>, v. 27, 2025.</p>
+      <p>BONAT, Débora; VALE, Luís Manoel Borges do; PEREIRA, João Sergio dos Santos Soares. <b>Inteligência artificial generativa e a fundamentação da decisão judicial.</b> <em>Revista de Processo</em>, v. 346, dez. 2023.</p>
+      <p>NUNES, Dierle. <b>IA generativa no Judiciário brasileiro: realidade e alguns desafios.</b> <em>Consultor Jurídico</em>, 10 mar. 2025.</p>
+      <p>GAWANDE, Atul. <b>The Checklist Manifesto: How to Get Things Right.</b> Nova York: Metropolitan Books, 2009.</p>
+    </div>
+
+    <h4>Referenciais técnicos</h4>
+    <div class="refs">
+      <p>NATIONAL INSTITUTE OF STANDARDS AND TECHNOLOGY. <b>Artificial Intelligence Risk Management Framework (AI RMF 1.0)</b> — NIST AI 100-1, jan. 2023.</p>
+      <p>NATIONAL INSTITUTE OF STANDARDS AND TECHNOLOGY. <b>Generative Artificial Intelligence Profile</b> — NIST AI 600-1, jul. 2024.</p>
+      <p>ISO/IEC. <b>ISO/IEC 42001:2023</b> — <em>Information technology — Artificial intelligence — Management system.</em></p>
+      <p>ISO/IEC. <b>ISO/IEC 42005:2025</b> — <em>Artificial intelligence — AI system impact assessment.</em></p>
+      <p>COURTS AND TRIBUNALS JUDICIARY (England and Wales). <b>Artificial Intelligence: Guidance for Judicial Office Holders</b>, 31 out. 2025.</p>
+      <p>UNESCO. <b>AI and the Rule of Law: Capacity Building for Judicial Systems</b> — curso aberto, 6 módulos.</p>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section id="s11">
+    <div class="snum"><span>Seção 11</span><i></i></div>
+    <h2>Corpo docente</h2>
+    <div class="tw"><table>
+      <thead><tr><th>Papel</th><th>Perfil requerido</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Coordenação técnica</strong></td><td>Magistrado com atuação em núcleo de inovação, comitê de IA ou gestão processual</td></tr>
+        <tr><td><strong>Docência — Módulos I e III</strong></td><td>Profissional com domínio operacional de sistemas de IA generativa e de metodologia de verificação; <em>não requer formação jurídica exclusiva</em></td></tr>
+        <tr><td><strong>Docência — Módulos II e IV</strong></td><td>Magistrado ou docente com produção na área de direito processual, proteção de dados ou governança tecnológica</td></tr>
+        <tr><td><strong>Apoio técnico (Módulo III)</strong></td><td>Servidor da área de tecnologia da informação do Tribunal, para o bloco de injeção de comando e sanitização documental</td></tr>
+        <tr><td><strong>Banca do produto final</strong></td><td>Coordenação técnica + um docente + um representante do comitê de IA ou da Corregedoria</td></tr>
+      </tbody>
+    </table></div>
+    <p><strong>Sugere-se convidar</strong>, para o Módulo IV, representante do Encarregado pelo Tratamento de Dados Pessoais do Tribunal, dado que o protocolo elaborado pelos participantes tem interface direta com o regime da LGPD.</p>
+  </section>
+
+  <!-- 12 -->
+  <section id="s12">
+    <div class="snum"><span>Seção 12</span><i></i></div>
+    <h2>Detalhes adicionais da atividade</h2>
+
+    <h3>Material didático</h3>
+    <p>Apostila com a Resolução CNJ nº 615/2025 anotada; matriz de classificação de risco com exemplos do acervo local; grade de verificação elemento a elemento; casos didáticos com desfecho documentado; e peça com não conformidades plantadas para o exercício de auditoria. <strong>Todo o material entregue em formato aberto, para reuso pela Escola.</strong></p>
+
+    <h3>Infraestrutura</h3>
+    <p>Laboratório com projeção e acesso à internet; acesso às bases oficiais de jurisprudência do Tribunal, do Superior Tribunal de Justiça e do Supremo Tribunal Federal; ferramenta de IA generativa disponibilizada em ambiente institucional ou, na sua ausência, em conta de teste específica para o curso.</p>
+
+    <div class="alert">
+      <h4>Restrição metodológica de observância obrigatória</h4>
+      <p><strong>Nenhum exercício empregará documento real, sigiloso ou submetido a segredo de justiça.</strong> Todos os casos didáticos são anonimizados ou sintéticos. A observância dessa restrição é, ela própria, conteúdo do curso: submeter documento sigiloso a ferramenta externa durante a formação configuraria violação do <span class="cite">art. 19, §3º, IV</span> — da norma que se está ensinando.</p>
+    </div>
+
+    <h3>Encaminhamento pós-curso</h3>
+    <p>Recomenda-se que os protocolos elaborados sejam encaminhados ao comitê interno de inteligência artificial do Tribunal ou à unidade responsável, como insumo para a política institucional exigida pelo <span class="cite">art. 12, III, da Resolução CNJ nº 615/2025</span>.</p>
+  </section>
+
+  <!-- 13 -->
+  <section id="s13">
+    <div class="snum"><span>Seção 13 · Anexo</span><i></i></div>
+    <h2>Variantes de carga horária</h2>
+    <p>A mesma proposta admite duas variantes, mantidos os eixos e a metodologia.</p>
+    <div class="tw"><table>
+      <thead><tr><th>Variante</th><th style="width:1%">CH</th><th>Escopo</th><th>Público</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Letramento</strong></td><td class="num">4h<br><span style="font-size:11px;color:var(--ink-3)">EaD</span></td><td>Módulo I condensado + vedações do art. 10 + protocolo de verificação. Certificação com 70%. <strong>Satisfaz o art. 19, §3º, I</strong> e produz a evidência documental monitorada pelo Comitê Nacional</td><td><strong>100% do quadro</strong></td></tr>
+        <tr><td><strong>Aperfeiçoamento</strong></td><td class="num">20h<br><span style="font-size:11px;color:var(--ink-3)">semipres.</span></td><td>Esta proposta</td><td>Gabinete, secretaria, assessoria</td></tr>
+        <tr><td><strong>Governança</strong></td><td class="num">40h<br><span style="font-size:11px;color:var(--ink-3)">semipres.</span></td><td>Acresce: inventário e cadastro no Sinapses, avaliação de impacto algorítmico, protocolo de auditoria, indicadores, cláusulas contratuais e elaboração de minuta de ato normativo do Tribunal</td><td>Comitê de IA, TI, Corregedoria, gestores</td></tr>
+      </tbody>
+    </table></div>
+    <p>A adoção conjunta das três variantes constitui <strong>trilha institucional completa</strong>, cobrindo a distinção entre conscientização ampla e competência por função, e atendendo integralmente ao dever do <span class="cite">art. 3º, VIII, da Resolução CNJ nº 615/2025</span>.</p>
+  </section>
+
+  <footer>
+    <p><strong style="color:var(--ink-2)">Documento integrante de conjunto.</strong> Acompanham esta proposta, como material de apoio à execução: <em>Deck de apresentação</em> (15 seções projetáveis, com exercício interativo de classificação de risco) · <em>Roteiro do palestrante</em> (notas de condução por seção, quatro trilhas de duração) · <em>Minuta de ato normativo</em> (para o Tribunal, não integra a proposta didática).</p>
+    <p style="margin-top:10px">Elaborado a partir de pesquisa com verificação em fonte primária. Os dados estatísticos citados na justificativa têm fonte identificada no dossiê que acompanha o conjunto.</p>
+  </footer>
+</main>
+</div>
+
+<script>
+(function(){
+  var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+  var secs = Array.prototype.slice.call(document.querySelectorAll('section[id]'));
+  if(!links.length) return;
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(!e.isIntersecting) return;
+      links.forEach(function(a){
+        a.setAttribute('aria-current', a.getAttribute('href')==='#'+e.target.id ? 'true':'false');
+      });
+    });
+  },{rootMargin:'-10% 0px -70% 0px',threshold:0});
+  secs.forEach(function(s){obs.observe(s);});
+})();
+</script>
+</body>
+</html>
