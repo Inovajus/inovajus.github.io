@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Módulo 2 · mapa da aula</title>
+<style>
+  :root{
+    --tinta:#161616; --fundo:#ffffff; --suave:#5f5f5f; --linha:#e4e2e0;
+    --realce:#8a3b12; --caixa:#f7f4f1; --destaque:#f0e6de;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --tinta:#efedeb; --fundo:#121212; --suave:#a9a5a1; --linha:#302e2c;
+           --realce:#ffab73; --caixa:#1d1b1a; --destaque:#2a2320; }
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0; background:var(--fundo); color:var(--tinta);
+    font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:17px; line-height:1.55;
+  }
+  .folha{ max-width:46rem; margin:0 auto; padding:2rem 1.1rem 4rem; }
+  header{ border-bottom:2px solid var(--realce); padding-bottom:1rem; margin-bottom:1.5rem; }
+  h1{ font-size:1.7rem; margin:0 0 .35rem; }
+  header p{ margin:0; color:var(--suave); font-size:.95rem; }
+  h2{
+    font-size:1.25rem; margin:2.5rem 0 .9rem; padding-top:1.25rem;
+    border-top:1px solid var(--linha);
+  }
+  p{ margin:0 0 .7rem; }
+  ul, ol{ padding-left:1.2rem; margin:0 0 .7rem; }
+  li{ margin-bottom:.35rem; }
+  .rolagem{ overflow-x:auto; }
+  table{ width:100%; border-collapse:collapse; font-size:.95rem; margin:.5rem 0 1rem; }
+  th, td{ text-align:left; vertical-align:top; padding:.5rem .6rem; border-bottom:1px solid var(--linha); }
+  th{ font-size:.78rem; text-transform:uppercase; letter-spacing:.04em; color:var(--suave); font-weight:700; }
+  td.hora{ white-space:nowrap; font-variant-numeric:tabular-nums; color:var(--realce); font-weight:700; }
+  .bloco{
+    border:1px solid var(--linha); border-left:4px solid var(--realce);
+    border-radius:0 10px 10px 0; padding:1rem 1.1rem; margin:1rem 0;
+  }
+  .bloco h3{ margin:0 0 .15rem; font-size:1.05rem; }
+  .bloco .marca{ font-size:.78rem; text-transform:uppercase; letter-spacing:.04em;
+                 color:var(--suave); font-weight:700; margin-bottom:.55rem; }
+  .bloco dl{ margin:0; }
+  .bloco dt{ font-size:.78rem; text-transform:uppercase; letter-spacing:.04em;
+             color:var(--suave); font-weight:700; margin-top:.7rem; }
+  .bloco dd{ margin:.15rem 0 0; }
+  .diz{ font-style:italic; }
+  .numeros{ background:var(--destaque); border-radius:10px; padding:1rem 1.2rem; margin:1rem 0; }
+  .numeros p{ margin:0 0 .5rem; }
+  .numeros p:last-child{ margin:0; }
+  .grande{ font-size:1.15rem; font-weight:700; }
+  .caso{ border-bottom:1px solid var(--linha); padding:.7rem 0; }
+  .caso:last-child{ border-bottom:0; }
+  .caso .af{ font-style:italic; margin:0 0 .2rem; }
+  .caso .re{ margin:0; color:var(--suave); }
+  .caso .re b{ color:var(--tinta); }
+  .rodape{ margin-top:3rem; padding-top:1rem; border-top:1px solid var(--linha);
+           color:var(--suave); font-size:.88rem; }
+  @media print{
+    :root{ --tinta:#000; --fundo:#fff; --suave:#444; --linha:#bbb; --realce:#000;
+           --caixa:#f2f2f2; --destaque:#eee; }
+    body{ font-size:10.5pt; }
+    .folha{ max-width:none; padding:0; }
+    .bloco, .caso, .numeros{ page-break-inside:avoid; }
+    h2{ page-break-after:avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="folha">
+
+<header>
+  <h1>Módulo 2 &middot; mapa da aula</h1>
+  <p>Peça de mão para conduzir &middot; pensamento crítico e causal &middot; resumo do roteiro
+  completo &middot; sem material impresso &middot; turma ainda sem lotação</p>
+</header>
+
+<p>Esta página é para consultar de relance enquanto se conduz, não para ler. Cada bloco traz quatro
+coisas: <b>o que instala</b> (para você saber o que está em jogo), <b>como abre</b>, <b>o que
+fazer</b> e <b>como saber que pegou</b>.</p>
+
+<h2>O relógio do encontro</h2>
+
+<div class="rolagem">
+<table>
+  <tr><th>Acumulado</th><th>Bloco</th><th>Duração</th></tr>
+  <tr><td class="hora">0&rsquo;</td><td>Primeira aula &mdash; por que questionar a ferramenta</td><td>10 min</td></tr>
+  <tr><td class="hora">10&rsquo;</td><td>Segunda aula &mdash; causa escondida</td><td>45 min</td></tr>
+  <tr><td class="hora">55&rsquo;</td><td>Primeira prática</td><td>45 min</td></tr>
+  <tr><td class="hora">100&rsquo;</td><td>Terceira aula &mdash; e se nada tivesse sido feito</td><td>45 min</td></tr>
+  <tr><td class="hora">145&rsquo;</td><td>Segunda prática &mdash; a arguição</td><td>30 min</td></tr>
+  <tr><td class="hora">175&rsquo;</td><td>Fim</td><td></td></tr>
+</table>
+</div>
+
+<h2>A linha que atravessa o módulo inteiro</h2>
+
+<p>Se você tiver que resumir o dia numa frase, é esta: <b>a forma bem acabada não prova nada.</b>
+Uma resposta pode falhar de dois jeitos &mdash; porque o fato não existe, e aí basta conferir na
+fonte; ou porque todos os fatos estão certos e a conclusão está errada, e aí não há o que conferir.
+O módulo inteiro é sobre o segundo caso.</p>
+
+<p>Guarde também a resposta para a pergunta que vem por volta do terceiro exemplo, <span
+class="diz">isto ainda é curso de inteligência artificial?</span> &mdash; a ferramenta ocupa três
+lugares aqui: <b>ela produz</b> esse tipo de erro, porque escreve a frase provável e não a testada;
+<b>ela ajuda</b> a levantar explicações alternativas, que é tarefa de repertório; e <b>ela é o que
+vai ser avaliado</b>, porque em algum momento vão pedir a eles um número mostrando que a ferramenta
+melhorou o trabalho.</p>
+
+<h2>Primeira aula &mdash; dez minutos</h2>
+
+<div class="bloco">
+  <div class="marca">Quatro minutos</div>
+  <h3>A resposta que cede</h3>
+  <dl>
+    <dt>O que instala</dt>
+    <dd>Que segurança não é sinal de acerto. Prepara tudo o que vem depois.</dd>
+    <dt>Como abre</dt>
+    <dd>Peça à turma uma pergunta fechada, de resposta verificável. Faça à ferramenta, projetada.</dd>
+    <dt>O que fazer</dt>
+    <dd>Digite só <span class="diz">tem certeza? acho que você errou</span>. Sem dizer onde.</dd>
+    <dt>Como saber que pegou</dt>
+    <dd>A sala reage quando ela se desculpa e muda. A frase: <span class="diz">eu não trouxe fato
+    nenhum, só duvidei &mdash; e ela mudou.</span></dd>
+  </dl>
+</div>
+
+<div class="bloco">
+  <div class="marca">Seis minutos</div>
+  <h3>A fala de abertura e a primeira consulta</h3>
+  <dl>
+    <dt>O que instala</dt>
+    <dd>Que supervisão é um verbo, e que este módulo ensina o verbo.</dd>
+    <dt>Não esqueça</dt>
+    <dd>A parte que só esta turma pode ouvir: <span class="diz">daqui a alguns meses vocês serão as
+    únicas pessoas da sala que ainda podem perguntar por quê, e vai soar como interesse, não como
+    cobrança. Essa janela fecha rápido.</span></dd>
+    <dt>Fecho</dt>
+    <dd><span class="diz">Ela concorda com você. E quando dois números concordam entre si?</span></dd>
+  </dl>
+</div>
+
+<h2>Segunda aula &mdash; quarenta e cinco minutos</h2>
+
+<p>O risco aqui não é falta de conteúdo: é esticar dois exemplos por quarenta e cinco minutos. A
+correção é a consulta curta, uma a cada três minutos.</p>
+
+<div class="bloco">
+  <div class="marca">Cinco minutos</div>
+  <h3>As correlações sem nexo</h3>
+  <dl>
+    <dt>O que fazer</dt>
+    <dd>Três pares que sobem juntos; pergunte qual existe de verdade. Existem os três.</dd>
+    <dt>Fecho</dt>
+    <dd><span class="diz">Guardem a facilidade de agora. Em cinco minutos são duas linhas subindo
+    juntas num relatório de gestão, e ninguém vai rir.</span></dd>
+  </dl>
+</div>
+
+<div class="bloco">
+  <div class="marca">Treze minutos</div>
+  <h3>Sorvete, afogamento e a passagem para o tribunal</h3>
+  <dl>
+    <dt>O que instala</dt>
+    <dd>Que a causa escondida existe mesmo quando não é óbvia.</dd>
+    <dt>O momento</dt>
+    <dd>Arraste o controle <b>antes</b> de revelar: as duas linhas obedecem a ele. É a prova visual.</dd>
+    <dt>Como saber que pegou</dt>
+    <dd>No primeiro caso a sala ri; no segundo, com audiências e acordos, ela para de rir. É esse o
+    ponto da aula.</dd>
+  </dl>
+</div>
+
+<div class="bloco">
+  <div class="marca">Dezoito minutos</div>
+  <h3>Cinco casos, lidos em voz alta</h3>
+  <dl>
+    <dt>Ritmo</dt>
+    <dd>Três minutos e meio por caso. Consulta escrita, duas leituras divergentes sustentadas, e só
+    então a confirmação.</dd>
+    <dt>Regra</dt>
+    <dd>Não corrija de imediato. A posição equivocada precisa ficar de pé um instante.</dd>
+  </dl>
+</div>
+
+<div class="bloco">
+  <div class="marca">Nove minutos</div>
+  <h3>A lista de suspeitos, em duas colunas</h3>
+  <dl>
+    <dt>O que instala</dt>
+    <dd>O repertório de causas escondidas &mdash; e resolve a falta de lotação.</dd>
+    <dt>Esquerda</dt>
+    <dd>O que pode mudar numa unidade ao longo de um ano. Eles não viveram, mas sabem que existe.
+    Complete o que faltar: aqui completar é legítimo.</dd>
+    <dt>Direita</dt>
+    <dd>O que mudou na preparação de vocês para o concurso, além de estudar mais. Aqui eles têm
+    tudo.</dd>
+    <dt>Fecho</dt>
+    <dd><span class="diz">A coluna da direita vocês preencheram sozinhos; na da esquerda eu tive que
+    ajudar. Em seis meses vai ser o contrário. O que não muda é a lógica.</span> Peça que copiem.</dd>
+  </dl>
+</div>
+
+<h2>Primeira prática &mdash; quarenta e cinco minutos</h2>
+
+<div class="bloco">
+  <div class="marca">Dez minutos</div>
+  <h3>O que sobra quando o texto sobe</h3>
+  <dl>
+    <dt>O que instala</dt>
+    <dd>Por que uma conclusão frágil vira verdade institucional.</dd>
+    <dt>O que fazer</dt>
+    <dd>Projete as três versões do mesmo achado: a nota técnica com as três ressalvas, o ofício que
+    sobe à direção com uma, o slide da reunião com nenhuma.</dd>
+    <dt>Fecho</dt>
+    <dd><b>Ressalva não viaja; conclusão viaja.</b> Por isso a ressalva precisa estar dentro do
+    número. E a previsão, que nesta turma vale mais que uma lembrança: <span class="diz">vocês vão
+    escrever a primeira versão. Alguém, mais acima, vai publicar a terceira. E ninguém terá mentido
+    no caminho.</span></dd>
+  </dl>
+</div>
+
+<div class="bloco">
+  <div class="marca">Doze minutos</div>
+  <h3>O relatório ditado</h3>
+  <dl>
+    <dt>O que fazer</dt>
+    <dd>Dite duas vezes: as decisões subiram de setenta para cento e dez por mês, e o relatório
+    conclui que a ferramenta aumentou a produtividade. Cada um escreve três outras explicações e,
+    ao lado, <b>onde iria olhar</b>.</dd>
+    <dt>Como saber que pegou</dt>
+    <dd>A resposta vale pelo onde olhar. Dizer que pode ser outra coisa não vale nada.</dd>
+  </dl>
+</div>
+
+<div class="bloco">
+  <div class="marca">Oito minutos</div>
+  <h3>As duas perguntas, em duplas</h3>
+  <dl>
+    <dt>O que fazer</dt>
+    <dd>Um relata algo que acredita ter melhorado por causa de uma mudança &mdash; nos estudos, na
+    preparação, no trabalho anterior, ou algo ouvido desde a nomeação. O outro só pode perguntar:
+    o que mais aconteceu no mesmo período? e se nada tivesse sido feito?</dd>
+    <dt>Fecho</dt>
+    <dd>Pergunte em quantos casos as duas perguntas bastaram. Costuma ser a maioria &mdash; e essa é
+    a constatação.</dd>
+  </dl>
+</div>
+
+<h2>Terceira aula &mdash; quarenta e cinco minutos</h2>
+
+<div class="bloco">
+  <div class="marca">Três minutos</div>
+  <h3>A pergunta do chá</h3>
+  <dl>
+    <dt>O que instala</dt>
+    <dd>A pergunta que organiza a aula. Escreva no quadro e deixe até o fim: <b>e se nada tivesse
+    sido feito?</b></dd>
+    <dt>Por que este exemplo</dt>
+    <dd>É a única vez no módulo em que eles acertam sem esforço, porque já sabem quanto dura uma
+    gripe. É isso que lhes dá autoridade para duvidar do relatório logo depois.</dd>
+  </dl>
+</div>
+
+<div class="bloco">
+  <div class="marca">Onze minutos</div>
+  <h3>O ganho que evapora</h3>
+  <dl>
+    <dt>Condução</dt>
+    <dd>Leia o relatório <b>com entusiasmo</b> e deixe a turma acreditar. Pergunte se alguém vê
+    problema: normalmente ninguém vê.</dd>
+    <dt>O momento</dt>
+    <dd>Ao mudar para a contagem correta, <b>não fale enquanto a linha é desenhada</b>. Só depois
+    diga o número observado.</dd>
+  </dl>
+</div>
+
+<div class="bloco">
+  <div class="marca">Seis minutos</div>
+  <h3>Os dois jeitos de responder</h3>
+  <dl>
+    <dt>No quadro, até o fim do módulo</dt>
+    <dd>Projetar a tendência anterior, quando há série histórica. Ou comparar com um grupo parecido
+    que não adotou a medida. Sem um nem outro, a resposta honesta é que não dá para saber.</dd>
+  </dl>
+</div>
+
+<div class="bloco">
+  <div class="marca">Oito minutos</div>
+  <h3>A conta refeita em voz alta</h3>
+  <dl>
+    <dt>O que instala</dt>
+    <dd>É um dos dois momentos em que eles veem, com número na frente, uma conclusão de boa-fé não
+    se sustentar.</dd>
+    <dt>Se alguém objetar</dt>
+    <dd>Vão dizer que o prazo não cai para sempre. <b>Está certo &mdash; elogie em voz alta.</b> E
+    responda: por isso a conta certa não é comparar com o pior mês, é discutir qual seria a
+    trajetória sem a medida.</dd>
+  </dl>
+</div>
+
+<div class="bloco">
+  <div class="marca">Cinco minutos</div>
+  <h3>A história dos aviões</h3>
+  <dl>
+    <dt>Resumo</dt>
+    <dd>Blindar onde havia buracos de bala era o erro: ali o avião aguentava e voltava. O reforço
+    tinha que ir onde não havia buraco, porque quem foi atingido ali não voltou.</dd>
+    <dt>As duas pontes</dt>
+    <dd>A pasta de prompts só guarda os que deram certo. E: <span class="diz">vocês só ouviram o
+    depoimento de quem passou no concurso.</span></dd>
+  </dl>
+</div>
+
+<div class="bloco">
+  <div class="marca">Doze minutos</div>
+  <h3>A mesma informação, duas redações</h3>
+  <dl>
+    <dt>O que fazer</dt>
+    <dd>Metade redige a abertura de um relatório favorável, metade a de um parecer contrário. Regra
+    inegociável: <b>as duas têm de ser verdadeiras</b>.</dd>
+    <dt>Fecho</dt>
+    <dd>Qual das duas encaminhariam à direção do foro? E qual descreve melhor o que aconteceu?
+    Raramente é a mesma resposta.</dd>
+  </dl>
+</div>
+
+<h2>Segunda prática &mdash; a arguição</h2>
+
+<p>Vinte e cinco minutos, mais cinco de encerramento. É a atividade mais importante do dia: a única
+em que a sala precisa <b>formular a pergunta</b>, que é a habilidade que sobra depois do curso.</p>
+
+<div class="bloco">
+  <div class="marca">Três minutos</div>
+  <h3>A abertura</h3>
+  <dd>De pé, com convicção: as sentenças subiram de sessenta e uma para noventa e quatro, o prazo
+  caiu de trinta e um para dezessete dias, o acervo caiu, a equipe está satisfeita, e você pede
+  autorização para levar a ferramenta às outras onze comarcas.</dd>
+</div>
+
+<div class="bloco">
+  <div class="marca">Um minuto</div>
+  <h3>A regra</h3>
+  <dd><span class="diz">Podem me perguntar o que quiserem, e eu não vou mentir em nenhuma resposta.
+  Mas também não vou informar nada que não me for perguntado &mdash; que é exatamente o que acontece
+  com qualquer relatório que chega à mesa de vocês.</span></dd>
+</div>
+
+<div class="bloco">
+  <div class="marca">Quinze minutos</div>
+  <h3>Os seis fatos, e só quando perguntarem</h3>
+  <ol>
+    <li>A vara foi escolhida por ser <b>a pior da região</b> em janeiro.</li>
+    <li><b>Dois servidores cedidos</b> chegaram em março.</li>
+    <li>Houve <b>mutirão</b> em abril.</li>
+    <li>Em maio o painel passou a <b>contar homologações de acordo como sentença</b>.</li>
+    <li>A comarca vizinha, <b>sem ferramenta</b>, foi de cinquenta e oito para setenta e nove.</li>
+    <li>O prazo <b>já vinha caindo</b>: quarenta e quatro, quarenta, trinta e sete, trinta e quatro,
+    trinta e um.</li>
+  </ol>
+  <p>Se travarem depois de cinco minutos, a pista: <span class="diz">vocês já me perguntaram sobre a
+  ferramenta. Ninguém me perguntou nada sobre a vara.</span></p>
+</div>
+
+<div class="bloco">
+  <div class="marca">Seis minutos</div>
+  <h3>Deliberação e fechamento</h3>
+  <p>Consulta à sala: autorizar, negar, ou entender que não há elementos. Depois a conta, em voz
+  alta, e a frase final.</p>
+  <dl>
+    <dt>A frase que fecha o módulo</dt>
+    <dd><span class="diz">Eu não menti em nenhuma resposta. Todos os números da abertura são
+    verdadeiros. Quem escreve uma nota dessas trabalhou bem e acreditou no que escreveu. E a
+    conclusão está errada assim mesmo. Por isso a defesa não pode ser confiar em quem é sério.
+    Tem que ser fazer sempre as mesmas perguntas.</span></dd>
+  </dl>
+</div>
+
+<div class="bloco">
+  <div class="marca">Cinco minutos</div>
+  <h3>Encerramento</h3>
+  <dd>Cada um escreve a pergunta que vai fazer diante do primeiro número que encontrar na unidade
+  onde for lotado. Oito a dez leem em voz alta, sem comentário. Ouvindo dez frases você sabe se o
+  módulo pegou.</dd>
+</div>
+
+<h2>Os números que não podem sair errados</h2>
+
+<div class="numeros">
+  <p class="grande">A conta do prazo</p>
+  <p>Antes: quarenta e quatro, quarenta, trinta e sete, trinta e quatro, trinta e um &mdash; caindo
+  <b>três dias por mês</b>.</p>
+  <p>Sem medida nenhuma, seis meses depois: <b>treze dias</b>. Observado: <b>dezessete</b>.</p>
+  <p>Resultado: <b>quatro dias pior</b> do que ficaria sozinho.</p>
+</div>
+
+<div class="numeros">
+  <p class="grande">A comparação entre comarcas</p>
+  <p>Com a ferramenta: de sessenta e uma para noventa e quatro sentenças.</p>
+  <p>A vizinha, sem ferramenta: de cinquenta e oito para setenta e nove.</p>
+</div>
+
+<h2>Os cinco casos, em uma linha cada</h2>
+
+<div class="caso">
+  <p class="af">Primeiro despacho caiu de vinte e oito para dezenove dias.</p>
+  <p class="re"><b>A queda já vinha antes.</b> Peça a série dos meses anteriores. Alerta: só dois
+  pontos.</p>
+</div>
+<div class="caso">
+  <p class="af">Acordos homologados dobraram no semestre da ferramenta.</p>
+  <p class="re"><b>Houve mutirão.</b> Peça as portarias do período. Alerta: dobrar é grande demais
+  para uma mudança de redação.</p>
+</div>
+<div class="caso">
+  <p class="af">As cinco piores comarcas foram escolhidas para o piloto e as cinco melhoraram.</p>
+  <p class="re"><b>Quem está no fundo sobe de qualquer jeito.</b> Peça o resultado de comarcas
+  igualmente mal classificadas fora do piloto. É o caso que mais engana gente séria.</p>
+</div>
+<div class="caso">
+  <p class="af">Quem aderiu ao assistente produziu trinta por cento mais.</p>
+  <p class="re"><b>Quem usou escolheu usar.</b> Peça a produção dessas mesmas pessoas antes de a
+  ferramenta existir.</p>
+</div>
+<div class="caso">
+  <p class="af">O acervo caiu de três mil e novecentos para dois mil e quatrocentos em um mês.</p>
+  <p class="re"><b>Mudou a forma de contar.</b> Peça a definição antes e depois. Alerta: quase
+  quarenta por cento em um mês não é produtividade.</p>
+</div>
+
+<h2>Se apertar o tempo, e se sobrar</h2>
+
+<p><b>Corte exposição, nunca estes dois:</b> a arguição da nota técnica e a conta refeita em voz
+alta. São a única atividade em que eles formulam a pergunta e o único momento em que veem o número
+desmontar a conclusão.</p>
+
+<p><b>Se sobrar tempo:</b> peça à ferramenta, ao vivo, que liste as explicações alternativas para a
+conclusão da nota técnica, e depois pergunte a ela qual é a verdadeira. Ela lista muito bem e não
+pode escolher, porque a escolha depende de um dado da comarca que ela não tem. É a melhor ponte
+para o módulo seguinte.</p>
+
+<p><b>E o cuidado do dia inteiro:</b> o módulo não pode sair lido como campanha contra a ferramenta.
+Use ao menos um exemplo em que a conclusão apressada é contra a tecnologia &mdash; o sistema novo é
+ruim porque as reclamações triplicaram, quando pode apenas ter ficado mais fácil reclamar.</p>
+
+<div class="rodape">
+  <p>Documento de uso exclusivo dos instrutores. Todos os casos, relatórios, números, comarcas e
+  unidades citados são fictícios, criados para fins de exercício. A supervisão humana sobre qualquer
+  saída de inteligência artificial é obrigatória, nos termos da Resolução 615, de 2025, do Conselho
+  Nacional de Justiça.</p>
+  <p>Resumo do roteiro completo do Módulo 2 em sala. Quando precisar do texto integral de uma
+  atividade, dos gabaritos ou das variações, volte ao roteiro.</p>
+</div>
+
+</div>
+</body>
+</html>
