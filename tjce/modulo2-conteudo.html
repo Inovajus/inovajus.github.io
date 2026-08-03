@@ -1,0 +1,1367 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Módulo 2 · conteúdo detalhado</title>
+<style>
+  :root{
+    --tinta:#161616; --fundo:#ffffff; --suave:#5f5f5f; --linha:#e4e2e0;
+    --realce:#8a3b12; --caixa:#f7f4f1; --erro:#f3ece7; --forte:#f0e6de;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --tinta:#efedeb; --fundo:#121212; --suave:#a9a5a1; --linha:#302e2c;
+           --realce:#ffab73; --caixa:#1d1b1a; --erro:#241d1a; --forte:#2a2320; }
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0; background:var(--fundo); color:var(--tinta);
+    font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:17px; line-height:1.6;
+  }
+  .folha{ max-width:46rem; margin:0 auto; padding:2rem 1.1rem 5rem; }
+  header{ border-bottom:2px solid var(--realce); padding-bottom:1rem; margin-bottom:1.5rem; }
+  h1{ font-size:1.7rem; margin:0 0 .35rem; line-height:1.25; }
+  header p{ margin:0; color:var(--suave); font-size:.95rem; }
+  h2{
+    font-size:1.4rem; margin:3.5rem 0 1rem; padding:1.1rem 0 0;
+    border-top:2px solid var(--realce);
+  }
+  h3{
+    font-size:1.15rem; margin:2.5rem 0 .3rem; padding-top:1.2rem;
+    border-top:1px solid var(--linha); scroll-margin-top:1rem;
+  }
+  h3 .t{ display:block; font-size:.76rem; text-transform:uppercase; letter-spacing:.05em;
+         color:var(--realce); font-weight:700; margin-bottom:.15rem; }
+  h4{ font-size:.95rem; margin:1.4rem 0 .3rem; text-transform:uppercase;
+      letter-spacing:.04em; color:var(--suave); }
+  p{ margin:0 0 .75rem; }
+  ul, ol{ padding-left:1.25rem; margin:0 0 .75rem; }
+  li{ margin-bottom:.45rem; }
+  .volta{ font-size:.85rem; color:var(--suave); margin:.2rem 0 1rem; }
+  .volta a{ color:var(--realce); }
+  .fala{
+    border-left:3px solid var(--realce); background:var(--caixa);
+    padding:.9rem 1.1rem; margin:1rem 0; border-radius:0 8px 8px 0;
+  }
+  .fala p:last-child{ margin:0; }
+  .par{ margin:.9rem 0; padding-left:.85rem; border-left:3px solid var(--linha); }
+  .par .p{ font-weight:650; margin:0 0 .2rem; }
+  .par .p::before{ content:"Pergunte  "; font-size:.7rem; text-transform:uppercase;
+                   letter-spacing:.05em; color:var(--realce); font-weight:700; }
+  .par .r{ margin:0; }
+  .par .r::before{ content:"Resposta  "; font-size:.7rem; text-transform:uppercase;
+                   letter-spacing:.05em; color:var(--suave); font-weight:700; }
+  .desvio{ background:var(--erro); border-radius:9px; padding:.85rem 1rem; margin:1rem 0; font-size:.95rem; }
+  .desvio p{ margin:0 0 .45rem; } .desvio p:last-child{ margin:0; }
+  .desvio b{ color:var(--realce); }
+  .nota{ background:var(--caixa); border-radius:9px; padding:.85rem 1rem; margin:1rem 0; font-size:.95rem; }
+  .nota p:last-child{ margin:0; }
+  .destaque{ background:var(--forte); border-radius:9px; padding:1rem 1.15rem; margin:1.2rem 0; }
+  .destaque p:last-child{ margin:0; }
+  .grande{ font-size:1.1rem; font-weight:700; }
+  .rolagem{ overflow-x:auto; }
+  table{ width:100%; border-collapse:collapse; font-size:.94rem; margin:.6rem 0 1rem; }
+  th, td{ text-align:left; vertical-align:top; padding:.5rem .6rem; border-bottom:1px solid var(--linha); }
+  th{ font-size:.76rem; text-transform:uppercase; letter-spacing:.04em; color:var(--suave); }
+  td.hora{ white-space:nowrap; font-variant-numeric:tabular-nums; color:var(--realce); font-weight:700; }
+  .caso{ border-bottom:1px solid var(--linha); padding:.75rem 0; }
+  .caso:last-child{ border-bottom:0; }
+  .caso .af{ font-style:italic; margin:0 0 .25rem; }
+  .caso .re{ margin:0; color:var(--suave); }
+  .caso .re b{ color:var(--tinta); }
+  .rodape{ margin-top:3.5rem; padding-top:1.2rem; border-top:1px solid var(--linha);
+           color:var(--suave); font-size:.88rem; }
+  @media print{
+    :root{ --tinta:#000; --fundo:#fff; --suave:#444; --linha:#bbb; --realce:#000;
+           --caixa:#f2f2f2; --erro:#eee; --forte:#eee; }
+    body{ font-size:10.5pt; }
+    .folha{ max-width:none; padding:0; }
+    .par, .desvio, .nota, .destaque, .caso, .fala{ page-break-inside:avoid; }
+    h2, h3{ page-break-after:avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="folha">
+
+<header>
+  <h1>Módulo 2 &middot; conteúdo detalhado</h1>
+  <p>Pensamento crítico e causal &middot; seis horas em dois encontros &middot; turma presencial do
+  Tribunal de Justiça do Ceará &middot; sem material impresso &middot; turma ainda sem lotação</p>
+</header>
+
+<p>Esta página tem tudo: a razão de ser do módulo, cada atividade na ordem em que acontece, as
+perguntas com as respostas esperadas, os casos, os números e as adaptações. O <b>roteiro</b> é a
+página irmã: só os tópicos, com um salto para o ponto certo daqui.</p>
+
+<div class="nota">
+  <p><b>As duas condições desta turma, já embutidas em tudo.</b> Não há material impresso: tudo
+  funciona com a projeção, a sua voz e o caderno que cada participante trouxe. E a turma é de
+  servidores recém-nomeados, sem lotação: nenhuma atividade pede dado, frase ou rotina de uma
+  unidade. Quando é preciso um exemplo pessoal, a fonte é o concurso, a preparação para ele ou o
+  que já ouviram desde a nomeação. As variantes com material impresso estão reunidas no fim, para
+  quando houver impressora.</p>
+</div>
+
+<h2 id="parte-antes">Antes de entrar</h2>
+
+<h3 id="por-que"><span class="t">Fundamento</span>Por que este módulo existe</h3>
+
+<p>A promessa do curso não é aprender a usar inteligência artificial. É usar a ferramenta sem abrir
+mão do julgamento humano. A Resolução 615, de 2025, do Conselho Nacional de Justiça, exige
+supervisão humana sobre o que a ferramenta produz.</p>
+
+<p>Supervisão é um verbo: alguém precisa fazer alguma coisa, e essa coisa tem que ser ensinável,
+treinável e verificável. Sem isso, supervisão humana vira assinatura, não ato. Este módulo é onde
+o verbo é ensinado &mdash; e por isso vem antes do módulo de prática forense. Primeiro o critério de
+aceitação, depois a produção em escala.</p>
+
+<p>Uma resposta de inteligência artificial falha de duas maneiras, e cada uma pede uma defesa
+diferente:</p>
+
+<ul>
+  <li><b>O fato não existe.</b> Julgado inventado, número sem fonte. A defesa é conferir na fonte
+  oficial. É simples de ensinar, e é simples perceber que se deveria ter conferido.</li>
+  <li><b>Todos os fatos estão certos e a conclusão está errada.</b> Nenhum número falso, nenhuma
+  citação inventada, e mesmo assim a conclusão não se sustenta. Esta é a que passa, porque cada peça
+  isolada resiste à conferência: não há o que conferir.</li>
+</ul>
+
+<p>Correlação, causa escondida e a pergunta sobre o que teria acontecido sem a medida são a única
+defesa disponível contra a segunda. Sem elas, o curso ensinaria a desconfiar apenas do que é
+evidentemente falso &mdash; e a ferramenta raramente erra de forma evidente.</p>
+
+<h3 id="onde-entra"><span class="t">Fundamento</span>Onde entra a inteligência artificial</h3>
+
+<p>É a pergunta que a turma faz por volta do terceiro exemplo. A ferramenta ocupa três lugares
+neste módulo:</p>
+
+<ul>
+  <li><b>Ela produz esse tipo de erro.</b> Escreve que a produtividade subiu por causa da ferramenta
+  porque essa é a frase provável depois daqueles números, não porque testou a hipótese. Não tem a
+  série histórica da comarca nem sabe do mutirão de abril. E entrega isso com a mesma fluência com
+  que entregaria a conclusão certa. É justamente a boa escrita que faz o erro sobreviver.</li>
+  <li><b>Ela é boa em uma parte disto.</b> Levantar explicações alternativas é tarefa de repertório,
+  e repertório é o forte dela. O que ela não pode fazer é escolher entre as explicações, porque a
+  escolha depende de um dado da unidade que ela não tem. A divisão de trabalho é essa: a ferramenta
+  levanta as hipóteses, o servidor decide entre elas.</li>
+  <li><b>Ela é o que vai ser avaliado.</b> Em algum momento vão pedir a eles um número mostrando que
+  a inteligência artificial melhorou o trabalho da unidade. Este módulo treina o raciocínio crítico
+  exatamente sobre essa afirmação.</li>
+</ul>
+
+<h3 id="camadas"><span class="t">Fundamento</span>As duas camadas de defesa</h3>
+
+<p>É o encaixe técnico com o módulo de prompt, e convém conduzir com estas palavras:</p>
+
+<ol>
+  <li><b>Dentro do pedido</b> &mdash; pedir as explicações alternativas, pedir a origem de cada
+  dado, pedir que a ferramenta aponte a própria fraqueza.</li>
+  <li><b>Depois, humana</b> &mdash; as quatro perguntas do checklist, que fecham o módulo.</li>
+</ol>
+
+<p>E a regra que amarra as duas: <b>uma não substitui a outra.</b> A primeira reduz o erro antes de
+ele acontecer; a segunda pega o que passou. É o argumento contra a saída fácil de pedir que a
+própria ferramenta se autoconfira.</p>
+
+<h3 id="tom"><span class="t">Condução</span>O tom, e o cuidado que evita o efeito contrário</h3>
+
+<p>O público é de servidores em serviço, tratando de matéria que afeta processos reais. As
+atividades são deliberadamente sóbrias: consulta à sala como em qualquer colegiado, arguição de uma
+nota técnica, análise em grupo com relato, trabalho individual em silêncio. Sem disputa por pontos
+ou brincadeira de sala de aula &mdash; não por formalidade, mas porque a atividade que parece jogo
+produz constrangimento, e o participante deixa de se comprometer com a resposta, que é o mecanismo
+do qual tudo depende.</p>
+
+<p>O risco do módulo é sair lido como campanha contra a ferramenta. Dois antídotos:</p>
+
+<ul>
+  <li>use ao menos um exemplo em que a conclusão apressada é <b>contra</b> a tecnologia &mdash; o
+  sistema novo é ruim porque as reclamações triplicaram, quando pode apenas ter ficado mais fácil
+  reclamar;</li>
+  <li>feche com a ferramenta acertando: ela levanta explicações alternativas melhor do que a sala
+  levantaria sozinha.</li>
+</ul>
+
+<p>A tese não é que a ferramenta erra. É que <b>a forma bem acabada não prova nada</b>, venha de
+máquina ou de pessoa. A nota técnica do exercício foi escrita por um servidor de boa-fé, com
+números verdadeiros, e a conclusão está errada assim mesmo.</p>
+
+<h3 id="consulta"><span class="t">Condução</span>Como colher a resposta da sala</h3>
+
+<p>É o mecanismo do qual tudo o mais depende: <b>o participante se compromete com uma resposta antes
+de ouvir a dos outros</b>. Duas formas, conforme o momento.</p>
+
+<ul>
+  <li><b>Escrita</b>, para o que exige raciocínio. <i>Antes de discutirmos, escrevam no caderno, em
+  uma linha: isso prova que a medida causou o resultado?</i> Trinta segundos de silêncio. Só depois
+  se abre a palavra.</li>
+  <li><b>Mão levantada</b>, para posição. Enuncie as opções uma a uma e peça a mão em cada uma: quem
+  entende que a medida causou o resultado, quem entende que houve outro fator, quem entende que não
+  é possível afirmar com esse dado.</li>
+</ul>
+
+<p>À pergunta aberta &mdash; alguém vê problema aqui? &mdash; ninguém responde, porque cada um espera
+o colega falar primeiro. Quando todos registram a posição ao mesmo tempo, quem divergiu da sala quer
+saber por quê.</p>
+
+<p><b>Regra de condução:</b> não corrija de imediato. Chame primeiro quem sustentou a posição
+majoritária, depois quem sustentou a outra, e só então diga o que era. A posição equivocada precisa
+ficar de pé um instante &mdash; é ela que torna a correção memorável.</p>
+
+<h2 id="parte-1">Primeiro encontro &middot; primeira aula &middot; dez minutos</h2>
+
+<h3 id="resposta-cede"><span class="t">Quatro minutos &middot; demonstração do instrutor</span>A resposta que cede</h3>
+
+<p class="volta"><a href="modulo2-roteiro.html#a1">voltar ao roteiro</a></p>
+
+<h4>O que instala</h4>
+<p>Que segurança não é sinal de acerto. Prepara tudo o que vem depois.</p>
+
+<h4>O que fazer</h4>
+<ol>
+  <li>Peça à turma uma pergunta fechada, de resposta verificável.</li>
+  <li>Faça a pergunta à ferramenta, projetada. Ela responde com segurança.</li>
+  <li>Digite, na frente de todos, apenas: <i>tem certeza? acho que você errou</i>. Sem dizer onde.</li>
+  <li>Leia em voz alta o que voltou.</li>
+</ol>
+
+<p><b>Teste antes da aula</b>, porque a resposta varia. Se ela não ceder, é igualmente aproveitável:
+<i>esta segurou. E vocês sabem de antemão em qual das duas situações estão? Não &mdash; e é esse o
+problema.</i></p>
+
+<h4>Perguntas e respostas</h4>
+<div class="par"><p class="p">O que mudou entre a primeira e a segunda resposta dela?</p>
+<p class="r">A posição. E só a posição &mdash; não entrou fato novo, norma nem fonte.</p></div>
+<div class="par"><p class="p">E o que eu fiz para que mudasse?</p>
+<p class="r">Só duvidou. Não apresentou nada.</p></div>
+<div class="par"><p class="p">Se ela muda de posição quando eu duvido, o que faz quando eu concordo?</p>
+<p class="r">Mantém &mdash; e pelo mesmo motivo, que não tem a ver com o conteúdo estar certo.</p></div>
+<div class="par"><p class="p">Então a primeira resposta dela estava errada?</p>
+<p class="r">Não necessariamente. O que ficou provado é outra coisa: a segurança dela não informa
+nada sobre estar certa ou errada.</p></div>
+
+<div class="desvio">
+  <p><b>Desvio mais comum:</b> a sala conclui que a ferramenta não presta e não deve ser usada.</p>
+  <p><b>Como recolocar:</b> <i>não é isso. Ela continua útil, e vocês vão usá-la muito. O que
+  acabamos de perder foi um atalho: o de aceitar a segurança dela como se fosse conferência.</i></p>
+</div>
+
+<h3 id="abertura"><span class="t">Quatro minutos</span>A fala de abertura do módulo</h3>
+
+<p class="volta"><a href="modulo2-roteiro.html#a1">voltar ao roteiro</a></p>
+
+<p>Depois dos dois números do estudo de 2025 que já estão no guia metodológico &mdash; setenta e dois
+por cento admitem colocar menos esforço no trabalho sabendo que podem confiar na ferramenta, e
+sessenta e seis por cento confiam no resultado sem avaliá-lo criticamente.</p>
+
+<div class="fala">
+  <p>&ldquo;Este módulo decide o que usar inteligência artificial vai significar na unidade de
+  vocês. A Resolução 615 exige supervisão humana sobre o que a ferramenta produz. Supervisão é um
+  verbo: alguém tem que fazer alguma coisa. Nas próximas horas nós vamos ensinar exatamente o que é
+  essa coisa.</p>
+  <p>Uma parte é fácil e vocês já esperam: conferir se o julgado existe, se o número tem fonte. A
+  outra parte é a que ninguém confere. É quando todos os fatos estão certos e a conclusão está
+  errada. Isso passa por qualquer conferência, porque não há o que conferir.</p>
+  <p>E aviso desde agora: o texto que vamos examinar hoje não foi escrito por ninguém de má-fé. Foi
+  escrito por alguém que trabalhou bem, acreditou no que escreveu e ficou satisfeito com o
+  resultado. Por isso a defesa contra esse erro não pode ser confiar em quem é sério. Tem que ser um
+  método.&rdquo;</p>
+</div>
+
+<p>E a parte que só esta turma pode ouvir, porque transforma a ausência de experiência em vantagem:</p>
+
+<div class="fala">
+  <p>&ldquo;Vocês ainda não têm uma unidade para contar, e isso hoje joga a favor de vocês. Daqui a
+  alguns meses cada um vai chegar numa vara onde já existe um jeito de fazer as coisas, e alguém vai
+  explicar: aqui a gente faz assim porque melhorou depois que mudamos.</p>
+  <p>Nesse momento vocês serão as únicas pessoas da sala que ainda podem perguntar por quê &mdash; e
+  a pergunta vai soar como interesse, não como cobrança. Um servidor com dez anos de casa fazendo a
+  mesma pergunta é lido de outro jeito. Essa janela fecha rápido, em poucos meses, quando vocês já
+  tiverem aprendido as explicações locais e passado a repeti-las. O que este módulo faz é preparar a
+  pergunta antes de a janela fechar.&rdquo;</p>
+</div>
+
+<p>Feche com a analogia do aplicativo de rotas: ele não mente, apenas não vê a obra na rua. Escrita
+impecável não prova que o conteúdo bate com os autos.</p>
+
+<h3 id="ponte1"><span class="t">Dois minutos</span>Primeira consulta e a ponte</h3>
+
+<p class="volta"><a href="modulo2-roteiro.html#a1">voltar ao roteiro</a></p>
+
+<div class="par"><p class="p">Uma minuta com português impecável, bem estruturada, citando o artigo
+certo do Código de Processo Civil. Isso garante que ela está correta?</p>
+<p class="r">Não. Escrita perfeita não prova que o conteúdo bate com os autos.</p></div>
+
+<p>E a ponte para a aula seguinte: <i>ela concorda com você. E quando dois números concordam entre
+si?</i></p>
+
+<h2 id="parte-2">Primeiro encontro &middot; segunda aula &middot; quarenta e cinco minutos</h2>
+
+<p>O risco desta janela não é falta de conteúdo: é esticar dois exemplos por quarenta e cinco
+minutos. A correção é a consulta curta, uma a cada três minutos.</p>
+
+<h3 id="correlacoes"><span class="t">Cinco minutos</span>As correlações sem nexo</h3>
+
+<p class="volta"><a href="modulo2-roteiro.html#a2">voltar ao roteiro</a></p>
+
+<h4>O que fazer</h4>
+<p>Projete três pares de números que sobem juntos e pergunte qual deles existe de verdade nos dados:
+consumo de queijo por pessoa e doutorados concedidos em engenharia civil; afogamentos em piscina e
+filmes lançados por um mesmo ator; importação de petróleo e consumo de frango.</p>
+
+<h4>Perguntas e respostas</h4>
+<div class="par"><p class="p">Qual dos três existe de verdade?</p>
+<p class="r">Os três. Todos estão num acervo conhecido de correlações sem sentido, reunido
+justamente para mostrar que, com dados suficientes, qualquer par de séries acaba andando junto.</p></div>
+<div class="par"><p class="p">Se os três existem, por que nenhum convence?</p>
+<p class="r">Porque sabemos que não há como um causar o outro. Quem decidiu não foi o gráfico: foi o
+que já sabíamos do assunto.</p></div>
+<div class="par"><p class="p">E quando não sabemos nada do assunto?</p>
+<p class="r">Aí o gráfico convence sozinho. É exatamente a situação do relatório de uma vara que não
+é a nossa.</p></div>
+<div class="par"><p class="p">Por que é tão fácil encontrar pares assim?</p>
+<p class="r">Porque com muitas séries de números, sempre haverá algumas que sobem juntas por
+coincidência. Quem procura, acha.</p></div>
+
+<p><b>A fala de passagem:</b> <i>guardem a facilidade de agora. Em cinco minutos são duas linhas
+subindo juntas num relatório de gestão, e ninguém vai rir. A diferença não está no gráfico: está em
+que aqui vocês já sabiam a resposta.</i></p>
+
+<h3 id="sorvete"><span class="t">Treze minutos</span>Sorvete, afogamento e o mutirão</h3>
+
+<p class="volta"><a href="modulo2-roteiro.html#a2">voltar ao roteiro</a></p>
+
+<h4>O que instala</h4>
+<p>Que a causa escondida existe mesmo quando não é óbvia.</p>
+
+<h4>O que fazer</h4>
+<p>Use a bancada de demonstrações. Mostre as duas linhas subindo juntas e pergunte se sorvete afoga.
+A sala ri, porque aqui a causa escondida é óbvia. <b>Arraste o controle antes de revelar</b>: as
+duas linhas obedecem a ele, e é a prova visual de que existe algo por trás. Só então revele o
+calor.</p>
+
+<p>Passe ao segundo caso, com audiências e acordos subindo juntos. Agora ninguém ri, porque a causa
+escondida &mdash; um mutirão que trouxe mais pauta e mais casos maduros ao mesmo tempo &mdash; não é
+óbvia. É este o ponto da aula. É aqui, e só aqui, que a expressão <b>causa escondida</b> entra.</p>
+
+<h4>Perguntas e respostas</h4>
+<div class="par"><p class="p">Sorvete afoga?</p>
+<p class="r">Não. É o calor que aumenta os dois.</p></div>
+<div class="par"><p class="p">O que provou, na tela, que havia alguma coisa por trás?</p>
+<p class="r">As duas linhas obedecerem ao mesmo controle. Nenhuma das duas mandava na outra.</p></div>
+<div class="par"><p class="p">No caso das audiências e dos acordos, o que faz o papel do calor?</p>
+<p class="r">O mutirão. Ele traz mais pauta e, ao mesmo tempo, mais casos maduros para conciliar.</p></div>
+<div class="par"><p class="p">Por que ninguém riu desta vez?</p>
+<p class="r">Porque aqui a causa escondida não é óbvia. E no trabalho ela nunca é.</p></div>
+
+<h3 id="cinco-casos"><span class="t">Dezoito minutos</span>Cinco casos, lidos em voz alta</h3>
+
+<p class="volta"><a href="modulo2-roteiro.html#a2">voltar ao roteiro</a></p>
+
+<p>Cerca de três minutos e meio por caso. Para cada um: consulta escrita, duas leituras divergentes
+sustentadas, e só então a confirmação. Os cinco a usar são o primeiro, o segundo, o terceiro, o
+quarto e o quinto da <a href="#dez-casos">lista dos dez casos</a>; os outros cinco ficam de reserva
+para a análise em grupo ou para outra turma.</p>
+
+<p>Para cada caso, as mesmas três perguntas, nesta ordem. A terceira é a que vale.</p>
+
+<ol>
+  <li>Isso prova que uma coisa causou a outra?</li>
+  <li>Qual é a explicação alternativa mais forte?</li>
+  <li><b>Que dado eu preciso olhar para separar as duas?</b></li>
+</ol>
+
+<div class="desvio">
+  <p><b>Desvio mais comum:</b> a sala responde &ldquo;pode ser outra coisa&rdquo; e para por aí.</p>
+  <p><b>Como recolocar:</b> <i>isso ainda não é uma resposta. Desconfiança sem endereço não muda
+  nada. Me digam onde vocês iriam olhar.</i></p>
+</div>
+
+<h4>Perguntas de aprofundamento, se a sala estiver rápida</h4>
+<div class="par"><p class="p">No caso do acervo, por que a rapidez da queda já é um sinal?</p>
+<p class="r">Porque quase quarenta por cento em um único mês não é trabalho humano. Trabalho não
+acelera assim; contagem, sim.</p></div>
+<div class="par"><p class="p">No caso das cinco comarcas, o que teria feito o piloto ser confiável?</p>
+<p class="r">Sortear as comarcas em vez de escolher as piores. Ou, já que escolheram, acompanhar
+também um grupo igualmente mal colocado que ficou de fora.</p></div>
+<div class="par"><p class="p">No caso dos servidores que aderiram, existe algum jeito de salvar a conclusão?</p>
+<p class="r">Existe: comparar cada pessoa com ela mesma, antes e depois. É a única comparação em que
+a escolha de aderir não atrapalha.</p></div>
+
+<h3 id="duas-colunas"><span class="t">Nove minutos</span>A lista de suspeitos, em duas colunas</h3>
+
+<p class="volta"><a href="modulo2-roteiro.html#a2">voltar ao roteiro</a></p>
+
+<h4>O que instala</h4>
+<p>O repertório de causas escondidas &mdash; e é aqui que a falta de lotação se resolve. Substitui a
+ficha impressa, e funciona melhor que ela, porque a lista sai com os nomes que eles usam.</p>
+
+<h4>O que fazer</h4>
+<p><b>Coluna da esquerda:</b> o que pode mudar numa unidade judiciária ao longo de um ano. Eles não
+viveram, mas sabem que existe. Deixe a sala levantar o que conseguir e complete o resto &mdash;
+completar aqui é legítimo, porque é informação que ainda não teriam como ter.</p>
+
+<p><b>Coluna da direita:</b> o que mudou na preparação de vocês para o concurso, além de estudar
+mais. Aqui eles têm tudo.</p>
+
+<h4>Perguntas e respostas</h4>
+<div class="par"><p class="p">O que pode mudar numa unidade judiciária ao longo de um ano?</p>
+<p class="r">Mutirão, recesso, férias, meta de fim de ano, plantão, sistema ou painel novo, servidor
+que chega, servidor que sai, mudança de competência, redistribuição de processos, chegada de um lote
+grande de casos parecidos.</p></div>
+<div class="par"><p class="p">E o que mudou na preparação de vocês, além de estudar mais?</p>
+<p class="r">Mudou o edital, mudou a banca, mudou o emprego, mudou a rotina, apareceu ou faltou
+tempo, acabou o dinheiro do curso, a concorrência daquele ano foi outra, mudou de cidade, adoeceu.</p></div>
+<div class="par"><p class="p">Por que a coluna da direita saiu tão mais rápido?</p>
+<p class="r">Porque é vivida. A da esquerda ainda é aprendida.</p></div>
+<div class="par"><p class="p">O que isso quer dizer sobre daqui a seis meses?</p>
+<p class="r">Que vai inverter. E que a lógica das duas colunas é a mesma &mdash; muda só o
+vocabulário.</p></div>
+
+<p><b>Fechamento:</b> <i>essa lista é a lista de suspeitos. Sempre que alguém disser que uma coisa
+causou outra, existe uma lista dessas por baixo. O trabalho é lembrar de olhar para ela.</i> Peça
+que copiem no caderno. O <a href="#nove-causas">catálogo das nove causas escondidas</a> é a versão
+organizada dessa mesma lista, para consulta do instrutor.</p>
+
+<h2 id="parte-3">Primeiro encontro &middot; primeira prática &middot; quarenta e cinco minutos</h2>
+
+<h3 id="texto-sobe"><span class="t">Dez minutos</span>O que sobra quando o texto sobe</h3>
+
+<p class="volta"><a href="modulo2-roteiro.html#p1">voltar ao roteiro</a></p>
+
+<h4>O que instala</h4>
+<p>Por que uma conclusão frágil vira verdade institucional. Não é atividade de grupo: é leitura
+comparada de três textos, projetados um abaixo do outro.</p>
+
+<h4>Os três textos</h4>
+<p><b>Primeiro, o achado, como sai de quem levantou o dado:</b></p>
+<div class="fala"><p><i>O prazo até o primeiro despacho caiu de trinta e um para dezessete dias após
+a adoção da triagem assistida por inteligência artificial. Registre-se que o indicador já vinha em
+queda nos cinco meses anteriores, que houve mutirão em abril e que dois servidores foram cedidos à
+unidade em março.</i></p></div>
+
+<p><b>Depois, o mesmo achado no ofício que sobe à direção:</b></p>
+<div class="fala"><p><i>O prazo até o primeiro despacho caiu de trinta e um para dezessete dias após
+a adoção da triagem assistida por inteligência artificial, no mesmo período em que houve mutirão e
+reforço de pessoal.</i></p></div>
+
+<p><b>E a linha que chega ao slide da reunião de gestão:</b></p>
+<div class="fala"><p><i>Triagem com inteligência artificial: prazo reduzido de trinta e um para
+dezessete dias.</i></p></div>
+
+<h4>Perguntas e respostas</h4>
+<div class="par"><p class="p">O que desapareceu do primeiro texto para o segundo?</p>
+<p class="r">A informação mais importante: a de que o prazo já vinha caindo antes. O mutirão e o
+reforço sobreviveram, mas viraram um &ldquo;no mesmo período&rdquo; sem peso nenhum.</p></div>
+<div class="par"><p class="p">E do segundo para o terceiro?</p>
+<p class="r">Todo o resto. Sobrou o número.</p></div>
+<div class="par"><p class="p">Qual dos três alguém vai citar daqui a seis meses?</p>
+<p class="r">O terceiro. É o único curto o bastante para ser repetido.</p></div>
+<div class="par"><p class="p">Alguém mentiu em alguma das três versões?</p>
+<p class="r">Ninguém. As três são verdadeiras.</p></div>
+<div class="par"><p class="p">Então de quem é a responsabilidade?</p>
+<p class="r">De quem escreveu a primeira. É a única versão em que a ressalva ainda cabia dentro do
+número &mdash; depois dela, só dava para cortar.</p></div>
+
+<div class="nota">
+  <p><b>A pergunta que fecha melhor:</b> <i>como se escreveria a primeira versão de um jeito que ela
+  sobrevivesse ao corte?</i> A resposta é pôr a ressalva dentro da frase do número: <i>queda de
+  quatorze dias, dos quais a maior parte já vinha ocorrendo antes da medida.</i> Quem cortar isso,
+  corta o número junto.</p>
+</div>
+
+<p><b>Fecho, e nesta turma vale como previsão:</b> <i>vocês vão escrever a primeira versão dessas.
+Alguém, mais acima, vai publicar a terceira. E ninguém terá mentido no caminho.</i></p>
+
+<h3 id="ditado"><span class="t">Doze minutos</span>O relatório ditado</h3>
+
+<p class="volta"><a href="modulo2-roteiro.html#p1">voltar ao roteiro</a></p>
+
+<h4>O que fazer</h4>
+<p>Dite devagar, duas vezes, ou projete:</p>
+<div class="fala"><p><i>Na comarca, depois que passamos a usar inteligência artificial para separar
+as petições por urgência, as decisões subiram de setenta para cento e dez por mês. A ferramenta
+aumentou a produtividade em cinquenta e sete por cento.</i></p></div>
+
+<p>Cada um escreve, sozinho, três outras explicações possíveis e, ao lado de cada uma, <b>onde iria
+olhar</b> para saber se é aquilo mesmo. Oito minutos em silêncio, quatro de leitura em voz alta.</p>
+
+<h4>O que uma boa resposta traz</h4>
+<div class="rolagem">
+<table>
+  <tr><th>Explicação</th><th>Onde olhar</th></tr>
+  <tr><td>Mutirão ou força-tarefa no período</td><td>As portarias e atos publicados nos meses da mudança</td></tr>
+  <tr><td>Entrou um lote de processos parecidos, decididos em série</td><td>A distribuição por classe e assunto, antes e depois</td></tr>
+  <tr><td>Chegou gente nova à equipe</td><td>A lotação da unidade, mês a mês</td></tr>
+  <tr><td>Época do ano, com corrida de meta</td><td>O mesmo mês do ano anterior, sem a ferramenta</td></tr>
+  <tr><td>A alta já vinha acontecendo antes</td><td>A série dos seis meses anteriores</td></tr>
+  <tr><td>Mudou o que se conta como decisão</td><td>A definição do indicador antes e depois</td></tr>
+</table>
+</div>
+
+<h4>Perguntas e respostas</h4>
+<div class="par"><p class="p">Das suas três, qual é a mais fácil de confirmar com um dado que a vara já tem hoje?</p>
+<p class="r">Quase sempre o mutirão, porque portaria é ato publicado e datado &mdash; dá para
+conferir em minutos.</p></div>
+<div class="par"><p class="p">E a mais difícil?</p>
+<p class="r">A mudança de composição do acervo, se a unidade não tiver painel separado por classe e
+assunto.</p></div>
+<div class="par"><p class="p">Se você só pudesse pedir um dado, qual pediria?</p>
+<p class="r">A série dos meses anteriores. É a que responde à pergunta mais forte &mdash; se isso já
+estava acontecendo sem a ferramenta.</p></div>
+
+<div class="desvio">
+  <p><b>Desvio mais comum:</b> escrever opinião no lugar de explicação &mdash; &ldquo;acho que a
+  equipe se esforçou mais&rdquo;.</p>
+  <p><b>Como recolocar:</b> <i>essa pode até ser a explicação certa. Mas só entra na lista se vier
+  com o dado. Onde eu olho para saber se a equipe se esforçou mais?</i> Normalmente a própria pessoa
+  percebe que não há onde olhar &mdash; e essa percepção é o exercício.</p>
+</div>
+
+<div class="nota">
+  <p><b>A ponte com a ferramenta, se houver computador.</b> Este exercício é exatamente o que o
+  prompt-mestre de análise crítica do Banco de Prompts faz: cole a conclusão do relatório e peça a
+  lista de explicações alternativas com o dado que separa cada uma. Ela é boa nisso. A escolha entre
+  as hipóteses continua sendo do servidor.</p>
+</div>
+
+<h3 id="duplas"><span class="t">Oito minutos</span>As duas perguntas, em duplas</h3>
+
+<p class="volta"><a href="modulo2-roteiro.html#p1">voltar ao roteiro</a></p>
+
+<h4>O que fazer</h4>
+<p>A primeira pessoa relata, em uma frase, algo que acredita ter melhorado por causa de uma mudança
+&mdash; nos estudos, na preparação para o concurso, no trabalho anterior, ou algo que ouviu desde que
+foi nomeada. A segunda só pode fazer duas perguntas, sempre as mesmas:</p>
+
+<ol>
+  <li>O que mais aconteceu no mesmo período?</li>
+  <li>Se nada tivesse sido feito, o que teria acontecido?</li>
+</ol>
+
+<p>Três rodadas de um minuto, depois inverte.</p>
+
+<h4>Perguntas e respostas</h4>
+<div class="par"><p class="p">Em quantos casos as duas perguntas bastaram para pôr a explicação em dúvida?</p>
+<p class="r">Costuma ser a maioria da sala. É a constatação que interessa: duas perguntas dão conta
+de quase tudo que aparece na rotina.</p></div>
+<div class="par"><p class="p">Alguma explicação sobreviveu às duas? Como?</p>
+<p class="r">Sobrevive quando a pessoa consegue mostrar uma comparação &mdash; alguém parecido que
+não mudou nada, ou o que já vinha acontecendo antes. É exatamente o que se pede de um relatório.</p></div>
+<div class="par"><p class="p">Alguém se irritou com a segunda pergunta?</p>
+<p class="r">Quase sempre alguém se irrita, e vale nomear: a pergunta soa como desconfiança na
+pessoa, quando é desconfiança no dado. Saber perguntar sem ofender é parte do trabalho.</p></div>
+
+<h2 id="parte-4">Primeiro encontro &middot; terceira aula &middot; quarenta e cinco minutos</h2>
+
+<h3 id="cha"><span class="t">Três minutos</span>A pergunta do chá</h3>
+
+<p class="volta"><a href="modulo2-roteiro.html#a3">voltar ao roteiro</a></p>
+
+<h4>O que instala</h4>
+<p>A pergunta que organiza a aula inteira. Escreva no quadro e deixe até o fim do módulo:
+<b>e se nada tivesse sido feito?</b></p>
+
+<p><b>Por que este exemplo e não outro:</b> é a única vez no módulo em que eles acertam sem esforço,
+porque já sabem quanto dura uma gripe. É isso que lhes dá autoridade para duvidar do relatório logo
+depois.</p>
+
+<h4>Perguntas e respostas</h4>
+<div class="par"><p class="p">Fiquei gripado, tomei chá todo dia, e em sete dias a gripe passou. O chá curou?</p>
+<p class="r">Não.</p></div>
+<div class="par"><p class="p">Como vocês têm tanta certeza?</p>
+<p class="r">Porque já sabemos o que teria acontecido sem o chá: a gripe passa em sete dias de
+qualquer jeito.</p></div>
+<div class="par"><p class="p">Então o que vocês fizeram, sem perceber?</p>
+<p class="r">Compararam com uma coisa que não aconteceu.</p></div>
+<div class="par"><p class="p">E se a gripe tivesse passado em dois dias?</p>
+<p class="r">Aí sim haveria o que explicar, porque o esperado eram sete. A comparação é que
+transforma um fato em resultado.</p></div>
+
+<p><b>A emenda:</b> <i>guardem a facilidade de agora. Daqui a cinco minutos é a mesma pergunta com
+números de vara em vez de chá, e ninguém vai acertar.</i></p>
+
+<h3 id="evapora"><span class="t">Onze minutos</span>O ganho que evapora</h3>
+
+<p class="volta"><a href="modulo2-roteiro.html#a3">voltar ao roteiro</a></p>
+
+<h4>Como conduzir</h4>
+<p>Na bancada de demonstrações. Leia o relatório em voz alta, <b>com entusiasmo</b>, e deixe a turma
+acreditar &mdash; a conta está aritmeticamente correta. Fique alguns segundos no modo em que o
+relatório conta a história e pergunte se alguém vê problema. Normalmente ninguém vê; espere o
+silêncio, ele é parte da demonstração.</p>
+
+<p>Então mude para a contagem correta e <b>não fale enquanto a linha é desenhada</b>. A turma precisa
+ver a projeção chegando sozinha ao valor menor. Só depois diga o número observado.</p>
+
+<h4>Perguntas e respostas</h4>
+<div class="par"><p class="p">(Antes de revelar) Alguém vê algum problema neste relatório?</p>
+<p class="r">Normalmente ninguém vê.</p></div>
+<div class="par"><p class="p">A conta está errada?</p>
+<p class="r">Não. Aritmeticamente está certa.</p></div>
+<div class="par"><p class="p">Então onde está o erro?</p>
+<p class="r">Na escolha do &ldquo;antes&rdquo;. Compararam com o pior mês da série, e não com o que
+já estava acontecendo.</p></div>
+<div class="par"><p class="p">Com o que deveria ter comparado?</p>
+<p class="r">Com a trajetória que já vinha &mdash; ou com uma unidade parecida que não mudou nada.</p></div>
+
+<h3 id="dois-jeitos"><span class="t">Seis minutos</span>Os dois jeitos de responder</h3>
+
+<p class="volta"><a href="modulo2-roteiro.html#a3">voltar ao roteiro</a></p>
+
+<p>Escreva os dois no quadro e deixe até o fim do módulo. Para saber o que teria acontecido sem a
+medida, existem apenas dois caminhos: <b>projetar a tendência anterior</b>, quando existe série
+histórica, ou <b>comparar com um grupo parecido</b> que não adotou a medida.</p>
+
+<div class="par"><p class="p">E quando não há nem série nem unidade parecida?</p>
+<p class="r">A resposta honesta é que não dá para saber. E é uma resposta legítima &mdash; melhor que
+um número que não se sustenta.</p></div>
+<div class="par"><p class="p">Quando é a hora de decidir como medir?</p>
+<p class="r">Antes de implantar, não depois de comemorar. Depois não tem conserto.</p></div>
+
+<h3 id="conta"><span class="t">Oito minutos</span>A conta refeita em voz alta</h3>
+
+<p class="volta"><a href="modulo2-roteiro.html#a3">voltar ao roteiro</a></p>
+
+<h4>O que instala</h4>
+<p>É um dos dois momentos em que eles veem, com número na frente, uma conclusão de boa-fé não se
+sustentar. Sem material nenhum: diga devagar.</p>
+
+<div class="fala"><p><i>O prazo era de quarenta e quatro dias. Depois quarenta. Depois trinta e
+sete. Depois trinta e quatro. Depois trinta e um. Aí entrou a ferramenta. Seis meses depois, o prazo
+é dezessete. O relatório comemora uma queda de vinte e sete dias.</i></p></div>
+
+<h4>Perguntas e respostas</h4>
+<div class="par"><p class="p">Quanto o prazo caía por mês antes da ferramenta?</p>
+<p class="r">Três dias por mês.</p></div>
+<div class="par"><p class="p">Se ninguém tivesse feito nada, onde estaria seis meses depois?</p>
+<p class="r">Treze dias.</p></div>
+<div class="par"><p class="p">E deu quanto?</p>
+<p class="r">Dezessete.</p></div>
+<div class="par"><p class="p">Então a ferramenta melhorou ou piorou?</p>
+<p class="r">Ficou quatro dias pior do que ficaria sozinho.</p></div>
+
+<div class="desvio">
+  <p><b>Objeção que vai aparecer, e é boa:</b> o prazo não cai para sempre, uma hora chega ao
+  limite.</p>
+  <p><b>Como responder:</b> elogie primeiro, em voz alta, porque está certo. E emende: <i>é
+  justamente por isso que a conta certa não é comparar com o pior mês. É discutir qual seria a
+  trajetória sem a medida. Quem quiser defender a ferramenta tem que defender ali &mdash; e não
+  repetindo os vinte e sete dias.</i></p>
+</div>
+
+<h3 id="avioes"><span class="t">Cinco minutos</span>A história dos aviões</h3>
+
+<p class="volta"><a href="modulo2-roteiro.html#a3">voltar ao roteiro</a></p>
+
+<p>Na Segunda Guerra, examinavam-se os aviões que voltavam do combate para decidir onde reforçar a
+blindagem. Reforçariam onde havia mais buracos de bala. Um matemático mostrou que era o contrário:
+aqueles eram os lugares onde o avião aguentava levar tiro e voltar. O reforço tinha que ir onde não
+havia buraco nenhum &mdash; porque quem foi atingido ali não voltou para ser examinado.</p>
+
+<h4>Perguntas e respostas</h4>
+<div class="par"><p class="p">Onde vocês reforçariam a blindagem?</p>
+<p class="r">A sala quase sempre responde: onde há mais buracos.</p></div>
+<div class="par"><p class="p">Por que essa é a resposta errada?</p>
+<p class="r">Porque só examinamos os aviões que voltaram. Quem foi atingido nos outros pontos não
+voltou.</p></div>
+<div class="par"><p class="p">Onde isso aparece no trabalho de vocês?</p>
+<p class="r">Na pasta de prompts da unidade: ela só guarda os que deram certo. Os que falharam
+ninguém salvou &mdash; e são esses que mostram onde a ferramenta quebra.</p></div>
+<div class="par"><p class="p">E onde isso apareceu na vida de vocês, este ano?</p>
+<p class="r">Nos depoimentos sobre o concurso. Só ouvimos quem passou. Quem fez o mesmo curso e não
+passou não dá entrevista.</p></div>
+
+<h3 id="redacoes"><span class="t">Doze minutos</span>A mesma informação, duas redações</h3>
+
+<p class="volta"><a href="modulo2-roteiro.html#a3">voltar ao roteiro</a></p>
+
+<h4>O que fazer</h4>
+<p>Projete apenas isto: <i>antes, sessenta e uma sentenças por mês. Depois da ferramenta, noventa e
+quatro. No mesmo período, a comarca vizinha, que não adotou a ferramenta, foi de cinquenta e oito
+para setenta e nove.</i></p>
+
+<p>Metade da sala redige a frase de abertura de um relatório favorável à expansão. A outra metade, a
+frase de abertura de um parecer contrário. Regra única e inegociável: <b>as duas têm de ser
+verdadeiras</b>. Três leituras de cada lado.</p>
+
+<h4>O que se espera de cada lado</h4>
+<ul>
+  <li><b>Favorável, e verdadeira:</b> as sentenças cresceram mais de cinquenta por cento no período
+  de uso da ferramenta.</li>
+  <li><b>Contrária, e verdadeira:</b> no mesmo período, a comarca vizinha cresceu mais de trinta por
+  cento sem adotar ferramenta nenhuma.</li>
+</ul>
+
+<h4>Perguntas e respostas</h4>
+<div class="par"><p class="p">Qual das duas vocês encaminhariam à direção do foro?</p>
+<p class="r">A maioria escolhe a favorável &mdash; e é bom que escolham, porque é o que acontece.</p></div>
+<div class="par"><p class="p">E qual das duas descreve melhor o que aconteceu?</p>
+<p class="r">A contrária. Raramente é a mesma resposta da pergunta anterior, e é aí que o exercício
+cumpre a função.</p></div>
+<div class="par"><p class="p">Existe uma terceira redação que seja as duas coisas?</p>
+<p class="r">Existe, e é a que se deve escrever: dizer o crescimento e, na mesma frase, quanto dele
+aparece sem a ferramenta. Fica menos bonita e sobrevive à primeira pergunta.</p></div>
+
+<div class="desvio">
+  <p><b>Desvio mais comum:</b> alguém omite o dado da comarca vizinha para deixar a frase favorável
+  mais forte.</p>
+  <p><b>Como recolocar:</b> a regra era que as duas fossem verdadeiras. <i>Omitir o dado que
+  contradiz não deixa a frase falsa &mdash; deixa a frase indefensável. E ela vai ser lida por
+  alguém que tem acesso ao mesmo painel que você.</i></p>
+</div>
+
+<h2 id="parte-5">Primeiro encontro &middot; segunda prática &middot; trinta minutos</h2>
+
+<h3 id="arguicao"><span class="t">Vinte e cinco minutos</span>A arguição da nota técnica</h3>
+
+<p class="volta"><a href="modulo2-roteiro.html#p2">voltar ao roteiro</a></p>
+
+<h4>O que instala</h4>
+<p>É a atividade mais importante do módulo: a única em que a sala precisa <b>formular a pergunta</b>,
+que é a habilidade que sobra depois do curso. O instrutor sustenta a nota técnica de uma unidade que
+pede a expansão da ferramenta; a sala exerce o papel de quem examina o pedido antes de autorizar. O
+instrutor responde <b>sempre a verdade</b> e informa apenas o que lhe for perguntado.</p>
+
+<h4>A abertura &mdash; três minutos</h4>
+<p>De pé, com convicção, como quem defende o próprio trabalho:</p>
+<div class="fala">
+  <p>&ldquo;Implantamos a triagem por inteligência artificial na vara única em fevereiro. Em seis
+  meses, as sentenças subiram de sessenta e uma para noventa e quatro por mês. O prazo até o
+  primeiro despacho caiu de trinta e um para dezessete dias. O acervo caiu de quatro mil cento e
+  oitenta para três mil setecentos e vinte. A equipe está satisfeita. Peço autorização para levar a
+  ferramenta às outras onze comarcas da região.&rdquo;</p>
+</div>
+
+<h4>A regra, dita em voz alta &mdash; um minuto</h4>
+<div class="fala">
+  <p>&ldquo;Cabe a vocês decidir se autorizam. Podem me perguntar o que quiserem, e eu não vou
+  mentir em nenhuma resposta. Mas também não vou informar nada que não me for perguntado &mdash; que
+  é exatamente o que acontece com qualquer relatório que chega à mesa de vocês.&rdquo;</p>
+</div>
+
+<h4>Os seis fatos, e só quando perguntarem &mdash; quinze minutos</h4>
+<div class="rolagem">
+<table>
+  <tr><th>Se perguntarem</th><th>Você responde</th></tr>
+  <tr><td>Por que essa vara foi escolhida?</td><td>Porque era a pior da região em janeiro.</td></tr>
+  <tr><td>Entrou gente nova na equipe?</td><td>Sim, dois servidores cedidos, em março.</td></tr>
+  <tr><td>Houve mutirão no período?</td><td>Houve, em abril.</td></tr>
+  <tr><td>A forma de contar mudou?</td><td>Mudou. Em maio o painel passou a contar homologações de acordo como sentença.</td></tr>
+  <tr><td>E as outras comarcas, como foram?</td><td>A vizinha, sem ferramenta, foi de cinquenta e oito para setenta e nove.</td></tr>
+  <tr><td>Como estava antes de fevereiro?</td><td>O prazo vinha caindo: quarenta e quatro, quarenta, trinta e sete, trinta e quatro, trinta e um.</td></tr>
+</table>
+</div>
+
+<p>Se travarem depois de cinco minutos, a pista, sem entregar: <i>vocês já me perguntaram muita
+coisa sobre a ferramenta. Ninguém me perguntou nada sobre a vara.</i></p>
+
+<h4>Perguntas que vão aparecer e não levam a nada</h4>
+<p>Responda com naturalidade e siga; não sinalize que a pergunta foi fraca.</p>
+<ul>
+  <li><i>Qual é o nome do sistema?</i> &mdash; Diga um nome qualquer e siga.</li>
+  <li><i>A ferramenta é paga?</i> &mdash; Responda que sim ou que não; não muda a análise.</li>
+  <li><i>Todos os servidores usaram?</i> &mdash; Responda que a maioria usou.</li>
+  <li><i>A equipe gostou?</i> &mdash; Responda que sim, e que foi medido depois, não antes. Esta
+  beira um fato bom, e vale entregar a segunda parte.</li>
+</ul>
+
+<h4>A deliberação &mdash; dois minutos</h4>
+<p>Consulta à sala, com as opções enunciadas uma a uma: autorizar a expansão, negar, ou entender que
+não há elementos suficientes para decidir.</p>
+
+<h4>O fechamento &mdash; quatro minutos</h4>
+<p>Faça a conta em voz alta: <i>o prazo caía três dias por mês antes de qualquer ferramenta. Seis
+meses depois, sozinho, chegaria a treze. Deu dezessete. Ou seja: com a ferramenta, ficou quatro dias
+pior do que ficaria sem ela.</i></p>
+
+<div class="fala">
+  <p>&ldquo;Observem uma coisa: eu não menti em nenhuma resposta. Todos os números da abertura são
+  verdadeiros. Quem escreve uma nota dessas trabalhou bem, acreditou no que escreveu e ficou
+  satisfeito com o resultado. E a conclusão está errada assim mesmo. Por isso a defesa contra esse
+  erro não pode ser confiar em quem é sério &mdash; tem que ser fazer sempre as mesmas
+  perguntas.&rdquo;</p>
+</div>
+
+<h4>Perguntas e respostas do fechamento</h4>
+<div class="par"><p class="p">Depois de tudo o que apareceu, quanto do ganho sobra para a ferramenta?</p>
+<p class="r">Praticamente nada, e possivelmente menos que nada: pela tendência anterior, o prazo
+chegaria a treze dias sozinho, e deu dezessete.</p></div>
+<div class="par"><p class="p">Qual das seis informações, sozinha, já derrubava a conclusão?</p>
+<p class="r">A série anterior. Basta ela. As outras cinco explicam o resto do caminho.</p></div>
+<div class="par"><p class="p">O que vocês teriam pedido antes de autorizar?</p>
+<p class="r">A série histórica, o resultado de uma unidade parecida sem a ferramenta, e a definição
+do indicador antes e depois. Três pedidos, e nenhum difícil de atender.</p></div>
+<div class="par"><p class="p">Eu menti em alguma resposta?</p>
+<p class="r">Em nenhuma. E é esse o ponto.</p></div>
+
+<div class="desvio">
+  <p><b>Desvio mais comum:</b> a sala trata o exercício como caça ao culpado e começa a falar em
+  má-fé.</p>
+  <p><b>Como recolocar:</b> <i>não houve mentira em nenhum momento. Se a defesa contra esse erro
+  fosse identificar quem age de má-fé, ela falharia sempre &mdash; porque quase ninguém age. A defesa
+  tem que funcionar mesmo quando todos são honestos.</i></p>
+</div>
+
+<h3 id="encerramento"><span class="t">Cinco minutos</span>O encerramento do primeiro encontro</h3>
+
+<p class="volta"><a href="modulo2-roteiro.html#p2">voltar ao roteiro</a></p>
+
+<p>Cada um escreve no caderno uma frase: a pergunta que vai fazer diante do primeiro número que
+encontrar na unidade onde for lotado. Oito a dez pessoas leem em voz alta, uma após a outra, sem
+comentário e sem correção.</p>
+
+<div class="nota">
+  <p><b>Como ouvir o que está sendo lido.</b> Uma frase boa nomeia um dado: <i>vou perguntar como
+  estava antes</i>, <i>vou perguntar o que mais mudou naquele mês</i>, <i>vou pedir para ver uma
+  unidade parecida</i>. Uma frase fraca nomeia um sentimento: <i>vou desconfiar mais</i>, <i>vou
+  prestar atenção</i>.</p>
+  <p>Se a maioria for do segundo tipo, o módulo ficou no discurso. Dá tempo de consertar em trinta
+  segundos: <i>desconfiar não é pergunta. Me digam o dado que vocês vão pedir.</i> E peça mais três
+  leituras.</p>
+</div>
+
+<h2 id="parte-6">Segundo encontro &middot; três horas</h2>
+
+<p>O primeiro encontro trata do defeito de raciocínio: todos os fatos certos, conclusão errada. O
+segundo trata do defeito de lastro: o fato não existe. São três aulas e uma prática.</p>
+
+<h3 id="alucinacao"><span class="t">Quarenta minutos &middot; quarta aula</span>Detectar informação inventada</h3>
+
+<p class="volta"><a href="modulo2-roteiro.html#a4">voltar ao roteiro</a></p>
+
+<h4>O que instala</h4>
+<p>Que a ferramenta inventa informação com toda a aparência de verdadeira &mdash; e que formatação
+perfeita não é prova de existência.</p>
+
+<h4>Como conduzir</h4>
+<p>Use a demonstração da citação inventada, na bancada: número de recurso, relator e data formatados
+de forma impecável, e o julgado não existe. <b>Aviso obrigatório:</b> nunca usar número de processo
+real no exercício, e nunca citar em peça um julgado que não foi conferido na fonte.</p>
+
+<p>Sinais de alerta a nomear em voz alta: citação detalhada demais; número redondo demais;
+jurisprudência perfeita demais para o caso; lei que não se encontra.</p>
+
+<h4>O acréscimo que vale a pena &mdash; a estimativa antes da conferência</h4>
+<p>Antes de conferir a citação, peça à sala uma nota de zero a dez: <i>quanto vocês apostariam que
+este julgado existe?</i> Anote a média no quadro. Depois da conferência, escreva o resultado ao
+lado. A distância entre os dois números fica no quadro pelo resto do dia e é o argumento mais
+eficiente do encontro.</p>
+
+<h4>Perguntas e respostas</h4>
+<div class="par"><p class="p">A ferramenta respondeu citando um julgado com número, relator e data,
+tudo formatado de forma perfeita. Isso prova que o julgado existe?</p>
+<p class="r">Não. Formatação perfeita não garante existência. É preciso conferir na base oficial do
+tribunal antes de citar em qualquer peça.</p></div>
+<div class="par"><p class="p">Por que ela inventa em vez de dizer que não sabe?</p>
+<p class="r">Porque ela completa o texto mais provável. Um número de recurso bem formatado é o
+complemento provável de uma frase que pede jurisprudência &mdash; exista ele ou não.</p></div>
+<div class="par"><p class="p">O que fazer quando não dá tempo de conferir?</p>
+<p class="r">Tratar como hipótese, não como fato. Não citar. Hipótese não vai para a peça.</p></div>
+
+<h3 id="validar"><span class="t">Quarenta minutos &middot; quinta aula</span>Validar antes de confiar</h3>
+
+<p class="volta"><a href="modulo2-roteiro.html#a5">voltar ao roteiro</a></p>
+
+<h4>O que instala</h4>
+<p>As <a href="#camadas">duas camadas de defesa</a>, e a regra de que uma não substitui a outra.</p>
+
+<h4>O procedimento, em três passos</h4>
+<ol>
+  <li>Conferir em fonte oficial &mdash; norma, sistema, autos.</li>
+  <li>Cruzar com colega ou com outra ferramenta.</li>
+  <li>Pedir à própria ferramenta que aponte as fraquezas da resposta que acabou de dar.</li>
+</ol>
+<p>Regra de decisão: só use quando as conferências apontarem para o mesmo lugar.</p>
+
+<h4>O acréscimo que vale a pena &mdash; o duelo de ferramentas</h4>
+<p>Cinco minutos. Metade da sala faz a mesma pergunta numa ferramenta, metade em outra. Comparar.
+Quando as duas divergem, o participante descobre sozinho que confirmar em outra ferramenta não é
+conferir na fonte &mdash; é ouvir um segundo palpite.</p>
+
+<h4>Perguntas e respostas</h4>
+<div class="par"><p class="p">Quais são as duas camadas de defesa, e uma substitui a outra?</p>
+<p class="r">Instrução dentro do pedido e conferência humana depois. Uma reduz o erro antes, a outra
+pega o que passou; nenhuma dispensa a outra.</p></div>
+<div class="par"><p class="p">Se eu pedir à ferramenta que confira a própria resposta, resolvido?</p>
+<p class="r">Não. Ajuda, e é a primeira camada. Mas quem confere a conferência dela?</p></div>
+<div class="par"><p class="p">As duas ferramentas deram a mesma resposta. Isso prova que está certo?</p>
+<p class="r">Não. Prova que as duas acharam a mesma coisa provável. Fonte oficial é outra coisa.</p></div>
+
+<h3 id="checklist"><span class="t">Trinta minutos &middot; sexta aula</span>O checklist e a decisão humana</h3>
+
+<p class="volta"><a href="modulo2-roteiro.html#a6">voltar ao roteiro</a></p>
+
+<p>As quatro perguntas, que fecham o módulo e viajam para o resto do curso:</p>
+
+<ol>
+  <li>Confere com a fonte?</li>
+  <li>Faz sentido no caso concreto?</li>
+  <li>Tem algum dado que pode ter sido inventado?</li>
+  <li>A conclusão trata casos iguais de forma igual?</li>
+</ol>
+
+<p><b>A regra final:</b> passou no checklist, a decisão é sua.</p>
+
+<h4>O acréscimo que vale a pena &mdash; o checklist em trinta segundos</h4>
+<p>Cronômetro na mesa: cada participante aplica as quatro perguntas a uma resposta curta em trinta
+segundos, em voz alta, para o colega ao lado. A rapidez é o ponto &mdash; um checklist que leva dez
+minutos não é usado na segunda-feira.</p>
+
+<h4>Perguntas e respostas</h4>
+<div class="par"><p class="p">Quais são as quatro perguntas?</p>
+<p class="r">Confere com a fonte? Faz sentido no caso concreto? Tem dado que pode ter sido
+inventado? A conclusão trata casos iguais de forma igual?</p></div>
+<div class="par"><p class="p">Por que quatro perguntas separadas, e não uma só?</p>
+<p class="r">Porque cada uma pega um tipo diferente de erro. A pergunta única &mdash; &ldquo;li, está
+ok&rdquo; &mdash; não pega nenhum.</p></div>
+
+<h3 id="pratica-checklist"><span class="t">Quarenta minutos &middot; prática</span>O checklist aplicado a uma resposta com erros plantados</h3>
+
+<p class="volta"><a href="modulo2-roteiro.html#p3">voltar ao roteiro</a></p>
+
+<h4>O que fazer</h4>
+<p>Projete a resposta abaixo. Ela contém quatro problemas, um para cada pergunta do checklist.
+Quinze minutos de trabalho individual, e depois a discussão. O objetivo não é achar um erro
+qualquer: é dizer <b>qual pergunta pegou cada problema</b>.</p>
+
+<div class="fala">
+  <p><i>Pedido do servidor: analise os quatro processos abaixo e recomende a ordem de prioridade de
+  decisão. Resposta da ferramenta, exemplo fictício:</i></p>
+  <p><i><b>Processo 1</b> &mdash; autor de oitenta e dois anos, pedido de medicamento de uso
+  contínuo, com laudo atestando risco de agravamento em caso de interrupção. Prioridade máxima, por
+  se tratar de idoso com risco à saúde.</i></p>
+  <p><i><b>Processo 2</b> &mdash; autora de setenta e nove anos, mesmo pedido de medicamento de uso
+  contínuo, também com laudo atestando risco de agravamento. Prioridade comum, sem urgência, por se
+  tratar de pedido rotineiro em ação de saúde.</i></p>
+  <p><i><b>Processo 3</b> &mdash; autor de trinta e quatro anos, pedido de medicamento de uso
+  contínuo, sem laudo de risco imediato juntado aos autos. Prioridade máxima, porque processos de
+  saúde têm taxa de sucesso de noventa e quatro por cento e devem ser decididos com celeridade.</i></p>
+  <p><i><b>Processo 4</b> &mdash; autor de cinquenta e um anos, pedido de tutela de urgência para
+  custeio de cirurgia, com relatório médico indicando a indicação cirúrgica. Indeferimento sugerido,
+  conforme entendimento consolidado em recurso especial do Superior Tribunal de Justiça.</i></p>
+</div>
+
+<h4>Os quatro problemas, e a pergunta que pega cada um</h4>
+<div class="rolagem">
+<table>
+  <tr><th>Problema</th><th>Pergunta do checklist</th></tr>
+  <tr><td>O número do recurso especial citado não existe &mdash; foi fabricado para o exercício</td>
+      <td>Confere com a fonte?</td></tr>
+  <tr><td>A estatística de noventa e quatro por cento não tem origem verificável</td>
+      <td>Tem dado que pode ter sido inventado?</td></tr>
+  <tr><td>O processo 3 é classificado como urgente, mas o próprio texto diz que não há laudo de risco</td>
+      <td>Faz sentido no caso concreto?</td></tr>
+  <tr><td>Os processos 1 e 2 são iguais em tudo e recebem classificações opostas</td>
+      <td>Trata casos iguais de forma igual?</td></tr>
+</table>
+</div>
+
+<div class="desvio">
+  <p><b>Desvio mais comum:</b> responder o checklist no atacado &mdash; marcar tudo como
+  &ldquo;confere, parece certo&rdquo; sem checar pergunta por pergunta.</p>
+  <p><b>Como recolocar:</b> <i>a resposta bem escrita convence justamente quem lê rápido. Voltem e
+  passem uma pergunta de cada vez.</i> O problema dos processos 1 e 2 costuma ser o último a
+  aparecer, e é o mais grave: é o que trata desigualmente quem está na mesma situação.</p>
+</div>
+
+<h4>Se sobrar tempo</h4>
+<p>Peça que cada um escreva, para o processo 3, a instrução que teria evitado o erro &mdash; por
+exemplo, classificar como urgente somente quando houver laudo de risco explícito nos autos. É a
+primeira camada de defesa aplicada com as próprias mãos.</p>
+
+<h3 id="lacuna"><span class="t">Alternativa &middot; quarenta minutos</span>A resposta boa demais</h3>
+
+<p class="volta"><a href="modulo2-roteiro.html#p3">voltar ao roteiro</a></p>
+
+<p>Alternativa à prática anterior, no mesmo tempo, e o degrau mais difícil do módulo: aqui <b>não há
+erro plantado</b>. O texto está correto. A tarefa é achar o que <b>falta</b> antes de levar o
+conselho adiante &mdash; e detectar lacuna é mais difícil que detectar erro.</p>
+
+<p>O material é o roteiro da auditoria da resposta boa demais, publicado no Banco de Prompts, em que
+a ferramenta aconselha um gestor sobre adoção de inteligência artificial. As lacunas do gabarito:
+não diz como medir o antes; não trata de proteção de dados; não define quem é o dono do processo; não
+menciona risco normativo.</p>
+
+<div class="desvio">
+  <p><b>Erro típico a nomear:</b> aprovar a resposta só porque soa completa e bem escrita. A resposta
+  correta e fluente também precisa de supervisão &mdash; não só a errada.</p>
+</div>
+
+<h2 id="parte-reserva">Reserva e aprofundamento</h2>
+
+<p>Atividades que não estão na sequência principal. Use quando sobrar tempo, quando a turma andar
+mais rápido que o previsto, ou quando um bloco não pegar e for preciso outra entrada para o mesmo
+conteúdo.</p>
+
+<h3 id="regua"><span class="t">Dez minutos &middot; individual</span>A régua de três linhas</h3>
+
+<p>Treina a decisão prática que eles vão tomar sozinhos: <b>qual</b> dos dois jeitos de responder
+serve a cada caso. Projete os três casos; para cada um, o participante escreve uma linha.</p>
+
+<ol>
+  <li><i>Depois que passamos a usar a ferramenta para resumir a inicial, o prazo do despacho caiu.</i>
+  Só existe o dado desta vara, mas existe a série dos doze meses anteriores. &rarr; <b>tendência
+  anterior</b>.</li>
+  <li><i>As três varas que adotaram a ferramenta reduziram o acervo neste semestre.</i> Existem outras
+  nove varas semelhantes que não adotaram. &rarr; <b>grupo de comparação</b> &mdash; com o cuidado de
+  que as três adotaram porque quiseram.</li>
+  <li><i>Desde a ferramenta, a equipe está mais satisfeita.</i> Não houve medição anterior e não há
+  unidade comparável. &rarr; <b>não dá</b>; faltaria a mesma pesquisa aplicada antes.</li>
+</ol>
+
+<p><b>Fechamento:</b> <i>reparem que o caso três não tem conserto retroativo. É por isso que a hora
+de decidir como medir é antes de implantar, não depois de comemorar.</i></p>
+
+<h3 id="crachas"><span class="t">Quinze minutos &middot; duplas, com computador</span>A mesma pergunta, dois papéis</h3>
+
+<p>Mostra que o enquadramento do pedido fabrica a conclusão. Em conversas separadas, a dupla pede à
+ferramenta que sustente a tese de uma parte e, depois, a tese contrária, sobre o mesmo caso
+hipotético, com as mesmas palavras.</p>
+
+<p><b>O achado:</b> as duas respostas saem igualmente bem escritas, igualmente seguras, e
+<b>nenhuma delas menciona o argumento contrário</b>. Não é que ela minta: é que ela entrega o lado
+pedido com a mesma cara de verdade única.</p>
+
+<p><b>Erro típico a nomear:</b> pedir à ferramenta que confirme o que já se acha, e ler a
+confirmação como segunda opinião.</p>
+
+<h3 id="advogada"><span class="t">Doze minutos &middot; ponte para o módulo seguinte</span>A ferramenta levantando as hipóteses</h3>
+
+<p>Fecha o módulo mostrando a ferramenta acertando &mdash; e é a melhor ponte para a prática forense.
+Três rodadas, com a conclusão da nota técnica da arguição:</p>
+
+<ol>
+  <li>Peça a <b>defesa mais forte possível</b> daquela conclusão. Sai convincente: ela defende bem
+  qualquer coisa.</li>
+  <li>Em conversa nova, peça <b>todas as explicações alternativas</b> e, para cada uma, o dado que a
+  confirmaria ou descartaria. Sai excelente &mdash; é, honestamente, o melhor uso de ferramenta deste
+  módulo.</li>
+  <li>Na mesma conversa, pergunte <b>qual delas é a verdadeira</b>. Ela não pode saber: a resposta
+  não está no texto, está nos dados da comarca. Se escolher assim mesmo, está adivinhando com voz de
+  perito.</li>
+</ol>
+
+<p><b>A fala:</b> <i>ela é ótima para listar o que você não pensou. É péssima para decidir entre as
+hipóteses, porque decidir exige olhar um dado que ela não tem. Peça a lista. A escolha é sua.</i></p>
+
+<h3 id="sustentacao"><span class="t">Oito minutos</span>Sustentação de duas leituras</h3>
+
+<p>Para o caso que divide a sala &mdash; use o do piloto nas piores comarcas. Colha a posição pela
+consulta escrita, identifique uma pessoa de cada lado, e cada uma sustenta a sua leitura por noventa
+segundos, sem aparte. Você não comenta. Depois, nova consulta, com a pergunta adicional: <i>quem
+mudou de posição depois de ouvir?</i> Peça a uma dessas pessoas que diga o que a fez mudar &mdash; é
+o depoimento mais valioso do bloco, porque vem de par, não do instrutor.</p>
+
+<h3 id="frase-ouvida"><span class="t">Doze minutos</span>A afirmação que já ouviram</h3>
+
+<p>Transfere o conteúdo para fora da sala. Cada um escreve no caderno uma afirmação do tipo
+<i>melhorou depois que fizeram</i> que já tenha ouvido <b>desde que foi nomeado</b> &mdash; no curso
+de formação, na posse, de um colega mais antigo. Quatro voluntários leem. Para cada uma, a sala
+responde por consulta escrita: de qual das <a href="#nove-causas">nove causas escondidas</a>
+suspeitaria, e qual dado pediria.</p>
+
+<div class="desvio">
+  <p><b>Ponto de atenção, e este é sério:</b> a afirmação pode expor colega ou chefia. Diga na
+  abertura, antes de qualquer um escrever: sem nome de pessoa, de unidade ou de projeto
+  identificável. A leitura é voluntária e ninguém é chamado. Se a afirmação escorregar para avaliação
+  de desempenho de alguém, reconduza para o dado, sem comentar a pessoa.</p>
+</div>
+
+<h2 id="parte-referencia">Referência</h2>
+
+<h3 id="nove-causas"><span class="t">Catálogo</span>As nove causas escondidas</h3>
+
+<p class="volta"><a href="modulo2-roteiro.html#ref">voltar ao roteiro</a></p>
+
+<p>Dão conta de quase todo relatório de gestão que circula num tribunal. Estão agrupadas em três
+famílias, porque a família é o que se lembra sob pressão. <b>Não apresente as nove de uma vez em
+aula</b> &mdash; elas entram uma por caso, e a lista organizada é do instrutor.</p>
+
+<h4>Família um &mdash; mudou outra coisa junto</h4>
+<ul>
+  <li><b>O mutirão.</b> Algo concomitante empurrou os dois números. <i>Cheiro:</i> a medida coincide
+  com portaria, força-tarefa, meta, semana nacional. <i>Dado que separa:</i> atos publicados no
+  período.</li>
+  <li><b>A época do ano.</b> Recesso, férias, plantão, corrida de meta. <i>Cheiro:</i> a comparação é
+  com o mês anterior, não com o mesmo mês do ano passado. <i>Dado:</i> a mesma métrica um ano
+  antes.</li>
+  <li><b>Mudou o acervo.</b> Entrou ou saiu um bloco de processos de outro tipo. <i>Cheiro:</i> o
+  número sobe sem que ninguém tenha trabalhado mais. <i>Dado:</i> distribuição por classe e assunto,
+  antes e depois.</li>
+</ul>
+
+<h4>Família dois &mdash; a comparação está torta</h4>
+<ul>
+  <li><b>Já vinha caindo.</b> A tendência anterior explica sozinha o resultado. <i>Cheiro:</i> o
+  relatório mostra dois pontos, nunca a série. <i>Dado:</i> os seis a doze meses anteriores.</li>
+  <li><b>Volta ao normal.</b> A medida foi aplicada no pior momento, e o pior momento melhora
+  sozinho. <i>Cheiro:</i> escolhemos as unidades de pior desempenho para o piloto. <i>Dado:</i> o que
+  aconteceu com unidades igualmente ruins que ficaram de fora.</li>
+  <li><b>Trocaram a régua.</b> Mudou a metodologia, a data-base ou o que conta como o quê.
+  <i>Cheiro:</i> uma queda grande e limpa demais no mês da virada de sistema. <i>Dado:</i> a
+  definição do indicador antes e depois.</li>
+</ul>
+
+<h4>Família três &mdash; o dado já nasce torto</h4>
+<ul>
+  <li><b>Escolha da amostra.</b> Quem usou a ferramenta escolheu usá-la. <i>Cheiro:</i> quem aderiu
+  produziu mais. <i>Dado:</i> o desempenho dessas mesmas pessoas antes de a ferramenta existir.</li>
+  <li><b>Quem sobrou conta a história.</b> Só entram na conta os casos que chegaram ao fim.
+  <i>Cheiro:</i> média calculada só sobre processos já sentenciados, ou só sobre os prompts que deram
+  certo. <i>Dado:</i> o que aconteceu com os que saíram do caminho.</li>
+  <li><b>O efeito do olhar.</b> Melhorou porque estava sendo medido. <i>Cheiro:</i> a melhora começa
+  no anúncio da medição, não na implantação. <i>Dado:</i> a data do anúncio, a da implantação e o mês
+  em que a curva virou.</li>
+</ul>
+
+<p><b>E o caso extra:</b> a causa está invertida. Não há terceiro fator &mdash; é o efeito que causa a
+suposta causa. <i>As varas que mais usam o sistema novo são as que têm menos acervo</i> pode
+significar que ter menos acervo é que dá tempo de aprender o sistema.</p>
+
+<h3 id="dez-casos"><span class="t">Casos</span>Os dez casos, com resposta</h3>
+
+<p class="volta"><a href="modulo2-roteiro.html#ref">voltar ao roteiro</a></p>
+
+<p>Todos fictícios, em vocabulário de justiça estadual. Os cinco primeiros são os da segunda aula;
+os cinco últimos ficam de reserva.</p>
+
+<div class="caso">
+  <p class="af">1. Depois da triagem por inteligência artificial, o tempo entre a distribuição e o
+  primeiro despacho na segunda vara cível caiu de vinte e oito para dezenove dias.</p>
+  <p class="re"><b>Já vinha caindo.</b> Dado: a série mensal dos seis a doze meses anteriores.
+  Alerta: o relatório mostra só dois pontos. Sempre que houver dois pontos, peça a série.</p>
+</div>
+<div class="caso">
+  <p class="af">2. Na comarca, os acordos homologados dobraram no semestre em que o centro de
+  conciliação passou a usar a ferramenta para redigir propostas.</p>
+  <p class="re"><b>O mutirão.</b> Dado: portarias e atos do semestre. Alerta: dobrar em um semestre é
+  grande demais para uma mudança na redação de minuta.</p>
+</div>
+<div class="caso">
+  <p class="af">3. O Tribunal escolheu as cinco comarcas com pior desempenho no ranking para o
+  piloto. As cinco melhoraram, e o piloto foi considerado um sucesso.</p>
+  <p class="re"><b>Volta ao normal.</b> Dado: o que aconteceu com comarcas igualmente mal
+  classificadas fora do piloto. É o caso que mais engana gente séria, porque escolher as piores
+  parece o critério mais justo possível.</p>
+</div>
+<div class="caso">
+  <p class="af">4. Os servidores que aderiram voluntariamente ao assistente produziram, em média,
+  trinta por cento mais minutas que os que não aderiram.</p>
+  <p class="re"><b>Escolha da amostra.</b> Dado: a produção dessas mesmas pessoas antes de a
+  ferramenta existir. Quem adere primeiro costuma ser quem já era mais rápido.</p>
+</div>
+<div class="caso">
+  <p class="af">5. O acervo de processos conclusos para sentença caiu de três mil e novecentos para
+  dois mil e quatrocentos em um mês, junto com a implantação do painel assistido.</p>
+  <p class="re"><b>Trocaram a régua.</b> Dado: a definição de processo concluso antes e depois. Se o
+  painel parou de contar suspensos e sobrestados, a queda é de contabilidade. Alerta: quase quarenta
+  por cento em um mês não é produtividade.</p>
+</div>
+<div class="caso">
+  <p class="af">6. O juizado especial fechou dezembro com quarenta por cento mais sentenças que
+  novembro, primeiro mês completo de uso do assistente.</p>
+  <p class="re"><b>A época do ano.</b> Dado: dezembro do ano anterior, sem ferramenta. Alerta: o
+  relatório compara com novembro, e não com o mesmo mês do ano passado.</p>
+</div>
+<div class="caso">
+  <p class="af">7. A vara de execuções fiscais registrou salto de setenta para duzentas e dez
+  decisões por mês depois da classificação automática de petições.</p>
+  <p class="re"><b>Mudou o acervo.</b> Dado: distribuição por classe e assunto. Um lote de execuções
+  idênticas, distribuído em bloco, produz decisões repetitivas. Alerta: triplicar sem contratar
+  ninguém é sinal de composição, não de produtividade.</p>
+</div>
+<div class="caso">
+  <p class="af">8. O tempo médio de tramitação dos processos triados pela ferramenta é de oito meses,
+  contra quatorze dos demais.</p>
+  <p class="re"><b>Quem sobrou conta a história.</b> Dado: os processos triados que ainda não
+  terminaram entram nessa média? Se ela só considera os já baixados, e a ferramenta é recente, só
+  capturou os rápidos.</p>
+</div>
+<div class="caso">
+  <p class="af">9. O prazo de cumprimento de mandados caiu vinte e cinco por cento no trimestre em
+  que a corregedoria passou a acompanhar o indicador por painel.</p>
+  <p class="re"><b>O efeito do olhar.</b> Dado: a data do anúncio, a da entrada do painel e o mês em
+  que a curva virou. Se virou no anúncio, quem melhorou foi a atenção &mdash; o que não é ruim, só não
+  é o efeito que se está atribuindo.</p>
+</div>
+<div class="caso">
+  <p class="af">10. As secretarias que mais usam o assistente são as que têm menos processos parados
+  há mais de cem dias. Recomenda-se ampliar o uso para reduzir os parados.</p>
+  <p class="re"><b>A causa está invertida.</b> Dado: a ordem no tempo &mdash; quem tinha menos parados
+  antes de começar a usar? Secretaria afogada não tem tempo de aprender ferramenta nova.</p>
+</div>
+
+<h3 id="exemplos"><span class="t">Exemplos</span>Exemplos rápidos, sem termo técnico</h3>
+
+<p class="volta"><a href="modulo2-roteiro.html#ref">voltar ao roteiro</a></p>
+
+<p>Para citar em dez ou vinte segundos quando a atenção cair. São da vida comum de propósito: o
+participante precisa acertar sozinho num caso fácil antes de aceitar que erra no difícil.</p>
+
+<ul>
+  <li><b>Todo time que vai mal troca o técnico, e depois da troca quase sempre melhora um pouco.</b>
+  Isso prova que o técnico novo é bom? Não: só se troca quando o time está no fundo, e do fundo quase
+  todo mundo sobe um pouco.</li>
+  <li><b>Fiz o curso preparatório e passei, logo o curso aprova.</b> Você só ouve isso de quem passou.
+  Quem fez o mesmo curso e não passou não dá depoimento.</li>
+  <li><b>Quem faz simulado passa mais.</b> Ou quem tem disciplina para fazer simulado toda semana já
+  estudava mais de qualquer forma.</li>
+  <li><b>Os alunos que fazem aula de reforço tiram nota pior.</b> Vai para o reforço quem já ia mal.</li>
+  <li><b>Quem faz exames de rotina todo ano vive mais.</b> Talvez. Mas quem faz também tem plano de
+  saúde, tempo, dinheiro e o hábito de se cuidar.</li>
+  <li><b>Quem vai ao hospital morre mais do que quem fica em casa.</b> Vai ao hospital quem está
+  pior.</li>
+  <li><b>Quanto mais bombeiro no local, maior o prejuízo do incêndio.</b> Incêndio grande chama mais
+  bombeiro.</li>
+  <li><b>Quem começou academia neste ano teve menos atestado.</b> Ou quem tinha disposição para
+  começar já adoecia menos.</li>
+  <li><b>O ano em que compramos o sistema foi o ano em que a produtividade subiu.</b> Foi também o
+  ano em que o quadro de pessoal foi recomposto.</li>
+  <li><b>O sistema novo é ruim: as reclamações triplicaram depois dele.</b> Ou ficou mais fácil
+  reclamar. Use este, porque aqui a conclusão apressada é contra a tecnologia.</li>
+</ul>
+
+<h3 id="numeros"><span class="t">Números</span>Os que não podem sair errados</h3>
+
+<p class="volta"><a href="modulo2-roteiro.html#ref">voltar ao roteiro</a></p>
+
+<div class="destaque">
+  <p class="grande">A conta do prazo</p>
+  <p>Antes: quarenta e quatro, quarenta, trinta e sete, trinta e quatro, trinta e um &mdash; caindo
+  <b>três dias por mês</b>.</p>
+  <p>Sem medida nenhuma, seis meses depois: <b>treze dias</b>. Observado: <b>dezessete</b>.</p>
+  <p>Resultado: <b>quatro dias pior</b> do que ficaria sozinho.</p>
+</div>
+
+<div class="destaque">
+  <p class="grande">A comparação entre comarcas</p>
+  <p>Com a ferramenta: de sessenta e uma para noventa e quatro sentenças por mês.</p>
+  <p>A vizinha, sem ferramenta: de cinquenta e oito para setenta e nove.</p>
+  <p>Acervo da unidade do piloto: de quatro mil cento e oitenta para três mil setecentos e vinte.</p>
+</div>
+
+<div class="destaque">
+  <p class="grande">O relatório ditado</p>
+  <p>Decisões por mês: de setenta para cento e dez. O relatório atribui à ferramenta um ganho de
+  cinquenta e sete por cento.</p>
+</div>
+
+<h3 id="perguntas-turma"><span class="t">Perguntas</span>O que a turma pergunta de volta</h3>
+
+<p class="volta"><a href="modulo2-roteiro.html#ref">voltar ao roteiro</a></p>
+
+<div class="par"><p class="p">Isto ainda é curso de inteligência artificial?</p>
+<p class="r">É, e por três motivos: a ferramenta produz esse tipo de erro, porque escreve a frase
+provável e não a testada; ela ajuda a levantar as explicações alternativas, que é tarefa de
+repertório; e é ela o que vai ser avaliado, quando pedirem a vocês um número mostrando que ela
+melhorou o trabalho.</p></div>
+<div class="par"><p class="p">Então é melhor não usar?</p>
+<p class="r">Não. A tese do módulo não é que a ferramenta erra: é que a forma bem acabada não prova
+nada, venha de máquina ou de pessoa. A nota técnica que examinamos foi escrita por gente.</p></div>
+<div class="par"><p class="p">Não dá para pedir à própria ferramenta que confira?</p>
+<p class="r">Dá, e ajuda &mdash; é a primeira camada de defesa. Mas não substitui a segunda, que é
+humana. A primeira reduz o erro antes; a segunda pega o que passou.</p></div>
+<div class="par"><p class="p">E se meu chefe pedir o número e eu não tiver como comparar?</p>
+<p class="r">Entregue o número com a comparação que faltou dita em uma linha. Não é recusar o
+pedido: é entregar um número que sobrevive à primeira pergunta de quem for ler.</p></div>
+<div class="par"><p class="p">Como eu faço essa pergunta na minha unidade sem parecer arrogante?</p>
+<p class="r">Perguntando pelo dado, e não pela pessoa. <i>Como estava antes?</i> é pergunta de quem
+quer entender. <i>Tem certeza disso?</i> é pergunta de quem quer conferir alguém. E vocês, no
+primeiro ano, têm uma licença que ninguém mais tem: a de estar aprendendo.</p></div>
+
+<h3 id="apertar"><span class="t">Condução</span>Se apertar o tempo, e se sobrar</h3>
+
+<p class="volta"><a href="modulo2-roteiro.html#ref">voltar ao roteiro</a></p>
+
+<p><b>Corte exposição, nunca estes dois:</b> a <a href="#arguicao">arguição da nota técnica</a> e a
+<a href="#conta">conta refeita em voz alta</a>. São a única atividade em que eles formulam a
+pergunta e o único momento em que veem o número desmontar a conclusão.</p>
+
+<p><b>Se sobrar:</b> a <a href="#advogada">ferramenta levantando as hipóteses</a>, que é também a
+melhor ponte para o módulo seguinte; depois a <a href="#regua">régua de três linhas</a> e a
+<a href="#crachas">mesma pergunta com dois papéis</a>.</p>
+
+<h2 id="parte-adaptacoes">Adaptações</h2>
+
+<h3 id="sem-lotacao"><span class="t">Público</span>Turma sem lotação: as cinco fontes</h3>
+
+<p class="volta"><a href="modulo2-roteiro.html#ref">voltar ao roteiro</a></p>
+
+<p>Quando um exercício pedir material da unidade e não houver unidade, a fonte é uma destas, em
+ordem de recomendação. Toda a sequência principal desta página já está adaptada; a lista serve para
+os outros módulos do curso, que pedem o mesmo e vão travar igual.</p>
+
+<ol>
+  <li><b>O concurso e a preparação.</b> A mais forte: todos acabaram de passar por isso, todos têm
+  dados, e as conclusões apressadas ali são as mesmas do relatório de gestão.</li>
+  <li><b>O que já ouviram desde a nomeação</b> &mdash; no curso de formação, na posse, de um colega
+  mais antigo.</li>
+  <li><b>A organização por onde já passaram</b> &mdash; advocacia, outro órgão, empresa, estágio,
+  faculdade. Quem não tiver, trabalha em dupla.</li>
+  <li><b>O caso comum projetado.</b> É do que a maior parte desta página é feita, e não depende de
+  biografia nenhuma.</li>
+  <li><b>Os casos-tipo de Vara Cível</b>, já publicados e previstos na ementa como insumo
+  alternativo.</li>
+</ol>
+
+<div class="nota">
+  <p><b>Aviso que vale para o curso inteiro.</b> Vários exercícios dos outros módulos pedem uma
+  tarefa real da rotina na vara ou no gabinete. Numa turma sem lotação, cada um deles trava do mesmo
+  jeito. Decida a fonte antes de cada bloco: a pergunta <i>alguém tem um exemplo da sua unidade?</i>
+  custa dois minutos de silêncio e derruba o ritmo.</p>
+</div>
+
+<h3 id="com-impressora"><span class="t">Material</span>Quando houver impressora</h3>
+
+<p class="volta"><a href="modulo2-roteiro.html#ref">voltar ao roteiro</a></p>
+
+<p>Nada disto é necessário &mdash; a sequência inteira funciona sem papel. São variantes para uma
+próxima turma, com tempo de preparar.</p>
+
+<ul>
+  <li><b>Cartão de voto.</b> Três cartões por participante, em cores diferentes: causou; andaram
+  juntos, mas há outra coisa; não é possível afirmar. Levantados ao mesmo tempo na contagem. Substitui
+  a consulta escrita, e é mais rápido.</li>
+  <li><b>Baralho de casos.</b> Os <a href="#dez-casos">dez casos</a> em cartas, mais dez cartas com
+  as <a href="#nove-causas">nove causas escondidas</a> e a causa invertida. Grupos de quatro, noventa
+  segundos por caso, e relato de cada grupo ao plenário.</li>
+  <li><b>Ficha das nove causas.</b> Uma página, três colunas &mdash; uma por família &mdash; para
+  ficar na mesa durante o módulo e ir para a mesa de trabalho depois. Enquanto não houver, a
+  <a href="#duas-colunas">lista em duas colunas</a> faz o serviço, e com vantagem.</li>
+  <li><b>Dossiê da arguição.</b> Os seis fatos em envelope, entregues à sala depois da sustentação,
+  em vez de saírem por pergunta. Perde-se o melhor da atividade, que é a sala aprender a perguntar;
+  ganha-se tempo.</li>
+</ul>
+
+<h3 id="material-curso"><span class="t">Contexto</span>O que já existe no material do curso</h3>
+
+<p class="volta"><a href="modulo2-roteiro.html#ref">voltar ao roteiro</a></p>
+
+<div class="rolagem">
+<table>
+  <tr><th>Peça</th><th>Onde está</th><th>Para quê</th></tr>
+  <tr><td>Roteiro de condução aula a aula</td><td>Guia metodológico, seção 6</td><td>o método do curso</td></tr>
+  <tr><td>Demonstrações ao vivo</td><td>Bancada de demonstrações</td><td>sorvete e afogamento, o ganho que evapora, a citação inventada</td></tr>
+  <tr><td>Micro-verificações e práticas</td><td>Caderno do instrutor</td><td>uma verificação por bloco</td></tr>
+  <tr><td>Prompts de análise crítica</td><td>Banco de Prompts</td><td>a ferramenta levantando hipóteses</td></tr>
+  <tr><td>Auditoria da resposta boa demais</td><td>Banco de Prompts, apêndice de roteiros</td><td>a prática da lacuna</td></tr>
+  <tr><td>Casos-tipo de Vara Cível</td><td>Página própria</td><td>insumo para quem não tem material</td></tr>
+</table>
+</div>
+
+<div class="rodape">
+  <p>Documento de uso exclusivo dos instrutores. Contém os gabaritos e os fatos que a sala deve
+  descobrir. Todos os casos, relatórios, números, comarcas e unidades citados são fictícios, criados
+  para fins de exercício. A supervisão humana sobre qualquer saída de inteligência artificial é
+  obrigatória, nos termos da Resolução 615, de 2025, do Conselho Nacional de Justiça.</p>
+  <p>Página irmã: o <a href="modulo2-roteiro.html">roteiro do Módulo 2</a>, só com os tópicos e a
+  sequência.</p>
+</div>
+
+</div>
+</body>
+</html>
