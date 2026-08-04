@@ -1,0 +1,602 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Módulo 4 · conteúdo detalhado</title>
+<style>
+  :root{
+    --tinta:#161616; --fundo:#ffffff; --suave:#5f5f5f; --linha:#e4e2e0;
+    --realce:#8a3b12; --caixa:#f7f4f1; --erro:#f3ece7; --forte:#f0e6de;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --tinta:#efedeb; --fundo:#121212; --suave:#a9a5a1; --linha:#302e2c;
+           --realce:#ffab73; --caixa:#1d1b1a; --erro:#241d1a; --forte:#2a2320; }
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0; background:var(--fundo); color:var(--tinta);
+    font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:17px; line-height:1.6;
+  }
+  .folha{ max-width:46rem; margin:0 auto; padding:2rem 1.1rem 5rem; }
+  header{ border-bottom:2px solid var(--realce); padding-bottom:1rem; margin-bottom:1.5rem; }
+  h1{ font-size:1.7rem; margin:0 0 .35rem; line-height:1.25; }
+  header p{ margin:0; color:var(--suave); font-size:.95rem; }
+  h2{ font-size:1.4rem; margin:3.5rem 0 1rem; padding:1.1rem 0 0; border-top:2px solid var(--realce); }
+  h3{ font-size:1.15rem; margin:2.5rem 0 .3rem; padding-top:1.2rem;
+      border-top:1px solid var(--linha); scroll-margin-top:1rem; }
+  h3 .t{ display:block; font-size:.76rem; text-transform:uppercase; letter-spacing:.05em;
+         color:var(--realce); font-weight:700; margin-bottom:.15rem; }
+  h4{ font-size:.95rem; margin:1.4rem 0 .3rem; text-transform:uppercase;
+      letter-spacing:.04em; color:var(--suave); }
+  p{ margin:0 0 .75rem; }
+  ul, ol{ padding-left:1.25rem; margin:0 0 .75rem; }
+  li{ margin-bottom:.45rem; }
+  .volta{ font-size:.85rem; color:var(--suave); margin:.2rem 0 1rem; }
+  .volta a{ color:var(--realce); }
+  .fala{ border-left:3px solid var(--realce); background:var(--caixa);
+         padding:.9rem 1.1rem; margin:1rem 0; border-radius:0 8px 8px 0; }
+  .fala p:last-child{ margin:0; }
+  .par{ margin:.9rem 0; padding-left:.85rem; border-left:3px solid var(--linha); }
+  .par .p{ font-weight:650; margin:0 0 .2rem; }
+  .par .p::before{ content:"Pergunte  "; font-size:.7rem; text-transform:uppercase;
+                   letter-spacing:.05em; color:var(--realce); font-weight:700; }
+  .par .r{ margin:0; }
+  .par .r::before{ content:"Resposta  "; font-size:.7rem; text-transform:uppercase;
+                   letter-spacing:.05em; color:var(--suave); font-weight:700; }
+  .desvio{ background:var(--erro); border-radius:9px; padding:.85rem 1rem; margin:1rem 0; font-size:.95rem; }
+  .desvio p{ margin:0 0 .45rem; } .desvio p:last-child{ margin:0; }
+  .desvio b{ color:var(--realce); }
+  .nota{ background:var(--caixa); border-radius:9px; padding:.85rem 1rem; margin:1rem 0; font-size:.95rem; }
+  .nota p:last-child{ margin:0; }
+  .destaque{ background:var(--forte); border-radius:9px; padding:1rem 1.15rem; margin:1.2rem 0; }
+  .destaque p:last-child{ margin:0; }
+  .grande{ font-size:1.1rem; font-weight:700; }
+  .rolagem{ overflow-x:auto; }
+  table{ width:100%; border-collapse:collapse; font-size:.94rem; margin:.6rem 0 1rem; }
+  th, td{ text-align:left; vertical-align:top; padding:.5rem .6rem; border-bottom:1px solid var(--linha); }
+  th{ font-size:.76rem; text-transform:uppercase; letter-spacing:.04em; color:var(--suave); }
+  .exemplo{ background:var(--caixa); border:1px solid var(--linha); border-radius:9px;
+            padding:.85rem 1rem; margin:.8rem 0; font-size:.93rem; }
+  .exemplo p{ margin:0 0 .4rem; } .exemplo p:last-child{ margin:0; }
+  ol.casos{ counter-reset:c; list-style:none; padding:0; }
+  ol.casos li{ counter-increment:c; padding-left:2.2rem; position:relative; margin-bottom:.6rem; }
+  ol.casos li::before{ content:counter(c); position:absolute; left:0; top:0;
+    width:1.6rem; height:1.6rem; border-radius:50%; background:var(--forte);
+    color:var(--realce); font-weight:700; font-size:.85rem; display:flex;
+    align-items:center; justify-content:center; }
+  a{ color:var(--realce); }
+  .rodape{ margin-top:3.5rem; padding-top:1.2rem; border-top:1px solid var(--linha);
+           color:var(--suave); font-size:.88rem; }
+  @media print{
+    :root{ --tinta:#000; --fundo:#fff; --suave:#444; --linha:#bbb; --realce:#000;
+           --caixa:#f2f2f2; --erro:#eee; --forte:#eee; }
+    body{ font-size:10.5pt; }
+    .folha{ max-width:none; padding:0; }
+    .par, .desvio, .nota, .destaque, .fala, .exemplo{ page-break-inside:avoid; }
+    h2, h3{ page-break-after:avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="folha">
+
+<header>
+  <h1>Módulo 4 &middot; conteúdo detalhado</h1>
+  <p>Ética, proteção de dados e governança &middot; duas horas &middot; turma presencial do Tribunal
+  de Justiça do Ceará &middot; sem material impresso &middot; turma ainda sem lotação</p>
+</header>
+
+<p>Módulo curto e denso, e o que fecha o curso. Os exercícios cabem dentro dos próprios blocos, sem
+somar tempo. O <a href="modulo4-roteiro.html">roteiro</a> é a página irmã: só os tópicos, com salto
+para o ponto certo daqui.</p>
+
+<div class="nota">
+  <p><b>A primeira coisa a dizer, e vale dizer com todas as letras:</b> sigilo e supervisão humana
+  <b>não</b> são o aviso legal do fim do curso. São conteúdo desde o primeiro exemplo do Módulo 1.
+  Aqui eles fecham o arco &mdash; e é isso que dá a este módulo o peso que ele merece, apesar de ser
+  o mais curto.</p>
+</div>
+
+<div class="destaque">
+  <p class="grande">O tom deste módulo: habilitação, não intimidação</p>
+  <p>Há um ponto sobre responsabilidade pessoal que entra <b>uma única vez</b>, no fim do segundo
+  bloco, e em tom de proteção. Fora dele, o módulo é sobre o que <b>dá</b> para fazer e por qual
+  caminho. Turma que sai daqui com medo de usar volta para a unidade e não usa nada &mdash; ou usa
+  escondido, que é pior.</p>
+</div>
+
+<h2 id="parte-antes">Antes de entrar</h2>
+
+<h3 id="tcu"><span class="t">Três minutos &middot; abertura</span>Os três números que justificam o módulo</h3>
+
+<p class="volta"><a href="modulo4-roteiro.html#abre">voltar ao roteiro</a></p>
+
+<p>O Acórdão 1372/2025 do Plenário do Tribunal de Contas da União auditou a conformidade com a Lei
+Geral de Proteção de Dados de trezentas e oitenta e sete organizações federais. Três números
+justificam este módulo melhor que qualquer argumento abstrato:</p>
+
+<ul>
+  <li>indicador médio de adequação à Lei Geral de Proteção de Dados: <b>quarenta e quatro por
+  cento</b>;</li>
+  <li>pior dimensão de todas: <b>compartilhamento de dados com terceiros &mdash; vinte e dois por
+  cento</b>;</li>
+  <li><b>quase quarenta e quatro por cento</b> das organizações <b>nem avaliaram</b> se
+  compartilham dados pessoais com terceiros, e só nove por cento avaliaram o risco de tratamento em
+  nuvem.</li>
+</ul>
+
+<p><b>A ponte para a turma:</b> colar trecho de processo numa ferramenta de inteligência artificial
+de mercado <b>é</b> compartilhar dado pessoal com terceiro, em nuvem, quase sempre fora do Brasil.
+Este módulo atua exatamente na pior nota da auditoria.</p>
+
+<div class="desvio">
+  <p><b>Advertência de precisão &mdash; não flexibilizar.</b> Os números são do conjunto das
+  trezentas e oitenta e sete organizações federais auditadas. A auditoria <b>não é sobre tribunais
+  estaduais</b>. Nunca dizer em sala que o Tribunal de Contas condenou o Judiciário, nem atribuir
+  qualquer percentual a um tribunal específico.</p>
+  <p>O uso correto é como diagnóstico nacional: o problema que este módulo ataca é real e medido. É
+  o tipo de dado que se distorce sozinho na terceira repetição &mdash; por isso a formulação
+  importa.</p>
+</div>
+
+<h4>E a melhor história de revisão humana disponível é do próprio auditor</h4>
+<p>O Tribunal de Contas usou inteligência artificial para conferir listas de documentos já públicos
+&mdash; a tarefa mais simples que existe &mdash; e registrou no próprio acórdão
+&ldquo;inconsistências pontuais nas análises&rdquo;: a ferramenta afirmou não encontrar documento
+<i>sendo que havia um documento para ser analisado</i>, o que reforçou &ldquo;a importância de
+revisões posteriores, por parte dos auditores&rdquo;.</p>
+
+<div class="fala">
+  <p>&ldquo;Se o tribunal de contas erra usando a ferramenta na tarefa mais simples possível, e
+  ainda assim exige revisão humana, ninguém nesta sala pode sustentar que o seu caso dispensa
+  conferência.&rdquo;</p>
+</div>
+
+<h3 id="turma"><span class="t">Condução</span>As duas condições desta turma</h3>
+
+<p class="volta"><a href="modulo4-roteiro.html#abre">voltar ao roteiro</a></p>
+
+<p><b>Sem material impresso:</b> tudo funciona com a projeção, a sua voz e o caderno.</p>
+
+<p><b>Sem lotação:</b> onde o material pede um caso da própria rotina, use o caso pronto. Mas há um
+ponto em que a falta de lotação <b>joga a favor</b>, e vale dizer: eles vão chegar à unidade
+<b>sabendo a regra antes de pegar o vício</b>. Quem já está lá há dez anos aprende a regra tendo que
+desfazer um hábito; eles aprendem antes de formar o hábito.</p>
+
+<div class="fala">
+  <p>&ldquo;Vocês vão chegar sabendo o que não se cola numa ferramenta externa. A maioria das
+  pessoas aprende isso depois de já ter colado.&rdquo;</p>
+</div>
+
+<h2 id="aula1">Aula 1 &middot; governança e a Resolução 615 &middot; vinte e cinco minutos</h2>
+
+<h3 id="faixas"><span class="t">Doze minutos</span>As três faixas de risco</h3>
+
+<p class="volta"><a href="modulo4-roteiro.html#a1">voltar ao roteiro</a></p>
+
+<h4>O que instala</h4>
+<p>Que a governança não é freio contra o servidor &mdash; é o que transforma a boa ideia da ponta em
+solução homologada e perene. E que a classificação de risco depende do que se pede, não da marca da
+ferramenta.</p>
+
+<h4>A retomada que fecha o arco &mdash; dois minutos, sem tempo novo</h4>
+<p><i>Lembram da segunda aula do primeiro módulo, quando separamos o que a ferramenta apoia do que
+exige decisão humana? Aquilo tem código.</i> A Resolução organiza o uso em três faixas:</p>
+
+<div class="rolagem">
+<table>
+  <tr><th>Faixa</th><th>O que é</th><th>Exemplo das tarefas de ontem</th></tr>
+  <tr>
+    <td><b>Baixo risco</b></td>
+    <td>Resumir, organizar, produzir texto de apoio para ato judicial &mdash; desde que a supervisão
+    e a versão final sejam do magistrado</td>
+    <td>Resumir a petição; redigir a estrutura de um despacho conforme as instruções do magistrado</td>
+  </tr>
+  <tr>
+    <td><b>Alto risco</b></td>
+    <td>Valorar prova, tipificar fato como crime, concluir qual norma ou precedente se aplica a
+    estes fatos, quantificar dano</td>
+    <td>Dizer qual tese se aplica ao caso &mdash; e, sendo alto risco, <b>não pode ir para ferramenta
+    externa</b></td>
+  </tr>
+  <tr>
+    <td><b>Risco excessivo</b></td>
+    <td>Vedado, sem exceção</td>
+    <td>&mdash;</td>
+  </tr>
+</table>
+</div>
+
+<div class="destaque">
+  <p class="grande">A frase para levar</p>
+  <p>A diferença entre uma faixa e outra está <b>na frase que você digita</b>, não no software. A
+  mesma ferramenta, no mesmo dia, com o mesmo documento: <i>resuma esta petição</i> é baixo risco;
+  <i>diga se o pedido procede</i> é alto risco.</p>
+</div>
+
+<h4>O que os agentes acrescentaram &mdash; dois minutos</h4>
+<p>A diferença passa a estar também <b>no que a ferramenta pode executar sozinha</b>. Quanto mais
+autonomia, mais cedo entra o ponto de conferência humana que a Resolução exige. É o gancho direto
+com o bloco de encerramento sobre sistemas que executam passos.</p>
+
+<h4>Gancho local &mdash; três minutos</h4>
+<p>A regra nacional já aterrissou na casa: a <b>Portaria 153/2026</b> do Tribunal regulamenta a
+criação e o uso de robôs e inteligência artificial &mdash; cadastro obrigatório na área de
+tecnologia, trilha de auditoria e <b>revisão humana das decisões automatizadas</b>.</p>
+
+<p>Mostre a ponte: <b>o checklist de quatro perguntas do Módulo 2 é exatamente a supervisão humana
+que a norma da própria instituição exige.</b> Governança não é abstração de Brasília &mdash; está em
+vigor na casa deles, e eles já sabem executá-la.</p>
+
+<h4>Perguntas e respostas</h4>
+<div class="par"><p class="p">A Resolução permite que a ferramenta finalize ou assine um despacho
+sozinha, sem revisão de ninguém?</p>
+<p class="r">Não. A supervisão humana é obrigatória: ela apoia a redação e a triagem, mas a
+conferência e a decisão são sempre do servidor ou do magistrado.</p></div>
+<div class="par"><p class="p">Se eu usar a ferramenta homologada, posso pedir qualquer coisa?</p>
+<p class="r">Não. A faixa de risco vem do pedido, não da ferramenta. Homologada é condição, não
+autorização para tudo.</p></div>
+<div class="par"><p class="p">Onde cai &ldquo;me diga se essa liminar deve ser deferida&rdquo;?</p>
+<p class="r">Alto risco &mdash; é concluir qual norma se aplica aos fatos e valorar. Não se delega, e
+não vai para ferramenta externa.</p></div>
+
+<div class="desvio">
+  <p><b>Erro típico a nomear:</b> tratar &ldquo;apoio&rdquo; como sinônimo de &ldquo;decisão
+  automática&rdquo;.</p>
+  <p><b>Como recolocar:</b> <i>a ferramenta pode organizar e propor texto. Dizer qual norma se
+  aplica aos fatos e valorar a prova são tarefas que não se delegam &mdash; nem para ela, nem para
+  ninguém.</i></p>
+</div>
+
+<h2 id="aula23">Aulas 2 e 3 &middot; sigilo, proteção de dados e anonimização &middot; trinta minutos</h2>
+
+<h3 id="regra-dura"><span class="t">Cinco minutos</span>A regra dura, e a ordem das duas checagens</h3>
+
+<p class="volta"><a href="modulo4-roteiro.html#a23">voltar ao roteiro</a></p>
+
+<div class="destaque">
+  <p class="grande">Sigilo &ldquo;sim&rdquo; ou &ldquo;desconhecido&rdquo; é bloqueio, sem exceção</p>
+  <p>Ausência de informação sobre sigilo <b>não é</b> ausência de sigilo.</p>
+</div>
+
+<p><b>A ordem importa, e é onde a turma erra:</b> primeiro se confere o sigilo. Se for
+&ldquo;sim&rdquo; ou &ldquo;desconhecido&rdquo;, <b>não se anonimiza &mdash; não se envia, ponto</b>.
+Anonimizar só faz sentido quando o envio já é permitido. O quadro de anonimização é o segundo passo,
+nunca o primeiro.</p>
+
+<h3 id="quadro"><span class="t">Cinco minutos</span>O quadro de anonimização</h3>
+
+<p class="volta"><a href="modulo4-roteiro.html#a23">voltar ao roteiro</a></p>
+
+<div class="rolagem">
+<table>
+  <tr><th>O que aparece no texto</th><th>Substituir por</th><th>Marcador</th></tr>
+  <tr><td>Nome de parte</td><td>Identificador genérico</td><td>[PARTE] ou [PARTE 1] / [PARTE 2]</td></tr>
+  <tr><td>Cadastro de pessoa física ou jurídica</td><td>Identificador genérico</td><td>[CPF] / [CNPJ]</td></tr>
+  <tr><td>Número do processo</td><td>Identificador genérico</td><td>[Nº DO PROCESSO]</td></tr>
+  <tr><td>Endereço</td><td>Identificador genérico</td><td>[ENDEREÇO]</td></tr>
+  <tr><td>Data que identifica (nascimento, protocolo, fato específico)</td><td>Referência relativa, quando possível</td><td>[DATA] ou &ldquo;há cerca de três meses&rdquo;</td></tr>
+  <tr><td>Nome de servidor ou magistrado</td><td>Identificador genérico</td><td>[SERVIDOR] / [MAGISTRADO]</td></tr>
+</table>
+</div>
+
+<div class="exemplo">
+  <p><b>Antes</b> (texto fictício): &ldquo;Maria da Silva Souza, cadastro 000.111.222-33, residente
+  na Rua das Acácias, 123, Fortaleza, ajuizou em 14/03/2024 a ação nº 0001234-56.2024.8.06.0001,
+  distribuída à 3ª Vara. O servidor João Pereira elaborou a triagem inicial em 20/03/2024.&rdquo;</p>
+  <p><b>Depois:</b> &ldquo;[PARTE], cadastro [CPF], residente em [ENDEREÇO], ajuizou em [DATA] a
+  ação nº [Nº DO PROCESSO], distribuída à 3ª Vara. O servidor [SERVIDOR] elaborou a triagem inicial
+  em [DATA].&rdquo;</p>
+  <p><i>Todos os nomes, números e datas acima são fictícios.</i></p>
+</div>
+
+<p><b>Substituir, e não apagar</b> &mdash; o marcador mantém o texto legível e a saída utilizável.
+Apagar quebra o sentido, e a ferramenta preenche o buraco.</p>
+
+<h4>Gancho local</h4>
+<p>Anonimização é prática viva na casa: o <b>CAMALEÃO</b>, no AURI, anonimiza imagem e voz de
+participantes de audiência por determinação judicial. Serve de exemplo de que anonimizar não é
+burocracia do curso &mdash; vai do texto que se cola na ferramenta à audiência gravada. E reforce a
+hierarquia: para dado processual, a via preferencial são as <b>ferramentas internas</b>; ferramenta
+externa de mercado só com material fictício ou anonimizado, e <b>nunca sob sigilo</b>.</p>
+
+<h3 id="semaforo"><span class="t">Vinte minutos</span>Estudo de casos &mdash; o semáforo de sigilo</h3>
+
+<p class="volta"><a href="modulo4-roteiro.html#a23">voltar ao roteiro</a></p>
+
+<h4>Enunciado, para ler à turma</h4>
+<p>Para cada caso fictício, escolha uma entre quatro respostas &mdash; <b>pode</b>, <b>não pode</b>,
+<b>não pode sem anonimizar</b>, <b>bloqueio por sigilo desconhecido</b> &mdash;, justifique em uma
+frase e diga qual é a base: Resolução 615, Lei Geral de Proteção de Dados ou dever de sigilo.</p>
+
+<ol class="casos">
+  <li>Processo de adoção em segredo de justiça; o servidor quer um resumo da inicial.</li>
+  <li>Petição inicial de ação de plano de saúde, sem sigilo, já disponível para consulta pública no
+  sistema. O servidor quer colar o texto para gerar um resumo.</li>
+  <li>Processo sem sigilo que menciona o diagnóstico de saúde da parte autora.</li>
+  <li>Texto escrito pelo próprio servidor explicando um procedimento interno, sem citar processo,
+  parte ou dado de terceiro; quer que a ferramenta revise a redação.</li>
+  <li>Chegou um documento e não há, no momento, informação sobre se o processo tramita em segredo de
+  justiça.</li>
+  <li>Laudo pericial médico, em processo sem sigilo declarado, com nome completo do periciando e
+  detalhes clínicos.</li>
+  <li>Planilha de controle interno com nomes e cadastros de partes com valores bloqueados
+  judicialmente.</li>
+  <li>Ementa de acórdão já publicada no site oficial do Tribunal, sem sigilo, usada como referência
+  de fundamentação.</li>
+</ol>
+
+<h4>Gabarito</h4>
+<div class="rolagem">
+<table>
+  <tr><th>#</th><th>Resposta</th><th>Razão</th><th>Base</th></tr>
+  <tr><td>1</td><td>Não pode</td><td>Sigilo declarado é bloqueio, mesmo para resumo</td><td>Resolução 615; dever de sigilo</td></tr>
+  <tr><td>2</td><td><b>Não pode sem anonimizar</b></td><td>Publicidade não autoriza reuso: a peça traz nome e dados da parte, e o envio a ferramenta externa é finalidade diversa da que justificou a publicidade</td><td>Lei Geral de Proteção de Dados, artigo 6º, inciso terceiro, e artigo 7º, parágrafo terceiro</td></tr>
+  <tr><td>3</td><td>Não pode sem anonimizar</td><td>Dado sensível de saúde exige remoção antes do envio</td><td>Lei Geral de Proteção de Dados</td></tr>
+  <tr><td>4</td><td>Pode</td><td>Não há dado pessoal de terceiro nem processo envolvido</td><td>Resolução 615</td></tr>
+  <tr><td>5</td><td>Bloqueio por sigilo desconhecido</td><td>Na dúvida, não se envia</td><td>Resolução 615</td></tr>
+  <tr><td>6</td><td>Não pode sem anonimizar</td><td>Nome e dado clínico juntos exigem anonimização</td><td>Lei Geral de Proteção de Dados</td></tr>
+  <tr><td>7</td><td>Não pode sem anonimizar</td><td>Dado pessoal direto, em lote</td><td>Lei Geral de Proteção de Dados</td></tr>
+  <tr><td>8</td><td>Pode</td><td>Jurisprudência já pública, sem partes sigilosas</td><td>Resolução 615</td></tr>
+</table>
+</div>
+
+<div class="desvio">
+  <p><b>O caso 2 é o coração do bloco, e a resposta certa é &ldquo;não pode sem
+  anonimizar&rdquo;.</b> O critério binário &ldquo;é público, então pode&rdquo; é exatamente o mito
+  que o bloco desmonta: a lei manda considerar a <b>finalidade</b> que justificou a publicidade, e
+  colar em ferramenta externa é finalidade diversa.</p>
+  <p>Se alguém responder &ldquo;pode&rdquo; citando a publicidade da peça, <b>não corrija de
+  imediato</b> &mdash; é a deixa perfeita para a discussão, e o erro é didaticamente valioso.</p>
+</div>
+
+<div class="nota">
+  <p><b>Os casos 3 e 6 costumam gerar dúvida</b> &mdash; é sigiloso ou só sensível? O encaminhamento
+  correto é sempre o mesmo, e vale dizer: <i>na dúvida, escalar para a chefia antes de decidir
+  sozinho. Este exercício é didático, não parecer jurídico definitivo.</i></p>
+</div>
+
+<h4>Erro típico a nomear em voz alta</h4>
+<p>Tratar &ldquo;não achei sigilo declarado&rdquo; como sinônimo de &ldquo;não é sigiloso&rdquo;.
+<i>Ausência de informação sobre sigilo não é a mesma coisa que ausência de sigilo.</i></p>
+
+<h4>Se faltar tempo, e se sobrar</h4>
+<p><b>Faltando:</b> reduza aos casos 1, 3, 5 e 8 &mdash; um de cada resposta &mdash; e resolva
+direto com a turma.</p>
+<p><b>Sobrando:</b> proponha o nono caso, que é o mais atual de todos: <i>a ferramenta guarda o
+histórico das minhas conversas de trabalho &mdash; posso deixar a memória ligada?</i> Resposta: não
+sem decisão consciente e sem conferir a configuração. Histórico de trabalho também é dado, e a
+Resolução exige fornecedor proibido de usar seus dados para treinar o modelo.</p>
+
+<h3 id="risco-pessoal"><span class="t">Três minutos</span>O risco pessoal, dito uma única vez</h3>
+
+<p class="volta"><a href="modulo4-roteiro.html#a23">voltar ao roteiro</a></p>
+
+<p>Este ponto entra <b>uma vez só</b> no curso inteiro, aqui, e <b>em tom de proteção, nunca de
+ameaça</b>. A formulação sugerida:</p>
+
+<div class="fala">
+  <p>&ldquo;Isto não é para assustar ninguém. É para que vocês saibam que a regra não é preciosismo
+  da coordenação do curso: ela é o que protege vocês. A lei que garante o acesso à informação é a
+  mesma que responsabiliza quem der acesso indevido a informação pessoal &mdash; e o piso da sanção
+  é suspensão.&rdquo;</p>
+</div>
+
+<p><b>Base, se alguém perguntar</b> &mdash; e é da Lei de Acesso à Informação, não da Lei Geral de
+Proteção de Dados: a segunda sanciona a instituição, a primeira alcança o agente público. Artigo 31,
+parágrafo segundo (quem obtém acesso a informação pessoal responde pelo uso indevido); artigo 32,
+inciso quarto (divulgar ou permitir acesso indevido a informação sigilosa ou <b>pessoal</b> é
+conduta ilícita); artigo 32, parágrafo primeiro, inciso segundo (infração administrativa apenada
+&ldquo;no mínimo, com suspensão&rdquo;); artigo 32, parágrafo segundo (pode configurar improbidade
+administrativa).</p>
+
+<div class="destaque">
+  <p class="grande">O contraponto é obrigatório, na mesma respiração</p>
+  <p>A mesma lei pune também quem <b>recusa informação devida</b>, retarda o fornecimento ou impõe
+  sigilo para ocultar. <b>Ninguém pode sair deste curso com medo de entregar o que é público.</b> As
+  duas maneiras de errar são simétricas, e omitir esta metade transforma o módulo em intimidação.</p>
+</div>
+
+<h4>Perguntas e respostas</h4>
+<div class="par"><p class="p">Chegou um documento e não se sabe se o processo corre em segredo. Pode
+colar e verificar depois?</p>
+<p class="r">Não. Sigilo desconhecido é bloqueio: só se envia depois de confirmar que não há sigilo.</p></div>
+<div class="par"><p class="p">A peça já é pública. Posso colar?</p>
+<p class="r">Não sem anonimizar. Ser pública responde a uma finalidade; mandar para uma ferramenta
+externa é outra finalidade.</p></div>
+<div class="par"><p class="p">E se eu anonimizar tudo, posso mandar qualquer coisa?</p>
+<p class="r">Não. Anonimizar é o segundo passo. Se o sigilo é &ldquo;sim&rdquo; ou
+&ldquo;desconhecido&rdquo;, não se chega a anonimizar &mdash; não se envia.</p></div>
+
+<h2 id="aula45">Aulas 4 e 5 &middot; vieses e segurança &middot; vinte e cinco minutos</h2>
+
+<h3 id="seguranca"><span class="t">Cinco minutos</span>As duas direções da segurança</h3>
+
+<p class="volta"><a href="modulo4-roteiro.html#a45">voltar ao roteiro</a></p>
+
+<p>Exposição breve, e depois direto para a prática. A segurança tem duas direções, e a segunda quase
+sempre é esquecida:</p>
+
+<ul>
+  <li><b>Usar a ferramenta com cuidado:</b> só a homologada pela unidade; nunca colar senha ou
+  credencial no pedido; conversa nova para caso novo, porque uma resposta errada anterior contamina
+  as seguintes; conferir o que a ferramenta guarda de memória entre conversas; encerrar a sessão em
+  computador compartilhado.</li>
+  <li><b>Reconhecer quando a ferramenta é usada contra você:</b> mensagem fraudulenta <b>sem os
+  erros de português que costumavam denunciá-la</b>; áudio ou vídeo falsificado com voz e rosto
+  conhecidos.</li>
+</ul>
+
+<div class="destaque">
+  <p class="grande">O padrão do golpe não mudou</p>
+  <p>Autoridade, urgência, canal fora do oficial. Só ficou mais barato e mais convincente. <b>A
+  defesa também não mudou:</b> parar e confirmar pelo canal institucional antes de agir.</p>
+</div>
+
+<h3 id="vies"><span class="t">Vinte minutos</span>Exercício &mdash; viés na triagem</h3>
+
+<p class="volta"><a href="modulo4-roteiro.html#a45">voltar ao roteiro</a></p>
+
+<h4>O material, para projetar</h4>
+<div class="exemplo">
+  <p><b>Pedido A</b> &mdash; Autor representado por advogado. Petição formal, bem redigida, requer
+  fornecimento urgente de medicamento; laudo médico fictício anexo: <i>risco à saúde do paciente em
+  caso de não fornecimento em até quinze dias</i>.<br>
+  <b>Classificação da ferramenta:</b> URGENTE &mdash; encaminhar para decisão imediata.</p>
+  <p><b>Pedido B</b> &mdash; Autor sem advogado, petição informal, redação mais simples, requer
+  fornecimento urgente de medicamento; laudo médico fictício anexo, <b>com o mesmo teor</b>.<br>
+  <b>Classificação da ferramenta:</b> BAIXA PRIORIDADE &mdash; pedido informal; sugerido aguardar
+  fila regular.</p>
+</div>
+
+<h4>As cinco perguntas, nesta ordem</h4>
+<ol>
+  <li>Comparando os dois laudos: o que muda entre eles, de fato?</li>
+  <li>Comparando as duas classificações: o que a ferramenta usou como critério, na prática?</li>
+  <li>Existe viés aqui? Qual característica <b>da parte</b>, e não do mérito, influenciou a
+  diferença?</li>
+  <li>Como o servidor perceberia isso na rotina, sem parar para investigar cada caso?</li>
+  <li>O que o servidor faz diante disso, antes de decidir?</li>
+</ol>
+
+<h4>Gabarito</h4>
+<p>O viés está em tratar dois pedidos com <b>urgência clínica idêntica</b> de forma desigual, com
+base na formalidade da petição e na presença de advogado &mdash; característica que nada tem a ver
+com o mérito. Na prática, reproduz um <b>viés de classe</b>: quem tem menos recursos para redigir ou
+contratar advogado corre o risco de ser lido como &ldquo;menos urgente&rdquo; por um padrão de
+linguagem, não pelo conteúdo.</p>
+
+<p><b>Como perceber na rotina:</b> desconfiar sempre que o motivo apontado pela classificação for
+sobre <b>forma</b> &mdash; redação, formalidade, quem assina &mdash; e não sobre o <b>dado técnico do
+caso</b>, que aqui é o laudo. É a quarta pergunta do checklist do Módulo 2:
+<b>a conclusão trata casos iguais de forma igual?</b></p>
+
+<p><b>O que fazer:</b> não aceitar a classificação como está; reclassificar pelo critério técnico
+correto; a decisão final é sempre do servidor. E se o padrão se repetir em outros lotes, deixa de
+ser caso isolado e <b>deve ser relatado pela via institucional</b> &mdash; não se ajusta o pedido por
+conta própria para todo mundo sem passar por esse canal.</p>
+
+<div class="desvio">
+  <p><b>Erro típico a nomear:</b> aceitar a classificação porque &ldquo;a ferramenta deve ter visto
+  algo que eu não vi&rdquo;.</p>
+  <p><b>Como recolocar:</b> <i>ela não viu mais que você. Ela reproduziu um padrão de texto &mdash;
+  e o padrão pode estar errado.</i></p>
+</div>
+
+<h4>Discussão rápida, se sobrar tempo</h4>
+<p><i>Chegou um áudio, aparentemente da chefia da unidade, pedindo a liberação urgente de um
+documento fora do sistema, porque o sistema caiu. O que você faz?</i></p>
+<p><b>Resposta esperada:</b> não agir pelo pedido informal; parar e confirmar pelo canal oficial
+&mdash; o ramal institucional ou o próprio sistema, <b>nunca pelo mesmo canal que trouxe o
+áudio</b> &mdash; antes de qualquer ação.</p>
+
+<h4>Perguntas e respostas</h4>
+<div class="par"><p class="p">Cite uma boa prática de segurança válida mesmo com o texto já
+anonimizado.</p>
+<p class="r">Qualquer uma coerente: usar só a ferramenta homologada; conversa nova para caso novo;
+nunca colar credencial no pedido; conferir o que ela guarda de memória; encerrar a sessão em
+computador compartilhado.</p></div>
+<div class="par"><p class="p">Por que conversa nova para caso novo?</p>
+<p class="r">Porque uma resposta errada anterior contamina as seguintes &mdash; ela continua lendo o
+que veio antes como se fosse verdade estabelecida.</p></div>
+
+<h2 id="fechamento">Fechamento do curso</h2>
+
+<h3 id="via"><span class="t">Cinco minutos</span>A boa ideia que precisa virar institucional</h3>
+
+<p class="volta"><a href="modulo4-roteiro.html#fim">voltar ao roteiro</a></p>
+
+<div class="par"><p class="p">Um colega descobriu um jeito bom de usar a ferramenta e já está
+usando por conta própria, sem avisar ninguém. Isso está certo?</p>
+<p class="r">Não. A boa ideia deve ser encaminhada pela via institucional para virar solução
+homologada &mdash; assim ela não morre com quem criou e não expõe a unidade a um uso não
+avaliado.</p></div>
+
+<div class="nota">
+  <p><b>Um cuidado com esta turma.</b> Servidor recém-chegado costuma achar que não tem lugar de
+  fala para propor. Vale desarmar isso na hora: <i>vocês vão enxergar coisas que quem está lá há
+  dez anos não enxerga mais, justamente porque é tudo novo para vocês. Isso tem valor, e tem
+  caminho. O que não pode é virar solução particular de vocês.</i></p>
+</div>
+
+<h4>O mapa da mina &mdash; os três caminhos concretos</h4>
+<ol>
+  <li>O <b>AURI</b> se acessa com matrícula e senha de rede; dúvida de acesso vai para a central de
+  tecnologia.</li>
+  <li>Tarefa repetitiva e bem descrita que nenhum robô cobre vira <b>pedido de robô novo</b> pelo
+  sistema eletrônico &mdash; e descrever os passos é a mesma habilidade de escrever o prompt que eles
+  treinaram ontem.</li>
+  <li>A ficha do manual do participante é o mapa completo, com o portal interno como fonte viva.</li>
+</ol>
+
+<h3 id="horizonte"><span class="t">Encerramento &middot; não avaliado</span>Horizonte &mdash; sistemas que executam passos</h3>
+
+<p class="volta"><a href="modulo4-roteiro.html#fim">voltar ao roteiro</a></p>
+
+<p>Fecha o curso apontando o que já opera em outras mesas &mdash; e, na casa deles, literalmente: o
+SARA, a BERNA e o MIDAS já executam passos hoje. O que ainda está por vir é a autonomia crescer.</p>
+
+<p><b>É deliberadamente o único bloco sem objetivo avaliável.</b> Não vira tutorial nem entra em
+prova. Amplia repertório e devolve a turma ao trabalho <b>com uma pergunta, não com uma tarefa</b>.</p>
+
+<div class="fala">
+  <p>&ldquo;Quanto mais a ferramenta executa sozinha, mais cedo entra o ponto em que alguém tem que
+  conferir. Essa pessoa é vocês. Foi disso que tratou o curso inteiro.&rdquo;</p>
+</div>
+
+<h2 id="referencia">Referência</h2>
+
+<h3 id="documentos"><span class="t">Material</span>Onde está cada documento</h3>
+
+<p class="volta"><a href="modulo4-roteiro.html#ref">voltar ao roteiro</a></p>
+
+<div class="rolagem">
+<table>
+  <tr><th>Documento</th><th>Para quê, aqui</th></tr>
+  <tr><td><a href="https://inovajus.github.io/tjce/material-do-instrutor.html">Caderno do instrutor</a></td>
+      <td>Os oito casos e a triagem enviesada na íntegra, e as notas normativas completas.</td></tr>
+  <tr><td><a href="https://inovajus.github.io/tjce/banco-de-prompts.html">Banco de Prompts</a></td>
+      <td>A seção de ética, proteção de dados e anonimização.</td></tr>
+  <tr><td><a href="https://inovajus.github.io/tjce/material.html">Material do participante</a></td>
+      <td>As fichas que a turma leva, inclusive o mapa dos caminhos institucionais.</td></tr>
+  <tr><td><a href="modulo2-conteudo.html#checklist">O checklist das quatro perguntas</a></td>
+      <td>É a supervisão humana que a Portaria exige &mdash; a ponte a mostrar na aula 1.</td></tr>
+  <tr><td><a href="modulo3-conteudo.html#anonimizar">A ordem de anonimizar, do Módulo 3</a></td>
+      <td>A versão prática, em quatro passos, do que aqui é norma.</td></tr>
+</table>
+</div>
+
+<h3 id="apertar"><span class="t">Condução</span>Se apertar o tempo</h3>
+
+<p class="volta"><a href="modulo4-roteiro.html#ref">voltar ao roteiro</a></p>
+
+<p><b>O que não pode cair:</b> a <a href="#regra-dura">regra dura do sigilo</a> com a ordem das duas
+checagens, e o <a href="#semaforo">caso 2</a> do semáforo &mdash; é o único que desmonta o mito de
+que público significa liberado. Sem esses dois, o módulo não cumpriu a função.</p>
+
+<p><b>O que se encolhe:</b> os números do Tribunal de Contas podem virar uma frase; o quadro de
+anonimização pode ser mostrado sem o exemplo antes e depois; e o exercício de viés pode ser
+conduzido com a turma toda em vez de individualmente.</p>
+
+<p><b>O que não se corta nunca, mesmo faltando tempo:</b> o
+<a href="#risco-pessoal">contraponto da Lei de Acesso</a>. Dizer a metade que responsabiliza sem
+dizer a metade que pune a recusa indevida transforma o curso em intimidação &mdash; e manda para as
+unidades servidores com medo de entregar o que é público.</p>
+
+<div class="rodape">
+  <p>Documento de uso exclusivo dos instrutores. Contém os gabaritos. Todos os casos, nomes, números
+  e datas dos materiais são fictícios. Os números do Acórdão 1372/2025 do Tribunal de Contas da
+  União referem-se ao conjunto de organizações federais auditadas e <b>não</b> a tribunais
+  estaduais. A supervisão humana sobre qualquer saída de inteligência artificial é obrigatória, nos
+  termos da Resolução 615, de 2025, do Conselho Nacional de Justiça, e da Portaria 153/2026 do
+  Tribunal de Justiça do Ceará.</p>
+  <p>Página irmã: o <a href="modulo4-roteiro.html">roteiro do Módulo 4</a>, só com os tópicos e a
+  sequência.</p>
+</div>
+
+</div>
+</body>
+</html>
