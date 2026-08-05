@@ -5,6 +5,7 @@ Apresentação animada do curso **"Servidor + IA"** — Ações 1.2 e 1.3 da Fre
 - **Acesse o curso (aluno):** https://inovajus.github.io/
 - **Versão do instrutor (editável):** https://inovajus.github.io/editar.html
 - **Comparativo de LLMs:** https://inovajus.github.io/comparativo-llms.html
+- **Tutorial — ApoIA no Claude via MCP:** https://inovajus.github.io/tutorial-apoia-mcp.html
 - **Material de apoio:** `Banco-de-Prompts-Servidor-IA.docx` — banco de prompts para os exercícios.
 
 ## Sobre
@@ -25,8 +26,8 @@ foram removidos do arquivo, não apenas ocultados por CSS.
 - **Sem edição (participantes):** `index.html`, `tjce/index.html`, `banco-de-prompts.html`,
   `tjce/banco-de-prompts.html`, `comparativo-llms.html`, `material-do-aluno.html`,
   `tjce/material.html`, `ebook-servidor-ia.html` (e o da TJCE), `ementa.html`,
-  `tjce/casos-tipo.html`, `preteste.html`, `tjce/preteste.html`, e a Biblioteca do Iracema
-  (repositório `iracema-biblioteca-prompts`).
+  `tjce/casos-tipo.html`, `preteste.html`, `tjce/preteste.html`, `tutorial-apoia-mcp.html`,
+  e a Biblioteca do Iracema (repositório `iracema-biblioteca-prompts`).
 - **Com edição (instrutores):** `editar.html`, `tjce/editar.html`,
   `laboratorio-demonstracoes.html`, `painel-preteste.html`, `resultados-preteste.html`,
   `material-do-instrutor.html`, `guia-metodologico.html`, `guia-rapido-instrutor.html`.
