@@ -83,6 +83,14 @@ body {
     border: 1px solid var(--mira-icon-border);
 }
 
+        .evid{margin-top:.8rem;display:flex;gap:.75rem;align-items:flex-start;padding:.75rem 1rem;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,144,77,.22);backdrop-filter:blur(6px)}
+        .evid-ic{width:18px;height:18px;color:var(--mira-primary);flex:none;margin-top:3px}
+        .evid p{font-size:.86rem;line-height:1.55;color:rgba(255,255,255,.78);margin:0}
+        .evid b{color:var(--mira-accent-2);font-weight:700}
+        .evid i{font-style:italic}
+        .evid-src{display:block;margin-top:.25rem;font-size:.74rem;color:rgba(255,255,255,.45);font-style:italic}
+
+
 .attribute-pill {
     background: var(--mira-pill-bg);
     border: 1px solid var(--mira-pill-border);
@@ -617,9 +625,47 @@ body {
 
     <!-- ============ AULA · MÓDULO 1 · 1 de 8: Como a IA funciona (INFOGRÁFICO fluxo) ============ -->
     <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-3 pb-6">
+        <div class="w-full max-w-6xl" data-aos="fade-up" data-aos-delay="100">
+            <div class="text-center mb-3">
+                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="atrn-eyebrow">Módulo 1 · Aula 1 de 10 · Como uma IA é criada</p>
+                <h2 class="text-4xl md:text-5xl font-bold mb-2" data-k="atrn-h2">Como uma IA <span class="primary-color italic">é criada</span></h2>
+                <p class="text-white/60 italic text-lg" data-k="atrn-obj">Antes de prever qualquer palavra, ela passa por um treinamento caro e demorado. É isso que explica o que ela sabe e o que ela inventa.</p>
+            </div>
+            <div class="glass-card rounded-2xl p-3 md:p-4 grid md:grid-cols-2 gap-4 items-center">
+                <div class="relative">
+                    <button id="replay-atrn" class="replay-btn" type="button"><i data-lucide="rotate-cw" class="w-4 h-4"></i>Replay</button>
+                    <!-- @MIRA:SIZE 3/10 -->
+                    <div class="anim-stage mod-stage" id="atrn-stage">
+                        <svg id="atrn-svg" viewBox="0 0 720 560" preserveAspectRatio="xMidYMid meet"></svg>
+                    </div>
+                </div>
+                <div class="px-2">
+                    <p class="text-xs uppercase tracking-[3px] text-white/40 mb-3">Ideias-chave</p>
+                    <ul class="space-y-2 text-white/85">
+                        <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="atrn-t1">Massa de dados: bilhões de textos públicos viram exemplos de treino.</span></li>
+                        <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="atrn-t2">Grandes processadores: meses de cálculo em milhares de placas de vídeo, e por isso o modelo tem data de corte.</span></li>
+                        <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="atrn-t3">Transformer: a arquitetura que aprende quais palavras do texto pesam mais para prever a seguinte.</span></li>
+                        <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="atrn-t4">Ajuste fino: terminado o treino bruto, pessoas corrigem respostas e ensinam tom, formato e recusa.</span></li>
+                        <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="atrn-t5">O que fica guardado não são os documentos, são pesos. Ela não consulta o texto original ao responder.</span></li>
+                    </ul>
+                    <div class="grid grid-cols-3 gap-2 mt-4">
+                        <div class="attribute-pill text-center p-2 rounded-xl"><i data-lucide="database" class="w-4 h-4 primary-color mx-auto mb-1"></i><p class="text-xs font-semibold" data-k="atrn-pill1">Dados</p></div>
+                        <div class="attribute-pill text-center p-2 rounded-xl"><i data-lucide="cpu" class="w-4 h-4 primary-color mx-auto mb-1"></i><p class="text-xs font-semibold" data-k="atrn-pill2">Treinamento</p></div>
+                        <div class="attribute-pill text-center p-2 rounded-xl"><i data-lucide="sliders-horizontal" class="w-4 h-4 primary-color mx-auto mb-1"></i><p class="text-xs font-semibold" data-k="atrn-pill3">Ajuste fino</p></div>
+                    </div>
+                </div>
+            </div>
+            <div class="evid" data-k="atrn-evid">
+                <i data-lucide="flask-conical" class="evid-ic"></i>
+                <p><b>Pesquisa.</b> A arquitetura Transformer foi publicada em 2017, no artigo <i>Attention Is All You Need</i>. Toda a geração atual de modelos de linguagem descende dela.<span class="evid-src">Vaswani e outros, Advances in Neural Information Processing Systems, 2017.</span></p>
+            </div>
+        </div>
+    </section>
+
+    <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-3 pb-6">
         <div class="w-full max-w-6xl flex flex-col items-center" data-aos="fade-up" data-aos-delay="100">
             <div class="text-center mb-2">
-                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a11-eyebrow">Módulo 1 · Aula 1 de 8 · Como a IA funciona</p>
+                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a11-eyebrow">Módulo 1 · Aula 2 de 10 · Como a IA funciona</p>
                 <h2 class="text-4xl md:text-5xl font-bold mb-2" data-k="a11-h2">Como a IA <span class="primary-color italic">funciona</span></h2>
                 <p class="text-white/60 italic text-lg" data-k="a11-obj">Ela prevê a próxima palavra por probabilidade: gera o texto mais provável, não a verdade.</p>
             </div>
@@ -657,11 +703,45 @@ body {
         </div>
     </section>
 
+    <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-3 pb-6">
+        <div class="w-full max-w-6xl" data-aos="fade-up" data-aos-delay="100">
+            <div class="text-center mb-3">
+                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="abus-eyebrow">Módulo 1 · Aula 3 de 10 · Busca e IA</p>
+                <h2 class="text-4xl md:text-5xl font-bold mb-2" data-k="abus-h2">Buscar não é <span class="primary-color italic">gerar</span></h2>
+                <p class="text-white/60 italic text-lg" data-k="abus-obj">A busca devolve o endereço onde a frase está. A IA calcula a frase mais provável. As duas erram, mas de jeitos diferentes.</p>
+            </div>
+            <div class="glass-card rounded-2xl p-3 md:p-4 grid md:grid-cols-2 gap-4 items-center">
+                <div class="relative">
+                    <button id="replay-abus" class="replay-btn" type="button"><i data-lucide="rotate-cw" class="w-4 h-4"></i>Replay</button>
+                    <!-- @MIRA:SIZE 3/10 -->
+                    <div class="anim-stage mod-stage" id="abus-stage">
+                        <svg id="abus-svg" viewBox="0 0 720 560" preserveAspectRatio="xMidYMid meet"></svg>
+                    </div>
+                </div>
+                <div class="px-2">
+                    <p class="text-xs uppercase tracking-[3px] text-white/40 mb-3">Ideias-chave</p>
+                    <ul class="space-y-2 text-white/85">
+                        <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="abus-t1">Busca tradicional: um índice de páginas. Ela aponta onde está escrito e você lê a fonte.</span></li>
+                        <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="abus-t2">IA generativa: não tem índice. Calcula, palavra a palavra, o texto mais provável.</span></li>
+                        <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="abus-t3">Por isso a busca erra devolvendo página irrelevante, e a IA erra produzindo frase perfeita que ninguém escreveu.</span></li>
+                        <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="abus-t4">Quando a ferramenta consulta a internet, as duas se juntam e o erro muda de lugar: passa a citar fonte real que não diz aquilo.</span></li>
+                        <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="abus-t5">Conferir deixa de ser abrir o link e passa a ser achar a frase dentro dele.</span></li>
+                    </ul>
+                    <div class="grid grid-cols-3 gap-2 mt-4">
+                        <div class="attribute-pill text-center p-2 rounded-xl"><i data-lucide="list-tree" class="w-4 h-4 primary-color mx-auto mb-1"></i><p class="text-xs font-semibold" data-k="abus-pill1">Índice</p></div>
+                        <div class="attribute-pill text-center p-2 rounded-xl"><i data-lucide="percent" class="w-4 h-4 primary-color mx-auto mb-1"></i><p class="text-xs font-semibold" data-k="abus-pill2">Probabilidade</p></div>
+                        <div class="attribute-pill text-center p-2 rounded-xl"><i data-lucide="search-check" class="w-4 h-4 primary-color mx-auto mb-1"></i><p class="text-xs font-semibold" data-k="abus-pill3">Ache a frase</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- ============ AULA · MÓDULO 1 · 2 de 6: Capacidades e limites ============ -->
     <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-3 pb-6">
         <div class="w-full max-w-6xl" data-aos="fade-up" data-aos-delay="100">
             <div class="text-center mb-3">
-                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a12-eyebrow">Módulo 1 · Aula 2 de 8 · Capacidades e limites</p>
+                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a12-eyebrow">Módulo 1 · Aula 4 de 10 · Capacidades e limites</p>
                 <h2 class="text-4xl md:text-5xl font-bold mb-2" data-k="a12-h2">O que faz bem, <span class="primary-color italic">onde falha</span></h2>
                 <p class="text-white/60 italic text-lg" data-k="a12-obj">A IA acelera o rascunho do trabalho de Vara e de Gabinete; o discernimento jurídico continua seu.</p>
             </div>
@@ -688,7 +768,12 @@ body {
                         <div class="attribute-pill text-center p-2 rounded-xl"><i data-lucide="gavel" class="w-4 h-4 primary-color mx-auto mb-1"></i><p class="text-xs font-semibold" data-k="a12-pill3">A decisão é humana</p></div>
                     </div>
                 </div>
+            
+            <div class="evid" data-k="a12-evid">
+                <i data-lucide="flask-conical" class="evid-ic"></i>
+                <p><b>Pesquisa.</b> Em experimento com 758 consultores, o uso de IA acelerou as tarefas em 25% e elevou a qualidade avaliada, mas o desempenho caiu 19 pontos percentuais nas tarefas que estavam fora do alcance da ferramenta. Os melhores resultados vieram de quem sabia distinguir uma coisa da outra.<span class="evid-src">Dell'Acqua e outros, <i>Organization Science</i>, 2026.</span></p>
             </div>
+        </div>
         </div>
     </section>
 
@@ -696,7 +781,7 @@ body {
     <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-3 pb-6">
         <div class="w-full max-w-6xl" data-aos="fade-up" data-aos-delay="100">
             <div class="text-center mb-3">
-                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="actx-eyebrow">Módulo 1 · Aula 3 de 8 · Contexto e tokens</p>
+                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="actx-eyebrow">Módulo 1 · Aula 5 de 10 · Contexto e tokens</p>
                 <h2 class="text-4xl md:text-5xl font-bold mb-2" data-k="actx-h2">Não despeje o processo <span class="primary-color italic">inteiro</span></h2>
                 <p class="text-white/60 italic text-lg" data-k="actx-obj">A IA tem uma memória de trabalho limitada: recortar o que importa é mais rápido, mais barato e mais seguro.</p>
             </div>
@@ -732,7 +817,7 @@ body {
     <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-3 pb-6">
         <div class="w-full max-w-6xl flex flex-col items-center" data-aos="fade-up" data-aos-delay="100">
             <div class="text-center mb-2">
-                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a13-eyebrow">Módulo 1 · Aula 4 de 8 · Anatomia do prompt</p>
+                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a13-eyebrow">Módulo 1 · Aula 6 de 10 · Anatomia do prompt</p>
                 <h2 class="text-4xl md:text-5xl font-bold mb-2" data-k="a13-h2">O prompt em <span class="primary-color italic">6 etapas</span></h2>
                 <p class="text-white/60 italic text-lg" data-k="a13-obj">Um bom prompt é como um bom despacho: contexto claro, pedido preciso e formato definido.</p>
             </div>
@@ -777,7 +862,7 @@ body {
     <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-3 pb-6">
         <div class="w-full max-w-6xl" data-aos="fade-up" data-aos-delay="100">
             <div class="text-center mb-3">
-                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a14-eyebrow">Módulo 1 · Aula 5 de 8 · Fraco x forte</p>
+                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a14-eyebrow">Módulo 1 · Aula 7 de 10 · Fraco x forte</p>
                 <h2 class="text-4xl md:text-5xl font-bold mb-2" data-k="a14-h2">Prompt fraco, <span class="primary-color italic">prompt forte</span></h2>
                 <p class="text-white/60 italic text-lg" data-k="a14-obj">O mesmo pedido, dois resultados: a diferença está em quanto você especifica.</p>
             </div>
@@ -811,7 +896,7 @@ body {
     <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-3 pb-6">
         <div class="w-full max-w-6xl" data-aos="fade-up" data-aos-delay="100">
             <div class="text-center mb-3">
-                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a15-eyebrow">Módulo 1 · Aula 6 de 8 · Técnicas</p>
+                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a15-eyebrow">Módulo 1 · Aula 8 de 10 · Técnicas</p>
                 <h2 class="text-4xl md:text-5xl font-bold mb-2" data-k="a15-h2">Técnicas que <span class="primary-color italic">turbinam o prompt</span></h2>
                 <p class="text-white/60 italic text-lg" data-k="a15-obj">Quatro ajustes simples que elevam a qualidade das respostas em tarefas complexas.</p>
             </div>
@@ -845,7 +930,7 @@ body {
     <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-3 pb-6">
         <div class="w-full max-w-6xl" data-aos="fade-up" data-aos-delay="100">
             <div class="text-center mb-3">
-                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a16-eyebrow">Módulo 1 · Aula 7 de 8 · Biblioteca de prompts</p>
+                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a16-eyebrow">Módulo 1 · Aula 9 de 10 · Biblioteca de prompts</p>
                 <h2 class="text-4xl md:text-5xl font-bold mb-2" data-k="a16-h2">Sua biblioteca <span class="primary-color italic">de prompts</span></h2>
                 <p class="text-white/60 italic text-lg" data-k="a16-obj">Todo prompt que funciona vira um modelo reutilizável seu e da sua unidade.</p>
             </div>
@@ -872,7 +957,12 @@ body {
                         <div class="attribute-pill text-center p-2 rounded-xl"><i data-lucide="library" class="w-4 h-4 primary-color mx-auto mb-1"></i><p class="text-xs font-semibold" data-k="a16-pill3">Banco do curso</p></div>
                     </div>
                 </div>
+            
+            <div class="evid" data-k="a16-evid">
+                <i data-lucide="flask-conical" class="evid-ic"></i>
+                <p><b>Pesquisa.</b> Pesquisa da FGV Direito SP indica que cerca de 80% dos profissionais da área jurídica já usam IA generativa com alta frequência, e 58% a usam diariamente. A pergunta deixou de ser se a turma usa.<span class="evid-src">Centro de Ensino e Pesquisa em Inovação, FGV Direito SP, 2026.</span></p>
             </div>
+        </div>
         </div>
     </section>
 
@@ -880,7 +970,7 @@ body {
     <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-3 pb-6">
         <div class="w-full max-w-6xl" data-aos="fade-up" data-aos-delay="100">
             <div class="text-center mb-3">
-                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a17-eyebrow">Módulo 1 · Aula 8 de 8 · Qual ferramenta usar</p>
+                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a17-eyebrow">Módulo 1 · Aula 10 de 10 · Qual ferramenta usar</p>
                 <h2 class="text-4xl md:text-5xl font-bold mb-2" data-k="a17-h2">Qual ferramenta <span class="primary-color italic">usar</span></h2>
                 <p class="text-white/60 italic text-lg" data-k="a17-obj">As três grandes dão conta do dia a dia; o que muda é o ponto forte de cada uma.</p>
             </div>
@@ -953,7 +1043,7 @@ body {
     <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-3 pb-6">
         <div class="w-full max-w-6xl" data-aos="fade-up" data-aos-delay="100">
             <div class="text-center mb-3">
-                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a31-eyebrow">Módulo 2 · Aula 1 de 6 · Por que questionar</p>
+                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a31-eyebrow">Módulo 2 · Aula 1 de 7 · Por que questionar</p>
                 <h2 class="text-4xl md:text-5xl font-bold mb-2" data-k="a31-h2">Por que <span class="primary-color italic">questionar a IA</span></h2>
                 <p class="text-white/60 italic text-lg" data-k="a31-obj">Em palavras simples: a IA é uma assessora rápida que às vezes erra com confiança; por isso a palavra final é sua.</p>
             </div>
@@ -983,11 +1073,45 @@ body {
         </div>
     </section>
 
+    <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-3 pb-6">
+        <div class="w-full max-w-6xl" data-aos="fade-up" data-aos-delay="100">
+            <div class="text-center mb-3">
+                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="acon-eyebrow">Módulo 2 · Aula 2 de 7 · Conceitos do módulo</p>
+                <h2 class="text-4xl md:text-5xl font-bold mb-2" data-k="acon-h2">Cinco conceitos <span class="primary-color italic">antes dos casos</span></h2>
+                <p class="text-white/60 italic text-lg" data-k="acon-obj">O vocabulário que sustenta o resto do módulo. Sem ele, a discussão de um caso vira troca de opiniões.</p>
+            </div>
+            <div class="glass-card rounded-2xl p-3 md:p-4 grid md:grid-cols-2 gap-4 items-center">
+                <div class="relative">
+                    <button id="replay-acon" class="replay-btn" type="button"><i data-lucide="rotate-cw" class="w-4 h-4"></i>Replay</button>
+                    <!-- @MIRA:SIZE 3/10 -->
+                    <div class="anim-stage mod-stage" id="acon-stage">
+                        <svg id="acon-svg" viewBox="0 0 720 560" preserveAspectRatio="xMidYMid meet"></svg>
+                    </div>
+                </div>
+                <div class="px-2">
+                    <p class="text-xs uppercase tracking-[3px] text-white/40 mb-3">Ideias-chave</p>
+                    <ul class="space-y-2 text-white/85">
+                        <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="acon-t1">Fato: o que aconteceu e pode ser verificado em fonte. Não se confunde com a interpretação do fato.</span></li>
+                        <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="acon-t2">Correlação: dois números que sobem e descem juntos. Só isso, e nada além disso.</span></li>
+                        <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="acon-t3">Causa: quando mexer em um muda o outro. Exige bem mais do que andarem juntos.</span></li>
+                        <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="acon-t4">Confundidor: a terceira variável escondida que explica os dois ao mesmo tempo.</span></li>
+                        <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="acon-t5">Contrafactual: o que teria acontecido sem a mudança. É a pergunta que separa efeito de coincidência.</span></li>
+                    </ul>
+                    <div class="grid grid-cols-3 gap-2 mt-4">
+                        <div class="attribute-pill text-center p-2 rounded-xl"><i data-lucide="file-check" class="w-4 h-4 primary-color mx-auto mb-1"></i><p class="text-xs font-semibold" data-k="acon-pill1">Fato</p></div>
+                        <div class="attribute-pill text-center p-2 rounded-xl"><i data-lucide="eye-off" class="w-4 h-4 primary-color mx-auto mb-1"></i><p class="text-xs font-semibold" data-k="acon-pill2">Confundidor</p></div>
+                        <div class="attribute-pill text-center p-2 rounded-xl"><i data-lucide="git-branch" class="w-4 h-4 primary-color mx-auto mb-1"></i><p class="text-xs font-semibold" data-k="acon-pill3">Contrafactual</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- ============ AULA · MÓDULO 2 · 2 de 6: Correlação e causa oculta ============ -->
     <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-3 pb-6">
         <div class="w-full max-w-6xl" data-aos="fade-up" data-aos-delay="100">
             <div class="text-center mb-3">
-                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a32-eyebrow">Módulo 2 · Aula 2 de 6 · Causa oculta</p>
+                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a32-eyebrow">Módulo 2 · Aula 3 de 7 · Causa oculta</p>
                 <h2 class="text-4xl md:text-5xl font-bold mb-2" data-k="a32-h2">Correlação e <span class="primary-color italic">causa oculta</span></h2>
                 <p class="text-white/60 italic text-lg" data-k="a32-obj">Em palavras simples: andar junto não é causar — pode haver uma causa escondida por trás das duas (o confundidor).</p>
             </div>
@@ -1021,7 +1145,7 @@ body {
     <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-3 pb-6">
         <div class="w-full max-w-6xl" data-aos="fade-up" data-aos-delay="100">
             <div class="text-center mb-3">
-                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a33-eyebrow">Módulo 2 · Aula 3 de 6 · Contrafactual</p>
+                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a33-eyebrow">Módulo 2 · Aula 4 de 7 · Contrafactual</p>
                 <h2 class="text-4xl md:text-5xl font-bold mb-2" data-k="a33-h2">E se? O <span class="primary-color italic">contrafactual</span></h2>
                 <p class="text-white/60 italic text-lg" data-k="a33-obj">Em palavras simples: o efeito real é a diferença entre o que aconteceu e o que teria acontecido sem a medida.</p>
             </div>
@@ -1055,7 +1179,7 @@ body {
     <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-3 pb-6">
         <div class="w-full max-w-6xl" data-aos="fade-up" data-aos-delay="100">
             <div class="text-center mb-3">
-                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a34-eyebrow">Módulo 2 · Aula 4 de 6 · Alucinações</p>
+                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a34-eyebrow">Módulo 2 · Aula 5 de 7 · Alucinações</p>
                 <h2 class="text-4xl md:text-5xl font-bold mb-2" data-k="a34-h2">Detectar <span class="primary-color italic">alucinações</span></h2>
                 <p class="text-white/60 italic text-lg" data-k="a34-obj">Em palavras simples: alucinação é quando a IA inventa algo (uma lei, um número) e apresenta como verdade.</p>
             </div>
@@ -1081,7 +1205,12 @@ body {
                         <div class="attribute-pill text-center p-2 rounded-xl"><i data-lucide="flag" class="w-4 h-4 primary-color mx-auto mb-1"></i><p class="text-xs font-semibold" data-k="a34-pill3">Confirme na fonte</p></div>
                     </div>
                 </div>
+            
+            <div class="evid" data-k="a34-evid">
+                <i data-lucide="flask-conical" class="evid-ic"></i>
+                <p><b>Pesquisa.</b> Avaliação de ferramentas jurídicas comerciais de pesquisa encontrou de 17% a 33% de respostas com alucinação, mesmo operando sobre base própria de jurisprudência.<span class="evid-src">Magesh e outros, <i>Journal of Empirical Legal Studies</i>, 2025.</span></p>
             </div>
+        </div>
         </div>
     </section>
 
@@ -1089,7 +1218,7 @@ body {
     <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-3 pb-6">
         <div class="w-full max-w-6xl" data-aos="fade-up" data-aos-delay="100">
             <div class="text-center mb-3">
-                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a35-eyebrow">Módulo 2 · Aula 5 de 6 · Validar</p>
+                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a35-eyebrow">Módulo 2 · Aula 6 de 7 · Validar</p>
                 <h2 class="text-4xl md:text-5xl font-bold mb-2" data-k="a35-h2">Validar <span class="primary-color italic">antes de confiar</span></h2>
                 <p class="text-white/60 italic text-lg" data-k="a35-obj">Em palavras simples: validar é conferir a resposta em mais de uma fonte antes de confiar.</p>
             </div>
@@ -1123,7 +1252,7 @@ body {
     <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-3 pb-6">
         <div class="w-full max-w-6xl" data-aos="fade-up" data-aos-delay="100">
             <div class="text-center mb-3">
-                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a36-eyebrow">Módulo 2 · Aula 6 de 6 · Checklist</p>
+                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a36-eyebrow">Módulo 2 · Aula 7 de 7 · Checklist</p>
                 <h2 class="text-4xl md:text-5xl font-bold mb-2" data-k="a36-h2">Checklist e <span class="primary-color italic">decisão humana</span></h2>
                 <p class="text-white/60 italic text-lg" data-k="a36-obj">Em palavras simples: antes de usar, passe a resposta por um checklist rápido; a decisão final é sempre sua.</p>
             </div>
@@ -1157,7 +1286,7 @@ body {
     <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-3 pb-6">
         <div class="w-full max-w-6xl" data-aos="fade-up" data-aos-delay="100">
             <div class="text-center mb-3">
-                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="m2-eyebrow">Conteúdo do curso · Módulo 3 · 10 horas</p>
+                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="m2-eyebrow">Conteúdo do curso · Módulo 3 · 9 horas</p>
                 <h2 class="text-4xl md:text-5xl font-bold mb-2" data-k="m2-h2">Módulo 3: <span class="primary-color italic">Prática forense</span></h2>
                 <p class="text-white/60 italic text-lg" data-k="m2-obj">Objetivo: aplicar a IA às tarefas do dia a dia da Vara e do Gabinete.</p>
             </div>
@@ -1179,7 +1308,7 @@ body {
                         <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="m2-t5">Modelos reutilizáveis e trabalho em lote</span></li>
                     </ul>
                     <div class="grid grid-cols-2 gap-2 mt-4">
-                        <div class="attribute-pill text-center p-2 rounded-xl"><i data-lucide="clock" class="w-4 h-4 primary-color mx-auto mb-1"></i><p class="text-xs font-semibold" data-k="m2-carga">10 horas</p></div>
+                        <div class="attribute-pill text-center p-2 rounded-xl"><i data-lucide="clock" class="w-4 h-4 primary-color mx-auto mb-1"></i><p class="text-xs font-semibold" data-k="m2-carga">9 horas</p></div>
                         <div class="attribute-pill text-center p-2 rounded-xl"><i data-lucide="users" class="w-4 h-4 primary-color mx-auto mb-1"></i><p class="text-xs font-semibold" data-k="m2-formato">Online ao vivo, 3 aulas (3h+3h+4h)</p></div>
                     </div>
                 </div>
@@ -1191,7 +1320,7 @@ body {
     <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-3 pb-6">
         <div class="w-full max-w-6xl" data-aos="fade-up" data-aos-delay="100">
             <div class="text-center mb-3">
-                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a21-eyebrow">Módulo 3 · Aula 1 de 7 · Triagem</p>
+                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a21-eyebrow">Módulo 3 · Aula 1 de 10 · Triagem</p>
                 <h2 class="text-4xl md:text-5xl font-bold mb-2" data-k="a21-h2">Triagem e <span class="primary-color italic">classificação</span></h2>
                 <p class="text-white/60 italic text-lg" data-k="a21-obj">A IA separa o que chega por tipo, urgência e destino, na velocidade do balcão.</p>
             </div>
@@ -1225,7 +1354,7 @@ body {
     <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-3 pb-6">
         <div class="w-full max-w-6xl" data-aos="fade-up" data-aos-delay="100">
             <div class="text-center mb-3">
-                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a22-eyebrow">Módulo 3 · Aula 2 de 7 · Resumo</p>
+                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a22-eyebrow">Módulo 3 · Aula 2 de 10 · Resumo</p>
                 <h2 class="text-4xl md:text-5xl font-bold mb-2" data-k="a22-h2">Resumo de <span class="primary-color italic">peças e processos</span></h2>
                 <p class="text-white/60 italic text-lg" data-k="a22-obj">Peças longas viram um resumo fiel, com pedidos, datas e pontos controvertidos.</p>
             </div>
@@ -1260,7 +1389,7 @@ body {
     <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-3 pb-6">
         <div class="w-full max-w-6xl" data-aos="fade-up" data-aos-delay="100">
             <div class="text-center mb-3">
-                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a23-eyebrow">Módulo 3 · Aula 3 de 7 · Minutas</p>
+                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a23-eyebrow">Módulo 3 · Aula 3 de 10 · Minutas</p>
                 <h2 class="text-4xl md:text-5xl font-bold mb-2" data-k="a23-h2">Minutas e <span class="primary-color italic">despachos</span></h2>
                 <p class="text-white/60 italic text-lg" data-k="a23-obj">Do despacho de expediente à decisão simples: a IA redige o rascunho, você revisa.</p>
             </div>
@@ -1294,7 +1423,7 @@ body {
     <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-3 pb-6">
         <div class="w-full max-w-6xl" data-aos="fade-up" data-aos-delay="100">
             <div class="text-center mb-3">
-                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a24-eyebrow">Módulo 3 · Aula 4 de 7 · Jurisprudência</p>
+                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a24-eyebrow">Módulo 3 · Aula 4 de 10 · Jurisprudência</p>
                 <h2 class="text-4xl md:text-5xl font-bold mb-2" data-k="a24-h2">Pesquisa de <span class="primary-color italic">jurisprudência</span></h2>
                 <p class="text-white/60 italic text-lg" data-k="a24-obj">A IA ajuda a achar e resumir precedentes, mas a fonte precisa ser conferida sempre.</p>
             </div>
@@ -1320,7 +1449,12 @@ body {
                         <div class="attribute-pill text-center p-2 rounded-xl"><i data-lucide="badge-check" class="w-4 h-4 primary-color mx-auto mb-1"></i><p class="text-xs font-semibold" data-k="a24-pill3">Confira na fonte</p></div>
                     </div>
                 </div>
+            
+            <div class="evid" data-k="a24-evid">
+                <i data-lucide="flask-conical" class="evid-ic"></i>
+                <p><b>Pesquisa.</b> As mesmas ferramentas anunciavam citações livres de alucinação. Os pesquisadores concluíram que a alegação dos fornecedores era exagerada. Base própria reduz o erro; não o elimina.<span class="evid-src">Magesh e outros, <i>Journal of Empirical Legal Studies</i>, 2025.</span></p>
             </div>
+        </div>
         </div>
     </section>
 
@@ -1328,7 +1462,7 @@ body {
     <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-3 pb-6">
         <div class="w-full max-w-6xl" data-aos="fade-up" data-aos-delay="100">
             <div class="text-center mb-3">
-                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a25-eyebrow">Módulo 3 · Aula 5 de 7 · Comparar</p>
+                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a25-eyebrow">Módulo 3 · Aula 5 de 10 · Comparar</p>
                 <h2 class="text-4xl md:text-5xl font-bold mb-2" data-k="a25-h2">Comparar e <span class="primary-color italic">conferir</span></h2>
                 <p class="text-white/60 italic text-lg" data-k="a25-obj">Coloque dois textos lado a lado e a IA aponta o que mudou e o que diverge.</p>
             </div>
@@ -1359,10 +1493,116 @@ body {
     </section>
 
     <!-- ============ AULA · MÓDULO 3 · 6 de 7: Relatórios ============ -->
+
+    <!-- ============ AULA · MÓDULO 3 · 7 de 7: Automação ============ -->
+
     <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-3 pb-6">
         <div class="w-full max-w-6xl" data-aos="fade-up" data-aos-delay="100">
             <div class="text-center mb-3">
-                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a26-eyebrow">Módulo 3 · Aula 6 de 7 · Relatórios</p>
+                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="apo1-eyebrow">Módulo 3 · Aula 6 de 10 · Ferramenta institucional</p>
+                <h2 class="text-4xl md:text-5xl font-bold mb-2" data-k="apo1-h2">ApoIA, a ferramenta <span class="primary-color italic">da casa</span></h2>
+                <p class="text-white/60 italic text-lg" data-k="apo1-obj">Assistente Pessoal Operada por Inteligência Artificial. Desenvolvida pelo TRF da 2ª Região e disponível a todos os tribunais na Plataforma Digital do Poder Judiciário.</p>
+            </div>
+            <div class="glass-card rounded-2xl p-3 md:p-4 grid md:grid-cols-2 gap-4 items-center">
+                <div class="relative">
+                    <button id="replay-apo1" class="replay-btn" type="button"><i data-lucide="rotate-cw" class="w-4 h-4"></i>Replay</button>
+                    <!-- @MIRA:SIZE 3/10 -->
+                    <div class="anim-stage mod-stage" id="apo1-stage">
+                        <svg id="apo1-svg" viewBox="0 0 720 560" preserveAspectRatio="xMidYMid meet"></svg>
+                    </div>
+                </div>
+                <div class="px-2">
+                    <p class="text-xs uppercase tracking-[3px] text-white/40 mb-3">Ideias-chave</p>
+                    <ul class="space-y-2 text-white/85">
+                        <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="apo1-t1">Não é conta pessoal: roda dentro da plataforma do Judiciário, incorporada pelo programa Justiça 4.0.</span></li>
+                        <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="apo1-t2">Ela enxerga o processo: classe, assunto, partes, movimentos e a lista de peças dos autos.</span></li>
+                        <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="apo1-t3">Isso muda a conta do sigilo: o documento não precisa ser copiado para fora da casa.</span></li>
+                        <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="apo1-t4">O método do curso continua valendo. A ferramenta muda; o pedido bem feito, não.</span></li>
+                    </ul>
+                    <div class="grid grid-cols-3 gap-2 mt-4">
+                        <div class="attribute-pill text-center p-2 rounded-xl"><i data-lucide="landmark" class="w-4 h-4 primary-color mx-auto mb-1"></i><p class="text-xs font-semibold" data-k="apo1-pill1">PDPJ-Br</p></div>
+                        <div class="attribute-pill text-center p-2 rounded-xl"><i data-lucide="building-2" class="w-4 h-4 primary-color mx-auto mb-1"></i><p class="text-xs font-semibold" data-k="apo1-pill2">TRF2</p></div>
+                        <div class="attribute-pill text-center p-2 rounded-xl"><i data-lucide="scale" class="w-4 h-4 primary-color mx-auto mb-1"></i><p class="text-xs font-semibold" data-k="apo1-pill3">Justiça 4.0</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-3 pb-6">
+        <div class="w-full max-w-6xl" data-aos="fade-up" data-aos-delay="100">
+            <div class="text-center mb-3">
+                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="apo2-eyebrow">Módulo 3 · Aula 7 de 10 · O que ela faz</p>
+                <h2 class="text-4xl md:text-5xl font-bold mb-2" data-k="apo2-h2">O que a ApoIA <span class="primary-color italic">faz</span></h2>
+                <p class="text-white/60 italic text-lg" data-k="apo2-obj">Sete funções que cobrem boa parte das tarefas praticadas nos encontros anteriores deste módulo.</p>
+            </div>
+            <div class="glass-card rounded-2xl p-3 md:p-4 grid md:grid-cols-2 gap-4 items-center">
+                <div class="relative">
+                    <button id="replay-apo2" class="replay-btn" type="button"><i data-lucide="rotate-cw" class="w-4 h-4"></i>Replay</button>
+                    <!-- @MIRA:SIZE 3/10 -->
+                    <div class="anim-stage mod-stage" id="apo2-stage">
+                        <svg id="apo2-svg" viewBox="0 0 720 560" preserveAspectRatio="xMidYMid meet"></svg>
+                    </div>
+                </div>
+                <div class="px-2">
+                    <p class="text-xs uppercase tracking-[3px] text-white/40 mb-3">Ideias-chave</p>
+                    <ul class="space-y-2 text-white/85">
+                        <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="apo2-t1">Chat com o processo: perguntar sobre os autos e abrir o conteúdo integral de qualquer peça.</span></li>
+                        <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="apo2-t2">Resumo de peças e triagem temática, com identificação de demanda repetitiva e litigância predatória.</span></li>
+                        <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="apo2-t3">Minuta de sentença a partir dos comandos de fundamentação e conclusão, pedido a pedido.</span></li>
+                        <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="apo2-t4">Degravação de audiência com resumo narrativo do diálogo, na versão 2.0.</span></li>
+                        <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="apo2-t5">Busca semântica de jurisprudência e repositório de colaboração entre tribunais.</span></li>
+                        <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="apo2-t6">Servidor MCP: leva os autos até o assistente que você já usa, sem copiar e colar nada.</span></li>
+                    </ul>
+                    <div class="grid grid-cols-3 gap-2 mt-4">
+                        <div class="attribute-pill text-center p-2 rounded-xl"><i data-lucide="file-search" class="w-4 h-4 primary-color mx-auto mb-1"></i><p class="text-xs font-semibold" data-k="apo2-pill1">Resumir</p></div>
+                        <div class="attribute-pill text-center p-2 rounded-xl"><i data-lucide="layers" class="w-4 h-4 primary-color mx-auto mb-1"></i><p class="text-xs font-semibold" data-k="apo2-pill2">Triar</p></div>
+                        <div class="attribute-pill text-center p-2 rounded-xl"><i data-lucide="pen-line" class="w-4 h-4 primary-color mx-auto mb-1"></i><p class="text-xs font-semibold" data-k="apo2-pill3">Minutar</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-3 pb-6">
+        <div class="w-full max-w-6xl" data-aos="fade-up" data-aos-delay="100">
+            <div class="text-center mb-3">
+                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="apo3-eyebrow">Módulo 3 · Aula 8 de 10 · As três travas</p>
+                <h2 class="text-4xl md:text-5xl font-bold mb-2" data-k="apo3-h2">As três travas <span class="primary-color italic">da ApoIA</span></h2>
+                <p class="text-white/60 italic text-lg" data-k="apo3-obj">A ferramenta institucional já traz embutido aquilo que os módulos anteriores ensinaram a exigir.</p>
+            </div>
+            <div class="glass-card rounded-2xl p-3 md:p-4 grid md:grid-cols-2 gap-4 items-center">
+                <div class="relative">
+                    <button id="replay-apo3" class="replay-btn" type="button"><i data-lucide="rotate-cw" class="w-4 h-4"></i>Replay</button>
+                    <!-- @MIRA:SIZE 3/10 -->
+                    <div class="anim-stage mod-stage" id="apo3-stage">
+                        <svg id="apo3-svg" viewBox="0 0 720 560" preserveAspectRatio="xMidYMid meet"></svg>
+                    </div>
+                </div>
+                <div class="px-2">
+                    <p class="text-xs uppercase tracking-[3px] text-white/40 mb-3">Ideias-chave</p>
+                    <ul class="space-y-2 text-white/85">
+                        <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="apo3-t1">Anonimização em um clique, no menu de configurações: o dado pessoal sai antes do processamento.</span></li>
+                        <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="apo3-t2">Supervisão humana obrigatória: a minuta é esboço, e a Resolução CNJ 615/2025 não admite decisão automática.</span></li>
+                        <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="apo3-t3">Defesa contra injeção de prompt em três camadas: limpeza do dado, varredura de pontos vulneráveis e conferência humana.</span></li>
+                        <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="apo3-t4">Injeção de prompt é o comando escondido dentro do documento da parte: invisível para você, legível para a IA.</span></li>
+                        <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="apo3-t5">O endereço gerado para o MCP é credencial pessoal, vale por oito horas e não se compartilha.</span></li>
+                        <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="apo3-t6">A trava existir não dispensa a conferência. Ela reduz o risco, não transfere a responsabilidade.</span></li>
+                    </ul>
+                    <div class="grid grid-cols-3 gap-2 mt-4">
+                        <div class="attribute-pill text-center p-2 rounded-xl"><i data-lucide="eraser" class="w-4 h-4 primary-color mx-auto mb-1"></i><p class="text-xs font-semibold" data-k="apo3-pill1">Anonimizar</p></div>
+                        <div class="attribute-pill text-center p-2 rounded-xl"><i data-lucide="user-check" class="w-4 h-4 primary-color mx-auto mb-1"></i><p class="text-xs font-semibold" data-k="apo3-pill2">Supervisionar</p></div>
+                        <div class="attribute-pill text-center p-2 rounded-xl"><i data-lucide="shield-alert" class="w-4 h-4 primary-color mx-auto mb-1"></i><p class="text-xs font-semibold" data-k="apo3-pill3">Desconfiar</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-3 pb-6">
+        <div class="w-full max-w-6xl" data-aos="fade-up" data-aos-delay="100">
+            <div class="text-center mb-3">
+                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a26-eyebrow">Módulo 3 · Aula 9 de 10 · Relatórios na ferramenta</p>
                 <h2 class="text-4xl md:text-5xl font-bold mb-2" data-k="a26-h2">Relatórios e <span class="primary-color italic">organização</span></h2>
                 <p class="text-white/60 italic text-lg" data-k="a26-obj">Dados soltos da rotina viram tabelas, listas e relatórios prontos para a gestão.</p>
             </div>
@@ -1392,11 +1632,10 @@ body {
         </div>
     </section>
 
-    <!-- ============ AULA · MÓDULO 3 · 7 de 7: Automação ============ -->
     <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-3 pb-6">
         <div class="w-full max-w-6xl" data-aos="fade-up" data-aos-delay="100">
             <div class="text-center mb-3">
-                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a27-eyebrow">Módulo 3 · Aula 7 de 7 · Modelos e lote</p>
+                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a27-eyebrow">Módulo 3 · Aula 10 de 10 · Modelos e lote</p>
                 <h2 class="text-4xl md:text-5xl font-bold mb-2" data-k="a27-h2">Modelos e <span class="primary-color italic">trabalho em lote</span></h2>
                 <p class="text-white/60 italic text-lg" data-k="a27-obj">Tarefas repetitivas viram modelos reutilizáveis e trabalho em lote: um primeiro passo rumo aos sistemas agênticos, vistos no Horizonte ao final.</p>
             </div>
@@ -1430,7 +1669,7 @@ body {
     <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-3 pb-6">
         <div class="w-full max-w-6xl" data-aos="fade-up" data-aos-delay="100">
             <div class="text-center mb-3">
-                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="m4-eyebrow">Conteúdo do curso · Módulo 4 · 2 horas</p>
+                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="m4-eyebrow">Conteúdo do curso · Módulo 4 · 3 horas</p>
                 <h2 class="text-4xl md:text-5xl font-bold mb-2" data-k="m4-h2">Módulo 4: <span class="primary-color italic">Ética, LGPD e governança</span></h2>
                 <p class="text-white/60 italic text-lg" data-k="m4-obj">Objetivo: usar a IA dentro da lei, do sigilo e da Resolução CNJ 615/2025.</p>
             </div>
@@ -1460,7 +1699,7 @@ body {
     <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-3 pb-6">
         <div class="w-full max-w-6xl" data-aos="fade-up" data-aos-delay="100">
             <div class="text-center mb-3">
-                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a41-eyebrow">Módulo 4 · Aula 1 de 5 · Governança</p>
+                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a41-eyebrow">Módulo 4 · Aula 1 de 6 · Governança</p>
                 <h2 class="text-4xl md:text-5xl font-bold mb-2" data-k="a41-h2">Governança e <span class="primary-color italic">supervisão humana</span></h2>
                 <p class="text-white/60 italic text-lg" data-k="a41-obj">A Resolução CNJ 615/2025 define como a IA pode ser usada no Judiciário.</p>
             </div>
@@ -1492,11 +1731,45 @@ body {
         </div>
     </section>
 
+    <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-3 pb-6">
+        <div class="w-full max-w-6xl" data-aos="fade-up" data-aos-delay="100">
+            <div class="text-center mb-3">
+                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="anor-eyebrow">Módulo 4 · Aula 2 de 6 · Normas internas</p>
+                <h2 class="text-4xl md:text-5xl font-bold mb-2" data-k="anor-h2">As normas <span class="primary-color italic">da casa</span></h2>
+                <p class="text-white/60 italic text-lg" data-k="anor-obj">Acima da Resolução do Conselho Nacional de Justiça existe o que a própria Justiça Federal da 5ª Região já decidiu sobre uso de IA.</p>
+            </div>
+            <div class="glass-card rounded-2xl p-3 md:p-4 grid md:grid-cols-2 gap-4 items-center">
+                <div class="relative">
+                    <button id="replay-anor" class="replay-btn" type="button"><i data-lucide="rotate-cw" class="w-4 h-4"></i>Replay</button>
+                    <!-- @MIRA:SIZE 3/10 -->
+                    <div class="anim-stage mod-stage" id="anor-stage">
+                        <svg id="anor-svg" viewBox="0 0 720 560" preserveAspectRatio="xMidYMid meet"></svg>
+                    </div>
+                </div>
+                <div class="px-2">
+                    <p class="text-xs uppercase tracking-[3px] text-white/40 mb-3">Ideias-chave</p>
+                    <ul class="space-y-2 text-white/85">
+                        <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="anor-t1">Resolução CNJ 615/2025: diretrizes de desenvolvimento, uso e governança em todo o Judiciário.</span></li>
+                        <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="anor-t2">Portaria Conjunta TRF5 nº 2, de 3 de julho de 2025: institui o Grupo de Trabalho de IA da 5ª Região.</span></li>
+                        <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="anor-t3">O grupo cuida de coisas que tocam sua mesa: banco de prompts institucionais, protocolo de desenvolvimento e avaliação de risco de viés.</span></li>
+                        <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="anor-t4">A fiscalização do uso por magistrados e servidores cabe à Corregedoria Regional, com protocolo próprio.</span></li>
+                        <li class="flex gap-3 mod-topic"><i data-lucide="check" class="w-5 h-5 primary-color shrink-0 mt-0.5"></i><span data-k="anor-t5">Solução nascida na unidade tem caminho: registro no Sinapses e capacitação articulada com a Esmafe.</span></li>
+                    </ul>
+                    <div class="grid grid-cols-3 gap-2 mt-4">
+                        <div class="attribute-pill text-center p-2 rounded-xl"><i data-lucide="gavel" class="w-4 h-4 primary-color mx-auto mb-1"></i><p class="text-xs font-semibold" data-k="anor-pill1">Res. 615/2025</p></div>
+                        <div class="attribute-pill text-center p-2 rounded-xl"><i data-lucide="users" class="w-4 h-4 primary-color mx-auto mb-1"></i><p class="text-xs font-semibold" data-k="anor-pill2">GT-IA TRF5</p></div>
+                        <div class="attribute-pill text-center p-2 rounded-xl"><i data-lucide="clipboard-check" class="w-4 h-4 primary-color mx-auto mb-1"></i><p class="text-xs font-semibold" data-k="anor-pill3">Corregedoria</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- ============ AULA · MÓDULO 4 · 2 de 5: Sigilo ============ -->
     <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-3 pb-6">
         <div class="w-full max-w-6xl" data-aos="fade-up" data-aos-delay="100">
             <div class="text-center mb-3">
-                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a42-eyebrow">Módulo 4 · Aula 2 de 5 · Sigilo</p>
+                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a42-eyebrow">Módulo 4 · Aula 3 de 6 · Sigilo</p>
                 <h2 class="text-4xl md:text-5xl font-bold mb-2" data-k="a42-h2">O que pode <span class="primary-color italic">ir para a IA</span></h2>
                 <p class="text-white/60 italic text-lg" data-k="a42-obj">A linha que não se cruza: dado sigiloso não vai para IA externa sem proteção.</p>
             </div>
@@ -1532,7 +1805,7 @@ body {
     <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-3 pb-6">
         <div class="w-full max-w-6xl" data-aos="fade-up" data-aos-delay="100">
             <div class="text-center mb-3">
-                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a43-eyebrow">Módulo 4 · Aula 3 de 5 · LGPD</p>
+                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a43-eyebrow">Módulo 4 · Aula 4 de 6 · LGPD</p>
                 <h2 class="text-4xl md:text-5xl font-bold mb-2" data-k="a43-h2">LGPD e <span class="primary-color italic">anonimização</span></h2>
                 <p class="text-white/60 italic text-lg" data-k="a43-obj">Antes de usar IA externa, tarje o que identifica pessoas.</p>
             </div>
@@ -1568,7 +1841,7 @@ body {
     <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-3 pb-6">
         <div class="w-full max-w-6xl" data-aos="fade-up" data-aos-delay="100">
             <div class="text-center mb-3">
-                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a44-eyebrow">Módulo 4 · Aula 4 de 5 · Vieses</p>
+                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a44-eyebrow">Módulo 4 · Aula 5 de 6 · Vieses</p>
                 <h2 class="text-4xl md:text-5xl font-bold mb-2" data-k="a44-h2">Vieses <span class="primary-color italic">algorítmicos</span></h2>
                 <p class="text-white/60 italic text-lg" data-k="a44-obj">A IA aprende do passado e pode repetir injustiças. Fique atento.</p>
             </div>
@@ -1602,7 +1875,7 @@ body {
     <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-3 pb-6">
         <div class="w-full max-w-6xl" data-aos="fade-up" data-aos-delay="100">
             <div class="text-center mb-3">
-                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a45-eyebrow">Módulo 4 · Aula 5 de 5 · Segurança</p>
+                <p class="text-xs uppercase tracking-[3px] text-white/40 mb-1" data-k="a45-eyebrow">Módulo 4 · Aula 6 de 6 · Segurança</p>
                 <h2 class="text-4xl md:text-5xl font-bold mb-2" data-k="a45-h2">Boas práticas de <span class="primary-color italic">segurança</span></h2>
                 <p class="text-white/60 italic text-lg" data-k="a45-obj">Hábitos simples que mantêm o uso da IA seguro — e que reconhecem quando a IA é usada contra você.</p>
             </div>
@@ -1803,8 +2076,8 @@ body {
   "modulos": [
     { "n": "1", "titulo": "Fundamentos", "carga": "6h · prompt" },
     { "n": "2", "titulo": "Pensamento causal", "carga": "6h · crítica" },
-    { "n": "3", "titulo": "Prática forense", "carga": "10h · forense" },
-    { "n": "4", "titulo": "Ética e governança", "carga": "2h · LGPD" },
+    { "n": "3", "titulo": "Prática forense", "carga": "9h · forense" },
+    { "n": "4", "titulo": "Ética e governança", "carga": "3h · LGPD" },
     { "n": "5", "titulo": "Horizonte", "carga": "sistemas agênticos" }
   ],
   "causal": {
@@ -3284,6 +3557,251 @@ body {
         // Página final 3D: o módulo no fim do body monta a cena; aqui só (re)inicia.
         function animateObrigado() { if (window.__obrigadoStart) window.__obrigadoStart(); }
 
+        function animateAtrn() {
+            clearInterval(window.__atrnLoop); clearTimeout(window.__atrnTo);
+            window.__atrnGen = (window.__atrnGen || 0) + 1; const g = window.__atrnGen;
+            const svg = d3.select('#atrn-svg'); svg.selectAll('*').remove();
+            const W = 720, etapas = [
+                { y: 70,  t: 'Massa de dados',   s: 'bilhões de textos' },
+                { y: 195, t: 'Treinamento',      s: 'meses de cálculo' },
+                { y: 320, t: 'Transformer',      s: 'o que pesa mais' },
+                { y: 445, t: 'Ajuste fino',      s: 'pessoas corrigem' }
+            ];
+            svg.append('line').attr('x1', W / 2).attr('y1', 70).attr('x2', W / 2).attr('y2', 445)
+                .attr('stroke', 'rgba(255,255,255,0.14)').attr('stroke-width', 2).attr('stroke-dasharray', '6,6');
+            etapas.forEach((e, i) => {
+                const gg = svg.append('g').attr('transform', 'translate(' + (W / 2) + ',' + e.y + ')').attr('opacity', 0);
+                gg.transition().delay(i * 260).duration(420).attr('opacity', 1);
+                gg.append('rect').attr('x', -170).attr('y', -38).attr('width', 340).attr('height', 76).attr('rx', 16)
+                    .attr('fill', i === 3 ? 'rgba(255,144,77,0.14)' : 'rgba(255,255,255,0.05)')
+                    .attr('stroke', PRIMARY).attr('stroke-width', 2);
+                gg.append('text').attr('text-anchor', 'middle').attr('dy', -4).attr('fill', PRIMARY)
+                    .attr('font-size', 20).attr('font-weight', 800).text(e.t);
+                gg.append('text').attr('text-anchor', 'middle').attr('dy', 20).attr('fill', 'rgba(255,255,255,0.6)')
+                    .attr('font-size', 14).text(e.s);
+                gg.append('circle').attr('cx', -196).attr('cy', 0).attr('r', 15).attr('fill', 'rgba(255,199,102,0.16)')
+                    .attr('stroke', ACCENT2).attr('stroke-width', 2);
+                gg.append('text').attr('x', -196).attr('text-anchor', 'middle').attr('dy', 5)
+                    .attr('fill', ACCENT2).attr('font-size', 13).attr('font-weight', 800).text(i + 1);
+            });
+            const orbe = svg.append('circle').attr('r', 9).attr('cx', W / 2).attr('cy', 70).attr('fill', ACCENT2).attr('opacity', 0);
+            function ciclo() {
+                if (g !== window.__atrnGen) return;
+                orbe.attr('cy', 70).attr('opacity', 1).transition().duration(3200).ease(d3.easeCubicInOut)
+                    .attr('cy', 445).transition().duration(500).attr('opacity', 0);
+            }
+            window.__atrnTo = setTimeout(ciclo, 1200);
+            window.__atrnLoop = setInterval(ciclo, 5200);
+        }
+
+        function animateAbus() {
+            clearInterval(window.__abusLoop); clearTimeout(window.__abusTo);
+            window.__abusGen = (window.__abusGen || 0) + 1; const g = window.__abusGen;
+            const svg = d3.select('#abus-svg'); svg.selectAll('*').remove();
+            const W = 720, linhas = [
+                { y: 165, nome: 'Busca', saida: 'devolve o endereço', ic: 'onde está escrito', cor: 'rgba(255,255,255,0.06)' },
+                { y: 395, nome: 'IA', saida: 'devolve a frase', ic: 'o texto mais provável', cor: 'rgba(255,144,77,0.14)' }
+            ];
+            linhas.forEach((L, i) => {
+                svg.append('line').attr('x1', 130).attr('y1', L.y).attr('x2', 600).attr('y2', L.y)
+                    .attr('stroke', 'rgba(255,255,255,0.14)').attr('stroke-width', 2).attr('stroke-dasharray', '5,5');
+                const a = svg.append('g').attr('transform', 'translate(130,' + L.y + ')');
+                a.append('circle').attr('r', 0).attr('fill', L.cor).attr('stroke', PRIMARY).attr('stroke-width', 2.5)
+                    .transition().delay(i * 220).duration(500).ease(d3.easeBackOut).attr('r', 52);
+                a.append('text').attr('text-anchor', 'middle').attr('dy', 6).attr('fill', PRIMARY)
+                    .attr('font-size', 18).attr('font-weight', 800).text(L.nome).attr('opacity', 0)
+                    .transition().delay(i * 220 + 300).attr('opacity', 1);
+                const b = svg.append('g').attr('transform', 'translate(600,' + L.y + ')').attr('opacity', 0);
+                b.transition().delay(i * 220 + 500).duration(420).attr('opacity', 1);
+                b.append('rect').attr('x', -108).attr('y', -42).attr('width', 216).attr('height', 84).attr('rx', 14)
+                    .attr('fill', 'rgba(255,255,255,0.05)').attr('stroke', PRIMARY).attr('stroke-width', 2);
+                b.append('text').attr('text-anchor', 'middle').attr('dy', -6).attr('fill', PRIMARY)
+                    .attr('font-size', 15).attr('font-weight', 800).text(L.saida);
+                b.append('text').attr('text-anchor', 'middle').attr('dy', 18).attr('fill', 'rgba(255,255,255,0.58)')
+                    .attr('font-size', 13).text(L.ic);
+            });
+            svg.append('text').attr('x', 365).attr('y', 285).attr('text-anchor', 'middle')
+                .attr('fill', 'rgba(255,255,255,0.42)').attr('font-size', 14).attr('font-style', 'italic')
+                .text('as duas erram, de jeitos diferentes');
+            const o1 = svg.append('circle').attr('r', 8).attr('fill', ACCENT2).attr('cx', 130).attr('cy', 165).attr('opacity', 0);
+            const o2 = svg.append('circle').attr('r', 8).attr('fill', ACCENT2).attr('cx', 130).attr('cy', 395).attr('opacity', 0);
+            function ciclo() {
+                if (g !== window.__abusGen) return;
+                [o1, o2].forEach((o, i) => {
+                    o.attr('cx', 130).attr('opacity', 1).transition().delay(i * 700).duration(2000)
+                        .ease(d3.easeCubicInOut).attr('cx', 600).transition().duration(400).attr('opacity', 0);
+                });
+            }
+            window.__abusTo = setTimeout(ciclo, 1100);
+            window.__abusLoop = setInterval(ciclo, 5000);
+        }
+
+        function animateAcon() {
+            clearInterval(window.__aconLoop); clearTimeout(window.__aconTo);
+            window.__aconGen = (window.__aconGen || 0) + 1; const g = window.__aconGen;
+            const svg = d3.select('#acon-svg'); svg.selectAll('*').remove();
+            const nomes = ['Fato', 'Correlação', 'Causa', 'Confundidor', 'Contrafactual'];
+            const gs = nomes.map((n, i) => {
+                const y = 70 + i * 105;
+                const gg = svg.append('g').attr('transform', 'translate(' + (110 + i * 22) + ',' + y + ')');
+                const r = gg.append('rect').attr('width', 400).attr('height', 74).attr('rx', 16)
+                    .attr('fill', 'rgba(255,255,255,0.05)').attr('stroke', 'rgba(255,255,255,0.16)').attr('stroke-width', 2);
+                gg.append('text').attr('x', 30).attr('y', 45).attr('fill', 'rgba(255,255,255,0.85)')
+                    .attr('font-size', 22).attr('font-weight', 800).text(n);
+                gg.append('text').attr('x', 360).attr('y', 45).attr('text-anchor', 'end')
+                    .attr('fill', 'rgba(255,255,255,0.35)').attr('font-size', 15).text(i + 1);
+                return { r: r, gg: gg };
+            });
+            function ciclo() {
+                if (g !== window.__aconGen) return;
+                gs.forEach((o, i) => {
+                    o.r.transition().delay(i * 520).duration(320)
+                        .attr('fill', 'rgba(255,144,77,0.16)').attr('stroke', PRIMARY)
+                        .transition().delay(1400).duration(500)
+                        .attr('fill', 'rgba(255,255,255,0.05)').attr('stroke', 'rgba(255,255,255,0.16)');
+                });
+            }
+            window.__aconTo = setTimeout(ciclo, 700);
+            window.__aconLoop = setInterval(ciclo, 5600);
+        }
+
+        function animateApo1() {
+            clearInterval(window.__apo1Loop); clearTimeout(window.__apo1To);
+            window.__apo1Gen = (window.__apo1Gen || 0) + 1; const g = window.__apo1Gen;
+            const svg = d3.select('#apo1-svg'); svg.selectAll('*').remove();
+            const cx = 360, cy = 280;
+            const nucleo = svg.append('g').attr('transform', 'translate(' + cx + ',' + cy + ')');
+            nucleo.append('circle').attr('r', 0).attr('fill', 'rgba(255,144,77,0.16)').attr('stroke', PRIMARY)
+                .attr('stroke-width', 3).transition().duration(650).ease(d3.easeBackOut).attr('r', 86);
+            nucleo.append('text').attr('text-anchor', 'middle').attr('dy', -4).attr('fill', PRIMARY)
+                .attr('font-size', 26).attr('font-weight', 800).text('ApoIA').attr('opacity', 0)
+                .transition().delay(420).attr('opacity', 1);
+            nucleo.append('text').attr('text-anchor', 'middle').attr('dy', 22).attr('fill', 'rgba(255,255,255,0.55)')
+                .attr('font-size', 13).text('na PDPJ-Br').attr('opacity', 0).transition().delay(560).attr('opacity', 1);
+            const sat = [
+                { a: -Math.PI / 2, t: 'Os autos' },
+                { a: Math.PI / 6, t: 'As peças' },
+                { a: Math.PI * 5 / 6, t: 'Precedentes' }
+            ];
+            sat.forEach((s, i) => {
+                const x = cx + Math.cos(s.a) * 200, y = cy + Math.sin(s.a) * 190;
+                svg.append('line').attr('x1', cx).attr('y1', cy).attr('x2', x).attr('y2', y)
+                    .attr('stroke', 'rgba(255,255,255,0.14)').attr('stroke-width', 2).attr('opacity', 0)
+                    .transition().delay(600 + i * 200).attr('opacity', 1);
+                const gg = svg.append('g').attr('transform', 'translate(' + x + ',' + y + ')').attr('opacity', 0);
+                gg.transition().delay(700 + i * 200).duration(420).attr('opacity', 1);
+                gg.append('circle').attr('r', 54).attr('fill', 'rgba(255,255,255,0.05)')
+                    .attr('stroke', ACCENT2).attr('stroke-width', 2);
+                gg.append('text').attr('text-anchor', 'middle').attr('dy', 5).attr('fill', ACCENT2)
+                    .attr('font-size', 15).attr('font-weight', 700).text(s.t);
+            });
+            const pulso = svg.append('circle').attr('cx', cx).attr('cy', cy).attr('r', 86)
+                .attr('fill', 'none').attr('stroke', PRIMARY).attr('stroke-width', 2).attr('opacity', 0);
+            function ciclo() {
+                if (g !== window.__apo1Gen) return;
+                pulso.attr('r', 86).attr('opacity', 0.7).transition().duration(2200)
+                    .attr('r', 210).attr('opacity', 0);
+            }
+            window.__apo1To = setTimeout(ciclo, 900);
+            window.__apo1Loop = setInterval(ciclo, 2600);
+        }
+
+        function animateApo2() {
+            clearInterval(window.__apo2Loop); clearTimeout(window.__apo2To);
+            window.__apo2Gen = (window.__apo2Gen || 0) + 1; const g = window.__apo2Gen;
+            const svg = d3.select('#apo2-svg'); svg.selectAll('*').remove();
+            const fn = ['Conversar com os autos', 'Resumir peça', 'Triar por tema', 'Minutar sentença', 'Degravar audiência', 'Buscar jurisprudência'];
+            const barras = fn.map((f, i) => {
+                const y = 55 + i * 82;
+                const gg = svg.append('g').attr('transform', 'translate(60,' + y + ')');
+                gg.append('rect').attr('width', 600).attr('height', 60).attr('rx', 14)
+                    .attr('fill', 'rgba(255,255,255,0.04)').attr('stroke', 'rgba(255,255,255,0.12)').attr('stroke-width', 1.5);
+                const fill = gg.append('rect').attr('width', 0).attr('height', 60).attr('rx', 14)
+                    .attr('fill', 'rgba(255,144,77,0.18)');
+                gg.append('text').attr('x', 26).attr('y', 37).attr('fill', 'rgba(255,255,255,0.86)')
+                    .attr('font-size', 19).attr('font-weight', 700).text(f);
+                return fill;
+            });
+            function ciclo() {
+                if (g !== window.__apo2Gen) return;
+                barras.forEach((b, i) => {
+                    b.attr('width', 0).transition().delay(i * 380).duration(700).ease(d3.easeCubicOut).attr('width', 600)
+                        .transition().delay(900).duration(600).attr('width', 0);
+                });
+            }
+            window.__apo2To = setTimeout(ciclo, 600);
+            window.__apo2Loop = setInterval(ciclo, 5400);
+        }
+
+        function animateApo3() {
+            clearInterval(window.__apo3Loop); clearTimeout(window.__apo3To);
+            window.__apo3Gen = (window.__apo3Gen || 0) + 1; const g = window.__apo3Gen;
+            const svg = d3.select('#apo3-svg'); svg.selectAll('*').remove();
+            const travas = [
+                { t: 'Anonimizar', s: 'o dado sai antes' },
+                { t: 'Supervisionar', s: 'a decisão é sua' },
+                { t: 'Desconfiar', s: 'comando escondido' }
+            ];
+            const arcos = travas.map((tr, i) => {
+                const cx = 180 + i * 180, cy = 230;
+                const gg = svg.append('g').attr('transform', 'translate(' + cx + ',' + cy + ')');
+                gg.append('rect').attr('x', -62).attr('y', -10).attr('width', 124).attr('height', 104).attr('rx', 16)
+                    .attr('fill', 'rgba(255,255,255,0.05)').attr('stroke', PRIMARY).attr('stroke-width', 2.5);
+                const arco = gg.append('path').attr('d', 'M -34 -10 A 34 34 0 0 1 34 -10')
+                    .attr('fill', 'none').attr('stroke', ACCENT2).attr('stroke-width', 7)
+                    .attr('stroke-linecap', 'round').attr('opacity', 0.25);
+                gg.append('circle').attr('cy', 42).attr('r', 11).attr('fill', PRIMARY);
+                svg.append('text').attr('x', cx).attr('y', 380).attr('text-anchor', 'middle').attr('fill', PRIMARY)
+                    .attr('font-size', 18).attr('font-weight', 800).text(tr.t);
+                svg.append('text').attr('x', cx).attr('y', 406).attr('text-anchor', 'middle')
+                    .attr('fill', 'rgba(255,255,255,0.5)').attr('font-size', 13).text(tr.s);
+                return arco;
+            });
+            svg.append('text').attr('x', 360).attr('y', 480).attr('text-anchor', 'middle')
+                .attr('fill', 'rgba(255,255,255,0.42)').attr('font-size', 14).attr('font-style', 'italic')
+                .text('a trava reduz o risco, não transfere a responsabilidade');
+            function ciclo() {
+                if (g !== window.__apo3Gen) return;
+                arcos.forEach((a, i) => {
+                    a.transition().delay(i * 480).duration(420).attr('opacity', 1)
+                        .transition().delay(1500).duration(600).attr('opacity', 0.25);
+                });
+            }
+            window.__apo3To = setTimeout(ciclo, 700);
+            window.__apo3Loop = setInterval(ciclo, 5200);
+        }
+
+        function animateAnor() {
+            clearInterval(window.__anorLoop); clearTimeout(window.__anorTo);
+            window.__anorGen = (window.__anorGen || 0) + 1; const g = window.__anorGen;
+            const svg = d3.select('#anor-svg'); svg.selectAll('*').remove();
+            const niveis = [
+                { w: 240, y: 90,  t: 'Resolução CNJ 615/2025', s: 'todo o Judiciário' },
+                { w: 380, y: 240, t: 'Portaria Conjunta TRF5 nº 2', s: 'Grupo de Trabalho de IA' },
+                { w: 520, y: 390, t: 'Sua unidade', s: 'onde a regra encosta no trabalho' }
+            ];
+            niveis.forEach((n, i) => {
+                const gg = svg.append('g').attr('transform', 'translate(360,' + n.y + ')').attr('opacity', 0);
+                gg.transition().delay(i * 300).duration(500).attr('opacity', 1);
+                gg.append('rect').attr('x', -n.w / 2).attr('y', -46).attr('width', n.w).attr('height', 92).attr('rx', 16)
+                    .attr('fill', i === 0 ? 'rgba(255,144,77,0.16)' : 'rgba(255,255,255,0.05)')
+                    .attr('stroke', PRIMARY).attr('stroke-width', 2.5);
+                gg.append('text').attr('text-anchor', 'middle').attr('dy', -6).attr('fill', PRIMARY)
+                    .attr('font-size', 17).attr('font-weight', 800).text(n.t);
+                gg.append('text').attr('text-anchor', 'middle').attr('dy', 20).attr('fill', 'rgba(255,255,255,0.55)')
+                    .attr('font-size', 13).text(n.s);
+            });
+            const seta = svg.append('circle').attr('r', 9).attr('cx', 360).attr('cy', 90).attr('fill', ACCENT2).attr('opacity', 0);
+            function ciclo() {
+                if (g !== window.__anorGen) return;
+                seta.attr('cy', 136).attr('opacity', 1).transition().duration(2400).ease(d3.easeCubicInOut)
+                    .attr('cy', 344).transition().duration(500).attr('opacity', 0);
+            }
+            window.__anorTo = setTimeout(ciclo, 1200);
+            window.__anorLoop = setInterval(ciclo, 4600);
+        }
+
+
         // === Sistema de gatilhos: dispara a animação ao entrar no viewport ===
         function setupAnimationTriggers() {
             const stages = [
@@ -3291,7 +3809,9 @@ body {
                 { stage: document.getElementById('causal-stage'), fn: animateCausal, replay: 'replay-causal' },
                 { stage: document.getElementById('multiplicadores-stage'), fn: animateMultiplicadores, replay: 'replay-multiplicadores' },
                 { stage: document.getElementById('m1-stage'), fn: animateM1, replay: 'replay-m1' },
+                { stage: document.getElementById('atrn-stage'), fn: animateAtrn, replay: 'replay-atrn' },
                 { stage: document.getElementById('a11-stage'), fn: animateA11, replay: 'replay-a11' },
+                { stage: document.getElementById('abus-stage'), fn: animateAbus, replay: 'replay-abus' },
                 { stage: document.getElementById('a12-stage'), fn: animateA12, replay: 'replay-a12' },
                 { stage: document.getElementById('actx-stage'), fn: animateActx, replay: 'replay-actx' },
                 { stage: document.getElementById('a13-stage'), fn: animateA13, replay: 'replay-a13' },
@@ -3310,14 +3830,19 @@ body {
                 { stage: document.getElementById('a25-stage'), fn: animateA25, replay: 'replay-a25' },
                 { stage: document.getElementById('a26-stage'), fn: animateA26, replay: 'replay-a26' },
                 { stage: document.getElementById('a27-stage'), fn: animateA27, replay: 'replay-a27' },
+                { stage: document.getElementById('apo1-stage'), fn: animateApo1, replay: 'replay-apo1' },
+                { stage: document.getElementById('apo2-stage'), fn: animateApo2, replay: 'replay-apo2' },
+                { stage: document.getElementById('apo3-stage'), fn: animateApo3, replay: 'replay-apo3' },
                 { stage: document.getElementById('m3-stage'), fn: animateM3, replay: 'replay-m3' },
                 { stage: document.getElementById('a31-stage'), fn: animateA31, replay: 'replay-a31' },
+                { stage: document.getElementById('acon-stage'), fn: animateAcon, replay: 'replay-acon' },
                 { stage: document.getElementById('a32-stage'), fn: animateA32, replay: 'replay-a32' },
                 { stage: document.getElementById('a33-stage'), fn: animateA33, replay: 'replay-a33' },
                 { stage: document.getElementById('a34-stage'), fn: animateA34, replay: 'replay-a34' },
                 { stage: document.getElementById('a35-stage'), fn: animateA35, replay: 'replay-a35' },
                 { stage: document.getElementById('a36-stage'), fn: animateA36, replay: 'replay-a36' },
                 { stage: document.getElementById('m4-stage'), fn: animateM4, replay: 'replay-m4' },
+                { stage: document.getElementById('anor-stage'), fn: animateAnor, replay: 'replay-anor' },
                 { stage: document.getElementById('a41-stage'), fn: animateA41, replay: 'replay-a41' },
                 { stage: document.getElementById('a42-stage'), fn: animateA42, replay: 'replay-a42' },
                 { stage: document.getElementById('a43-stage'), fn: animateA43, replay: 'replay-a43' },
