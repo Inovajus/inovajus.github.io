@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Um agente trabalhando · demonstração</title>
+<style>
+  :root{
+    --mira-bg:#0E0E10; --mira-ink:#F5F2EF; --mira-muted:rgba(245,242,239,.62);
+    --mira-faint:rgba(245,242,239,.34); --mira-primary:#FF904D; --mira-accent-2:#FFC766;
+    --mira-line:rgba(255,255,255,.10); --mira-ok:#7FD1A8; --mira-alerta:#FF6B6B;
+  }
+  *{ box-sizing:border-box; }
+  html,body{ height:100%; }
+  body{
+    margin:0; background:var(--mira-bg); color:var(--mira-ink);
+    font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    display:flex; flex-direction:column; min-height:100vh; overflow:hidden;
+  }
+  .topo{ display:flex; align-items:center; gap:1rem; padding:.9rem 1.6rem;
+         border-bottom:1px solid var(--mira-line); flex:0 0 auto; }
+  .marca{ font-size:.72rem; text-transform:uppercase; letter-spacing:.16em;
+          color:var(--mira-primary); font-weight:700; }
+  .marca span{ color:var(--mira-faint); }
+  .fase-agora{ margin-left:auto; font-size:.78rem; color:var(--mira-muted); letter-spacing:.05em; }
+  .fase-agora b{ color:var(--mira-accent-2); }
+
+  .palco{ flex:1 1 auto; display:grid; grid-template-columns:15rem 1fr 15rem;
+          gap:1.2rem; padding:1.2rem 1.6rem; min-height:0; }
+  .coluna{ display:flex; flex-direction:column; min-height:0; }
+  .rotulo{ font-size:.66rem; text-transform:uppercase; letter-spacing:.14em;
+           color:var(--mira-faint); font-weight:700; margin-bottom:.7rem; }
+
+  .fila{ display:flex; flex-direction:column; gap:.42rem; overflow:hidden; }
+  .item{
+    border:1px solid var(--mira-line); border-radius:11px; padding:.5rem .7rem;
+    background:rgba(255,255,255,.02); font-size:.8rem; line-height:1.3;
+    transition:border-color .4s, background .4s, opacity .4s, transform .4s;
+    display:flex; align-items:center; gap:.55rem;
+  }
+  .item .n{ flex:0 0 1.2rem; font-weight:800; color:var(--mira-faint); font-size:.74rem; }
+  .item .tx{ flex:1 1 auto; color:var(--mira-muted); }
+  .item .tag{ font-size:.6rem; letter-spacing:.08em; font-weight:700; padding:.12rem .4rem;
+              border-radius:99px; opacity:0; transition:opacity .4s; }
+  .item.ativo{ border-color:rgba(255,144,77,.6); background:rgba(255,144,77,.09);
+               transform:translateX(4px); }
+  .item.ativo .n{ color:var(--mira-primary); }
+  .item.feito .tx{ color:var(--mira-faint); }
+  .item.feito .tag{ opacity:1; }
+  .tag.urg{ background:rgba(255,107,107,.16); color:var(--mira-alerta);
+            border:1px solid rgba(255,107,107,.4); }
+  .tag.rot{ background:rgba(255,255,255,.05); color:var(--mira-faint);
+            border:1px solid var(--mira-line); }
+  .tag.rev{ background:rgba(255,199,102,.14); color:var(--mira-accent-2);
+            border:1px solid rgba(255,199,102,.42); }
+  .item.suspeito{ border-color:rgba(255,199,102,.55); }
+
+  .centro{ display:flex; flex-direction:column; align-items:center; justify-content:center;
+           gap:.8rem; min-height:0; }
+  svg{ width:100%; max-width:26rem; height:auto; }
+  .legenda{ text-align:center; font-size:.94rem; color:var(--mira-muted); line-height:1.5;
+            min-height:3.2rem; max-width:30rem; }
+  .legenda b{ color:var(--mira-ink); }
+  .legenda .destaque{ color:var(--mira-accent-2); }
+
+  .ferramentas{ display:flex; flex-direction:column; gap:.45rem; }
+  .fer{
+    border:1px solid var(--mira-line); border-radius:11px; padding:.5rem .7rem;
+    font-size:.78rem; color:var(--mira-faint); background:rgba(255,255,255,.02);
+    transition:border-color .3s, color .3s, background .3s;
+    display:flex; align-items:center; gap:.5rem;
+  }
+  .fer .pt{ width:.42rem; height:.42rem; border-radius:99px; background:var(--mira-faint);
+            transition:background .3s, box-shadow .3s; flex:0 0 auto; }
+  .fer.on{ border-color:rgba(255,144,77,.55); color:var(--mira-ink);
+           background:rgba(255,144,77,.08); }
+  .fer.on .pt{ background:var(--mira-primary); box-shadow:0 0 0 4px rgba(255,144,77,.16); }
+
+  .medidor{ margin-top:auto; padding-top:1rem; }
+  .medidor .num{ font-size:2rem; font-weight:700; letter-spacing:-.02em;
+                 font-variant-numeric:tabular-nums; transition:color .4s; }
+  .medidor .barra{ height:.32rem; border-radius:99px; background:rgba(255,255,255,.07);
+                   margin-top:.45rem; overflow:hidden; }
+  .medidor .fill{ height:100%; width:100%; background:var(--mira-ok);
+                  transition:width .5s, background .5s; }
+  .medidor .obs{ font-size:.72rem; color:var(--mira-faint); margin-top:.45rem; line-height:1.4; }
+
+  .rodape{ flex:0 0 auto; display:flex; align-items:center; gap:.6rem;
+           padding:.9rem 1.6rem; border-top:1px solid var(--mira-line); }
+  .bt{ border:1px solid var(--mira-line); background:rgba(255,255,255,.04); color:var(--mira-ink);
+       padding:.5rem 1.05rem; border-radius:99px; font-size:.84rem; font-weight:600;
+       cursor:pointer; font-family:inherit; transition:border-color .2s, background .2s; }
+  .bt:hover{ border-color:var(--mira-primary); background:rgba(255,144,77,.10); }
+  .bt.principal{ border-color:rgba(255,144,77,.5); background:rgba(255,144,77,.14);
+                 color:var(--mira-accent-2); }
+  .dica{ margin-left:auto; font-size:.76rem; color:var(--mira-faint); }
+  kbd{ border:1px solid var(--mira-line); border-radius:5px; padding:.08rem .32rem;
+       font-family:inherit; font-size:.72rem; color:var(--mira-muted); }
+
+  @media (max-width:900px){
+    .palco{ grid-template-columns:1fr; overflow:auto; }
+    body{ overflow:auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topo">
+  <div class="marca">Servidor + IA <span>· Horizonte · um agente trabalhando</span></div>
+  <div class="fase-agora">Fase: <b id="fase">parado</b></div>
+</div>
+
+<div class="palco">
+
+  <div class="coluna">
+    <div class="rotulo">A fila &mdash; seis petições</div>
+    <div class="fila" id="fila"></div>
+  </div>
+
+  <div class="coluna centro">
+    <svg viewBox="0 0 300 300" aria-hidden="true">
+      <defs>
+        <radialGradient id="glow">
+          <stop offset="0%" stop-color="#FF904D" stop-opacity=".30"/>
+          <stop offset="100%" stop-color="#FF904D" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <circle cx="150" cy="150" r="96" fill="url(#glow)" id="brilho" opacity="0"/>
+      <circle cx="150" cy="150" r="86" fill="none" stroke="rgba(255,255,255,.09)" stroke-width="1.5"/>
+      <circle cx="150" cy="150" r="86" fill="none" stroke="#FF904D" stroke-width="2.5"
+              stroke-linecap="round" id="arco"
+              stroke-dasharray="135 405" stroke-dashoffset="0"
+              transform="rotate(-90 150 150)" opacity=".9"/>
+      <g id="nos"></g>
+      <circle cx="150" cy="150" r="30" fill="rgba(255,255,255,.04)"
+              stroke="rgba(255,255,255,.12)" stroke-width="1"/>
+      <text x="150" y="146" text-anchor="middle" fill="#F5F2EF"
+            font-family="-apple-system,Segoe UI,Roboto,sans-serif"
+            font-size="13" font-weight="700" id="itemNum">&mdash;</text>
+      <text x="150" y="163" text-anchor="middle" fill="rgba(245,242,239,.42)"
+            font-family="-apple-system,Segoe UI,Roboto,sans-serif"
+            font-size="8.5" letter-spacing="1.2" id="itemLab">AGENTE</text>
+    </svg>
+    <div class="legenda" id="legenda">
+      O assistente responde uma vez e para. O agente repete o ciclo até terminar a fila.
+      Aperte <b>iniciar</b>.
+    </div>
+  </div>
+
+  <div class="coluna">
+    <div class="rotulo">Ferramentas que ele usa</div>
+    <div class="ferramentas">
+      <div class="fer" id="f0"><span class="pt"></span>Ler a peça</div>
+      <div class="fer" id="f1"><span class="pt"></span>Buscar o critério da unidade</div>
+      <div class="fer" id="f2"><span class="pt"></span>Escrever a classificação</div>
+      <div class="fer" id="f3"><span class="pt"></span>Registrar na trilha</div>
+    </div>
+
+    <div class="medidor">
+      <div class="rotulo">Confiança acumulada</div>
+      <div class="num" id="conf">100%</div>
+      <div class="barra"><div class="fill" id="fill"></div></div>
+      <div class="obs" id="obs">Cada passo é confiável. O encadeamento é que não é.</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="rodape">
+  <button class="bt principal" id="btPlay">Iniciar</button>
+  <button class="bt" id="btPasso">Passo a passo</button>
+  <button class="bt" id="btReset">Reiniciar</button>
+  <span class="dica"><kbd>espaço</kbd> pausa e continua &middot; <kbd>&rarr;</kbd> avança um passo</span>
+</div>
+
+<script>
+// Demonstracao de um agente triando um lote — Modulo 4, bloco Horizonte.
+// Padrao MIRA: guarda de geracao + laco interno perpetuo, para que reiniciar
+// nunca deixe dois lacos rodando ao mesmo tempo.
+
+var ITENS = [
+  { tx: "Tutela de urgência, com laudo", tag: "urg", rot: "URGENTE" },
+  { tx: "Petição de juntada de documento", tag: "rot", rot: "ROTINA" },
+  { tx: "Pedido urgente, sem laudo anexo", tag: "rev", rot: "DECIDIU SOZINHO", suspeito: true },
+  { tx: "Manifestação sobre cálculo", tag: "rot", rot: "ROTINA" },
+  { tx: "Petição com instrução embutida", tag: "rev", rot: "SINALIZADO", suspeito: true },
+  { tx: "Réu preso, pedido de liberdade", tag: "urg", rot: "URGENTE" }
+];
+
+var FASES = [
+  { nome: "observa", fer: 0, txt: "<b>Observa.</b> Ele lê o item da fila. Nada foi decidido ainda." },
+  { nome: "pensa",   fer: 1, txt: "<b>Pensa.</b> Busca o critério de urgência e compara com o que leu." },
+  { nome: "age",     fer: 2, txt: "<b>Age.</b> Escreve a classificação — e este é o passo em que ninguém apertou nada." },
+  { nome: "confere", fer: 3, txt: "<b>Confere.</b> Registra o que fez, separando ação da máquina da ação humana." }
+];
+
+var geracao = 0;      // guarda de geracao
+var rodando = false;
+var modoPasso = false;
+var idx = 0, fase = 0;
+var confianca = 100;
+
+var $ = function(id){ return document.getElementById(id); };
+
+// --- monta a fila ---
+(function montaFila(){
+  var box = $("fila");
+  for (var k = 0; k < ITENS.length; k++) {
+    var d = document.createElement("div");
+    d.className = "item" + (ITENS[k].suspeito ? " suspeito" : "");
+    d.id = "it" + k;
+    d.innerHTML = '<span class="n">' + (k + 1) + '</span>'
+                + '<span class="tx">' + ITENS[k].tx + '</span>'
+                + '<span class="tag ' + ITENS[k].tag + '">' + ITENS[k].rot + '</span>';
+    box.appendChild(d);
+  }
+})();
+
+// --- os quatro nos do ciclo, no SVG ---
+(function montaNos(){
+  var g = $("nos");
+  for (var k = 0; k < 4; k++) {
+    var ang = (k / 4) * Math.PI * 2 - Math.PI / 2;
+    var x = 150 + Math.cos(ang) * 86, y = 150 + Math.sin(ang) * 86;
+    var c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    c.setAttribute("cx", x); c.setAttribute("cy", y); c.setAttribute("r", 7);
+    c.setAttribute("fill", "#0E0E10");
+    c.setAttribute("stroke", "rgba(255,255,255,.22)");
+    c.setAttribute("stroke-width", "1.6");
+    c.setAttribute("id", "no" + k);
+    g.appendChild(c);
+    var t = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    var fora = 106;
+    t.setAttribute("x", 150 + Math.cos(ang) * fora);
+    t.setAttribute("y", 150 + Math.sin(ang) * fora + 3.5);
+    t.setAttribute("text-anchor", "middle");
+    t.setAttribute("fill", "rgba(245,242,239,.34)");
+    t.setAttribute("font-family", "-apple-system,Segoe UI,Roboto,sans-serif");
+    t.setAttribute("font-size", "9");
+    t.setAttribute("letter-spacing", "1");
+    t.setAttribute("id", "rot" + k);
+    t.textContent = FASES[k].nome.toUpperCase();
+    g.appendChild(t);
+  }
+})();
+
+function pintaFase(f){
+  for (var k = 0; k < 4; k++) {
+    var ativo = (k === f);
+    $("no" + k).setAttribute("fill", ativo ? "#FF904D" : "#0E0E10");
+    $("no" + k).setAttribute("stroke", ativo ? "#FF904D" : "rgba(255,255,255,.22)");
+    $("no" + k).setAttribute("r", ativo ? 9 : 7);
+    $("rot" + k).setAttribute("fill", ativo ? "#FFC766" : "rgba(245,242,239,.34)");
+    $("f" + k).className = "fer" + (ativo ? " on" : "");
+  }
+  $("arco").setAttribute("stroke-dashoffset", -(f * 135));
+  $("fase").textContent = FASES[f].nome;
+}
+
+function pintaConfianca(){
+  $("conf").textContent = Math.round(confianca) + "%";
+  $("fill").style.width = confianca + "%";
+  var cor = confianca > 80 ? "var(--mira-ok)"
+          : confianca > 62 ? "var(--mira-accent-2)" : "var(--mira-alerta)";
+  $("fill").style.background = cor;
+  $("conf").style.color = cor;
+  if (confianca < 80 && confianca >= 62)
+    $("obs").innerHTML = "Nenhum passo errou. A conta é que cada etapa multiplica a anterior.";
+  else if (confianca < 62)
+    $("obs").innerHTML = "<b style='color:var(--mira-alerta)'>Confira no caminho, não só no resultado.</b> "
+                       + "Cinquenta passos a 99% chegam a 60%.";
+}
+
+function limpa(){
+  for (var k = 0; k < ITENS.length; k++)
+    $("it" + k).className = "item" + (ITENS[k].suspeito ? " suspeito" : "");
+}
+
+function dorme(ms, g){
+  return new Promise(function(res){
+    setTimeout(function(){ res(g === geracao); }, ms);
+  });
+}
+
+async function laco(g){
+  while (g === geracao) {
+    if (!rodando) { await dorme(80, g); continue; }
+
+    limpa();
+    for (var k = 0; k < idx; k++) $("it" + k).className =
+      "item feito" + (ITENS[k].suspeito ? " suspeito" : "");
+    $("it" + idx).className = "item ativo" + (ITENS[idx].suspeito ? " suspeito" : "");
+    $("itemNum").textContent = (idx + 1) + "/" + ITENS.length;
+    $("itemLab").textContent = "ITEM";
+
+    pintaFase(fase);
+    $("brilho").setAttribute("opacity", fase === 2 ? ".9" : ".25");
+
+    var txt = FASES[fase].txt;
+    if (fase === 2 && ITENS[idx].suspeito) {
+      if (idx === 2)
+        txt = "<b>Age.</b> <span class='destaque'>Aqui.</span> Não havia laudo, e ele classificou "
+            + "assim mesmo. <b>Ninguém apertou nada.</b>";
+      else
+        txt = "<b>Age.</b> <span class='destaque'>Ele sinalizou</span> a instrução embutida no texto "
+            + "em vez de obedecê-la. Foi a linha do pedido que fez isso.";
+    }
+    $("legenda").innerHTML = txt;
+
+    if (modoPasso) { rodando = false; }
+    var ok = await dorme(modoPasso ? 60 : 1500, g);
+    if (!ok) return;
+
+    fase++;
+    if (fase > 3) {
+      fase = 0;
+      $("it" + idx).className = "item feito" + (ITENS[idx].suspeito ? " suspeito" : "");
+      confianca = confianca * 0.965;
+      pintaConfianca();
+      idx++;
+      if (idx >= ITENS.length) {
+        $("itemNum").textContent = "fim";
+        $("itemLab").textContent = "6/6";
+        $("legenda").innerHTML = "Seis itens, vinte e quatro passos, <b>nenhuma pessoa no meio</b>. "
+          + "Agora a pergunta: <span class='destaque'>o que aí dentro precisava de cadastro na Setin?</span>";
+        for (var k2 = 0; k2 < 4; k2++) $("f" + k2).className = "fer";
+        $("fase").textContent = "concluído";
+        $("brilho").setAttribute("opacity", "0");
+        rodando = false;
+        idx = 0;
+        await dorme(4200, g);
+        if (g !== geracao) return;
+        confianca = 100; pintaConfianca(); limpa();
+      }
+    }
+  }
+}
+
+function reinicia(){
+  geracao++;
+  rodando = false; modoPasso = false;
+  idx = 0; fase = 0; confianca = 100;
+  limpa(); pintaConfianca(); pintaFase(0);
+  $("itemNum").textContent = "—";
+  $("itemLab").textContent = "AGENTE";
+  $("fase").textContent = "parado";
+  $("brilho").setAttribute("opacity", "0");
+  $("obs").innerHTML = "Cada passo é confiável. O encadeamento é que não é.";
+  $("legenda").innerHTML = "O assistente responde uma vez e para. O agente repete o ciclo até "
+    + "terminar a fila. Aperte <b>iniciar</b>.";
+  $("btPlay").textContent = "Iniciar";
+  for (var k = 0; k < 4; k++) $("f" + k).className = "fer";
+  laco(geracao);
+}
+
+$("btPlay").onclick = function(){
+  modoPasso = false;
+  rodando = !rodando;
+  $("btPlay").textContent = rodando ? "Pausar" : "Continuar";
+};
+$("btPasso").onclick = function(){
+  modoPasso = true; rodando = true;
+  $("btPlay").textContent = "Continuar";
+};
+$("btReset").onclick = reinicia;
+
+document.addEventListener("keydown", function(e){
+  if (e.key === " ") { e.preventDefault(); $("btPlay").click(); }
+  else if (e.key === "ArrowRight") { e.preventDefault(); $("btPasso").click(); }
+});
+
+// pausa quando a aba sai de foco, para nao gastar ciclo a toa
+document.addEventListener("visibilitychange", function(){
+  if (document.hidden && rodando) { rodando = false; $("btPlay").textContent = "Continuar"; }
+});
+
+pintaConfianca();
+pintaFase(0);
+laco(geracao);
+</script>
+</body>
+</html>

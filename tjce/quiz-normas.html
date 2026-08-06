@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Quiz das normas · Resolução 615 e Portaria 153/2026</title>
+<style>
+  :root{
+    --mira-bg:#0E0E10; --mira-bg-2:#151518; --mira-ink:#F5F2EF; --mira-muted:rgba(245,242,239,.62);
+    --mira-faint:rgba(245,242,239,.38); --mira-primary:#FF904D; --mira-accent-2:#FFC766;
+    --mira-line:rgba(255,255,255,.10); --mira-ok:#7FD1A8; --mira-no:rgba(255,255,255,.28);
+  }
+  *{ box-sizing:border-box; }
+  html,body{ height:100%; }
+  body{
+    margin:0; background:var(--mira-bg); color:var(--mira-ink);
+    font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    display:flex; flex-direction:column; min-height:100vh;
+  }
+  .topo{
+    display:flex; align-items:center; gap:1rem; padding:1rem 1.6rem;
+    border-bottom:1px solid var(--mira-line); flex:0 0 auto;
+  }
+  .marca{ font-size:.72rem; text-transform:uppercase; letter-spacing:.16em;
+          color:var(--mira-primary); font-weight:700; }
+  .marca span{ color:var(--mira-faint); }
+  .placar{ margin-left:auto; font-size:.8rem; color:var(--mira-muted);
+           font-variant-numeric:tabular-nums; }
+  .placar b{ color:var(--mira-accent-2); }
+  .palco{ flex:1 1 auto; display:flex; align-items:center; justify-content:center; padding:1.5rem; }
+  .cartao{
+    width:100%; max-width:62rem;
+    background:linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.015));
+    border:1px solid var(--mira-line); border-radius:22px; padding:2.2rem 2.4rem;
+    backdrop-filter:blur(8px);
+  }
+  .eyebrow{ font-size:.72rem; text-transform:uppercase; letter-spacing:.14em;
+            color:var(--mira-primary); font-weight:700; margin-bottom:.9rem;
+            display:flex; align-items:center; gap:.7rem; }
+  .pill{ font-size:.62rem; letter-spacing:.1em; padding:.2rem .55rem; border-radius:99px;
+         border:1px solid rgba(255,199,102,.4); color:var(--mira-accent-2); font-weight:700; }
+  h1{ font-size:1.72rem; line-height:1.28; margin:0 0 1.5rem; font-weight:650; letter-spacing:-.01em; }
+  h1 em{ font-style:italic; color:var(--mira-primary); }
+  .alts{ display:grid; gap:.6rem; }
+  .alt{
+    display:flex; gap:1rem; align-items:flex-start; padding:.85rem 1.1rem;
+    border:1px solid var(--mira-line); border-radius:14px; font-size:1.04rem; line-height:1.45;
+    background:rgba(255,255,255,.02); transition:border-color .25s, background .25s, opacity .25s;
+  }
+  .alt .letra{ flex:0 0 1.6rem; font-weight:800; color:var(--mira-faint); font-size:.95rem;
+               padding-top:.1rem; transition:color .25s; }
+  .revelado .alt{ opacity:.4; }
+  .revelado .alt.certa{ opacity:1; border-color:rgba(127,209,168,.55);
+                        background:rgba(127,209,168,.09); }
+  .revelado .alt.certa .letra{ color:var(--mira-ok); }
+  .porque{
+    margin-top:1.4rem; padding:1rem 1.2rem; border-radius:14px;
+    border-left:3px solid var(--mira-primary); background:rgba(255,144,77,.07);
+    font-size:.98rem; line-height:1.55; color:var(--mira-muted);
+    display:none;
+  }
+  .revelado .porque{ display:block; }
+  .porque b{ color:var(--mira-ink); }
+  .porque .base{ display:block; margin-top:.5rem; font-size:.8rem; color:var(--mira-faint);
+                 letter-spacing:.02em; }
+  .rodape{
+    flex:0 0 auto; display:flex; align-items:center; gap:1rem; padding:1rem 1.6rem;
+    border-top:1px solid var(--mira-line); font-size:.82rem; color:var(--mira-faint);
+  }
+  .bt{
+    border:1px solid var(--mira-line); background:rgba(255,255,255,.04); color:var(--mira-ink);
+    padding:.55rem 1.15rem; border-radius:99px; font-size:.86rem; font-weight:600; cursor:pointer;
+    font-family:inherit; transition:border-color .2s, background .2s;
+  }
+  .bt:hover{ border-color:var(--mira-primary); background:rgba(255,144,77,.10); }
+  .bt.principal{ border-color:rgba(255,144,77,.5); background:rgba(255,144,77,.14);
+                 color:var(--mira-accent-2); }
+  .bt:disabled{ opacity:.3; cursor:default; }
+  .navegador{ margin-left:auto; display:flex; gap:.5rem; align-items:center; }
+  .pontos{ display:flex; gap:.32rem; }
+  .ponto{ width:.55rem; height:.55rem; border-radius:99px; background:var(--mira-no);
+          transition:background .25s, transform .25s; }
+  .ponto.atual{ background:var(--mira-primary); transform:scale(1.35); }
+  .ponto.visto{ background:rgba(255,199,102,.55); }
+  .ponto.ess{ box-shadow:0 0 0 2px rgba(255,199,102,.30); }
+  .dica{ font-size:.78rem; }
+  kbd{ border:1px solid var(--mira-line); border-radius:5px; padding:.1rem .35rem;
+       font-family:inherit; font-size:.74rem; color:var(--mira-muted); }
+  @media (max-width:640px){
+    .cartao{ padding:1.4rem 1.2rem; } h1{ font-size:1.3rem; } .alt{ font-size:.95rem; }
+    .rodape{ flex-wrap:wrap; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topo">
+  <div class="marca">Servidor + IA <span>· Módulo 4 · quiz das normas</span></div>
+  <div class="placar">Acertos declarados: <b id="acertos">0</b> / <span id="respondidas">0</span></div>
+</div>
+
+<div class="palco">
+  <div class="cartao" id="cartao">
+    <div class="eyebrow">
+      <span id="contador">Pergunta 1 de 12</span>
+      <span class="pill" id="selo">essencial</span>
+    </div>
+    <h1 id="pergunta"></h1>
+    <div class="alts" id="alts"></div>
+    <div class="porque" id="porque"></div>
+  </div>
+</div>
+
+<div class="rodape">
+  <button class="bt" id="anterior">Anterior</button>
+  <button class="bt principal" id="revelar">Revelar resposta</button>
+  <span class="dica">A turma responde em voz alta, ao mesmo tempo, antes de revelar. Setas do teclado navegam; <kbd>espaço</kbd> revela.</span>
+  <div class="navegador">
+    <div class="pontos" id="pontos"></div>
+    <button class="bt" id="proxima">Próxima</button>
+  </div>
+</div>
+
+<script>
+// Quiz das normas — Modulo 4, turma TJCE.
+// Pagina de projecao: o instrutor le, a turma responde em voz alta, depois revela.
+// "essencial: true" marca as seis perguntas que ficam se o tempo apertar.
+var PERGUNTAS = [
+  {
+    ess: true,
+    q: "Um servidor quer usar uma ferramenta de IA de mercado e o tribunal não oferece solução equivalente. Ele pode contratar por conta própria?",
+    alts: [
+      "Não. Uso de ferramenta não homologada é sempre vedado.",
+      "Pode, e a Resolução autoriza expressamente — mas com condições.",
+      "Pode, desde que não conte para ninguém.",
+      "Só com autorização judicial."
+    ],
+    certa: 1,
+    porque: "<b>Pode.</b> O artigo 19, § 2º, da Resolução 615 autoriza a contratação quando o tribunal não oferece solução. É o oposto do que a maioria supõe. As condições vêm nas duas perguntas seguintes.",
+    base: "Resolução CNJ 615/2025, art. 19, § 2º"
+  },
+  {
+    ess: true,
+    q: "Contratada a ferramenta do próprio bolso, qual exigência da Resolução um plano comum de consumidor normalmente <em>não</em> cumpre?",
+    alts: [
+      "Ter interface em português.",
+      "Estar hospedada no Brasil.",
+      "Proibição contratual de usar os dados para treinar o modelo.",
+      "Emitir nota fiscal em nome do tribunal."
+    ],
+    certa: 2,
+    porque: "O artigo 19, § 3º, III, exige que o fornecedor esteja <b>contratualmente proibido</b> de usar os dados para treinar o modelo. Plano de consumidor oferece, no máximo, um botão de configuração — que a empresa muda quando quiser. Ou plano corporativo com contrato, ou anonimização integral antes de qualquer envio.",
+    base: "Resolução CNJ 615/2025, art. 19, § 3º, III"
+  },
+  {
+    ess: false,
+    q: "Quem contrata uma ferramenta de IA por conta própria para usar no trabalho tem algum dever perante o tribunal?",
+    alts: [
+      "Nenhum, é assunto particular.",
+      "Sim: dever de informar ao tribunal.",
+      "Sim: dever de repassar a senha à chefia.",
+      "Apenas se a ferramenta for paga em moeda estrangeira."
+    ],
+    certa: 1,
+    porque: "O artigo 19, § 7º, cria o <b>dever de informar</b> — e ele alcança também o gestor cuja equipe usa. Omitir não é neutro: elimina qualquer alegação futura de boa-fé.",
+    base: "Resolução CNJ 615/2025, art. 19, § 7º"
+  },
+  {
+    ess: true,
+    q: "Qual destes pedidos é de <em>alto risco</em> pela Resolução 615?",
+    alts: [
+      "Resuma esta petição inicial em dez linhas.",
+      "Organize estas anotações em uma tabela.",
+      "Diga se o pedido de tutela deve ser deferido.",
+      "Reescreva este parágrafo em linguagem mais clara."
+    ],
+    certa: 2,
+    porque: "Concluir qual norma se aplica aos fatos e valorar prova é <b>alto risco</b> — e alto risco não vai para ferramenta externa. <b>A faixa vem do pedido, não da ferramenta:</b> a mesma ferramenta, no mesmo dia, com o mesmo documento, muda de faixa conforme a frase que você digita.",
+    base: "Resolução CNJ 615/2025"
+  },
+  {
+    ess: false,
+    q: "A Resolução 615 condiciona o uso de solução de mercado a cinco requisitos. Qual é o primeiro deles?",
+    alts: [
+      "Parecer da assessoria jurídica.",
+      "Capacitação prévia dos usuários.",
+      "Contrato com cláusula de foro no Brasil.",
+      "Autorização do Conselho Nacional de Justiça."
+    ],
+    certa: 1,
+    porque: "<b>Capacitação prévia.</b> Ou seja: este curso é o cumprimento do primeiro requisito. Vocês não estão aqui por cortesia da administração — estão cumprindo uma condição normativa para poder usar a ferramenta.",
+    base: "Resolução CNJ 615/2025, art. 19, § 3º"
+  },
+  {
+    ess: true,
+    q: "A Portaria 153/2026 do Tribunal regulamenta o quê, exatamente?",
+    alts: [
+      "Todo e qualquer uso de inteligência artificial por servidores.",
+      "A criação e a utilização de <em>robôs</em>: chatbots e automação de processos.",
+      "O acesso ao PJe.",
+      "A contratação de softwares pelo tribunal."
+    ],
+    certa: 1,
+    porque: "<b>Robôs.</b> O artigo 2º define as duas espécies: <i>chatbots</i> (assistentes virtuais integrados a sistemas de comunicação) e <i>RPA</i> (robôs de software que automatizam tarefas repetitivas interagindo com telas, APIs e bancos). Conversar com uma ferramenta no navegador <b>não</b> está aqui — está na Resolução 615. O teste é: <i>isso age sozinho, sem alguém apertando cada passo?</i>",
+    base: "Portaria TJCE 153/2026, arts. 1º e 2º"
+  },
+  {
+    ess: true,
+    q: "Um servidor montou, na própria unidade, uma automação que lê uma fila e classifica processos sozinha. Quem preenche o formulário de cadastro na Setin?",
+    alts: [
+      "O próprio servidor que criou.",
+      "O gestor da unidade ou setor.",
+      "A Corregedoria.",
+      "Não há formulário; basta um e-mail."
+    ],
+    certa: 1,
+    porque: "O artigo 3º, II, diz que o formulário do Anexo Único é preenchido <b>pelo gestor da unidade</b>. Ou seja: o servidor precisa da chefia junto — o que é o oposto de fazer escondido. E, antes disso, o inciso I exige ciência ao superior por e-mail institucional ou processo administrativo.",
+    base: "Portaria TJCE 153/2026, art. 3º, I e II"
+  },
+  {
+    ess: false,
+    q: "O que a Portaria exige das trilhas de auditoria dos robôs?",
+    alts: [
+      "Que registrem apenas os erros.",
+      "Que sejam guardadas por dez anos.",
+      "Que diferenciem de forma inequívoca as ações da máquina das ações de pessoas.",
+      "Que sejam publicadas no Diário da Justiça."
+    ],
+    certa: 2,
+    porque: "Artigo 3º, incisos VI e VII: trilhas abrangentes, e que <b>diferenciem inequivocamente</b> o que foi entidade automatizada do que foi usuário. É a tese deste curso inteiro escrita como obrigação técnica: sempre se tem de saber o que foi a máquina e o que foi a pessoa.",
+    base: "Portaria TJCE 153/2026, art. 3º, VI e VII"
+  },
+  {
+    ess: false,
+    q: "Por quanto tempo, no mínimo, os logs dos robôs devem ser retidos?",
+    alts: ["30 dias.", "90 dias.", "1 ano.", "Não há prazo definido."],
+    certa: 1,
+    porque: "<b>90 dias</b>, para logs operacionais, de segurança e de aplicação e banco de dados (art. 9º). E o artigo 8º proíbe a exclusão de logs, salvo autorização expressa. Tudo o que o robô fez fica registrado por pelo menos três meses — e quem for auditado depois é a pessoa por trás dele.",
+    base: "Portaria TJCE 153/2026, arts. 8º e 9º"
+  },
+  {
+    ess: true,
+    q: "Um robô da unidade passa a priorizar processos automaticamente. O que a Portaria exige?",
+    alts: [
+      "Nada além do cadastro inicial.",
+      "Revisão humana, explicação dos critérios e auditoria de vieses.",
+      "Homologação prévia do Conselho Nacional de Justiça.",
+      "Aviso às partes em cada processo."
+    ],
+    certa: 1,
+    porque: "Artigo 5º, § 4º: havendo decisão automatizada — e a Portaria dá como exemplos a distribuição, a priorização de processos e a <b>sugestão de sentença</b> — ficam garantidas três salvaguardas: <b>I</b> revisão humana, <b>II</b> explicação dos critérios do algoritmo e <b>III</b> auditoria para identificar vieses discriminatórios. Os três incisos são, na ordem, o Módulo 2, a transparência e o exercício de viés que fizemos hoje.",
+    base: "Portaria TJCE 153/2026, art. 5º, § 4º"
+  },
+  {
+    ess: false,
+    q: "Para o robô funcionar, um servidor precisa desativar o antivírus da estação de trabalho. Pode?",
+    alts: [
+      "Pode, se for temporário.",
+      "Pode, com autorização do chefe imediato.",
+      "Não pode: é vedação expressa.",
+      "Pode, desde que registre em ata."
+    ],
+    certa: 2,
+    porque: "Artigo 3º, III: é vedada a alteração das configurações das estações de trabalho, da rede, do acesso à internet, dos sistemas de segurança e dos demais recursos computacionais. Sem exceção por boa intenção. E o artigo 12 lista as quatro finalidades proibidas de saída: decodificar senhas, monitorar rede, propagar vírus e destruir arquivos ou indisponibilizar serviços.",
+    base: "Portaria TJCE 153/2026, arts. 3º, III, e 12"
+  },
+  {
+    ess: false,
+    q: "A unidade automatizou uma rotina e passou a depender dela. Isso é definitivo?",
+    alts: [
+      "Sim, depois de cadastrada a solução é perene.",
+      "Não: a Presidência pode determinar a interrupção a qualquer tempo.",
+      "Só pode ser interrompida por decisão judicial.",
+      "Depende do contrato com o fornecedor."
+    ],
+    certa: 1,
+    porque: "Artigo 13: a Presidência pode, <b>a qualquer tempo</b>, determinar a interrupção do uso do robô. Nenhuma automação é definitiva — quem depende de um robô sem plano B está a uma decisão administrativa de parar o serviço.",
+    base: "Portaria TJCE 153/2026, art. 13"
+  }
+];
+
+var i = 0, revelado = false, acertos = 0, respondidas = 0;
+var vistos = {};
+
+var $ = function(id){ return document.getElementById(id); };
+
+function pintaPontos(){
+  var box = $("pontos");
+  box.innerHTML = "";
+  for (var k = 0; k < PERGUNTAS.length; k++) {
+    var d = document.createElement("div");
+    d.className = "ponto" + (k === i ? " atual" : (vistos[k] ? " visto" : ""))
+                + (PERGUNTAS[k].ess ? " ess" : "");
+    d.title = "Pergunta " + (k + 1) + (PERGUNTAS[k].ess ? " (essencial)" : "");
+    (function(kk){ d.onclick = function(){ i = kk; revelado = false; desenha(); }; })(k);
+    box.appendChild(d);
+  }
+}
+
+function desenha(){
+  var p = PERGUNTAS[i];
+  $("contador").textContent = "Pergunta " + (i + 1) + " de " + PERGUNTAS.length;
+  $("selo").style.display = p.ess ? "" : "none";
+  $("pergunta").innerHTML = p.q;
+  var box = $("alts");
+  box.innerHTML = "";
+  for (var k = 0; k < p.alts.length; k++) {
+    var el = document.createElement("div");
+    el.className = "alt" + (revelado && k === p.certa ? " certa" : "");
+    el.innerHTML = '<span class="letra">' + "ABCD".charAt(k) + '</span><span>' + p.alts[k] + '</span>';
+    box.appendChild(el);
+  }
+  $("porque").innerHTML = p.porque + '<span class="base">' + p.base + '</span>';
+  $("cartao").className = "cartao" + (revelado ? " revelado" : "");
+  $("revelar").textContent = revelado ? "Contar acerto da turma" : "Revelar resposta";
+  $("anterior").disabled = (i === 0);
+  $("proxima").disabled = (i === PERGUNTAS.length - 1);
+  $("acertos").textContent = acertos;
+  $("respondidas").textContent = respondidas;
+  pintaPontos();
+}
+
+$("revelar").onclick = function(){
+  if (!revelado) { revelado = true; vistos[i] = true; }
+  else { acertos++; respondidas++; }
+  desenha();
+};
+$("proxima").onclick = function(){
+  if (revelado && !vistos[i + "c"]) { vistos[i + "c"] = true; respondidas++; }
+  if (i < PERGUNTAS.length - 1) { i++; revelado = false; desenha(); }
+};
+$("anterior").onclick = function(){ if (i > 0) { i--; revelado = false; desenha(); } };
+
+document.addEventListener("keydown", function(e){
+  if (e.key === "ArrowRight") { $("proxima").click(); }
+  else if (e.key === "ArrowLeft") { $("anterior").click(); }
+  else if (e.key === " " || e.key === "Enter") { e.preventDefault(); $("revelar").click(); }
+});
+
+desenha();
+</script>
+</body>
+</html>
