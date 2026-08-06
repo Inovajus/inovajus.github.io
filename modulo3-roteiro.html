@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Módulo 3 · roteiro</title>
+<style>
+  :root{
+    --tinta:#161616; --fundo:#ffffff; --suave:#5f5f5f; --linha:#e4e2e0;
+    --realce:#8a3b12; --caixa:#f7f4f1;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --tinta:#efedeb; --fundo:#121212; --suave:#a9a5a1; --linha:#302e2c;
+           --realce:#ffab73; --caixa:#1d1b1a; }
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0; background:var(--fundo); color:var(--tinta);
+    font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:17px; line-height:1.5;
+  }
+  .folha{ max-width:40rem; margin:0 auto; padding:2rem 1.1rem 4rem; }
+  header{ border-bottom:2px solid var(--realce); padding-bottom:1rem; margin-bottom:1.25rem; }
+  h1{ font-size:1.6rem; margin:0 0 .3rem; }
+  header p{ margin:0; color:var(--suave); font-size:.93rem; }
+  .abre{ background:var(--caixa); border-radius:10px; padding:.9rem 1.1rem; margin:0 0 1.75rem;
+         font-size:.95rem; }
+  .abre p{ margin:0 0 .5rem; } .abre p:last-child{ margin:0; }
+  h2{ font-size:1.15rem; margin:2.25rem 0 .2rem; padding-top:1.1rem;
+      border-top:2px solid var(--realce); scroll-margin-top:.5rem; }
+  h2 .rel{ display:block; font-size:.76rem; text-transform:uppercase; letter-spacing:.05em;
+           color:var(--suave); font-weight:700; margin-bottom:.15rem; }
+  .sub{ color:var(--suave); font-size:.9rem; margin:.15rem 0 .9rem; }
+  ol.top{ list-style:none; padding:0; margin:0; }
+  ol.top li{ border-bottom:1px solid var(--linha); padding:.7rem 0; margin:0;
+             display:flex; gap:.85rem; align-items:baseline; }
+  ol.top li:last-child{ border-bottom:0; }
+  .min{ flex:0 0 3.4rem; font-variant-numeric:tabular-nums; font-weight:700;
+        color:var(--realce); font-size:.9rem; }
+  .corpo{ flex:1 1 auto; }
+  .corpo a{ color:inherit; font-weight:650; text-decoration:none;
+            border-bottom:1px solid var(--realce); }
+  .corpo a:hover{ background:var(--caixa); }
+  .pista{ display:block; color:var(--suave); font-size:.9rem; margin-top:.15rem; }
+  .ref{ margin-top:2.5rem; }
+  .ref ul{ list-style:none; padding:0; margin:0; }
+  .ref li{ border-bottom:1px solid var(--linha); padding:.6rem 0; }
+  .ref li:last-child{ border-bottom:0; }
+  .ref a{ color:inherit; font-weight:650; text-decoration:none;
+          border-bottom:1px solid var(--realce); }
+  .rodape{ margin-top:2.5rem; padding-top:1rem; border-top:1px solid var(--linha);
+           color:var(--suave); font-size:.88rem; }
+  .rodape a{ color:var(--realce); }
+  @media print{
+    :root{ --tinta:#000; --fundo:#fff; --suave:#444; --linha:#bbb; --realce:#000; --caixa:#f2f2f2; }
+    body{ font-size:10.5pt; }
+    .folha{ max-width:none; padding:0; }
+    .corpo a, .ref a{ border-bottom:0; }
+    h2{ page-break-after:avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="folha">
+
+<header>
+  <h1>Módulo 3 &middot; roteiro</h1>
+  <p>Prática forense &middot; nove horas em três encontros de três &middot; cada tópico abre no ponto
+  exato do conteúdo detalhado, com o prompt pronto para copiar</p>
+</header>
+
+<div class="abre">
+  <p>Esta é a página para deixar aberta enquanto conduz. Só a sequência e uma linha por tópico.
+  Toque no título para ir ao texto completo &mdash; com o prompt, o exercício, a armadilha plantada e
+  as perguntas com respostas &mdash; e volte por onde veio.</p>
+  <p><b>O terceiro encontro depende de acesso à ApoIA.</b> Anuncie no primeiro, confirme
+  nominalmente no fim do segundo. É a única providência do módulo que não se resolve na hora.</p>
+</div>
+
+<h2 id="abre"><span class="rel">Antes de começar</span>Abertura do módulo</h2>
+<p class="sub">Treze minutos no Encontro 1 que mudam o peso de todos os exercícios dos três dias.</p>
+
+<ol class="top">
+  <li><span class="min">3 min</span><span class="corpo">
+    <a href="modulo3-conteudo.html#reenquadramento">A fala do reenquadramento</a>
+    <span class="pista">A falha, historicamente, entra por onde vocês estão. Não pode soar como culpa.</span>
+  </span></li>
+  <li><span class="min">5 min</span><span class="corpo">
+    <a href="modulo3-conteudo.html#metodo">As cinco regras de uso do prompt</a>
+    <span class="pista">Conserte o pedido, não a resposta. E escreva o critério antes de ver a saída.</span>
+  </span></li>
+  <li><span class="min">5 min</span><span class="corpo">
+    <a href="modulo2-conteudo.html#tarefa4">Retomada da Tarefa 4</a>
+    <span class="pista">Dois ou três leem o checklist que escreveram. É a justificativa do módulo inteiro.</span>
+  </span></li>
+  <li><span class="min">&mdash;</span><span class="corpo">
+    <a href="modulo3-conteudo.html#formatos">Os três formatos de condução, no remoto</a>
+    <span class="pista">Prompt ditado pelo chat; operador e conferente em sala aberta; cronômetro honesto.</span>
+  </span></li>
+  <li><span class="min">&mdash;</span><span class="corpo">
+    <a href="modulo3-conteudo.html#acesso">O acesso à ApoIA, e por que se resolve antes</a>
+    <span class="pista">Anunciar hoje. Sem isso, o Encontro 3 vira demonstração assistida.</span>
+  </span></li>
+  <li><span class="min">&mdash;</span><span class="corpo">
+    <a href="modulo3-conteudo.html#documentos">Onde está cada documento</a>
+    <span class="pista">Banco, caderno, bancada, tutorial da ApoIA, Iracema, e-book.</span>
+  </span></li>
+</ol>
+
+<h2 id="e1"><span class="rel">Encontro 1 &middot; três horas</span>Triagem e resumo</h2>
+<p class="sub">Cinquenta e sessenta minutos de aula, com intervalo entre eles. Os trinta que sobram
+vão para dois prompts avançados.</p>
+
+<ol class="top">
+  <li><span class="min">50 min</span><span class="corpo">
+    <a href="modulo3-conteudo.html#triagem">Triagem</a>
+    <span class="pista">Prompt M9, o habeas corpus com réu preso, e a instrução escondida na petição. Micro-verificação 13.</span>
+  </span></li>
+  <li><span class="min">60 min</span><span class="corpo">
+    <a href="modulo3-conteudo.html#resumo">Resumo de peças &mdash; Prática 8</a>
+    <span class="pista">A armadilha é a gratuidade da alínea g. O resumo falha por omissão, não por erro. Micro-verificação 14.</span>
+  </span></li>
+  <li><span class="min">30 min</span><span class="corpo">
+    <a href="modulo3-conteudo.html#av2">Prompts avançados 2 e 1</a>
+    <span class="pista">O resumo em duas passadas conserta a armadilha do bloco, no mesmo dia.</span>
+  </span></li>
+  <li><span class="min">7 min</span><span class="corpo">
+    <a href="modulo3-conteudo.html#tarefa5">Tarefa 5, e o aviso de sigilo</a>
+    <span class="pista">Primeira vez que material real vai para ferramenta de mercado. Diga a alternativa antes de alguém pedir.</span>
+  </span></li>
+</ol>
+
+<h2 id="e2"><span class="rel">Encontro 2 &middot; três horas</span>Minutas, jurisprudência e conferência</h2>
+<p class="sub">Três blocos de quarenta minutos. Guarde os últimos cinco para a chamada de acesso.</p>
+
+<ol class="top">
+  <li><span class="min">40 min</span><span class="corpo">
+    <a href="modulo3-conteudo.html#minutas">Minutas e despachos</a>
+    <span class="pista">Deixe campos editáveis marcados. E salve o modelo junto do prompt. Micro-verificação 15.</span>
+  </span></li>
+  <li><span class="min">40 min</span><span class="corpo">
+    <a href="modulo3-conteudo.html#jurisprudencia">Pesquisa de jurisprudência &mdash; Prática 9</a>
+    <span class="pista">A paga também inventa. Dois relatores fictícios e uma súmula real que exige conferir se vale. Micro-verificação 16.</span>
+  </span></li>
+  <li><span class="min">40 min</span><span class="corpo">
+    <a href="modulo3-conteudo.html#comparar">Comparar e conferir &mdash; Prática 10</a>
+    <span class="pista">A minuta contraria a gratuidade já deferida. É o mesmo pedido que o resumo cortou. Micro-verificação 17.</span>
+  </span></li>
+  <li><span class="min">30 min</span><span class="corpo">
+    <a href="modulo3-conteudo.html#av5">Prompts avançados 5, 4 e 3</a>
+    <span class="pista">Rode o 5 sobre a Prática 9 e o 4 sobre a Prática 10 — mesmo material, pedido melhor.</span>
+  </span></li>
+  <li><span class="min">10 min</span><span class="corpo">
+    <a href="modulo3-conteudo.html#tarefa6">Tarefa 6, e a chamada de acesso</a>
+    <span class="pista">Quem já entrou na ApoIA pelo menos uma vez? Conte, nominalmente.</span>
+  </span></li>
+</ol>
+
+<h2 id="e3"><span class="rel">Encontro 3 &middot; três horas</span>A ferramenta da casa</h2>
+<p class="sub">Cento e oitenta minutos cheios. Os dez do intervalo saem da exposição da Aula 7.</p>
+
+<ol class="top">
+  <li><span class="min">30 min</span><span class="corpo">
+    <a href="modulo3-conteudo.html#apoia">O que a ApoIA é e o que ela enxerga</a>
+    <span class="pista">O chat com os autos, sem colar nada. Deixe a cena respirar. Micro-verificação 24.</span>
+  </span></li>
+  <li><span class="min">35 min</span><span class="corpo">
+    <a href="modulo3-conteudo.html#funcoes">As funções, o MCP e a Prática 14</a>
+    <span class="pista">O endereço do MCP não é endereço, é chave. Micro-verificações 28 e 25.</span>
+  </span></li>
+  <li><span class="min">30 min</span><span class="corpo">
+    <a href="modulo3-conteudo.html#travas">As três travas</a>
+    <span class="pista">A trava reduz o risco; não transfere a responsabilidade. Micro-verificação 26.</span>
+  </span></li>
+  <li><span class="min">30 min</span><span class="corpo">
+    <a href="modulo3-conteudo.html#relatorios">Relatórios e organização &mdash; Prática 11</a>
+    <span class="pista">A linha do "não informado" é a que evita a invenção. Conte as quatorze linhas. Micro-verificação 18.</span>
+  </span></li>
+  <li><span class="min">30 min</span><span class="corpo">
+    <a href="modulo3-conteudo.html#lote">Modelos e lote &mdash; Prática 15</a>
+    <span class="pista">Anonimização automática não é anonimização conferida. O resíduo é o nome do terceiro. Micro-verificação 19.</span>
+  </span></li>
+  <li><span class="min">25 min</span><span class="corpo">
+    <a href="modulo3-conteudo.html#projeto">Lançamento do projeto integrador</a>
+    <span class="pista">O "antes" é escrito em sala. A percepção de ganho não é evidência de ganho.</span>
+  </span></li>
+  <li><span class="min">&mdash;</span><span class="corpo">
+    <a href="modulo3-conteudo.html#tarefa7">Tarefa 7</a>
+    <span class="pista">Quem não concluir traz a ficha com o "antes" e o obstáculo. É melhor material que um "depois" inventado.</span>
+  </span></li>
+</ol>
+
+<h2 id="av"><span class="rel">Fora da sequência</span>Prompts avançados &mdash; os casos difíceis</h2>
+<p class="sub">Doze simulações mais fundas. Preenchem os trinta minutos livres do Encontro 1 e do
+Encontro 2, e são os primeiros a sair se a turma render menos.</p>
+
+<ol class="top">
+  <li><span class="min">&mdash;</span><span class="corpo">
+    <a href="modulo3-conteudo.html#av-condu">Como aproveitar os doze</a>
+    <span class="pista">Se der para escolher cinco: o 2, o 5, o 4, o 10 e o 11 — nessa ordem no calendário.</span>
+  </span></li>
+  <li><span class="min">1</span><span class="corpo">
+    <a href="modulo3-conteudo.html#av1">Critérios de urgência em conflito</a>
+    <span class="pista">Triagem que declara o conflito em vez de escolher sozinha.</span>
+  </span></li>
+  <li><span class="min">2</span><span class="corpo">
+    <a href="modulo3-conteudo.html#av2">Resumo em duas passadas, com caça à omissão</a>
+    <span class="pista">Inventário dos pedidos antes de resumir. Conserta a armadilha da Prática 8.</span>
+  </span></li>
+  <li><span class="min">3</span><span class="corpo">
+    <a href="modulo3-conteudo.html#av3">Mapa de fatos controvertidos</a>
+    <span class="pista">Impugnação genérica não torna o fato controvertido — e a do INSS costuma ser genérica.</span>
+  </span></li>
+  <li><span class="min">4</span><span class="corpo">
+    <a href="modulo3-conteudo.html#av4">Minuta com trava de coerência</a>
+    <span class="pista">A lista do que ela não pôde verificar é a melhor imagem do módulo.</span>
+  </span></li>
+  <li><span class="min">5</span><span class="corpo">
+    <a href="modulo3-conteudo.html#av5">Auditoria de citação, sem afirmar existência</a>
+    <span class="pista">Proibida de dizer que o julgado existe. Entrega o roteiro de conferência.</span>
+  </span></li>
+  <li><span class="min">6</span><span class="corpo">
+    <a href="modulo3-conteudo.html#av6">Divergência contra o que já foi decidido</a>
+    <span class="pista">Inclui o silêncio. É o que a ApoIA executa melhor, porque enxerga o histórico.</span>
+  </span></li>
+  <li><span class="min">7</span><span class="corpo">
+    <a href="modulo3-conteudo.html#av7">Dupla extração com reconciliação</a>
+    <span class="pista">Extrai duas vezes e compara. Divergir prova invenção; coincidir não prova nada.</span>
+  </span></li>
+  <li><span class="min">8</span><span class="corpo">
+    <a href="modulo3-conteudo.html#av8">A minuta pelos olhos da parte contrária</a>
+    <span class="pista">Os três pontos de ataque — e o que não vale a pena revisar.</span>
+  </span></li>
+  <li><span class="min">9</span><span class="corpo">
+    <a href="modulo3-conteudo.html#av9">Os pontos que precisam ser esclarecidos</a>
+    <span class="pista">Transforma peças em perguntas. Fato controvertido sem pergunta é lacuna.</span>
+  </span></li>
+  <li><span class="min">10</span><span class="corpo">
+    <a href="modulo3-conteudo.html#av10">Classificar a própria tarefa por faixa de risco</a>
+    <span class="pista">Rode sobre a tarefa que cada um escolheu para o projeto. Ponte com o Módulo 4.</span>
+  </span></li>
+  <li><span class="min">11</span><span class="corpo">
+    <a href="modulo3-conteudo.html#av11">Relatório com o contrafactual embutido</a>
+    <span class="pista">Recomende rodar sobre a própria ficha do projeto, antes da roda do Módulo 4.</span>
+  </span></li>
+  <li><span class="min">12</span><span class="corpo">
+    <a href="modulo3-conteudo.html#av12">Anonimizar com relatório de resíduo</a>
+    <span class="pista">Entrega o texto e a lista do que ainda identifica por combinação.</span>
+  </span></li>
+</ol>
+
+<div class="ref" id="ref">
+  <h2><span class="rel">Consulta</span>Para abrir quando precisar</h2>
+  <ul>
+    <li><a href="modulo3-conteudo.html#prompts">Os cinco prompts do módulo, juntos</a>
+      <span class="pista">M9, M1, M3, M5 e M6, prontos para copiar, sem trocar de página.</span></li>
+    <li><a href="modulo3-conteudo.html#anonimizar">A ordem de anonimizar, em quatro passos</a>
+      <span class="pista">Substituir, não apagar. Recortar antes de colar. E o que muda no Encontro 3.</span></li>
+    <li><a href="modulo3-conteudo.html#metodo">As cinco regras de uso do prompt</a>
+      <span class="pista">Para cobrar a cada exercício, não só anunciar.</span></li>
+    <li><a href="modulo3-conteudo.html#apertar">Se apertar o tempo</a>
+      <span class="pista">O que não pode cair, e o que se encolhe primeiro em cada encontro.</span></li>
+    <li><a href="modulo3-conteudo.html#online">Conduzindo online</a>
+      <span class="pista">Aqui o chat carrega mais peso: é por ele que se descobre quem travou.</span></li>
+    <li><a href="modulo3-conteudo.html#acesso">A nota de acesso à ApoIA</a>
+      <span class="pista">O que fazer se a maioria não tiver acesso liberado.</span></li>
+    <li><a href="modulo2-roteiro.html">Roteiro do Módulo 2</a>
+      <span class="pista">O pensamento crítico da semana passada, que aqui vira conferência.</span></li>
+    <li><a href="modulo2-conteudo.html#protocolo">O procedimento de dois minutos</a>
+      <span class="pista">A conferência do Módulo 2, aplicada a cada saída gerada aqui.</span></li>
+  </ul>
+</div>
+
+<div class="rodape">
+  <p>Documento de uso exclusivo dos instrutores. Contém gabaritos e as armadilhas plantadas. Todos os
+  casos, peças, números de processo, valores e pessoas dos materiais são fictícios. A supervisão
+  humana sobre qualquer saída de inteligência artificial é obrigatória, nos termos da Resolução 615,
+  de 2025, do Conselho Nacional de Justiça.</p>
+  <p>Página irmã: o <a href="modulo3-conteudo.html">conteúdo detalhado do Módulo 3</a>, com tudo
+  dentro.</p>
+</div>
+
+</div>
+</body>
+</html>
