@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Quiz geral do curso · revisão dos quatro módulos</title>
+<title>Servidor + IA · Quiz Geral do Curso</title>
 <style>
   :root{
     --mira-bg:#0E0E10; --mira-ink:#F5F2EF; --mira-muted:rgba(245,242,239,.62);
@@ -85,16 +85,15 @@
   .p1{ background:var(--m1); } .p2{ background:var(--m2); }
   .p3{ background:var(--m3); } .p4{ background:var(--m4); }
 
-  /* tela de abertura, com a trava */
+  /* tela de abertura: so o titulo e o botao de iniciar */
   .abertura{ position:fixed; inset:0; background:var(--mira-bg); z-index:20;
-             display:flex; align-items:center; justify-content:center; padding:1.5rem; }
+             display:flex; align-items:center; justify-content:center; padding:1.5rem;
+             text-align:center; }
   .abertura .caixa{ max-width:44rem; }
-  .abertura h2{ font-size:1.7rem; margin:0 0 1.1rem; font-weight:650; line-height:1.3; }
-  .abertura p{ color:var(--mira-muted); line-height:1.6; margin:0 0 .9rem; }
-  .trava{ border-left:3px solid var(--mira-primary); background:rgba(255,144,77,.09);
-          padding:1rem 1.2rem; border-radius:0 12px 12px 0; margin:1.3rem 0; }
-  .trava p{ color:var(--mira-ink); margin:0; }
-  .trava b{ color:var(--mira-accent-2); }
+  .abertura .titulo{ font-size:2.3rem; line-height:1.24; margin:0 0 2rem; font-weight:650;
+                     letter-spacing:-.01em; }
+  .abertura .titulo b{ color:var(--mira-primary); font-weight:700; }
+  .abertura .bt{ font-size:1rem; padding:.72rem 2.2rem; }
   .oculto{ display:none !important; }
   @media (max-width:640px){
     .cartao{ padding:1.3rem 1.1rem; } h1{ font-size:1.06rem; }
@@ -107,19 +106,8 @@
 
 <div class="abertura" id="abertura">
   <div class="caixa">
-    <div class="eyebrow" style="color:var(--mira-primary)">Servidor + IA · quiz geral do curso</div>
-    <h2>Catorze perguntas, os quatro módulos</h2>
-    <p>Página de projeção para a revisão final. O instrutor lê, a turma responde em voz alta ao
-    mesmo tempo, e só então se revela — com a explicação de por que cada alternativa errada está
-    errada.</p>
-    <div class="trava">
-      <p><b>Aplicar somente DEPOIS de recolhido o pós-teste.</b> Estas catorze perguntas são as
-      mesmas do pós-teste de aprendizagem, que compõe a nota de aprovação. Projetá-las antes
-      invalida a medição de ganho da turma.</p>
-    </div>
-    <p style="font-size:.88rem;color:var(--mira-faint)">Não vale nota. Diga isso à turma antes de
-    começar, ou metade da sala trava.</p>
-    <button class="bt principal" id="btComecar" style="margin-top:.6rem">O pós-teste já foi recolhido — começar</button>
+    <p class="titulo"><b>Servidor + IA</b><br>Quiz Geral do Curso</p>
+    <button class="bt principal" id="btComecar">Iniciar</button>
   </div>
 </div>
 
@@ -156,9 +144,9 @@
 
 <script>
 // Quiz geral do curso — revisao final dos quatro modulos, turma TJCE.
-// As perguntas sao as do pos-teste de aprendizagem (secao 3 do documento de
-// pre e pos-teste), com o gabarito comentado da secao 4. Por isso a trava da
-// tela de abertura: projetar antes de recolher o pos-teste invalida a medicao.
+// As perguntas e o comentario de cada alternativa vieram do documento de
+// pre e pos-teste de aprendizagem (secoes 3 e 4). Aqui e so o quiz: abre no
+// titulo, o botao Iniciar entra na primeira pergunta.
 var Q = [
   { m:1, tema:"por que a IA inventa",
     cen:"Um servidor pede à IA que explique, em linguagem simples, o rito de uma ação fictícia de guarda de bem apreendido, colando o texto de uma decisão anterior. A resposta sai bem escrita e <b>cita um prazo específico que não constava da decisão colada</b>.",
