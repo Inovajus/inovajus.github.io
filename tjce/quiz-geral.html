@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Quiz geral do curso · revisão dos quatro módulos</title>
+<style>
+  :root{
+    --mira-bg:#0E0E10; --mira-ink:#F5F2EF; --mira-muted:rgba(245,242,239,.62);
+    --mira-faint:rgba(245,242,239,.36); --mira-primary:#FF904D; --mira-accent-2:#FFC766;
+    --mira-line:rgba(255,255,255,.10); --mira-ok:#7FD1A8; --mira-no:rgba(255,255,255,.26);
+    --m1:#8FB8FF; --m2:#C79BFF; --m3:#7FD1A8; --m4:#FFC766;
+  }
+  *{ box-sizing:border-box; }
+  html,body{ height:100%; }
+  body{
+    margin:0; background:var(--mira-bg); color:var(--mira-ink);
+    font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    display:flex; flex-direction:column; min-height:100vh;
+  }
+  .topo{ display:flex; align-items:center; gap:1rem; padding:.95rem 1.6rem;
+         border-bottom:1px solid var(--mira-line); flex:0 0 auto; }
+  .marca{ font-size:.72rem; text-transform:uppercase; letter-spacing:.16em;
+          color:var(--mira-primary); font-weight:700; }
+  .marca span{ color:var(--mira-faint); }
+  .cobertura{ margin-left:auto; display:flex; gap:.9rem; font-size:.68rem;
+              text-transform:uppercase; letter-spacing:.09em; color:var(--mira-faint); }
+  .cobertura b{ font-weight:700; }
+  .cobertura .c1 b{ color:var(--m1); } .cobertura .c2 b{ color:var(--m2); }
+  .cobertura .c3 b{ color:var(--m3); } .cobertura .c4 b{ color:var(--m4); }
+
+  .palco{ flex:1 1 auto; display:flex; align-items:center; justify-content:center;
+          padding:1.4rem; }
+  .cartao{
+    width:100%; max-width:64rem;
+    background:linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.015));
+    border:1px solid var(--mira-line); border-radius:22px; padding:2rem 2.3rem;
+    backdrop-filter:blur(8px);
+  }
+  .eyebrow{ font-size:.72rem; text-transform:uppercase; letter-spacing:.14em;
+            font-weight:700; margin-bottom:.85rem; display:flex; align-items:center;
+            gap:.7rem; color:var(--mira-primary); }
+  .selo-mod{ font-size:.62rem; letter-spacing:.1em; padding:.2rem .6rem; border-radius:99px;
+             font-weight:700; border:1px solid currentColor; }
+  h1{ font-size:1.34rem; line-height:1.42; margin:0 0 .5rem; font-weight:600;
+      letter-spacing:-.005em; color:var(--mira-muted); }
+  h1 b{ color:var(--mira-ink); font-weight:650; }
+  .pergunta-final{ font-size:1.16rem; line-height:1.4; margin:0 0 1.3rem;
+                   font-weight:650; color:var(--mira-ink); }
+  .alts{ display:grid; gap:.5rem; }
+  .alt{
+    display:flex; gap:.9rem; align-items:flex-start; padding:.72rem 1rem;
+    border:1px solid var(--mira-line); border-radius:13px; font-size:.99rem; line-height:1.44;
+    background:rgba(255,255,255,.02); transition:border-color .3s, background .3s, opacity .3s;
+  }
+  .alt .letra{ flex:0 0 1.5rem; font-weight:800; color:var(--mira-faint); font-size:.92rem;
+               padding-top:.06rem; transition:color .3s; }
+  .alt .corpo{ flex:1 1 auto; }
+  .alt .porq{ display:none; margin-top:.4rem; font-size:.84rem; line-height:1.45;
+              color:var(--mira-faint); font-style:italic; }
+  .revelado .alt{ opacity:.62; }
+  .revelado .alt .porq{ display:block; }
+  .revelado .alt.certa{ opacity:1; border-color:rgba(127,209,168,.55);
+                        background:rgba(127,209,168,.09); }
+  .revelado .alt.certa .letra{ color:var(--mira-ok); }
+  .revelado .alt.certa .porq{ color:var(--mira-ok); font-style:normal; }
+  .rodape{ flex:0 0 auto; display:flex; align-items:center; gap:.6rem;
+           padding:.95rem 1.6rem; border-top:1px solid var(--mira-line); }
+  .bt{ border:1px solid var(--mira-line); background:rgba(255,255,255,.04); color:var(--mira-ink);
+       padding:.52rem 1.1rem; border-radius:99px; font-size:.85rem; font-weight:600;
+       cursor:pointer; font-family:inherit; transition:border-color .2s, background .2s; }
+  .bt:hover{ border-color:var(--mira-primary); background:rgba(255,144,77,.10); }
+  .bt.principal{ border-color:rgba(255,144,77,.5); background:rgba(255,144,77,.14);
+                 color:var(--mira-accent-2); }
+  .bt:disabled{ opacity:.28; cursor:default; }
+  .dica{ margin-left:auto; font-size:.75rem; color:var(--mira-faint); }
+  kbd{ border:1px solid var(--mira-line); border-radius:5px; padding:.08rem .32rem;
+       font-family:inherit; font-size:.72rem; color:var(--mira-muted); }
+  .pontos{ display:flex; gap:.28rem; }
+  .ponto{ width:.52rem; height:.52rem; border-radius:99px; background:var(--mira-no);
+          transition:transform .25s, opacity .25s; cursor:pointer; opacity:.5; }
+  .ponto.visto{ opacity:1; }
+  .ponto.atual{ transform:scale(1.45); opacity:1; }
+  .p1{ background:var(--m1); } .p2{ background:var(--m2); }
+  .p3{ background:var(--m3); } .p4{ background:var(--m4); }
+
+  /* tela de abertura, com a trava */
+  .abertura{ position:fixed; inset:0; background:var(--mira-bg); z-index:20;
+             display:flex; align-items:center; justify-content:center; padding:1.5rem; }
+  .abertura .caixa{ max-width:44rem; }
+  .abertura h2{ font-size:1.7rem; margin:0 0 1.1rem; font-weight:650; line-height:1.3; }
+  .abertura p{ color:var(--mira-muted); line-height:1.6; margin:0 0 .9rem; }
+  .trava{ border-left:3px solid var(--mira-primary); background:rgba(255,144,77,.09);
+          padding:1rem 1.2rem; border-radius:0 12px 12px 0; margin:1.3rem 0; }
+  .trava p{ color:var(--mira-ink); margin:0; }
+  .trava b{ color:var(--mira-accent-2); }
+  .oculto{ display:none !important; }
+  @media (max-width:640px){
+    .cartao{ padding:1.3rem 1.1rem; } h1{ font-size:1.06rem; }
+    .pergunta-final{ font-size:1rem; } .alt{ font-size:.92rem; }
+    .cobertura{ display:none; } .rodape{ flex-wrap:wrap; }
+  }
+</style>
+</head>
+<body>
+
+<div class="abertura" id="abertura">
+  <div class="caixa">
+    <div class="eyebrow" style="color:var(--mira-primary)">Servidor + IA · quiz geral do curso</div>
+    <h2>Catorze perguntas, os quatro módulos</h2>
+    <p>Página de projeção para a revisão final. O instrutor lê, a turma responde em voz alta ao
+    mesmo tempo, e só então se revela — com a explicação de por que cada alternativa errada está
+    errada.</p>
+    <div class="trava">
+      <p><b>Aplicar somente DEPOIS de recolhido o pós-teste.</b> Estas catorze perguntas são as
+      mesmas do pós-teste de aprendizagem, que compõe a nota de aprovação. Projetá-las antes
+      invalida a medição de ganho da turma.</p>
+    </div>
+    <p style="font-size:.88rem;color:var(--mira-faint)">Não vale nota. Diga isso à turma antes de
+    começar, ou metade da sala trava.</p>
+    <button class="bt principal" id="btComecar" style="margin-top:.6rem">O pós-teste já foi recolhido — começar</button>
+  </div>
+</div>
+
+<div class="topo">
+  <div class="marca">Servidor + IA <span>· quiz geral · revisão dos quatro módulos</span></div>
+  <div class="cobertura">
+    <span class="c1">Módulo 1 <b>4</b></span>
+    <span class="c2">Módulo 2 <b>3</b></span>
+    <span class="c3">Módulo 3 <b>2</b></span>
+    <span class="c4">Módulo 4 <b>5</b></span>
+  </div>
+</div>
+
+<div class="palco">
+  <div class="cartao" id="cartao">
+    <div class="eyebrow">
+      <span id="contador">Pergunta 1 de 14</span>
+      <span class="selo-mod" id="selo">Módulo 1</span>
+      <span id="tema" style="color:var(--mira-faint);font-weight:600;letter-spacing:.06em"></span>
+    </div>
+    <h1 id="cenario"></h1>
+    <p class="pergunta-final" id="pergunta"></p>
+    <div class="alts" id="alts"></div>
+  </div>
+</div>
+
+<div class="rodape">
+  <button class="bt" id="anterior">Anterior</button>
+  <button class="bt principal" id="revelar">Revelar resposta</button>
+  <div class="pontos" id="pontos"></div>
+  <span class="dica"><kbd>&larr;</kbd> <kbd>&rarr;</kbd> navegam · <kbd>espaço</kbd> revela</span>
+  <button class="bt" id="proxima">Próxima</button>
+</div>
+
+<script>
+// Quiz geral do curso — revisao final dos quatro modulos, turma TJCE.
+// As perguntas sao as do pos-teste de aprendizagem (secao 3 do documento de
+// pre e pos-teste), com o gabarito comentado da secao 4. Por isso a trava da
+// tela de abertura: projetar antes de recolher o pos-teste invalida a medicao.
+var Q = [
+  { m:1, tema:"por que a IA inventa",
+    cen:"Um servidor pede à IA que explique, em linguagem simples, o rito de uma ação fictícia de guarda de bem apreendido, colando o texto de uma decisão anterior. A resposta sai bem escrita e <b>cita um prazo específico que não constava da decisão colada</b>.",
+    per:"O que explica essa informação a mais, mesmo com o texto correto?",
+    alts:[
+      ["O prazo foi inventado propositalmente pela IA para testar a atenção do servidor.",
+       "Atribui intenção deliberada de testar, quando a IA apenas completa a lacuna por previsão de padrão, sem intenção."],
+      ["A IA prevê a sequência de palavras mais provável a partir de padrões de texto, podendo preencher lacunas com conteúdo plausível, não necessariamente verificado.",
+       "É isso. Plausível não é conferido — e ela erra com a mesma segurança com que acerta."],
+      ["A IA acessou automaticamente uma base de dados oficial de prazos processuais para conferir a informação antes de responder.",
+       "Descreve um acesso automático a base oficial que a ferramenta, isolada numa conversa, não realiza por padrão."],
+      ["A IA reconheceu, pela leitura da decisão, uma omissão do servidor e completou a informação de forma consciente.",
+       "Atribui reconhecimento consciente da omissão, quando o que ocorre é preenchimento estatístico de lacuna."]
+    ], certa:1 },
+
+  { m:1, tema:"apoio × decisão humana",
+    cen:"No mesmo Gabinete fictício chegam três demandas: <b>(1)</b> organizar a pauta de audiências da semana; <b>(2)</b> montar uma tabela com dados extraídos de petições; <b>(3)</b> decidir se defere uma liminar em ação fictícia.",
+    per:"Qual afirmação descreve corretamente o papel da IA nessas três tarefas?",
+    alts:[
+      ["A IA deve substituir integralmente o servidor nas três tarefas, pois todas envolvem produção de texto.",
+       "Confunde “produzir texto” com “poder decidir”."],
+      ["A IA só deve ser usada na tarefa 3, por ser a mais crítica.",
+       "Inverte o critério, concentrando o uso da IA justamente na tarefa mais decisória."],
+      ["A IA pode apoiar a organização da pauta e a extração de dados; a decisão sobre a liminar continua sendo do magistrado.",
+       "É isso. Apoio na tarefa mecânica, decisão humana no mérito."],
+      ["Nenhuma das três tarefas deve envolver IA, por fazerem parte de processo judicial.",
+       "Exclusão total, quando organização de pauta e extração de dados são apoios legítimos."]
+    ], certa:2 },
+
+  { m:1, tema:"recortar o contexto",
+    cen:"Faltam 15 minutos para uma reunião e o servidor precisa que a IA aponte divergências entre <b>duas versões fictícias de uma minuta de sentença, cada uma com 80 páginas</b>.",
+    per:"Qual é a prática mais adequada?",
+    alts:[
+      ["Selecionar os trechos das duas minutas em que há diferença de mérito, evitando expor dados de terceiros que não são necessários à comparação.",
+       "É isso. Recortar é decisão de qualidade e de sigilo ao mesmo tempo."],
+      ["Colar as duas minutas inteiras, já que quanto mais informação for enviada, mais precisa tende a ser a comparação.",
+       "Reproduz a crença “mais informação = mais precisão”, desconsiderando volume e relevância."],
+      ["Resumir manualmente cada minuta antes de perguntar à IA, para garantir que nada se perca.",
+       "Inviável no prazo, e não resolve o problema de curadoria do que é relevante."],
+      ["Enviar as minutas em mensagens separadas, sem qualquer seleção prévia, confiando que a IA organiza tudo ao final.",
+       "Envio sem seleção prévia: a mesma falha de curadoria, só que fatiada."]
+    ], certa:0 },
+
+  { m:1, tema:"escolha da ferramenta",
+    cen:"Um colega afirma: <i>“a ferramenta de IA que saiu depois das outras é sempre pior, só por ter chegado mais tarde.”</i>",
+    per:"Qual critério o curso recomenda para escolher entre as ferramentas disponíveis na unidade?",
+    alts:[
+      ["Escolher a ferramenta que saiu primeiro, por já estar mais testada no mercado.",
+       "Usa “ser mais antiga” como critério de qualidade — tão inválido quanto “ser mais divulgada”."],
+      ["Escolher pela recomendação de colegas de outra vara, independentemente da tarefa a ser feita.",
+       "Pressão de colegas de outra unidade, sem relação com a tarefa concreta."],
+      ["Escolher sempre a ferramenta gratuita, pois seria a única homologada para uso institucional.",
+       "Confunde gratuidade com homologação institucional."],
+      ["Escolher pelo objetivo concreto da tarefa, entre as ferramentas homologadas ou adotadas pela unidade, testando qual atende melhor ao caso.",
+       "É isso. O critério é o objetivo da tarefa, não a marca nem a data de lançamento."]
+    ], certa:3 },
+
+  { m:2, tema:"causa oculta",
+    cen:"Na Vara Gama (fictícia) foram expedidos <b>90 despachos</b> de urgência no mês e <b>70 recursos</b> foram interpostos contra eles; na Vara Delta (fictícia), <b>30 despachos</b> e <b>10 recursos</b>. Um colega conclui: <i>“despachar mais gera mais recurso.”</i>",
+    per:"Qual é a avaliação correta dessa conclusão?",
+    alts:[
+      ["A conclusão está correta, pois o número de recursos acompanha o número de despachos nas duas Varas.",
+       "Toma a correlação como prova de causa — é exatamente o erro do módulo."],
+      ["Antes de aceitar a conclusão, é preciso investigar se algum fator comum ocorreu nas duas Varas ao mesmo tempo — como uma força-tarefa que tenha aumentado, simultaneamente, o volume de despachos e a atenção das partes ao processo.",
+       "É isso. É o sorvete e o afogamento, com números de vara em vez de calor."],
+      ["A conclusão é falsa, pois despacho de urgência nunca gera recurso.",
+       "Nega toda relação de forma absoluta, sem investigação — erra pelo lado oposto."],
+      ["A conclusão só estaria correta se as duas Varas tivessem exatamente o mesmo efetivo de servidores.",
+       "Desloca a atenção para uma variável que o caso não apresentou como relevante."]
+    ], certa:1 },
+
+  { m:2, tema:"contrafactual",
+    cen:"Uma unidade fictícia adotou, em fevereiro, um modelo padronizado de resposta a petições repetitivas. O estoque de pendências <b>caiu de 500 para 380 até maio</b>.",
+    per:"Antes de atribuir essa queda de 120 pendências ao novo modelo, qual informação é indispensável para estimar o efeito real da medida?",
+    alts:[
+      ["O número de servidores lotados na unidade em maio.",
+       "Número no mês final não serve de comparador temporal."],
+      ["A opinião da equipe sobre se a mudança pareceu positiva.",
+       "Opinião não é evidência de causa — e a percepção de ganho já foi medida, e é enviesada."],
+      ["A tendência de queda do estoque nos meses anteriores à adoção do modelo, ou o comportamento de uma unidade comparável que não mudou nada no período.",
+       "É isso. São os dois únicos caminhos: tendência anterior ou grupo de comparação."],
+      ["O total de petições protocoladas no PJe 2.x no mesmo período.",
+       "É dado de volume de entrada, não de efeito da medida sobre o estoque."]
+    ], certa:2 },
+
+  { m:2, tema:"alucinação",
+    cen:"Ao ser consultada sobre uma súmula aplicável a um tema raro, a IA apresenta número, órgão e data, <b>tudo com formatação impecável</b> (exemplo fictício, criado apenas para este teste — não deve ser citado em nenhuma peça real).",
+    per:"Qual é a conduta correta diante dessa resposta?",
+    alts:[
+      ["Citar diretamente no despacho, já que órgão e data conferem coerência à informação.",
+       "Toma coerência formal como prova de existência — e é justamente o detalhe que faz parecer verdade."],
+      ["Parar de usar IA para qualquer pesquisa normativa a partir de então.",
+       "Abandono total da ferramenta: reação exagerada, e não instala procedimento nenhum."],
+      ["Pedir à própria IA que confirme a existência da súmula e aceitar essa resposta como prova suficiente.",
+       "Confunde instrução dada à IA com verificação externa. Quem confere a conferência dela?"],
+      ["Conferir a súmula na base oficial do tribunal antes de citá-la, pois a IA pode gerar referências plausíveis e, ainda assim, inexistentes.",
+       "É isso. A única conferência que conta é ter aberto a fonte e achado a frase lá dentro."]
+    ], certa:3 },
+
+  { m:3, tema:"triagem em lote",
+    cen:"Um servidor usa a IA para classificar um lote fictício de <b>8 demandas</b> recebidas na semana.",
+    per:"Qual é o passo indispensável antes de dar seguimento às classificações sugeridas?",
+    alts:[
+      ["Enviar a tabela direto para decisão, sem revisão da secretaria.",
+       "Dispensa a conferência humana antes da decisão."],
+      ["Conferir cada classificação sugerida contra o conteúdo real da demanda, com atenção especial às que a IA marcou como não urgentes.",
+       "É isso. O erro caro é o falso negativo de urgência — por isso se olha primeiro o que ela disse que não é urgente."],
+      ["Repetir a pergunta à IA e adotar a resposta que aparecer com mais frequência.",
+       "Repetir não substitui conferir contra o conteúdo real. Coincidir não prova existência."],
+      ["Aceitar a tabela sem conferência, desde que venha acompanhada de justificativa para cada classificação.",
+       "A presença de uma justificativa não é conferência — a justificativa também é gerada."]
+    ], certa:1 },
+
+  { m:3, tema:"medir o ganho",
+    cen:"Um grupo de servidores quer demonstrar que uma nova forma de triagem, com apoio de IA, <b>reduziu o tempo gasto por unidade</b> na tarefa.",
+    per:"O que é indispensável para que esse ganho possa ser demonstrado de forma confiável?",
+    alts:[
+      ["Comparar o tempo da unidade com o de outra unidade de perfil muito diferente, sem qualquer registro anterior.",
+       "Comparador sem registro anterior não serve como estimativa válida."],
+      ["Apresentar apenas o tempo obtido depois da mudança, pois a redução será evidente pela percepção da equipe.",
+       "Mostra só o “depois” — e é exatamente o relatório que a arguição derrubou."],
+      ["Registrar quanto tempo a tarefa levava antes da mudança, para comparar com o tempo depois.",
+       "É isso. Sem o “antes” registrado, não há ganho que se possa demonstrar."],
+      ["Perguntar à equipe, ao final, se teve a impressão de ganho de tempo.",
+       "Substitui medição por impressão subjetiva — o viés de percepção já foi medido em quase 40 pontos."]
+    ], certa:2 },
+
+  { m:4, tema:"segredo de justiça",
+    cen:"Um servidor quer usar uma ferramenta de IA externa, <b>não homologada</b>, para resumir uma petição fictícia de um processo que corre <b>em segredo de justiça</b>, pensando em remover apenas o nome da parte antes de enviar.",
+    per:"Qual é a conduta correta?",
+    alts:[
+      ["Não enviar nenhum dado do processo a uma ferramenta externa não homologada: o sigilo de justiça é vedação independente de anonimização.",
+       "É isso. Primeiro se confere o sigilo. Sendo “sim”, não se chega a anonimizar — não se envia."],
+      ["Enviar substituindo o nome da parte por iniciais, já que a identificação direta seria removida.",
+       "Iniciais não afastam a vedação de sigilo — e nem sequer anonimizam de verdade."],
+      ["Enviar informando à IA que trate o conteúdo como confidencial durante a conversa.",
+       "Instrução dentro da conversa não cria proteção jurídica nenhuma."],
+      ["Enviar apenas o texto do despacho, sem os fundamentos de fato, pois assim não haveria dado sigiloso.",
+       "Recortar não elimina o dado sigiloso do restante, e o sigilo veda o envio independentemente do recorte."]
+    ], certa:0 },
+
+  { m:4, tema:"LAI · acesso restrito",
+    cen:"Uma pessoa envia e-mail à secretaria de uma vara cível fictícia pedindo cópia de peças de um processo <b>que não corre em segredo de justiça</b>. Entre as peças pedidas está uma <b>perícia médica</b> com o histórico clínico detalhado da parte autora.",
+    per:"Qual é a conduta correta?",
+    alts:[
+      ["Enviar todas as peças pedidas: processo sem sigilo decretado é integralmente público.",
+       "Repete o critério binário “sem sigilo = tudo público”, que o art. 31 da Lei de Acesso desmonta."],
+      ["Recusar todo o pedido: histórico clínico nos autos torna o processo inteiro reservado.",
+       "Transforma restrição pontual em recusa total — e negar o que é público também é conduta ilícita."],
+      ["Atender ao pedido resguardando a informação de saúde, que tem acesso restrito por lei mesmo em processo sem sigilo decretado.",
+       "É isso. Nega-se o excesso, não o acesso."],
+      ["Responder que pedido de cópia por e-mail não pode ser atendido em nenhuma hipótese.",
+       "Recusa pelo canal, não pelo conteúdo — nega acesso devido sem fundamento."]
+    ], certa:2 },
+
+  { m:4, tema:"LAI · as duas maneiras de errar",
+    cen:"Uma pessoa pede cópia de uma sentença proferida em processo público de uma vara cível fictícia. O texto menciona <b>nome e dados bancários de um terceiro alheio à causa</b>, citados em um dos fundamentos.",
+    per:"Qual é a conduta correta?",
+    alts:[
+      ["Negar a cópia: a presença de dado bancário torna o documento indisponível a quem pede.",
+       "Negar por precaução é conduta ilícita quando a informação é devida."],
+      ["Entregar a cópia integral: sentença é ato público e a publicidade prevalece sempre.",
+       "Entregar dado bancário de terceiro é acesso indevido a informação pessoal."],
+      ["Entregar a cópia com o nome e os dados bancários do terceiro tarjados: nega-se o excesso, não o acesso.",
+       "É isso. As duas maneiras de errar são simétricas — e esta é a única que não erra por nenhum lado."],
+      ["Orientar a pessoa a pedir a cópia diretamente ao magistrado, em qualquer caso.",
+       "Cria um fluxo que não existe como regra geral, e adia sem resolver."]
+    ], certa:2 },
+
+  { m:4, tema:"Resolução 615 · treinamento",
+    cen:"Um colega comenta que deixou ativada, na conta de IA generativa que usa no trabalho, a opção <b>“usar minhas conversas para treinar o modelo”</b> — segundo ele, <i>“as respostas ficam melhores e não custa nada”</i>.",
+    per:"O que a norma diz sobre isso?",
+    alts:[
+      ["O colega tem razão: a configuração é escolha pessoal e a melhoria das respostas é um ganho legítimo para a unidade.",
+       "A “vantagem” descrita é exatamente o que a norma veda: dados do Judiciário alimentando treinamento de modelo privado."],
+      ["O colega precisa desativar a opção: é vedado que os dados fornecidos por usuários do Poder Judiciário — e os inferidos a partir deles — sejam usados para treinamento do modelo.",
+       "É isso. Art. 19, § 3º, III — e a vedação tem de estar em contrato, não num botão de configuração."],
+      ["Basta que o colega evite colar dados pessoais, mantendo o treinamento ativado.",
+       "A vedação não se limita a dado pessoal: alcança os dados fornecidos em geral e os inferidos a partir deles."],
+      ["A vedação só se aplica a contas institucionais, não a contas pessoais usadas no trabalho.",
+       "Inverte o alcance — é justamente a conta privada usada em atividade funcional que o § 3º disciplina."]
+    ], certa:1 },
+
+  { m:4, tema:"faixas de risco",
+    cen:"Um servidor planeja duas tarefas com IA generativa: <b>(1)</b> pedir o resumo de uma contestação fictícia para acelerar a própria leitura, conferindo depois contra o original; <b>(2)</b> pedir que a IA <b>fixe o valor da indenização</b> por dano moral que seria devida, aplicando um precedente ao caso concreto.",
+    per:"Como as duas tarefas se classificam pela Resolução CNJ 615/2025?",
+    alts:[
+      ["As duas são de baixo risco, porque em ambas o servidor lê o resultado antes de usar.",
+       "Ler antes de usar mantém a tarefa 1 no baixo risco, mas não reclassifica a tarefa 2."],
+      ["A tarefa 1 é de baixo risco (sumarização com supervisão humana); a tarefa 2 é de alto risco (juízo conclusivo com quantificação de danos) e não pode ir a ferramenta externa.",
+       "É isso. A faixa vem do pedido, não da ferramenta — e quantificar dano é o exemplo literal de alto risco."],
+      ["As duas são de alto risco, porque as duas envolvem conteúdo de processo judicial.",
+       "Conteúdo de processo não torna tudo alto risco; sumarização é listada como baixo risco justamente para o apoio cotidiano."],
+      ["A tarefa 2 é permitida em ferramenta externa desde que o valor sugerido seja conferido depois.",
+       "Conferir depois não autoriza pedir a conclusão à ferramenta externa — a vedação incide antes."]
+    ], certa:1 }
+];
+
+var i = 0, revelado = false;
+var vistos = {};
+var $ = function(id){ return document.getElementById(id); };
+
+function pintaPontos(){
+  var box = $("pontos"); box.innerHTML = "";
+  for (var k = 0; k < Q.length; k++) {
+    var d = document.createElement("div");
+    d.className = "ponto p" + Q[k].m + (k === i ? " atual" : "") + (vistos[k] ? " visto" : "");
+    d.title = "Pergunta " + (k + 1) + " · Módulo " + Q[k].m + " · " + Q[k].tema;
+    (function(kk){ d.onclick = function(){ i = kk; revelado = false; desenha(); }; })(k);
+    box.appendChild(d);
+  }
+}
+
+function desenha(){
+  var q = Q[i];
+  var cores = { 1:"var(--m1)", 2:"var(--m2)", 3:"var(--m3)", 4:"var(--m4)" };
+  $("contador").textContent = "Pergunta " + (i + 1) + " de " + Q.length;
+  $("selo").textContent = "Módulo " + q.m;
+  $("selo").style.color = cores[q.m];
+  $("tema").textContent = "· " + q.tema;
+  $("cenario").innerHTML = q.cen;
+  $("pergunta").innerHTML = q.per;
+  var box = $("alts"); box.innerHTML = "";
+  for (var k = 0; k < q.alts.length; k++) {
+    var el = document.createElement("div");
+    el.className = "alt" + (revelado && k === q.certa ? " certa" : "");
+    el.innerHTML = '<span class="letra">' + "abcd".charAt(k) + ')</span>'
+                 + '<span class="corpo">' + q.alts[k][0]
+                 + '<span class="porq">' + q.alts[k][1] + '</span></span>';
+    box.appendChild(el);
+  }
+  $("cartao").className = "cartao" + (revelado ? " revelado" : "");
+  $("revelar").textContent = revelado ? "Resposta revelada" : "Revelar resposta";
+  $("revelar").disabled = revelado;
+  $("anterior").disabled = (i === 0);
+  $("proxima").disabled = (i === Q.length - 1);
+  pintaPontos();
+}
+
+$("revelar").onclick = function(){ revelado = true; vistos[i] = true; desenha(); };
+$("proxima").onclick = function(){ if (i < Q.length - 1) { i++; revelado = false; desenha(); } };
+$("anterior").onclick = function(){ if (i > 0) { i--; revelado = false; desenha(); } };
+$("btComecar").onclick = function(){ $("abertura").className = "abertura oculto"; };
+
+document.addEventListener("keydown", function(e){
+  if (!$("abertura").classList.contains("oculto")) {
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); $("btComecar").click(); }
+    return;
+  }
+  if (e.key === "ArrowRight") { e.preventDefault(); $("proxima").click(); }
+  else if (e.key === "ArrowLeft") { e.preventDefault(); $("anterior").click(); }
+  else if (e.key === " " || e.key === "Enter") { e.preventDefault(); if (!revelado) $("revelar").click(); }
+});
+
+desenha();
+</script>
+</body>
+</html>
