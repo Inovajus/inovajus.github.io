@@ -107,16 +107,20 @@
 <header>
   <h1>Roteiro de aula &mdash; Responsabilidade do servidor no uso de dados em ferramentas de IA</h1>
   <p><b>Módulo:</b> dados públicos, pessoais e sigilosos em ferramentas de IA &middot;
+  <b>Versão:</b> 2 &mdash; inclui bloco sobre anonimização &middot;
   <b>Público:</b> servidores do Poder Judiciário, perfil leigo em tecnologia &middot;
-  <b>Duração:</b> 50 minutos &middot;
+  <b>Duração:</b> 52 minutos &middot;
   <b>Formato:</b> exposição dialogada + estudo de caso + exercício de classificação</p>
 </header>
 
 <div class="nota">
-  <p><b>Sobre esta versão.</b> Transcrição fiel do roteiro original, com uma única diferença: os
-  seis campos marcados como <i>[preencher]</i> foram preenchidos a partir do material normativo
-  já conferido do curso, como o próprio roteiro determina. Cada preenchimento está sinalizado em
-  bloco próprio, com a fonte, para que se possa conferir e discordar.</p>
+  <p><b>Sobre esta versão.</b> Transcrição fiel do roteiro original &mdash; agora na
+  <b>versão 2</b>, que acrescenta o <a href="#s17">slide 17</a> (anonimizar dentro da IA não é
+  anonimizar), a etapa <b>3-A</b> na regra de decisão e o alerta sobre o limite da anonimização.
+  A única diferença em relação ao original: os campos marcados como <i>[preencher]</i> foram
+  preenchidos a partir do material normativo já conferido do curso, como o próprio roteiro
+  determina. Cada preenchimento está sinalizado em bloco próprio, com a fonte, para que se possa
+  conferir e discordar.</p>
   <p>A política de fornecedor citada no Bloco 2 foi consultada em <b>07/08/2026</b>. Antes de
   cada turma, reconfira &mdash; o próprio roteiro avisa que slide sem data vira desinformação em
   seis meses.</p>
@@ -142,11 +146,16 @@
 
 <h4>Material necessário</h4>
 <ul>
-  <li>Slides (21)</li>
+  <li>Slides (22)</li>
   <li>Folha de exercício impressa ou formulário digital (5 casos)</li>
   <li>Card de bolso com a regra de decisão (opcional, entregar ao final) &mdash; ver
   <a href="#anexob">Anexo B</a></li>
 </ul>
+<div class="nota">
+  <p><b>Contagem de slides:</b> a ficha técnica do original diz &ldquo;20&rdquo;, mas o roteiro
+  detalha <b>22 slides</b> &mdash; o número da ficha ficou para trás quando o bloco de anonimização
+  entrou. Aqui vale a contagem real.</p>
+</div>
 
 <h2 id="b1"><span class="bl">Bloco 1 &middot; 6 minutos</span>Abertura</h2>
 
@@ -436,7 +445,7 @@ atualizado em 01/07/2026.</p>
 </div>
 <span class="tempo">2 min</span>
 
-<h2 id="b5"><span class="bl">Bloco 5 &middot; 12 minutos</span>Aplicação</h2>
+<h2 id="b5"><span class="bl">Bloco 5 &middot; 14 minutos</span>Aplicação</h2>
 
 <h3 id="s16"><span class="sl">Slide 16</span>A regra de decisão: 4 perguntas</h3>
 <p><b>Pare na primeira pergunta que der não.</b></p>
@@ -445,11 +454,59 @@ atualizado em 01/07/2026.</p>
   <p><b>2. O conteúdo está livre de sigilo ou segredo de justiça?</b></p>
   <p><b>3. O conteúdo está livre de dado pessoal identificável?</b> (nome, CPF, endereço, saúde,
   filiação)</p>
+  <p style="margin-left:1.2rem"><b>3-A.</b> Se há dado pessoal: <b>eu tenho ferramenta de
+  anonimização fora da IA?</b><br>
+  Se não &rarr; pare. Anonimizar dentro da IA não é anonimizar <i>(ver <a href="#s17">slide
+  17</a>)</i>.</p>
   <p><b>4. Eu justificaria isso por escrito à corregedoria?</b></p>
 </div>
 <span class="tempo">2 min</span>
 
-<h3 id="s17"><span class="sl">Slide 17</span>O teste de bolso</h3>
+<h3 id="s17"><span class="sl">Slide 17</span>Anonimizar DENTRO da IA não é anonimizar</h3>
+<div class="rolagem">
+<table>
+  <tr><th>Sequência</th><th>Situação</th></tr>
+  <tr><td>Documento &rarr; IA externa &rarr; texto anonimizado</td>
+      <td><span class="nao">Inútil.</span> A exposição já aconteceu na hora em que você
+      colou.</td></tr>
+  <tr><td>Documento &rarr; ferramenta local ou institucional de anonimização &rarr; IA externa</td>
+      <td><span class="sim">Correto.</span></td></tr>
+  <tr><td>Documento com dado pessoal &rarr; nenhuma ferramenta disponível</td>
+      <td><span class="nao">Não use.</span></td></tr>
+</table>
+</div>
+<div class="fala">
+  <p>&ldquo;Alguém vai perguntar: &lsquo;e se eu pedir para a própria IA anonimizar?&rsquo;. Pensem
+  comigo. No instante em que você cola o documento, a exposição já ocorreu. O que sai anonimizado
+  não desfaz o que entrou identificado. Você protegeu o documento contra ninguém.&rdquo;</p>
+  <p>&ldquo;Anonimizar não é tarefa de IA generativa. É tarefa determinística &mdash; localizar
+  padrões e substituir. Isso se resolve em software local, antes de qualquer coisa sair da máquina.
+  Anonimização não é uma etapa da conversa com a IA: é uma etapa anterior a ela.&rdquo;</p>
+</div>
+<h4>Hierarquia honesta &mdash; dizer em voz alta</h4>
+<div class="destaque">
+  <p><b>1. Não expor</b> é a proteção real.</p>
+  <p><b>2. Ferramenta institucional contratada</b> é a segunda melhor.</p>
+  <p><b>3. Anonimização</b> é mitigação parcial &mdash; <b>não</b> cria base legal.</p>
+</div>
+<div class="nota">
+  <p><b>Alerta sobre o limite da anonimização.</b> Tirar nome e CPF não anonimiza um processo.
+  Número do processo, comarca, data do fato, doença rara, cargo público e valor de benefício
+  reidentificam o titular. Em ações previdenciárias e de saúde, a reidentificação é quase
+  trivial.</p>
+</div>
+<div class="desvio">
+  <p><b>Instrutor:</b> só apresente ferramenta institucional de anonimização (ex.: AnonimizaJus)
+  <b>se ela estiver em produção e acessível ao servidor da ponta.</b> Anunciar ferramenta
+  indisponível é pior que não anunciar: o servidor sem alternativa improvisa &mdash; e a
+  improvisação mais provável é colar o documento na IA para &ldquo;anonimizar&rdquo;, exatamente o
+  erro que este slide combate.</p>
+  <p>Enquanto não houver ferramenta: anonimização <b>manual</b> (localizar e substituir no editor,
+  antes de copiar) para documentos curtos; <b>não usar</b> para documentos longos.</p>
+</div>
+<span class="tempo">2 min</span>
+
+<h3 id="s18"><span class="sl">Slide 18</span>O teste de bolso</h3>
 <div class="slide">
   <p><b>&ldquo;Eu colaria esse texto em um grupo de WhatsApp de desconhecidos?&rdquo;</b></p>
   <p>Se não &rarr; também não vai para a IA em conta pessoal.</p>
@@ -460,7 +517,7 @@ atualizado em 01/07/2026.</p>
 </div>
 <span class="tempo">1 min</span>
 
-<h3 id="s18"><span class="sl">Slide 18</span>Exercício: classifique os casos</h3>
+<h3 id="s19"><span class="sl">Slide 19</span>Exercício: classifique os casos</h3>
 <p><b>Dinâmica:</b> distribua os 5 casos. Duplas, 4 minutos. Depois, discussão aberta,
 4 minutos.</p>
 
@@ -469,13 +526,15 @@ atualizado em 01/07/2026.</p>
   <tr><th>#</th><th>Situação</th><th>Resposta</th></tr>
   <tr>
     <td class="num">1</td>
-    <td>Colar ementa de acórdão já publicado no Diário, em conta pessoal, para pedir um resumo</td>
+    <td>Colar ementa de acórdão já publicado no Diário (DJe), em conta pessoal, para pedir um
+    resumo</td>
     <td><span class="dep">Depende.</span> Publicado é público, mas ementas costumam conter nomes.
     Remova a identificação e o caso vira verde.</td>
   </tr>
   <tr>
     <td class="num">2</td>
-    <td>Subir petição inicial de benefício assistencial com laudo médico, em conta Pro pessoal</td>
+    <td>Subir petição inicial de benefício assistencial (BPC/LOAS) com laudo médico, em conta Pro
+    pessoal</td>
     <td><span class="nao">Não.</span> Dado de saúde é dado sensível (LGPD, art. 11), em conta sem
     contrato institucional.</td>
   </tr>
@@ -505,7 +564,7 @@ atualizado em 01/07/2026.</p>
 </div>
 <span class="tempo">8 min</span>
 
-<h3 id="s19"><span class="sl">Slide 19</span>E se já aconteceu?</h3>
+<h3 id="s20"><span class="sl">Slide 20</span>E se já aconteceu?</h3>
 <div class="slide">
   <p><b>1. Não esconda.</b> Registre o que ocorreu.</p>
   <p><b>2. Comunique</b> a chefia imediata e o encarregado de dados do órgão.</p>
@@ -523,7 +582,7 @@ atualizado em 01/07/2026.</p>
 
 <h2 id="b6"><span class="bl">Bloco 6 &middot; 4 minutos</span>Fechamento</h2>
 
-<h3 id="s20"><span class="sl">Slide 20</span>As três frases</h3>
+<h3 id="s21"><span class="sl">Slide 21</span>As três frases</h3>
 <p><b>No slide, uma por vez (animação):</b></p>
 <div class="destaque">
   <p class="grande">1. Configuração de privacidade é do fornecedor. Responsabilidade é sua.</p>
@@ -537,7 +596,7 @@ atualizado em 01/07/2026.</p>
 </div>
 <span class="tempo">2 min</span>
 
-<h3 id="s21"><span class="sl">Slide 21</span>Referências e canais</h3>
+<h3 id="s22"><span class="sl">Slide 22</span>Referências e canais</h3>
 <div class="slide">
   <p>Anthropic Privacy Center &mdash; <span class="fonte">privacy.claude.com</span>
   <i>(consultado em 07/08/2026)</i></p>
@@ -550,11 +609,16 @@ atualizado em 01/07/2026.</p>
 
 <h2 id="anexoa">Anexo A &mdash; perguntas que a plateia vai fazer</h2>
 
+<h4>&ldquo;E se eu pedir para a própria IA anonimizar?&rdquo;</h4>
+<p>Não protege nada. A exposição acontece no momento em que você cola &mdash; o texto anonimizado
+que sai não desfaz o texto identificado que entrou. <b>Anonimização é etapa anterior</b>, em
+ferramenta que não envia o dado para fora. <i>(É o <a href="#s17">slide 17</a>.)</i></p>
+
 <h4>&ldquo;E se eu anonimizar antes?&rdquo;</h4>
-<p>Anonimização real é mais difícil do que parece. Trocar o nome por iniciais não anonimiza: o
-contexto reidentifica (número do processo, comarca, data, doença rara, cargo público).
-<b>Anonimização é técnica, não cosmética.</b> Se o órgão tem ferramenta própria de anonimização,
-use a ferramenta.</p>
+<p>Aí sim &mdash; desde que seja fora da IA. Mas cuidado com o alcance: trocar o nome por iniciais
+não anonimiza. O contexto reidentifica (número do processo, comarca, data do fato, doença rara,
+cargo público, valor de benefício). <b>Anonimização é técnica, não cosmética</b>, e é mitigação de
+risco &mdash; não base legal. Se o órgão tem ferramenta própria, use a ferramenta.</p>
 
 <h4>&ldquo;ChatGPT e Gemini são iguais?&rdquo;</h4>
 <p>A arquitetura de risco é a mesma: conta pessoal tem regime de consumo, conta corporativa tem
@@ -581,9 +645,13 @@ finalidade nem o da revisão humana. Continua valendo o dever de conferir tudo q
 1. A ferramenta é institucional?
 2. Está livre de sigilo?
 3. Está livre de dado pessoal?
+   3a. Se não: tenho ferramenta de
+       anonimização FORA da IA?
 4. Eu explicaria isso à corregedoria?
 
 Um "não" = pare.
+
+Anonimizar dentro da IA não anonimiza.
 
 Deu errado? Comunique. Não esconda.
 [contato do encarregado de dados]</div>
@@ -602,7 +670,8 @@ Deu errado? Comunique. Não esconda.
   agora escondido de você.</li>
   <li>Se você não fizer o exercício, a plateia sai achando que entendeu. <b>O caso 5 é o teste
   real.</b></li>
-  <li>Se você citar dispositivo normativo errado, perde a autoridade do módulo inteiro.</li>
+  <li>Se você citar dispositivo normativo errado, perde a autoridade do módulo inteiro. Preencha os
+  campos com o texto oficial na mão.</li>
 </ul>
 
 <h4>Sinalizações de incerteza a manter em mente</h4>
@@ -611,12 +680,15 @@ Deu errado? Comunique. Não esconda.
   mantenha a data no rodapé do slide. <b>Um slide sem data vira desinformação em seis meses.</b></li>
   <li>Os prazos de retenção citados (30 dias / 5 anos / 2 anos / 7 anos) foram verificados na
   Central de Privacidade da Anthropic em 07/08/2026. Reconfira.</li>
+  <li>Os dispositivos da Resolução CNJ 615/2025 vinham marcados como campo a preencher <b>de
+  propósito</b> &mdash; devem ser conferidos direto no texto oficial, não de memória. Aqui já estão
+  preenchidos e sinalizados em amarelo; confira antes de projetar.</li>
 </ul>
 
 <h4>Ajuste de duração</h4>
 <ul>
   <li><b>Versão de 30 min:</b> corte os slides 2, 12 e 15 e reduza o exercício a 3 casos
-  (2, 4, 5).</li>
+  (2, 4, 5). <b>Não corte o slide 17</b> &mdash; é a pergunta que a turma faz sozinha.</li>
   <li><b>Versão de 90 min:</b> expanda o Bloco 4 com leitura conjunta da Resolução CNJ 615/2025 e
   acrescente uma oficina de anonimização.</li>
 </ul>
@@ -629,7 +701,7 @@ Deu errado? Comunique. Não esconda.
   etapa 4 do exercício final, e a mesma armadilha da questão 13 do pós-teste.</p>
   <p><b>Três encaixes possíveis:</b></p>
   <ul>
-    <li><b>Como aula avulsa de 50 minutos</b>, para público que não fez o curso completo &mdash;
+    <li><b>Como aula avulsa de 52 minutos</b>, para público que não fez o curso completo &mdash;
     é o uso para o qual foi desenhado.</li>
     <li><b>Como aprofundamento do Módulo 4</b>, na versão de 30 minutos, substituindo a exposição
     do art. 19 quando a turma já tiver maturidade normativa.</li>
@@ -642,10 +714,22 @@ Deu errado? Comunique. Não esconda.
   menos se beneficia do opt-out. Esse último não está em nenhuma outra peça do curso.</p>
 </div>
 
+<div class="desvio">
+  <p><b>A versão 2 muda uma coisa no curso.</b> O <a href="#s17">slide 17</a> é a advertência que
+  faltava ao bloco de anonimização do Módulo 4. Lá se demonstra uma ferramenta e se faz o exercício
+  de reescrever um parágrafo &mdash; e a pergunta que a turma sempre faz em seguida é
+  &ldquo;e se eu pedir para a própria IA anonimizar?&rdquo;. A resposta é este slide: no instante
+  em que o documento é colado, a exposição já ocorreu.</p>
+  <p>Quem aplicar o Módulo 4 deve dizer isso <b>antes</b> da demonstração, não depois &mdash; caso
+  contrário a turma sai com a ideia de que anonimizar é uma etapa da conversa com a IA. É uma etapa
+  anterior a ela. A hierarquia do slide 17 (não expor &gt; ferramenta institucional &gt;
+  anonimização) é o resumo mais curto do módulo inteiro.</p>
+</div>
+
 <div class="rodape">
   <p>Transcrição do roteiro &ldquo;Responsabilidade do Servidor no Uso de Dados em Ferramentas de
-  IA&rdquo;, com os campos de preenchimento completados a partir do material normativo conferido
-  do Curso Servidor + IA. Os blocos assinalados em amarelo indicam onde houve preenchimento, com a
+  IA&rdquo;, <b>versão 2</b> (com o bloco de anonimização), com os campos de preenchimento
+  completados a partir do material normativo conferido do Curso Servidor + IA. Os blocos assinalados em amarelo indicam onde houve preenchimento, com a
   fonte.</p>
   <p>A política de fornecedor citada foi consultada em 07/08/2026 e <b>precisa ser reconferida
   antes de cada turma</b>. A supervisão humana sobre qualquer saída de inteligência artificial é
