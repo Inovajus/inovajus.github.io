@@ -1,0 +1,657 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Roteiro de aula · Responsabilidade do servidor no uso de dados em ferramentas de IA</title>
+<style>
+  :root{
+    --tinta:#161616; --fundo:#ffffff; --suave:#5f5f5f; --linha:#e4e2e0;
+    --realce:#8a3b12; --caixa:#f7f4f1; --erro:#f3ece7; --forte:#f0e6de;
+    --verde:#2f6b46; --vermelho:#9c2f2f; --amarelo:#8a6a13;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --tinta:#efedeb; --fundo:#121212; --suave:#a9a5a1; --linha:#302e2c;
+           --realce:#ffab73; --caixa:#1d1b1a; --erro:#241d1a; --forte:#2a2320;
+           --verde:#7fd1a8; --vermelho:#ff8a8a; --amarelo:#ffc766; }
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0; background:var(--fundo); color:var(--tinta);
+    font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:17px; line-height:1.6;
+  }
+  .folha{ max-width:46rem; margin:0 auto; padding:2rem 1.1rem 5rem; }
+  header{ border-bottom:2px solid var(--realce); padding-bottom:1rem; margin-bottom:1.5rem; }
+  h1{ font-size:1.62rem; margin:0 0 .4rem; line-height:1.28; }
+  header p{ margin:0; color:var(--suave); font-size:.93rem; }
+  h2{ font-size:1.3rem; margin:3rem 0 .9rem; padding:1.1rem 0 0;
+      border-top:2px solid var(--realce); }
+  h2 .bl{ display:block; font-size:.72rem; text-transform:uppercase; letter-spacing:.1em;
+          color:var(--realce); font-weight:700; margin-bottom:.2rem; }
+  h3{ font-size:1.08rem; margin:2rem 0 .3rem; padding-top:1rem;
+      border-top:1px solid var(--linha); scroll-margin-top:1rem; }
+  h3 .sl{ display:block; font-size:.72rem; text-transform:uppercase; letter-spacing:.08em;
+          color:var(--suave); font-weight:700; margin-bottom:.15rem; }
+  h4{ font-size:.86rem; margin:1.2rem 0 .3rem; text-transform:uppercase;
+      letter-spacing:.05em; color:var(--suave); }
+  p{ margin:0 0 .7rem; }
+  ul, ol{ padding-left:1.25rem; margin:0 0 .7rem; }
+  li{ margin-bottom:.4rem; }
+  a{ color:var(--realce); }
+
+  .slide{ border-left:3px solid var(--realce); background:var(--caixa);
+          padding:.8rem 1.05rem; margin:.7rem 0 1rem; border-radius:0 9px 9px 0; }
+  .slide p{ margin:0 0 .5rem; } .slide p:last-child{ margin:0; }
+  .slide::before{ content:"No slide"; display:block; font-size:.68rem; text-transform:uppercase;
+                  letter-spacing:.09em; color:var(--realce); font-weight:700; margin-bottom:.4rem; }
+  .fala{ margin:.8rem 0; padding-left:.9rem; border-left:3px solid var(--linha); }
+  .fala::before{ content:"Fala do instrutor"; display:block; font-size:.68rem;
+                 text-transform:uppercase; letter-spacing:.09em; color:var(--suave);
+                 font-weight:700; margin-bottom:.25rem; }
+  .fala p{ font-style:italic; margin:0 0 .5rem; } .fala p:last-child{ margin:0; }
+  .porque{ background:var(--caixa); border-radius:9px; padding:.75rem 1rem; margin:.8rem 0;
+           font-size:.94rem; }
+  .porque p:last-child{ margin:0; }
+  .porque b{ color:var(--realce); }
+  .tempo{ display:inline-block; font-size:.74rem; font-weight:700; color:var(--realce);
+          letter-spacing:.05em; border:1px solid var(--linha); border-radius:99px;
+          padding:.12rem .6rem; margin-top:.5rem; }
+  .destaque{ background:var(--forte); border-radius:9px; padding:1rem 1.15rem; margin:1.1rem 0; }
+  .destaque p:last-child{ margin:0; }
+  .grande{ font-size:1.06rem; font-weight:700; }
+  .nota{ background:var(--caixa); border-radius:9px; padding:.8rem 1rem; margin:.9rem 0;
+         font-size:.94rem; }
+  .nota p:last-child{ margin:0; }
+  .desvio{ background:var(--erro); border-radius:9px; padding:.8rem 1rem; margin:.9rem 0;
+           font-size:.94rem; }
+  .desvio p:last-child{ margin:0; }
+  .desvio b{ color:var(--realce); }
+  .fonte{ font-family:ui-monospace,"Cascadia Mono",Consolas,monospace; font-size:.78rem;
+          color:var(--suave); border:1px solid var(--linha); border-radius:7px;
+          padding:.35rem .6rem; display:inline-block; margin:.4rem 0; }
+  .preenchido{ border-left:3px solid var(--amarelo); background:rgba(255,199,102,.08);
+               padding:.75rem 1rem; margin:.8rem 0; border-radius:0 9px 9px 0; font-size:.94rem; }
+  .preenchido::before{ content:"Preenchido pelo material do curso"; display:block;
+                       font-size:.66rem; text-transform:uppercase; letter-spacing:.09em;
+                       color:var(--amarelo); font-weight:700; margin-bottom:.35rem; }
+  .preenchido p:last-child{ margin:0; }
+  .rolagem{ overflow-x:auto; }
+  table{ width:100%; border-collapse:collapse; font-size:.93rem; margin:.5rem 0 1rem; }
+  th, td{ text-align:left; vertical-align:top; padding:.5rem .6rem;
+          border-bottom:1px solid var(--linha); }
+  th{ font-size:.72rem; text-transform:uppercase; letter-spacing:.04em; color:var(--suave); }
+  td.num{ white-space:nowrap; font-weight:700; color:var(--realce); }
+  .sim{ color:var(--verde); font-weight:700; }
+  .nao{ color:var(--vermelho); font-weight:700; }
+  .dep{ color:var(--amarelo); font-weight:700; }
+  .card{ border:2px solid var(--linha); border-radius:12px; padding:1.1rem 1.3rem;
+         margin:1rem 0; font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;
+         font-size:.86rem; line-height:1.7; white-space:pre-wrap; background:var(--caixa); }
+  .rodape{ margin-top:3.5rem; padding-top:1.2rem; border-top:1px solid var(--linha);
+           color:var(--suave); font-size:.87rem; }
+  @media print{
+    :root{ --tinta:#000; --fundo:#fff; --suave:#444; --linha:#bbb; --realce:#000;
+           --caixa:#f3f3f3; --erro:#eee; --forte:#eee; }
+    body{ font-size:10.5pt; }
+    .folha{ max-width:none; padding:0; }
+    .slide, .fala, .porque, .destaque, .nota, .desvio, .card, .preenchido{ page-break-inside:avoid; }
+    h2, h3{ page-break-after:avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="folha">
+
+<header>
+  <h1>Roteiro de aula &mdash; Responsabilidade do servidor no uso de dados em ferramentas de IA</h1>
+  <p><b>Módulo:</b> dados públicos, pessoais e sigilosos em ferramentas de IA &middot;
+  <b>Público:</b> servidores do Poder Judiciário, perfil leigo em tecnologia &middot;
+  <b>Duração:</b> 50 minutos &middot;
+  <b>Formato:</b> exposição dialogada + estudo de caso + exercício de classificação</p>
+</header>
+
+<div class="nota">
+  <p><b>Sobre esta versão.</b> Transcrição fiel do roteiro original, com uma única diferença: os
+  seis campos marcados como <i>[preencher]</i> foram preenchidos a partir do material normativo
+  já conferido do curso, como o próprio roteiro determina. Cada preenchimento está sinalizado em
+  bloco próprio, com a fonte, para que se possa conferir e discordar.</p>
+  <p>A política de fornecedor citada no Bloco 2 foi consultada em <b>07/08/2026</b>. Antes de
+  cada turma, reconfira &mdash; o próprio roteiro avisa que slide sem data vira desinformação em
+  seis meses.</p>
+</div>
+
+<h2>Ficha técnica</h2>
+
+<h4>Objetivo de aprendizagem</h4>
+<p>Ao final do módulo, o servidor deve ser capaz de:</p>
+<ol>
+  <li>Distinguir conta pessoal de conta institucional e identificar qual regime se aplica ao seu
+  uso.</li>
+  <li>Explicar por que a exposição de dado a uma IA é irreversível.</li>
+  <li>Aplicar uma regra de decisão de quatro perguntas antes de inserir qualquer conteúdo em uma
+  ferramenta de IA.</li>
+  <li>Saber o que fazer se o erro já tiver ocorrido.</li>
+</ol>
+
+<h4>Mensagem central &mdash; o que precisa sobrar depois de seis meses</h4>
+<div class="destaque">
+  <p class="grande">Configuração de privacidade é do fornecedor. Responsabilidade é sua.</p>
+</div>
+
+<h4>Material necessário</h4>
+<ul>
+  <li>Slides (21)</li>
+  <li>Folha de exercício impressa ou formulário digital (5 casos)</li>
+  <li>Card de bolso com a regra de decisão (opcional, entregar ao final) &mdash; ver
+  <a href="#anexob">Anexo B</a></li>
+</ul>
+
+<h2 id="b1"><span class="bl">Bloco 1 &middot; 6 minutos</span>Abertura</h2>
+
+<h3 id="s1"><span class="sl">Slide 1</span>Abertura provocativa</h3>
+<div class="slide">
+  <p><i>&ldquo;Quem aqui já colou um trecho de processo em uma IA?&rdquo;</i></p>
+</div>
+<p><b>Fala do instrutor:</b> não peça para levantar a mão. Use votação anônima (Mentimeter, papel,
+ou apenas silêncio deliberado de 5 segundos). O objetivo não é constranger &mdash; é fazer cada um
+responder para si mesmo.</p>
+<div class="fala">
+  <p>&ldquo;Se você respondeu sim, você não é exceção. Você é a regra. E é exatamente por isso que
+  este módulo existe.&rdquo;</p>
+</div>
+<div class="porque">
+  <p><b>Por que assim:</b> se a plateia entrar na defensiva, o módulo morre. Estabeleça desde o
+  início que o problema não é má-fé &mdash; é desconhecimento.</p>
+</div>
+<span class="tempo">2 min</span>
+
+<h3 id="s2"><span class="sl">Slide 2</span>O que este módulo NÃO é</h3>
+<div class="slide">
+  <p><span class="nao">✕</span> Não é uma proibição de usar IA<br>
+  <span class="nao">✕</span> Não é aula de tecnologia<br>
+  <span class="sim">✓</span> É sobre onde termina a sua conta e começa a responsabilidade do
+  órgão</p>
+</div>
+<div class="fala">
+  <p>&ldquo;Ninguém vai sair daqui com medo de usar IA. Vai sair sabendo em que condições pode
+  usar. São coisas diferentes.&rdquo;</p>
+</div>
+<span class="tempo">2 min</span>
+
+<h3 id="s3"><span class="sl">Slide 3</span>Objetivos do módulo</h3>
+<div class="slide">
+  <p>Os quatro objetivos de aprendizagem da ficha técnica, em tópicos.</p>
+</div>
+<span class="tempo">2 min</span>
+
+<h2 id="b2"><span class="bl">Bloco 2 &middot; 18 minutos</span>Estudo de caso: lendo os termos de um fornecedor</h2>
+
+<h3 id="s4"><span class="sl">Slide 4</span>O documento</h3>
+<p><b>No slide:</b> o texto da Anthropic (Central de Privacidade), em fonte legível, com destaque
+em quatro trechos que serão dissecados.</p>
+<div class="slide">
+  <p><i>&ldquo;Este artigo é sobre nossos produtos de consumo, como Claude Free, Pro,
+  Max…&rdquo;</i></p>
+  <p><i>&ldquo;Se você decidir desativar a configuração de treinamento de modelos, não usaremos
+  novos chats… Seus dados ainda serão incluídos no treinamento de modelos que já começou e em
+  modelos que já foram treinados…&rdquo;</i></p>
+  <p><i>&ldquo;Se nossos classificadores de segurança sinalizarem suas conversas, eles ainda podem
+  ser usados para melhorar nossos modelos internos de confiança e segurança…&rdquo;</i></p>
+</div>
+<p><b>Rodapé obrigatório do slide:</b></p>
+<p class="fonte">Fonte: Anthropic Privacy Center &mdash; privacy.claude.com. Artigo atualizado em
+01/07/2026. Consultado em 07/08/2026. Tradução livre.</p>
+<div class="fala">
+  <p>&ldquo;Vamos usar a Anthropic como exemplo por um motivo simples: eles escrevem com clareza.
+  Não é que sejam piores &mdash; é que dá para ler. A lógica de OpenAI, Google e os demais é a
+  mesma. O exercício de hoje é aprender a ler qualquer um deles.&rdquo;</p>
+</div>
+<span class="tempo">3 min</span>
+
+<h3 id="s5"><span class="sl">Slide 5</span>Lição 1: existem dois regimes dentro da mesma marca</h3>
+<div class="rolagem">
+<table>
+  <tr><th>&nbsp;</th><th>Conta pessoal (Free / Pro / Max)</th><th>Conta institucional (Work / Enterprise / API)</th></tr>
+  <tr><td><b>Treinamento com seus dados</b></td>
+      <td>Ativado por padrão &mdash; precisa desligar</td>
+      <td>Vedado por contrato</td></tr>
+  <tr><td><b>Retenção</b></td>
+      <td>30 dias, ou até 5 anos se o treinamento estiver ligado</td>
+      <td>Definida em contrato / DPA</td></tr>
+  <tr><td><b>Quem responde</b></td>
+      <td>O servidor, pessoalmente</td>
+      <td>O órgão, institucionalmente</td></tr>
+</table>
+</div>
+<div class="fala">
+  <p>&ldquo;Mesmo logo. Mesma tela. Mesmo modelo. Regime jurídico completamente diferente. O que
+  define não é a ferramenta &mdash; é o contrato por trás da sua conta.&rdquo;</p>
+</div>
+<span class="tempo">3 min</span>
+
+<h3 id="s6"><span class="sl">Slide 6</span>A armadilha do &ldquo;eu pago do meu bolso&rdquo;</h3>
+<div class="slide">
+  <p>Conta pessoal + computador do trabalho + processo na tela = <b>você</b>, sozinho,
+  respondendo.</p>
+</div>
+<div class="fala">
+  <p>&ldquo;Esse é o cenário mais comum e o mais perigoso. Não é o servidor mal-intencionado. É o
+  servidor produtivo, que assinou o plano com o próprio dinheiro para trabalhar melhor. O contrato
+  do tribunal não cobre essa conta. Juridicamente, ele é um cidadão qualquer que levou o processo
+  para fora.&rdquo;</p>
+</div>
+<p>Nome técnico disso em governança: <b>shadow AI</b>. É o risco número um em órgãos públicos
+hoje.</p>
+<span class="tempo">3 min</span>
+
+<h3 id="s7"><span class="sl">Slide 7</span>Lição 2: não existe botão de desfazer</h3>
+<p><b>No slide:</b> apenas a analogia, visual.</p>
+<div class="destaque">
+  <p class="grande">O dado é o açúcar. O modelo é o bolo.</p>
+  <p>Desligar o treinamento = <i>&ldquo;não coloquem meu açúcar nos próximos bolos&rdquo;</i>. Os
+  bolos já assados continuam doces.</p>
+</div>
+<div class="fala">
+  <p>&ldquo;Esta é a parte que ninguém entende de primeira, então vou repetir devagar. Quando o
+  dado entra em um treinamento, ele deixa de ser um arquivo e passa a ser parte da estrutura do
+  modelo. Não existe operação técnica que retire aquilo de lá. O próprio texto da empresa admite:
+  &lsquo;seus dados ainda serão incluídos em modelos que já foram treinados&rsquo;.&rdquo;</p>
+</div>
+<span class="tempo">3 min</span>
+
+<h3 id="s8"><span class="sl">Slide 8</span>Consequência: apagar a conversa não resolve</h3>
+<div class="slide">
+  <p>Apagar impede uso <b>futuro</b><br>
+  Apagar <b>não reverte</b> uso passado<br>
+  O erro não é corrigível &mdash; é consumado</p>
+</div>
+<div class="fala">
+  <p>&ldquo;O servidor que subiu um processo em segredo de justiça e apaga a conversa às 18h não
+  desfez nada. Ele apenas parou de piorar. Isso muda completamente a natureza do erro: não é um
+  deslize que se conserta, é um dano consumado.&rdquo;</p>
+</div>
+<span class="tempo">2 min</span>
+
+<h3 id="s9"><span class="sl">Slide 9</span>Lição 3: o botão não desliga tudo</h3>
+<div class="slide">
+  <p><i>&ldquo;Se nossos classificadores de segurança sinalizarem suas conversas, eles ainda podem
+  ser usados…&rdquo;</i></p>
+  <p><b>Treinamento desligado ≠ ninguém nunca vai olhar isso.</b></p>
+</div>
+<div class="fala">
+  <p>&ldquo;Existe um caminho paralelo, automático, que roda independentemente da sua
+  configuração. Se o conteúdo aciona um filtro de segurança, ele entra em outro fluxo &mdash; com
+  prazos próprios e mais longos.&rdquo;</p>
+</div>
+<span class="tempo">2 min</span>
+
+<h3 id="s10"><span class="sl">Slide 10</span>O ponto contraintuitivo &mdash; o mais forte da aula</h3>
+<div class="slide">
+  <p>Matéria criminal é exatamente o tipo de conteúdo que <b>aciona</b> classificadores de
+  segurança.</p>
+  <p>Violência sexual &middot; Tráfico &middot; Armas &middot; Crimes contra vulneráveis &middot;
+  Organização criminosa</p>
+  <p><b>O uso mais sensível é o que menos se beneficia do opt-out.</b></p>
+</div>
+<div class="fala">
+  <p>&ldquo;Aqui a intuição de vocês está invertida. Quem sobe uma denúncia criminal detalhada não
+  está no cenário de baixo risco. Está no cenário de maior probabilidade de ser sinalizado, retido
+  por mais tempo e eventualmente submetido a revisão. Justamente o material que mais precisava de
+  proteção é o que menos recebe.&rdquo;</p>
+</div>
+<div class="desvio">
+  <p><b>Pausa de 5 segundos aqui.</b> Deixe a sala processar.</p>
+</div>
+<span class="tempo">2 min</span>
+
+<h3 id="s11"><span class="sl">Slide 11</span>Os prazos reais</h3>
+<div class="rolagem">
+<table>
+  <tr><th>Situação</th><th>Prazo de retenção</th></tr>
+  <tr><td>Conversa apagada, treinamento desligado</td><td>Até 30 dias</td></tr>
+  <tr><td>Treinamento ligado</td><td>Até 5 anos (formato desidentificado)</td></tr>
+  <tr><td>Conversa sinalizada pelos filtros de segurança</td><td>Entradas e saídas: até 2 anos</td></tr>
+  <tr><td>Pontuação de classificação da conversa sinalizada</td><td>Até 7 anos</td></tr>
+</table>
+</div>
+<p class="fonte">Fonte: Anthropic Privacy Center, art. &ldquo;How long do you store my data?&rdquo;,
+atualizado em 01/07/2026.</p>
+<div class="fala">
+  <p>&ldquo;Sete anos. Guardem esse número. É mais tempo do que muita coisa fica no arquivo do
+  próprio tribunal.&rdquo;</p>
+</div>
+<span class="tempo">2 min</span>
+
+<h2 id="b3"><span class="bl">Bloco 3 &middot; 5 minutos</span>O que o texto não diz</h2>
+
+<h3 id="s12"><span class="sl">Slide 12</span>Aprenda a ler o silêncio</h3>
+<p>O documento <b>não</b> afirma que:</p>
+<div class="slide">
+  <p>o dado não é armazenado <i>(o opt-out trata de treinamento, não de retenção)</i><br>
+  nunca há acesso humano<br>
+  o uso é lícito no Brasil<br>
+  o órgão está eximido de responsabilidade</p>
+</div>
+<div class="fala">
+  <p>&ldquo;Em termos de uso, o que não está escrito importa tanto quanto o que está. Ninguém
+  prometeu que o dado não fica guardado. A promessa foi outra, bem mais estreita: não usar para
+  treinar. São coisas diferentes.&rdquo;</p>
+</div>
+<span class="tempo">2 min</span>
+
+<h3 id="s13"><span class="sl">Slide 13</span>O ponto de virada da aula</h3>
+<p><b>No slide, sozinho, em fonte grande:</b></p>
+<div class="destaque">
+  <p class="grande">Configuração de privacidade não é base legal.</p>
+</div>
+<div class="fala">
+  <p>&ldquo;Todo mundo aqui vai chegar sozinho a esta conclusão: &lsquo;se eu desligar o
+  treinamento, posso usar com dado de processo&rsquo;. Está errado &mdash; e por um motivo que não
+  tem nada a ver com a empresa americana.&rdquo;</p>
+  <p>&ldquo;Ao inserir dado pessoal ou sigiloso em um serviço não contratado pelo órgão, você
+  realiza uma operação de tratamento de dados: transferência a terceiro, inclusive internacional.
+  Sem base legal, sem contrato, sem avaliação de impacto, sem autorização institucional.&rdquo;</p>
+  <p>&ldquo;Ainda que a empresa prometesse retenção zero e nenhum treinamento, a conduta
+  continuaria irregular. O ilícito está no ato de expor, não no destino do dado.&rdquo;</p>
+</div>
+<span class="tempo">3 min</span>
+
+<h2 id="b4"><span class="bl">Bloco 4 &middot; 5 minutos</span>Ancoragem normativa</h2>
+
+<h3 id="s14"><span class="sl">Slide 14</span>De onde vem a sua responsabilidade</h3>
+<div class="rolagem">
+<table>
+  <tr><th>Norma</th><th>O que impõe</th></tr>
+  <tr><td>LGPD, art. 6º</td>
+      <td>Princípio da finalidade &mdash; dado coletado para um fim não pode ser usado para
+      outro</td></tr>
+  <tr><td>LGPD, art. 11</td>
+      <td>Dado sensível (saúde, biometria, convicção) tem regime reforçado</td></tr>
+  <tr><td>LGPD, art. 48</td>
+      <td>Dever de comunicar incidente de segurança</td></tr>
+  <tr><td><b>Res. CNJ 615/2025,<br>art. 19, § 3º, III</b></td>
+      <td>Veda o uso dos dados fornecidos pelos usuários do Judiciário &mdash; e dos inferidos a
+      partir deles &mdash; para treinamento. <b>É o dispositivo que transforma &ldquo;desligar o
+      treinamento&rdquo; de preferência em requisito.</b></td></tr>
+  <tr><td><b>Res. CNJ 615/2025,<br>art. 19, § 3º, IV</b></td>
+      <td>Veda ferramenta privada ou externa para dado sigiloso ou sob segredo de justiça, salvo
+      anonimização <b>na origem</b></td></tr>
+  <tr><td><b>Res. CNJ 615/2025,<br>art. 19, § 3º, II</b></td>
+      <td>Caráter auxiliar; o magistrado <b>permanece integralmente responsável</b></td></tr>
+  <tr><td><b>Res. CNJ 615/2025,<br>art. 19, § 7º</b></td>
+      <td>Quem contrata solução de mercado &mdash; ou o gestor cuja equipe a use &mdash; deve
+      prestar informações ao tribunal</td></tr>
+  <tr><td>Segredo de justiça</td>
+      <td>Vedação autônoma: incide independentemente de anonimização ou de configuração</td></tr>
+</table>
+</div>
+
+<div class="preenchido">
+  <p>O roteiro original deixava os dispositivos da Resolução 615 como <i>[preencher]</i>, com a
+  advertência de não citar de memória. Os quatro acima foram transcritos do texto oficial &mdash;
+  íntegra anexa à Nota Técnica 65/2026 do Centro Nacional de Inteligência da Justiça Federal.
+  O detalhamento de cada um está em
+  <a href="https://inovajus.github.io/tjce/normas-comentadas.html">As duas normas, no que
+  importa</a>.</p>
+  <p><b>O § 3º, III é o dispositivo-chave deste módulo</b>, e vale dizê-lo em voz alta: ele é o que
+  liga o slide 5 (o botão de treinamento) à responsabilidade normativa. Sem ele, o módulo fica
+  sendo sobre política de empresa; com ele, é sobre norma do Judiciário.</p>
+</div>
+
+<div class="preenchido">
+  <p><b>Normativo interno do órgão</b> &mdash; preencha conforme a turma:</p>
+  <p><b>TJCE:</b> Portaria 153/2026 (criação e utilização de robôs) e Resolução do Órgão Especial
+  nº 40/2022 (Política Geral de Privacidade e Proteção de Dados Pessoais). Encarregado de dados:
+  Des. Carlos Augusto Gomes Correia &mdash;
+  <span class="fonte">encarregado.lgpd@tjce.jus.br</span></p>
+  <p><b>Justiça Federal:</b> Resoluções CNJ 363/2021 e 396/2021; no TRF5, Portaria Conjunta nº 2,
+  de 03/07/2025, que institui o Grupo de Trabalho de IA. Encarregado de dados do TRF5 &mdash;
+  <span class="fonte">encarregado_lgpd@trf5.jus.br</span></p>
+</div>
+
+<div class="desvio">
+  <p><b>Advertência do roteiro original, mantida:</b> se você citar dispositivo normativo errado,
+  perde a autoridade do módulo inteiro. Confira os artigos acima no texto oficial antes de
+  projetar &mdash; especialmente se a turma for de outro ramo ou tribunal.</p>
+</div>
+<span class="tempo">3 min</span>
+
+<h3 id="s15"><span class="sl">Slide 15</span>Dado público não é dado livre</h3>
+<div class="slide">
+  <p>Processo público ≠ dado de uso livre</p>
+  <p>Publicidade processual tem <b>finalidade específica</b>: controle social da jurisdição.</p>
+  <p>Reutilizar aquele dado para outra finalidade exige base legal própria.</p>
+</div>
+<div class="fala">
+  <p>&ldquo;Essa confusão é frequente aqui dentro. &lsquo;O processo é público, então posso.&rsquo;
+  Não. Público significa acessível, não reutilizável para qualquer fim. O princípio é da
+  finalidade, não do acesso.&rdquo;</p>
+</div>
+<div class="nota">
+  <p><b>Base literal, se alguém pedir:</b> LGPD, art. 7º, § 3º &mdash; <i>&ldquo;o tratamento de
+  dados pessoais cujo acesso é público deve considerar a finalidade, a boa-fé e o interesse
+  público que justificaram sua disponibilização&rdquo;</i>.</p>
+</div>
+<span class="tempo">2 min</span>
+
+<h2 id="b5"><span class="bl">Bloco 5 &middot; 12 minutos</span>Aplicação</h2>
+
+<h3 id="s16"><span class="sl">Slide 16</span>A regra de decisão: 4 perguntas</h3>
+<p><b>Pare na primeira pergunta que der não.</b></p>
+<div class="slide">
+  <p><b>1. A ferramenta é institucional?</b> (contratada pelo órgão, conta corporativa)</p>
+  <p><b>2. O conteúdo está livre de sigilo ou segredo de justiça?</b></p>
+  <p><b>3. O conteúdo está livre de dado pessoal identificável?</b> (nome, CPF, endereço, saúde,
+  filiação)</p>
+  <p><b>4. Eu justificaria isso por escrito à corregedoria?</b></p>
+</div>
+<span class="tempo">2 min</span>
+
+<h3 id="s17"><span class="sl">Slide 17</span>O teste de bolso</h3>
+<div class="slide">
+  <p><b>&ldquo;Eu colaria esse texto em um grupo de WhatsApp de desconhecidos?&rdquo;</b></p>
+  <p>Se não &rarr; também não vai para a IA em conta pessoal.</p>
+</div>
+<div class="fala">
+  <p>&ldquo;O nível de controle sobre o destino é comparável. Com uma diferença: no WhatsApp, o
+  prazo de retenção é menor.&rdquo;</p>
+</div>
+<span class="tempo">1 min</span>
+
+<h3 id="s18"><span class="sl">Slide 18</span>Exercício: classifique os casos</h3>
+<p><b>Dinâmica:</b> distribua os 5 casos. Duplas, 4 minutos. Depois, discussão aberta,
+4 minutos.</p>
+
+<div class="rolagem">
+<table>
+  <tr><th>#</th><th>Situação</th><th>Resposta</th></tr>
+  <tr>
+    <td class="num">1</td>
+    <td>Colar ementa de acórdão já publicado no Diário, em conta pessoal, para pedir um resumo</td>
+    <td><span class="dep">Depende.</span> Publicado é público, mas ementas costumam conter nomes.
+    Remova a identificação e o caso vira verde.</td>
+  </tr>
+  <tr>
+    <td class="num">2</td>
+    <td>Subir petição inicial de benefício assistencial com laudo médico, em conta Pro pessoal</td>
+    <td><span class="nao">Não.</span> Dado de saúde é dado sensível (LGPD, art. 11), em conta sem
+    contrato institucional.</td>
+  </tr>
+  <tr>
+    <td class="num">3</td>
+    <td>Pedir melhoria de redação de ofício administrativo sem dados pessoais</td>
+    <td><span class="sim">Sim.</span> Sem dado pessoal, sem sigilo.</td>
+  </tr>
+  <tr>
+    <td class="num">4</td>
+    <td>Subir denúncia de crime sexual contra vulnerável para gerar relatório</td>
+    <td><span class="nao">Não, duas vezes.</span> Segredo de justiça + conteúdo que aciona filtro
+    de segurança e é retido por mais tempo.</td>
+  </tr>
+  <tr>
+    <td class="num">5</td>
+    <td>Colar processo em segredo de justiça <b>com o treinamento desligado</b></td>
+    <td><span class="nao">Não.</span> Esta é a armadilha da aula. Desligar o treinamento não cria
+    base legal.</td>
+  </tr>
+</table>
+</div>
+
+<div class="fala">
+  <p>&ldquo;O caso 5 é o que separa quem entendeu de quem decorou. Se alguém aqui marcou verde no
+  5, tudo bem &mdash; era esse o objetivo da pergunta.&rdquo;</p>
+</div>
+<span class="tempo">8 min</span>
+
+<h3 id="s19"><span class="sl">Slide 19</span>E se já aconteceu?</h3>
+<div class="slide">
+  <p><b>1. Não esconda.</b> Registre o que ocorreu.</p>
+  <p><b>2. Comunique</b> a chefia imediata e o encarregado de dados do órgão.</p>
+  <p><b>3. Descreva:</b> o que foi inserido, quando, qual ferramenta, qual conta.</p>
+  <p><b>4. Apague a conversa</b> &mdash; impede uso futuro, não reverte o passado.</p>
+  <p><b>5. Avalie a comunicação</b> à Autoridade Nacional e aos titulares (LGPD, art. 48).</p>
+  <p><b>6. Registre como incidente</b> para a governança institucional.</p>
+</div>
+<div class="fala">
+  <p>&ldquo;Este slide talvez seja o mais importante para alguém nesta sala agora. Erro comunicado
+  é incidente gerenciável. Erro escondido é infração disciplinar. A diferença entre os dois é uma
+  conversa de cinco minutos com a chefia.&rdquo;</p>
+</div>
+<span class="tempo">2 min</span>
+
+<h2 id="b6"><span class="bl">Bloco 6 &middot; 4 minutos</span>Fechamento</h2>
+
+<h3 id="s20"><span class="sl">Slide 20</span>As três frases</h3>
+<p><b>No slide, uma por vez (animação):</b></p>
+<div class="destaque">
+  <p class="grande">1. Configuração de privacidade é do fornecedor. Responsabilidade é sua.</p>
+</div>
+<div class="destaque">
+  <p class="grande">2. Treinamento de IA é irreversível. Não existe botão de desfazer.</p>
+</div>
+<div class="destaque">
+  <p class="grande">3. Na dúvida sobre o dado, a ferramenta certa é a institucional &mdash; ou
+  nenhuma.</p>
+</div>
+<span class="tempo">2 min</span>
+
+<h3 id="s21"><span class="sl">Slide 21</span>Referências e canais</h3>
+<div class="slide">
+  <p>Anthropic Privacy Center &mdash; <span class="fonte">privacy.claude.com</span>
+  <i>(consultado em 07/08/2026)</i></p>
+  <p>LGPD &mdash; Lei 13.709/2018</p>
+  <p>Resolução CNJ 615/2025</p>
+  <p>Normativo interno, encarregado de dados e ferramentas homologadas: ver o
+  <a href="#s14">quadro do slide 14</a>, já preenchido para as duas turmas</p>
+</div>
+<span class="tempo">2 min</span>
+
+<h2 id="anexoa">Anexo A &mdash; perguntas que a plateia vai fazer</h2>
+
+<h4>&ldquo;E se eu anonimizar antes?&rdquo;</h4>
+<p>Anonimização real é mais difícil do que parece. Trocar o nome por iniciais não anonimiza: o
+contexto reidentifica (número do processo, comarca, data, doença rara, cargo público).
+<b>Anonimização é técnica, não cosmética.</b> Se o órgão tem ferramenta própria de anonimização,
+use a ferramenta.</p>
+
+<h4>&ldquo;ChatGPT e Gemini são iguais?&rdquo;</h4>
+<p>A arquitetura de risco é a mesma: conta pessoal tem regime de consumo, conta corporativa tem
+contrato. Os detalhes (prazos, opt-out ligado ou desligado por padrão) variam por fornecedor e
+mudam com frequência. Verifique cada um, com data.</p>
+
+<h4>&ldquo;E o modo anônimo / incógnito?&rdquo;</h4>
+<p>No Claude, conversas em modo Incognito não são usadas para melhorar o modelo. Isso reduz um
+risco específico &mdash; não cria base legal para expor dado sigiloso. Continua sendo serviço de
+terceiro não contratado.</p>
+
+<h4>&ldquo;Posso usar no meu celular pessoal, fora do expediente?&rdquo;</h4>
+<p>O dado continua sendo do processo, não seu. Horário e dispositivo não alteram o regime jurídico
+do dado.</p>
+
+<h4>&ldquo;Se a IA é do tribunal, posso subir qualquer coisa?&rdquo;</h4>
+<p>Não. A ferramenta institucional resolve o problema do contrato e da transferência, não o da
+finalidade nem o da revisão humana. Continua valendo o dever de conferir tudo que a IA produzir.</p>
+
+<h2 id="anexob">Anexo B &mdash; card de bolso, para impressão</h2>
+
+<div class="card">ANTES DE COLAR QUALQUER COISA NA IA
+
+1. A ferramenta é institucional?
+2. Está livre de sigilo?
+3. Está livre de dado pessoal?
+4. Eu explicaria isso à corregedoria?
+
+Um "não" = pare.
+
+Deu errado? Comunique. Não esconda.
+[contato do encarregado de dados]</div>
+
+<div class="preenchido">
+  <p>Contato do encarregado, para imprimir conforme a turma:</p>
+  <p><b>TJCE</b> &mdash; <span class="fonte">encarregado.lgpd@tjce.jus.br</span><br>
+  <b>Justiça Federal (TRF5)</b> &mdash; <span class="fonte">encarregado_lgpd@trf5.jus.br</span></p>
+</div>
+
+<h2 id="notas">Notas ao instrutor</h2>
+
+<h4>Onde a aula costuma falhar</h4>
+<ul>
+  <li>Se você abrir com proibição, a sala se fecha e o <i>shadow AI</i> continua &mdash; só que
+  agora escondido de você.</li>
+  <li>Se você não fizer o exercício, a plateia sai achando que entendeu. <b>O caso 5 é o teste
+  real.</b></li>
+  <li>Se você citar dispositivo normativo errado, perde a autoridade do módulo inteiro.</li>
+</ul>
+
+<h4>Sinalizações de incerteza a manter em mente</h4>
+<ul>
+  <li>Políticas de fornecedores de IA mudam rápido. Reconfira a fonte antes de cada turma e
+  mantenha a data no rodapé do slide. <b>Um slide sem data vira desinformação em seis meses.</b></li>
+  <li>Os prazos de retenção citados (30 dias / 5 anos / 2 anos / 7 anos) foram verificados na
+  Central de Privacidade da Anthropic em 07/08/2026. Reconfira.</li>
+</ul>
+
+<h4>Ajuste de duração</h4>
+<ul>
+  <li><b>Versão de 30 min:</b> corte os slides 2, 12 e 15 e reduza o exercício a 3 casos
+  (2, 4, 5).</li>
+  <li><b>Versão de 90 min:</b> expanda o Bloco 4 com leitura conjunta da Resolução CNJ 615/2025 e
+  acrescente uma oficina de anonimização.</li>
+</ul>
+
+<h2 id="encaixe">Como isto se encaixa no Curso Servidor + IA</h2>
+
+<div class="nota">
+  <p>Este módulo <b>não substitui</b> nenhum bloco do curso &mdash; ele aprofunda um ponto que o
+  Módulo 4 trata em poucos minutos: a conta pessoal paga do próprio bolso. É o mesmo ponto da
+  etapa 4 do exercício final, e a mesma armadilha da questão 13 do pós-teste.</p>
+  <p><b>Três encaixes possíveis:</b></p>
+  <ul>
+    <li><b>Como aula avulsa de 50 minutos</b>, para público que não fez o curso completo &mdash;
+    é o uso para o qual foi desenhado.</li>
+    <li><b>Como aprofundamento do Módulo 4</b>, na versão de 30 minutos, substituindo a exposição
+    do art. 19 quando a turma já tiver maturidade normativa.</li>
+    <li><b>Como material de leitura</b> entregue depois do curso, para quem perguntar sobre conta
+    pessoal &mdash; que é a pergunta que mais volta.</li>
+  </ul>
+  <p><b>O que ele acrescenta e o curso não tem:</b> a leitura de um termo de fornecedor real, com
+  data e fonte; a analogia do açúcar e do bolo; os prazos concretos de retenção; e o ponto
+  contraintuitivo do slide 10 &mdash; que matéria criminal é o conteúdo que mais aciona filtros e
+  menos se beneficia do opt-out. Esse último não está em nenhuma outra peça do curso.</p>
+</div>
+
+<div class="rodape">
+  <p>Transcrição do roteiro &ldquo;Responsabilidade do Servidor no Uso de Dados em Ferramentas de
+  IA&rdquo;, com os campos de preenchimento completados a partir do material normativo conferido
+  do Curso Servidor + IA. Os blocos assinalados em amarelo indicam onde houve preenchimento, com a
+  fonte.</p>
+  <p>A política de fornecedor citada foi consultada em 07/08/2026 e <b>precisa ser reconferida
+  antes de cada turma</b>. A supervisão humana sobre qualquer saída de inteligência artificial é
+  obrigatória, nos termos da Resolução 615, de 2025, do Conselho Nacional de Justiça.</p>
+</div>
+
+</div>
+</body>
+</html>
