@@ -515,6 +515,11 @@ button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
   function perguntar(q) {
     q = (q || '').trim();
     if (!q) return;
+    // A tela de partida some no primeiro envio, venha ele de um chip ou do campo
+    // digitado — deixá-la no rodapé durante a conversa fazia o fluxo parecer que
+    // não tinha começado.
+    var partida = document.querySelector('.partida');
+    if (partida) partida.classList.add('sumiu');
     bolha('eu', esc(q));
     campo.value = '';
 
@@ -547,10 +552,7 @@ button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
   });
 
   document.querySelectorAll('.partida [data-q]').forEach(function (b) {
-    b.onclick = function () {
-      document.querySelector('.partida').classList.add('sumiu');
-      perguntar(b.dataset.q);
-    };
+    b.onclick = function () { perguntar(b.dataset.q); };
   });
 
   var btLimpar = document.querySelector('[data-limpar]');
