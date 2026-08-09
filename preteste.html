@@ -847,7 +847,11 @@ function fim(c) {
   cx.appendChild(linha);
   cx.appendChild(elem("p", "obs fraca", "O código não contém seu nome. Ele guarda apenas as " +
     "respostas que você marcou."));
-  b.appendChild(cx);
+  // Com envio automático configurado, a caixa do código NÃO aparece no fluxo
+  // normal (decisão do Victor, 09/08: sem utilidade). Ela só entra em cena se o
+  // envio falhar — é a rede de segurança para a resposta não se perder.
+  var temEndpoint = typeof ENDPOINT === "string" && ENDPOINT;
+  if (!temEndpoint) b.appendChild(cx);
 
   var re = elem("button", "bt", "Revisar minhas respostas"); re.type = "button";
   re.addEventListener("click", function () { vai(1); });
@@ -858,7 +862,7 @@ function fim(c) {
   // O servidor corrige (o gabarito vive lá, nunca nesta página) e devolve o
   // próprio placar + o índice geral — decisão do Victor para a turma remota:
   // sem gabarito na tela; as aulas esclarecem as dúvidas.
-  if (typeof ENDPOINT === "string" && ENDPOINT) {
+  if (temEndpoint) {
     estado.textContent = "Enviando…";
     fetch(ENDPOINT, {
       method: "POST",
@@ -867,13 +871,13 @@ function fim(c) {
     }).then(function (r) { return r.json(); }).then(function (d) {
       if (!d || !d.ok) throw new Error(d && d.erro);
       estado.className = "envio-estado ok";
-      estado.textContent = "Respostas registradas automaticamente. Você não precisa fazer " +
-        "mais nada — o código abaixo fica como recibo.";
+      estado.textContent = "Respostas registradas automaticamente. Você não precisa fazer mais nada.";
       placar(slotPlacar, d);
     }).catch(function () {
       estado.className = "envio-estado aviso";
       estado.textContent = "Não consegui enviar sozinho. Copie o código abaixo e mande pelo " +
         "canal da turma — ele vale como resposta.";
+      b.insertBefore(cx, re);
     });
   } else {
     estado.className = "envio-estado aviso";
