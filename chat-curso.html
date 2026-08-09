@@ -539,15 +539,12 @@ button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
       var rot = r.u.k === 'qa' ? r.u.ref.p : r.u.ref.titulo;
       return { q: rot, r: rot };
     });
-    var html = '<p>Encontrei mais de um caminho para isso. Qual deles você quer?</p>'
-      + chips(op);
-    // pergunta que abrange vários caminhos é onde a IA mais ajuda: ela recebe
-    // os candidatos e sintetiza uma resposta única
-    if (iaURL()) {
-      html += '<button class="btn-ia" data-ia="' + esc(q) + '">'
-        + 'Elaborar uma resposta única com a IA do curso</button>';
-    }
-    bolha('bot', html);
+    bolha('bot', '<p>Encontrei mais de um caminho para isso. Qual deles você quer?</p>'
+      + chips(op));
+    // pergunta que abrange vários caminhos é onde a IA mais ajuda: dispara
+    // sozinha e sintetiza os candidatos (decisão do Victor, 09/08 — IA
+    // automática onde o local é fraco; nas mapeadas, curada + botão)
+    if (iaURL() && !cheiroDeDadoReal(q)) pedirIA(q);
   }
 
   function naoSei(q) {
@@ -560,13 +557,11 @@ button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
     }
     html += '<p class="de">Se a dúvida for de conteúdo, leve ao chat da aula: ela é tratada '
       + 'ao final de cada encontro.</p>';
-    if (iaURL()) {
-      html += '<button class="btn-ia" data-ia="' + esc(q) + '">'
-        + 'Tentar com a IA do curso mesmo assim</button>';
-    }
     bolha('bot', html);
     var reg = ls('lacunas') || [];
     if (reg.indexOf(q) < 0) { reg.push(q); ls('lacunas', reg); }
+    // material não cobre = o caso mais forte para a IA tentar — dispara sozinha
+    if (iaURL() && !cheiroDeDadoReal(q)) pedirIA(q);
   }
 
   // ------------------------------------------------------------- IA ---
