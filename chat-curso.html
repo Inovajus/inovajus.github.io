@@ -534,13 +534,20 @@ button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
     bolha('bot', html);
   }
 
-  function ambiguo(res) {
+  function ambiguo(res, q) {
     var op = res.slice(0, 3).map(function (r) {
       var rot = r.u.k === 'qa' ? r.u.ref.p : r.u.ref.titulo;
       return { q: rot, r: rot };
     });
-    bolha('bot', '<p>Encontrei mais de um caminho para isso. Qual deles você quer?</p>'
-      + chips(op));
+    var html = '<p>Encontrei mais de um caminho para isso. Qual deles você quer?</p>'
+      + chips(op);
+    // pergunta que abrange vários caminhos é onde a IA mais ajuda: ela recebe
+    // os candidatos e sintetiza uma resposta única
+    if (iaURL()) {
+      html += '<button class="btn-ia" data-ia="' + esc(q) + '">'
+        + 'Elaborar uma resposta única com a IA do curso</button>';
+    }
+    bolha('bot', html);
   }
 
   function naoSei(q) {
@@ -642,7 +649,7 @@ button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
     if (!res.length) { naoSei(q); return; }
     // Margem pequena entre o primeiro e o segundo = a pergunta não decidiu nada.
     if (res.length > 1 && res[1].s > res[0].s * 0.82 && res[0].u.k !== 'qa') {
-      ambiguo(res); return;
+      ambiguo(res, q); return;
     }
     responder(res[0].u, q);
   }
