@@ -256,11 +256,13 @@ code.codigo{display:block;font-family:var(--mono);font-size:12.5px;line-height:1
 <main>
   <section class="entrada-dados" id="entrada">
     <h2>De onde vêm as respostas</h2>
-    <p class="obs">Cole os <b>códigos</b> que os alunos enviaram — um por linha — ou carregue o
-    arquivo de respostas, se você usou formulário do Google.</p>
+    <p class="obs"><b>Carregar respostas da turma</b> busca tudo o que já foi enviado e apura de
+    uma vez. Os outros caminhos continuam valendo: colar os <b>códigos</b> recebidos — um por
+    linha — ou carregar o arquivo de respostas de formulário do Google.</p>
     <textarea id="codigos" spellcheck="false" placeholder="PT2.eyJ2IjoyLCJ0Ijo…&#10;PT2.eyJ2IjoyLCJ0Ijo…"></textarea>
     <div class="linha-bt">
-      <button type="button" class="bt primario" id="bt-codigos">Apurar os códigos</button>
+      <button type="button" class="bt primario" id="bt-turma" hidden>Carregar respostas da turma</button>
+      <button type="button" class="bt" id="bt-codigos">Apurar os códigos colados</button>
       <label class="bt" for="arq-csv">Carregar .csv</label>
       <input type="file" id="arq-csv" accept=".csv,text/csv" hidden>
       <button type="button" class="bt" id="bt-exemplo">Ver com dados de exemplo</button>
@@ -726,6 +728,8 @@ var QUESTOES = [
   }
  }
 ];
+var ENDPOINT = "https://script.google.com/macros/s/AKfycbx7Ayf62G5DHHXv5ENIxLKYiqh7izMDHA-l5PmEiZVQGD5zMqW3gDVQsMV2kkfXxY5z/exec";
+var CHAVE_APURACAO = "ap-jfce-2026-7b41c9e2";
 </script>
 <script>/* Resultados do pré-teste — página de discussão em sala.
    Recebe os códigos dos alunos (ou o CSV), mostra a DISTRIBUIÇÃO das respostas por
@@ -929,6 +933,35 @@ function comeca(fonte) {
   $("#painel").hidden = false;
   $("#fonte").textContent = fonte;
   pinta();
+}
+
+/* Carga automática: busca os códigos na base do pré-teste e apura de uma vez.
+   O botão só existe se houver endereço configurado — sem ele, o caminho continua
+   sendo colar os códigos à mão. */
+if (typeof ENDPOINT === "string" && ENDPOINT) {
+  var btT = $("#bt-turma");
+  btT.hidden = false;
+  btT.addEventListener("click", function () {
+    btT.disabled = true;
+    estado("Buscando as respostas da turma…");
+    fetch(ENDPOINT + "?k=" + encodeURIComponent(CHAVE_APURACAO))
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        if (!d || !d.ok || !d.codigos) throw new Error("resposta inesperada");
+        var ok = [], ruins = 0;
+        d.codigos.forEach(function (c) {
+          try { ok.push(deCodigo(c)); } catch (e) { ruins++; }
+        });
+        if (!ok.length) { estado("Ainda não há respostas registradas.", "aviso"); btT.disabled = false; return; }
+        respostas = ok;
+        estado(ruins ? ruins + " resposta(s) ilegível(is) ignorada(s)." : "", ruins ? "aviso" : "");
+        comeca(ok.length + " respostas da turma");
+      })
+      .catch(function () {
+        estado("Não consegui buscar as respostas. Verifique a conexão ou cole os códigos abaixo.", "erro");
+        btT.disabled = false;
+      });
+  });
 }
 
 $("#bt-codigos").addEventListener("click", function () {

@@ -159,6 +159,16 @@ main{max-width:820px;margin:0 auto;padding:26px clamp(18px,4vw,40px) 130px}
 .nav-in .pos{font-size:12.5px;color:var(--faint);font-variant-numeric:tabular-nums}
 
 /* fim do teste */
+.placar{margin:22px 0 4px;padding:20px 22px;border-radius:.75rem;background:var(--recuo);
+  border:1px solid var(--card-bd)}
+.placar .rot{display:block;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--faint);margin-bottom:8px}
+.placar-num{font-size:clamp(18px,2.6vw,23px);font-weight:650;line-height:1.35;margin:0 0 12px}
+.placar-mod{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+.placar-mod .pm{font-size:13px;color:var(--soft);background:var(--bg);
+  border:1px solid var(--pill-bd);border-radius:999px;padding:5px 12px}
+.placar-turma{font-size:14.5px;line-height:1.55;margin:0 0 10px;padding:12px 15px;
+  border-radius:.75rem;background:var(--verde-bg);border:1px solid var(--verde-bd);color:var(--verde)}
 .codigo-cx{margin:22px 0 18px;padding:18px 20px;border-radius:.75rem;background:var(--recuo);
   border:1px solid var(--card-bd)}
 code.codigo{display:block;font-family:var(--mono);font-size:12.5px;line-height:1.6;
@@ -246,11 +256,13 @@ code.codigo{display:block;font-family:var(--mono);font-size:12.5px;line-height:1
 <main>
   <section class="entrada-dados" id="entrada">
     <h2>De onde vêm as respostas</h2>
-    <p class="obs">Cole os <b>códigos</b> que os alunos enviaram — um por linha — ou carregue o
-    arquivo de respostas, se você usou formulário do Google.</p>
+    <p class="obs"><b>Carregar respostas da turma</b> busca tudo o que já foi enviado e apura de
+    uma vez. Os outros caminhos continuam valendo: colar os <b>códigos</b> recebidos — um por
+    linha — ou carregar o arquivo de respostas de formulário do Google.</p>
     <textarea id="codigos" spellcheck="false" placeholder="PT2.eyJ2IjoyLCJ0Ijo…&#10;PT2.eyJ2IjoyLCJ0Ijo…"></textarea>
     <div class="linha-bt">
-      <button type="button" class="bt primario" id="bt-codigos">Apurar os códigos</button>
+      <button type="button" class="bt primario" id="bt-turma" hidden>Carregar respostas da turma</button>
+      <button type="button" class="bt" id="bt-codigos">Apurar os códigos colados</button>
       <label class="bt" for="arq-csv">Carregar .csv</label>
       <input type="file" id="arq-csv" accept=".csv,text/csv" hidden>
       <button type="button" class="bt" id="bt-exemplo">Ver com dados de exemplo</button>
@@ -716,6 +728,8 @@ var QUESTOES = [
   }
  }
 ];
+var ENDPOINT = "";
+var CHAVE_APURACAO = "ap-tjce-2026-3d58f0a6";
 </script>
 <script>/* Resultados do pré-teste — página de discussão em sala.
    Recebe os códigos dos alunos (ou o CSV), mostra a DISTRIBUIÇÃO das respostas por
@@ -919,6 +933,35 @@ function comeca(fonte) {
   $("#painel").hidden = false;
   $("#fonte").textContent = fonte;
   pinta();
+}
+
+/* Carga automática: busca os códigos na base do pré-teste e apura de uma vez.
+   O botão só existe se houver endereço configurado — sem ele, o caminho continua
+   sendo colar os códigos à mão. */
+if (typeof ENDPOINT === "string" && ENDPOINT) {
+  var btT = $("#bt-turma");
+  btT.hidden = false;
+  btT.addEventListener("click", function () {
+    btT.disabled = true;
+    estado("Buscando as respostas da turma…");
+    fetch(ENDPOINT + "?k=" + encodeURIComponent(CHAVE_APURACAO))
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        if (!d || !d.ok || !d.codigos) throw new Error("resposta inesperada");
+        var ok = [], ruins = 0;
+        d.codigos.forEach(function (c) {
+          try { ok.push(deCodigo(c)); } catch (e) { ruins++; }
+        });
+        if (!ok.length) { estado("Ainda não há respostas registradas.", "aviso"); btT.disabled = false; return; }
+        respostas = ok;
+        estado(ruins ? ruins + " resposta(s) ilegível(is) ignorada(s)." : "", ruins ? "aviso" : "");
+        comeca(ok.length + " respostas da turma");
+      })
+      .catch(function () {
+        estado("Não consegui buscar as respostas. Verifique a conexão ou cole os códigos abaixo.", "erro");
+        btT.disabled = false;
+      });
+  });
 }
 
 $("#bt-codigos").addEventListener("click", function () {

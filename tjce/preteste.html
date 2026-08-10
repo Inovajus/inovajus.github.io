@@ -159,6 +159,16 @@ main{max-width:820px;margin:0 auto;padding:26px clamp(18px,4vw,40px) 130px}
 .nav-in .pos{font-size:12.5px;color:var(--faint);font-variant-numeric:tabular-nums}
 
 /* fim do teste */
+.placar{margin:22px 0 4px;padding:20px 22px;border-radius:.75rem;background:var(--recuo);
+  border:1px solid var(--card-bd)}
+.placar .rot{display:block;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--faint);margin-bottom:8px}
+.placar-num{font-size:clamp(18px,2.6vw,23px);font-weight:650;line-height:1.35;margin:0 0 12px}
+.placar-mod{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+.placar-mod .pm{font-size:13px;color:var(--soft);background:var(--bg);
+  border:1px solid var(--pill-bd);border-radius:999px;padding:5px 12px}
+.placar-turma{font-size:14.5px;line-height:1.55;margin:0 0 10px;padding:12px 15px;
+  border-radius:.75rem;background:var(--verde-bg);border:1px solid var(--verde-bd);color:var(--verde)}
 .codigo-cx{margin:22px 0 18px;padding:18px 20px;border-radius:.75rem;background:var(--recuo);
   border:1px solid var(--card-bd)}
 code.codigo{display:block;font-family:var(--mono);font-size:12.5px;line-height:1.6;
@@ -644,6 +654,10 @@ try {
 } catch (e) {}
 function salva() { try { localStorage.setItem(CHAVE, JSON.stringify(R)); } catch (e) {} }
 
+// Identificador aleatório deste navegador: não carrega nome nem matrícula; serve
+// só para o servidor não contar duas vezes quem reenviar (ex.: completou depois).
+if (!R.id) { R.id = "r" + Math.random().toString(36).slice(2, 10) + Date.now().toString(36); salva(); }
+
 /* telas: 0 = abertura · 1 = perfil · 2..15 = objetivas · 16 = abertas · 17 = fim */
 var PRIMEIRA_OBJ = 2, ULTIMA_OBJ = PRIMEIRA_OBJ + QUESTOES.length - 1;
 var FIM = ULTIMA_OBJ + 2;
@@ -690,8 +704,12 @@ function abertura(c) {
     '</div>' +
     '<p class="obs">São 3 perguntas de perfil, 14 questões de múltipla escolha e 2 abertas. ' +
     'Você pode fechar e voltar depois — o que já respondeu fica guardado neste navegador. ' +
-    'Ao final você receberá um código para enviar; <b>as respostas certas serão discutidas em ' +
-    'aula</b>, não aqui.</p>' +
+    (ENDPOINT
+      ? 'Ao concluir, suas respostas são registradas automaticamente e você vê na tela ' +
+        'quantas acertou e o índice geral da turma; <b>as respostas certas serão discutidas ' +
+        'em aula</b>, não aqui.</p>'
+      : 'Ao final você receberá um código para enviar; <b>as respostas certas serão discutidas em ' +
+        'aula</b>, não aqui.</p>') +
     '<p class="obs fraca">Todos os casos, nomes e números das questões são fictícios. ' +
     'Não são coletados nome, matrícula nem e-mail.</p>';
   var bt = elem("button", "bt primario grande", respondidas() ? "Continuar de onde parei" : "Começar");
@@ -806,6 +824,10 @@ function fim(c) {
   var estado = elem("p", "envio-estado");
   b.appendChild(estado);
 
+  // o placar (resultado próprio + índice geral) entra aqui quando o servidor responde
+  var slotPlacar = elem("div");
+  b.appendChild(slotPlacar);
+
   var cx = elem("div", "codigo-cx");
   cx.appendChild(elem("span", "rot", "Seu código de resposta"));
   var pre = elem("code", "codigo", cod);
@@ -825,33 +847,68 @@ function fim(c) {
   cx.appendChild(linha);
   cx.appendChild(elem("p", "obs fraca", "O código não contém seu nome. Ele guarda apenas as " +
     "respostas que você marcou."));
-  b.appendChild(cx);
+  // Com envio automático configurado, a caixa do código NÃO aparece no fluxo
+  // normal (decisão do Victor, 09/08: sem utilidade). Ela só entra em cena se o
+  // envio falhar — é a rede de segurança para a resposta não se perder.
+  var temEndpoint = typeof ENDPOINT === "string" && ENDPOINT;
+  if (!temEndpoint) b.appendChild(cx);
 
   var re = elem("button", "bt", "Revisar minhas respostas"); re.type = "button";
   re.addEventListener("click", function () { vai(1); });
   b.appendChild(re);
   c.appendChild(b);
 
-  // caminho automático: só existe se houver endereço de coleta configurado
-  if (typeof ENDPOINT === "string" && ENDPOINT) {
+  // caminho automático: só existe se houver endereço de coleta configurado.
+  // O servidor corrige (o gabarito vive lá, nunca nesta página) e devolve o
+  // próprio placar + o índice geral — decisão do Victor para a turma remota:
+  // sem gabarito na tela; as aulas esclarecem as dúvidas.
+  if (temEndpoint) {
     estado.textContent = "Enviando…";
     fetch(ENDPOINT, {
-      method: "POST", mode: "no-cors",
+      method: "POST",
       headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify({ turma: TURMA_ID, codigo: cod, quando: new Date().toISOString() })
-    }).then(function () {
+      body: JSON.stringify({ turma: TURMA_ID, id: R.id, codigo: cod, quando: new Date().toISOString() })
+    }).then(function (r) { return r.json(); }).then(function (d) {
+      if (!d || !d.ok) throw new Error(d && d.erro);
       estado.className = "envio-estado ok";
-      estado.textContent = "Enviado automaticamente. Você não precisa fazer mais nada — " +
-        "o código abaixo fica como recibo.";
+      estado.textContent = "Respostas registradas automaticamente. Você não precisa fazer mais nada.";
+      placar(slotPlacar, d);
     }).catch(function () {
       estado.className = "envio-estado aviso";
       estado.textContent = "Não consegui enviar sozinho. Copie o código abaixo e mande pelo " +
-        "canal da turma.";
+        "canal da turma — ele vale como resposta.";
+      b.insertBefore(cx, re);
     });
   } else {
     estado.className = "envio-estado aviso";
     estado.innerHTML = "<b>Falta um passo:</b> copie o código abaixo e envie pelo canal da turma.";
   }
+}
+
+/* Resultado na tela: só o próprio acerto e o índice geral de todos — nenhum
+   resultado de outro participante, nenhum gabarito. */
+function placar(dest, d) {
+  var cx = elem("div", "placar");
+  cx.appendChild(elem("span", "rot", "Seu resultado"));
+  cx.appendChild(elem("p", "placar-num",
+    "Você acertou " + d.acertos + " das " + d.total + " questões" +
+    (d.respondidas < d.total ? " (respondeu " + d.respondidas + ")" : "") + "."));
+  if (d.porModulo && d.porModulo.length) {
+    var g = elem("div", "placar-mod");
+    d.porModulo.forEach(function (m) {
+      g.appendChild(elem("span", "pm", m.m + ": " + m.acertos + " de " + m.total));
+    });
+    cx.appendChild(g);
+  }
+  if (d.n) {
+    cx.appendChild(elem("p", "placar-turma",
+      "Índice geral de acerto de quem já respondeu: " + d.mediaPct + "% — calculado sobre " +
+      d.n + (d.n === 1 ? " resposta" : " respostas") + " até agora."));
+  }
+  cx.appendChild(elem("p", "obs fraca",
+    "O gabarito não aparece aqui de propósito: cada questão será retomada e esclarecida " +
+    "durante as aulas."));
+  dest.appendChild(cx);
 }
 
 /* ------------------------------------------------------------- navegação --- */
