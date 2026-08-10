@@ -947,6 +947,16 @@ if (typeof ENDPOINT === "string" && ENDPOINT) {
     fetch(ENDPOINT + "?k=" + encodeURIComponent(CHAVE_APURACAO))
       .then(function (r) { return r.json(); })
       .then(function (d) {
+        // Distingue os dois motivos de falha: o serviço respondeu, mas é a versão
+        // antiga (sem a busca de códigos) × não respondeu. Sem isso, a mensagem
+        // manda conferir a conexão quando o que falta é reimplantar.
+        if (d && d.ok && !d.codigos) {
+          estado("O serviço respondeu (" + (d.n || 0) + " respostas registradas), mas ainda é a " +
+                 "versão anterior do script — falta reimplantar com Nova versão. Enquanto isso, " +
+                 "cole os códigos da planilha abaixo.", "aviso");
+          btT.disabled = false;
+          return;
+        }
         if (!d || !d.ok || !d.codigos) throw new Error("resposta inesperada");
         var ok = [], ruins = 0;
         d.codigos.forEach(function (c) {
