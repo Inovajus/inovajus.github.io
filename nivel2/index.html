@@ -68,6 +68,11 @@ li a:focus-visible { outline: 2px solid var(--acento); outline-offset: 4px; }
   color: var(--tinta-fraca); background: var(--papel-2); padding: .2rem .5rem; border-radius: 3px;
 }
 li p { margin: .4rem 0 0; color: var(--tinta-suave); font-size: .95rem; max-width: 62ch; }
+.secao {
+  font-family: var(--serif); font-size: 1.5rem; margin: 3.2rem 0 .5rem;
+  letter-spacing: -.012em;
+}
+.nota-secao { color: var(--tinta-suave); font-size: .95rem; max-width: 62ch; margin: 0 0 1.4rem; }
 footer { margin-top: 3rem; color: var(--tinta-fraca); font-size: .88rem; }
 footer code { font-family: var(--mono); font-size: .86em; color: var(--acento); }
 @media (prefers-reduced-motion: reduce) { * { transition-duration: .001ms !important; } }
@@ -100,6 +105,20 @@ footer code { font-family: var(--mono); font-size: .86em; color: var(--acento); 
     <li><a href="caderno-exercicios-instrutor.html"><b>Caderno de Exercícios</b><span class="papel">caderno do instrutor</span></a><p>Dezessete exercícios com material sintético pronto, gabarito comentado e o erro típico a nomear.</p></li>
     <li><a href="caderno-exercicios-participante.html"><b>Caderno do Participante</b><span class="papel">caderno do aluno</span></a><p>O mesmo caderno, sem os gabaritos: é o que o aluno recebe. Derivado do anterior, nunca escrito à parte.</p></li>
     <li><a href="rubrica-projeto-da-dupla.html"><b>Rubrica do Projeto</b><span class="papel">instrumento de avaliação</span></a><p>Como se avalia o projeto final: três eliminatórios e seis critérios de mérito.</p></li>
+  </ul>
+
+  <h2 class="secao">Deck de aula</h2>
+  <p class="nota-secao">Um arquivo por encontro, em tela cheia. Navegue com <b>↑ ↓</b>;
+  <b>Home</b> e <b>End</b> vão ao começo e ao fim. Nas telas de exercício, a resposta fica
+  borrada até você clicar — dá para projetar a pergunta enquanto a turma pensa.
+  Abrem sem internet.</p>
+  <ul>
+    <li><a href="deck/encontro-1.html"><b>Encontro 1 · O que mudou, e por que o prompt tem teto</b><span class="papel">11 telas</span></a><p>Artefato: Ficha do caso, com a medição do “antes”</p></li>
+    <li><a href="deck/encontro-2.html"><b>Encontro 2 · Contexto: o que o agente sabe antes de começar</b><span class="papel">8 telas</span></a><p>Artefato: Instrução permanente da unidade</p></li>
+    <li><a href="deck/encontro-3.html"><b>Encontro 3 · Harness: o que o agente pode tocar</b><span class="papel">8 telas</span></a><p>Artefato: Matriz de permissões</p></li>
+    <li><a href="deck/encontro-4.html"><b>Encontro 4 · Loop: o que ele repete e quando para</b><span class="papel">8 telas</span></a><p>Artefato: Especificação do loop, com critério de parada</p></li>
+    <li><a href="deck/encontro-5.html"><b>Encontro 5 · Verificação: como saber que está certo sem reler tudo</b><span class="papel">8 telas</span></a><p>Artefato: Laudo de verificação</p></li>
+    <li><a href="deck/encontro-6.html"><b>Encontro 6 · Checkpoint humano, risco e roda de projetos</b><span class="papel">8 telas</span></a><p>Artefato: Sistema + especificação, com antes e depois</p></li>
   </ul>
 
   <footer>

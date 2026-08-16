@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Encontro 4 — Loop: o que ele repete e quando para · Servidor + IA Nível 2</title>
+<link rel="stylesheet" href="assets/inter.css">
+<link rel="stylesheet" href="assets/aos.css">
+<script src="assets/lucide.js"></script>
+<script src="assets/aos.js"></script>
+<!-- Sem Tailwind de propósito: este deck não usa nenhuma classe utilitária, e o
+     preflight dele zerava o tamanho dos h1/h2 em runtime, depois do nosso <style>.
+     Tirá-lo resolveu o bug e economizou 400 KB. Se um dia entrar classe Tailwind
+     aqui, reintroduza o script E confira os títulos da capa. -->
+<style>
+/* @MIRA:THEME:START — trocar este bloco troca os seis decks */
+/* MIRA THEME: corporate-blue
+   Azul profundo e ciano — pitch para empresas, bancos, governo. */
+:root {
+    --mira-primary: #4DA3FF;
+    --mira-crop: #35D07F;
+    --mira-bg: #0A1220;
+    --mira-text: #ffffff;
+    --mira-text-soft: rgba(255, 255, 255, 0.72);
+    --mira-text-softer: rgba(255, 255, 255, 0.50);
+    --mira-card-bg: rgba(255, 255, 255, 0.05);
+    --mira-card-border: rgba(255, 255, 255, 0.10);
+    --mira-glow-soft: rgba(77, 163, 255, 0.15);
+    --mira-glow-strong: rgba(77, 163, 255, 0.25);
+    --mira-icon-bg: rgba(77, 163, 255, 0.15);
+    --mira-icon-border: rgba(77, 163, 255, 0.30);
+    --mira-pill-bg: rgba(255, 255, 255, 0.04);
+    --mira-pill-border: rgba(255, 255, 255, 0.08);
+    --mira-stage-glow: rgba(77, 163, 255, 0.06);
+    --mira-accent-2: #6EE7F0;
+}
+
+/* @MIRA:THEME:END */
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-snap-type: y mandatory; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; scroll-snap-type: none; }
+  * { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+}
+body {
+  margin: 0; background: var(--mira-bg); color: var(--mira-text);
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.tela {
+  min-height: 100vh; scroll-snap-align: start;
+  display: flex; flex-direction: column; justify-content: center;
+  gap: 1.1rem; padding: clamp(2.5rem, 7vh, 5rem) clamp(1.25rem, 7vw, 7rem);
+  position: relative; max-width: 1500px; margin: 0 auto;
+}
+
+.eyebrow {
+  font-size: .74rem; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--mira-primary); font-weight: 700; margin: 0;
+}
+h1 {
+  font-size: clamp(2.3rem, 6.2vw, 5rem); line-height: 1.03; font-weight: 900;
+  letter-spacing: -.03em; margin: 0; max-width: 20ch; text-wrap: balance;
+}
+h2 {
+  font-size: clamp(1.7rem, 3.9vw, 3.1rem); line-height: 1.12; font-weight: 700;
+  letter-spacing: -.02em; margin: 0; max-width: 26ch; text-wrap: balance;
+}
+h3 { font-size: 1.12rem; font-weight: 650; margin: 0 0 .4rem; letter-spacing: -.01em; }
+p { margin: 0; }
+.linha-fina {
+  font-size: clamp(1.05rem, 1.9vw, 1.45rem); color: var(--mira-text-soft);
+  max-width: 46ch; line-height: 1.55;
+}
+.nota {
+  color: var(--mira-text-softer); font-size: .95rem; max-width: 68ch;
+  border-left: 2px solid var(--mira-icon-border); padding-left: .9rem; margin-top: .5rem;
+}
+
+/* capa */
+.capa .halo {
+  position: absolute; inset: auto auto 12% -12%; width: 60vw; height: 60vw;
+  max-width: 780px; max-height: 780px; border-radius: 50%; pointer-events: none;
+  background: radial-gradient(circle, var(--mira-glow-strong) 0%, transparent 68%);
+  filter: blur(28px);
+}
+.capa > * { position: relative; }
+
+/* agenda */
+.agenda { list-style: none; padding: 0; margin: .8rem 0 0; display: flex; flex-direction: column; }
+.agenda li {
+  display: flex; gap: clamp(1rem, 3vw, 2.4rem); align-items: baseline;
+  padding: 1.05rem 0; border-top: 1px solid var(--mira-card-border);
+}
+.agenda li:last-child { border-bottom: 1px solid var(--mira-card-border); }
+.tempo {
+  font-variant-numeric: tabular-nums; color: var(--mira-primary);
+  font-weight: 700; font-size: .95rem; min-width: 5.5rem;
+}
+.assunto { font-size: clamp(1.05rem, 2vw, 1.5rem); }
+
+/* cartões */
+.grade { display: grid; gap: 1rem; margin-top: .7rem; }
+.grade-3 { grid-template-columns: repeat(auto-fit, minmax(255px, 1fr)); }
+.grade-4 { grid-template-columns: repeat(auto-fit, minmax(225px, 1fr)); }
+.cartao {
+  background: var(--mira-card-bg); border: 1px solid var(--mira-card-border);
+  border-radius: 14px; padding: 1.4rem; backdrop-filter: blur(10px);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.cartao:hover { transform: translateY(-6px); box-shadow: 0 18px 38px var(--mira-glow-soft); }
+.cartao p { color: var(--mira-text-soft); font-size: .95rem; line-height: 1.55; }
+.icone {
+  width: 42px; height: 42px; border-radius: 11px; margin-bottom: .9rem;
+  display: grid; place-items: center;
+  background: var(--mira-icon-bg); border: 1px solid var(--mira-icon-border);
+}
+.icone svg { width: 21px; height: 21px; color: var(--mira-primary); }
+
+/* citação e fecho */
+.citacao { align-items: flex-start; }
+blockquote {
+  margin: 0; font-size: clamp(1.6rem, 3.6vw, 2.9rem); line-height: 1.25;
+  font-weight: 300; letter-spacing: -.02em; max-width: 24ch; text-wrap: balance;
+  border-left: 3px solid var(--mira-primary); padding-left: clamp(1rem, 2.5vw, 2rem);
+}
+.fonte { color: var(--mira-text-softer); font-size: .95rem; }
+.fecho blockquote { max-width: 30ch; }
+.fecho-grade {
+  display: grid; gap: 1rem; margin-top: 1.4rem;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+}
+.fecho-grade > div {
+  background: var(--mira-card-bg); border: 1px solid var(--mira-card-border);
+  border-radius: 14px; padding: 1.3rem;
+}
+.fecho-grade p { color: var(--mira-text-soft); line-height: 1.55; }
+.rot {
+  display: flex; align-items: center; gap: .5rem; margin-bottom: .5rem;
+  font-size: .72rem; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--mira-primary); font-weight: 700;
+}
+.rot svg { width: 15px; height: 15px; }
+
+/* dois harnesses — a tela obrigatória */
+.dois { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); margin-top: .7rem; }
+.coluna {
+  background: var(--mira-card-bg); border: 1px solid var(--mira-card-border);
+  border-radius: 14px; padding: 1.5rem;
+}
+.coluna:first-child { border-top: 3px solid var(--mira-primary); }
+.coluna:last-child { border-top: 3px solid var(--mira-accent-2); }
+.cabeca {
+  display: flex; align-items: center; gap: .6rem; margin-bottom: 1rem;
+  font-size: .74rem; letter-spacing: .16em; text-transform: uppercase; font-weight: 700;
+}
+.coluna:first-child .cabeca { color: var(--mira-primary); }
+.coluna:last-child .cabeca { color: var(--mira-accent-2); }
+.cabeca svg { width: 17px; height: 17px; }
+.coluna ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: .7rem; }
+.coluna li { color: var(--mira-text-soft); padding-left: 1.1rem; position: relative; line-height: 1.5; }
+.coluna li::before {
+  content: ""; position: absolute; left: 0; top: .62em;
+  width: 5px; height: 5px; border-radius: 50%; background: currentColor; opacity: .55;
+}
+
+/* exercício de falha */
+.selo-defeito {
+  display: inline-flex; align-items: center; gap: .45rem; align-self: flex-start;
+  background: var(--mira-icon-bg); border: 1px solid var(--mira-icon-border);
+  color: var(--mira-primary); border-radius: 999px; padding: .32rem .85rem;
+  font-size: .74rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 700;
+}
+.selo-defeito svg { width: 14px; height: 14px; }
+.caso {
+  background: var(--mira-pill-bg); border: 1px solid var(--mira-pill-border);
+  border-radius: 12px; padding: 1.2rem 1.4rem; color: var(--mira-text-soft);
+  line-height: 1.6; max-width: 74ch; font-size: 1rem;
+}
+.pergunta { font-size: 1.15rem; font-weight: 600; color: var(--mira-text); }
+
+/* resposta escondida: a tela pode ser projetada antes de a turma responder */
+.resposta {
+  position: relative; border-radius: 12px; padding: 1.2rem 1.4rem; max-width: 74ch;
+  background: var(--mira-card-bg); border: 1px dashed var(--mira-icon-border);
+  cursor: pointer; min-height: 4.5rem;
+}
+.resposta p {
+  color: var(--mira-text-soft); line-height: 1.6;
+  filter: blur(7px); opacity: .35; transition: filter .3s ease, opacity .3s ease;
+  user-select: none;
+}
+.resposta.aberta p { filter: none; opacity: 1; user-select: auto; }
+.resposta.aberta { border-style: solid; cursor: default; }
+.dica {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  gap: .5rem; color: var(--mira-primary); font-size: .8rem; letter-spacing: .1em;
+  text-transform: uppercase; font-weight: 700; transition: opacity .25s ease;
+}
+.dica svg { width: 15px; height: 15px; }
+.resposta.aberta .dica { opacity: 0; pointer-events: none; }
+
+/* rodapé de navegação */
+.barra {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
+  display: flex; align-items: center; gap: 1rem;
+  padding: .55rem clamp(1.25rem, 7vw, 7rem);
+  background: color-mix(in srgb, var(--mira-bg) 82%, transparent);
+  backdrop-filter: blur(12px); border-top: 1px solid var(--mira-card-border);
+  font-size: .74rem; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--mira-text-softer);
+}
+.barra b { color: var(--mira-primary); font-weight: 700; }
+.barra .conta { margin-left: auto; font-variant-numeric: tabular-nums; }
+.progresso {
+  position: fixed; top: 0; left: 0; height: 2px; z-index: 31;
+  background: var(--mira-primary); width: 0; transition: width .18s ease;
+}
+</style>
+</head>
+<body>
+
+<div class="progresso" id="progresso"></div>
+
+    <section class="tela capa">
+      <div class="halo"></div>
+      <p class="eyebrow" data-aos="fade-down">Servidor + IA · Nível 2 · Encontro 4 · troca de papéis</p>
+      <h1 data-aos="fade-up" data-aos-delay="100">Loop: o que ele repete e quando para</h1>
+      <p class="linha-fina" data-aos="fade-up" data-aos-delay="220">Hoje os papéis se invertem. Quem especificou vai construir; quem construiu vai especificar.</p>
+    </section>
+
+    <section class="tela">
+      <h2 data-aos="fade-up">As três horas de hoje</h2>
+      <ul class="agenda">
+      <li data-aos="fade-up" data-aos-delay="0"><span class="tempo">15 min</span><span class="assunto">A troca de papéis</span></li>
+      <li data-aos="fade-up" data-aos-delay="80"><span class="tempo">35 min</span><span class="assunto">Anatomia do loop</span></li>
+      <li data-aos="fade-up" data-aos-delay="160"><span class="tempo">45 min</span><span class="assunto">Critério de parada verificável</span></li>
+      <li data-aos="fade-up" data-aos-delay="240"><span class="tempo">30 min</span><span class="assunto">Loop que não para — e quando não usar loop</span></li>
+      </ul>
+    </section>
+
+    <section class="tela">
+      <p class="eyebrow" data-aos="fade-down">01 · troca</p>
+      <h2 data-aos="fade-up">O outro lado é difícil por razões diferentes</h2>
+      <div class="dois">
+      <div class="coluna" data-aos="fade-up" data-aos-delay="0">
+        <div class="cabeca"><i data-lucide="monitor-cog"></i><span>Operador</span></div>
+        <ul>
+          <li>Quem construía passa a especificar</li>
+          <li>Descobre que dizer com precisão é mais duro que fazer</li>
+          <li>Escreve antes de qualquer execução</li>
+        </ul>
+      </div>
+      <div class="coluna" data-aos="fade-up" data-aos-delay="140">
+        <div class="cabeca"><i data-lucide="cloud-cog"></i><span>Arquiteto</span></div>
+        <ul>
+          <li>Quem especificava passa a construir</li>
+          <li>Descobre que a máquina vem com responsabilidade</li>
+          <li>Executa o que o par especificou</li>
+        </ul>
+      </div>
+      </div>
+      <p class="nota" data-aos="fade-up">Escreva agora, em uma linha, o que você acha que será mais difícil. Voltamos a isso no Encontro 6.</p>
+    </section>
+
+    <section class="tela">
+      <p class="eyebrow" data-aos="fade-down">02 · anatomia</p>
+      <h2 data-aos="fade-up">Três perguntas, e a terceira é a que quase todo mundo erra</h2>
+      <div class="grade grade-3">
+      <div class="cartao" data-aos="fade-up" data-aos-delay="0">
+        <div class="icone"><i data-lucide="rotate-cw"></i></div>
+        <h3>O que se repete</h3>
+        <p>A ação que roda de novo a cada volta.</p>
+      </div>
+      <div class="cartao" data-aos="fade-up" data-aos-delay="90">
+        <div class="icone"><i data-lucide="list"></i></div>
+        <h3>Sobre o quê</h3>
+        <p>A lista de entrada. Se estiver vaga, o caso ainda não está delimitado.</p>
+      </div>
+      <div class="cartao" data-aos="fade-up" data-aos-delay="180">
+        <div class="icone"><i data-lucide="octagon-x"></i></div>
+        <h3>Até quando</h3>
+        <p>O critério de parada. É aqui que a automação de servidor costuma falhar.</p>
+      </div>
+      </div>
+    </section>
+
+    <section class="tela">
+      <p class="eyebrow" data-aos="fade-down">03 · critério de parada</p>
+      <h2 data-aos="fade-up">Um critério verificável tem três campos. Sempre</h2>
+      <div class="grade grade-3">
+      <div class="cartao" data-aos="fade-up" data-aos-delay="0">
+        <div class="icone"><i data-lucide="hash"></i></div>
+        <h3>O que se conta</h3>
+        <p>“Itens sem classificação”, não “qualidade do texto”.</p>
+      </div>
+      <div class="cartao" data-aos="fade-up" data-aos-delay="90">
+        <div class="icone"><i data-lucide="target"></i></div>
+        <h3>Qual o valor esperado</h3>
+        <p>Zero. Quarenta. Um número, não um adjetivo.</p>
+      </div>
+      <div class="cartao" data-aos="fade-up" data-aos-delay="180">
+        <div class="icone"><i data-lucide="alert-triangle"></i></div>
+        <h3>O que fazer se não convergir</h3>
+        <p>“Após 3 voltas, para e devolve a lista do que sobrou”.</p>
+      </div>
+      </div>
+      <p class="nota" data-aos="fade-up">Teste: a dupla vizinha aplica o seu critério e chega ao mesmo resultado? Se não, não está pronto.</p>
+    </section>
+
+    <section class="tela">
+      <p class="eyebrow" data-aos="fade-down">04 · não convergiu</p>
+      <p class="selo-defeito" data-aos="fade-right"><i data-lucide="bug"></i>Defeito de parada</p>
+      <h2 data-aos="fade-up">Vinte e duas voltas depois, o mesmo item</h2>
+      <div class="caso" data-aos="fade-up" data-aos-delay="120">volta 3 — 3 itens, 1 sem classificação<br>volta 4 — 1 item, 1 sem classificação<br>volta 9 — 1 item, 1 sem classificação<br>volta 26 — 1 item, 1 sem classificação</div>
+      <p class="pergunta" data-aos="fade-up" data-aos-delay="200">Em que volta deveria ter parado?</p>
+      <div class="resposta" data-revelar>
+        <span class="dica"><i data-lucide="eye"></i> clique para revelar</span>
+        <p>Na <b>volta 4</b> — onde deixou de progredir. O sintoma não é o número de voltas: é a repetição do mesmo estado. E aquele item provavelmente é o caso que precisa de uma pessoa.</p>
+      </div>
+    </section>
+
+    <section class="tela">
+      <p class="eyebrow" data-aos="fade-down">Verificação do bloco</p>
+      <h2 data-aos="fade-up">O seu caso precisa mesmo de loop?</h2>
+      <div class="resposta" data-revelar>
+        <span class="dica"><i data-lucide="eye"></i> clique para revelar a resposta esperada</span>
+        <p>Talvez precise de um passo único bem-feito, aplicado a muitos itens. <b>Mudar de ideia aqui é resultado bom</b> — é a maioria dos casos de uma unidade judiciária.</p>
+      </div>
+    </section>
+
+    <section class="tela fecho">
+      <p class="eyebrow" data-aos="fade-down">Para levar</p>
+      <blockquote data-aos="fade-up">“Até ficar bom” não é critério: é a esperança de que alguém esteja olhando.</blockquote>
+      <div class="fecho-grade">
+        <div data-aos="fade-up" data-aos-delay="120">
+          <span class="rot"><i data-lucide="package-check"></i> Artefato do encontro</span>
+          <p>Especificação do loop, com critério de parada aplicável por terceiro</p>
+        </div>
+        <div data-aos="fade-up" data-aos-delay="220">
+          <span class="rot"><i data-lucide="arrow-right-circle"></i> Puxa para o próximo</span>
+          <p>Ele repete e para. Como você sabe que ele acertou?</p>
+        </div>
+      </div>
+    </section>
+
+<div class="barra">
+  <span><b>Servidor + IA · Nível 2</b> — Encontro 4 de 6</span>
+  <span class="conta"><span id="atual">1</span> / 8 · ↑ ↓ para navegar</span>
+</div>
+
+<script>
+lucide.createIcons();
+AOS.init({ duration: 620, once: true, offset: 40 });
+
+// revelar resposta: a tela pode ficar projetada enquanto a turma pensa
+document.querySelectorAll('[data-revelar]').forEach(function (el) {
+  el.addEventListener('click', function () { el.classList.add('aberta'); });
+});
+
+// contador e barra de progresso
+var telas = document.querySelectorAll('.tela');
+var atual = document.getElementById('atual');
+var barra = document.getElementById('progresso');
+
+// O índice vive AQUI, não no texto do contador. Lê-lo do DOM fazia teclas
+// rápidas calcularem todas a partir do mesmo valor — o observer é assíncrono
+// e ainda não havia atualizado o contador. Seis toques iam para a mesma tela.
+var indice = 0;
+
+function mostrar(i) {
+  indice = Math.max(0, Math.min(telas.length - 1, i));
+  telas[indice].scrollIntoView();
+  pintar(indice);
+  revelar(telas[indice]);
+}
+
+function pintar(i) {
+  atual.textContent = i + 1;
+  barra.style.width = ((i + 1) / telas.length * 100) + '%';
+}
+
+// Seguro contra tela em branco: o AOS deixa os elementos em opacity 0 até animar,
+// e navegação por teclado pode passar rápido demais para ele disparar. Ao entrar
+// numa tela, forçamos a animação dos filhos dela. Numa aula, conteúdo invisível
+// no telão é pior do que animação nenhuma.
+function revelar(tela) {
+  tela.querySelectorAll('[data-aos]').forEach(function (el) {
+    el.classList.add('aos-animate');
+  });
+}
+
+if ('IntersectionObserver' in window) {
+  // Dois observadores, de propósito. O contador precisa de uma tela DOMINANTE
+  // (threshold alto), senão pisca entre duas. A revelação precisa do contrário:
+  // dispara ao primeiro pixel, para que uma tela atravessada depressa não fique
+  // com o conteúdo invisível. Um observador só não serve aos dois.
+  var conta = new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      indice = Array.prototype.indexOf.call(telas, e.target);
+      pintar(indice);
+    });
+  }, { threshold: 0.55 });
+
+  var revela = new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      if (e.isIntersecting) revelar(e.target);
+    });
+  }, { threshold: 0.01, rootMargin: '80px' });
+
+  telas.forEach(function (t) { conta.observe(t); revela.observe(t); });
+} else {
+  telas.forEach(revelar);
+}
+
+// setas, PageUp/PageDown, espaço, Home e End andam de tela em tela
+document.addEventListener('keydown', function (e) {
+  if (['ArrowDown', 'PageDown', ' '].indexOf(e.key) > -1) {
+    e.preventDefault(); mostrar(indice + 1);
+  } else if (['ArrowUp', 'PageUp'].indexOf(e.key) > -1) {
+    e.preventDefault(); mostrar(indice - 1);
+  } else if (e.key === 'Home') {
+    e.preventDefault(); mostrar(0);
+  } else if (e.key === 'End') {
+    e.preventDefault(); mostrar(telas.length - 1);
+  }
+});
+</script>
+</body>
+</html>
