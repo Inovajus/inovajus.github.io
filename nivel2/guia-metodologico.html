@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Guia Metodológico — Servidor + IA Nível 2</title>
+<style>
+:root {
+  --tinta: #16202b;
+  --tinta-suave: #4a5866;
+  --tinta-fraca: #8996a3;
+  --papel: #fbfaf8;
+  --papel-2: #f2f0ec;
+  --regua: #e0ddd7;
+  --acento: #1f5f5b;
+  --acento-fraco: #e6efee;
+  --atencao: #8a5a1a;
+  --atencao-fraco: #fbf2e4;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, "Cascadia Code", Consolas, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-tema="claro"]) {
+    --tinta: #e8e6e1; --tinta-suave: #b3aea6; --tinta-fraca: #7d7871;
+    --papel: #14161a; --papel-2: #1b1e23; --regua: #2b2f36;
+    --acento: #6fbcb4; --acento-fraco: #14302e;
+    --atencao: #d8a556; --atencao-fraco: #2e2415;
+  }
+}
+:root[data-tema="escuro"] {
+  --tinta: #e8e6e1; --tinta-suave: #b3aea6; --tinta-fraca: #7d7871;
+  --papel: #14161a; --papel-2: #1b1e23; --regua: #2b2f36;
+  --acento: #6fbcb4; --acento-fraco: #14302e;
+  --atencao: #d8a556; --atencao-fraco: #2e2415;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--papel); color: var(--tinta);
+  font-family: var(--sans); font-size: 16.5px; line-height: 1.68;
+  -webkit-font-smoothing: antialiased;
+}
+
+.faixa {
+  padding: .7rem clamp(1rem, 4vw, 2.5rem);
+  background: var(--atencao-fraco); color: var(--atencao);
+  border-bottom: 1px solid color-mix(in srgb, var(--atencao) 35%, transparent);
+  font-size: .82rem; line-height: 1.5;
+}
+.faixa b { color: var(--atencao); }
+
+.topo {
+  position: sticky; top: 0; z-index: 40;
+  display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+  padding: .65rem clamp(1rem, 4vw, 2.5rem);
+  background: color-mix(in srgb, var(--papel) 92%, transparent);
+  backdrop-filter: blur(12px); border-bottom: 1px solid var(--regua);
+}
+.topo .marca {
+  font-family: var(--mono); font-size: .72rem; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--acento); font-weight: 700;
+}
+.topo .marca span { color: var(--tinta-fraca); font-weight: 400; }
+.acoes { margin-left: auto; display: flex; gap: .5rem; }
+.acoes button {
+  font-family: var(--mono); font-size: .7rem; letter-spacing: .04em;
+  padding: .45rem .8rem; border: 1px solid var(--regua);
+  background: transparent; color: var(--tinta-suave); cursor: pointer;
+  border-radius: 3px; transition: all .18s;
+}
+.acoes button:hover { color: var(--tinta); border-color: var(--acento); }
+.acoes button[aria-pressed="true"] {
+  background: var(--acento); border-color: var(--acento); color: var(--papel); font-weight: 700;
+}
+
+.casca {
+  display: grid; grid-template-columns: 232px minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  max-width: 1180px; margin: 0 auto; padding: 0 clamp(1rem, 4vw, 2.5rem) 6rem;
+}
+nav.sumario {
+  position: sticky; top: 3.6rem; align-self: start;
+  max-height: calc(100vh - 4.5rem); overflow-y: auto;
+  padding-top: 2.6rem; font-size: .8rem; display: flex; flex-direction: column;
+}
+nav.sumario a {
+  color: var(--tinta-fraca); text-decoration: none; padding: .33rem 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--regua) 55%, transparent);
+  transition: color .16s;
+}
+nav.sumario a:hover, nav.sumario a:focus-visible { color: var(--acento); outline: none; }
+nav.sumario a.ativo { color: var(--tinta); font-weight: 600; }
+
+main { padding-top: 2.6rem; min-width: 0; }
+h1 {
+  font-family: var(--serif); font-size: clamp(2rem, 4.4vw, 2.9rem);
+  line-height: 1.12; margin: 0 0 1rem; letter-spacing: -.015em; text-wrap: balance;
+}
+h2 {
+  font-family: var(--serif); font-size: clamp(1.35rem, 2.6vw, 1.75rem);
+  margin: 3rem 0 .8rem; padding-top: 1.4rem; border-top: 1px solid var(--regua);
+  letter-spacing: -.012em; text-wrap: balance;
+}
+h3 { font-size: 1.04rem; margin: 1.9rem 0 .5rem; letter-spacing: -.005em; }
+h4 { font-size: .95rem; margin: 1.4rem 0 .4rem; color: var(--tinta-suave); }
+p, li { max-width: 70ch; color: var(--tinta-suave); }
+p { margin: 0 0 .95rem; }
+li { margin-bottom: .4rem; }
+strong { color: var(--tinta); font-weight: 650; }
+h1 + p { font-size: 1.08rem; color: var(--tinta); }
+
+blockquote {
+  margin: 1.6rem 0; padding: 1rem 1.3rem;
+  background: var(--acento-fraco); border-left: 3px solid var(--acento);
+  border-radius: 0 4px 4px 0;
+}
+blockquote p { margin: 0; color: var(--tinta); font-size: 1.05rem; }
+blockquote p + p { margin-top: .5rem; }
+
+code {
+  font-family: var(--mono); font-size: .87em;
+  background: var(--papel-2); padding: .12em .38em; border-radius: 3px;
+  color: var(--acento); overflow-wrap: break-word;
+}
+
+.rolagem { overflow-x: auto; margin: 1.3rem 0; }
+table { width: 100%; border-collapse: collapse; font-size: .89rem; }
+th {
+  text-align: left; font-family: var(--mono); font-size: .68rem;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--tinta-fraca);
+  font-weight: 600; padding: .5rem .7rem .5rem 0; border-bottom: 1px solid var(--regua);
+  vertical-align: bottom;
+}
+td {
+  padding: .5rem .7rem .5rem 0; border-bottom: 1px solid color-mix(in srgb, var(--regua) 55%, transparent);
+  color: var(--tinta-suave); vertical-align: top;
+}
+td:first-child { color: var(--tinta); }
+
+hr { border: 0; border-top: 1px solid var(--regua); margin: 2.5rem 0; }
+
+body.editando [data-edit] { outline: 1px dashed var(--acento); outline-offset: 3px; cursor: text; }
+body.editando [data-edit]:focus { outline: 2px solid var(--acento); background: var(--acento-fraco); }
+[data-edit].mudou { background: var(--atencao-fraco); box-shadow: inset 3px 0 0 var(--atencao); padding-left: .5rem; }
+
+#painel {
+  position: fixed; right: 0; bottom: 0; top: 3.4rem; width: min(460px, 92vw);
+  background: var(--papel); border-left: 1px solid var(--regua);
+  transform: translateX(100%); transition: transform .22s ease; z-index: 50;
+  display: flex; flex-direction: column; box-shadow: -12px 0 30px rgba(0,0,0,.10);
+}
+#painel.aberto { transform: translateX(0); }
+#painel header {
+  padding: .9rem 1.1rem; border-bottom: 1px solid var(--regua);
+  display: flex; align-items: center; gap: .6rem;
+}
+#painel header b { font-size: .92rem; }
+#painel header button {
+  margin-left: auto; border: 1px solid var(--regua); background: transparent;
+  color: var(--tinta-suave); cursor: pointer; border-radius: 3px;
+  padding: .3rem .6rem; font-family: var(--mono); font-size: .68rem;
+}
+#lista { overflow-y: auto; padding: 1rem 1.1rem 2rem; font-size: .85rem; }
+#lista .item { margin-bottom: 1.3rem; padding-bottom: 1.1rem; border-bottom: 1px solid var(--regua); }
+#lista .rot {
+  font-family: var(--mono); font-size: .66rem; text-transform: uppercase;
+  letter-spacing: .1em; color: var(--tinta-fraca); display: block; margin-bottom: .35rem;
+}
+#lista .antes { color: var(--tinta-fraca); text-decoration: line-through; margin-bottom: .3rem; }
+#lista .depois { color: var(--tinta); }
+#lista .vazio { color: var(--tinta-fraca); }
+
+@media (max-width: 900px) {
+  .casca { grid-template-columns: 1fr; }
+  nav.sumario { position: static; max-height: none; padding-top: 1.6rem;
+    border-bottom: 1px solid var(--regua); padding-bottom: 1rem; }
+  main { padding-top: 1.6rem; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition-duration: .001ms !important; } }
+</style>
+</head>
+<body>
+
+<div class="faixa">
+  <b>Documento interno, em revisão.</b> Peça de trabalho do Servidor + IA · Nível 2, ainda não
+  submetida à Direção do Foro. Não indexada e sem link em nenhuma página pública — circula
+  apenas por URL direta, entre quem coordena e conduz o curso.
+</div>
+
+<div class="topo">
+  <div class="marca">INOVAJUS <span>/ Eixo III · documento de condução</span></div>
+  <div class="acoes">
+    <button id="btTema" title="Alternar claro e escuro">tema</button>
+    <button id="btEditar" aria-pressed="false">revisar</button>
+    <button id="btPainel">minhas alterações (<span id="conta">0</span>)</button>
+  </div>
+</div>
+
+<div class="casca">
+  <nav class="sumario" aria-label="Sumário">
+      <a href="#1-para-que-serve-este-guia">1. Para que serve este guia</a>
+      <a href="#2-quem-esta-do-outro-lado">2. Quem está do outro lado</a>
+      <a href="#3-o-modelo-pedagogico-em-quatro-camadas">3. O modelo pedagógico,
+em quatro camadas</a>
+      <a href="#4-objetivos-por-encontro">4. Objetivos por encontro</a>
+      <a href="#5-mapa-de-amarracao">5. Mapa de amarração</a>
+      <a href="#6-roteiro-de-conducao-encontro-a-encontro">6. Roteiro de
+condução, encontro a encontro</a>
+      <a href="#7-como-conduzir-um-bloco-com-dois-harnesses">7. Como conduzir um
+bloco com dois harnesses</a>
+      <a href="#8-conduzindo-no-teams-com-turma-sem-teto">8. Conduzindo no
+Teams, com turma sem teto</a>
+      <a href="#9-a-demonstracao-ao-vivo-regras-invariantes">9. A demonstração
+ao vivo: regras invariantes</a>
+      <a href="#10-avaliacao-o-que-se-mede-e-como-corrigir-em-escala">10.
+Avaliação: o que se mede, e como corrigir em escala</a>
+      <a href="#11-erros-comuns-de-quem-conduz-este-curso">11. Erros comuns de
+quem conduz este curso</a>
+      <a href="#12-checklist-de-preparacao-antes-de-cada-encontro">12. Checklist
+de preparação, antes de cada encontro</a>
+  </nav>
+  <main>
+<h1 id="guia-metodológico--servidor--ia--nível-2">Guia Metodológico —
+Servidor + IA · Nível 2</h1>
+<p data-edit><strong>Do Prompt ao Sistema.</strong> Documento de condução, para
+quem vai dar a aula.</p>
+<p data-edit>Versão 1.0 — 16 de agosto de 2026. Deriva do
+<code>design-do-curso.md</code> e da
+<code>ementa-formal-curso.md</code>, aprovados em 15/08/2026.</p>
+<hr />
+<h2 id="1-para-que-serve-este-guia">1. Para que serve este guia</h2>
+<p data-edit>A ementa diz <strong>o que</strong> o curso ensina. A rubrica diz
+<strong>como se avalia</strong>. Este guia diz <strong>como se
+conduz</strong> — na ordem em que a aula acontece, com o tempo de cada
+bloco, a fala que não pode faltar e o que fazer quando a turma erra.</p>
+<p data-edit>Ele existe por uma razão específica deste nível: o Nível 2 é o
+primeiro curso do Eixo III em que <strong>os participantes não têm todos
+as mesmas ferramentas</strong>. Metade da sala consegue instalar
+programas; a outra metade, não. Conduzir isso sem roteiro produz,
+invariavelmente, o mesmo fracasso — uma demonstração brilhante que só
+metade da turma consegue repetir, e a outra metade assistindo. Este guia
+é, em boa parte, o conjunto de precauções contra esse fracasso.</p>
+<p data-edit>O detalhe de cada exercício — enunciado, material sintético pronto,
+gabarito, erro típico e a variação de "se sobrar / se faltar tempo" —
+pertence ao <strong>Caderno de Exercícios</strong>, ainda não escrito.
+Enquanto ele não existir, este guia é a peça de condução, e os
+exercícios estão descritos aqui no nível do necessário para dar a
+aula.</p>
+<hr />
+<h2 id="2-quem-esta-do-outro-lado">2. Quem está do outro lado</h2>
+<p data-edit>Todos os participantes são <strong>egressos certificados do Nível
+1</strong>. Isso muda três coisas na condução, e ignorar qualquer uma
+delas custa a atenção da turma nos primeiros vinte minutos:</p>
+<p data-edit><strong>Não se explica o que é IA generativa.</strong> A turma já
+sabe que o modelo prevê a próxima palavra, já viu alucinação ao vivo e
+já escreveu prompt estruturado. Repetir isso é o erro mais provável de
+quem conduziu o Nível 1 e entra no Nível 2 com o mesmo material na
+mão.</p>
+<p data-edit><strong>A turma chega com uma pergunta pronta.</strong> Ela é quase
+sempre a mesma: <em>"eu já sei pedir bem; por que continua dando
+trabalho toda vez?"</em> — e a resposta é o curso inteiro. Vale abrir
+com ela.</p>
+<p data-edit><strong>A turma tem experiência de frustração, não de
+ignorância.</strong> O participante já tentou usar IA numa rotina real e
+já viu falhar de forma que não soube explicar. O curso ganha
+credibilidade quando nomeia essas falhas cedo — contexto ausente,
+permissão implícita, critério de parada inexistente — em vez de prometer
+que desta vez vai funcionar.</p>
+<p data-edit>Uma quarta característica é operacional e não pedagógica: <strong>a
+turma não tem teto</strong>. O Nível 1 formou cerca de 300 servidores, e
+o Nível 2 é aberto a todos os interessados. Toda a seção 8 deste guia
+existe por causa disso.</p>
+<hr />
+<h2 id="3-o-modelo-pedagogico-em-quatro-camadas">3. O modelo pedagógico,
+em quatro camadas</h2>
+<h3
+id="camada-1--o-ciclo-do-bloco-ver-fazer-nos-dois-harnesses-verificar-registrar">Camada
+1 — O ciclo do bloco: Ver, Fazer nos dois harnesses, Verificar,
+Registrar</h3>
+<p data-edit>O Nível 1 usava <strong>Ver, Fazer, Conferir, Levar</strong>. O Nível
+2 mantém a lógica e altera dois tempos, porque o que se produz aqui não
+é aprendizado individual: é artefato de dupla.</p>
+<p data-edit><strong>Ver (o conceito e a demonstração).</strong> O conceito com a
+analogia, o caso judicial e a demonstração ao vivo. A demonstração
+obedece à regra da seção 9 — tem sempre duas metades, uma reproduzível
+pelo operador e outra pelo arquiteto.</p>
+<p data-edit><strong>Fazer nos dois harnesses (a mão dos dois no
+teclado).</strong> Não é "o operador executa e o arquiteto observa".
+Cada bloco de prática tem tarefa declarada para os dois papéis, e elas
+são <strong>diferentes de propósito</strong>: é a diferença entre os
+resultados que produz o conteúdo do bloco seguinte. Quando o cronograma
+atrasa, corte a extensão do exercício — nunca o lado do arquiteto.
+Cortar o arquiteto é transformá-lo em plateia, que é exatamente o risco
+que o desenho do curso existe para evitar.</p>
+<p data-edit><strong>Verificar (a prova, não a impressão).</strong> Substitui a
+micro-verificação do Nível 1 e é mais exigente: ao fim do bloco, a dupla
+precisa mostrar um <strong>sinal</strong> de que o que ela fez funciona
+— uma saída de comando, uma contagem, uma tela. "Ficou bom" não fecha
+bloco. Este é o hábito central do curso, e ele se instala por repetição,
+não por explicação.</p>
+<p data-edit><strong>Registrar (o artefato entra no documento).</strong> Cada
+bloco termina com alguma linha escrita no artefato do encontro. O
+participante não sai do bloco com uma anotação mental: sai com um
+parágrafo a mais na instrução permanente, uma linha a mais na matriz de
+permissões. Ao fim do Encontro 6, o documento está pronto porque foi
+sendo escrito, não porque alguém o redigiu na véspera.</p>
+<h3 id="camada-2--o-caso-único-como-espinha-dorsal">Camada 2 — O caso
+único como espinha dorsal</h3>
+<p data-edit>A dupla escolhe <strong>um</strong> trabalho repetitivo real da
+unidade no Encontro 1 e o mantém até o fim. Não há exercícios avulsos:
+cada encontro produz o artefato que o seguinte consome.</p>
+<p data-edit>Isso tem uma consequência de condução que precisa ser dita em voz
+alta no Encontro 1: <strong>um caso mal escolhido contamina os seis
+encontros</strong>. Por isso o critério de escolha é conduzido, e não
+deixado à dupla — ver o bloco 1.4.</p>
+<p data-edit>E tem uma consequência de contingência: <strong>a dupla que perder o
+Encontro 1 não escolhe caso sozinha</strong>. Ou é encaixada em uma
+dupla existente como terceiro, ou recebe um caso do banco de casos
+sintéticos. Não existe entrar no curso no Encontro 2 com caso
+próprio.</p>
+<h3 id="camada-3--o-erro-como-conteúdo-um-defeito-por-encontro">Camada 3
+— O erro como conteúdo, um defeito por encontro</h3>
+<p data-edit>O Nível 1 formava quem <strong>desconfia bem</strong> de um texto. O
+Nível 2 forma quem desconfia bem de um <strong>sistema</strong> — e os
+defeitos de sistema são de outra natureza: mais silenciosos, e quase
+sempre descobertos tarde.</p>
+<p data-edit>Cada encontro tem um exercício de falha, com um defeito de natureza
+diferente e em ordem crescente de sutileza:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Encontro</th>
+<th>Natureza do defeito</th>
+<th>O que se aprende</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-edit>1</td>
+<td data-edit>defeito de <strong>escopo</strong> — automatizar o que não devia ser
+automatizado</td>
+<td data-edit>nem todo trabalho repetitivo é candidato; alguns são repetitivos
+porque cada caso é decidido</td>
+</tr>
+<tr class="even">
+<td data-edit>2</td>
+<td data-edit>defeito de <strong>contexto</strong> — documento desatualizado que
+faz o agente agir por informação falsa</td>
+<td data-edit>o agente não sabe que a fonte envelheceu; quem versiona é a
+pessoa</td>
+</tr>
+<tr class="odd">
+<td data-edit>3</td>
+<td data-edit>defeito de <strong>permissão</strong> — o sistema pode tocar algo
+que ninguém autorizou explicitamente</td>
+<td data-edit>permissão que depende de confiança não é permissão, é sorte</td>
+</tr>
+<tr class="even">
+<td data-edit>4</td>
+<td data-edit>defeito de <strong>parada</strong> — "até ficar bom"</td>
+<td data-edit>critério que só quem escreveu sabe aplicar não é critério</td>
+</tr>
+<tr class="odd">
+<td data-edit>5</td>
+<td data-edit>defeito de <strong>verificação</strong> — juízo de modelo onde cabia
+um comando determinístico</td>
+<td data-edit>perguntar à IA se a IA acertou é a forma mais cara de não
+verificar</td>
+</tr>
+<tr class="even">
+<td data-edit>6</td>
+<td data-edit>defeito de <strong>checkpoint</strong> — a pessoa que só assina</td>
+<td data-edit>supervisão que não tem como recusar não é supervisão</td>
+</tr>
+</tbody>
+</table>
+<p data-edit>A progressão importa. O defeito do Encontro 1 é visível a olho nu; o
+do Encontro 6 é invisível até que dê errado uma vez. Conduzir fora de
+ordem desmonta a curva.</p>
+<h3 id="camada-4--a-troca-de-papéis-como-conteúdo">Camada 4 — A troca de
+papéis como conteúdo</h3>
+<p data-edit>A troca no Encontro 4 não é rodízio de justiça: é o mecanismo pelo
+qual cada participante descobre <strong>o que o outro não conseguia
+fazer</strong>. Quem passou três encontros achando que o arquiteto tinha
+a parte fácil descobre no Encontro 4 que especificar sem executar é mais
+difícil, não menos. Quem passou três encontros invejando a máquina do
+operador descobre que ela vem com responsabilidade de quem pode quebrar
+coisas.</p>
+<p data-edit>Conduza a troca <strong>explicitamente</strong>, com um bloco próprio
+(4.1), e não como avisozinho no começo da aula. É um dos dois momentos
+do curso em que a turma tem uma percepção nova sobre o colega — o outro
+é a auditoria cruzada do Encontro 5.</p>
+<hr />
+<h2 id="4-objetivos-por-encontro">4. Objetivos por encontro</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Encontro</th>
+<th>Ao final, o participante é capaz de</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-edit>1</td>
+<td data-edit>Distinguir trabalho que vira sistema de trabalho que não vira, e
+medir uma linha de base antes de construir</td>
+</tr>
+<tr class="even">
+<td data-edit>2</td>
+<td data-edit>Escrever a instrução permanente da unidade, declarando o que nunca
+entra</td>
+</tr>
+<tr class="odd">
+<td data-edit>3</td>
+<td data-edit>Traduzir norma e sigilo em matriz de permissões, com cada vedação
+ancorada</td>
+</tr>
+<tr class="even">
+<td data-edit>4</td>
+<td data-edit>Escrever critério de parada que um terceiro aplica e chega ao mesmo
+resultado</td>
+</tr>
+<tr class="odd">
+<td data-edit>5</td>
+<td data-edit>Escolher o nível de verificação adequado e emitir laudo declarando o
+que não verificou</td>
+</tr>
+<tr class="even">
+<td data-edit>6</td>
+<td data-edit>Localizar o checkpoint humano por desenho e responder quem mantém o
+sistema</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5-mapa-de-amarracao">5. Mapa de amarração</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Encontro</th>
+<th>Consome</th>
+<th>Produz</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-edit>1</td>
+<td data-edit>—</td>
+<td data-edit>Ficha do caso, com a medição do "antes"</td>
+</tr>
+<tr class="even">
+<td data-edit>2</td>
+<td data-edit>Ficha do caso</td>
+<td data-edit>Instrução permanente da unidade</td>
+</tr>
+<tr class="odd">
+<td data-edit>3</td>
+<td data-edit>Instrução permanente</td>
+<td data-edit>Matriz de permissões</td>
+</tr>
+<tr class="even">
+<td data-edit>4</td>
+<td data-edit>Matriz de permissões</td>
+<td data-edit>Especificação do loop, com critério de parada</td>
+</tr>
+<tr class="odd">
+<td data-edit>5</td>
+<td data-edit>Especificação do loop (<strong>da outra dupla</strong>)</td>
+<td data-edit>Laudo de verificação</td>
+</tr>
+<tr class="even">
+<td data-edit>6</td>
+<td data-edit>Todos os anteriores</td>
+<td data-edit>Sistema + especificação, com antes e depois</td>
+</tr>
+</tbody>
+</table>
+<p data-edit>A única entrada cruzada é a do Encontro 5, e ela é deliberada:
+<strong>ninguém audita o próprio sistema</strong>. O pareamento entre
+duplas auditoras é feito pela condução, não pelas duplas — ver o bloco
+5.3.</p>
+<hr />
+<h2 id="6-roteiro-de-conducao-encontro-a-encontro">6. Roteiro de
+condução, encontro a encontro</h2>
+<p data-edit>Cada bloco traz os quatro tempos da Camada 1. A linha <strong>Puxa
+para</strong> é a transição: é ela que faz o curso soar como uma coisa
+só. Os tempos somam 2h40 de conteúdo em 3h de encontro; os 20 minutos
+restantes são a folga real de qualquer aula ao vivo (entrada, intervalo,
+uma pergunta longa).</p>
+<h3 id="encontro-1--o-que-mudou-e-por-que-o-prompt-tem-teto">Encontro 1
+— O que mudou, e por que o prompt tem teto</h3>
+<h4 id="11--por-que-continua-dando-trabalho-toda-vez--30-min">1.1 · Por
+que continua dando trabalho toda vez — ~30 min</h4>
+<ul>
+<li data-edit><strong>Ver.</strong> Abrir com a pergunta que a turma já traz:
+<em>"eu já sei pedir bem; por que ainda dá trabalho?"</em>.
+Demonstração: o mesmo prompt excelente aplicado a cinco casos parecidos,
+com resultado bom em três e ruim em dois. A fala que não pode faltar:
+<strong>o prompt não tem memória, não tem limite e não tem
+prova</strong> — toda vez recomeça do zero, pode tudo o que a ferramenta
+pode, e ninguém sabe se acertou sem reler.</li>
+<li data-edit><strong>Fazer nos dois harnesses.</strong> Bloco conceitual, sem
+teclado.</li>
+<li data-edit><strong>Verificar.</strong> Enquete: <em>"o que faltou nos dois
+casos que deram errado?"</em>. Resposta esperada: faltou contexto e
+faltou conferência — não faltou talento no pedido.</li>
+<li data-edit><strong>Registrar.</strong> Nada ainda.</li>
+<li data-edit><strong>Puxa para →</strong> se o que falta não é o pedido, o que é?
+(1.2)</li>
+</ul>
+<h4 id="12--anatomia-de-um-sistema--30-min">1.2 · Anatomia de um sistema
+— ~30 min</h4>
+<ul>
+<li data-edit><strong>Ver.</strong> As cinco peças, nesta ordem, porque é a ordem
+do curso: <strong>contexto</strong> (o que ele já sabe),
+<strong>ferramentas</strong> (o que ele pode tocar),
+<strong>loop</strong> (o que ele repete e quando para),
+<strong>verificação</strong> (como se sabe que acertou),
+<strong>checkpoint</strong> (onde a decisão volta). Mostrar que o Nível
+1 inteiro morava dentro de uma dessas cinco caixas.</li>
+<li data-edit><strong>Fazer nos dois harnesses.</strong> Cada participante
+identifica, num sistema que já usou (o próprio PJe 2.x serve), onde
+estão as cinco peças. Individual, cinco minutos.</li>
+<li data-edit><strong>Verificar.</strong> Pedir a três participantes que digam
+qual peça não conseguiram localizar. A que mais aparece é "verificação"
+— e isso é o argumento do Encontro 5, dito pela turma.</li>
+<li data-edit><strong>Registrar.</strong> Nada ainda.</li>
+<li data-edit><strong>Puxa para →</strong> para construir isso aqui, o que a
+instituição nos dá hoje? (1.3)</li>
+</ul>
+<h4 id="13--o-que-existe-hoje-e-a-assimetria--35-min">1.3 · O que existe
+hoje, e a assimetria — ~35 min</h4>
+<ul>
+<li data-edit><strong>Ver.</strong> Panorama honesto: o que dá para fazer só pelo
+navegador (skill própria, espaço persistente, conector remoto, execução
+de tarefas em nuvem) e o que exige máquina própria (arquivo local, uso
+do computador, servidor local, extensão). Em seguida, o quadro
+institucional: ApoIA permitido sem API, contrato Azure sem ferramenta ao
+servidor, IRACEMA e SIGMA sem data.</li>
+<li data-edit><strong>Ver (a tese, ~5 min).</strong> <em>Onde é permitido usar
+dado real, não há capacidade agêntica; onde há capacidade agêntica, não
+é permitido usar dado real.</em> Dizer em seguida por que isso
+<strong>não</strong> inviabiliza o curso: o que se leva daqui são os
+artefatos, e eles migram quando a API chegar.</li>
+<li data-edit><strong>Fazer nos dois harnesses.</strong> Cada participante
+declara, no chat, qual harness terá: máquina com administrador ou apenas
+navegador. É esta declaração que forma as duplas em 1.4.</li>
+<li data-edit><strong>Verificar.</strong> Enquete: <em>"posso usar peça de
+processo real no exercício da semana que vem?"</em>. Resposta esperada:
+não, em nenhuma hipótese — e essa resposta vale para o curso
+inteiro.</li>
+<li data-edit><strong>Registrar.</strong> Nada ainda.</li>
+<li data-edit><strong>Puxa para →</strong> com isso na mesa, que trabalho da sua
+unidade vale a pena atacar? (1.4)</li>
+</ul>
+<h4 id="14--formação-das-duplas-e-escolha-do-caso--40-min">1.4 ·
+Formação das duplas e escolha do caso — ~40 min</h4>
+<ul>
+<li data-edit><strong>Ver.</strong> Os três critérios do caso, ditos antes de
+qualquer escolha: <strong>repete</strong> (acontece muitas vezes por
+semana, não uma vez por mês), <strong>tem regra</strong> (dá para
+explicar a outra pessoa o que torna o resultado certo), <strong>não
+decide</strong> (o resultado não é ato decisório). Mostrar um caso que
+falha em cada critério — este é o <strong>exercício de falha do Encontro
+1</strong>, o defeito de escopo: um trabalho repetitivo que, examinado,
+é repetitivo porque cada caso é decidido.</li>
+<li data-edit><strong>Fazer nos dois harnesses.</strong> Formação das duplas
+(mecânica na seção 8.2) e preenchimento da ficha do caso: o que é feito
+hoje, quantas vezes por semana, quanto tempo leva, o que torna o
+resultado certo. A medição do "antes" é feita <strong>agora</strong>,
+antes de qualquer construção — se for estimada depois, a rubrica a
+considera parcial.</li>
+<li data-edit><strong>Verificar.</strong> Cada dupla responde no chat: <em>"seu
+caso passa nos três critérios?"</em>. A condução lê em voz alta dois ou
+três casos que <strong>não</strong> passam e explica por quê. Ninguém
+sai constrangido: casos reprovados são substituídos ali, com apoio.</li>
+<li data-edit><strong>Registrar.</strong> Ficha do caso, entregue ao fim do
+encontro.</li>
+<li data-edit><strong>Puxa para →</strong> o agente não conhece sua unidade. O que
+ele precisa saber antes de você pedir qualquer coisa? (Encontro 2)</li>
+</ul>
+<p data-edit><strong>Tarefa para o intervalo.</strong> Levantar, sem escrever nada
+ainda, o que uma pessoa nova na unidade precisaria saber para fazer esse
+trabalho.</p>
+<hr />
+<h3
+id="encontro-2--contexto-o-que-o-agente-sabe-antes-de-começar">Encontro
+2 — Contexto: o que o agente sabe antes de começar</h3>
+<h4
+id="21--por-que-o-mesmo-prompt-falha-no-computador-do-colega--30-min">2.1
+· Por que o mesmo prompt falha no computador do colega — ~30 min</h4>
+<ul>
+<li data-edit><strong>Ver.</strong> Demonstração ao vivo: a mesma instrução, dois
+ambientes, resultados diferentes. A fala que não pode faltar: <strong>a
+diferença não estava no pedido, estava no que já havia em
+volta</strong>.</li>
+<li data-edit><strong>Fazer nos dois harnesses.</strong> Cada participante repete
+a instrução demonstrada no seu ambiente e compara com o par. As
+diferenças alimentam o bloco seguinte.</li>
+<li data-edit><strong>Verificar.</strong> <em>"Cite uma coisa que o seu ambiente
+sabia e o do seu par não."</em></li>
+<li data-edit><strong>Registrar.</strong> Lista bruta de diferenças.</li>
+<li data-edit><strong>Puxa para →</strong> se o que está em volta decide o
+resultado, isso precisa ser escrito. (2.2)</li>
+</ul>
+<h4 id="22--as-camadas-de-contexto--35-min">2.2 · As camadas de contexto
+— ~35 min</h4>
+<ul>
+<li data-edit><strong>Ver.</strong> Quatro camadas: instrução permanente,
+conhecimento do domínio, exemplos calibradores, material de referência.
+O erro comum é empilhar tudo numa camada só — o prompt gigante que
+ninguém mantém.</li>
+<li data-edit><strong>Fazer nos dois harnesses.</strong> Classificar, da lista
+bruta de 2.1, o que é de cada camada.</li>
+<li data-edit><strong>Verificar.</strong> <em>"O que da sua lista é exemplo
+calibrador e não regra?"</em> — a confusão entre os dois é o erro mais
+frequente do bloco.</li>
+<li data-edit><strong>Registrar.</strong> Lista classificada.</li>
+<li data-edit><strong>Puxa para →</strong> a primeira camada é a que mais dura.
+Vamos escrevê-la. (2.3)</li>
+</ul>
+<h4 id="23--escrevendo-a-instrução-permanente-da-unidade--45-min">2.3 ·
+Escrevendo a instrução permanente da unidade — ~45 min</h4>
+<ul>
+<li data-edit><strong>Ver.</strong> O modelo, campo a campo, com atenção
+desproporcional a <strong>o que nunca entra</strong>: dado processual,
+sigiloso ou pessoal; sigilo "sim" <strong>ou "desconhecido"</strong>
+bloqueia. Mostrar que essa seção não é aviso — é a parte executável do
+documento.</li>
+<li data-edit><strong>Fazer — operador.</strong> Monta a base de contexto em
+arquivo, na máquina dele.</li>
+<li data-edit><strong>Fazer — arquiteto.</strong> Monta a mesma base como espaço
+persistente no navegador, com a instrução permanente e a lista de
+vedações.</li>
+<li data-edit><strong>Os dois comparam.</strong> Mesma instrução, dois lugares:
+onde o resultado diverge, e por quê.</li>
+<li data-edit><strong>Verificar.</strong> A prova do bloco: <strong>entregar a
+instrução a alguém de outra dupla e pedir que a use sem
+explicação</strong>. Se a pessoa precisar perguntar algo, a instrução
+não está pronta.</li>
+<li data-edit><strong>Registrar.</strong> Instrução permanente, versão 1.</li>
+<li data-edit><strong>Puxa para →</strong> e se o que está escrito aí envelhecer?
+(2.4)</li>
+</ul>
+<h4 id="24--envenenamento-de-contexto--30-min">2.4 · Envenenamento de
+contexto — ~30 min</h4>
+<ul>
+<li data-edit><strong>Ver.</strong> O <strong>exercício de falha do Encontro
+2</strong>: uma instrução permanente que contém uma informação
+verdadeira no ano passado e falsa hoje. O agente age com confiança total
+sobre a informação errada. A fala que não pode faltar: <strong>o agente
+não tem como saber que a fonte envelheceu; quem versiona é a
+pessoa</strong>.</li>
+<li data-edit><strong>Fazer nos dois harnesses.</strong> Cada dupla marca, na
+própria instrução, quais linhas têm prazo de validade e quem é
+responsável por revisá-las.</li>
+<li data-edit><strong>Verificar.</strong> <em>"Qual linha da sua instrução
+apodrece primeiro?"</em></li>
+<li data-edit><strong>Registrar.</strong> Instrução permanente com marcação de
+validade e responsável.</li>
+<li data-edit><strong>Puxa para →</strong> o agente já sabe o que precisa. Agora:
+o que ele pode tocar? (Encontro 3)</li>
+</ul>
+<p data-edit><strong>Tarefa para o intervalo.</strong> Usar a instrução permanente
+em duas tarefas reais da semana e anotar onde ela faltou.</p>
+<hr />
+<h3 id="encontro-3--harness-o-que-o-agente-pode-tocar">Encontro 3 —
+Harness: o que o agente pode tocar</h3>
+<h4 id="31--o-que-muda-quando-se-dá-acesso--30-min">3.1 · O que muda
+quando se dá acesso — ~30 min</h4>
+<ul>
+<li data-edit><strong>Ver.</strong> A diferença entre um agente que responde e um
+que <strong>faz</strong>: o primeiro erra em texto, o segundo erra em
+efeito. Demonstração de uma ação com efeito reversível, mostrando o
+registro do que foi feito.</li>
+<li data-edit><strong>Fazer nos dois harnesses.</strong> Cada participante lista,
+para o caso da dupla, tudo que o sistema precisaria <strong>ler</strong>
+e tudo que precisaria <strong>escrever</strong>.</li>
+<li data-edit><strong>Verificar.</strong> <em>"Alguma dessas escritas é em sistema
+de produção do tribunal?"</em> Se for, a resposta é a regra dura:
+<strong>não</strong>.</li>
+<li data-edit><strong>Registrar.</strong> Rascunho das duas colunas.</li>
+<li data-edit><strong>Puxa para →</strong> antes de tocar no alvo real, roda-se
+onde? (3.2)</li>
+</ul>
+<h4 id="32--isolamento-antes-do-alvo-real--30-min">3.2 · Isolamento
+antes do alvo real — ~30 min</h4>
+<ul>
+<li data-edit><strong>Ver.</strong> Rodar isolado — cópia de amostra, ambiente
+separado, simulação — antes de rodar no alvo. É a prática que separa
+quem automatiza de quem quebra.</li>
+<li data-edit><strong>Fazer — operador.</strong> Configura permissões na máquina
+real e roda o primeiro passo isolado.</li>
+<li data-edit><strong>Fazer — arquiteto.</strong> Cria a primeira <strong>skill
+própria</strong> da unidade e a sobe pela web; observa o que o ambiente
+em nuvem consegue e o que ele recusa por não ter acesso à máquina.</li>
+<li data-edit><strong>Verificar.</strong> Os dois relatam o que o ambiente
+<strong>recusou</strong>. A lista de recusas é mais informativa que a de
+sucessos, e alimenta 3.3.</li>
+<li data-edit><strong>Registrar.</strong> Lista de recusas por harness.</li>
+<li data-edit><strong>Puxa para →</strong> essas recusas são técnicas. Faltam as
+jurídicas. (3.3)</li>
+</ul>
+<h4 id="33--norma-e-sigilo-como-requisito-de-arquitetura--45-min">3.3 ·
+Norma e sigilo como requisito de arquitetura — ~45 min</h4>
+<ul>
+<li data-edit><strong>Ver.</strong> Res. CNJ 615/2025, Portaria Conjunta TRF5 nº
+2/2025 e regime de sigilo lidos de uma forma incomum: <strong>o que cada
+uma proíbe que o sistema faça</strong>. Não é o bloco de ética do fim do
+curso — é especificação. Leitura no PJe 2.x: o que é consulta legítima e
+por que escrita automatizada está fora, sempre.</li>
+<li data-edit><strong>Fazer nos dois harnesses.</strong> Preencher a matriz de
+permissões, <strong>cada um a coluna do seu harness</strong>, com cada
+vedação ancorada em norma ou em regime de sigilo.</li>
+<li data-edit><strong>Verificar.</strong> A prova do bloco: <strong>para cada
+linha de "não pode", apontar de onde vem</strong>. Linha sem âncora
+volta para reescrita.</li>
+<li data-edit><strong>Registrar.</strong> Matriz de permissões, assinada pela
+dupla.</li>
+<li data-edit><strong>Puxa para →</strong> o que impede o sistema de fazer o que
+não pode? (3.4)</li>
+</ul>
+<h4 id="34--permissão-que-depende-de-confiança--25-min">3.4 · Permissão
+que depende de confiança — ~25 min</h4>
+<ul>
+<li data-edit><strong>Ver.</strong> O <strong>exercício de falha do Encontro
+3</strong>: uma matriz em que a vedação existe no papel mas nada, na
+configuração, impede a ação. A fala que não pode faltar:
+<strong>permissão que depende de alguém lembrar não é permissão — é
+sorte com prazo de validade</strong>.</li>
+<li data-edit><strong>Fazer nos dois harnesses.</strong> Cada dupla marca, na
+própria matriz, quais vedações estão configuradas e quais dependem de
+disciplina humana.</li>
+<li data-edit><strong>Verificar.</strong> <em>"Quantas das suas vedações
+sobrevivem a um dia ruim de quem opera?"</em></li>
+<li data-edit><strong>Registrar.</strong> Matriz com a coluna de "como é
+impedido".</li>
+<li data-edit><strong>Puxa para →</strong> o sistema sabe o que sabe e pode o que
+pode. Falta: quantas vezes ele repete, e quando para? (Encontro 4)</li>
+</ul>
+<p data-edit><strong>Tarefa para o intervalo.</strong> Nenhuma construção. Reler a
+matriz com o supervisor imediato e anotar o que ele questionar.</p>
+<hr />
+<h3
+id="encontro-4--loop-o-que-ele-repete-e-quando-para--troca-de-papéis">Encontro
+4 — Loop: o que ele repete e quando para · troca de papéis</h3>
+<h4 id="41--a-troca-de-papéis--15-min">4.1 · A troca de papéis — ~15
+min</h4>
+<ul>
+<li data-edit><strong>Ver.</strong> Anunciar a troca com o motivo, não como
+formalidade: <strong>quem especificou vai construir, quem construiu vai
+especificar</strong>. Dizer o que se espera que descubram — que o outro
+lado é difícil por razões diferentes.</li>
+<li data-edit><strong>Fazer nos dois harnesses.</strong> Cada participante
+escreve, em uma linha, o que acha que vai achar mais difícil no novo
+papel. Guardar para o Encontro 6.</li>
+<li data-edit><strong>Verificar.</strong> —</li>
+<li data-edit><strong>Registrar.</strong> Registro dos papéis do ciclo 2 na ficha
+da dupla (a certificação depende disso).</li>
+<li data-edit><strong>Puxa para →</strong> no papel novo, o primeiro problema é o
+mais subestimado do curso. (4.2)</li>
+</ul>
+<h4 id="42--anatomia-do-loop--35-min">4.2 · Anatomia do loop — ~35
+min</h4>
+<ul>
+<li data-edit><strong>Ver.</strong> O que se repete, sobre o que, até quando.
+Mostrar um loop simples funcionando e depois o mesmo loop com a lista de
+entrada crescendo — o custo sobe, a atenção humana não.</li>
+<li data-edit><strong>Fazer nos dois harnesses.</strong> Cada dupla escreve as
+três respostas para o caso próprio.</li>
+<li data-edit><strong>Verificar.</strong> <em>"Sobre o que exatamente ele itera —
+uma lista de quê?"</em> Resposta vaga aqui é sintoma de que o caso ainda
+não está delimitado.</li>
+<li data-edit><strong>Registrar.</strong> As três linhas na especificação.</li>
+<li data-edit><strong>Puxa para →</strong> falta a mais difícil das três: quando
+ele para? (4.3)</li>
+</ul>
+<h4 id="43--critério-de-parada-verificável--45-min">4.3 · Critério de
+parada verificável — ~45 min</h4>
+<ul>
+<li data-edit><strong>Ver.</strong> A diferença entre <em>"até ficar bom"</em> e
+<em>"até a contagem de pendentes zerar"</em>. Um critério verificável
+diz <strong>o que se conta, qual o valor esperado e o que fazer se não
+convergir</strong>. Este é o bloco mais importante do encontro e
+provavelmente do curso.</li>
+<li data-edit><strong>Fazer nos dois harnesses.</strong> Escrever o critério
+<strong>antes</strong> de qualquer execução. Depois, trocar com outra
+dupla e tentar aplicá-lo ao caso alheio.</li>
+<li data-edit><strong>Verificar.</strong> A prova do bloco: <strong>a outra dupla
+consegue aplicar seu critério e chegar ao mesmo resultado?</strong> Se
+não, o critério não está pronto. Este é o mesmo teste que a rubrica
+usa.</li>
+<li data-edit><strong>Registrar.</strong> Critério de parada na
+especificação.</li>
+<li data-edit><strong>Puxa para →</strong> e quando ele não converge? (4.4)</li>
+</ul>
+<h4 id="44--loop-que-não-para-e-quando-não-usar-loop--30-min">4.4 · Loop
+que não para, e quando não usar loop — ~30 min</h4>
+<ul>
+<li data-edit><strong>Ver.</strong> O <strong>exercício de falha do Encontro
+4</strong>: um loop com critério de satisfação, que roda indefinidamente
+melhorando o que já estava bom. Sintomas, custo e como cortar. Em
+seguida, o bloco que evita estrago institucional: <strong>quando não
+usar loop</strong> — e a fala que não pode faltar é que essa é a maioria
+dos casos de uma unidade judiciária.</li>
+<li data-edit><strong>Fazer nos dois harnesses.</strong> Cada dupla responde:
+<em>"nosso caso precisa mesmo de loop, ou precisa de um passo único
+bem-feito?"</em> Mudar de ideia aqui é resultado bom, não fracasso.</li>
+<li data-edit><strong>Verificar.</strong> <em>"Qual o custo de uma volta a mais no
+seu loop?"</em></li>
+<li data-edit><strong>Registrar.</strong> Especificação do loop, fechada.</li>
+<li data-edit><strong>Puxa para →</strong> ele repete e para. Como você sabe que
+ele acertou? (Encontro 5)</li>
+</ul>
+<p data-edit><strong>Tarefa para o intervalo.</strong> Rodar a especificação uma
+vez, no harness de quem opera no ciclo 2, e anotar tudo que não saiu
+como o previsto.</p>
+<hr />
+<h3
+id="encontro-5--verificação-como-saber-que-está-certo-sem-reler-tudo">Encontro
+5 — Verificação: como saber que está certo sem reler tudo</h3>
+<h4 id="51--a-escada-de-verificação--40-min">5.1 · A escada de
+verificação — ~40 min</h4>
+<ul>
+<li data-edit><strong>Ver.</strong> Os cinco degraus, do mais barato ao mais caro:
+comando determinístico, validador, verdade de campo, juízo de modelo com
+rubrica, conferência humana. A regra: <strong>sempre o menor degrau que
+prova</strong>.</li>
+<li data-edit><strong>Fazer nos dois harnesses.</strong> Cada dupla escolhe o
+degrau para o próprio caso e justifica.</li>
+<li data-edit><strong>Verificar.</strong> <em>"Existe comando que meça isso?"</em>
+— a pergunta que precede qualquer resposta "vou pedir para a IA
+avaliar".</li>
+<li data-edit><strong>Registrar.</strong> Degrau escolhido e justificativa.</li>
+<li data-edit><strong>Puxa para →</strong> por que quase todo mundo escolhe o
+degrau errado? (5.2)</li>
+</ul>
+<h4 id="52--juízo-de-modelo-onde-cabia-um-comando--30-min">5.2 · Juízo
+de modelo onde cabia um comando — ~30 min</h4>
+<ul>
+<li data-edit><strong>Ver.</strong> O <strong>exercício de falha do Encontro
+5</strong>, e o mais importante do curso: um sistema que pergunta à IA
+se a saída da IA está correta, com aprovação de 100% e três erros na
+amostra. A fala que não pode faltar: <strong>perguntar ao modelo se o
+modelo acertou é a forma mais cara de não verificar</strong>.</li>
+<li data-edit><strong>Fazer nos dois harnesses.</strong> Revisar a escolha de 5.1
+— quantas duplas trocam de degrau depois deste bloco é o melhor
+indicador de que o bloco funcionou.</li>
+<li data-edit><strong>Verificar.</strong> <em>"O que o seu sinal detectaria, e o
+que ele deixaria passar?"</em></li>
+<li data-edit><strong>Registrar.</strong> Sinal de verificação, definido.</li>
+<li data-edit><strong>Puxa para →</strong> agora rode, e depois olhe o sistema de
+outra dupla. (5.3)</li>
+</ul>
+<h4 id="53--auditoria-cruzada-e-o-laudo--50-min">5.3 · Auditoria cruzada
+e o laudo — ~50 min</h4>
+<ul>
+<li data-edit><strong>Ver.</strong> O que é um laudo: nível usado, <strong>saída
+literal</strong> do sinal e — a parte que a rubrica considera a mais
+importante — <strong>o que não foi possível verificar</strong>. Um laudo
+que só afirma acertos é um laudo incompleto.</li>
+<li data-edit><strong>Fazer — quem opera.</strong> Roda o sinal e cola a saída
+literal, sem parafrasear.</li>
+<li data-edit><strong>Fazer — quem projeta.</strong> Roda o mesmo sinal no
+ambiente em nuvem, compara com o do par e escreve o laudo, apontando o
+que não foi possível verificar <strong>em cada harness</strong>.</li>
+<li data-edit><strong>A auditoria é cruzada:</strong> cada dupla emite laudo sobre
+o sistema de <strong>outra</strong> dupla. O pareamento é definido pela
+condução antes do encontro, nunca escolhido pelas duplas — par escolhido
+por afinidade audita com complacência.</li>
+<li data-edit><strong>Verificar.</strong> A prova do bloco: <strong>o laudo
+declara ao menos uma coisa não verificada?</strong> Laudo sem essa seção
+volta.</li>
+<li data-edit><strong>Registrar.</strong> Laudo de verificação.</li>
+<li data-edit><strong>Puxa para →</strong> o sistema funciona e você sabe provar.
+Onde entra a pessoa? (Encontro 6)</li>
+</ul>
+<p data-edit><strong>Tarefa para o intervalo.</strong> Ler o laudo que a outra
+dupla escreveu sobre o seu sistema e responder por escrito ao que ela
+apontou.</p>
+<hr />
+<h3 id="encontro-6--checkpoint-humano-risco-e-roda-de-projetos">Encontro
+6 — Checkpoint humano, risco e roda de projetos</h3>
+<h4 id="61--onde-a-decisão-volta-para-a-pessoa--35-min">6.1 · Onde a
+decisão volta para a pessoa — ~35 min</h4>
+<ul>
+<li data-edit><strong>Ver.</strong> Checkpoint por desenho, não por esquecimento:
+em que ponto, com que informação na mão e com poder real de recusar. O
+<strong>exercício de falha do Encontro 6</strong>: o checkpoint
+decorativo — a pessoa que assina 200 itens em três minutos. A fala que
+não pode faltar: <strong>supervisão que não tem como recusar não é
+supervisão; é assinatura</strong>.</li>
+<li data-edit><strong>Fazer nos dois harnesses.</strong> Cada dupla localiza o
+checkpoint no próprio sistema e responde: <em>o que essa pessoa vê, e
+quanto tempo ela tem?</em></li>
+<li data-edit><strong>Verificar.</strong> <em>"Se ela recusar, o que acontece com
+o resto da fila?"</em></li>
+<li data-edit><strong>Registrar.</strong> Checkpoint descrito na
+especificação.</li>
+<li data-edit><strong>Puxa para →</strong> e quando o sistema errar? (6.2)</li>
+</ul>
+<h4 id="62--erro-reversão-e-sustentabilidade--30-min">6.2 · Erro,
+reversão e sustentabilidade — ~30 min</h4>
+<ul>
+<li data-edit><strong>Ver.</strong> Registro do que foi feito, reversão do que deu
+errado, responsabilidade de quem assinou. Em seguida, a pergunta que
+quase nenhum projeto responde: <strong>quem mantém isso quando o
+servidor sair da unidade</strong> — e como o desenho migra se houver API
+institucional.</li>
+<li data-edit><strong>Fazer nos dois harnesses.</strong> Responder as três
+perguntas por escrito.</li>
+<li data-edit><strong>Verificar.</strong> <em>"Se você sair amanhã, quem mexe
+nisso na semana que vem?"</em></li>
+<li data-edit><strong>Registrar.</strong> Seção de sustentabilidade.</li>
+<li data-edit><strong>Puxa para →</strong> agora conte à turma o que você fez.
+(6.3)</li>
+</ul>
+<h4 id="63--roda-de-projetos--60-min">6.3 · Roda de projetos — ~60
+min</h4>
+<p data-edit>Mecânica com turma sem teto na seção 8.4. Cada dupla apresenta três
+coisas, nesta ordem e nesse peso: <strong>o antes</strong>, <strong>o
+depois</strong> e <strong>o que não conseguiu verificar</strong>. A
+terceira parte é obrigatória e não é confissão de fracasso — é o produto
+mais maduro do curso.</p>
+<ul>
+<li data-edit><strong>Verificar.</strong> A condução fecha nomeando os padrões que
+apareceram em várias duplas.</li>
+<li data-edit><strong>Registrar.</strong> Entrega final: sistema, especificação,
+laudo e a medição do antes e do depois.</li>
+</ul>
+<h4 id="64--encerramento--15-min">6.4 · Encerramento — ~15 min</h4>
+<p data-edit>Retomar as linhas escritas em 4.1 (<em>"o que eu achei que seria mais
+difícil no outro papel"</em>) e ler algumas em voz alta. É o fecho
+natural do curso: a turma vê que a dificuldade estava do outro lado o
+tempo todo. Encerrar com o critério de qualidade do curso — <strong>um
+sistema que funciona mas não se sabe verificar vale menos do que um
+sistema modesto cuja correção se consegue provar</strong> — e com a
+comunidade de prática, que acompanha a chegada da API institucional.</p>
+<hr />
+<h2 id="7-como-conduzir-um-bloco-com-dois-harnesses">7. Como conduzir um
+bloco com dois harnesses</h2>
+<p data-edit>O problema prático de todo bloco de prática deste curso: <strong>as
+duas metades da turma fazem coisas diferentes ao mesmo tempo</strong>, e
+quem conduz não consegue olhar as duas.</p>
+<p data-edit>A mecânica que funciona:</p>
+<ol type="1">
+<li data-edit><strong>Enuncie as duas tarefas antes de liberar a prática</strong>,
+nesta ordem: primeiro a do arquiteto, depois a do operador. Enunciar a
+do operador primeiro faz o arquiteto passar a prática inteira achando
+que a dele é a versão reduzida.</li>
+<li data-edit><strong>Dê o mesmo tempo às duas.</strong> Se a tarefa do arquiteto
+acabar antes, o problema é a tarefa, não o papel.</li>
+<li data-edit><strong>Circule pelas salas simultâneas</strong> (seção 8.3)
+alternando: nunca duas visitas seguidas ao mesmo tipo de harness.</li>
+<li data-edit><strong>Feche o bloco com as duas saídas lado a lado.</strong> O
+conteúdo do bloco não é nenhuma das duas metades: é a diferença entre
+elas.</li>
+<li data-edit><strong>Quando o tempo apertar, corte extensão, nunca um
+lado.</strong> Metade da prática nos dois harnesses é melhor do que a
+prática inteira em um só.</li>
+</ol>
+<hr />
+<h2 id="8-conduzindo-no-teams-com-turma-sem-teto">8. Conduzindo no
+Teams, com turma sem teto</h2>
+<p data-edit>O curso é síncrono, remoto, no <strong>Microsoft Teams</strong> —
+ambiente institucional da JFCE. A turma é aberta a todos os egressos do
+Nível 1, que formou cerca de 300 servidores. Isso cria quatro problemas
+de condução que precisam estar resolvidos <strong>antes</strong> do
+Encontro 1.</p>
+<h3 id="81-preparação-da-reunião">8.1 Preparação da reunião</h3>
+<ul>
+<li data-edit><strong>Compartilhamento de tela habilitado para
+participantes</strong>, não apenas para apresentadores. Sem isso, a
+dupla operador/arquiteto não funciona, e o ajuste no meio da aula custa
+dez minutos.</li>
+<li data-edit><strong>Chat aberto e monitorado</strong> — é onde a verificação de
+cada bloco acontece com turma grande.</li>
+<li data-edit><strong>Gravação</strong> de todos os encontros, com aviso na
+abertura.</li>
+<li data-edit><strong>Um segundo condutor</strong> cuidando do chat enquanto o
+primeiro fala. Com turma desta ordem, quem apresenta não consegue ler o
+chat, e a verificação de bloco morre.</li>
+</ul>
+<h3 id="82-formação-das-duplas-com-turma-grande">8.2 Formação das duplas
+com turma grande</h3>
+<p data-edit>Formar duplas ao vivo, no Encontro 1, com centenas de pessoas, não
+funciona. A mecânica:</p>
+<ol type="1">
+<li data-edit><strong>A inscrição declara o harness</strong> — "tenho máquina
+pessoal com privilégio de administrador" ou "apenas máquina funcional".
+É a informação que permite parear.</li>
+<li data-edit><strong>O pareamento é prévio</strong>, feito pela SECOI a partir
+dessa declaração, publicado antes do Encontro 1. O bloco 1.4 confirma e
+ajusta, não constrói do zero.</li>
+<li data-edit><strong>Quando faltar operador</strong> — e vai faltar, porque a
+máquina funcional é a regra — a solução na ordem: trio com dois
+arquitetos e um operador; laboratório institucional, se houver; dupla só
+de arquitetos trabalhando com caso demonstrado. Nenhum artefato
+obrigatório exige operador.</li>
+<li data-edit><strong>Duplas da mesma unidade são preferíveis</strong>, porque o
+caso é da unidade. Quando não houver, o caso é de um dos dois e o outro
+entra como par de auditoria.</li>
+</ol>
+<h3 id="83-salas-simultâneas">8.3 Salas simultâneas</h3>
+<p data-edit>Toda prática acontece em salas simultâneas de dupla — não em
+plenária. Com turma grande, isso não é preferência: é a única forma de a
+prática existir.</p>
+<ul>
+<li data-edit>Salas <strong>fixas</strong> ao longo dos seis encontros: a dupla
+volta sempre para a mesma sala, o que poupa remontagem toda aula.</li>
+<li data-edit>A condução circula, com a alternância da seção 7.</li>
+<li data-edit><strong>Alarme de retorno</strong> com dois minutos de antecedência;
+a plenária recomeça no horário mesmo com salas ainda conversando.</li>
+</ul>
+<h3 id="84-a-roda-de-projetos-que-não-cabe-em-três-horas">8.4 A roda de
+projetos que não cabe em três horas</h3>
+<p data-edit>Com dezenas ou centenas de duplas, o Encontro 6 não comporta
+apresentação de todas. Mecânica em dois tempos:</p>
+<ol type="1">
+<li data-edit><strong>Primeira hora, em salas simultâneas de seis duplas.</strong>
+Todas apresentam, com seis minutos cada. Cada sala elege
+<strong>uma</strong> apresentação para a plenária, com um critério
+declarado: não é a mais bonita, é a que tem <strong>o "não verificado"
+mais instrutivo</strong>.</li>
+<li data-edit><strong>Segunda hora, em plenária</strong>, com as escolhidas —
+quantas couberem em oito minutos cada.</li>
+</ol>
+<p data-edit>Ninguém deixa de apresentar; o que se restringe é a plateia. E o
+critério de eleição reforça, no último encontro, exatamente o hábito que
+o curso quis instalar.</p>
+<hr />
+<h2 id="9-a-demonstracao-ao-vivo-regras-invariantes">9. A demonstração
+ao vivo: regras invariantes</h2>
+<p data-edit>As cinco primeiras vêm do Nível 1 e continuam valendo. A sexta é a
+que este curso não pode violar sob nenhuma circunstância.</p>
+<ol type="1">
+<li data-edit><strong>Nada de dado real.</strong> Caso sintético, público ou
+administrativo — sempre.</li>
+<li data-edit><strong>Testar a demonstração no mesmo ambiente em que ela vai
+rodar</strong>, no dia.</li>
+<li data-edit><strong>Ter o plano B pronto</strong>: captura de tela da
+demonstração funcionando, para quando a rede cair.</li>
+<li data-edit><strong>Errar em público é conteúdo</strong>, desde que o erro seja
+nomeado. Não fingir que era proposital.</li>
+<li data-edit><strong>Não demonstrar produto que a turma não tem acesso</strong>
+sem dizer, na mesma frase, o que ele custa.</li>
+<li data-edit><strong>Só se demonstra o que a turma consegue repetir.</strong>
+Neste curso, isso tem forma própria: toda demonstração tem <strong>duas
+metades</strong> — uma reproduzível pelo operador, outra pelo arquiteto.
+Uma demonstração que só um harness repete não entra no palco, por melhor
+que seja. Foi por essa regra que ferramentas de linha de comando ficaram
+fora do Nível 1, e é por ela que a condução do Nível 2 prepara tudo em
+dobro.</li>
+</ol>
+<hr />
+<h2 id="10-avaliacao-o-que-se-mede-e-como-corrigir-em-escala">10.
+Avaliação: o que se mede, e como corrigir em escala</h2>
+<p data-edit>O detalhe está na <code>rubrica-projeto-da-dupla.md</code>. Para a
+condução, três coisas importam:</p>
+<p data-edit><strong>Os requisitos são de percurso, não de prova.</strong>
+Frequência de 80%, entrega de pelo menos 4 dos 6 artefatos e ter atuado
+nos dois papéis. Quem conduz precisa <strong>registrar os papéis do
+ciclo 1 e do ciclo 2</strong> (bloco 4.1) — sem esse registro, a
+certificação não pode ser emitida como prevista.</p>
+<p data-edit><strong>O que reprova, reprova de imediato.</strong> Dado real,
+escrita automatizada em sistema de produção, checkpoint ausente. Se
+aparecer em sala, corrija na hora e em voz alta: é conteúdo, não
+constrangimento.</p>
+<p data-edit><strong>A correção é por amostragem.</strong> Sem teto de vagas,
+corrigir tudo deixa de ser praticável: 100% dos projetos de risco ou com
+indício de falha eliminatória, 30% dos demais, autoavaliação pela mesma
+rubrica nos não sorteados. A auditoria cruzada do Encontro 5 já fez a
+primeira leitura de todos — é ela que sustenta a amostragem sem perda de
+qualidade.</p>
+<hr />
+<h2 id="11-erros-comuns-de-quem-conduz-este-curso">11. Erros comuns de
+quem conduz este curso</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Erro</th>
+<th>Por que acontece</th>
+<th>O que fazer</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-edit>Recomeçar pelo básico do Nível 1</td>
+<td data-edit>O material antigo está na mão e é confortável</td>
+<td data-edit>A turma é egressa. Abrir com a pergunta que ela já traz (seção
+2)</td>
+</tr>
+<tr class="even">
+<td data-edit>Deixar o arquiteto assistindo</td>
+<td data-edit>A demonstração do operador é mais vistosa</td>
+<td data-edit>Enunciar a tarefa do arquiteto primeiro, sempre (seção 7)</td>
+</tr>
+<tr class="odd">
+<td data-edit>Cortar a prática do arquiteto quando atrasa</td>
+<td data-edit>É o corte que parece mais barato</td>
+<td data-edit>Cortar extensão dos dois lados; nunca um lado inteiro</td>
+</tr>
+<tr class="even">
+<td data-edit>Formar duplas ao vivo no Encontro 1</td>
+<td data-edit>Funcionava com 25 pessoas</td>
+<td data-edit>Pareamento prévio pela declaração de harness (seção 8.2)</td>
+</tr>
+<tr class="odd">
+<td data-edit>Aceitar "ficou bom" para fechar bloco</td>
+<td data-edit>É o que a turma responde naturalmente</td>
+<td data-edit>Nenhum bloco fecha sem sinal. É o hábito central do curso</td>
+</tr>
+<tr class="even">
+<td data-edit>Deixar as duplas escolherem quem auditam</td>
+<td data-edit>Parece gentil</td>
+<td data-edit>Pareamento definido pela condução (bloco 5.3)</td>
+</tr>
+<tr class="odd">
+<td data-edit>Tratar o "não verificado" como fracasso</td>
+<td data-edit>Parece cobrança de resultado</td>
+<td data-edit>É o produto mais maduro do curso. Elogiar em público</td>
+</tr>
+<tr class="even">
+<td data-edit>Prometer que a API institucional vem logo</td>
+<td data-edit>A turma pergunta e a resposta honesta é desconfortável</td>
+<td data-edit>Não há data. O curso é desenhado para isso (bloco 1.3)</td>
+</tr>
+<tr class="odd">
+<td data-edit>Demonstrar algo que só um harness repete</td>
+<td data-edit>A ferramenta é boa demais para não mostrar</td>
+<td data-edit>Regra 6 da seção 9. Não entra</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="12-checklist-de-preparacao-antes-de-cada-encontro">12. Checklist
+de preparação, antes de cada encontro</h2>
+<p data-edit><strong>Sempre:</strong></p>
+<ul class="task-list">
+<li data-edit><label><input type="checkbox" />Reunião do Teams com
+compartilhamento de tela liberado para participantes</label></li>
+<li data-edit><label><input type="checkbox" />Salas simultâneas montadas, com as
+mesmas duplas do encontro anterior</label></li>
+<li data-edit><label><input type="checkbox" />Segundo condutor escalado para o
+chat</label></li>
+<li data-edit><label><input type="checkbox" />Demonstração testada no ambiente do
+dia, nas <strong>duas</strong> metades (operador e
+arquiteto)</label></li>
+<li data-edit><label><input type="checkbox" />Captura de tela do plano B, caso a
+rede caia</label></li>
+<li data-edit><label><input type="checkbox" />Material sintético do encontro
+conferido — nenhum dado real</label></li>
+</ul>
+<p data-edit><strong>Por encontro:</strong></p>
+<ul class="task-list">
+<li data-edit><label><input type="checkbox" /><strong>1</strong> — Pareamento
+publicado; banco de casos sintéticos pronto para quem não trouxer
+caso</label></li>
+<li data-edit><label><input type="checkbox" /><strong>2</strong> — Exemplo de
+instrução envenenada preparado (bloco 2.4)</label></li>
+<li data-edit><label><input type="checkbox" /><strong>3</strong> — Textos da Res.
+CNJ 615/2025 e da Portaria Conjunta TRF5 nº 2/2025 à mão</label></li>
+<li data-edit><label><input type="checkbox" /><strong>4</strong> — Registro dos
+papéis do ciclo 2 preparado para preenchimento</label></li>
+<li data-edit><label><input type="checkbox" /><strong>5</strong> —
+<strong>Pareamento de auditoria cruzada definido</strong> (não deixar
+para a hora)</label></li>
+<li data-edit><label><input type="checkbox" /><strong>6</strong> — Salas de seis
+duplas montadas; critério de eleição comunicado antes</label></li>
+</ul>
+
+  </main>
+</div>
+
+<aside id="painel" aria-label="Minhas alterações">
+  <header>
+    <b>Minhas alterações</b>
+    <button id="btCopiar">copiar tudo</button>
+    <button id="btFechar">fechar</button>
+  </header>
+  <div id="lista"><p class="vazio">Clique em <b>revisar</b> e edite qualquer trecho. O que você
+  mudar aparece aqui, pronto para copiar e colar na conversa.</p></div>
+</aside>
+
+<script>
+(function () {
+  'use strict';
+
+  // Envolver as tabelas ANTES de capturar o texto original: mover um nó altera o
+  // innerHTML do bloco que o contém, e isso apareceria como alteração falsa.
+  document.querySelectorAll('table').forEach(function (t) {
+    if (t.parentElement.classList.contains('rolagem')) return;
+    var w = document.createElement('div'); w.className = 'rolagem';
+    t.parentNode.insertBefore(w, t); w.appendChild(t);
+  });
+
+  var edits = document.querySelectorAll('[data-edit]');
+  var original = [];
+  // duas passadas: todas as chaves primeiro, os originais depois. Atribuir a chave
+  // a um filho altera o innerHTML do pai — capturar junto marcaria alteração falsa.
+  edits.forEach(function (el, i) { el.dataset.k = 'e' + i; });
+  edits.forEach(function (el, i) { original[i] = el.innerHTML; });
+
+  var CHAVE = 'nivel2-guia-metodologico-revisao';
+  function carregar() {
+    try {
+      var raw = localStorage.getItem(CHAVE);
+      if (!raw) return;
+      var d = JSON.parse(raw);
+      edits.forEach(function (el, i) {
+        if (d['e' + i] !== undefined && d['e' + i] !== original[i]) {
+          el.innerHTML = d['e' + i];
+          el.classList.add('mudou');
+        }
+      });
+    } catch (e) {}
+  }
+  function salvar() {
+    try {
+      var d = {};
+      edits.forEach(function (el, i) { d['e' + i] = el.innerHTML; });
+      localStorage.setItem(CHAVE, JSON.stringify(d));
+    } catch (e) {}
+  }
+
+  function limpo(h) { var d = document.createElement('div'); d.innerHTML = h; return (d.textContent || '').replace(/\s+/g, ' ').trim(); }
+
+  function alteracoes() {
+    var out = [];
+    edits.forEach(function (el, i) {
+      var agora = el.innerHTML;
+      if (agora !== original[i]) {
+        el.classList.add('mudou');
+        var sec = el.closest('main') ? (function () {
+          var n = el; while (n && n.tagName !== 'H2') { n = n.previousElementSibling || n.parentElement; }
+          return n ? limpo(n.innerHTML) : 'documento';
+        })() : 'documento';
+        out.push({ sec: sec, antes: limpo(original[i]), depois: limpo(agora) });
+      } else { el.classList.remove('mudou'); }
+    });
+    return out;
+  }
+
+  function pintar() {
+    var lista = document.getElementById('lista');
+    var m = alteracoes();
+    document.getElementById('conta').textContent = m.length;
+    if (!m.length) {
+      lista.innerHTML = '<p class="vazio">Nenhuma alteração ainda. Clique em <b>revisar</b> e edite qualquer trecho.</p>';
+      return;
+    }
+    lista.innerHTML = m.map(function (x) {
+      return '<div class="item"><span class="rot">' + x.sec + '</span>' +
+             '<div class="antes">' + x.antes + '</div>' +
+             '<div class="depois">' + x.depois + '</div></div>';
+    }).join('');
+  }
+
+  carregar();
+  pintar();
+
+  var btE = document.getElementById('btEditar');
+  btE.addEventListener('click', function () {
+    var on = btE.getAttribute('aria-pressed') === 'true';
+    btE.setAttribute('aria-pressed', on ? 'false' : 'true');
+    btE.textContent = on ? 'revisar' : 'concluir';
+    document.body.classList.toggle('editando', !on);
+    edits.forEach(function (el) { el.setAttribute('contenteditable', on ? 'false' : 'true'); });
+    if (on) { salvar(); pintar(); }
+  });
+
+  var painel = document.getElementById('painel');
+  document.getElementById('btPainel').addEventListener('click', function () {
+    pintar(); painel.classList.add('aberto');
+  });
+  document.getElementById('btFechar').addEventListener('click', function () {
+    painel.classList.remove('aberto');
+  });
+
+  document.getElementById('btCopiar').addEventListener('click', function () {
+    var m = alteracoes();
+    var txt = m.length
+      ? m.map(function (x) { return '## ' + x.sec + '\nANTES: ' + x.antes + '\nDEPOIS: ' + x.depois; }).join('\n\n')
+      : 'Nenhuma alteração.';
+    navigator.clipboard.writeText(txt).then(function () {
+      var b = document.getElementById('btCopiar');
+      b.textContent = 'copiado'; setTimeout(function () { b.textContent = 'copiar tudo'; }, 1600);
+    });
+  });
+
+  var bt = document.getElementById('btTema');
+  bt.addEventListener('click', function () {
+    var atual = document.documentElement.getAttribute('data-tema');
+    var escuro = matchMedia('(prefers-color-scheme: dark)').matches;
+    var novo = atual ? (atual === 'escuro' ? 'claro' : 'escuro') : (escuro ? 'claro' : 'escuro');
+    document.documentElement.setAttribute('data-tema', novo);
+    try { localStorage.setItem('nivel2-tema', novo); } catch (e) {}
+  });
+  try {
+    var t = localStorage.getItem('nivel2-tema');
+    if (t) document.documentElement.setAttribute('data-tema', t);
+  } catch (e) {}
+
+  var links = document.querySelectorAll('nav.sumario a');
+  var alvos = document.querySelectorAll('main h2[id]');
+  if ('IntersectionObserver' in window) {
+    var spy = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        links.forEach(function (a) { a.classList.toggle('ativo', a.getAttribute('href') === '#' + e.target.id); });
+      });
+    }, { rootMargin: '-15% 0px -75% 0px' });
+    alvos.forEach(function (h) { spy.observe(h); });
+  }
+})();
+</script>
+</body>
+</html>

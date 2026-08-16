@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Design do Curso — Servidor + IA Nível 2</title>
+<style>
+:root {
+  --tinta: #16202b;
+  --tinta-suave: #4a5866;
+  --tinta-fraca: #8996a3;
+  --papel: #fbfaf8;
+  --papel-2: #f2f0ec;
+  --regua: #e0ddd7;
+  --acento: #1f5f5b;
+  --acento-fraco: #e6efee;
+  --atencao: #8a5a1a;
+  --atencao-fraco: #fbf2e4;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, "Cascadia Code", Consolas, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-tema="claro"]) {
+    --tinta: #e8e6e1; --tinta-suave: #b3aea6; --tinta-fraca: #7d7871;
+    --papel: #14161a; --papel-2: #1b1e23; --regua: #2b2f36;
+    --acento: #6fbcb4; --acento-fraco: #14302e;
+    --atencao: #d8a556; --atencao-fraco: #2e2415;
+  }
+}
+:root[data-tema="escuro"] {
+  --tinta: #e8e6e1; --tinta-suave: #b3aea6; --tinta-fraca: #7d7871;
+  --papel: #14161a; --papel-2: #1b1e23; --regua: #2b2f36;
+  --acento: #6fbcb4; --acento-fraco: #14302e;
+  --atencao: #d8a556; --atencao-fraco: #2e2415;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--papel); color: var(--tinta);
+  font-family: var(--sans); font-size: 16.5px; line-height: 1.68;
+  -webkit-font-smoothing: antialiased;
+}
+
+.faixa {
+  padding: .7rem clamp(1rem, 4vw, 2.5rem);
+  background: var(--atencao-fraco); color: var(--atencao);
+  border-bottom: 1px solid color-mix(in srgb, var(--atencao) 35%, transparent);
+  font-size: .82rem; line-height: 1.5;
+}
+.faixa b { color: var(--atencao); }
+
+.topo {
+  position: sticky; top: 0; z-index: 40;
+  display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+  padding: .65rem clamp(1rem, 4vw, 2.5rem);
+  background: color-mix(in srgb, var(--papel) 92%, transparent);
+  backdrop-filter: blur(12px); border-bottom: 1px solid var(--regua);
+}
+.topo .marca {
+  font-family: var(--mono); font-size: .72rem; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--acento); font-weight: 700;
+}
+.topo .marca span { color: var(--tinta-fraca); font-weight: 400; }
+.acoes { margin-left: auto; display: flex; gap: .5rem; }
+.acoes button {
+  font-family: var(--mono); font-size: .7rem; letter-spacing: .04em;
+  padding: .45rem .8rem; border: 1px solid var(--regua);
+  background: transparent; color: var(--tinta-suave); cursor: pointer;
+  border-radius: 3px; transition: all .18s;
+}
+.acoes button:hover { color: var(--tinta); border-color: var(--acento); }
+.acoes button[aria-pressed="true"] {
+  background: var(--acento); border-color: var(--acento); color: var(--papel); font-weight: 700;
+}
+
+.casca {
+  display: grid; grid-template-columns: 232px minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  max-width: 1180px; margin: 0 auto; padding: 0 clamp(1rem, 4vw, 2.5rem) 6rem;
+}
+nav.sumario {
+  position: sticky; top: 3.6rem; align-self: start;
+  max-height: calc(100vh - 4.5rem); overflow-y: auto;
+  padding-top: 2.6rem; font-size: .8rem; display: flex; flex-direction: column;
+}
+nav.sumario a {
+  color: var(--tinta-fraca); text-decoration: none; padding: .33rem 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--regua) 55%, transparent);
+  transition: color .16s;
+}
+nav.sumario a:hover, nav.sumario a:focus-visible { color: var(--acento); outline: none; }
+nav.sumario a.ativo { color: var(--tinta); font-weight: 600; }
+
+main { padding-top: 2.6rem; min-width: 0; }
+h1 {
+  font-family: var(--serif); font-size: clamp(2rem, 4.4vw, 2.9rem);
+  line-height: 1.12; margin: 0 0 1rem; letter-spacing: -.015em; text-wrap: balance;
+}
+h2 {
+  font-family: var(--serif); font-size: clamp(1.35rem, 2.6vw, 1.75rem);
+  margin: 3rem 0 .8rem; padding-top: 1.4rem; border-top: 1px solid var(--regua);
+  letter-spacing: -.012em; text-wrap: balance;
+}
+h3 { font-size: 1.04rem; margin: 1.9rem 0 .5rem; letter-spacing: -.005em; }
+h4 { font-size: .95rem; margin: 1.4rem 0 .4rem; color: var(--tinta-suave); }
+p, li { max-width: 70ch; color: var(--tinta-suave); }
+p { margin: 0 0 .95rem; }
+li { margin-bottom: .4rem; }
+strong { color: var(--tinta); font-weight: 650; }
+h1 + p { font-size: 1.08rem; color: var(--tinta); }
+
+blockquote {
+  margin: 1.6rem 0; padding: 1rem 1.3rem;
+  background: var(--acento-fraco); border-left: 3px solid var(--acento);
+  border-radius: 0 4px 4px 0;
+}
+blockquote p { margin: 0; color: var(--tinta); font-size: 1.05rem; }
+blockquote p + p { margin-top: .5rem; }
+
+code {
+  font-family: var(--mono); font-size: .87em;
+  background: var(--papel-2); padding: .12em .38em; border-radius: 3px;
+  color: var(--acento); overflow-wrap: break-word;
+}
+
+.rolagem { overflow-x: auto; margin: 1.3rem 0; }
+table { width: 100%; border-collapse: collapse; font-size: .89rem; }
+th {
+  text-align: left; font-family: var(--mono); font-size: .68rem;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--tinta-fraca);
+  font-weight: 600; padding: .5rem .7rem .5rem 0; border-bottom: 1px solid var(--regua);
+  vertical-align: bottom;
+}
+td {
+  padding: .5rem .7rem .5rem 0; border-bottom: 1px solid color-mix(in srgb, var(--regua) 55%, transparent);
+  color: var(--tinta-suave); vertical-align: top;
+}
+td:first-child { color: var(--tinta); }
+
+hr { border: 0; border-top: 1px solid var(--regua); margin: 2.5rem 0; }
+
+body.editando [data-edit] { outline: 1px dashed var(--acento); outline-offset: 3px; cursor: text; }
+body.editando [data-edit]:focus { outline: 2px solid var(--acento); background: var(--acento-fraco); }
+[data-edit].mudou { background: var(--atencao-fraco); box-shadow: inset 3px 0 0 var(--atencao); padding-left: .5rem; }
+
+#painel {
+  position: fixed; right: 0; bottom: 0; top: 3.4rem; width: min(460px, 92vw);
+  background: var(--papel); border-left: 1px solid var(--regua);
+  transform: translateX(100%); transition: transform .22s ease; z-index: 50;
+  display: flex; flex-direction: column; box-shadow: -12px 0 30px rgba(0,0,0,.10);
+}
+#painel.aberto { transform: translateX(0); }
+#painel header {
+  padding: .9rem 1.1rem; border-bottom: 1px solid var(--regua);
+  display: flex; align-items: center; gap: .6rem;
+}
+#painel header b { font-size: .92rem; }
+#painel header button {
+  margin-left: auto; border: 1px solid var(--regua); background: transparent;
+  color: var(--tinta-suave); cursor: pointer; border-radius: 3px;
+  padding: .3rem .6rem; font-family: var(--mono); font-size: .68rem;
+}
+#lista { overflow-y: auto; padding: 1rem 1.1rem 2rem; font-size: .85rem; }
+#lista .item { margin-bottom: 1.3rem; padding-bottom: 1.1rem; border-bottom: 1px solid var(--regua); }
+#lista .rot {
+  font-family: var(--mono); font-size: .66rem; text-transform: uppercase;
+  letter-spacing: .1em; color: var(--tinta-fraca); display: block; margin-bottom: .35rem;
+}
+#lista .antes { color: var(--tinta-fraca); text-decoration: line-through; margin-bottom: .3rem; }
+#lista .depois { color: var(--tinta); }
+#lista .vazio { color: var(--tinta-fraca); }
+
+@media (max-width: 900px) {
+  .casca { grid-template-columns: 1fr; }
+  nav.sumario { position: static; max-height: none; padding-top: 1.6rem;
+    border-bottom: 1px solid var(--regua); padding-bottom: 1rem; }
+  main { padding-top: 1.6rem; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition-duration: .001ms !important; } }
+</style>
+</head>
+<body>
+
+<div class="faixa">
+  <b>Documento interno, em revisão.</b> Peça de trabalho do Servidor + IA · Nível 2, ainda não
+  submetida à Direção do Foro. Não indexada e sem link em nenhuma página pública — circula
+  apenas por URL direta, entre quem coordena e conduz o curso.
+</div>
+
+<div class="topo">
+  <div class="marca">INOVAJUS <span>/ Eixo III · documento de design</span></div>
+  <div class="acoes">
+    <button id="btTema" title="Alternar claro e escuro">tema</button>
+    <button id="btEditar" aria-pressed="false">revisar</button>
+    <button id="btPainel">minhas alterações (<span id="conta">0</span>)</button>
+  </div>
+</div>
+
+<div class="casca">
+  <nav class="sumario" aria-label="Sumário">
+      <a href="#1-identificacao">1. Identificação</a>
+      <a href="#2-o-problema-de-design">2. O problema de design</a>
+      <a href="#3-decisoes-ja-fechadas">3. Decisões já fechadas</a>
+      <a href="#4-arquitetura-pedagogica-dois-papeis-um-sistema">4. Arquitetura
+pedagógica: dois papéis, um sistema</a>
+      <a href="#5-o-que-existe-de-fato-em-agosto-de-2026">5. O que existe de
+fato, em agosto de 2026</a>
+      <a href="#6-restricoes-duras-nao-negociaveis-em-sala">6. Restrições duras
+(não negociáveis em sala)</a>
+      <a href="#7-grade-6-encontros-de-3-horas">7. Grade — 6 encontros de 3
+horas</a>
+      <a href="#8-avaliacao-e-certificacao">8. Avaliação e certificação</a>
+      <a href="#9-riscos-e-mitigacao">9. Riscos e mitigação</a>
+      <a href="#10-fora-de-escopo">10. Fora de escopo</a>
+      <a href="#11-pendencias">11. Pendências</a>
+  </nav>
+  <main>
+<h1 id="servidor--ia--nível-2--do-prompt-ao-sistema">Servidor + IA ·
+Nível 2 — Do Prompt ao Sistema</h1>
+<p data-edit><strong>Documento de design do curso.</strong> Fixa o problema, a
+arquitetura pedagógica e a grade. A ementa formal, o caderno de
+exercícios e o material do participante derivam deste documento — não o
+contrário.</p>
+<p data-edit>Status: <strong>proposta para revisão do coordenador</strong>. Nada
+aqui foi aplicado a turma. Data: 15 de agosto de 2026.</p>
+<hr />
+<h2 id="1-identificacao">1. Identificação</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Item</th>
+<th>Conteúdo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-edit><strong>Nome (proposto)</strong></td>
+<td data-edit>Servidor + IA · Nível 2 — Do Prompt ao Sistema</td>
+</tr>
+<tr class="even">
+<td data-edit><strong>Linha fina</strong></td>
+<td data-edit>Engenharia de contexto, loop e verificação aplicada ao trabalho
+judicial</td>
+</tr>
+<tr class="odd">
+<td data-edit><strong>Modalidade</strong></td>
+<td data-edit>Capacitação institucional online, ao vivo (síncrona), pelo
+<strong>Microsoft Teams</strong>, com prática entre encontros</td>
+</tr>
+<tr class="even">
+<td data-edit><strong>Carga horária</strong></td>
+<td data-edit><strong>18 (dezoito) horas</strong>, em 6 encontros de 3 horas</td>
+</tr>
+<tr class="odd">
+<td data-edit><strong>Público</strong></td>
+<td data-edit>Exclusivo para egressos do Servidor + IA (Nível 1), <strong>sem teto
+de vagas</strong> (16/08)</td>
+</tr>
+<tr class="even">
+<td data-edit><strong>Instituição</strong></td>
+<td data-edit>Justiça Federal no Ceará</td>
+</tr>
+<tr class="odd">
+<td data-edit><strong>Promoção</strong></td>
+<td data-edit>INOVAJUS — Eixo III, com certificação pela Direção do Foro</td>
+</tr>
+<tr class="even">
+<td data-edit><strong>Coordenação</strong></td>
+<td data-edit>Victor César Falcão Viana — Coordenador do Eixo III</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="2-o-problema-de-design">2. O problema de design</h2>
+<p data-edit>O Nível 1 formou cerca de 300 servidores em prompt, pensamento
+crítico, prática forense e governança. O Nível 2 precisa ir para
+sistemas agênticos — e aí encontra três fatos que não se resolvem
+escolhendo módulos:</p>
+<p data-edit><strong>a) A ferramenta que todo mundo associa a agente não roda na
+máquina do servidor.</strong> A DTIC não autoriza instalação na máquina
+funcional. O levantamento da seção 5 mostrou que isso limita menos do
+que parecia — mas o que sobra tem um harness bem diferente, e ignorar
+essa diferença é o que quebra a aula.</p>
+<p data-edit><strong>b) A turma anterior não conseguiu reproduzir.</strong> Após a
+turma do TJCE, foi criada a 6ª regra invariante do palco — <em>"só se
+demonstra o que a turma consegue repetir"</em> — e foi exatamente por
+ela que o Claude Code saiu da demonstração do Nível 1.</p>
+<p data-edit><strong>c) A promessa de mercado é indefensável aqui.</strong> A
+oferta privada equivalente vende autonomia sem supervisão ("centenas de
+processos, sem depender da sua presença"). Isso colide com a Res. CNJ
+615/2025, com o sigilo processual e com a regra da casa de nunca ter
+loop autônomo escrevendo em sistema de produção.</p>
+<p data-edit>Um curso que ignore (a) e (b) desaba no encontro 3, quando metade da
+turma não consegue abrir o que está na tela. Um curso que ignore (c)
+vira passivo institucional.</p>
+<p data-edit><strong>A resposta deste design:</strong> a turma não se divide entre
+quem faz e quem assiste. Divide-se em <strong>dois papéis do mesmo
+trabalho</strong>, que trocam na metade do curso.</p>
+<hr />
+<h2 id="3-decisoes-ja-fechadas">3. Decisões já fechadas</h2>
+<table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Decisão</th>
+<th>Origem</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-edit>1</td>
+<td data-edit>Público exclusivo de egressos do Nível 1</td>
+<td data-edit>Coordenação, 15/08</td>
+</tr>
+<tr class="even">
+<td data-edit>2</td>
+<td data-edit>Nenhuma instalação na máquina funcional. Quem só tem navegador
+executa em nuvem; quem tem máquina pessoal com administrador executa
+localmente</td>
+<td data-edit>Restrição da DTIC + levantamento de 15/08</td>
+</tr>
+<tr class="odd">
+<td data-edit>3</td>
+<td data-edit>Entregável bifurcado por harness: sistema em nuvem + laudo / sistema
+local em execução</td>
+<td data-edit>Coordenação, 15/08, revisto após o levantamento</td>
+</tr>
+<tr class="even">
+<td data-edit>4</td>
+<td data-edit>6 encontros de 3h, certificação pela Direção do Foro</td>
+<td data-edit>Coordenação, 15/08</td>
+</tr>
+<tr class="odd">
+<td data-edit>5</td>
+<td data-edit>Arquitetura de dois papéis com troca no meio do curso</td>
+<td data-edit>Coordenação, 15/08</td>
+</tr>
+<tr class="even">
+<td data-edit>6</td>
+<td data-edit>Ambiente de laboratório (VM institucional) é bônus, nunca
+pré-requisito</td>
+<td data-edit>Coordenação, 15/08</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4-arquitetura-pedagogica-dois-papeis-um-sistema">4. Arquitetura
+pedagógica: dois papéis, um sistema</h2>
+<p data-edit>Cada participante entra em uma das duas trilhas, conforme a máquina
+que tem:</p>
+<p data-edit><strong>Operador</strong> — máquina pessoal com privilégio de
+administrador. Constrói e executa o sistema <strong>na máquina
+real</strong>: arquivos locais, ferramentas instaladas, acesso ao que
+existe no disco. Entrega o sistema rodando.</p>
+<p data-edit><strong>Arquiteto</strong> — apenas máquina funcional, só navegador.
+Constrói e executa o sistema <strong>em ambiente isolado na
+nuvem</strong> (ver seção 5), especifica o critério de parada, projeta a
+verificação e <strong>audita a saída do operador</strong>. Entrega a
+especificação, o sistema em nuvem e o laudo de verificação.</p>
+<p data-edit><strong>Os dois executam.</strong> A diferença não é quem faz e quem
+assiste — é <strong>qual harness cada um tem</strong>. O arquiteto opera
+com um harness restrito: roda código, mas não toca arquivo local nem
+sistema do tribunal. O operador tem harness amplo, e por isso carrega
+mais risco.</p>
+<p data-edit>Essa diferença não é um contorno da limitação da DTIC: é <strong>o
+conteúdo do encontro 3</strong>. A turma aprende o que é harness
+experimentando dois harnesses distintos sobre o mesmo caso, e a troca de
+papéis faz cada participante viver os dois.</p>
+<p data-edit>Os dois trabalham <strong>sobre o mesmo caso real da
+unidade</strong>, em dupla. Na metade do curso (a partir do encontro 4)
+os papéis se invertem: quem especificou passa a auditar a construção;
+quem construiu passa a especificar o segundo ciclo.</p>
+<p data-edit><strong>Por que isso não é um remendo.</strong> Numa Vara, quem
+especifica o trabalho raramente é quem o executa, e quem executa
+raramente é quem confere. A competência mais escassa não é digitar o
+comando — é saber dizer o que o sistema deve fazer, quando ele deve
+parar e como se prova que acertou. O arquiteto sai com a competência
+mais transferível, e é ele quem consegue exercê-la na máquina funcional,
+no dia seguinte, sem pedir nada à DTIC.</p>
+<p data-edit><strong>Consequência para a condução (6ª regra preservada).</strong>
+Toda demonstração de palco tem duas metades: a parte executada, que o
+operador reproduz na máquina dele; e a parte de especificação e
+verificação, que o arquiteto reproduz no navegador. Nada é demonstrado
+sem que os dois lados tenham o que repetir.</p>
+<hr />
+<h2 id="5-o-que-existe-de-fato-em-agosto-de-2026">5. O que existe de
+fato, em agosto de 2026</h2>
+<p data-edit>Levantado na documentação oficial da Anthropic (15/08/2026) e
+confirmado com a coordenação quanto ao lado institucional. <strong>Esta
+seção é o chão de realidade do curso</strong> — e é também o conteúdo
+mais útil que ele tem a entregar.</p>
+<h3 id="51-o-que-a-instituição-fornece-hoje">5.1 O que a instituição
+fornece hoje</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Recurso</th>
+<th>Situação em 15/08/2026</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-edit><strong>ApoIA</strong> (TRF2, via PDPJ-Br)</td>
+<td data-edit>Uso <strong>permitido</strong>. Ferramenta institucional real, mas
+<strong>sem API</strong> — só uso manual, pela interface</td>
+</tr>
+<tr class="even">
+<td data-edit><strong>Contrato Azure</strong></td>
+<td data-edit>Existe, mas <strong>não fornece ferramenta ao servidor</strong></td>
+</tr>
+<tr class="odd">
+<td data-edit><strong>IRACEMA</strong></td>
+<td data-edit>Projeto em curso, <strong>sem data de lançamento</strong></td>
+</tr>
+<tr class="even">
+<td data-edit><strong>SIGMA</strong> (TRF3), com API institucional</td>
+<td data-edit><strong>Promessa</strong>, sem data</td>
+</tr>
+<tr class="odd">
+<td data-edit><strong>Plano institucional do Claude</strong></td>
+<td data-edit><strong>Não existe</strong></td>
+</tr>
+</tbody>
+</table>
+<p data-edit>Conclusão sem rodeio: <strong>hoje a instituição não oferece nenhuma
+capacidade agêntica ao servidor.</strong> O que ela oferece — ApoIA — é
+excelente para trabalhar caso a caso e imprestável para montar sistema,
+porque não expõe API.</p>
+<h3 id="52-o-que-roda-no-navegador-com-conta-pessoal">5.2 O que roda no
+navegador com conta pessoal</h3>
+<p data-edit>Sem instalar nada na máquina funcional:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Recurso</th>
+<th>O que permite</th>
+<th>Plano gratuito</th>
+<th>Plano pago</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-edit><strong>Skills próprias</strong></td>
+<td data-edit>Criar a especialização da unidade, empacotar em ZIP e subir pela
+web</td>
+<td data-edit><strong>Sim</strong></td>
+<td data-edit>Sim</td>
+</tr>
+<tr class="even">
+<td data-edit><strong>Conector MCP remoto</strong></td>
+<td data-edit>Ligar o agente a serviço externo; roda <em>"from Anthropic's cloud,
+not from your local device"</em></td>
+<td data-edit><strong>Sim, 1 conector</strong></td>
+<td data-edit>Sim, sem esse limite</td>
+</tr>
+<tr class="odd">
+<td data-edit><strong>Projects</strong></td>
+<td data-edit>Espaço persistente com arquivos, instruções e memória</td>
+<td data-edit>Não</td>
+<td data-edit>Sim</td>
+</tr>
+<tr class="even">
+<td data-edit><strong>Execução multi-passo com código</strong> (Cowork)</td>
+<td data-edit>Tarefas de vários passos, subtarefas em paralelo, código em ambiente
+isolado</td>
+<td data-edit>Não</td>
+<td data-edit>Sim</td>
+</tr>
+</tbody>
+</table>
+<p data-edit>Exigem instalação, e portanto ficam com o operador: arquivos locais,
+uso da máquina pelo agente, MCP local e extensão de navegador.</p>
+<h3 id="53-a-assimetria-que-define-este-curso">5.3 A assimetria que
+define este curso</h3>
+<blockquote>
+<p data-edit><strong>Onde é permitido usar dado real, não há capacidade agêntica.
+Onde há capacidade agêntica, não é permitido usar dado
+real.</strong></p>
+</blockquote>
+<p data-edit>O ApoIA aceita o processo, mas não tem API. A conta pessoal tem
+skills, conector e execução, mas qualquer coisa que suba ali sai da rede
+da Justiça Federal no Ceará — e dado processual não vai para LLM
+externa, com sigilo "sim" <strong>ou "desconhecido"</strong> bloqueando
+o uso.</p>
+<p data-edit>Isso não é um defeito do curso a ser disfarçado. É <strong>a tese do
+curso</strong>, e precisa ser dita no encontro 1. Quem entender essa
+assimetria para de tentar a automação impossível e passa a construir a
+que cabe: sistema sobre material sintético, público ou administrativo,
+com o desenho pronto para receber dado real no dia em que houver API
+institucional.</p>
+<h3 id="54-por-que-formar-agora-antes-da-ferramenta">5.4 Por que formar
+agora, antes da ferramenta</h3>
+<p data-edit>Quando o SIGMA ou o IRACEMA liberarem API institucional, a lacuna
+deixa de ser de ferramenta e passa a ser de
+<strong>competência</strong>: quem especifica o harness, escreve o
+critério de parada e desenha a verificação. Essa competência leva meses
+para formar e não se compra pronta.</p>
+<p data-edit>Os artefatos deste curso — especificação, matriz de permissões,
+critério de parada, laudo de verificação — são <strong>exatamente o que
+se reaproveita</strong> quando a API chegar. O sistema construído em
+ambiente de nuvem é descartável; a especificação não é.</p>
+<p data-edit>É por isso que o curso não espera a ferramenta. Esperar significaria
+começar a formar a competência no dia em que ela já for necessária.</p>
+<hr />
+<h2 id="6-restricoes-duras-nao-negociaveis-em-sala">6. Restrições duras
+(não negociáveis em sala)</h2>
+<ol type="1">
+<li data-edit><strong>Nenhum dado processual, sigiloso ou pessoal</strong> entra
+em ferramenta externa. Sigilo "sim" ou "desconhecido" bloqueia o uso.
+Todo exercício usa caso sintético ou material já público.</li>
+<li data-edit><strong>Nenhum loop autônomo escreve em sistema de produção do
+tribunal.</strong> Leitura e apoio, sim; escrita exige checkpoint humano
+explícito, sempre.</li>
+<li data-edit><strong>Nada é instalado na máquina funcional.</strong> Se um
+exercício exige instalação, ele é do operador, na máquina dele.</li>
+<li data-edit><strong>Supervisão humana é requisito de projeto</strong>, não etapa
+final: cada sistema construído no curso declara onde a decisão volta
+para a pessoa.</li>
+</ol>
+<hr />
+<h2 id="7-grade-6-encontros-de-3-horas">7. Grade — 6 encontros de 3
+horas</h2>
+<h3 id="encontro-1--o-que-mudou-e-por-que-o-prompt-tem-teto-3h">Encontro
+1 — O que mudou, e por que o prompt tem teto (3h)</h3>
+<p data-edit><strong>Objetivo:</strong> estabelecer a diferença entre conversar
+com a IA e construir um sistema que executa, e formar as duplas.</p>
+<ul>
+<li data-edit>O teto do prompt: por que a mesma instrução funciona hoje e falha
+amanhã.</li>
+<li data-edit>Anatomia de um sistema: contexto, ferramentas, loop, verificação,
+checkpoint.</li>
+<li data-edit>O que existe hoje e não existia no Nível 1: skills próprias, espaço
+persistente, conectores remotos e execução em nuvem — o que roda no
+navegador e o que exige máquina própria (seção 5).</li>
+<li data-edit><strong>A assimetria (seção 5.3):</strong> onde se pode usar dado
+real não há agente; onde há agente não se pode usar dado real. O que
+isso permite construir hoje, e o que não permite.</li>
+<li data-edit>Leitura crítica da oferta de mercado: o que é engenharia e o que é
+promessa.</li>
+</ul>
+<p data-edit><strong>Prática:</strong> cada dupla escolhe <strong>um trabalho
+repetitivo real</strong> da unidade e escreve, em uma página, o que hoje
+é feito à mão. É a linha de base — o "antes", como no Projeto do Nível
+1.</p>
+<p data-edit><strong>Artefato:</strong> ficha do caso, com a medição do antes.</p>
+<hr />
+<h3
+id="encontro-2--contexto-o-que-o-agente-sabe-antes-de-começar-3h">Encontro
+2 — Contexto: o que o agente sabe antes de começar (3h)</h3>
+<p data-edit><strong>Objetivo:</strong> ensinar que a maior parte da qualidade vem
+do que o agente já sabe, não do que se pede a ele.</p>
+<ul>
+<li data-edit>Por que o mesmo prompt funciona no seu computador e falha no do
+colega.</li>
+<li data-edit>As camadas de contexto: instrução permanente da unidade,
+conhecimento do domínio, exemplos calibradores, material de
+referência.</li>
+<li data-edit>Como escrever a instrução permanente de uma unidade judiciária: o
+que entra, o que nunca entra (sigilo), como versionar.</li>
+<li data-edit>Envenenamento de contexto: documento desatualizado que faz o agente
+agir por informação falsa.</li>
+</ul>
+<p data-edit><strong>Prática — operador:</strong> monta a base de contexto da
+unidade na máquina dele, em arquivo. <strong>Prática —
+arquiteto:</strong> monta a mesma base como espaço persistente no
+navegador (Project), com a instrução permanente da unidade e a lista do
+que é proibido entrar. <strong>Os dois comparam:</strong> mesma
+instrução, dois lugares — onde o resultado diverge, e por quê.</p>
+<p data-edit><strong>Artefato:</strong> instrução permanente da unidade, revisada
+pelos dois.</p>
+<hr />
+<h3 id="encontro-3--harness-o-que-o-agente-pode-tocar-3h">Encontro 3 —
+Harness: o que o agente pode tocar (3h)</h3>
+<p data-edit><strong>Objetivo:</strong> tratar sigilo, permissão e limite como
+engenharia, não como advertência.</p>
+<ul>
+<li data-edit>Ferramentas: o que é dar acesso a um agente, e o que muda quando se
+dá.</li>
+<li data-edit>Permissão e sandbox: rodar isolado antes de rodar no alvo real.</li>
+<li data-edit><strong>O que o agente não pode tocar</strong> — e como isso vira
+configuração, não confiança.</li>
+<li data-edit>Res. CNJ 615/2025, Portaria Conjunta TRF5 nº 2/2025 e sigilo relidos
+como requisitos de arquitetura: o que cada norma proíbe que o sistema
+faça.</li>
+<li data-edit>Leitura no PJe 2.x: o que é consulta legítima e por que escrita
+automatizada está fora.</li>
+</ul>
+<p data-edit><strong>Prática — operador:</strong> configura permissões na máquina
+real e roda o primeiro passo isolado. <strong>Prática —
+arquiteto:</strong> cria a primeira <strong>skill própria</strong> da
+unidade e a sobe pela web; observa o que o ambiente em nuvem consegue e
+o que ele recusa por não ter acesso à máquina. <strong>Os dois preenchem
+juntos a matriz de permissões</strong>, cada um a coluna do seu
+harness.</p>
+<p data-edit><strong>Artefato:</strong> matriz de permissões assinada pela
+dupla.</p>
+<hr />
+<h3
+id="encontro-4--loop-o-que-ele-repete-e-quando-para-3h--troca-de-papéis">Encontro
+4 — Loop: o que ele repete e quando para (3h) · <em>troca de
+papéis</em></h3>
+<p data-edit><strong>Objetivo:</strong> ensinar a competência que quase toda
+automação de servidor erra — o critério de parada.</p>
+<ul>
+<li data-edit>Anatomia do loop: o que se repete, sobre o que, até quando.</li>
+<li data-edit><strong>Critério de parada verificável</strong>: a diferença entre
+"até ficar bom" e "até a contagem zerar".</li>
+<li data-edit>Loop que não converge: sintomas, custo e como cortar.</li>
+<li data-edit>Quando <em>não</em> usar loop — a maior parte dos casos de uma
+Vara.</li>
+</ul>
+<p data-edit><strong>Prática:</strong> os papéis se invertem. Quem especificou no
+ciclo 1 assume a construção do ciclo 2; quem construiu assume a
+especificação. O critério de parada é escrito <strong>antes</strong> de
+qualquer execução.</p>
+<p data-edit><strong>Artefato:</strong> especificação do loop, com critério de
+parada declarado e testável.</p>
+<hr />
+<h3
+id="encontro-5--verificação-como-saber-que-está-certo-sem-reler-tudo-3h">Encontro
+5 — Verificação: como saber que está certo sem reler tudo (3h)</h3>
+<p data-edit><strong>Objetivo:</strong> instalar a postura que o Nível 1 só teve
+tempo de tratar em um encontro.</p>
+<ul>
+<li data-edit>A escada de verificação, do mais barato ao mais caro: comando
+determinístico → validador → verdade de campo → juiz-modelo com rubrica
+→ conferência humana.</li>
+<li data-edit><strong>Por que usar juiz-modelo onde cabia um comando é o furo mais
+comum.</strong></li>
+<li data-edit>Como desenhar a amostra de conferência humana quando o volume não
+permite conferir tudo.</li>
+<li data-edit>Alucinação em sistema agêntico: onde ela entra e por que é mais
+difícil de ver do que no chat.</li>
+</ul>
+<p data-edit><strong>Prática — quem opera:</strong> roda o sinal de verificação e
+cola a saída literal. <strong>Prática — quem projeta:</strong> roda o
+mesmo sinal no ambiente em nuvem, compara com o do par e escreve o
+<strong>laudo de verificação</strong>, apontando o que não foi possível
+verificar em cada harness.</p>
+<p data-edit><strong>Artefato:</strong> laudo de verificação, com o nível usado e
+o que ficou de fora.</p>
+<hr />
+<h3
+id="encontro-6--checkpoint-humano-risco-e-roda-de-projetos-3h">Encontro
+6 — Checkpoint humano, risco e roda de projetos (3h)</h3>
+<p data-edit><strong>Objetivo:</strong> fechar o sistema com a decisão de volta na
+pessoa, e socializar o aprendizado.</p>
+<ul>
+<li data-edit>Onde a decisão volta para o humano, por desenho e não por
+esquecimento.</li>
+<li data-edit>O que fazer quando o sistema erra: registro, reversão,
+responsabilidade.</li>
+<li data-edit>Custo e sustentabilidade: quem mantém isso depois que o servidor
+sair da unidade.</li>
+<li data-edit><strong>Roda de projetos:</strong> cada dupla apresenta o antes, o
+depois e o que não conseguiu verificar.</li>
+</ul>
+<p data-edit><strong>Artefato final:</strong> o sistema (operador) e a
+especificação + laudo (arquiteto), com o registro do antes e do
+depois.</p>
+<hr />
+<h2 id="8-avaliacao-e-certificacao">8. Avaliação e certificação</h2>
+<p data-edit>Segue o modelo do Nível 1: avaliação <strong>por aplicação</strong>,
+não por prova.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Critério</th>
+<th>Peso</th>
+<th>Forma</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-edit><strong>Frequência</strong></td>
+<td data-edit>requisito</td>
+<td data-edit>Presença em pelo menos 80% da carga</td>
+</tr>
+<tr class="even">
+<td data-edit><strong>Artefatos por encontro</strong></td>
+<td data-edit>requisito</td>
+<td data-edit>Ao menos 4 dos 6 artefatos entregues</td>
+</tr>
+<tr class="odd">
+<td data-edit><strong>Projeto da dupla</strong></td>
+<td data-edit>nota final</td>
+<td data-edit>Rubrica própria; exige medição do antes e do depois</td>
+</tr>
+<tr class="even">
+<td data-edit><strong>Troca de papéis</strong></td>
+<td data-edit>requisito</td>
+<td data-edit>Ter atuado nos dois papéis (ciclos 1 e 2)</td>
+</tr>
+</tbody>
+</table>
+<p data-edit>Certificado individual de <strong>18 horas</strong>, emitido pela
+Direção do Foro, com registro do papel exercido em cada ciclo.</p>
+<p data-edit><strong>Rubrica — critérios previstos</strong> (documento próprio, a
+escrever): o sistema tem critério de parada verificável; a matriz de
+permissões respeita sigilo e a Res. 615/2025; o laudo declara o que não
+foi verificado; existe checkpoint humano explícito; há medição do antes
+e do depois.</p>
+<hr />
+<h2 id="9-riscos-e-mitigacao">9. Riscos e mitigação</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Risco</th>
+<th>Mitigação</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-edit>A trilha do arquiteto virar plateia</td>
+<td data-edit>O arquiteto <strong>também executa</strong> (seção 5), com artefato
+próprio e obrigatório em todo encontro; troca de papéis no encontro 4;
+nenhuma demonstração sem parte reproduzível pelos dois</td>
+</tr>
+<tr class="even">
+<td data-edit>Turma grande inviabilizar o acompanhamento</td>
+<td data-edit><strong>Decisão de 16/08: sem teto de vagas</strong> — a turma é
+aberta a todo egresso interessado do Nível 1, que teve ~300
+certificados. A correção não escala por esforço do corretor, e sim por
+desenho: (a) a unidade avaliada é a <strong>dupla</strong>, não o
+indivíduo; (b) o Encontro 5 já é <strong>auditoria cruzada</strong> —
+cada dupla emite laudo sobre o sistema de outra, de modo que a primeira
+leitura de cada projeto é feita pela própria turma; (c) a correção final
+é por <strong>amostragem estratificada</strong> (rubrica), com 100% dos
+casos de risco e 30% dos demais. O que não escala é a demonstração de
+palco, que já é reproduzível pelos dois harnesses</td>
+</tr>
+<tr class="odd">
+<td data-edit>Duplas desbalanceadas (poucos operadores)</td>
+<td data-edit>Trio com dois arquitetos é aceitável; sem operador na dupla, a dupla
+usa o laboratório (se houver) ou trabalha só com especificação e
+verificação de caso demonstrado</td>
+</tr>
+<tr class="even">
+<td data-edit>Conteúdo apodrecer entre a escrita e a turma</td>
+<td data-edit>Encontro 1 tem bloco de panorama regravado a cada turma; o resto do
+curso é de princípios, não de telas de produto</td>
+</tr>
+<tr class="odd">
+<td data-edit>Participante sem plano pago</td>
+<td data-edit>Não há plano institucional (5.1), então isto é o <strong>caso
+provável, não a exceção</strong>. Skills e um conector remoto funcionam
+no gratuito; sem plano pago, a dupla usa o harness do operador para
+executar e o arquiteto trabalha com skill, conector e especificação.
+Nenhum artefato obrigatório exige plano pago</td>
+</tr>
+<tr class="even">
+<td data-edit>Curso depender de conta pessoal do participante</td>
+<td data-edit>Já é o modelo do Nível 1 ("acesso institucional <strong>ou</strong>
+conta pessoal"). Precisa estar explícito na convocação, e nenhum
+requisito de aprovação pode depender de gasto pessoal</td>
+</tr>
+<tr class="odd">
+<td data-edit>Ferramenta institucional chegar durante o curso (IRACEMA,
+SIGMA)</td>
+<td data-edit>O curso é de método, não de produto. A chegada da API é ganho, não
+retrabalho: os artefatos foram desenhados para migrar</td>
+</tr>
+<tr class="even">
+<td data-edit>Servidor levar o aprendizado para escrita em produção</td>
+<td data-edit>Restrição dura repetida nos encontros 3, 5 e 6, e critério explícito
+na rubrica</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="10-fora-de-escopo">10. Fora de escopo</h2>
+<ul>
+<li data-edit>Ensinar programação. O curso é de arquitetura e verificação, não de
+código.</li>
+<li data-edit>Qualquer automação que escreva no PJe 2.x ou em sistema de
+produção.</li>
+<li data-edit>Ferramenta específica como objeto de estudo — a ferramenta é
+veículo; o objeto é o método.</li>
+<li data-edit>Certificação para não egressos do Nível 1.</li>
+</ul>
+<hr />
+<h2 id="11-pendencias">11. Pendências</h2>
+<ol type="1">
+<li data-edit><del><strong>Teto real do navegador</strong></del> —
+<strong>resolvido em 15/08</strong>, ver seção 5. Consequência: o
+arquiteto também executa, e a prática dos encontros 2, 3 e 5 foi
+reescrita.</li>
+<li data-edit><strong>Laboratório institucional (VM)</strong> — sondar a DTIC
+apenas depois desta spec aprovada; é bônus, não pré-requisito. Ganhou
+peso: como não há plano institucional (5.1), uma VM com conta
+institucional resolveria de uma vez o acesso e o custo pessoal.</li>
+<li data-edit><strong>Acompanhar IRACEMA e SIGMA.</strong> Quando qualquer um
+liberar API institucional, o encontro 3 ganha um bloco de integração
+real e a assimetria da seção 5.3 muda. Reavaliar a cada turma.</li>
+<li data-edit><strong>Nome do curso</strong> — "Do Prompt ao Sistema" é
+proposta.</li>
+<li data-edit><strong>Calendário e vagas</strong> — depende do encerramento da
+Turma 1 do Nível 1 (25/08).</li>
+<li data-edit><strong>Rubrica do projeto da dupla</strong> — documento próprio, a
+escrever após aprovação desta spec.</li>
+</ol>
+
+  </main>
+</div>
+
+<aside id="painel" aria-label="Minhas alterações">
+  <header>
+    <b>Minhas alterações</b>
+    <button id="btCopiar">copiar tudo</button>
+    <button id="btFechar">fechar</button>
+  </header>
+  <div id="lista"><p class="vazio">Clique em <b>revisar</b> e edite qualquer trecho. O que você
+  mudar aparece aqui, pronto para copiar e colar na conversa.</p></div>
+</aside>
+
+<script>
+(function () {
+  'use strict';
+
+  // Envolver as tabelas ANTES de capturar o texto original: mover um nó altera o
+  // innerHTML do bloco que o contém, e isso apareceria como alteração falsa.
+  document.querySelectorAll('table').forEach(function (t) {
+    if (t.parentElement.classList.contains('rolagem')) return;
+    var w = document.createElement('div'); w.className = 'rolagem';
+    t.parentNode.insertBefore(w, t); w.appendChild(t);
+  });
+
+  var edits = document.querySelectorAll('[data-edit]');
+  var original = [];
+  // duas passadas: todas as chaves primeiro, os originais depois. Atribuir a chave
+  // a um filho altera o innerHTML do pai — capturar junto marcaria alteração falsa.
+  edits.forEach(function (el, i) { el.dataset.k = 'e' + i; });
+  edits.forEach(function (el, i) { original[i] = el.innerHTML; });
+
+  var CHAVE = 'nivel2-design-do-curso-revisao';
+  function carregar() {
+    try {
+      var raw = localStorage.getItem(CHAVE);
+      if (!raw) return;
+      var d = JSON.parse(raw);
+      edits.forEach(function (el, i) {
+        if (d['e' + i] !== undefined && d['e' + i] !== original[i]) {
+          el.innerHTML = d['e' + i];
+          el.classList.add('mudou');
+        }
+      });
+    } catch (e) {}
+  }
+  function salvar() {
+    try {
+      var d = {};
+      edits.forEach(function (el, i) { d['e' + i] = el.innerHTML; });
+      localStorage.setItem(CHAVE, JSON.stringify(d));
+    } catch (e) {}
+  }
+
+  function limpo(h) { var d = document.createElement('div'); d.innerHTML = h; return (d.textContent || '').replace(/\s+/g, ' ').trim(); }
+
+  function alteracoes() {
+    var out = [];
+    edits.forEach(function (el, i) {
+      var agora = el.innerHTML;
+      if (agora !== original[i]) {
+        el.classList.add('mudou');
+        var sec = el.closest('main') ? (function () {
+          var n = el; while (n && n.tagName !== 'H2') { n = n.previousElementSibling || n.parentElement; }
+          return n ? limpo(n.innerHTML) : 'documento';
+        })() : 'documento';
+        out.push({ sec: sec, antes: limpo(original[i]), depois: limpo(agora) });
+      } else { el.classList.remove('mudou'); }
+    });
+    return out;
+  }
+
+  function pintar() {
+    var lista = document.getElementById('lista');
+    var m = alteracoes();
+    document.getElementById('conta').textContent = m.length;
+    if (!m.length) {
+      lista.innerHTML = '<p class="vazio">Nenhuma alteração ainda. Clique em <b>revisar</b> e edite qualquer trecho.</p>';
+      return;
+    }
+    lista.innerHTML = m.map(function (x) {
+      return '<div class="item"><span class="rot">' + x.sec + '</span>' +
+             '<div class="antes">' + x.antes + '</div>' +
+             '<div class="depois">' + x.depois + '</div></div>';
+    }).join('');
+  }
+
+  carregar();
+  pintar();
+
+  var btE = document.getElementById('btEditar');
+  btE.addEventListener('click', function () {
+    var on = btE.getAttribute('aria-pressed') === 'true';
+    btE.setAttribute('aria-pressed', on ? 'false' : 'true');
+    btE.textContent = on ? 'revisar' : 'concluir';
+    document.body.classList.toggle('editando', !on);
+    edits.forEach(function (el) { el.setAttribute('contenteditable', on ? 'false' : 'true'); });
+    if (on) { salvar(); pintar(); }
+  });
+
+  var painel = document.getElementById('painel');
+  document.getElementById('btPainel').addEventListener('click', function () {
+    pintar(); painel.classList.add('aberto');
+  });
+  document.getElementById('btFechar').addEventListener('click', function () {
+    painel.classList.remove('aberto');
+  });
+
+  document.getElementById('btCopiar').addEventListener('click', function () {
+    var m = alteracoes();
+    var txt = m.length
+      ? m.map(function (x) { return '## ' + x.sec + '\nANTES: ' + x.antes + '\nDEPOIS: ' + x.depois; }).join('\n\n')
+      : 'Nenhuma alteração.';
+    navigator.clipboard.writeText(txt).then(function () {
+      var b = document.getElementById('btCopiar');
+      b.textContent = 'copiado'; setTimeout(function () { b.textContent = 'copiar tudo'; }, 1600);
+    });
+  });
+
+  var bt = document.getElementById('btTema');
+  bt.addEventListener('click', function () {
+    var atual = document.documentElement.getAttribute('data-tema');
+    var escuro = matchMedia('(prefers-color-scheme: dark)').matches;
+    var novo = atual ? (atual === 'escuro' ? 'claro' : 'escuro') : (escuro ? 'claro' : 'escuro');
+    document.documentElement.setAttribute('data-tema', novo);
+    try { localStorage.setItem('nivel2-tema', novo); } catch (e) {}
+  });
+  try {
+    var t = localStorage.getItem('nivel2-tema');
+    if (t) document.documentElement.setAttribute('data-tema', t);
+  } catch (e) {}
+
+  var links = document.querySelectorAll('nav.sumario a');
+  var alvos = document.querySelectorAll('main h2[id]');
+  if ('IntersectionObserver' in window) {
+    var spy = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        links.forEach(function (a) { a.classList.toggle('ativo', a.getAttribute('href') === '#' + e.target.id); });
+      });
+    }, { rootMargin: '-15% 0px -75% 0px' });
+    alvos.forEach(function (h) { spy.observe(h); });
+  }
+})();
+</script>
+</body>
+</html>

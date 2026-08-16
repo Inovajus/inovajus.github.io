@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Rubrica do Projeto — Servidor + IA Nível 2</title>
+<style>
+:root {
+  --tinta: #16202b;
+  --tinta-suave: #4a5866;
+  --tinta-fraca: #8996a3;
+  --papel: #fbfaf8;
+  --papel-2: #f2f0ec;
+  --regua: #e0ddd7;
+  --acento: #1f5f5b;
+  --acento-fraco: #e6efee;
+  --atencao: #8a5a1a;
+  --atencao-fraco: #fbf2e4;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, "Cascadia Code", Consolas, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-tema="claro"]) {
+    --tinta: #e8e6e1; --tinta-suave: #b3aea6; --tinta-fraca: #7d7871;
+    --papel: #14161a; --papel-2: #1b1e23; --regua: #2b2f36;
+    --acento: #6fbcb4; --acento-fraco: #14302e;
+    --atencao: #d8a556; --atencao-fraco: #2e2415;
+  }
+}
+:root[data-tema="escuro"] {
+  --tinta: #e8e6e1; --tinta-suave: #b3aea6; --tinta-fraca: #7d7871;
+  --papel: #14161a; --papel-2: #1b1e23; --regua: #2b2f36;
+  --acento: #6fbcb4; --acento-fraco: #14302e;
+  --atencao: #d8a556; --atencao-fraco: #2e2415;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--papel); color: var(--tinta);
+  font-family: var(--sans); font-size: 16.5px; line-height: 1.68;
+  -webkit-font-smoothing: antialiased;
+}
+
+.faixa {
+  padding: .7rem clamp(1rem, 4vw, 2.5rem);
+  background: var(--atencao-fraco); color: var(--atencao);
+  border-bottom: 1px solid color-mix(in srgb, var(--atencao) 35%, transparent);
+  font-size: .82rem; line-height: 1.5;
+}
+.faixa b { color: var(--atencao); }
+
+.topo {
+  position: sticky; top: 0; z-index: 40;
+  display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+  padding: .65rem clamp(1rem, 4vw, 2.5rem);
+  background: color-mix(in srgb, var(--papel) 92%, transparent);
+  backdrop-filter: blur(12px); border-bottom: 1px solid var(--regua);
+}
+.topo .marca {
+  font-family: var(--mono); font-size: .72rem; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--acento); font-weight: 700;
+}
+.topo .marca span { color: var(--tinta-fraca); font-weight: 400; }
+.acoes { margin-left: auto; display: flex; gap: .5rem; }
+.acoes button {
+  font-family: var(--mono); font-size: .7rem; letter-spacing: .04em;
+  padding: .45rem .8rem; border: 1px solid var(--regua);
+  background: transparent; color: var(--tinta-suave); cursor: pointer;
+  border-radius: 3px; transition: all .18s;
+}
+.acoes button:hover { color: var(--tinta); border-color: var(--acento); }
+.acoes button[aria-pressed="true"] {
+  background: var(--acento); border-color: var(--acento); color: var(--papel); font-weight: 700;
+}
+
+.casca {
+  display: grid; grid-template-columns: 232px minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  max-width: 1180px; margin: 0 auto; padding: 0 clamp(1rem, 4vw, 2.5rem) 6rem;
+}
+nav.sumario {
+  position: sticky; top: 3.6rem; align-self: start;
+  max-height: calc(100vh - 4.5rem); overflow-y: auto;
+  padding-top: 2.6rem; font-size: .8rem; display: flex; flex-direction: column;
+}
+nav.sumario a {
+  color: var(--tinta-fraca); text-decoration: none; padding: .33rem 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--regua) 55%, transparent);
+  transition: color .16s;
+}
+nav.sumario a:hover, nav.sumario a:focus-visible { color: var(--acento); outline: none; }
+nav.sumario a.ativo { color: var(--tinta); font-weight: 600; }
+
+main { padding-top: 2.6rem; min-width: 0; }
+h1 {
+  font-family: var(--serif); font-size: clamp(2rem, 4.4vw, 2.9rem);
+  line-height: 1.12; margin: 0 0 1rem; letter-spacing: -.015em; text-wrap: balance;
+}
+h2 {
+  font-family: var(--serif); font-size: clamp(1.35rem, 2.6vw, 1.75rem);
+  margin: 3rem 0 .8rem; padding-top: 1.4rem; border-top: 1px solid var(--regua);
+  letter-spacing: -.012em; text-wrap: balance;
+}
+h3 { font-size: 1.04rem; margin: 1.9rem 0 .5rem; letter-spacing: -.005em; }
+h4 { font-size: .95rem; margin: 1.4rem 0 .4rem; color: var(--tinta-suave); }
+p, li { max-width: 70ch; color: var(--tinta-suave); }
+p { margin: 0 0 .95rem; }
+li { margin-bottom: .4rem; }
+strong { color: var(--tinta); font-weight: 650; }
+h1 + p { font-size: 1.08rem; color: var(--tinta); }
+
+blockquote {
+  margin: 1.6rem 0; padding: 1rem 1.3rem;
+  background: var(--acento-fraco); border-left: 3px solid var(--acento);
+  border-radius: 0 4px 4px 0;
+}
+blockquote p { margin: 0; color: var(--tinta); font-size: 1.05rem; }
+blockquote p + p { margin-top: .5rem; }
+
+code {
+  font-family: var(--mono); font-size: .87em;
+  background: var(--papel-2); padding: .12em .38em; border-radius: 3px;
+  color: var(--acento); overflow-wrap: break-word;
+}
+
+.rolagem { overflow-x: auto; margin: 1.3rem 0; }
+table { width: 100%; border-collapse: collapse; font-size: .89rem; }
+th {
+  text-align: left; font-family: var(--mono); font-size: .68rem;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--tinta-fraca);
+  font-weight: 600; padding: .5rem .7rem .5rem 0; border-bottom: 1px solid var(--regua);
+  vertical-align: bottom;
+}
+td {
+  padding: .5rem .7rem .5rem 0; border-bottom: 1px solid color-mix(in srgb, var(--regua) 55%, transparent);
+  color: var(--tinta-suave); vertical-align: top;
+}
+td:first-child { color: var(--tinta); }
+
+hr { border: 0; border-top: 1px solid var(--regua); margin: 2.5rem 0; }
+
+body.editando [data-edit] { outline: 1px dashed var(--acento); outline-offset: 3px; cursor: text; }
+body.editando [data-edit]:focus { outline: 2px solid var(--acento); background: var(--acento-fraco); }
+[data-edit].mudou { background: var(--atencao-fraco); box-shadow: inset 3px 0 0 var(--atencao); padding-left: .5rem; }
+
+#painel {
+  position: fixed; right: 0; bottom: 0; top: 3.4rem; width: min(460px, 92vw);
+  background: var(--papel); border-left: 1px solid var(--regua);
+  transform: translateX(100%); transition: transform .22s ease; z-index: 50;
+  display: flex; flex-direction: column; box-shadow: -12px 0 30px rgba(0,0,0,.10);
+}
+#painel.aberto { transform: translateX(0); }
+#painel header {
+  padding: .9rem 1.1rem; border-bottom: 1px solid var(--regua);
+  display: flex; align-items: center; gap: .6rem;
+}
+#painel header b { font-size: .92rem; }
+#painel header button {
+  margin-left: auto; border: 1px solid var(--regua); background: transparent;
+  color: var(--tinta-suave); cursor: pointer; border-radius: 3px;
+  padding: .3rem .6rem; font-family: var(--mono); font-size: .68rem;
+}
+#lista { overflow-y: auto; padding: 1rem 1.1rem 2rem; font-size: .85rem; }
+#lista .item { margin-bottom: 1.3rem; padding-bottom: 1.1rem; border-bottom: 1px solid var(--regua); }
+#lista .rot {
+  font-family: var(--mono); font-size: .66rem; text-transform: uppercase;
+  letter-spacing: .1em; color: var(--tinta-fraca); display: block; margin-bottom: .35rem;
+}
+#lista .antes { color: var(--tinta-fraca); text-decoration: line-through; margin-bottom: .3rem; }
+#lista .depois { color: var(--tinta); }
+#lista .vazio { color: var(--tinta-fraca); }
+
+@media (max-width: 900px) {
+  .casca { grid-template-columns: 1fr; }
+  nav.sumario { position: static; max-height: none; padding-top: 1.6rem;
+    border-bottom: 1px solid var(--regua); padding-bottom: 1rem; }
+  main { padding-top: 1.6rem; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition-duration: .001ms !important; } }
+</style>
+</head>
+<body>
+
+<div class="faixa">
+  <b>Documento interno, em revisão.</b> Peça de trabalho do Servidor + IA · Nível 2, ainda não
+  submetida à Direção do Foro. Não indexada e sem link em nenhuma página pública — circula
+  apenas por URL direta, entre quem coordena e conduz o curso.
+</div>
+
+<div class="topo">
+  <div class="marca">INOVAJUS <span>/ Eixo III · instrumento de avaliação</span></div>
+  <div class="acoes">
+    <button id="btTema" title="Alternar claro e escuro">tema</button>
+    <button id="btEditar" aria-pressed="false">revisar</button>
+    <button id="btPainel">minhas alterações (<span id="conta">0</span>)</button>
+  </div>
+</div>
+
+<div class="casca">
+  <nav class="sumario" aria-label="Sumário">
+      <a href="#como-esta-rubrica-funciona">Como esta rubrica funciona</a>
+      <a href="#criterios-eliminatorios">Critérios eliminatórios</a>
+      <a href="#criterios-de-merito">Critérios de mérito</a>
+      <a href="#resultado">Resultado</a>
+      <a href="#correcao-em-escala">Correção em escala</a>
+      <a href="#ficha-de-correcao">Ficha de correção</a>
+  </nav>
+  <main>
+<h1 id="rubrica--projeto-da-dupla">Rubrica — Projeto da Dupla</h1>
+<p data-edit><strong>Servidor + IA · Nível 2.</strong> Instrumento de avaliação do
+projeto final, apresentado na roda de projetos do Encontro 6.</p>
+<p data-edit>Versão 1.0 — 15 de agosto de 2026. Nível de rigor confirmado pela
+Coordenação em 15/08/2026 — ver seção "Resultado".</p>
+<hr />
+<h2 id="como-esta-rubrica-funciona">Como esta rubrica funciona</h2>
+<p data-edit>A avaliação é <strong>por evidência</strong>, não por impressão. Cada
+critério tem um sinal objetivo: ou o artefato mostra, ou não mostra. Não
+há nota numérica única — o resultado é <strong>aprovado</strong>,
+<strong>aprovado com ressalva</strong> ou
+<strong>complementação</strong>.</p>
+<p data-edit>A dupla é avaliada em conjunto no projeto, mas <strong>cada
+participante responde individualmente</strong> pelos artefatos do papel
+que exerceu em cada ciclo.</p>
+<p data-edit><strong>Princípio que orienta toda a rubrica:</strong> um sistema que
+funciona mas não se sabe verificar vale menos, aqui, do que um sistema
+modesto cuja correção se consegue provar. O curso forma quem assina
+embaixo.</p>
+<hr />
+<h2 id="criterios-eliminatorios">Critérios eliminatórios</h2>
+<p data-edit>Falha em qualquer um destes reprova o projeto, independentemente do
+restante.</p>
+<table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Critério</th>
+<th>Evidência exigida</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-edit>E1</td>
+<td data-edit><strong>Nenhum dado processual, sigiloso ou pessoal foi
+usado</strong></td>
+<td data-edit>O caso é sintético, público ou administrativo, e isso está declarado
+na ficha do caso</td>
+</tr>
+<tr class="even">
+<td data-edit>E2</td>
+<td data-edit><strong>Nenhuma escrita automatizada em sistema de
+produção</strong></td>
+<td data-edit>A matriz de permissões veda escrita no PJe 2.x e em qualquer sistema
+do tribunal</td>
+</tr>
+<tr class="odd">
+<td data-edit>E3</td>
+<td data-edit><strong>Checkpoint humano existe e está localizado</strong></td>
+<td data-edit>O projeto aponta em que ponto a decisão retorna à pessoa, e por quê
+ali</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="criterios-de-merito">Critérios de mérito</h2>
+<h3 id="1-critério-de-parada-verificável">1. Critério de parada
+verificável</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Nível</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-edit><strong>Pleno</strong></td>
+<td data-edit>O critério é escrito de forma que um terceiro consiga aplicá-lo e
+chegar ao mesmo resultado. Diz o que se conta, qual o valor esperado e o
+que fazer se não convergir</td>
+</tr>
+<tr class="even">
+<td data-edit><strong>Parcial</strong></td>
+<td data-edit>O critério existe e é objetivo, mas depende de julgamento de quem
+executa em algum ponto</td>
+</tr>
+<tr class="odd">
+<td data-edit><strong>Insuficiente</strong></td>
+<td data-edit>O critério é de satisfação ("até ficar bom", "até parecer adequado")
+ou está ausente</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-matriz-de-permissões">2. Matriz de permissões</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Nível</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-edit><strong>Pleno</strong></td>
+<td data-edit>Declara o que o sistema pode ler, o que pode escrever e o que lhe é
+vedado; cada vedação está ancorada em norma ou em regime de sigilo;
+cobre os dois harnesses da dupla</td>
+</tr>
+<tr class="even">
+<td data-edit><strong>Parcial</strong></td>
+<td data-edit>Declara permissões, mas sem ancorar as vedações ou sem cobrir um dos
+harnesses</td>
+</tr>
+<tr class="odd">
+<td data-edit><strong>Insuficiente</strong></td>
+<td data-edit>Ausente, ou lista apenas o que o sistema faz, sem o que não pode
+fazer</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3-laudo-de-verificação">3. Laudo de verificação</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Nível</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-edit><strong>Pleno</strong></td>
+<td data-edit>Declara o nível de verificação usado, apresenta a saída literal do
+sinal e <strong>declara explicitamente o que não foi possível
+verificar</strong></td>
+</tr>
+<tr class="even">
+<td data-edit><strong>Parcial</strong></td>
+<td data-edit>Apresenta verificação, mas parafraseia a saída ou omite o que ficou
+de fora</td>
+</tr>
+<tr class="odd">
+<td data-edit><strong>Insuficiente</strong></td>
+<td data-edit>Afirma que o sistema funciona sem apresentar sinal, ou usa juízo de
+modelo onde cabia comando determinístico sem justificar</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p data-edit>A declaração do que <strong>não</strong> foi verificado é o item mais
+importante desta rubrica. Um laudo que só afirma acertos é um laudo
+incompleto.</p>
+</blockquote>
+<h3 id="4-medição-do-antes-e-do-depois">4. Medição do antes e do
+depois</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Nível</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-edit><strong>Pleno</strong></td>
+<td data-edit>O "antes" foi medido no Encontro 1, antes de qualquer construção, e
+o "depois" usa a mesma unidade de medida</td>
+</tr>
+<tr class="even">
+<td data-edit><strong>Parcial</strong></td>
+<td data-edit>Há medição, mas o "antes" foi estimado depois do fato, ou as
+unidades não são comparáveis</td>
+</tr>
+<tr class="odd">
+<td data-edit><strong>Insuficiente</strong></td>
+<td data-edit>Não há medição, ou o ganho é afirmado sem base</td>
+</tr>
+</tbody>
+</table>
+<h3 id="5-instrução-permanente-da-unidade">5. Instrução permanente da
+unidade</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Nível</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-edit><strong>Pleno</strong></td>
+<td data-edit>Serve a outra pessoa da mesma unidade sem edição; diz o que nunca
+entra; está versionada</td>
+</tr>
+<tr class="even">
+<td data-edit><strong>Parcial</strong></td>
+<td data-edit>Funciona para quem escreveu, mas depende de conhecimento não
+registrado</td>
+</tr>
+<tr class="odd">
+<td data-edit><strong>Insuficiente</strong></td>
+<td data-edit>Ausente, ou é um prompt longo em vez de instrução de contexto</td>
+</tr>
+</tbody>
+</table>
+<h3 id="6-sustentabilidade">6. Sustentabilidade</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Nível</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-edit><strong>Pleno</strong></td>
+<td data-edit>O projeto responde quem mantém o sistema, o que acontece quando o
+servidor sair da unidade e como o desenho migra se houver API
+institucional</td>
+</tr>
+<tr class="even">
+<td data-edit><strong>Parcial</strong></td>
+<td data-edit>Responde à manutenção, mas não à migração</td>
+</tr>
+<tr class="odd">
+<td data-edit><strong>Insuficiente</strong></td>
+<td data-edit>Não trata do assunto</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="resultado">Resultado</h2>
+<p data-edit><strong>Decisão da Coordenação, 15/08/2026: o rigor abaixo é para
+valer já na primeira turma.</strong> A justificativa é direta — o Nível
+2 se justifica pela verificação; afrouxar exatamente aí esvazia o curso.
+O amortecedor não é baixar a régua, e sim o resultado intermediário:
+"aprovado com ressalva" <strong>certifica</strong>, e a complementação é
+reentrega em 15 dias, sem nova apresentação.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Resultado</th>
+<th>Condição</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-edit><strong>Aprovado</strong></td>
+<td data-edit>Nenhuma falha eliminatória; <strong>pleno</strong> nos critérios 1,
+3 e 4; ao menos <strong>parcial</strong> nos demais</td>
+</tr>
+<tr class="even">
+<td data-edit><strong>Aprovado com ressalva</strong></td>
+<td data-edit>Nenhuma falha eliminatória; <strong>parcial</strong> em até dois
+critérios de mérito, incluindo no máximo um entre 1, 3 e 4</td>
+</tr>
+<tr class="odd">
+<td data-edit><strong>Complementação</strong></td>
+<td data-edit>Falha eliminatória, ou <strong>insuficiente</strong> em qualquer
+critério de mérito</td>
+</tr>
+</tbody>
+</table>
+<p data-edit>A complementação é feita por reentrega do artefato deficiente em até
+15 dias, sem nova apresentação.</p>
+<hr />
+<h2 id="correcao-em-escala">Correção em escala</h2>
+<p data-edit><strong>Desde 16/08/2026 a turma não tem teto de vagas, então a
+amostragem é o regime normal de correção — não a exceção.</strong> Acima
+de 15 duplas, aplica-se <strong>amostragem estratificada</strong>, no
+modelo já proposto para o Nível 1:</p>
+<ul>
+<li data-edit><strong>100%</strong> dos projetos que envolvam caso de risco, que
+declarem qualquer contato com dado real, ou que a dupla indique para
+distinção</li>
+<li data-edit><strong>100%</strong> dos projetos com indício de falha
+eliminatória</li>
+<li data-edit><strong>amostra de 30%</strong> dos demais, com autoavaliação por
+esta mesma rubrica nos não sorteados</li>
+</ul>
+<p data-edit>A autoavaliação não substitui a correção: ela é confrontada com a
+amostra, e divergência sistemática entre autoavaliação e correção humana
+é sinal de que a rubrica precisa ser reescrita.</p>
+<hr />
+<h2 id="ficha-de-correcao">Ficha de correção</h2>
+<p data-edit>Um formulário por dupla.</p>
+<pre><code>Dupla: _______________________________________  Turma: ____________
+Papéis  — ciclo 1: operador ____________  arquiteto ____________
+        — ciclo 2: operador ____________  arquiteto ____________
+Caso: ________________________________________________________
+
+ELIMINATÓRIOS            E1 [ ]   E2 [ ]   E3 [ ]
+
+MÉRITO                   pleno   parcial   insuficiente
+1. Critério de parada      [ ]      [ ]         [ ]
+2. Matriz de permissões    [ ]      [ ]         [ ]
+3. Laudo de verificação    [ ]      [ ]         [ ]
+4. Antes e depois          [ ]      [ ]         [ ]
+5. Instrução permanente    [ ]      [ ]         [ ]
+6. Sustentabilidade        [ ]      [ ]         [ ]
+
+RESULTADO   [ ] aprovado   [ ] aprovado com ressalva   [ ] complementação
+
+O que a dupla declarou não ter conseguido verificar:
+______________________________________________________________
+______________________________________________________________
+
+Corretor: __________________________  Data: ____/____/______</code></pre>
+
+  </main>
+</div>
+
+<aside id="painel" aria-label="Minhas alterações">
+  <header>
+    <b>Minhas alterações</b>
+    <button id="btCopiar">copiar tudo</button>
+    <button id="btFechar">fechar</button>
+  </header>
+  <div id="lista"><p class="vazio">Clique em <b>revisar</b> e edite qualquer trecho. O que você
+  mudar aparece aqui, pronto para copiar e colar na conversa.</p></div>
+</aside>
+
+<script>
+(function () {
+  'use strict';
+
+  // Envolver as tabelas ANTES de capturar o texto original: mover um nó altera o
+  // innerHTML do bloco que o contém, e isso apareceria como alteração falsa.
+  document.querySelectorAll('table').forEach(function (t) {
+    if (t.parentElement.classList.contains('rolagem')) return;
+    var w = document.createElement('div'); w.className = 'rolagem';
+    t.parentNode.insertBefore(w, t); w.appendChild(t);
+  });
+
+  var edits = document.querySelectorAll('[data-edit]');
+  var original = [];
+  // duas passadas: todas as chaves primeiro, os originais depois. Atribuir a chave
+  // a um filho altera o innerHTML do pai — capturar junto marcaria alteração falsa.
+  edits.forEach(function (el, i) { el.dataset.k = 'e' + i; });
+  edits.forEach(function (el, i) { original[i] = el.innerHTML; });
+
+  var CHAVE = 'nivel2-rubrica-projeto-da-dupla-revisao';
+  function carregar() {
+    try {
+      var raw = localStorage.getItem(CHAVE);
+      if (!raw) return;
+      var d = JSON.parse(raw);
+      edits.forEach(function (el, i) {
+        if (d['e' + i] !== undefined && d['e' + i] !== original[i]) {
+          el.innerHTML = d['e' + i];
+          el.classList.add('mudou');
+        }
+      });
+    } catch (e) {}
+  }
+  function salvar() {
+    try {
+      var d = {};
+      edits.forEach(function (el, i) { d['e' + i] = el.innerHTML; });
+      localStorage.setItem(CHAVE, JSON.stringify(d));
+    } catch (e) {}
+  }
+
+  function limpo(h) { var d = document.createElement('div'); d.innerHTML = h; return (d.textContent || '').replace(/\s+/g, ' ').trim(); }
+
+  function alteracoes() {
+    var out = [];
+    edits.forEach(function (el, i) {
+      var agora = el.innerHTML;
+      if (agora !== original[i]) {
+        el.classList.add('mudou');
+        var sec = el.closest('main') ? (function () {
+          var n = el; while (n && n.tagName !== 'H2') { n = n.previousElementSibling || n.parentElement; }
+          return n ? limpo(n.innerHTML) : 'documento';
+        })() : 'documento';
+        out.push({ sec: sec, antes: limpo(original[i]), depois: limpo(agora) });
+      } else { el.classList.remove('mudou'); }
+    });
+    return out;
+  }
+
+  function pintar() {
+    var lista = document.getElementById('lista');
+    var m = alteracoes();
+    document.getElementById('conta').textContent = m.length;
+    if (!m.length) {
+      lista.innerHTML = '<p class="vazio">Nenhuma alteração ainda. Clique em <b>revisar</b> e edite qualquer trecho.</p>';
+      return;
+    }
+    lista.innerHTML = m.map(function (x) {
+      return '<div class="item"><span class="rot">' + x.sec + '</span>' +
+             '<div class="antes">' + x.antes + '</div>' +
+             '<div class="depois">' + x.depois + '</div></div>';
+    }).join('');
+  }
+
+  carregar();
+  pintar();
+
+  var btE = document.getElementById('btEditar');
+  btE.addEventListener('click', function () {
+    var on = btE.getAttribute('aria-pressed') === 'true';
+    btE.setAttribute('aria-pressed', on ? 'false' : 'true');
+    btE.textContent = on ? 'revisar' : 'concluir';
+    document.body.classList.toggle('editando', !on);
+    edits.forEach(function (el) { el.setAttribute('contenteditable', on ? 'false' : 'true'); });
+    if (on) { salvar(); pintar(); }
+  });
+
+  var painel = document.getElementById('painel');
+  document.getElementById('btPainel').addEventListener('click', function () {
+    pintar(); painel.classList.add('aberto');
+  });
+  document.getElementById('btFechar').addEventListener('click', function () {
+    painel.classList.remove('aberto');
+  });
+
+  document.getElementById('btCopiar').addEventListener('click', function () {
+    var m = alteracoes();
+    var txt = m.length
+      ? m.map(function (x) { return '## ' + x.sec + '\nANTES: ' + x.antes + '\nDEPOIS: ' + x.depois; }).join('\n\n')
+      : 'Nenhuma alteração.';
+    navigator.clipboard.writeText(txt).then(function () {
+      var b = document.getElementById('btCopiar');
+      b.textContent = 'copiado'; setTimeout(function () { b.textContent = 'copiar tudo'; }, 1600);
+    });
+  });
+
+  var bt = document.getElementById('btTema');
+  bt.addEventListener('click', function () {
+    var atual = document.documentElement.getAttribute('data-tema');
+    var escuro = matchMedia('(prefers-color-scheme: dark)').matches;
+    var novo = atual ? (atual === 'escuro' ? 'claro' : 'escuro') : (escuro ? 'claro' : 'escuro');
+    document.documentElement.setAttribute('data-tema', novo);
+    try { localStorage.setItem('nivel2-tema', novo); } catch (e) {}
+  });
+  try {
+    var t = localStorage.getItem('nivel2-tema');
+    if (t) document.documentElement.setAttribute('data-tema', t);
+  } catch (e) {}
+
+  var links = document.querySelectorAll('nav.sumario a');
+  var alvos = document.querySelectorAll('main h2[id]');
+  if ('IntersectionObserver' in window) {
+    var spy = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        links.forEach(function (a) { a.classList.toggle('ativo', a.getAttribute('href') === '#' + e.target.id); });
+      });
+    }, { rootMargin: '-15% 0px -75% 0px' });
+    alvos.forEach(function (h) { spy.observe(h); });
+  }
+})();
+</script>
+</body>
+</html>
