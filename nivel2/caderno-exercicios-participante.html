@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Caderno do Participante — Servidor + IA Nível 2</title>
+<style>
+:root {
+  --tinta: #16202b;
+  --tinta-suave: #4a5866;
+  --tinta-fraca: #8996a3;
+  --papel: #fbfaf8;
+  --papel-2: #f2f0ec;
+  --regua: #e0ddd7;
+  --acento: #1f5f5b;
+  --acento-fraco: #e6efee;
+  --atencao: #8a5a1a;
+  --atencao-fraco: #fbf2e4;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, "Cascadia Code", Consolas, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-tema="claro"]) {
+    --tinta: #e8e6e1; --tinta-suave: #b3aea6; --tinta-fraca: #7d7871;
+    --papel: #14161a; --papel-2: #1b1e23; --regua: #2b2f36;
+    --acento: #6fbcb4; --acento-fraco: #14302e;
+    --atencao: #d8a556; --atencao-fraco: #2e2415;
+  }
+}
+:root[data-tema="escuro"] {
+  --tinta: #e8e6e1; --tinta-suave: #b3aea6; --tinta-fraca: #7d7871;
+  --papel: #14161a; --papel-2: #1b1e23; --regua: #2b2f36;
+  --acento: #6fbcb4; --acento-fraco: #14302e;
+  --atencao: #d8a556; --atencao-fraco: #2e2415;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--papel); color: var(--tinta);
+  font-family: var(--sans); font-size: 16.5px; line-height: 1.68;
+  -webkit-font-smoothing: antialiased;
+}
+
+.faixa {
+  padding: .7rem clamp(1rem, 4vw, 2.5rem);
+  background: var(--atencao-fraco); color: var(--atencao);
+  border-bottom: 1px solid color-mix(in srgb, var(--atencao) 35%, transparent);
+  font-size: .82rem; line-height: 1.5;
+}
+.faixa b { color: var(--atencao); }
+
+.topo {
+  position: sticky; top: 0; z-index: 40;
+  display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+  padding: .65rem clamp(1rem, 4vw, 2.5rem);
+  background: color-mix(in srgb, var(--papel) 92%, transparent);
+  backdrop-filter: blur(12px); border-bottom: 1px solid var(--regua);
+}
+.topo .marca {
+  font-family: var(--mono); font-size: .72rem; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--acento); font-weight: 700;
+}
+.topo .marca span { color: var(--tinta-fraca); font-weight: 400; }
+.acoes { margin-left: auto; display: flex; gap: .5rem; }
+.acoes button {
+  font-family: var(--mono); font-size: .7rem; letter-spacing: .04em;
+  padding: .45rem .8rem; border: 1px solid var(--regua);
+  background: transparent; color: var(--tinta-suave); cursor: pointer;
+  border-radius: 3px; transition: all .18s;
+}
+.acoes button:hover { color: var(--tinta); border-color: var(--acento); }
+.acoes button[aria-pressed="true"] {
+  background: var(--acento); border-color: var(--acento); color: var(--papel); font-weight: 700;
+}
+
+.casca {
+  display: grid; grid-template-columns: 232px minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  max-width: 1180px; margin: 0 auto; padding: 0 clamp(1rem, 4vw, 2.5rem) 6rem;
+}
+nav.sumario {
+  position: sticky; top: 3.6rem; align-self: start;
+  max-height: calc(100vh - 4.5rem); overflow-y: auto;
+  padding-top: 2.6rem; font-size: .8rem; display: flex; flex-direction: column;
+}
+nav.sumario a {
+  color: var(--tinta-fraca); text-decoration: none; padding: .33rem 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--regua) 55%, transparent);
+  transition: color .16s;
+}
+nav.sumario a:hover, nav.sumario a:focus-visible { color: var(--acento); outline: none; }
+nav.sumario a.ativo { color: var(--tinta); font-weight: 600; }
+
+main { padding-top: 2.6rem; min-width: 0; }
+h1 {
+  font-family: var(--serif); font-size: clamp(2rem, 4.4vw, 2.9rem);
+  line-height: 1.12; margin: 0 0 1rem; letter-spacing: -.015em; text-wrap: balance;
+}
+h2 {
+  font-family: var(--serif); font-size: clamp(1.35rem, 2.6vw, 1.75rem);
+  margin: 3rem 0 .8rem; padding-top: 1.4rem; border-top: 1px solid var(--regua);
+  letter-spacing: -.012em; text-wrap: balance;
+}
+h3 { font-size: 1.04rem; margin: 1.9rem 0 .5rem; letter-spacing: -.005em; }
+h4 { font-size: .95rem; margin: 1.4rem 0 .4rem; color: var(--tinta-suave); }
+p, li { max-width: 70ch; color: var(--tinta-suave); }
+p { margin: 0 0 .95rem; }
+li { margin-bottom: .4rem; }
+strong { color: var(--tinta); font-weight: 650; }
+h1 + p { font-size: 1.08rem; color: var(--tinta); }
+
+blockquote {
+  margin: 1.6rem 0; padding: 1rem 1.3rem;
+  background: var(--acento-fraco); border-left: 3px solid var(--acento);
+  border-radius: 0 4px 4px 0;
+}
+blockquote p { margin: 0; color: var(--tinta); font-size: 1.05rem; }
+blockquote p + p { margin-top: .5rem; }
+
+code {
+  font-family: var(--mono); font-size: .87em;
+  background: var(--papel-2); padding: .12em .38em; border-radius: 3px;
+  color: var(--acento); overflow-wrap: break-word;
+}
+
+.rolagem { overflow-x: auto; margin: 1.3rem 0; }
+table { width: 100%; border-collapse: collapse; font-size: .89rem; }
+th {
+  text-align: left; font-family: var(--mono); font-size: .68rem;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--tinta-fraca);
+  font-weight: 600; padding: .5rem .7rem .5rem 0; border-bottom: 1px solid var(--regua);
+  vertical-align: bottom;
+}
+td {
+  padding: .5rem .7rem .5rem 0; border-bottom: 1px solid color-mix(in srgb, var(--regua) 55%, transparent);
+  color: var(--tinta-suave); vertical-align: top;
+}
+td:first-child { color: var(--tinta); }
+
+hr { border: 0; border-top: 1px solid var(--regua); margin: 2.5rem 0; }
+
+body.editando [data-edit] { outline: 1px dashed var(--acento); outline-offset: 3px; cursor: text; }
+body.editando [data-edit]:focus { outline: 2px solid var(--acento); background: var(--acento-fraco); }
+[data-edit].mudou { background: var(--atencao-fraco); box-shadow: inset 3px 0 0 var(--atencao); padding-left: .5rem; }
+
+#painel {
+  position: fixed; right: 0; bottom: 0; top: 3.4rem; width: min(460px, 92vw);
+  background: var(--papel); border-left: 1px solid var(--regua);
+  transform: translateX(100%); transition: transform .22s ease; z-index: 50;
+  display: flex; flex-direction: column; box-shadow: -12px 0 30px rgba(0,0,0,.10);
+}
+#painel.aberto { transform: translateX(0); }
+#painel header {
+  padding: .9rem 1.1rem; border-bottom: 1px solid var(--regua);
+  display: flex; align-items: center; gap: .6rem;
+}
+#painel header b { font-size: .92rem; }
+#painel header button {
+  margin-left: auto; border: 1px solid var(--regua); background: transparent;
+  color: var(--tinta-suave); cursor: pointer; border-radius: 3px;
+  padding: .3rem .6rem; font-family: var(--mono); font-size: .68rem;
+}
+#lista { overflow-y: auto; padding: 1rem 1.1rem 2rem; font-size: .85rem; }
+#lista .item { margin-bottom: 1.3rem; padding-bottom: 1.1rem; border-bottom: 1px solid var(--regua); }
+#lista .rot {
+  font-family: var(--mono); font-size: .66rem; text-transform: uppercase;
+  letter-spacing: .1em; color: var(--tinta-fraca); display: block; margin-bottom: .35rem;
+}
+#lista .antes { color: var(--tinta-fraca); text-decoration: line-through; margin-bottom: .3rem; }
+#lista .depois { color: var(--tinta); }
+#lista .vazio { color: var(--tinta-fraca); }
+
+@media (max-width: 900px) {
+  .casca { grid-template-columns: 1fr; }
+  nav.sumario { position: static; max-height: none; padding-top: 1.6rem;
+    border-bottom: 1px solid var(--regua); padding-bottom: 1rem; }
+  main { padding-top: 1.6rem; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition-duration: .001ms !important; } }
+</style>
+</head>
+<body>
+
+<div class="faixa">
+  <b>Documento interno, em revisão.</b> Peça de trabalho do Servidor + IA · Nível 2, ainda não
+  submetida à Direção do Foro. Não indexada e sem link em nenhuma página pública — circula
+  apenas por URL direta, entre quem coordena e conduz o curso.
+</div>
+
+<div class="topo">
+  <div class="marca">INOVAJUS <span>/ Eixo III · caderno do aluno</span></div>
+  <div class="acoes">
+    <button id="btTema" title="Alternar claro e escuro">tema</button>
+    <button id="btEditar" aria-pressed="false">revisar</button>
+    <button id="btPainel">minhas alterações (<span id="conta">0</span>)</button>
+  </div>
+</div>
+
+<div class="casca">
+  <nav class="sumario" aria-label="Sumário">
+      <a href="#caderno-de-exercicios-servidor-ia-nivel-2">Caderno de
+Exercícios — Servidor + IA · Nível 2</a>
+      <a href="#encontro-1-o-que-mudou-e-por-que-o-prompt-tem-teto">Encontro 1
+— O que mudou, e por que o prompt tem teto</a>
+      <a href="#encontro-2-contexto">Encontro 2 — Contexto</a>
+      <a href="#encontro-3-harness">Encontro 3 — Harness</a>
+      <a href="#encontro-4-loop-troca-de-papeis">Encontro 4 — Loop · troca de
+papéis</a>
+      <a href="#encontro-5-verificacao">Encontro 5 — Verificação</a>
+      <a href="#encontro-6-checkpoint-humano">Encontro 6 — Checkpoint
+humano</a>
+  </nav>
+  <main>
+<h2 id="caderno-de-exercicios-servidor-ia-nivel-2">Caderno de
+Exercícios — Servidor + IA · Nível 2</h2>
+<p data-edit><strong>Do Prompt ao Sistema.</strong> Seu caderno de trabalho, para
+os seis encontros.</p>
+<p data-edit>Versão 1.0 — 16 de agosto de 2026.</p>
+<hr />
+<h3 id="como-usar-este-caderno">Como usar este caderno</h3>
+<p data-edit>Cada exercício traz o que você precisa para fazê-lo: o
+<strong>objetivo</strong>, o <strong>tempo</strong>, o
+<strong>enunciado</strong>, o <strong>material</strong> já pronto (nada
+aqui é dado real) e o <strong>produto esperado</strong> — o que deve
+existir ao final do bloco.</p>
+<p data-edit>Os exercícios têm passo a passo separado para os dois papéis. Faça o
+do <strong>seu</strong> papel no ciclo em questão, e lembre que os
+papéis se invertem no Encontro 4: você vai fazer os dois.</p>
+<p data-edit>Uma coisa que este caderno <strong>não</strong> traz é o gabarito.
+Não é esquecimento: em quase todos os exercícios não existe resposta
+certa única — existe o resultado que a sua dupla produziu e a conversa
+que vem depois. O que a condução comenta em sala vale mais do que uma
+resposta impressa.</p>
+<p data-edit><strong>Regra que não tem exceção:</strong> nenhum exercício deste
+curso usa dado de processo, dado sigiloso ou dado pessoal. Todo material
+aqui é sintético. Se em algum momento parecer mais fácil resolver o
+exercício com um caso real da sua unidade, a resposta é não — e essa é,
+ela própria, uma das lições do curso.</p>
+<hr />
+<h3 id="banco-de-casos-sintéticos">Banco de casos sintéticos</h3>
+<p data-edit>Serve a três situações: a dupla que não trouxe caso, a dupla cujo
+caso foi reprovado nos três critérios (bloco 1.4 do guia) e a dupla só
+de arquitetos, que trabalha sobre caso demonstrado.</p>
+<table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Caso</th>
+<th>Por que passa nos três critérios</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-edit>C1</td>
+<td data-edit><strong>Triagem de petições intercorrentes por tipo de
+providência</strong> — 60 a 80 por semana, cada uma classificada em uma
+de sete providências</td>
+<td data-edit>Repete muito; a regra de classificação é explicável; a classificação
+organiza a fila, não decide o mérito</td>
+</tr>
+<tr class="even">
+<td data-edit>C2</td>
+<td data-edit><strong>Conferência de requisitos formais de recurso</strong> —
+checagem de tempestividade aparente, preparo e representação, gerando
+lista do que falta</td>
+<td data-edit>Repete; cada requisito tem regra objetiva; o resultado é uma lista
+de pendências, não o juízo de admissibilidade</td>
+</tr>
+<tr class="odd">
+<td data-edit>C3</td>
+<td data-edit><strong>Padronização de certidões de secretaria</strong> — 12
+modelos, preenchidos com dados de um formulário interno</td>
+<td data-edit>Repete diariamente; o texto tem forma fixa; certidão é ato de
+secretaria, não decisório</td>
+</tr>
+<tr class="even">
+<td data-edit>C4</td>
+<td data-edit><strong>Relatório mensal de produtividade da unidade</strong> —
+consolidação de números já extraídos do sistema em um texto
+padronizado</td>
+<td data-edit>Repete todo mês; a fonte é numérica e conferível; o relatório
+informa, não decide</td>
+</tr>
+<tr class="odd">
+<td data-edit>C5</td>
+<td data-edit><strong>Fila de cumprimento de despachos-padrão</strong> — separar
+os que têm modelo pronto dos que exigem redação nova</td>
+<td data-edit>Repete; a regra é "existe modelo aplicável, sim ou não"; não redige
+o ato, apenas separa</td>
+</tr>
+<tr class="even">
+<td data-edit>C6</td>
+<td data-edit><strong>Resposta a pedidos administrativos repetidos</strong>
+(área-meio) — 20 a 30 por semana, com nove assuntos recorrentes</td>
+<td data-edit>Repete; o assunto tem resposta padronizada; a resposta é
+informativa</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="encontro-1-o-que-mudou-e-por-que-o-prompt-tem-teto">Encontro 1
+— O que mudou, e por que o prompt tem teto</h2>
+<h3 id="ex-11--as-cinco-peças-em-algo-que-você-já-usa">EX 1.1 · As cinco
+peças em algo que você já usa</h3>
+<p data-edit><strong>Objetivo.</strong> Fixar o vocabulário do curso — contexto,
+ferramentas, loop, verificação, checkpoint — em um sistema que a turma
+conhece. <strong>Tempo.</strong> 10 min (5 individual + 5 de leitura em
+voz alta).</p>
+<p data-edit><strong>Enunciado.</strong></p>
+<blockquote>
+<p data-edit>Pense em um sistema que você usa todo dia no trabalho. Aponte, nele,
+cinco coisas: o que ele já sabe sem você contar; o que ele consegue
+tocar; o que ele repete sozinho; como você sabe que ele acertou; e onde
+uma pessoa precisa decidir. Se alguma delas não existir, escreva "não
+tem".</p>
+</blockquote>
+<p data-edit><strong>Produto esperado.</strong> Cinco linhas curtas, com pelo
+menos uma "não tem".</p>
+<hr />
+<h3 id="ex-12--os-três-critérios-aplicados-a-um-caso-ruim">EX 1.2 · Os
+três critérios, aplicados a um caso ruim</h3>
+<p data-edit><strong>Objetivo.</strong> Instalar o filtro de escolha de caso antes
+que a dupla escolha o seu — e nomear o <strong>defeito de
+escopo</strong>, que é o exercício de falha deste encontro.
+<strong>Tempo.</strong> 20 min.</p>
+<p data-edit><strong>Enunciado.</strong></p>
+<blockquote>
+<p data-edit>A unidade abaixo quer automatizar um trabalho. Aplique os três
+critérios — <strong>repete</strong>, <strong>tem regra</strong>,
+<strong>não decide</strong> — e diga em qual deles esse caso falha, e
+por quê.</p>
+</blockquote>
+<p data-edit><strong>Material.</strong></p>
+<blockquote>
+<p data-edit><strong>Caso "análise de pedidos de gratuidade".</strong> A 9ª Vara
+recebe cerca de 45 pedidos de gratuidade de justiça por semana. Hoje, um
+servidor lê cada pedido, confere a declaração de hipossuficiência, olha
+os documentos de renda quando existem e escreve uma minuta concluindo
+pelo deferimento ou pelo indeferimento. O trabalho é repetitivo e
+consome cerca de seis horas semanais. A servidora responsável diz:
+<em>"é sempre a mesma coisa; dá para automatizar"</em>.</p>
+</blockquote>
+<p data-edit><strong>Passo a passo (os dois papéis, mesma tarefa).</strong></p>
+<ol type="1">
+<li data-edit>Marcar cada critério com passa / não passa.</li>
+<li data-edit>Escrever uma frase dizendo o que <strong>poderia</strong> ser
+automatizado nesse caso sem violar o critério que falhou.</li>
+</ol>
+<p data-edit><strong>Produto esperado.</strong> "Repete: passa. Tem regra:
+parcialmente. Não decide: <strong>falha</strong>." Mais uma frase de
+recorte.</p>
+<hr />
+<h3 id="ex-13--ficha-do-caso-e-a-medição-do-antes">EX 1.3 · Ficha do
+caso e a medição do "antes"</h3>
+<p data-edit><strong>Objetivo.</strong> Produzir o artefato do encontro e — o
+ponto que a rubrica cobra — medir a linha de base <strong>antes</strong>
+de qualquer construção. <strong>Tempo.</strong> 25 min.</p>
+<p data-edit><strong>Enunciado.</strong></p>
+<blockquote>
+<p data-edit>Preencham a ficha do caso escolhido. A última linha é a mais
+importante e a mais fácil de deixar para depois: <strong>meçam
+hoje</strong>. Estimativa feita no fim do curso, olhando para trás, não
+vale — a rubrica a considera parcial.</p>
+</blockquote>
+<p data-edit><strong>Material — ficha do caso.</strong></p>
+<pre><code>FICHA DO CASO                                   Dupla: ______________________
+Unidade: ____________________  Papéis — operador: __________ arquiteto: __________
+
+1. Qual é o trabalho, em uma frase:
+   ______________________________________________________________________
+
+2. Quantas vezes acontece por semana: ________
+
+3. Quem faz hoje, e em quanto tempo por unidade: ______________________________
+
+4. O que torna o resultado CERTO (a regra, escrita para alguém de fora):
+   ______________________________________________________________________
+   ______________________________________________________________________
+
+5. O que torna o resultado ERRADO (o defeito mais comum hoje):
+   ______________________________________________________________________
+
+6. Onde uma pessoa PRECISA decidir: ___________________________________________
+
+7. MEDIÇÃO DO ANTES — medida hoje, não estimada depois:
+   unidade de medida: (  ) minutos por item  (  ) itens por hora  (  ) outra: ______
+   valor hoje: __________     como foi medido: _________________________________</code></pre>
+<p data-edit><strong>Produto esperado.</strong> Ficha completa, com o item 7
+preenchido com <strong>como</strong> foi medido.</p>
+<p data-edit><strong>o Encontro 2 é escrever o que vocês acabaram de me
+dizer.</strong></p>
+<hr />
+<h2 id="encontro-2-contexto">Encontro 2 — Contexto</h2>
+<h3 id="ex-21--a-mesma-instrução-dois-ambientes">EX 2.1 · A mesma
+instrução, dois ambientes</h3>
+<p data-edit><strong>Objetivo.</strong> Mostrar, com as mãos da turma, que o
+resultado muda sem o pedido mudar. <strong>Tempo.</strong> 20 min.</p>
+<p data-edit><strong>Enunciado.</strong></p>
+<blockquote>
+<p data-edit>Os dois vão dar exatamente a mesma instrução, cada um no seu
+ambiente. Não mudem uma vírgula do texto. Comparem as duas saídas e
+anotem <strong>três diferenças</strong>.</p>
+</blockquote>
+<p data-edit><strong>Material — instrução idêntica para os dois.</strong></p>
+<blockquote>
+<p data-edit>"Escreva uma certidão informando que o prazo para manifestação
+transcorreu sem resposta."</p>
+</blockquote>
+<p data-edit><strong>Passo a passo do operador.</strong> Rodar na ferramenta
+instalada na máquina dele, no ambiente onde ele já trabalha (com o
+histórico e os arquivos que já existem ali). <strong>Passo a passo do
+arquiteto.</strong> Rodar no navegador, em espaço novo, sem nenhum
+contexto prévio.</p>
+<p data-edit><strong>Produto esperado.</strong> Três diferenças anotadas.</p>
+<p data-edit><strong>mais informada</strong>. É por isso que o próximo bloco
+escreve a informação, em vez de trocar de ferramenta.</p>
+<hr />
+<h3 id="ex-22--instrução-permanente-da-unidade">EX 2.2 · Instrução
+permanente da unidade</h3>
+<p data-edit><strong>Objetivo.</strong> Produzir o artefato do encontro, com a
+seção de vedações escrita como parte executável e não como aviso.
+<strong>Tempo.</strong> 40 min.</p>
+<p data-edit><strong>Enunciado.</strong></p>
+<blockquote>
+<p data-edit>Escrevam a instrução permanente da unidade de vocês. O teste de
+pronto está no fim: <strong>outra dupla vai usá-la sem que vocês
+expliquem nada</strong>.</p>
+</blockquote>
+<p data-edit><strong>Material — modelo.</strong></p>
+<pre><code>INSTRUÇÃO PERMANENTE — &lt;unidade&gt;                       versão: ___  data: ___/___/___
+Responsável pela revisão: ______________________
+
+1. QUEM SOMOS
+   Unidade, competência, volume aproximado, e o que costuma chegar aqui.
+
+2. COMO ESCREVEMOS
+   Tratamento, tempo verbal, o que nunca abreviamos, fórmulas de abertura e fecho.
+
+3. O QUE PRECISA SER VERDADE PARA O RESULTADO ESTAR CERTO
+   As regras do trabalho, escritas para quem chegou hoje na unidade.
+
+4. O QUE NUNCA ENTRA AQUI
+   - Dado de processo em segredo de justiça — e também aquele cujo sigilo eu NÃO SEI.
+     &quot;Desconhecido&quot; bloqueia igual a &quot;sim&quot;.
+   - Nome, CPF, endereço, dado de saúde ou financeiro de pessoa identificável.
+   - Documento de processo real, ainda que público, sem necessidade demonstrada.
+   Em caso de dúvida sobre um item: não entra, e pergunta-se ao supervisor.
+
+5. LINHAS COM PRAZO DE VALIDADE
+   | linha | vence quando | quem revisa |</code></pre>
+<p data-edit><strong>Passo a passo do operador.</strong> Monta em arquivo, na
+máquina dele, no formato que a ferramenta dele lê como contexto
+permanente. <strong>Passo a passo do arquiteto.</strong> Monta como
+espaço persistente no navegador, com o mesmo texto. <strong>Os
+dois.</strong> Rodam a mesma tarefa do EX 2.1 de novo, agora com a
+instrução no lugar, e comparam com o resultado anterior.</p>
+<p data-edit><strong>Produto esperado.</strong> Instrução permanente v1 + a
+comparação antes/depois da instrução.</p>
+<hr />
+<h3 id="ex-23--contexto-envenenado">EX 2.3 · Contexto envenenado</h3>
+<p data-edit><strong>Objetivo.</strong> Ver o agente errar com confiança total por
+causa de uma linha desatualizada — o <strong>defeito de
+contexto</strong>. <strong>Tempo.</strong> 20 min.</p>
+<p data-edit><strong>Enunciado.</strong></p>
+<blockquote>
+<p data-edit>A instrução abaixo tem uma informação que era verdadeira e não é
+mais. Usem-na para pedir uma certidão de intimação e observem o
+resultado. Depois, digam: <strong>o que no resultado denunciaria o erro
+para quem não conhece a regra?</strong></p>
+</blockquote>
+<p data-edit><strong>Material.</strong></p>
+<blockquote>
+<p data-edit><strong>Instrução permanente da 12ª Vara (trecho).</strong> "Nesta
+unidade, a intimação da parte contrária é feita por publicação no Diário
+Eletrônico, com prazo em dobro para a Fazenda Pública em todos os casos,
+inclusive nos juizados. O prazo conta em dias corridos."</p>
+</blockquote>
+<p data-edit><strong>Produto esperado.</strong> A saída gerada, e a resposta à
+pergunta.</p>
+<hr />
+<h2 id="encontro-3-harness">Encontro 3 — Harness</h2>
+<h3 id="ex-31--ler-e-escrever-coluna-por-coluna">EX 3.1 · Ler e
+escrever, coluna por coluna</h3>
+<p data-edit><strong>Objetivo.</strong> Separar o que o sistema consulta do que
+ele altera, antes de qualquer configuração. <strong>Tempo.</strong> 15
+min.</p>
+<p data-edit><strong>Enunciado.</strong></p>
+<blockquote>
+<p data-edit>Para o caso de vocês, listem tudo que o sistema precisaria
+<strong>ler</strong> e tudo que precisaria <strong>escrever</strong>.
+Sejam concretos: "a planilha X", "a pasta Y", "o campo Z".</p>
+</blockquote>
+<p data-edit><strong>Produto esperado.</strong> Duas colunas preenchidas.</p>
+<hr />
+<h3 id="ex-32--a-primeira-skill-da-unidade">EX 3.2 · A primeira skill da
+unidade</h3>
+<p data-edit><strong>Objetivo.</strong> Fazer o arquiteto
+<strong>executar</strong> — não especificar, executar — e produzir a
+comparação que sustenta a matriz. <strong>Tempo.</strong> 30 min.</p>
+<p data-edit><strong>Enunciado.</strong></p>
+<blockquote>
+<p data-edit>Cada um vai fazer o sistema executar o primeiro passo do caso de
+vocês, no seu ambiente. Ao final, cada um traz uma lista: <strong>o que
+o meu ambiente recusou fazer</strong>.</p>
+</blockquote>
+<p data-edit><strong>Passo a passo do operador.</strong> Configurar as permissões
+na máquina dele; rodar o primeiro passo sobre uma <strong>cópia</strong>
+dos dados sintéticos, nunca sobre o original; registrar o que rodou.
+<strong>Passo a passo do arquiteto.</strong> Criar uma skill própria com
+a instrução permanente da unidade e o primeiro passo do caso; subir pela
+web; rodar sobre o mesmo material sintético; registrar o que o ambiente
+recusou por não ter acesso à máquina.</p>
+<p data-edit><strong>Produto esperado.</strong> Duas listas de recusas.</p>
+<p data-edit><strong>Essa diferença é o conteúdo do encontro</strong> — o
+arquiteto é limitado pelo ambiente; o operador, pela própria
+configuração. Só o segundo tipo de limite é auditável, e isso vira uma
+linha na matriz.</p>
+<hr />
+<h3 id="ex-33--matriz-de-permissões-com-âncora">EX 3.3 · Matriz de
+permissões, com âncora</h3>
+<p data-edit><strong>Objetivo.</strong> Produzir o artefato do encontro, com cada
+vedação ancorada em norma ou sigilo. <strong>Tempo.</strong> 35 min.</p>
+<p data-edit><strong>Enunciado.</strong></p>
+<blockquote>
+<p data-edit>Preencham a matriz. A coluna que vale nota é a última: <strong>de
+onde vem essa proibição</strong>. Linha sem âncora volta para
+reescrita.</p>
+</blockquote>
+<p data-edit><strong>Material — modelo.</strong></p>
+<pre><code>MATRIZ DE PERMISSÕES — &lt;caso&gt;                    Dupla: ______________
+                                                 Ciclo: (  ) 1  (  ) 2
+
+| O sistema... | Operador | Arquiteto | Como é impedido | Âncora |
+|--------------|----------|-----------|-----------------|--------|
+| lê ...       | sim/não  | sim/não   | —               | —      |
+| escreve ...  | sim/não  | sim/não   | configuração?   | norma / sigilo / decisão da unidade |
+| NÃO pode ... | vedado   | vedado    | como?           | obrigatória |</code></pre>
+<p data-edit><strong>Produto esperado.</strong> Matriz assinada pelos dois, com no
+mínimo três vedações ancoradas.</p>
+<hr />
+<h3 id="ex-34--a-vedação-que-depende-de-alguém-lembrar">EX 3.4 · A
+vedação que depende de alguém lembrar</h3>
+<p data-edit><strong>Objetivo.</strong> Nomear o <strong>defeito de
+permissão</strong>. <strong>Tempo.</strong> 15 min.</p>
+<p data-edit><strong>Enunciado.</strong></p>
+<blockquote>
+<p data-edit>Voltem à própria matriz e marquem cada vedação com <strong>C</strong>
+(está configurada, o sistema não consegue) ou <strong>D</strong>
+(depende de disciplina de quem opera). Contem quantos D vocês têm.</p>
+</blockquote>
+<hr />
+<h2 id="encontro-4-loop-troca-de-papeis">Encontro 4 — Loop · troca de
+papéis</h2>
+<h3 id="ex-41--o-critério-de-parada-aplicado-por-outra-dupla">EX 4.1 · O
+critério de parada, aplicado por outra dupla</h3>
+<p data-edit><strong>Objetivo.</strong> O exercício central do curso. Produzir
+critério que um terceiro aplica e chega ao mesmo resultado.
+<strong>Tempo.</strong> 40 min (20 escrevendo, 20 aplicando o critério
+alheio).</p>
+<p data-edit><strong>Enunciado.</strong></p>
+<blockquote>
+<p data-edit>Escrevam o critério de parada do loop de vocês, <strong>antes de
+executar qualquer coisa</strong>. Depois troquem com a dupla vizinha e
+tentem aplicar o critério dela ao caso dela. Vocês devem chegar ao mesmo
+resultado que ela chegaria.</p>
+</blockquote>
+<p data-edit><strong>Material — os três campos obrigatórios.</strong></p>
+<pre><code>CRITÉRIO DE PARADA
+1. O que se conta: ____________________________________________________
+2. Valor esperado:  ___________________________________________________
+3. Se não convergir em ___ voltas, o que fazer: ________________________</code></pre>
+<p data-edit><strong>Material — quatro critérios para calibrar.</strong></p>
+<blockquote>
+<p data-edit>a) "Até o texto ficar adequado ao padrão da unidade." b) "Até que a
+lista de itens sem classificação esteja vazia." c) "Até que a revisão
+não encontre mais nada a corrigir." d) "Até que os 40 itens tenham
+classificação e nenhum tenha ficado em 'indefinido'; se sobrar algum
+após 3 voltas, para e devolve a lista dos que sobraram."</p>
+</blockquote>
+<p data-edit><strong>Produto esperado.</strong> Critério próprio nos três campos +
+veredicto sobre o critério da dupla vizinha.</p>
+<hr />
+<h3 id="ex-42--o-loop-que-não-para">EX 4.2 · O loop que não para</h3>
+<p data-edit><strong>Objetivo.</strong> Nomear o <strong>defeito de
+parada</strong> e — mais importante — legitimar a decisão de não usar
+loop. <strong>Tempo.</strong> 25 min.</p>
+<p data-edit><strong>Enunciado.</strong></p>
+<blockquote>
+<p data-edit>Leiam o registro abaixo. Digam em que volta o sistema deveria ter
+parado, e por quê. Depois respondam, para o caso de vocês:
+<strong>precisamos mesmo de loop, ou de um passo único
+bem-feito?</strong></p>
+</blockquote>
+<p data-edit><strong>Material — registro de execução (sintético).</strong></p>
+<pre><code>volta 1  — 40 itens, 12 sem classificação. Reprocessa os 12.
+volta 2  — 12 itens, 3 sem classificação. Reprocessa os 3.
+volta 3  — 3 itens, 1 sem classificação. Reprocessa 1.
+volta 4  — 1 item, 1 sem classificação. Reformula o pedido e reprocessa.
+volta 5  — 1 item, 1 sem classificação. Reformula o pedido e reprocessa.
+volta 9  — 1 item, 1 sem classificação. Reformula o pedido e reprocessa.
+volta 26 — 1 item, 1 sem classificação. Reformula o pedido e reprocessa.</code></pre>
+<hr />
+<h2 id="encontro-5-verificacao">Encontro 5 — Verificação</h2>
+<h3 id="ex-51--escolher-o-degrau">EX 5.1 · Escolher o degrau</h3>
+<p data-edit><strong>Objetivo.</strong> Fazer a turma buscar o comando antes de
+recorrer ao julgamento. <strong>Tempo.</strong> 20 min.</p>
+<p data-edit><strong>Enunciado.</strong></p>
+<blockquote>
+<p data-edit>Para cada situação, escolham o degrau mais barato que
+<strong>prova</strong>: comando determinístico, validador, verdade de
+campo, juízo de modelo com rubrica, conferência humana.</p>
+</blockquote>
+<p data-edit><strong>Material.</strong></p>
+<blockquote>
+<ol type="1">
+<li data-edit>Saber se todos os 40 itens receberam classificação.</li>
+<li data-edit>Saber se as certidões geradas seguem o modelo da unidade.</li>
+<li data-edit>Saber se o número de processo citado existe.</li>
+<li data-edit>Saber se o texto gerado está compreensível para o cidadão.</li>
+<li data-edit>Saber se a classificação atribuída está correta.</li>
+</ol>
+</blockquote>
+<hr />
+<h3 id="ex-52--o-verificador-que-aprova-tudo">EX 5.2 · O verificador que
+aprova tudo</h3>
+<p data-edit><strong>Objetivo.</strong> O exercício de falha mais importante do
+curso: nomear o <strong>defeito de verificação</strong>.
+<strong>Tempo.</strong> 25 min.</p>
+<p data-edit><strong>Enunciado.</strong></p>
+<blockquote>
+<p data-edit>Este sistema classifica 40 itens e depois pergunta a si mesmo se
+acertou. O relatório diz 100% de aprovação. A conferência humana de 5
+itens encontrou 3 erros. <strong>Onde está o defeito?</strong></p>
+</blockquote>
+<p data-edit><strong>Material — relatório de verificação (sintético).</strong></p>
+<pre><code>VERIFICAÇÃO AUTOMÁTICA — lote 2026-08-16
+Itens classificados: 40
+Método: cada classificação foi submetida ao modelo com a pergunta
+        &quot;esta classificação está correta? responda sim ou não&quot;.
+Resultado: 40 sim, 0 não.  Índice de acerto: 100%.
+
+CONFERÊNCIA HUMANA POR AMOSTRA — 5 itens
+item 07  classificado como &quot;petição intercorrente&quot;   -&gt; era &quot;recurso&quot;       ERRO
+item 19  classificado como &quot;juntada de documento&quot;    -&gt; correto
+item 23  classificado como &quot;petição intercorrente&quot;   -&gt; era &quot;pedido urgente&quot; ERRO
+item 31  classificado como &quot;juntada de documento&quot;    -&gt; correto
+item 38  classificado como &quot;juntada de documento&quot;    -&gt; era &quot;recurso&quot;       ERRO</code></pre>
+<hr />
+<h3 id="ex-53--laudo-de-verificação-sobre-o-sistema-de-outra-dupla">EX
+5.3 · Laudo de verificação, sobre o sistema de outra dupla</h3>
+<p data-edit><strong>Objetivo.</strong> Produzir o artefato do encontro e instalar
+o hábito que a rubrica mais valoriza: a declaração do que
+<strong>não</strong> foi verificado. <strong>Tempo.</strong> 45 min.</p>
+<p data-edit><strong>Enunciado.</strong></p>
+<blockquote>
+<p data-edit>Vocês vão auditar o sistema de outra dupla — definida pela
+coordenação, não escolhida por vocês. Rodem o sinal de verificação dela,
+colem a <strong>saída literal</strong> e escrevam o laudo. A última
+seção é obrigatória.</p>
+</blockquote>
+<p data-edit><strong>Material — modelo de laudo.</strong></p>
+<pre><code>LAUDO DE VERIFICAÇÃO
+Sistema auditado (dupla): ______________  Auditores: ______________  Data: ___/___/___
+
+1. O que o sistema se propõe a fazer:
+2. Nível de verificação usado: (  ) comando  (  ) validador  (  ) campo  (  ) juízo  (  ) humana
+   Por que este e não o anterior: ______________________________________
+3. SAÍDA LITERAL DO SINAL (colar, não descrever):
+   ------------------------------------------------------------------
+4. O que este sinal detectaria: ________________________________________
+5. O que este sinal DEIXARIA PASSAR: ___________________________________
+6. O QUE NÃO FOI POSSÍVEL VERIFICAR, e por quê:
+   - no harness do operador: __________________________________________
+   - no harness do arquiteto: _________________________________________
+7. Parecer: (  ) o sistema faz o que diz  (  ) faz parcialmente  (  ) não foi possível concluir</code></pre>
+<p data-edit><strong>Passo a passo de quem opera (ciclo 2).</strong> Roda o sinal
+e cola a saída, sem parafrasear. <strong>Passo a passo de quem projeta
+(ciclo 2).</strong> Roda o mesmo sinal no ambiente em nuvem, compara e
+escreve os itens 4 a 7.</p>
+<p data-edit><strong>Produto esperado.</strong> Laudo com os itens 3, 5 e 6
+preenchidos — são os que a rubrica lê.</p>
+<hr />
+<h2 id="encontro-6-checkpoint-humano">Encontro 6 — Checkpoint
+humano</h2>
+<h3 id="ex-61--o-checkpoint-que-não-tem-como-recusar">EX 6.1 · O
+checkpoint que não tem como recusar</h3>
+<p data-edit><strong>Objetivo.</strong> Nomear o <strong>defeito de
+checkpoint</strong>, o mais sutil da série. <strong>Tempo.</strong> 25
+min.</p>
+<p data-edit><strong>Enunciado.</strong></p>
+<blockquote>
+<p data-edit>Leiam o desenho abaixo. Ele tem supervisão humana declarada. Digam
+por que essa supervisão não funciona — e o que mudariam para que
+funcionasse.</p>
+</blockquote>
+<p data-edit><strong>Material.</strong></p>
+<blockquote>
+<p data-edit><strong>Desenho da 5ª Vara.</strong> O sistema classifica os 200
+itens da fila da semana e gera as minutas correspondentes. Ao final,
+apresenta ao servidor uma tela com a lista das 200 minutas e dois
+botões: <strong>aprovar todas</strong> e <strong>rejeitar
+todas</strong>. O servidor confere e aprova. O registro do sistema
+anota: "supervisão humana realizada em 16/08/2026, às 17h58, por
+<servidor>".</p>
+</blockquote>
+<hr />
+<h3 id="ex-62--as-três-perguntas-de-sustentabilidade">EX 6.2 · As três
+perguntas de sustentabilidade</h3>
+<p data-edit><strong>Objetivo.</strong> Fechar o projeto respondendo o que quase
+nenhum projeto responde. <strong>Tempo.</strong> 20 min.</p>
+<p data-edit><strong>Enunciado.</strong></p>
+<blockquote>
+<p data-edit>Respondam por escrito, em uma frase cada: (1) quem mantém este
+sistema; (2) o que acontece quando quem o construiu sair da unidade; (3)
+o que muda no desenho se a instituição passar a fornecer API
+institucional.</p>
+</blockquote>
+<hr />
+
+  </main>
+</div>
+
+<aside id="painel" aria-label="Minhas alterações">
+  <header>
+    <b>Minhas alterações</b>
+    <button id="btCopiar">copiar tudo</button>
+    <button id="btFechar">fechar</button>
+  </header>
+  <div id="lista"><p class="vazio">Clique em <b>revisar</b> e edite qualquer trecho. O que você
+  mudar aparece aqui, pronto para copiar e colar na conversa.</p></div>
+</aside>
+
+<script>
+(function () {
+  'use strict';
+
+  // Envolver as tabelas ANTES de capturar o texto original: mover um nó altera o
+  // innerHTML do bloco que o contém, e isso apareceria como alteração falsa.
+  document.querySelectorAll('table').forEach(function (t) {
+    if (t.parentElement.classList.contains('rolagem')) return;
+    var w = document.createElement('div'); w.className = 'rolagem';
+    t.parentNode.insertBefore(w, t); w.appendChild(t);
+  });
+
+  var edits = document.querySelectorAll('[data-edit]');
+  var original = [];
+  // duas passadas: todas as chaves primeiro, os originais depois. Atribuir a chave
+  // a um filho altera o innerHTML do pai — capturar junto marcaria alteração falsa.
+  edits.forEach(function (el, i) { el.dataset.k = 'e' + i; });
+  edits.forEach(function (el, i) { original[i] = el.innerHTML; });
+
+  var CHAVE = 'nivel2-caderno-exercicios-participante-revisao';
+  function carregar() {
+    try {
+      var raw = localStorage.getItem(CHAVE);
+      if (!raw) return;
+      var d = JSON.parse(raw);
+      edits.forEach(function (el, i) {
+        if (d['e' + i] !== undefined && d['e' + i] !== original[i]) {
+          el.innerHTML = d['e' + i];
+          el.classList.add('mudou');
+        }
+      });
+    } catch (e) {}
+  }
+  function salvar() {
+    try {
+      var d = {};
+      edits.forEach(function (el, i) { d['e' + i] = el.innerHTML; });
+      localStorage.setItem(CHAVE, JSON.stringify(d));
+    } catch (e) {}
+  }
+
+  function limpo(h) { var d = document.createElement('div'); d.innerHTML = h; return (d.textContent || '').replace(/\s+/g, ' ').trim(); }
+
+  function alteracoes() {
+    var out = [];
+    edits.forEach(function (el, i) {
+      var agora = el.innerHTML;
+      if (agora !== original[i]) {
+        el.classList.add('mudou');
+        var sec = el.closest('main') ? (function () {
+          var n = el; while (n && n.tagName !== 'H2') { n = n.previousElementSibling || n.parentElement; }
+          return n ? limpo(n.innerHTML) : 'documento';
+        })() : 'documento';
+        out.push({ sec: sec, antes: limpo(original[i]), depois: limpo(agora) });
+      } else { el.classList.remove('mudou'); }
+    });
+    return out;
+  }
+
+  function pintar() {
+    var lista = document.getElementById('lista');
+    var m = alteracoes();
+    document.getElementById('conta').textContent = m.length;
+    if (!m.length) {
+      lista.innerHTML = '<p class="vazio">Nenhuma alteração ainda. Clique em <b>revisar</b> e edite qualquer trecho.</p>';
+      return;
+    }
+    lista.innerHTML = m.map(function (x) {
+      return '<div class="item"><span class="rot">' + x.sec + '</span>' +
+             '<div class="antes">' + x.antes + '</div>' +
+             '<div class="depois">' + x.depois + '</div></div>';
+    }).join('');
+  }
+
+  carregar();
+  pintar();
+
+  var btE = document.getElementById('btEditar');
+  btE.addEventListener('click', function () {
+    var on = btE.getAttribute('aria-pressed') === 'true';
+    btE.setAttribute('aria-pressed', on ? 'false' : 'true');
+    btE.textContent = on ? 'revisar' : 'concluir';
+    document.body.classList.toggle('editando', !on);
+    edits.forEach(function (el) { el.setAttribute('contenteditable', on ? 'false' : 'true'); });
+    if (on) { salvar(); pintar(); }
+  });
+
+  var painel = document.getElementById('painel');
+  document.getElementById('btPainel').addEventListener('click', function () {
+    pintar(); painel.classList.add('aberto');
+  });
+  document.getElementById('btFechar').addEventListener('click', function () {
+    painel.classList.remove('aberto');
+  });
+
+  document.getElementById('btCopiar').addEventListener('click', function () {
+    var m = alteracoes();
+    var txt = m.length
+      ? m.map(function (x) { return '## ' + x.sec + '\nANTES: ' + x.antes + '\nDEPOIS: ' + x.depois; }).join('\n\n')
+      : 'Nenhuma alteração.';
+    navigator.clipboard.writeText(txt).then(function () {
+      var b = document.getElementById('btCopiar');
+      b.textContent = 'copiado'; setTimeout(function () { b.textContent = 'copiar tudo'; }, 1600);
+    });
+  });
+
+  var bt = document.getElementById('btTema');
+  bt.addEventListener('click', function () {
+    var atual = document.documentElement.getAttribute('data-tema');
+    var escuro = matchMedia('(prefers-color-scheme: dark)').matches;
+    var novo = atual ? (atual === 'escuro' ? 'claro' : 'escuro') : (escuro ? 'claro' : 'escuro');
+    document.documentElement.setAttribute('data-tema', novo);
+    try { localStorage.setItem('nivel2-tema', novo); } catch (e) {}
+  });
+  try {
+    var t = localStorage.getItem('nivel2-tema');
+    if (t) document.documentElement.setAttribute('data-tema', t);
+  } catch (e) {}
+
+  var links = document.querySelectorAll('nav.sumario a');
+  var alvos = document.querySelectorAll('main h2[id]');
+  if ('IntersectionObserver' in window) {
+    var spy = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        links.forEach(function (a) { a.classList.toggle('ativo', a.getAttribute('href') === '#' + e.target.id); });
+      });
+    }, { rootMargin: '-15% 0px -75% 0px' });
+    alvos.forEach(function (h) { spy.observe(h); });
+  }
+})();
+</script>
+</body>
+</html>
