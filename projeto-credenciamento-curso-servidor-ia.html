@@ -1,0 +1,685 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projeto de Credenciamento · Curso Servidor + IA · JFCE</title>
+<style>
+:root {
+  --laranja:#C05A1E; --laranja-claro:#F2E4D8; --tinta:#23201d; --cinza:#5c554e;
+  --fundo:#FFFDFA; --borda:#e6ddd3; --creme:#FFF7EF;
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--fundo); color:var(--tinta);
+  font:16px/1.65 -apple-system,"Segoe UI",Inter,Roboto,sans-serif; }
+header.topo { background:var(--laranja); color:#fff; padding:26px 20px; }
+header.topo h1 { margin:0 0 4px; font-size:1.5rem; letter-spacing:-.01em; }
+header.topo p { margin:0; opacity:.92; font-size:.95rem; }
+.wrap { display:flex; gap:32px; max-width:1240px; margin:0 auto; padding:28px 20px 80px; }
+nav { flex:0 0 264px; position:sticky; top:20px; align-self:flex-start;
+  max-height:calc(100vh - 40px); overflow:auto; font-size:.9rem; }
+nav ul { list-style:none; margin:0; padding:0; }
+nav a { color:var(--cinza); text-decoration:none; display:block; padding:5px 10px;
+  border-left:2px solid transparent; border-radius:0 4px 4px 0; }
+nav a:hover { background:var(--creme); color:var(--laranja); border-left-color:var(--laranja); }
+.nav-sec a { font-weight:700; color:var(--tinta); margin-top:14px; }
+.n2 a { padding-left:20px; }
+main { flex:1; min-width:0; }
+h2 { font-size:1.32rem; margin:2.2em 0 .5em; color:var(--laranja);
+  border-bottom:1px solid var(--borda); padding-bottom:.3em; }
+h3 { font-size:1.08rem; margin:1.7em 0 .4em; }
+h4 { font-size:.98rem; margin:1.4em 0 .3em; color:var(--cinza); }
+p, li { margin:.5em 0; }
+code { background:var(--creme); padding:1px 5px; border-radius:3px; font-size:.9em; }
+pre { background:var(--creme); border:1px solid var(--borda); border-left:3px solid var(--laranja);
+  padding:14px 16px; border-radius:6px; overflow-x:auto; white-space:pre-wrap;
+  font:13px/1.5 ui-monospace,Consolas,monospace; }
+blockquote { margin:.8em 0; padding:.4em 0 .4em 14px; border-left:3px solid var(--laranja-claro);
+  color:var(--cinza); font-style:italic; }
+.tw { overflow-x:auto; margin:1em 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { border:1px solid var(--borda); padding:7px 10px; text-align:left; vertical-align:top; }
+th { background:var(--laranja-claro); }
+.secao { scroll-margin-top:20px; }
+.rodape { border-top:1px solid var(--borda); margin-top:60px; padding-top:16px;
+  color:var(--cinza); font-size:.85rem; }
+@media (max-width:900px) {
+  .wrap { flex-direction:column; padding:16px; }
+  nav { position:static; max-height:none; flex:none; }
+}
+@media print {
+  nav, header.topo { display:none; }
+  body { font-size:11pt; } .wrap { display:block; padding:0; }
+  h2 { page-break-after:avoid; } table, pre { page-break-inside:avoid; }
+}
+</style>
+</head>
+<body>
+<header class="topo">
+  <h1>Projeto de Credenciamento · Curso Servidor + IA</h1>
+  <p>Versão 3.0 — agosto de 2026 · 24 horas · Justiça Federal no Ceará · INOVAJUS Eixo III</p>
+</header>
+
+<div class="wrap">
+<nav>
+  <ul>
+<li class="nav-sec"><a href="#introdução">1. INTRODUÇÃO</a></li>
+<li class="nav-sec"><a href="#justificativa">2. JUSTIFICATIVA</a></li>
+<li class="nav-sec"><a href="#objetivos">3. OBJETIVOS</a></li>
+<li class="n2"><a href="#objetivo-geral">3.1 Objetivo Geral</a></li>
+<li class="n2"><a href="#objetivos-específicos">3.2 Objetivos Específicos</a></li>
+<li class="nav-sec"><a href="#público-alvo">4. PÚBLICO-ALVO</a></li>
+<li class="nav-sec"><a href="#estrutura-do-curso">5. ESTRUTURA DO CURSO</a></li>
+<li class="n2"><a href="#carga-horária">5.1 Carga Horária</a></li>
+<li class="n2"><a href="#modalidade">5.2 Modalidade</a></li>
+<li class="n2"><a href="#conteúdo-programático">5.3 Conteúdo Programático</a></li>
+<li class="nav-sec"><a href="#metodologia">6. METODOLOGIA</a></li>
+<li class="nav-sec"><a href="#recursos-necessários">7. RECURSOS NECESSÁRIOS</a></li>
+<li class="nav-sec"><a href="#avaliação-e-certificação">8. AVALIAÇÃO E CERTIFICAÇÃO</a></li>
+<li class="nav-sec"><a href="#cronograma">9. CRONOGRAMA</a></li>
+<li class="nav-sec"><a href="#equipe-do-projeto">10. EQUIPE DO PROJETO</a></li>
+<li class="nav-sec"><a href="#formação-de-multiplicadores">11. FORMAÇÃO DE
+MULTIPLICADORES</a></li>
+<li class="nav-sec"><a href="#resultados-esperados">12. RESULTADOS ESPERADOS</a></li>
+<li class="nav-sec"><a href="#considerações-finais">13. CONSIDERAÇÕES FINAIS</a></li>
+  </ul>
+</nav>
+
+<main>
+  <section class="secao">
+<p><strong>JUSTIÇA FEDERAL NO CEARÁ</strong></p>
+<p>INOVAJUS — Laboratório de Inovação da Justiça Federal no Ceará</p>
+<p>Eixo III — Tecnologia e Inteligência Artificial</p>
+<p><em>Justiça Centrada nas Pessoas — JCP/PNUD</em></p>
+<blockquote>
+<p><strong>Versão 3.0 — agosto de 2026.</strong> Este projeto substitui
+o projeto pedagógico de junho de 2026 e incorpora a estrutura
+consolidada do curso (Ementa v3.0), ajustada a partir da experiência da
+primeira turma. O conteúdo do curso não foi alterado; a carga horária
+foi redistribuída entre os módulos, e a ordem dos Módulos 2 e 3 reflete
+a sequência pedagógica efetivamente adotada.</p>
+</blockquote>
+<p>Fundamentação normativa: Portaria DF 161/2025 | Plano Nacional de
+Inovação da Justiça Federal (Ações 2.4 e 2.5) | Resolução CNJ nº
+615/2025 | Portaria Conjunta TRF5 nº 2/2025 | OKRs JFCE (KR 2.5) |
+JCP/PNUD (Eixo 2).</p>
+<h2 id="introdução">1. INTRODUÇÃO</h2>
+<p>O Curso “Servidor + IA” é uma iniciativa de capacitação do Eixo III —
+Tecnologia e Inteligência Artificial do INOVAJUS, destinada a formar
+servidores, assessores e magistrados da Justiça Federal no Ceará (JFCE)
+para o uso crítico, responsável e baseado em evidências de ferramentas
+de Inteligência Artificial (IA) generativa em suas rotinas de trabalho,
+prioritariamente na área-fim (atividade jurisdicional), com admissão de
+participantes da área-meio.</p>
+<p>Diferentemente de uma oficina pontual, trata-se de um curso modular
+de <strong>24 horas</strong>, estruturado em <strong>quatro módulos
+sequenciais e complementares</strong>, que conduzem o participante dos
+fundamentos da IA e do prompt engineering ao letramento em pensamento
+crítico e causal, à aplicação prática na rotina forense — inclusive na
+ferramenta institucional de IA da Plataforma Digital do Poder Judiciário
+(PDPJ-Br) — e, por fim, à ética, à LGPD e à governança de IA. A
+certificação é emitida pela Direção do Foro da JFCE.</p>
+<p>Dois diferenciais distinguem o curso. O primeiro é a incorporação do
+<strong>pensamento causal</strong> como módulo formal: todo servidor
+certificado é capaz de questionar dados, identificar confundidores e
+validar análises geradas por IA — competências indispensáveis à
+supervisão humana exigida pela Resolução CNJ nº 615/2025. O segundo é a
+<strong>prática na ferramenta institucional</strong>: dois dos oito
+encontros são dedicados a conhecer e aplicar a ferramenta de IA
+disponibilizada ao Judiciário na PDPJ-Br, com suas salvaguardas de
+anonimização, supervisão humana obrigatória e defesa contra instrução
+embutida em documento de terceiro.</p>
+<p>A primeira turma do curso encontra-se <strong>em execução na
+JFCE</strong> (10 a 25 de agosto de 2026), na modalidade remota ao vivo,
+com aproximadamente 300 participantes inscritos. A experiência dessa
+turma orientou os ajustes de carga horária consolidados nesta
+versão.</p>
+<h2 id="justificativa">2. JUSTIFICATIVA</h2>
+<p>A Inteligência Artificial consolidou-se como competência estratégica
+para a modernização do Poder Judiciário. Os modelos de IA generativa
+mais recentes apresentam capacidades que vão além da geração de texto,
+permitindo análise documental, processamento multimodal e apoio à
+produção forense e administrativa. A Resolução CNJ nº 615/2025, ao
+regulamentar o uso de IA no Judiciário, reforça a necessidade de
+supervisão humana qualificada, diretrizes internas e uso responsável da
+IA generativa. No âmbito regional, a Portaria Conjunta TRF5 nº 2, de 3
+de julho de 2025, instituiu o Grupo de Trabalho de inteligência
+artificial da 5ª Região, com desdobramentos em banco de prompts
+institucionais, registro de soluções no Sinapses e formação
+continuada.</p>
+<p>Neste contexto, a Portaria DF 161/2025, que estrutura o INOVAJUS,
+atribui ao Eixo III a promoção de treinamentos em IA, automação e
+transformação digital. O Plano Nacional de Inovação da Justiça Federal
+prevê trilhas de IA (Ação 2.4) e a formação de multiplicadores (Ação
+2.5), e os OKRs da JFCE (KR 2.5) estabelecem metas de treinamento e
+capacitação. O presente curso responde diretamente a essas bases
+normativas.</p>
+<p>O diferencial do curso está em quatro frentes: o <strong>foco
+prático</strong>, com 70% do tempo em exercício sobre documentos e casos
+concretos (fictícios ou anonimizados); a <strong>prática supervisionada
+na ferramenta institucional de IA</strong> da PDPJ-Br; a criação de uma
+<strong>biblioteca de prompts validados</strong> que alimenta o
+repositório institucional; e o <strong>letramento em pensamento crítico
+e causal</strong>, que capacita o servidor a exercer a validação humana
+das análises e produções geradas por IA. Essa combinação posiciona a
+JFCE na vanguarda da inovação no Judiciário, com metodologia
+reproduzível — o desenho do curso é neutro quanto à seção judiciária e
+pode ser ofertado por qualquer seção da 5ª Região.</p>
+<h2 id="objetivos">3. OBJETIVOS</h2>
+<h3 id="objetivo-geral">3.1 Objetivo Geral</h3>
+<p>Formar servidores, assessores e magistrados da Justiça Federal para
+utilizar inteligência artificial generativa de forma crítica, segura e
+produtiva no exercício de suas atribuições, com consciência das
+limitações da tecnologia, das responsabilidades institucionais e das
+exigências normativas, em particular as da Resolução CNJ nº 615/2025 e
+da LGPD.</p>
+<h3 id="objetivos-específicos">3.2 Objetivos Específicos</h3>
+<p>Ao concluir o curso, o participante deverá ser capaz de:</p>
+<ul>
+<li>Construir e refinar prompts para tarefas judiciais reais pelo método
+do <strong>prompt em 6 etapas</strong> (contexto, tom, tarefa, exemplos,
+qualidade, formato), aplicando técnicas complementares: raciocínio passo
+a passo, exemplos calibradores (<em>few-shot</em>), saída estruturada e
+separação entre instrução e documento — inclusive como defesa contra
+instruções embutidas em documento de terceiro.</li>
+<li>Avaliar criticamente outputs de IA generativa, detectando
+alucinações, vieses, inconsistências e lacunas, com aplicação imediata
+da supervisão humana exigida pela Resolução CNJ nº 615/2025.</li>
+<li>Aplicar pensamento crítico e causal a dados e análises auxiliadas
+por IA, distinguindo correlação de causa, identificando confundidores e
+raciocinando por contrafactuais — inclusive registrando a situação-base
+(<em>baseline</em>) antes de adotar qualquer mudança de fluxo.</li>
+<li>Integrar IA generativa às tarefas forenses do dia a dia: triagem e
+classificação, resumo de peças, minutas e despachos, pesquisa de
+jurisprudência com salvaguardas, comparação e conferência de documentos,
+relatórios e trabalho em lote.</li>
+<li>Operar a <strong>ferramenta institucional de inteligência
+artificial</strong> disponibilizada ao Judiciário na PDPJ-Br,
+reconhecendo o que ela acessa dos autos, as salvaguardas que já traz e
+os limites que permanecem sob responsabilidade humana, comparando-a de
+forma justificada com ferramentas de mercado.</li>
+<li>Anonimizar documentos e gerir tratamento de dados pessoais conforme
+a LGPD, respeitando o bloqueio absoluto a dados sob sigilo em
+ferramentas externas.</li>
+<li>Reconhecer riscos de IA no trabalho judicial, classificá-los segundo
+a Resolução CNJ nº 615/2025 e propor mitigações.</li>
+<li>Construir, individualmente, um <strong>Projeto Antes e
+Depois</strong> que resolva um problema real de sua unidade, com
+registro do antes e do depois (<em>baseline</em>), integrando os
+conteúdos dos quatro módulos.</li>
+<li>Alimentar a biblioteca institucional de prompts validados e formar a
+base de servidores aptos a atuar como multiplicadores de inovação no
+âmbito do TRF5, conforme a Ação 2.5 do Plano Nacional de Inovação.</li>
+</ul>
+<h2 id="público-alvo">4. PÚBLICO-ALVO</h2>
+<p>O curso é dirigido prioritariamente à <strong>área-fim</strong>:</p>
+<ul>
+<li>Servidoras e servidores em exercício em Varas e Turmas da JFCE;</li>
+<li>Assessoras e assessores de gabinete;</li>
+<li>Magistradas e magistrados;</li>
+<li>Estagiárias e estagiários lotados nessas unidades (em vagas
+reservadas, com anuência da chefia imediata).</li>
+</ul>
+<p>O recorte é deliberado: todos os exemplos, exercícios e roteiros de
+demonstração partem do fluxo de trabalho judicial (processo, despacho,
+minuta, jurisprudência, triagem, audiência). <strong>Participantes da
+área-meio são admitidos</strong> — a experiência da primeira turma
+mostrou que o método do prompt, a postura de verificação e as regras de
+sigilo transferem sem perda; os participantes da área-meio são
+orientados a trazer as próprias tarefas para os blocos de prática
+livre.</p>
+<p>Todos os participantes cursam os quatro módulos na mesma sequência,
+independentemente da unidade de lotação. A dimensão de cada turma é
+definida no plano da respectiva oferta; a primeira turma, ampliada,
+contou com aproximadamente 300 inscritos, com os ajustes de avaliação
+descritos na seção 8.</p>
+<p><strong>Pré-requisito operacional da turma:</strong> os Encontros 6 e
+7 pressupõem que cada participante tenha <strong>acesso liberado à
+ferramenta institucional de IA na PDPJ-Br</strong>, com o perfil
+correspondente. A confirmação desse acesso antecede a abertura da turma
+— a liberação depende de perfil na plataforma e não é imediata.</p>
+<h2 id="estrutura-do-curso">5. ESTRUTURA DO CURSO</h2>
+<h3 id="carga-horária">5.1 Carga Horária</h3>
+<p>Total: <strong>24 horas</strong> por participante, em <strong>oito
+encontros de 3 horas</strong>, distribuídas em quatro módulos
+sequenciais:</p>
+<div class="tw"><table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Módulo</th>
+<th>Carga</th>
+<th>Encontros</th>
+<th>Conteúdo-chave</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1. Fundamentos de IA e Prompt Engineering</td>
+<td>6h</td>
+<td>2 encontros de 3h</td>
+<td>Como a IA funciona; capacidades e limites; prompt em 6 etapas;
+técnicas avançadas; biblioteca de prompts</td>
+</tr>
+<tr class="even">
+<td>2. Pensamento Crítico e Causal com IA</td>
+<td>3h</td>
+<td>1 encontro de 3h</td>
+<td>Correlação × causalidade; confundidores; contrafactual; detecção de
+alucinações; checklist de supervisão</td>
+</tr>
+<tr class="odd">
+<td>3. Prática Forense</td>
+<td>12h</td>
+<td>4 encontros de 3h</td>
+<td>Triagem, resumo, minutas, jurisprudência com salvaguardas;
+ferramenta institucional de IA (conhecer e aplicar); interoperabilidade
+(MCP); Projeto Antes e Depois</td>
+</tr>
+<tr class="even">
+<td>4. Ética, LGPD e Governança de IA</td>
+<td>3h</td>
+<td>1 encontro de 3h</td>
+<td>Res. CNJ 615/2025; normas da 5ª Região; sigilo e LGPD; vieses; roda
+de projetos</td>
+</tr>
+<tr class="odd">
+<td><strong>TOTAL</strong></td>
+<td><strong>24h</strong></td>
+<td><strong>8 encontros</strong></td>
+<td>—</td>
+</tr>
+</tbody>
+</table></div>
+<p>O Módulo 2 concentra-se em um único encontro porque seu conteúdo
+mudou de forma, não de tamanho, em relação à versão anterior do projeto:
+a parte conceitual foi condensada e amarrada ao registro do “antes” do
+Projeto Antes e Depois, e o que era exposição sobre alucinação e
+validação tornou-se exercício — 95 dos 180 minutos do encontro são de
+prática. A postura de verificação, que o Módulo 3 inteiro pressupõe e
+que a supervisão humana do art. 19 da Resolução CNJ nº 615/2025 exige do
+servidor, é praticada no Módulo 2 e <strong>reforçada ao fim de cada
+encontro do Módulo 3</strong>, que fecha com micro-verificação aplicada
+à saída real produzida no dia.</p>
+<h3 id="modalidade">5.2 Modalidade</h3>
+<p>Totalmente remota, <strong>online ao vivo (síncrona)</strong>, por
+videoconferência institucional, com demonstrações em tempo real e
+prática individual supervisionada. A modalidade remota integral favorece
+a participação do maior número de servidores, a interação entre unidades
+e a construção colaborativa da biblioteca de prompts, sem perda da
+qualidade da aprendizagem prática — cada participante pratica na própria
+conta, na própria tarefa, com a sala aberta e o instrutor
+disponível.</p>
+<h3 id="conteúdo-programático">5.3 Conteúdo Programático</h3>
+<h4
+id="módulo-1-fundamentos-de-ia-e-prompt-engineering-6h-2-encontros">5.3.1
+Módulo 1 — Fundamentos de IA e Prompt Engineering (6h — 2
+encontros)</h4>
+<p><strong>Encontro 1 (3h): O que é IA e como pedir bem</strong></p>
+<ul>
+<li>Como a IA funciona: prever a próxima palavra; onde nasce a
+alucinação.</li>
+<li>O que faz bem e onde falha — com exemplos do contexto judicial.</li>
+<li>Contexto e tokens: por que não despejar o processo inteiro na
+ferramenta.</li>
+<li>Anatomia do <strong>prompt em 6 etapas</strong>: contexto, tom,
+tarefa, exemplos, qualidade, formato.</li>
+</ul>
+<p><strong>Encontro 2 (3h): Prompts melhores e biblioteca</strong></p>
+<ul>
+<li>Prompt fraco × prompt forte: o mesmo pedido, duas saídas.</li>
+<li>Técnicas que elevam a qualidade: raciocínio passo a passo, exemplos
+calibradores, separação entre instrução e documento (inclusive contra
+instrução embutida), iteração.</li>
+<li>Biblioteca de prompts da unidade: o Banco de Prompts (14
+prompts-mestre + apêndices).</li>
+<li>Qual ferramenta usar: escolha pela tarefa, não pela marca.</li>
+</ul>
+<h4 id="módulo-2-pensamento-crítico-e-causal-com-ia-3h-1-encontro">5.3.2
+Módulo 2 — Pensamento Crítico e Causal com IA (3h — 1 encontro)</h4>
+<p><strong>Encontro 3 (3h): Questionar e conferir</strong> — encontro
+único do módulo, com 95 dos 180 minutos em prática</p>
+<ul>
+<li>Por que questionar a IA: ela rascunha, não decide — o custo de uma
+resposta errada para a parte e para o processo; a supervisão humana da
+Resolução CNJ nº 615/2025 (20 min).</li>
+<li>Correlação, causa oculta e contrafactual, a serviço do registro do
+“antes” do Projeto Antes e Depois (45 min).</li>
+<li>Prática — a citação inventada: identificar sinais de alerta e
+<strong>conferir na fonte oficial</strong> (55 min).</li>
+<li>Prática — a “resposta boa demais”: auditoria de resposta correta
+porém incompleta; detectar a lacuna, não só o erro (40 min).</li>
+<li>Checklist de supervisão e decisão humana: as quatro perguntas,
+reaplicadas em todos os encontros do Módulo 3 (10 min).</li>
+</ul>
+<h4 id="módulo-3-prática-forense-12h-4-encontros">5.3.3 Módulo 3 —
+Prática Forense (12h — 4 encontros)</h4>
+<p>Os quatro encontros fecham com <strong>micro-verificação aplicada à
+saída real produzida no dia</strong>.</p>
+<p><strong>Encontro 4 (3h): Triagem e resumo</strong></p>
+<ul>
+<li>Triagem e classificação assistida, com demonstração ao vivo —
+incluindo defesa contra instrução embutida em item do lote.</li>
+<li>Resumo de peças e processos, com conferência contra o original.</li>
+</ul>
+<p><strong>Encontro 5 (3h): Minutas, jurisprudência e
+conferência</strong></p>
+<ul>
+<li>Minutas e despachos com supervisão crítica — o conteúdo jurídico e a
+assinatura são sempre do servidor.</li>
+<li>Pesquisa de jurisprudência com salvaguardas contra alucinação —
+conferência na fonte oficial.</li>
+<li>Comparação e conferência de documentos.</li>
+</ul>
+<p><strong>Encontro 6 (3h): A ferramenta institucional de IA —
+conhecer</strong></p>
+<ul>
+<li>A ferramenta de IA da PDPJ-Br: o que ela enxerga dos autos e o que
+ela não faz.</li>
+<li>Funções aplicadas à rotina: resumo de peça, triagem temática, minuta
+a partir de comandos, degravação de audiência e busca de
+jurisprudência.</li>
+<li>Salvaguardas embutidas: anonimização, supervisão humana obrigatória
+e defesa contra <em>prompt injection</em>.</li>
+<li>Prática guiada, função por função, na conta de cada participante (40
+min); refazer e comparar com tarefa de encontro anterior (25 min).</li>
+</ul>
+<p><strong>Encontro 7 (3h): A ferramenta institucional de IA —
+aplicar</strong></p>
+<ul>
+<li>Relatórios, organização de dados e trabalho em lote, com
+anonimização prévia.</li>
+<li>Modelos e trabalho repetitivo aplicados à rotina da própria
+unidade.</li>
+<li>Interoperabilidade com assistentes externos (MCP), em bloco próprio
+de 30 minutos: todos praticam a geração da URL e a leitura dos escopos;
+a conexão com assistente externo é demonstrada apenas pelo instrutor, em
+observância ao art. 19, § 3º, III, da Resolução CNJ nº 615/2025.</li>
+<li>Comparação crítica entre ferramenta institucional e ferramenta de
+mercado.</li>
+<li>Prática livre na tarefa real da própria unidade (45 min).</li>
+<li><strong>Lançamento do Projeto Antes e Depois</strong>, com o
+registro do “antes” feito em aula.</li>
+</ul>
+<h4 id="módulo-4-ética-lgpd-e-governança-de-ia-3h-1-encontro">5.3.4
+Módulo 4 — Ética, LGPD e Governança de IA (3h — 1 encontro)</h4>
+<p><strong>Encontro 8 (3h): Usar a IA dentro da lei e do
+sigilo</strong></p>
+<ul>
+<li>Resolução CNJ nº 615/2025: governança e supervisão humana
+obrigatória.</li>
+<li>Normas da 5ª Região: Portaria Conjunta TRF5 nº 2/2025 e seus
+desdobramentos.</li>
+<li>Sigilo: o que pode e o que não pode ir para a IA — bloqueio absoluto
+a dados sob segredo de justiça em ferramenta externa; LGPD e
+anonimização na prática.</li>
+<li>Vieses algorítmicos e boas práticas de segurança.</li>
+<li>Estudo de casos (“posso colar este processo na IA?”), com decisão e
+justificativa individuais.</li>
+<li>Fechamento do <strong>Projeto Antes e Depois</strong> (roda de
+projetos ou entrega assíncrona, conforme a dimensão da turma — seção
+8).</li>
+<li>Bloco-horizonte: sistemas agênticos — assistente × agente, o
+servidor como regente.</li>
+</ul>
+<p><em>A numeração dos encontros segue a ordem sequencial da grade
+completa: Encontros 1 e 2 (Módulo 1), Encontro 3 (Módulo 2), Encontros 4
+a 7 (Módulo 3) e Encontro 8 (Módulo 4). Recomenda-se pelo menos um dia
+de intervalo entre os Encontros 6 e 7, para que a turma experimente a
+ferramenta institucional antes do encontro de aplicação.</em></p>
+<h2 id="metodologia">6. METODOLOGIA</h2>
+<p>O curso adota o princípio andragógico de <strong>70% prática e 30%
+teoria</strong>, no ciclo <em>conceito → exemplo da Vara → demonstração
+ao vivo na IA → mão na massa</em>:</p>
+<ul>
+<li><strong>Aprendizagem baseada em problemas reais:</strong> trabalho
+com documentos e casos concretos, fictícios ou anonimizados.</li>
+<li><strong>Prática individual supervisionada:</strong> cada
+participante trabalha na própria tarefa, com a sala aberta e o instrutor
+disponível; ao fim de cada bloco, participantes compartilham resultados
+com a turma.</li>
+<li><strong>Demonstrações ao vivo:</strong> o instrutor compartilha o
+deck do curso e a ferramenta de IA em tempo real.</li>
+<li><strong>Letramento causal aplicado:</strong> exercícios de validação
+de análises, detecção de alucinações e identificação de confundidores,
+com micro-verificações ao fim de cada encontro do Módulo 3.</li>
+<li><strong>Tarefas curtas entre encontros:</strong> sete tarefas de dez
+a quinze minutos, retomadas na abertura do encontro seguinte — a última
+alimenta diretamente o encontro de aplicação da ferramenta
+institucional.</li>
+<li><strong>Projeto Antes e Depois:</strong> cada participante constrói,
+individualmente, um projeto que resolve problema real de sua unidade,
+com registro da situação anterior (<em>baseline</em>) e do resultado — o
+“antes × depois” que alimenta os indicadores do Eixo III.</li>
+<li><strong>Criação colaborativa:</strong> construção da biblioteca de
+prompts e casos de uso, alimentando o repositório institucional do
+INOVAJUS.</li>
+</ul>
+<p>A facilitação é conduzida por instrutores com prática real em uso de
+IA no trabalho judicial. A partir da segunda turma, multiplicadores já
+formados podem co-conduzir módulos específicos com supervisão.</p>
+<h2 id="recursos-necessários">7. RECURSOS NECESSÁRIOS</h2>
+<ul>
+<li><strong>Plataforma institucional de videoconferência</strong>, com
+chat e enquetes.</li>
+<li><strong>Deck do curso</strong> (apresentação animada em endereço
+público, acessível por link e QR code).</li>
+<li><strong>Banco de Prompts</strong> — 14 prompts-mestre + apêndices
+temáticos e roteiros de demonstração, em endereço público.</li>
+<li><strong>Conta de uso individual em ferramenta de IA
+generativa</strong> (acesso institucional ou conta pessoal do
+participante).</li>
+<li><strong>Acesso à ferramenta institucional de IA na PDPJ-Br</strong>,
+com perfil liberado antes da abertura da turma (seção 4).</li>
+<li><strong>Guia metodológico do curso</strong>, guia rápido do
+instrutor, caderno de exercícios (versões do aluno e do instrutor) e
+manual do aluno.</li>
+<li><strong>Material de apoio:</strong> handout <em>Regras de Ouro</em>,
+ficha de validação, formulários de avaliação.</li>
+<li><strong>Repositório institucional de Prompts</strong>, com acesso
+curado para consulta e contribuição.</li>
+<li><strong>Documentos fictícios ou anonimizados</strong> para as
+práticas — nenhum dado real sigiloso circula no curso.</li>
+</ul>
+<h2 id="avaliação-e-certificação">8. AVALIAÇÃO E CERTIFICAÇÃO</h2>
+<p>A avaliação é por <strong>aplicação</strong>, não por prova
+teórica:</p>
+<div class="tw"><table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Critério</th>
+<th>Peso</th>
+<th>Forma</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Frequência</td>
+<td>requisito</td>
+<td>Presença em pelo menos 80% da carga horária</td>
+</tr>
+<tr class="even">
+<td>Entregas dos módulos</td>
+<td>requisito</td>
+<td>Pelo menos um exercício validado por módulo</td>
+</tr>
+<tr class="odd">
+<td>Projeto Antes e Depois</td>
+<td>nota final</td>
+<td>Individual; avaliação por rubrica, com medição do antes e do
+depois</td>
+</tr>
+<tr class="even">
+<td>Aplicação real</td>
+<td>acompanhamento</td>
+<td>Avaliação D+30, D+60 e D+90 — uso efetivo no trabalho</td>
+</tr>
+</tbody>
+</table></div>
+<p>Não há nota numérica única: a avaliação resulta em <strong>aprovação
+com certificação</strong> ou <strong>complementação dos
+requisitos</strong>. Complementarmente, um <strong>pré-teste e um
+pós-teste de aprendizagem</strong> (espelhados, com 14 questões
+objetivas e 2 abertas) medem o ganho de aprendizagem da turma, sem
+efeito individual de aprovação.</p>
+<p><strong>Turmas ampliadas.</strong> O fechamento do Projeto por roda
+de apresentações ao vivo pressupõe turma de algumas dezenas de
+participantes. Em turmas maiores, o fechamento se dá por <strong>entrega
+assíncrona com revisão entre pares</strong>, segundo a mecânica de
+avaliação em escala adotada pela coordenação do programa; a escolha
+entre as duas formas é feita <strong>antes do lançamento do
+Projeto</strong>.</p>
+<p><strong>Certificação:</strong> certificado individual de <strong>24
+(vinte e quatro) horas</strong>, emitido pela Direção do Foro da JFCE
+aos participantes que cumprirem os requisitos, contendo nome, carga
+horária por módulo, período de realização e identificadores do curso e
+da turma. A certificação habilita o servidor a submeter prompts ao
+Repositório institucional com tag de coautoria, candidatar-se ao
+Programa de Multiplicadores e participar dos eventos do programa com
+prioridade.</p>
+<h2 id="cronograma">9. CRONOGRAMA</h2>
+<p>O curso se desenvolve em oito encontros de três horas, na sequência
+dos módulos:</p>
+<div class="tw"><table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Etapa</th>
+<th>Encontros</th>
+<th>Observação</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Módulo 1 — Fundamentos de IA e Prompt Engineering</td>
+<td>Encontros 1 e 2</td>
+<td>Pré-requisito para os demais módulos</td>
+</tr>
+<tr class="even">
+<td>Módulo 2 — Pensamento Crítico e Causal com IA</td>
+<td>Encontro 3</td>
+<td>Letramento causal e postura de verificação</td>
+</tr>
+<tr class="odd">
+<td>Módulo 3 — Prática Forense</td>
+<td>Encontros 4 a 7</td>
+<td>Aplicação prática supervisionada, incluindo a ferramenta
+institucional</td>
+</tr>
+<tr class="even">
+<td>Módulo 4 — Ética, LGPD e Governança de IA</td>
+<td>Encontro 8</td>
+<td>Encerramento, roda de projetos e consolidação de boas práticas</td>
+</tr>
+<tr class="odd">
+<td>Acompanhamento de aplicação real</td>
+<td>D+30, D+60 e D+90</td>
+<td>Uso efetivo no trabalho após o curso</td>
+</tr>
+</tbody>
+</table></div>
+<p>A <strong>Turma 1</strong> está em execução de 10 a 25 de agosto de
+2026. <strong>Não há data definida para a Turma 2</strong>: o calendário
+das próximas ofertas será fixado pela coordenação do programa conforme o
+calendário institucional, recomendando-se encontros próximos entre si —
+o curso pressupõe tarefas curtas entre um encontro e outro — e pelo
+menos um dia de intervalo entre os Encontros 6 e 7, para que a turma
+experimente a ferramenta institucional antes do encontro de
+aplicação.</p>
+<h2 id="equipe-do-projeto">10. EQUIPE DO PROJETO</h2>
+<p>O curso é conduzido pela seguinte equipe:</p>
+<ul>
+<li><strong>Instrutor / Coordenador:</strong> Victor César Falcão Viana
+— Diretor de Secretaria da 3ª Vara e Coordenador do Eixo III (Tecnologia
+e Inteligência Artificial) do INOVAJUS.</li>
+<li><strong>Instrutor:</strong> Vinícius Sousa e Silva — Diretor de
+Secretaria da 35ª Vara da SJCE e Coordenador Científico do
+INOVAJUS.</li>
+</ul>
+<p>Funções de apoio: suporte técnico à videoconferência; apoio à
+documentação e organização das turmas.</p>
+<h2 id="formação-de-multiplicadores">11. FORMAÇÃO DE
+MULTIPLICADORES</h2>
+<p>Como desdobramento do curso, e em atendimento à Ação 1.3 do Plano de
+Trabalho 2026 e à Ação 2.5 do Plano Nacional de Inovação (Programa
+Nacional de Multiplicadores), serão identificados e preparados de 5 a 10
+servidores egressos do “Servidor + IA” para atuar como multiplicadores
+de inovação no âmbito do TRF5.</p>
+<p>Esses multiplicadores poderão replicar oficinas em subseções
+judiciárias, co-conduzir módulos de turmas futuras com supervisão e
+participar da Rede de Inovação da Justiça Federal como representantes da
+JFCE. A seleção considerará o desempenho no curso, o engajamento na
+construção da biblioteca de prompts e o interesse em disseminar boas
+práticas. Esta formação não constitui carga horária adicional de
+credenciamento, integrando-se como resultado e continuidade da
+capacitação.</p>
+<h2 id="resultados-esperados">12. RESULTADOS ESPERADOS</h2>
+<ul>
+<li><strong>Servidores certificados:</strong> conforme o plano de
+trabalho de cada oferta; a Turma 1, ampliada, conta com aproximadamente
+300 inscritos.</li>
+<li><strong>Biblioteca de prompts validados:</strong> conjunto de
+prompts por área, incorporado ao repositório institucional do
+INOVAJUS.</li>
+<li><strong>Processos otimizados:</strong> um Projeto Antes e Depois por
+participante certificado, com medição documentada do antes e do
+depois.</li>
+<li><strong>Supervisão humana qualificada:</strong> servidores aptos a
+validar criticamente análises e produções geradas por IA, em
+conformidade com a Resolução CNJ nº 615/2025.</li>
+<li><strong>Base de multiplicadores:</strong> 5 a 10 servidores
+indicados para atuação na Rede de Inovação (Ação 1.3).</li>
+<li><strong>Indicadores de qualidade do curso:</strong> avaliação média
+igual ou superior a 8,5 (escala 0-10); cumprimento do Projeto Antes e
+Depois por pelo menos 90% dos certificados; pelo menos 70% dos
+certificados usando IA semanalmente na avaliação D+90.</li>
+<li><strong>Comunidade de prática:</strong> inclusão dos certificados,
+mediante adesão voluntária, em comunidade institucional com encontros
+mensais opcionais e canal assíncrono.</li>
+</ul>
+<h2 id="considerações-finais">13. CONSIDERAÇÕES FINAIS</h2>
+<p>O curso “Servidor + IA” traduz, em uma trilha formativa estruturada,
+a missão do Eixo III: promover a adoção crítica, responsável e baseada
+em evidências de tecnologia e IA na JFCE, capacitando pessoas, testando
+soluções e medindo impacto.</p>
+<p>A abordagem prática, focada em casos reais e na criação de recursos
+imediatamente aplicáveis, assegura que os conhecimentos sejam
+incorporados às rotinas de trabalho de forma sustentável. A incorporação
+do pensamento causal como módulo formal e a prática supervisionada na
+ferramenta institucional de IA distinguem este curso e qualificam o
+servidor para a supervisão humana que a governança de IA do Judiciário
+exige.</p>
+<p>A implementação do curso, somada à formação de multiplicadores e à
+neutralidade institucional do seu desenho — que permite a oferta por
+qualquer seção judiciária da 5ª Região —, contribui para posicionar a
+JFCE como referência em inovação no TRF5 e na Rede de Inovação da
+Justiça Federal, com metodologia reproduzível e citável.</p>
+<hr />
+<p><em>Projeto pedagógico — Versão 3.0, agosto de 2026. Elaborado pela
+Coordenação do Eixo III do INOVAJUS a partir da Ementa Formal v3.0 do
+curso. Substitui a versão de junho de 2026.</em></p>
+
+  <p class="rodape">Projeto pedagógico para credenciamento (Portaria DF 161/2025). Esta página é a
+  versão de consulta; o documento formal em <code>.docx</code> está em
+  <a href="projeto-credenciamento-curso-servidor-ia.docx">projeto-credenciamento-curso-servidor-ia.docx</a>.</p>
+  </section>
+</main>
+</div>
+
+</body>
+</html>
