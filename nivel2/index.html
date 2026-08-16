@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Servidor + IA · Nível 2 — peças de trabalho</title>
+<style>
+:root {
+  --tinta: #16202b; --tinta-suave: #4a5866; --tinta-fraca: #8996a3;
+  --papel: #fbfaf8; --papel-2: #f2f0ec; --regua: #e0ddd7;
+  --acento: #1f5f5b; --acento-fraco: #e6efee;
+  --atencao: #8a5a1a; --atencao-fraco: #fbf2e4;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, "Cascadia Code", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-tema="claro"]) {
+    --tinta: #e8e6e1; --tinta-suave: #b3aea6; --tinta-fraca: #7d7871;
+    --papel: #14161a; --papel-2: #1b1e23; --regua: #2b2f36;
+    --acento: #6fbcb4; --acento-fraco: #14302e;
+    --atencao: #d8a556; --atencao-fraco: #2e2415;
+  }
+}
+:root[data-tema="escuro"] {
+  --tinta: #e8e6e1; --tinta-suave: #b3aea6; --tinta-fraca: #7d7871;
+  --papel: #14161a; --papel-2: #1b1e23; --regua: #2b2f36;
+  --acento: #6fbcb4; --acento-fraco: #14302e;
+  --atencao: #d8a556; --atencao-fraco: #2e2415;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--papel); color: var(--tinta);
+  font-family: var(--sans); font-size: 16.5px; line-height: 1.68;
+  -webkit-font-smoothing: antialiased;
+}
+.faixa {
+  padding: .7rem clamp(1rem, 4vw, 2.5rem);
+  background: var(--atencao-fraco); color: var(--atencao);
+  border-bottom: 1px solid color-mix(in srgb, var(--atencao) 35%, transparent);
+  font-size: .82rem; line-height: 1.5;
+}
+.casca { max-width: 760px; margin: 0 auto; padding: 3.2rem clamp(1rem, 4vw, 2.5rem) 5rem; }
+.marca {
+  font-family: var(--mono); font-size: .72rem; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--acento); font-weight: 700; margin-bottom: 1.6rem;
+}
+.marca span { color: var(--tinta-fraca); font-weight: 400; }
+h1 {
+  font-family: var(--serif); font-size: clamp(2rem, 5vw, 2.8rem); line-height: 1.12;
+  margin: 0 0 1rem; letter-spacing: -.015em; text-wrap: balance;
+}
+.linha-fina { font-size: 1.08rem; color: var(--tinta-suave); margin: 0 0 .8rem; }
+.nota { color: var(--tinta-fraca); font-size: .92rem; margin: 0 0 2.6rem; }
+ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: .2rem; }
+li { border-top: 1px solid var(--regua); padding: 1.15rem 0; }
+li:last-child { border-bottom: 1px solid var(--regua); }
+li a {
+  display: flex; align-items: baseline; gap: .7rem; flex-wrap: wrap;
+  color: var(--tinta); text-decoration: none; font-size: 1.1rem;
+}
+li a b { font-weight: 650; border-bottom: 1px solid transparent; transition: border-color .16s; }
+li a:hover b, li a:focus-visible b { border-bottom-color: var(--acento); }
+li a:focus-visible { outline: 2px solid var(--acento); outline-offset: 4px; }
+.papel {
+  font-family: var(--mono); font-size: .66rem; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--tinta-fraca); background: var(--papel-2); padding: .2rem .5rem; border-radius: 3px;
+}
+li p { margin: .4rem 0 0; color: var(--tinta-suave); font-size: .95rem; max-width: 62ch; }
+footer { margin-top: 3rem; color: var(--tinta-fraca); font-size: .88rem; }
+footer code { font-family: var(--mono); font-size: .86em; color: var(--acento); }
+@media (prefers-reduced-motion: reduce) { * { transition-duration: .001ms !important; } }
+</style>
+</head>
+<body>
+
+<div class="faixa">
+  <b>Documento interno, em revisão.</b> Peças de trabalho do Servidor + IA · Nível 2, ainda não
+  submetidas à Direção do Foro. Não indexadas e sem link em página pública — circulam apenas por
+  URL direta, entre quem coordena e conduz o curso.
+</div>
+
+<div class="casca">
+  <div class="marca">INOVAJUS <span>/ Eixo III · Justiça Federal no Ceará</span></div>
+
+  <h1>Servidor + IA · Nível 2</h1>
+  <p class="linha-fina"><b>Do Prompt ao Sistema</b> — engenharia de contexto, loop e verificação
+  aplicada ao trabalho judicial. 18 horas, seis encontros, exclusivo para quem já se certificou
+  no Nível 1.</p>
+  <p class="nota">Seis peças, na ordem em que vale a pena ler. Todas abrem em modo de leitura;
+  o botão <b>revisar</b> no alto de cada uma permite editar o texto na própria tela e copiar o
+  que você mudou.</p>
+
+  <ul>
+    <li><a href="projeto-credenciamento-curso.html"><b>Projeto de Credenciamento</b><span class="papel">projeto pedagógico</span></a><p>O curso inteiro em 13 seções, no formato do projeto do Nível 1. É a peça que vai à Direção do Foro.</p></li>
+    <li><a href="ementa-formal-curso.html"><b>Ementa Formal</b><span class="papel">ementa para a Direção do Foro</span></a><p>Identificação, público, estrutura, avaliação e certificação. Deriva do design.</p></li>
+    <li><a href="design-do-curso.html"><b>Design do Curso</b><span class="papel">documento de design</span></a><p>Por que o curso é assim: o problema, a arquitetura de dois papéis e os riscos.</p></li>
+    <li><a href="guia-metodologico.html"><b>Guia Metodológico</b><span class="papel">documento de condução</span></a><p>Como conduzir: roteiro bloco a bloco dos seis encontros, mecânica de Teams e turma sem teto.</p></li>
+    <li><a href="caderno-exercicios-instrutor.html"><b>Caderno de Exercícios</b><span class="papel">caderno do instrutor</span></a><p>Treze exercícios com material sintético pronto, gabarito comentado e o erro típico a nomear.</p></li>
+    <li><a href="rubrica-projeto-da-dupla.html"><b>Rubrica do Projeto</b><span class="papel">instrumento de avaliação</span></a><p>Como se avalia o projeto final: três eliminatórios e seis critérios de mérito.</p></li>
+  </ul>
+
+  <footer>
+    Cada página tem versão <code>.docx</code> correspondente, para anexar ao SEI.
+    Fonte dos documentos: <code>frente1-capacitacao/curso-servidor-ia-avancado/</code>.
+  </footer>
+</div>
+
+</body>
+</html>
