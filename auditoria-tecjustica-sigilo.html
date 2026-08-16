@@ -1,0 +1,195 @@
+<title>Auditoria TecJustiça Sigilo</title>
+<style>
+  :root{
+    --paper:#F6F5F1; --ink:#20242C; --ink-2:#4A5160; --line:#DDDAD2;
+    --acc:#14606A; --acc-soft:#E3EDEE; --tarja:#20242C; --tarja-txt:#F6F5F1;
+    --crit:#A93226; --crit-bg:#F6E7E5; --med:#A87B1D; --med-bg:#F5EEDC;
+    --ok:#2E7D4F; --ok-bg:#E5F0E9; --card:#FFFFFF; --mono-bg:#ECEAE4;
+  }
+  :root:not([data-theme="light"]){ }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#191C22; --ink:#E8E6E1; --ink-2:#A8AEBB; --line:#343945;
+      --acc:#6FB3BD; --acc-soft:#1E2F33; --tarja:#0C0E12; --tarja-txt:#E8E6E1;
+      --crit:#E07B6F; --crit-bg:#3A211E; --med:#D9B05E; --med-bg:#352D18;
+      --ok:#7CC29A; --ok-bg:#1E3226; --card:#20242C; --mono-bg:#272B34;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#191C22; --ink:#E8E6E1; --ink-2:#A8AEBB; --line:#343945;
+    --acc:#6FB3BD; --acc-soft:#1E2F33; --tarja:#0C0E12; --tarja-txt:#E8E6E1;
+    --crit:#E07B6F; --crit-bg:#3A211E; --med:#D9B05E; --med-bg:#352D18;
+    --ok:#7CC29A; --ok-bg:#1E3226; --card:#20242C; --mono-bg:#272B34;
+  }
+  body{background:var(--paper); color:var(--ink);
+    font:16px/1.65 "Segoe UI", system-ui, -apple-system, sans-serif; margin:0;}
+  main{max-width:46rem; margin:0 auto; padding:2.5rem 1.25rem 4rem;}
+  h1,h2,h3{font-family:"Iowan Old Style", Georgia, "Times New Roman", serif;
+    line-height:1.25; text-wrap:balance; margin:0;}
+  h1{font-size:2rem; font-weight:600;}
+  h2{font-size:1.35rem; font-weight:600; margin-top:2.75rem; padding-top:1.5rem;
+    border-top:1px solid var(--line);}
+  h3{font-size:1.05rem; font-weight:600; margin-top:1.6rem;}
+  p{margin:.8rem 0;}
+  .eyebrow{font-size:.72rem; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--acc); font-weight:600; margin-bottom:.6rem;}
+  .meta{color:var(--ink-2); font-size:.85rem; margin-top:.7rem;}
+  .marker{display:inline-block; background:var(--tarja); color:var(--tarja-txt);
+    font-family:Consolas, "Cascadia Mono", monospace; font-size:.78em;
+    padding:.1em .45em; border-radius:2px; vertical-align:middle;}
+  .verdict{background:var(--acc-soft); border-left:4px solid var(--acc);
+    padding:1.1rem 1.3rem; margin-top:1.8rem; border-radius:0 4px 4px 0;}
+  .verdict strong{color:var(--acc);}
+  .chip{display:inline-block; font-size:.7rem; font-weight:700; letter-spacing:.08em;
+    text-transform:uppercase; padding:.15em .6em; border-radius:999px; white-space:nowrap;}
+  .chip.crit{background:var(--crit-bg); color:var(--crit);}
+  .chip.med{background:var(--med-bg); color:var(--med);}
+  .chip.low{background:var(--mono-bg); color:var(--ink-2);}
+  .chip.ok{background:var(--ok-bg); color:var(--ok);}
+  .tablewrap{overflow-x:auto; margin:1rem 0;}
+  table{border-collapse:collapse; width:100%; font-size:.9rem;}
+  th{font-size:.72rem; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--ink-2); text-align:left; font-weight:600;}
+  th,td{padding:.55rem .7rem .55rem 0; border-bottom:1px solid var(--line);
+    vertical-align:top;}
+  code{font-family:Consolas, "Cascadia Mono", monospace; font-size:.85em;
+    background:var(--mono-bg); padding:.08em .35em; border-radius:3px;}
+  a{color:var(--acc); text-underline-offset:2px;}
+  ul{padding-left:1.2rem; margin:.8rem 0;} li{margin:.35rem 0;}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:6px;
+    padding:1.1rem 1.3rem; margin:1.2rem 0;}
+  .grid2{display:grid; grid-template-columns:repeat(auto-fit,minmax(15rem,1fr)); gap:.9rem;}
+  .kpi{font-family:"Iowan Old Style", Georgia, serif; font-size:1.6rem;
+    font-variant-numeric:tabular-nums; color:var(--acc);}
+  .kpi-l{font-size:.78rem; color:var(--ink-2);}
+  #editbar{position:fixed; right:1rem; bottom:1rem; display:flex; gap:.5rem;}
+  #editbar button{font:.78rem "Segoe UI",sans-serif; border:1px solid var(--line);
+    background:var(--card); color:var(--ink-2); padding:.4rem .8rem; border-radius:999px;
+    cursor:pointer;}
+  #editbar button:focus-visible{outline:2px solid var(--acc); outline-offset:2px;}
+  [contenteditable="true"]{outline:1px dashed var(--acc); outline-offset:4px;}
+  @media (prefers-reduced-motion:no-preference){ .verdict{animation:in .5s ease-out;}
+    @keyframes in{from{opacity:0; transform:translateY(6px)} to{opacity:1}} }
+</style>
+<main id="conteudo">
+  <header>
+    <p class="eyebrow">Auditoria de ferramenta · Curso Servidor+IA · 16/08/2026</p>
+    <h1>TecJustiça Sigilo: <span class="marker">[VEREDICTO_1]</span> apto para demonstração</h1>
+    <p class="meta">Anonimizador local de documentos jurídicos ·
+      <a href="https://github.com/marcosmarf27/tecjustica-sigilo">github.com/marcosmarf27/tecjustica-sigilo</a> · MIT ·
+      autor: Marcos Fonseca, técnico judiciário do TJCE (Ocara/CE), parceiro da JFCE ·
+      fork institucional: <a href="https://github.com/Inovajus/tecjustica-sigilo">github.com/Inovajus/tecjustica-sigilo</a></p>
+  </header>
+
+  <div class="verdict">
+    <p style="margin:0"><strong>Adotar para demonstração no curso</strong> — com documento
+    sintético e três ressalvas de discurso. O claim central é verdadeiro e foi verificado no
+    código: <strong>nenhum dado de documento sai da máquina</strong>. Para adoção institucional
+    em fluxo real, ainda não: há um achado crítico de LGPD (já reportado ao autor), lacunas de
+    cobertura e maturidade de 4 meses com autor único.</p>
+  </div>
+
+  <div class="card grid2">
+    <div><div class="kpi">0</div><div class="kpi-l">achados críticos ou altos de segurança</div></div>
+    <div><div class="kpi">1</div><div class="kpi-l">achado crítico de LGPD (botão “Não é PII”)</div></div>
+    <div><div class="kpi">99,94%</div><div class="kpi-l">recall autodeclarado — honesto, mas de laboratório (3 processos)</div></div>
+    <div><div class="kpi">1</div><div class="kpi-l">autor; 20 dos 24 commits em 3 dias (14–16/08)</div></div>
+  </div>
+
+  <h2>Como foi auditado</h2>
+  <p>Código-fonte lido integralmente por quatro agentes paralelos (segurança, LGPD/egress,
+  metodologia de acurácia, contexto externo), sem executar nem instalar nada antes do veredicto.
+  Claims checados contra fontes primárias: APIs públicas do GitHub, PyPI e HuggingFace, e a
+  newsletter do autor. Dependências legítimas: <code>liteparse</code> é da LlamaIndex
+  (9,2&nbsp;mil stars); o modelo NER (BERT fine-tuned no LeNER-Br, F1≈0,91) é referência
+  acadêmica da UnB; o motor é o Microsoft Presidio.</p>
+
+  <h2>Achados por lente</h2>
+
+  <h3>Segurança <span class="chip ok">acima da média</span></h3>
+  <div class="tablewrap"><table>
+    <tr><th>Sev.</th><th>Achado</th></tr>
+    <tr><td><span class="chip ok">ok</span></td><td>API local só em 127.0.0.1, token de sessão
+      criptográfico apenas em memória, comparação em tempo constante; Electron com
+      <code>contextIsolation</code> e sem <code>nodeIntegration</code>; zero telemetria,
+      auto-update ou segredo hardcoded (varredura exaustiva).</td></tr>
+    <tr><td><span class="chip med">médio</span></td><td>A API aceita qualquer caminho do disco
+      (extensões permitidas) — leitura arbitrária de arquivo, só explorável se surgir XSS no
+      app; sem CSP como rede de proteção.</td></tr>
+  </table></div>
+
+  <h3>LGPD e privacidade <span class="chip crit">1 crítico</span></h3>
+  <div class="tablewrap"><table>
+    <tr><th>Sev.</th><th>Achado</th></tr>
+    <tr><td><span class="chip crit">crítico</span></td><td><strong>O botão “Não é PII” grava o
+      valor real (um CPF, um nome) em texto claro no disco, para sempre e para todos os
+      documentos futuros</strong> — sem confirmação, expiração ou trilha. Reportado ao autor na
+      <a href="https://github.com/marcosmarf27/tecjustica-sigilo/issues/1">issue&nbsp;#1</a>,
+      com sugestões de correção. Na demo: nunca clicar nesse botão.</td></tr>
+    <tr><td><span class="chip ok">ok</span></td><td>Fora isso, o ciclo do dado é exemplar:
+      resultado entregue uma única vez e apagado da memória; histórico guarda só nome de
+      arquivo, data e contagens; nenhum log com conteúdo de documento.</td></tr>
+    <tr><td><span class="chip med">médio</span></td><td>“Offline após a 1ª execução” depende do
+      comportamento padrão do HuggingFace (só metadados trafegam; documento nunca). Para o OCR,
+      o offline é garantido e testado.</td></tr>
+    <tr><td><span class="chip low">lacuna</span></td><td>Não cobre dados de saúde/CID em texto
+      corrido (dado sensível, comum em previdenciário), NB do INSS, SIAPE, CNH, título de
+      eleitor, placa. E marcador <span class="marker">[PESSOA_1]</span> é
+      <em>pseudonimização</em>, não anonimização irreversível — vocabulário a ensinar.</td></tr>
+  </table></div>
+
+  <h3>Confiabilidade <span class="chip med">números honestos, de laboratório</span></h3>
+  <p>A metodologia de medição é sofisticada e autocrítica (o autor documenta as próprias
+  fragilidades — postura rara). Mas os 99,94% foram medidos em 3 processos, na máquina do
+  autor, no mesmo fim de semana em que o motor foi reescrito; sem CI, sem validação externa,
+  bus factor 1. Citar o número sempre com essa moldura. OCR é o piso: o que o scanner não leu,
+  ninguém anonimiza (processo datilografado: 17,7% de recuperação).</p>
+
+  <h3>Governança <span class="chip low">demo sim, adoção não</span></h3>
+  <p>Não catalogada pela DTIC: uso em fluxo real exigiria aval institucional. Para demonstração
+  didática com documento fictício não há barreira — e a ferramenta materializa o espírito da
+  Res. CNJ 615/2025 e da regra dura do curso (dado sigiloso nunca em IA externa).</p>
+
+  <h2>O que já foi executado</h2>
+  <ul>
+    <li><strong>Issue ao autor</strong> — achado crítico reportado com sugestões:
+      <a href="https://github.com/marcosmarf27/tecjustica-sigilo/issues/1">issue&nbsp;#1</a>.</li>
+    <li><strong>Demo agendada</strong> — 25/08, dentro do bloco “M4 · Aulas 3 e 4 — Sigilo,
+      LGPD e anonimização” (13h55), logo após o Semáforo de sigilo; grade publicada atualizada.</li>
+    <li><strong>Documento sintético pronto</strong> — petição previdenciária fictícia com
+      CPF/CNPJ/PIS/nº CNJ de dígitos verificadores válidos (conferidos por script) e um CPF
+      propositalmente inválido, para mostrar o validador descartando.</li>
+    <li><strong>Roteiro do instrutor</strong> — <code>roteiro-demo-tecjustica-sigilo.md</code>:
+      minuto a minuto, as três mensagens de maturidade e o que não fazer.</li>
+    <li><strong>Instalador baixado e verificado</strong> (tamanho idêntico ao release oficial);
+      pendências: abrir o app uma vez com internet (baixa o modelo, ~1,7&nbsp;GB) e ensaiar.</li>
+  </ul>
+
+  <p class="meta">Relatório completo (com evidências arquivo:linha):
+  <code>docs/conversations/2026-08-16-auditoria-tecjustica-sigilo.md</code> no projeto do curso.</p>
+</main>
+<div id="editbar">
+  <button id="btn-editar" type="button">Editar textos</button>
+  <button id="btn-restaurar" type="button" hidden>Restaurar original</button>
+</div>
+<script>
+(function(){
+  var alvo=document.getElementById('conteudo'),
+      bE=document.getElementById('btn-editar'),
+      bR=document.getElementById('btn-restaurar'),
+      K='auditoria-tecjustica-html', original=alvo.innerHTML, editando=false;
+  try{var salvo=localStorage.getItem(K); if(salvo){alvo.innerHTML=salvo; bR.hidden=false;}}catch(e){}
+  bE.addEventListener('click',function(){
+    editando=!editando;
+    alvo.setAttribute('contenteditable', editando?'true':'false');
+    bE.textContent=editando?'Concluir edição':'Editar textos';
+    if(!editando){try{localStorage.setItem(K,alvo.innerHTML); bR.hidden=false;}catch(e){}}
+  });
+  bR.addEventListener('click',function(){
+    alvo.innerHTML=original;
+    try{localStorage.removeItem(K);}catch(e){}
+    bR.hidden=true; editando=false;
+    alvo.setAttribute('contenteditable','false'); bE.textContent='Editar textos';
+  });
+})();
+</script>
