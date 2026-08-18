@@ -383,7 +383,8 @@
       <li><a href="#lgpd">Privacidade e LGPD</a></li>
       <li><a href="#problemas">Problemas comuns</a></li>
       <li><a href="#chatgpt">Anexo A — ChatGPT</a></li>
-      <li><a href="#claudecode">Anexo B — Claude Code</a></li>
+      <li><a href="#antigravity">Anexo B — Antigravity</a></li>
+      <li><a href="#claudecode">Anexo C — Claude Code</a></li>
     </ul>
   </nav>
 
@@ -687,10 +688,24 @@ Em seguida, traga o teor da petição inicial.</code></pre>
       <li>Selecione <strong>No Auth</strong> — a autenticação é feita pelo token já contido na URL.</li>
       <li>Conclua a conexão e, nas permissões da aplicação, marque <strong>Allow all actions</strong>.</li>
     </ol>
+    <div class="callout">
+      <span class="label">Tutorial completo do ChatGPT</span>
+      <p>Os passos acima são o resumo. O procedimento detalhado — inclusive o <strong>Modo de desenvolvedor</strong>, que a própria OpenAI rotula como risco elevado, e o que ele significa para uso institucional — está em página própria: <a href="https://inovajus.github.io/tutorial-apoia-chatgpt.html" target="_blank" rel="noopener">Conectar o ApoIA ao ChatGPT pelo Servidor MCP</a>.</p>
+    </div>
+  </section>
+
+  <section id="antigravity" class="glass-card" data-aos="fade-up">
+    <h2>Anexo B — Configuração no Antigravity</h2>
+    <p>O Antigravity, do Google, aceita o mesmo Servidor MCP, mas por um caminho diferente dos dois anteriores: não há formulário gráfico de cadastro — a conexão é declarada à mão em um arquivo <code>mcp_config.json</code>, global ou por projeto.</p>
+    <div class="callout caution">
+      <span class="label">A credencial fica em texto puro no disco</span>
+      <p>Diferente do Claude e do ChatGPT, que guardam o token na própria plataforma, aqui a URL de conexão — com a credencial dentro — fica gravada em arquivo. Em máquina compartilhada, ou dentro de repositório versionado, isso é exposição real.</p>
+    </div>
+    <p>O procedimento completo — arquivo de configuração, renovação do token a cada 8 horas e limites de conformidade — está em página própria: <a href="https://inovajus.github.io/tutorial-apoia-antigravity.html" target="_blank" rel="noopener">Conectar o ApoIA ao Antigravity pelo Servidor MCP</a>.</p>
   </section>
 
   <section id="claudecode" class="glass-card" data-aos="fade-up">
-    <h2>Anexo B — Claude Code</h2>
+    <h2>Anexo C — Claude Code</h2>
     <p>Para quem usa o Claude Code no terminal, o mesmo servidor pode ser registrado por comando, sem passar pela interface web:</p>
     <pre><code>claude mcp add --transport http apoia "COLE_AQUI_A_URL_GERADA_NO_APOIA"</code></pre>
     <p>Dentro da sessão, <code>/mcp</code> lista os servidores conectados e o estado de cada um. A mesma validade de 8 horas se aplica: vencido o token, remova e cadastre novamente com a URL nova.</p>
