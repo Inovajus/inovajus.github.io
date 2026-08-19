@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gestor + IA</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<style>
+:root{
+  --bg:#FAFBFC; --surface:#FFFFFF; --ink:#1B2733; --ink-2:#4A5A68; --line:#DCE3E8;
+  --accent:#1E5F74; --accent-soft:#EAF2F4;
+  --ok:#2E7D4F; --warn:#B0801B; --stop:#B3362B;
+  --ok-bg:#EDF5EF; --warn-bg:#FAF3E3; --stop-bg:#F9ECEA;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#141A1F; --surface:#1C242B; --ink:#E4EAEE; --ink-2:#9FAEBA; --line:#33404A;
+    --accent:#6FB3C6; --accent-soft:#22333B;
+    --ok:#7CC79A; --warn:#D9B36A; --stop:#E08A80;
+    --ok-bg:#1E2E25; --warn-bg:#2E2820; --stop-bg:#31221F;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#141A1F; --surface:#1C242B; --ink:#E4EAEE; --ink-2:#9FAEBA; --line:#33404A;
+  --accent:#6FB3C6; --accent-soft:#22333B;
+  --ok:#7CC79A; --warn:#D9B36A; --stop:#E08A80;
+  --ok-bg:#1E2E25; --warn-bg:#2E2820; --stop-bg:#31221F;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.65 "Source Sans 3",system-ui,sans-serif}
+.wrap{max-width:74ch;margin:0 auto;padding:2.5rem 1.25rem 5rem}
+header.doc{border-bottom:2px solid var(--accent);padding-bottom:1.4rem;margin-bottom:2rem}
+.kicker{font-size:.78rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--accent)}
+h1{font:600 2.2rem/1.15 Lora,Georgia,serif;margin:.35rem 0 .3rem;text-wrap:balance}
+.sub{font:500 1.15rem/1.4 Lora,Georgia,serif;color:var(--ink-2);margin:0}
+.meta{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;margin-top:1rem;font-size:.85rem;color:var(--ink-2)}
+.meta b{color:var(--ink);font-weight:600}
+h2{font:600 1.45rem/1.25 Lora,Georgia,serif;margin:2.6rem 0 .7rem;text-wrap:balance}
+h3{font:600 1.08rem/1.3 "Source Sans 3",sans-serif;margin:1.8rem 0 .5rem}
+p{margin:.65rem 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.3rem 0}
+strong{font-weight:700}
+.lead{font-size:1.06rem}
+.tablewrap{overflow-x:auto;margin:1rem 0;border:1px solid var(--line);border-radius:6px}
+table{border-collapse:collapse;width:100%;font-size:.92rem;background:var(--surface)}
+th{background:var(--accent-soft);color:var(--ink);text-align:left;font-weight:700;padding:.55rem .7rem;border-bottom:2px solid var(--accent);white-space:nowrap}
+td{padding:.55rem .7rem;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td:first-child{font-variant-numeric:tabular-nums}
+.callout{background:var(--accent-soft);border-left:4px solid var(--accent);padding:.9rem 1.1rem;border-radius:0 6px 6px 0;margin:1.3rem 0}
+.callout p{margin:.3rem 0}
+.sem{border-radius:6px;padding:.9rem 1.1rem;margin:.9rem 0;border:1px solid var(--line)}
+.sem h3{margin:.1rem 0 .45rem}
+.sem.ok{background:var(--ok-bg)} .sem.ok h3{color:var(--ok)}
+.sem.warn{background:var(--warn-bg)} .sem.warn h3{color:var(--warn)}
+.sem.stop{background:var(--stop-bg)} .sem.stop h3{color:var(--stop)}
+.toc{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:1rem 1.3rem;margin:1.6rem 0;font-size:.92rem}
+.toc a{color:var(--accent);text-decoration:none}
+.toc a:hover,.toc a:focus{text-decoration:underline}
+.toc ol{margin:.3rem 0;columns:2;column-gap:2rem}
+.foot{margin-top:3rem;border-top:1px solid var(--line);padding-top:1rem;font-size:.83rem;color:var(--ink-2)}
+code{background:var(--accent-soft);padding:.08em .35em;border-radius:4px;font-size:.88em}
+@media (max-width:640px){.toc ol{columns:1}h1{font-size:1.7rem}}
+@media (prefers-reduced-motion:no-preference){a{transition:color .15s}}
+</style>
+</head>
+<body>
+<div class="wrap" id="doc">
+<header class="doc">
+  <div class="kicker">Projeto de curso · para apreciação do TRF5</div>
+  <h1>Gestor + IA</h1>
+  <p class="sub">Sistemas agênticos na área administrativa da Justiça Federal da 5ª Região</p>
+  <div class="meta">
+    <span><b>Versão</b> 1.0 · 19/08/2026</span>
+    <span><b>Carga</b> 18 h · 6 encontros de 3 h · online síncrono</span>
+    <span><b>Certificação</b> TRF5</span>
+    <span><b>Proponente</b> JFCE · INOVAJUS, Eixo de Tecnologia e IA</span>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Sumário">
+<strong>Sumário</strong>
+<ol>
+<li><a href="#apresentacao">Apresentação</a></li>
+<li><a href="#justificativa">Justificativa</a></li>
+<li><a href="#tese">A tese do curso</a></li>
+<li><a href="#publico">Público-alvo e a dupla</a></li>
+<li><a href="#grade">Conteúdo programático</a></li>
+<li><a href="#semaforo">Semáforo administrativo</a></li>
+<li><a href="#metodologia">Metodologia</a></li>
+<li><a href="#avaliacao">Avaliação e certificação</a></li>
+<li><a href="#resultados">Resultados e medição</a></li>
+<li><a href="#replicacao">Replicação regional</a></li>
+<li><a href="#acervo">Aproveitamento do acervo de 2025</a></li>
+<li><a href="#cronograma">Cronograma</a></li>
+</ol>
+</nav>
+
+<h2 id="apresentacao">1 · Apresentação</h2>
+<p class="lead">Este projeto responde à demanda do TRF5 de elaborar, a partir do Curso "Transformação Administrativa com IA" (JFCE, agosto–setembro de 2025), um programa replicável aos gestores de área administrativa de toda a 5ª Região, ancorado no estado atual das ferramentas de IA — em especial os <strong>sistemas agênticos</strong>, capazes de analisar diretamente a documentação que norteia o cotidiano dos núcleos administrativos: contratos, editais, planilhas, normativos e processos.</p>
+<p>Não se trata de reeditar o curso de 2025 com ferramentas novas. Entre 2025 e 2026 mudou a natureza do que a IA faz: de responder sobre o trecho que o servidor cola no chat, passou a <strong>ler o acervo, executar a tarefa em etapas e devolver o trabalho verificável</strong>. Um curso ancorado nessa capacidade tem outro conteúdo, outro público prioritário e outra régua de segurança.</p>
+
+<h2 id="justificativa">2 · Justificativa</h2>
+<p><strong>a) O trabalho administrativo é feito de lotes, e lote não cabe em chat.</strong> Conferência de folha entre competências, apuração de horas extras contra a Resolução CJF nº 4/2008, harmonização de Termos de Referência, checagem de completude de DFD/ETP/Mapa de Riscos/TR, memória de quantidades sobre 36 meses de consumo — tudo opera sobre planilhas completas e conjuntos de documentos. Copiar e colar obriga a resumir; o resumo é onde o erro entra sem ser percebido. O paradigma agêntico lê o arquivo inteiro e permite conferência determinística.</p>
+<p><strong>b) A área administrativa é o lugar certo para começar — por razão jurídica.</strong> O documento de trabalho típico da área — contrato assinado, edital, ata, termo de referência, execução orçamentária, normativo — é público por força da Lei de Acesso à Informação. O gestor administrativo pode exercitar sistemas agênticos sobre documentos reais, hoje, observado o semáforo próprio da área (seção 6).</p>
+<p><strong>c) A Resolução CNJ nº 615/2025 está vigente e seu prazo de adequação venceu em março de 2026.</strong> Supervisão humana efetiva, transparência e governança do uso de IA são obrigações correntes. O gestor responde não apenas pelo próprio uso, mas pelo uso que sua equipe faz.</p>
+<p><strong>d) O terreno institucional está preparado.</strong> O TRF5 instituiu o GT-IA pela Portaria Conjunta nº 2/2025; a reunião de diretores administrativos da JF5 (28–29/05/2026) pautou expressamente o uso de IA pelas Seções Judiciárias.</p>
+<p><strong>e) A experiência acumulada reduz o risco de execução.</strong> O curso de 2025 gerou acervo curado de 119 prompts por unidade administrativa e casos reais; os cursos Servidor + IA (2026) validaram a arquitetura pedagógica de que este projeto deriva, com centenas de servidores certificados.</p>
+
+<h2 id="tese">3 · A tese do curso</h2>
+<div class="callout">
+<p>Na área-fim, vale uma assimetria que trava tudo: <em>onde é permitido usar dado real, não há capacidade agêntica; onde há capacidade agêntica, não é permitido usar dado real.</em></p>
+<p><strong>Na área administrativa, essa assimetria se inverte.</strong> O acervo de trabalho é majoritariamente público (LAI): o gestor administrativo é hoje a única figura do tribunal que pode apontar um agente para uma pasta com 200 documentos reais sem violar nada — e é dele que sairão os padrões (especificação, matriz de permissões, critério de parada, laudo de verificação) que a área-fim reaproveitará quando a ferramenta institucional chegar.</p>
+</div>
+
+<h2 id="publico">4 · Público-alvo e a dupla</h2>
+<p>Gestores de área administrativa do TRF5 e das Seções Judiciárias de AL, CE, PB, PE, RN e SE: diretores de secretaria administrativa, diretores e supervisores de núcleos e setores (gestão de pessoas, orçamento e finanças, auditoria, governança e contratações, infraestrutura, comunicação, estratégia e congêneres).</p>
+<p><strong>Cada unidade participa com uma dupla: o gestor e um servidor da equipe.</strong> O gestor especifica, define permissões e audita; o servidor constrói e executa. Os papéis trocam na metade do curso — porque numa unidade administrativa quem especifica não é quem executa, e quem executa não é quem confere. A dupla é a unidade de matrícula, de trabalho e de avaliação; concluído o curso, é o núcleo natural de multiplicação na sua seccional.</p>
+<p>Turma-piloto regional: 12 a 15 duplas (24 a 30 participantes), todas as seccionais representadas. Requisito mínimo: navegador na máquina funcional — nenhuma instalação é exigida, e nenhum requisito de aprovação depende de aquisição pessoal de ferramenta.</p>
+
+<h2 id="grade">5 · Conteúdo programático</h2>
+<div class="tablewrap"><table>
+<tr><th>Enc.</th><th>Tema</th><th>Artefato entregue</th></tr>
+<tr><td>1</td><td><strong>O que mudou, e por que o prompt tem teto</strong> — do chat ao sistema agêntico; a vantagem jurídica da área administrativa e o semáforo que a acompanha; leitura crítica de promessas de mercado; escolha do caso real da unidade</td><td>Ficha do caso, com medição do "antes"</td></tr>
+<tr><td>2</td><td><strong>Contexto</strong> — o que o agente sabe antes de começar; instrução permanente da unidade; o que nunca entra; o risco do documento desatualizado</td><td>Instrução permanente da unidade</td></tr>
+<tr><td>3</td><td><strong>Harness</strong> — o que o agente pode tocar; permissão e execução isolada; Res. 615/2025, LGPD e LAI como requisitos de arquitetura; consulta legítima × escrita automatizada vedada</td><td>Matriz de permissões da dupla</td></tr>
+<tr><td>4</td><td><strong>Loop</strong> <em>(troca de papéis)</em> — tarefas em lote (contratos, folhas, TRs, séries de consumo); critério de parada verificável; quando não usar loop</td><td>Especificação do loop, com critério de parada testável</td></tr>
+<tr><td>5</td><td><strong>Verificação</strong> — escada de verificação; conferência determinística de planilha antes de qualquer juízo do modelo; amostragem; alucinação em sistema agêntico</td><td>Laudo de verificação</td></tr>
+<tr><td>6</td><td><strong>Governança da unidade e checkpoint humano</strong> — política de uso de IA da unidade; supervisão do trabalho da equipe; responsabilidade do gestor; roda de resultados com consolidação das medições da turma</td><td>Minuta de política de uso + apresentação antes/depois</td></tr>
+</table></div>
+
+<h2 id="semaforo">6 · Semáforo administrativo</h2>
+<p>Regra estruturante, apresentada no primeiro encontro e cobrada em todos os artefatos. <strong>Na dúvida sobre a cor, é vermelho.</strong></p>
+<div class="sem ok"><h3>Verde — pode ir ao agente</h3><p>Documento público ou publicável por força da LAI, em versão final: contratos assinados, editais, atas, TRs publicados, normativos, relatórios publicados, planilhas orçamentárias públicas, planos institucionais.</p></div>
+<div class="sem warn"><h3>Amarelo — só com tratamento prévio</h3><p>Documento público com dado pessoal incidental (anonimizar e <em>conferir</em> a anonimização); planilhas funcionais agregadas; minutas de documentos que serão públicos, sem autoria identificável.</p></div>
+<div class="sem stop"><h3>Vermelho — não entra em ferramenta externa, nunca</h3><p>Dado pessoal de servidor em nível individual (folha, saúde, disciplinar); propostas antes da abertura da sessão; informação de segurança institucional; documento preparatório não publicado; qualquer dado processual; qualquer caso de dúvida.</p></div>
+<p>Restrições invariáveis: nenhum sistema construído no curso <strong>escreve</strong> em sistema de produção (SEI, sistemas administrativos, PJe) — escrita exige checkpoint humano explícito; supervisão humana é requisito declarado de cada projeto.</p>
+
+<h2 id="metodologia">7 · Metodologia</h2>
+<ul>
+<li>70% prática e 30% exposição, no ciclo <strong>Ver–Fazer–Conferir–Levar</strong>: toda técnica é demonstrada, reproduzida pela dupla, verificada contra critério explícito e convertida em artefato que a unidade leva.</li>
+<li><strong>Só se demonstra o que a turma consegue repetir:</strong> toda demonstração tem a metade executável (servidor) e a metade de especificação e verificação (gestor).</li>
+<li>Trabalho contínuo sobre <strong>um caso real da própria unidade</strong>, escolhido no primeiro encontro e medido antes e depois.</li>
+<li>Material do acervo de 2025 que prometia capacidades inexistentes foi descartado como conteúdo — é usado apenas como exemplo de análise crítica no encontro 1.</li>
+</ul>
+
+<h2 id="avaliacao">8 · Avaliação e certificação</h2>
+<p>Avaliação <strong>por aplicação</strong>, sem prova teórica: frequência mínima conforme norma de capacitação do TRF5 (referência: 80%); entrega de ao menos 4 dos 6 artefatos; atuação nos dois papéis; e o projeto da dupla, avaliado por rubrica com <strong>critérios eliminatórios de conformidade</strong> — violação do semáforo ou escrita automatizada em sistema de produção reprova independentemente dos demais itens — e 7 dimensões pontuadas (caso real e baseline; instrução permanente; matriz de permissões; critério de parada; verificação; checkpoint humano e política da unidade; resultado e apresentação).</p>
+<p>Certificação individual de <strong>18 horas pelo TRF5</strong>, com registro do papel exercido em cada ciclo. Correção escalável: auditoria cruzada entre duplas no encontro 5 e correção final por amostragem estratificada.</p>
+
+<h2 id="resultados">9 · Resultados esperados e medição</h2>
+<p>Este projeto <strong>não herda métricas do curso de 2025</strong> nem afirma percentuais a priori. O desenho de medição é parte do curso: cada dupla mede a linha de base do seu processo no encontro 1 e o "depois" no encontro 6, declarando em laudo o que foi e o que não foi verificado. O consolidado das medições da turma é o primeiro número real do programa — e a base de qualquer divulgação institucional. Em D+60, sessão de acompanhamento afere a sustentação dos ganhos.</p>
+<p>Entregas institucionais além da capacitação: um sistema agêntico documentado por unidade participante; minuta de política de uso de IA por unidade; rede regional de duplas aptas a apoiar as turmas seguintes.</p>
+
+<h2 id="replicacao">10 · Replicação regional</h2>
+<ol>
+<li><strong>Turma-piloto regional</strong> (12–15 duplas): valida grade, casos e instrumentos; produz o consolidado de medições.</li>
+<li><strong>Turmas por seccional</strong>, com apoio das duplas formadas na fase 1 como referência local.</li>
+<li><strong>Institucionalização:</strong> repositório regional de especificações, matrizes e políticas de unidade — sugere-se articulação com o GT-IA da Portaria Conjunta nº 2/2025.</li>
+</ol>
+
+<h2 id="acervo">11 · Aproveitamento do acervo de 2025</h2>
+<div class="tablewrap"><table>
+<tr><th>Ativo</th><th>Uso no curso novo</th></tr>
+<tr><td>Curadoria de 119 prompts + 12 prompts-base parametrizados</td><td>Insumo do encontro 2 — o padrão de parametrização ensina "um sistema, várias lentes"</td></tr>
+<tr><td>Documentos institucionais reais (TR sob a Lei 14.133, iESGo, OKRs)</td><td>Casos de exercício: material verdadeiro e verificável</td></tr>
+<tr><td>Formato da Matriz de Achados (auditoria)</td><td>Contrato de saída do exercício de conferência de planilha</td></tr>
+<tr><td>Sequência DFD→ETP→Riscos→TR (contratações)</td><td>Esqueleto do caso: o agente preenche lendo o processo</td></tr>
+<tr><td>"Sistemas avançados" e percentuais de ROI do material antigo</td><td><strong>Descartados como conteúdo</strong>; exemplo negativo no encontro 1</td></tr>
+</table></div>
+
+<h2 id="cronograma">12 · Cronograma proposto</h2>
+<div class="tablewrap"><table>
+<tr><th>Etapa</th><th>Referência</th></tr>
+<tr><td>Aprovação e credenciamento pelo TRF5</td><td>a definir com a unidade de capacitação</td></tr>
+<tr><td>Indicação das duplas pelas seccionais</td><td>3 semanas antes do início</td></tr>
+<tr><td>Turma-piloto regional (6 encontros semanais)</td><td>6 semanas</td></tr>
+<tr><td>Consolidação das medições e relatório ao TRF5</td><td>2 semanas após o término</td></tr>
+<tr><td>Sessão de acompanhamento</td><td>D+60</td></tr>
+<tr><td>Turmas por seccional</td><td>calendário conjunto com as seccionais</td></tr>
+</table></div>
+
+<p class="foot">Documentos completos no repositório do INOVAJUS (Eixo de Tecnologia e IA): <code>projeto-curso.md</code>, <code>design-do-curso.md</code>, <code>rubrica-projeto-da-dupla.md</code>, <code>semaforo-administrativo.md</code> — todos com versão .docx para o SEI. Derivado do curso Servidor + IA Nível 2 (JFCE, 2026).</p>
+</div>
+
+
+</body>
+</html>
