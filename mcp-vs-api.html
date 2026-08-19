@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quando usar MCP e quando usar API</title>
+<meta name="description" content="Explicação sem jargão da diferença entre API e MCP, com diagramas animados e um decisor para escolher qual usar.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400;12..96,75..100,600;12..96,75..100,800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   @MIRA:THEME:START — corporate-blue
+   Único ponto do arquivo onde cor literal é permitida.
+   16 tokens oficiais + 1 extensão local (--mira-warn), porque o
+   tema MIRA não tem token semântico de alerta e esta página
+   precisa marcar "erro comum" sem hex solto no meio do CSS.
+   ============================================================ */
+:root{
+  --mira-primary:#4DA3FF;
+  --mira-crop:#35D07F;
+  --mira-bg:#0A1220;
+  --mira-text:#ffffff;
+  --mira-text-soft:rgba(255,255,255,.72);
+  --mira-text-softer:rgba(255,255,255,.50);
+  --mira-card-bg:rgba(255,255,255,.05);
+  --mira-card-border:rgba(255,255,255,.10);
+  --mira-glow-soft:rgba(77,163,255,.15);
+  --mira-glow-strong:rgba(77,163,255,.25);
+  --mira-icon-bg:rgba(77,163,255,.15);
+  --mira-icon-border:rgba(77,163,255,.30);
+  --mira-pill-bg:rgba(255,255,255,.04);
+  --mira-pill-border:rgba(255,255,255,.08);
+  --mira-stage-glow:rgba(77,163,255,.06);
+  --mira-accent-2:#6EE7F0;
+  --mira-warn:#FF8A6B;
+}
+/* @MIRA:THEME:END */
+
+:root{
+  --disp:'Bricolage Grotesque','Archivo',system-ui,sans-serif;
+  --body:'Inter',system-ui,-apple-system,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,'Cascadia Mono',monospace;
+  --shell:1220px;
+  --read:74ch;
+  --r-sm:8px;
+  --r-md:14px;
+  --r-lg:20px;
+  --surface-1:color-mix(in srgb,var(--mira-text) 5%,transparent);
+  --surface-2:color-mix(in srgb,var(--mira-text) 9%,transparent);
+  --line:color-mix(in srgb,var(--mira-text) 12%,transparent);
+  --line-soft:color-mix(in srgb,var(--mira-text) 7%,transparent);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:88px}
+body{
+  margin:0;
+  background:var(--mira-bg);
+  color:var(--mira-text);
+  font-family:var(--body);
+  font-size:17px;
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+body::before{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(900px 620px at 78% -8%,var(--mira-stage-glow),transparent 70%),
+    radial-gradient(700px 520px at 4% 32%,color-mix(in srgb,var(--mira-accent-2) 4%,transparent),transparent 72%);
+}
+img,svg{max-width:100%}
+a{color:var(--mira-primary);text-decoration-thickness:1px;text-underline-offset:3px}
+a:hover{color:var(--mira-accent-2)}
+:focus-visible{outline:2px solid var(--mira-accent-2);outline-offset:3px;border-radius:4px}
+
+/* ---------- tipografia ---------- */
+h1,h2,h3,h4{font-family:var(--disp);text-wrap:balance;margin:0}
+h1{
+  font-weight:800;font-size:clamp(38px,6.2vw,68px);line-height:1.02;
+  letter-spacing:-.03em;font-variation-settings:'wdth' 92;
+}
+h2{
+  font-weight:800;font-size:clamp(26px,3.4vw,38px);line-height:1.1;
+  letter-spacing:-.022em;margin-bottom:10px;font-variation-settings:'wdth' 94;
+}
+h3{font-weight:600;font-size:19px;letter-spacing:-.012em;line-height:1.28}
+h4{font-weight:600;font-size:15px;letter-spacing:-.005em}
+p{margin:0 0 15px;max-width:var(--read)}
+p:last-child{margin-bottom:0}
+strong,b{font-weight:600;color:var(--mira-text)}
+.lede{font-size:clamp(18px,2vw,20.5px);color:var(--mira-text-soft);max-width:62ch;line-height:1.55}
+.soft{color:var(--mira-text-soft)}
+.softer{color:var(--mira-text-softer)}
+code{
+  font-family:var(--mono);font-size:.86em;
+  background:color-mix(in srgb,var(--mira-bg) 55%,transparent);
+  border:1px solid var(--line-soft);
+  color:var(--mira-accent-2);
+  padding:1.5px 6px;border-radius:5px;white-space:nowrap;
+}
+.kicker{
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--mira-text-softer);margin:0 0 12px;
+}
+
+/* ---------- utilitários MIRA ---------- */
+.glass-card{
+  background:var(--mira-card-bg);
+  backdrop-filter:blur(10px);
+  border:1px solid var(--mira-card-border);
+  box-shadow:0 10px 30px var(--mira-glow-soft);
+  border-radius:var(--r-md);
+  transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease;
+}
+.glass-card.lift:hover{
+  transform:translateY(-6px);
+  box-shadow:0 20px 40px var(--mira-glow-strong);
+  border-color:var(--mira-icon-border);
+}
+.icon-container{
+  width:44px;height:44px;border-radius:13px;flex:0 0 auto;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--mira-icon-bg);border:1px solid var(--mira-icon-border);
+  color:var(--mira-primary);
+}
+.icon-container svg{width:22px;height:22px}
+.badge-soft{
+  display:inline-flex;align-items:center;gap:7px;
+  background:var(--mira-icon-bg);color:var(--mira-primary);
+  border:1px solid var(--mira-icon-border);border-radius:999px;
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.11em;text-transform:uppercase;
+  padding:5px 13px;
+}
+.pill{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--mira-pill-bg);border:1px solid var(--mira-pill-border);
+  border-radius:999px;padding:4px 12px;font-size:13px;color:var(--mira-text-soft);
+  font-family:var(--mono);letter-spacing:.02em;
+}
+.btn{
+  font-family:var(--body);font-size:14px;font-weight:600;
+  background:var(--mira-pill-bg);border:1px solid var(--mira-pill-border);
+  color:var(--mira-text-soft);border-radius:999px;padding:9px 16px;cursor:pointer;
+  transition:background .25s ease,color .25s ease,border-color .25s ease,transform .2s ease;
+  display:inline-flex;align-items:center;gap:8px;
+}
+.btn:hover{background:var(--mira-icon-bg);border-color:var(--mira-icon-border);color:var(--mira-text)}
+.btn[aria-pressed="true"],.btn.on{
+  background:var(--mira-primary);color:var(--mira-bg);border-color:var(--mira-primary);
+  box-shadow:0 0 22px var(--mira-glow-strong);
+}
+.btn-primary{background:var(--mira-primary);color:var(--mira-bg);border-color:var(--mira-primary);font-weight:700}
+.btn-primary:hover{background:var(--mira-accent-2);color:var(--mira-bg);transform:scale(1.02)}
+
+/* ---------- barra de progresso + topo ---------- */
+#progress{
+  position:fixed;top:0;left:0;height:2px;width:0;z-index:60;
+  background:linear-gradient(90deg,var(--mira-primary),var(--mira-accent-2));
+  box-shadow:0 0 12px var(--mira-glow-strong);
+}
+.topbar{
+  position:sticky;top:0;z-index:50;
+  background:color-mix(in srgb,var(--mira-bg) 86%,transparent);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line-soft);
+}
+.topbar-in{
+  max-width:var(--shell);margin:0 auto;padding:11px 26px;
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+}
+.brand{
+  font-family:var(--disp);font-weight:800;font-size:15px;letter-spacing:-.01em;
+  display:flex;align-items:center;gap:9px;margin-right:auto;
+}
+.brand .dot{
+  width:9px;height:9px;border-radius:50%;background:var(--mira-primary);
+  box-shadow:0 0 0 4px var(--mira-icon-bg);animation:mira-pulse 2.6s ease-in-out infinite;
+}
+.modes{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+
+/* ---------- layout ---------- */
+.shell{position:relative;z-index:1;max-width:var(--shell);margin:0 auto;padding:0 26px}
+.cols{display:grid;grid-template-columns:210px minmax(0,1fr);gap:52px;align-items:start}
+nav.toc{position:sticky;top:78px;padding:26px 0;display:block}
+nav.toc ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1px}
+nav.toc a{
+  display:flex;gap:10px;align-items:baseline;
+  font-size:13.5px;line-height:1.35;color:var(--mira-text-softer);
+  text-decoration:none;padding:8px 11px;border-radius:var(--r-sm);
+  border-left:2px solid transparent;transition:all .22s ease;
+}
+nav.toc a:hover{color:var(--mira-text-soft);background:var(--surface-1)}
+nav.toc a .n{font-family:var(--mono);font-size:11px;opacity:.6}
+nav.toc a.active{
+  color:var(--mira-primary);background:var(--mira-icon-bg);
+  border-left-color:var(--mira-primary);font-weight:600;
+}
+nav.toc a.active .n{opacity:1}
+.toc-foot{margin-top:18px;padding:0 11px;font-size:12px;color:var(--mira-text-softer);line-height:1.5}
+
+section.blk{padding:64px 0;border-top:1px solid var(--line-soft)}
+section.blk:first-of-type{border-top:0}
+.blk > .kicker + h2{margin-top:0}
+
+/* ---------- hero ---------- */
+header.hero{padding:70px 0 22px}
+.hero h1 em{font-style:normal;color:var(--mira-primary)}
+.hero .thesis{
+  margin-top:26px;padding:20px 22px;border-radius:var(--r-md);
+  background:var(--surface-1);border:1px solid var(--mira-card-border);
+  border-left:3px solid var(--mira-primary);
+  max-width:60ch;font-size:17.5px;color:var(--mira-text-soft);
+}
+.hero .thesis b{color:var(--mira-text)}
+.hero-meta{display:flex;gap:9px;flex-wrap:wrap;margin-top:22px}
+
+/* ---------- palco de animação ---------- */
+.stage{
+  margin-top:26px;border-radius:var(--r-lg);overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 45%,var(--mira-stage-glow),transparent 70%),
+    var(--mira-card-bg);
+  border:1px solid var(--mira-card-border);
+}
+.stage svg{display:block;width:100%;height:auto}
+.stage-note{
+  padding:14px 20px;border-top:1px solid var(--line-soft);
+  font-size:14.5px;color:var(--mira-text-soft);
+}
+.stage-bar{
+  display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap;
+  padding:13px 18px;border-bottom:1px solid var(--line-soft);
+}
+.switch{display:inline-flex;background:var(--mira-pill-bg);border:1px solid var(--mira-pill-border);border-radius:999px;padding:3px}
+.switch button{
+  font-family:var(--body);font-size:13.5px;font-weight:600;border:0;background:transparent;
+  color:var(--mira-text-softer);padding:7px 15px;border-radius:999px;cursor:pointer;
+  transition:all .25s ease;
+}
+.switch button[aria-pressed="true"]{background:var(--mira-primary);color:var(--mira-bg)}
+.counter{font-family:var(--mono);font-size:13px;color:var(--mira-text-softer);display:flex;align-items:baseline;gap:9px}
+.counter strong{
+  font-family:var(--disp);font-weight:800;font-size:30px;color:var(--mira-primary);
+  font-variant-numeric:tabular-nums;line-height:1;
+}
+
+/* svg genérico */
+.svg-label{font-family:var(--mono);font-size:11px;fill:var(--mira-text-soft)}
+.svg-tiny{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;fill:var(--mira-text-softer)}
+.svg-name{font-family:var(--body);font-size:12.5px;font-weight:600;fill:var(--mira-text)}
+.box{fill:var(--mira-card-bg);stroke:var(--mira-card-border);stroke-width:1}
+.box-accent{fill:var(--mira-icon-bg);stroke:var(--mira-icon-border);stroke-width:1}
+.wire{fill:none;stroke:var(--mira-primary);stroke-width:1.5;opacity:.75}
+.wire-warn{fill:none;stroke:var(--mira-warn);stroke-width:1.2;opacity:.6}
+.flow{stroke-dasharray:7 13;animation:dash 1.6s linear infinite}
+@keyframes dash{to{stroke-dashoffset:-40}}
+
+/* ---------- grades ---------- */
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px;margin-top:26px}
+.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;margin-top:26px}
+.card{padding:22px}
+.card .top{display:flex;gap:14px;align-items:center;margin-bottom:14px}
+.card p{font-size:15.5px;color:var(--mira-text-soft)}
+.card .tagline{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mira-text-softer);margin-bottom:3px}
+
+/* ---------- comparação por eixo ---------- */
+.axes{margin-top:26px;display:flex;flex-direction:column;gap:12px}
+.axis{
+  display:grid;grid-template-columns:170px 1fr 1fr;gap:1px;
+  background:var(--line-soft);border:1px solid var(--mira-card-border);
+  border-radius:var(--r-md);overflow:hidden;
+}
+.axis > *{background:var(--mira-bg);padding:16px 18px}
+.axis .ax-name{
+  background:var(--surface-1);font-family:var(--disp);font-weight:600;font-size:15px;
+  display:flex;align-items:center;
+}
+.axis .ax-side{font-size:15px;color:var(--mira-text-soft)}
+.axis .ax-side .who{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+  display:block;margin-bottom:6px;
+}
+.axis .api .who{color:var(--mira-text-softer)}
+.axis .mcp .who{color:var(--mira-primary)}
+.axis:hover{border-color:var(--mira-icon-border)}
+
+/* ---------- linha do fluxo ---------- */
+.seq{list-style:none;counter-reset:s;margin:26px 0 0;padding:0;position:relative}
+.seq::before{
+  content:"";position:absolute;left:19px;top:14px;bottom:26px;width:2px;
+  background:linear-gradient(180deg,var(--mira-primary),color-mix(in srgb,var(--mira-primary) 12%,transparent));
+}
+.seq li{counter-increment:s;position:relative;padding:0 0 26px 60px}
+.seq li::before{
+  content:counter(s,decimal-leading-zero);
+  position:absolute;left:0;top:-2px;width:40px;height:40px;border-radius:50%;
+  background:var(--mira-bg);border:1.5px solid var(--mira-icon-border);
+  color:var(--mira-primary);font-family:var(--mono);font-size:12.5px;
+  display:grid;place-items:center;z-index:1;
+}
+.seq li.key::before{background:var(--mira-primary);color:var(--mira-bg);border-color:var(--mira-primary);box-shadow:0 0 20px var(--mira-glow-strong)}
+.seq h4{margin-bottom:5px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.seq .actor{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--mira-text-softer);background:var(--mira-pill-bg);
+  border:1px solid var(--mira-pill-border);border-radius:999px;padding:3px 9px;
+}
+.seq p{font-size:15.5px;color:var(--mira-text-soft)}
+
+/* ---------- armadilhas ---------- */
+.traps{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:26px}
+.trap{padding:20px 22px;border-radius:var(--r-md);background:var(--mira-card-bg);border:1px solid var(--mira-card-border);border-top:2px solid var(--mira-warn)}
+.trap .said{
+  font-family:var(--disp);font-weight:600;font-size:16.5px;color:var(--mira-warn);
+  margin:0 0 10px;display:flex;gap:9px;align-items:flex-start;
+}
+.trap .said span{flex:0 0 auto;font-family:var(--mono);font-size:13px;opacity:.8}
+.trap p{font-size:15.5px;color:var(--mira-text-soft)}
+
+/* ---------- callout ---------- */
+.callout{
+  margin-top:26px;padding:20px 22px;border-radius:var(--r-md);
+  background:color-mix(in srgb,var(--mira-primary) 7%,transparent);
+  border:1px solid var(--mira-icon-border);
+}
+.callout .lbl{
+  font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--mira-primary);display:block;margin-bottom:8px;
+}
+.callout p{color:var(--mira-text-soft);font-size:15.5px}
+
+/* ---------- camada "por dentro" ---------- */
+.deep{
+  margin-top:16px;border-radius:var(--r-md);overflow:hidden;
+  border:1px dashed var(--line);background:color-mix(in srgb,var(--mira-bg) 40%,transparent);
+}
+.deep > summary{
+  cursor:pointer;list-style:none;padding:12px 18px;
+  font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--mira-text-softer);display:flex;align-items:center;gap:10px;
+}
+.deep > summary::-webkit-details-marker{display:none}
+.deep > summary::before{content:"+";font-size:15px;color:var(--mira-primary);width:14px}
+.deep[open] > summary::before{content:"–"}
+.deep > summary:hover{color:var(--mira-text-soft);background:var(--surface-1)}
+.deep .deep-in{padding:4px 18px 18px;font-size:15px;color:var(--mira-text-soft)}
+.deep .deep-in p{max-width:var(--read)}
+
+/* ---------- decisor ---------- */
+.decider{margin-top:26px;padding:24px;border-radius:var(--r-lg)}
+.q{padding:16px 0;border-bottom:1px solid var(--line-soft);display:flex;gap:18px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.q:last-of-type{border-bottom:0}
+.q p{margin:0;font-size:16px;max-width:52ch}
+.q .qa{display:inline-flex;gap:6px;flex:0 0 auto}
+.q .qa button{
+  font-family:var(--body);font-size:13.5px;font-weight:600;cursor:pointer;
+  background:var(--mira-pill-bg);border:1px solid var(--mira-pill-border);color:var(--mira-text-softer);
+  border-radius:999px;padding:7px 18px;transition:all .22s ease;
+}
+.q .qa button[aria-pressed="true"]{background:var(--mira-primary);color:var(--mira-bg);border-color:var(--mira-primary)}
+.verdict{
+  margin-top:20px;padding:20px 22px;border-radius:var(--r-md);
+  background:var(--surface-1);border:1px solid var(--mira-card-border);
+}
+.verdict .v-head{
+  font-family:var(--disp);font-weight:800;font-size:22px;letter-spacing:-.02em;
+  display:flex;align-items:center;gap:12px;margin-bottom:8px;
+}
+.verdict.is-api .v-head{color:var(--mira-accent-2)}
+.verdict.is-mcp .v-head{color:var(--mira-primary)}
+.verdict.is-mix .v-head{color:var(--mira-crop)}
+.verdict p{font-size:15.5px;color:var(--mira-text-soft);margin:0}
+.meter{height:6px;border-radius:999px;background:var(--surface-2);overflow:hidden;margin:14px 0 12px;display:flex}
+.meter i{display:block;height:100%;transition:width .5s cubic-bezier(.4,0,.2,1)}
+.meter .m-api{background:var(--mira-accent-2)}
+.meter .m-mcp{background:var(--mira-primary)}
+
+/* ---------- glossário ---------- */
+.gloss{margin-top:24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:var(--line-soft);border:1px solid var(--mira-card-border);border-radius:var(--r-md);overflow:hidden}
+.gloss div{background:var(--mira-bg);padding:16px 18px}
+.gloss dt{font-family:var(--disp);font-weight:600;font-size:15px;margin-bottom:4px}
+.gloss dd{margin:0;font-size:14.5px;color:var(--mira-text-soft);line-height:1.5}
+
+/* ---------- rodapé ---------- */
+footer.foot{
+  margin-top:20px;padding:34px 0 80px;border-top:1px solid var(--line-soft);
+  font-size:14.5px;color:var(--mira-text-softer);
+}
+footer.foot p{max-width:78ch;color:var(--mira-text-softer)}
+footer.foot .fnote{
+  margin-top:18px;padding:16px 18px;border-radius:var(--r-md);
+  border:1px solid var(--line-soft);background:var(--surface-1);
+}
+
+/* ---------- animações ---------- */
+@keyframes mira-pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.12);opacity:.82}}
+@keyframes mira-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes glow{0%,100%{opacity:.35}50%{opacity:1}}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.reveal{opacity:0}
+.reveal.in{animation:rise .6s cubic-bezier(.2,.7,.3,1) forwards}
+.orb{animation:glow 2.4s ease-in-out infinite}
+
+/* ---------- responsivo ---------- */
+@media (max-width:1040px){
+  .cols{grid-template-columns:1fr;gap:0}
+  nav.toc{display:none}
+  .axis{grid-template-columns:1fr;gap:1px}
+  .axis .ax-name{padding-bottom:12px}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  .shell{padding:0 18px}
+  section.blk{padding:48px 0}
+  header.hero{padding:46px 0 12px}
+  .topbar-in{padding:9px 18px}
+  .brand span.t{display:none}
+  .q{gap:10px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+  .reveal{opacity:1}
+}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<div class="topbar">
+  <div class="topbar-in">
+    <div class="brand"><span class="dot"></span><span class="t">MCP&nbsp;e&nbsp;API</span></div>
+    <div class="modes">
+      <button class="btn" id="btnDepth" aria-pressed="false" title="Abre todos os blocos &quot;por dentro&quot;">Modo completo</button>
+    </div>
+  </div>
+</div>
+
+<main class="shell" id="main">
+<div class="cols">
+
+  <nav class="toc" aria-label="Índice">
+    <ol>
+      <li><a href="#s1"><span class="n">01</span> A analogia</a></li>
+      <li><a href="#s2"><span class="n">02</span> Em uma frase</a></li>
+      <li><a href="#s3"><span class="n">03</span> 12 fios ou 7</a></li>
+      <li><a href="#s4"><span class="n">04</span> Comparação</a></li>
+      <li><a href="#s5"><span class="n">05</span> O que tem dentro</a></li>
+      <li><a href="#s6"><span class="n">06</span> Passo a passo</a></li>
+      <li><a href="#s7"><span class="n">07</span> Erros comuns</a></li>
+      <li><a href="#s8"><span class="n">08</span> Qual usar</a></li>
+      <li><a href="#s9"><span class="n">09</span> Glossário</a></li>
+    </ol>
+    <p class="toc-foot">Leitura de 9 minutos.<br>Nenhum conhecimento de programação é necessário.</p>
+  </nav>
+
+  <div>
+
+  <header class="hero">
+    <p class="kicker">Integração de IA · explicação para quem não programa</p>
+    <h1>A API é o que o sistema<br>oferece. <em>O MCP é como<br>o modelo pega.</em></h1>
+    <div class="thesis">
+      Não são concorrentes, e a pergunta "qual é melhor" não tem resposta. Por baixo,
+      <b>um servidor MCP quase sempre chama uma API</b>. A diferença real está em quem lê o
+      manual de instruções: <b>você ou o modelo</b>.
+    </div>
+    <div class="hero-meta">
+      <span class="pill">9 min de leitura</span>
+      <span class="pill">sem pré-requisito técnico</span>
+      <span class="pill">com decisor no fim</span>
+    </div>
+  </header>
+
+  <!-- ============ 01 ============ -->
+  <section class="blk reveal" id="s1">
+    <p class="kicker">01 · Comece por aqui</p>
+    <h2>A cozinha, o cardápio e o garçom</h2>
+    <p class="lede">Antes de qualquer sigla: as quatro peças desse arranjo já existem
+    em qualquer restaurante, e o papel de cada uma é exatamente o mesmo.</p>
+
+    <div class="stage">
+      <svg viewBox="0 0 880 336" role="img" aria-label="Diagrama animado: o pedido sai de você, passa pelo aplicativo, consulta o cardápio de ferramentas e chega à cozinha, que é o sistema real">
+        <defs>
+          <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M0 0 L10 5 L0 10 z" fill="var(--mira-primary)"/>
+          </marker>
+        </defs>
+
+        <text class="svg-tiny" x="24" y="40">QUEM FAZ O QUÊ, DO PEDIDO AO PRATO</text>
+
+        <!-- trilho de ida -->
+        <path class="wire flow" d="M142 148 H 218" marker-end="url(#ar)"/>
+        <path class="wire flow" d="M392 148 H 468" marker-end="url(#ar)"/>
+        <path class="wire flow" d="M652 148 H 728" marker-end="url(#ar)"/>
+
+        <!-- retorno -->
+        <path class="wire flow" d="M796 244 C 796 300 84 300 84 244" marker-end="url(#ar)" opacity=".42"/>
+        <text class="svg-tiny" x="440" y="322" text-anchor="middle">E A RESPOSTA VOLTA PELO MESMO CAMINHO</text>
+
+        <g>
+          <rect class="box" x="24" y="100" width="118" height="96" rx="14"/>
+          <circle class="orb" cx="83" cy="132" r="9" fill="var(--mira-primary)"/>
+          <text class="svg-name" x="83" y="166" text-anchor="middle">Você</text>
+          <text class="svg-tiny" x="83" y="218" text-anchor="middle">QUEM PEDE</text>
+        </g>
+
+        <g>
+          <rect class="box" x="218" y="100" width="174" height="96" rx="14"/>
+          <text class="svg-name" x="305" y="140" text-anchor="middle">O aplicativo</text>
+          <text class="svg-label" x="305" y="162" text-anchor="middle">onde o modelo trabalha</text>
+          <text class="svg-tiny" x="305" y="218" text-anchor="middle">O GARÇOM</text>
+        </g>
+
+        <g>
+          <rect class="box-accent" x="468" y="100" width="184" height="96" rx="14"/>
+          <circle class="orb" cx="560" cy="94" r="4" fill="var(--mira-accent-2)"/>
+          <text class="svg-name" x="560" y="140" text-anchor="middle" fill="var(--mira-primary)">Servidor MCP</text>
+          <text class="svg-label" x="560" y="162" text-anchor="middle">lista o que dá para fazer</text>
+          <text class="svg-tiny" x="560" y="218" text-anchor="middle">O CARDÁPIO</text>
+        </g>
+
+        <g>
+          <rect class="box" x="728" y="100" width="128" height="96" rx="14"/>
+          <text class="svg-name" x="792" y="140" text-anchor="middle">API</text>
+          <text class="svg-label" x="792" y="162" text-anchor="middle">do sistema</text>
+          <text class="svg-tiny" x="792" y="218" text-anchor="middle">A COZINHA</text>
+        </g>
+      </svg>
+      <p class="stage-note"><b>A cozinha (a API)</b> sabe fazer os pratos, mas não fala com
+      o cliente. <b>O cardápio (o MCP)</b> traduz o que a cozinha faz para uma linguagem que o cliente
+      entende. <b>O garçom (o aplicativo com o modelo)</b> lê o cardápio, decide o que pedir e leva
+      o pedido. Quem manda ainda é você.</p>
+    </div>
+
+    <details class="deep">
+      <summary>Por dentro: os nomes técnicos de cada peça</summary>
+      <div class="deep-in">
+        <p>Na especificação, o garçom se chama <b>host</b> (o aplicativo — Claude Desktop, um
+        assistente interno, um editor de código), e dentro dele roda um <b>cliente MCP</b>, que é a
+        parte que conversa com o servidor. O <b>servidor MCP</b> é o cardápio: um programa pequeno que
+        anuncia o que sabe fazer e executa quando chamado. A <b>API</b> é o sistema de verdade, que já
+        existia antes de tudo isso.</p>
+        <p>A conversa entre cliente e servidor é feita em <b>JSON-RPC 2.0</b> — um formato de mensagem
+        antigo e sem nenhuma novidade. A novidade do MCP não é o transporte; é o combinado sobre
+        <i>o que</i> se manda por ele.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ 02 ============ -->
+  <section class="blk reveal" id="s2">
+    <p class="kicker">02 · Definições sem jargão</p>
+    <h2>O que cada um é, em uma frase</h2>
+    <div class="grid-2">
+      <div class="glass-card card lift">
+        <div class="top">
+          <div class="icon-container" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 2v6M15 2v6M7 8h10v4a5 5 0 0 1-10 0z"/><path d="M12 17v5"/></svg>
+          </div>
+          <div>
+            <p class="tagline">API</p>
+            <h3>Um contrato de acesso</h3>
+          </div>
+        </div>
+        <p>O sistema publica: "estes são os endereços que aceito, estes os dados que preciso
+        receber, este o formato da resposta". Quem cumpre esse contrato é <b>um programa que alguém
+        escreveu à mão</b>, depois de ler a documentação.</p>
+        <p style="margin-top:12px">É uma tomada na parede: serve energia, mas não sabe quem
+        vai ligar nela, nem para quê, nem se agora é uma boa hora.</p>
+      </div>
+      <div class="glass-card card lift">
+        <div class="top">
+          <div class="icon-container" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 3v4M12 17v4M3 12h4M17 12h4"/><rect x="8" y="8" width="8" height="8" rx="2"/></svg>
+          </div>
+          <div>
+            <p class="tagline">MCP · Model Context Protocol</p>
+            <h3>Um padrão de encaixe</h3>
+          </div>
+        </div>
+        <p>Um jeito único de <b>apresentar ferramentas a um modelo</b> na hora em que ele
+        está trabalhando: o nome da ferramenta, uma descrição em português comum e quais informações
+        ela pede. O modelo lê essa lista e decide o que usar.</p>
+        <p style="margin-top:12px">É o USB-C: antes, cada aparelho tinha o seu carregador
+        exclusivo; depois, um formato só passou a servir para todos.</p>
+      </div>
+    </div>
+    <div class="callout">
+      <span class="lbl">A frase que resolve 80% da confusão</span>
+      <p>A API é a <b>capacidade</b>. O MCP é a <b>embalagem</b> que torna aquela capacidade
+      utilizável por um modelo sem que ninguém precise escrever código novo para cada caso.</p>
+    </div>
+  </section>
+
+  <!-- ============ 03 ============ -->
+  <section class="blk reveal" id="s3">
+    <p class="kicker">03 · O problema que o MCP resolve</p>
+    <h2>Doze fios ou sete</h2>
+    <p class="lede">Este é o argumento que decide orçamento, e é o único que realmente
+    importa na hora de escolher. Troque o botão e veja a diferença.</p>
+
+    <div class="stage">
+      <div class="stage-bar">
+        <div class="switch" role="group" aria-label="Modo de integração">
+          <button id="btnA" aria-pressed="true">Cada um por si</button>
+          <button id="btnB" aria-pressed="false">Com um MCP no meio</button>
+        </div>
+        <p class="counter" id="count"><strong id="countN">12</strong> <span id="countL">ligações para manter de pé</span></p>
+      </div>
+
+      <svg viewBox="0 0 760 350" role="img" aria-label="Comparação entre ligar cada aplicação a cada sistema e ligar tudo através de um servidor MCP">
+        <text class="svg-tiny" x="20" y="26">APLICAÇÕES DE IA</text>
+        <text class="svg-tiny" x="740" y="26" text-anchor="end">SISTEMAS E DADOS</text>
+
+        <g id="mesh">
+          <path class="wire-warn flow" d="M150 85 C 380 85 380 75 560 75"/>
+          <path class="wire-warn flow" d="M150 85 C 380 85 380 145 560 145"/>
+          <path class="wire-warn flow" d="M150 85 C 380 85 380 215 560 215"/>
+          <path class="wire-warn flow" d="M150 85 C 380 85 380 285 560 285"/>
+          <path class="wire-warn flow" d="M150 175 C 380 175 380 75 560 75"/>
+          <path class="wire-warn flow" d="M150 175 C 380 175 380 145 560 145"/>
+          <path class="wire-warn flow" d="M150 175 C 380 175 380 215 560 215"/>
+          <path class="wire-warn flow" d="M150 175 C 380 175 380 285 560 285"/>
+          <path class="wire-warn flow" d="M150 265 C 380 265 380 75 560 75"/>
+          <path class="wire-warn flow" d="M150 265 C 380 265 380 145 560 145"/>
+          <path class="wire-warn flow" d="M150 265 C 380 265 380 215 560 215"/>
+          <path class="wire-warn flow" d="M150 265 C 380 265 380 285 560 285"/>
+        </g>
+
+        <g id="star" style="opacity:0">
+          <path class="wire flow" d="M150 85 C 250 85 280 175 335 175"/>
+          <path class="wire flow" d="M150 175 H 335"/>
+          <path class="wire flow" d="M150 265 C 250 265 280 175 335 175"/>
+          <path class="wire flow" d="M425 175 C 485 175 500 75 560 75"/>
+          <path class="wire flow" d="M425 175 C 485 175 500 145 560 145"/>
+          <path class="wire flow" d="M425 175 C 485 175 500 215 560 215"/>
+          <path class="wire flow" d="M425 175 C 485 175 500 285 560 285"/>
+          <rect class="box-accent" x="335" y="148" width="90" height="54" rx="12"/>
+          <text class="svg-name" x="380" y="171" text-anchor="middle" fill="var(--mira-primary)">MCP</text>
+          <text class="svg-tiny" x="380" y="189" text-anchor="middle">SERVIDOR</text>
+        </g>
+
+        <g>
+          <rect class="box" x="20" y="66" width="130" height="38" rx="10"/><text class="svg-name" x="36" y="90">Claude</text>
+          <rect class="box" x="20" y="156" width="130" height="38" rx="10"/><text class="svg-name" x="36" y="180">Assistente interno</text>
+          <rect class="box" x="20" y="246" width="130" height="38" rx="10"/><text class="svg-name" x="36" y="270">Agente próprio</text>
+          <rect class="box" x="560" y="56" width="180" height="38" rx="10"/><text class="svg-name" x="576" y="80">Sistema processual</text>
+          <rect class="box" x="560" y="126" width="180" height="38" rx="10"/><text class="svg-name" x="576" y="150">Base de jurisprudência</text>
+          <rect class="box" x="560" y="196" width="180" height="38" rx="10"/><text class="svg-name" x="576" y="220">Planilhas e arquivos</text>
+          <rect class="box" x="560" y="266" width="180" height="38" rx="10"/><text class="svg-name" x="576" y="290">E-mail e mensagens</text>
+        </g>
+      </svg>
+
+      <p class="stage-note" id="note">3 aplicações × 4 sistemas = 12 ligações escritas à mão, uma por
+      uma. Qualquer campo que mude em qualquer sistema quebra até 3 delas ao mesmo tempo — e ninguém
+      descobre até alguém reclamar.</p>
+    </div>
+
+    <details class="deep">
+      <summary>Por dentro: por que 7 e não 12</summary>
+      <div class="deep-in">
+        <p>São 3 aplicações ligadas ao servidor MCP mais 4 sistemas ligados a ele: 3 + 4 = 7. É a troca
+        de uma conta de multiplicação (N × M) por uma de soma (N + M). Com 5 aplicações e 10 sistemas,
+        a diferença sai de 50 ligações para 15.</p>
+        <p>O ganho não é só o número. É <b>onde a manutenção mora</b>: quando o sistema muda, um único
+        servidor é corrigido e todas as aplicações compatíveis passam a funcionar de novo, inclusive
+        as que você não escreveu.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ 04 ============ -->
+  <section class="blk reveal" id="s4">
+    <p class="kicker">04 · Diferenças que mudam a decisão</p>
+    <h2>Lado a lado</h2>
+    <p class="lede">Nove eixos. Só os que mudam alguma coisa na prática.</p>
+
+    <div class="axes">
+      <div class="axis">
+        <div class="ax-name">Quem consome</div>
+        <div class="ax-side api"><span class="who">API</span>Um programa escrito por uma pessoa, antes de tudo começar.</div>
+        <div class="ax-side mcp"><span class="who">MCP</span>O modelo, na hora, dentro de uma conversa em andamento.</div>
+      </div>
+      <div class="axis">
+        <div class="ax-name">Como se descobre o que dá para fazer</div>
+        <div class="ax-side api"><span class="who">API</span>Alguém lê a documentação e programa. Isso acontece semanas antes do uso.</div>
+        <div class="ax-side mcp"><span class="who">MCP</span>O aplicativo pede a lista pronta — <code>tools/list</code> — e recebe nomes, descrições e o que cada ferramenta exige.</div>
+      </div>
+      <div class="axis">
+        <div class="ax-name">Padronização</div>
+        <div class="ax-side api"><span class="who">API</span>Cada fornecedor com sua convenção, sua senha, seu jeito de paginar resultado.</div>
+        <div class="ax-side mcp"><span class="who">MCP</span>Uma forma só. Trocar de modelo ou de aplicativo não obriga a reescrever a integração.</div>
+      </div>
+      <div class="axis">
+        <div class="ax-name">Unidade de trabalho</div>
+        <div class="ax-side api"><span class="who">API</span>Um endereço técnico: <code>POST /v1/query</code>. Não diz para que serve.</div>
+        <div class="ax-side mcp"><span class="who">MCP</span>Uma ferramenta com intenção escrita: "buscar precedente por tema".</div>
+      </div>
+      <div class="axis">
+        <div class="ax-name">Custo de crescer</div>
+        <div class="ax-side api"><span class="who">API</span>Uma integração para cada par aplicação × sistema.</div>
+        <div class="ax-side mcp"><span class="who">MCP</span>Um servidor atende a todos os aplicativos compatíveis, inclusive os futuros.</div>
+      </div>
+      <div class="axis">
+        <div class="ax-name">Memória da conversa</div>
+        <div class="ax-side api"><span class="who">API</span>Não guarda nada entre uma chamada e outra. Lembrar é problema de quem chamou.</div>
+        <div class="ax-side mcp"><span class="who">MCP</span>Há uma sessão aberta, em que cliente e servidor combinam o que cada um sabe fazer.</div>
+      </div>
+      <div class="axis">
+        <div class="ax-name">Controle humano</div>
+        <div class="ax-side api"><span class="who">API</span>O programa decide sozinho. Não existe um momento natural para alguém aprovar.</div>
+        <div class="ax-side mcp"><span class="who">MCP</span>O aplicativo pode mostrar cada chamada e exigir a sua autorização antes de executar.</div>
+      </div>
+      <div class="axis">
+        <div class="ax-name">Por onde trafega</div>
+        <div class="ax-side api"><span class="who">API</span>Pela internet, normalmente em HTTP.</div>
+        <div class="ax-side mcp"><span class="who">MCP</span><code>stdio</code> quando o servidor roda na sua própria máquina; HTTP quando é remoto.</div>
+      </div>
+      <div class="axis">
+        <div class="ax-name">Relação entre os dois</div>
+        <div class="ax-side api"><span class="who">API</span>É a fonte real da capacidade. Sem ela, não há o que expor.</div>
+        <div class="ax-side mcp"><span class="who">MCP</span>É a embalagem que torna a capacidade utilizável pelo modelo.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 05 ============ -->
+  <section class="blk reveal" id="s5">
+    <p class="kicker">05 · Anatomia</p>
+    <h2>O que tem dentro de um servidor MCP</h2>
+    <p>São três tipos de coisa, e só três. Confundir uma com a outra é a causa mais comum de
+    servidor mal feito — o sintoma é sempre o mesmo: o modelo faz coisa que ninguém pediu.</p>
+
+    <div class="grid-3">
+      <div class="glass-card card lift">
+        <div class="top">
+          <div class="icon-container" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 1 5 5L16 15l-7 7-4-4 7-7z"/><path d="M8 8 4 4"/></svg>
+          </div>
+          <div><p class="tagline">Tools</p><h3>Ações</h3></div>
+        </div>
+        <p>O modelo <b>faz</b> alguma coisa: consulta, cria, calcula, envia. É onde está 90%
+        do valor — e todo o risco.</p>
+        <p class="softer" style="margin-top:12px;font-size:14px">Numa vara: "consultar
+        andamento do processo", "gerar minuta de despacho de saneamento".</p>
+      </div>
+      <div class="glass-card card lift">
+        <div class="top">
+          <div class="icon-container" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h9l5 5v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M14 3v6h6"/></svg>
+          </div>
+          <div><p class="tagline">Resources</p><h3>Leitura</h3></div>
+        </div>
+        <p>Conteúdo que o modelo <b>lê</b> como contexto, sem alterar nada: um arquivo, um
+        registro, um trecho de base.</p>
+        <p class="softer" style="margin-top:12px;font-size:14px">Numa vara: o inteiro teor de
+        uma peça, a tabela de assuntos, o manual interno de rotinas.</p>
+      </div>
+      <div class="glass-card card lift">
+        <div class="top">
+          <div class="icon-container" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h12M8 12h12M8 18h12"/><path d="M3 6h.01M3 12h.01M3 18h.01"/></svg>
+          </div>
+          <div><p class="tagline">Prompts</p><h3>Roteiros</h3></div>
+        </div>
+        <p>Instruções prontas que o servidor <b>oferece a você</b> — atalhos de fluxo de
+        trabalho, não automação que roda sozinha.</p>
+        <p class="softer" style="margin-top:12px;font-size:14px">Numa vara: "triar esta
+        petição inicial pelo roteiro da secretaria".</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <span class="lbl">Regra de projeto</span>
+      <p>Se alguma coisa <b>muda o mundo</b>, é ferramenta e precisa de aprovação. Se apenas
+      <b>informa</b>, é leitura. Expor uma escrita disfarçada de leitura é o defeito de segurança mais
+      comum em servidor MCP caseiro.</p>
+    </div>
+  </section>
+
+  <!-- ============ 06 ============ -->
+  <section class="blk reveal" id="s6">
+    <p class="kicker">06 · Passo a passo</p>
+    <h2>O que acontece quando você pede algo</h2>
+    <p class="lede">Seis passos, do "veja se há precedente sobre isso" até a resposta na
+    tela. O passo 04 é o que interessa a quem responde por governança.</p>
+
+    <ol class="seq">
+      <li>
+        <h4>Conexão <span class="actor">aplicativo ↔ servidor</span></h4>
+        <p>O aplicativo abre a conversa com o servidor e os dois combinam o que cada um sabe
+        fazer. Ninguém chamou nada ainda; é só o aperto de mão.</p>
+      </li>
+      <li>
+        <h4>O cardápio chega <span class="actor">servidor → modelo</span></h4>
+        <p>O aplicativo recebe a lista de ferramentas com as descrições. <b>Essas descrições
+        entram na cabeça do modelo</b> — texto mal escrito aqui vira chamada errada lá na frente.</p>
+      </li>
+      <li>
+        <h4>O modelo escolhe <span class="actor">modelo</span></h4>
+        <p>Você pede "veja se há precedente sobre X". O modelo lê o cardápio, escolhe a
+        ferramenta que parece servir e monta os dados que ela exige.</p>
+      </li>
+      <li class="key">
+        <h4>Você autoriza <span class="actor">ponto de governança</span></h4>
+        <p>O aplicativo mostra exatamente o que vai ser chamado e com quais dados. Em fluxo
+        bem configurado, nada executa sem o seu clique. <b>É aqui que se prende a coleira</b> — e é
+        exatamente esse passo que costuma ser desligado "para agilizar".</p>
+      </li>
+      <li>
+        <h4>Execução <span class="actor">servidor MCP → API</span></h4>
+        <p>O servidor faz o trabalho sujo: entra com a senha, chama a <b>API</b> de verdade,
+        trata erro, percorre as páginas de resultado e organiza a resposta.</p>
+      </li>
+      <li>
+        <h4>Retorno <span class="actor">modelo → você</span></h4>
+        <p>O resultado volta e entra no contexto da conversa. O modelo interpreta e responde
+        — ou conclui que precisa chamar outra ferramenta, e o ciclo recomeça no passo 03.</p>
+      </li>
+    </ol>
+
+    <div class="callout">
+      <span class="lbl">Consequência prática</span>
+      <p>A qualidade de um MCP depende menos do código e mais <b>da redação das descrições e
+      do recorte das ferramentas</b>. Ferramenta genérica demais — "executar consulta" — empurra a
+      complexidade para o modelo e produz erro silencioso, do tipo que ninguém percebe até virar
+      problema.</p>
+    </div>
+  </section>
+
+  <!-- ============ 07 ============ -->
+  <section class="blk reveal" id="s7">
+    <p class="kicker">07 · Onde as pessoas erram</p>
+    <h2>Quatro confusões que custam projeto</h2>
+    <div class="traps">
+      <div class="trap">
+        <p class="said"><span>✗</span>"O MCP substitui a API."</p>
+        <p>Não. O servidor MCP <b>consome</b> a API. Se a API é ruim, lenta ou incompleta, o
+        MCP herda tudo isso e ainda acrescenta uma camada por cima.</p>
+      </div>
+      <div class="trap">
+        <p class="said"><span>✗</span>"Vou expor tudo como ferramenta."</p>
+        <p>Cardápio grande piora a escolha do modelo e ocupa espaço na conversa. Exponha
+        <b>poucas ferramentas de intenção clara</b>, não o espelho da API.</p>
+      </div>
+      <div class="trap">
+        <p class="said"><span>✗</span>"Se é padrão aberto, é seguro."</p>
+        <p>O padrão define a forma da conversa, não quem pode o quê. Servidor de terceiro
+        executa código <b>com as suas credenciais</b>. Trate como fornecedor: procedência, permissão
+        mínima, registro de chamadas.</p>
+      </div>
+      <div class="trap">
+        <p class="said"><span>✗</span>"Para automatizar isso, preciso de MCP."</p>
+        <p>Se o caminho é sempre o mesmo e não exige julgamento — mover arquivo, disparar
+        relatório às 7h —, um script chamando a API é mais barato, mais rápido e mais fácil de
+        auditar.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 08 ============ -->
+  <section class="blk reveal" id="s8">
+    <p class="kicker">08 · Regra de decisão</p>
+    <h2>Qual usar no seu caso</h2>
+    <p class="lede">Responda as quatro perguntas pensando em um caso concreto seu. O
+    veredicto muda conforme você responde.</p>
+
+    <div class="glass-card decider" id="decider">
+      <div class="q" data-w="api">
+        <p>Você consegue escrever o passo a passo completo <b>antes</b> de ver os dados?</p>
+        <div class="qa" role="group" aria-label="Pergunta 1">
+          <button data-v="1" aria-pressed="false">Sim</button>
+          <button data-v="0" aria-pressed="false">Não</button>
+        </div>
+      </div>
+      <div class="q" data-w="api">
+        <p>O fluxo precisa rodar sozinho, em horário fixo, sem ninguém olhando?</p>
+        <div class="qa" role="group" aria-label="Pergunta 2">
+          <button data-v="1" aria-pressed="false">Sim</button>
+          <button data-v="0" aria-pressed="false">Não</button>
+        </div>
+      </div>
+      <div class="q" data-w="mcp">
+        <p>O próximo passo depende do que for encontrado no passo anterior?</p>
+        <div class="qa" role="group" aria-label="Pergunta 3">
+          <button data-v="1" aria-pressed="false">Sim</button>
+          <button data-v="0" aria-pressed="false">Não</button>
+        </div>
+      </div>
+      <div class="q" data-w="mcp">
+        <p>A mesma capacidade vai servir a mais de um assistente ou equipe?</p>
+        <div class="qa" role="group" aria-label="Pergunta 4">
+          <button data-v="1" aria-pressed="false">Sim</button>
+          <button data-v="0" aria-pressed="false">Não</button>
+        </div>
+      </div>
+
+      <div class="meter" aria-hidden="true">
+        <i class="m-api" id="mApi" style="width:50%"></i>
+        <i class="m-mcp" id="mMcp" style="width:50%"></i>
+      </div>
+
+      <div class="verdict" id="verdict" role="status" aria-live="polite">
+        <p class="v-head" id="vHead">Responda as quatro perguntas</p>
+        <p id="vText">O veredicto aparece aqui, com o motivo. Nenhuma resposta é salva nem enviada
+        para lugar nenhum — tudo acontece dentro do seu navegador.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <span class="lbl">O teste de uma linha</span>
+      <p>Se você consegue escrever o algoritmo antes de conhecer os dados, use <b>API</b>. Se
+      a próxima chamada depende do resultado da anterior de um jeito que você não sabe descrever de
+      antemão, o <b>MCP</b> paga o próprio custo.</p>
+    </div>
+  </section>
+
+  <!-- ============ 09 ============ -->
+  <section class="blk reveal" id="s9">
+    <p class="kicker">09 · Glossário de bolso</p>
+    <h2>As palavras que aparecem em toda reunião</h2>
+    <dl class="gloss">
+      <div><dt>API</dt><dd>A porta de serviço de um sistema: o conjunto de endereços por onde outro programa pede coisas a ele.</dd></div>
+      <div><dt>MCP</dt><dd>Combinado aberto sobre como apresentar ferramentas a um modelo de IA. Criado pela Anthropic e publicado no fim de 2024.</dd></div>
+      <div><dt>Host</dt><dd>O aplicativo com o qual você conversa e que hospeda o modelo. Nesta página, o garçom.</dd></div>
+      <div><dt>Cliente MCP</dt><dd>A parte de dentro do aplicativo que fala com o servidor. Você nunca a vê.</dd></div>
+      <div><dt>Servidor MCP</dt><dd>Programa pequeno que anuncia ferramentas e as executa quando chamado. Roda na sua máquina ou na rede.</dd></div>
+      <div><dt>Ferramenta (tool)</dt><dd>Uma ação que o modelo pode disparar, com nome, descrição e a lista do que ela exige.</dd></div>
+      <div><dt>Esquema</dt><dd>A ficha que diz quais dados a ferramenta espera e de que tipo. É o que evita chute do modelo.</dd></div>
+      <div><dt>Contexto</dt><dd>Tudo o que está "na mesa" da conversa naquele momento. É finito: encher de ferramenta inútil piora a resposta.</dd></div>
+      <div><dt>JSON</dt><dd>Formato de texto para trocar dados entre programas. Legível por gente, com alguma boa vontade.</dd></div>
+      <div><dt>JSON-RPC</dt><dd>Convenção antiga para pedir "execute isto" a outro programa usando JSON. O MCP a reaproveita.</dd></div>
+      <div><dt>stdio</dt><dd>Conversa entre dois programas na mesma máquina, sem passar pela rede. Mais seguro por construção.</dd></div>
+      <div><dt>Endpoint</dt><dd>Um endereço específico dentro de uma API, como <code>/processos/123</code>.</dd></div>
+    </dl>
+  </section>
+
+  <footer class="foot">
+    <p><b>Sobre estas informações.</b> Os conceitos desta página — as três primitivas, o JSON-RPC, os
+    transportes <code>stdio</code> e HTTP, e a arquitetura host–cliente–servidor — refletem a
+    especificação do MCP como a conheço até meados de 2026.</p>
+    <div class="fnote">
+      <p>O protocolo evoluiu rápido, e detalhes de autenticação e de transporte já mudaram mais de uma
+      vez. <b>Confirme em <a href="https://modelcontextprotocol.io" target="_blank" rel="noopener">modelcontextprotocol.io</a></b>
+      antes de decidir arquitetura ou de escrever norma interna. Em particular, não tenho certeza do
+      estado atual das exigências de OAuth para servidores remotos.</p>
+    </div>
+  </footer>
+
+  </div>
+</div>
+</main>
+
+
+<script>
+(function(){
+  "use strict";
+  var DEPTH='mcp-api-profundidade-v1';
+  var main=document.getElementById('main');
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+
+  /* ---------- 1. barra de progresso ---------- */
+  var bar=document.getElementById('progress');
+  function progress(){
+    var h=document.documentElement;
+    var max=h.scrollHeight-h.clientHeight;
+    bar.style.width=(max>0?(h.scrollTop/max)*100:0)+'%';
+  }
+  window.addEventListener('scroll',progress,{passive:true});
+  window.addEventListener('resize',progress);
+  progress();
+
+  /* ---------- 2. índice com destaque da seção ---------- */
+  var links=[].slice.call(document.querySelectorAll('nav.toc a'));
+  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'));}).filter(Boolean);
+  function spy(){
+    var y=window.scrollY+140, cur=0;
+    secs.forEach(function(s,i){ if(s && s.offsetTop<=y) cur=i; });
+    links.forEach(function(a,i){ a.classList.toggle('active',i===cur); });
+  }
+  window.addEventListener('scroll',spy,{passive:true});
+  spy();
+
+  /* ---------- 3. entrada das seções ---------- */
+  var reveals=[].slice.call(document.querySelectorAll('.reveal'));
+  if(reduce||!('IntersectionObserver' in window)){
+    reveals.forEach(function(el){el.classList.add('in');});
+  }else{
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    },{rootMargin:'0px 0px -12% 0px'});
+    reveals.forEach(function(el){io.observe(el);});
+  }
+
+  /* ---------- 4. painel 12 fios / 7 fios ---------- */
+  (function(){
+    var a=document.getElementById('btnA'), b=document.getElementById('btnB'),
+        mesh=document.getElementById('mesh'), star=document.getElementById('star'),
+        n=document.getElementById('countN'), l=document.getElementById('countL'),
+        note=document.getElementById('note');
+    if(!a||!b||!mesh||!star) return;
+    var data={
+      a:{n:12,l:'ligações para manter de pé',
+         note:'3 aplicações × 4 sistemas = 12 ligações escritas à mão, uma por uma. Qualquer campo que mude em qualquer sistema quebra até 3 delas ao mesmo tempo — e ninguém descobre até alguém reclamar.'},
+      b:{n:7,l:'conexões padronizadas',
+         note:'3 aplicações + 4 sistemas = 7 conexões. Quando um sistema muda, corrige-se o servidor MCP num lugar só, e todo aplicativo compatível volta a funcionar — inclusive os que você não escreveu.'}
+    };
+    mesh.style.transition='opacity .5s ease'; star.style.transition='opacity .5s ease';
+    var timer=null;
+    function count(to){
+      if(timer) clearInterval(timer);
+      var from=parseInt(n.textContent,10)||0, step=(to>from)?1:-1;
+      if(reduce||from===to){ n.textContent=to; return; }
+      timer=setInterval(function(){
+        from+=step; n.textContent=from;
+        if(from===to) clearInterval(timer);
+      },60);
+    }
+    function set(m){
+      var t=data[m], on=(m==='b');
+      star.style.opacity=on?'1':'0';
+      mesh.style.opacity=on?'0':'1';
+      star.style.pointerEvents=on?'auto':'none';
+      mesh.style.pointerEvents=on?'none':'auto';
+      a.setAttribute('aria-pressed',String(!on));
+      b.setAttribute('aria-pressed',String(on));
+      count(t.n); l.textContent=t.l; note.textContent=t.note;
+    }
+    a.addEventListener('click',function(){set('a');});
+    b.addEventListener('click',function(){set('b');});
+  })();
+
+  /* ---------- 5. modo simples / completo ---------- */
+  (function(){
+    var btn=document.getElementById('btnDepth');
+    if(!btn) return;
+    function apply(on){
+      [].forEach.call(document.querySelectorAll('details.deep'),function(d){ d.open=on; });
+      btn.setAttribute('aria-pressed',String(on));
+      btn.textContent=on?'Modo simples':'Modo completo';
+      try{ localStorage.setItem(DEPTH,on?'1':'0'); }catch(e){}
+    }
+    var start=false;
+    try{ start=localStorage.getItem(DEPTH)==='1'; }catch(e){}
+    apply(start);
+    btn.addEventListener('click',function(){
+      apply(btn.getAttribute('aria-pressed')!=='true');
+    });
+  })();
+
+  /* ---------- 6. decisor ---------- */
+  (function(){
+    var box=document.getElementById('decider');
+    if(!box) return;
+    var qs=[].slice.call(box.querySelectorAll('.q'));
+    var head=document.getElementById('vHead'), text=document.getElementById('vText'),
+        verd=document.getElementById('verdict'),
+        mApi=document.getElementById('mApi'), mMcp=document.getElementById('mMcp');
+    var ans=[null,null,null,null];
+
+    function score(){
+      var api=0, mcp=0, done=0;
+      qs.forEach(function(q,i){
+        if(ans[i]===null) return;
+        done++;
+        var side=q.getAttribute('data-w');
+        if(ans[i]===1){ if(side==='api') api++; else mcp++; }
+        else { if(side==='api') mcp+=.5; else api+=.5; }
+      });
+      var tot=api+mcp||1;
+      mApi.style.width=(api/tot*100)+'%';
+      mMcp.style.width=(mcp/tot*100)+'%';
+      verd.className='verdict';
+      if(done<4){
+        head.textContent='Faltam '+(4-done)+(done===3?' pergunta':' perguntas');
+        text.textContent='Responda todas para o veredicto fechar. Nada aqui é salvo nem enviado para lugar nenhum.';
+        return;
+      }
+      if(api-mcp>=1.5){
+        verd.classList.add('is-api');
+        head.textContent='Use a API direta';
+        text.innerHTML='O caminho é previsível e roda sem ninguém na frente. Um script chamando a API sai mais barato, executa mais rápido e é <b>muito mais fácil de auditar</b> — nenhuma vantagem do MCP se aplica ao seu caso.';
+      }else if(mcp-api>=1.5){
+        verd.classList.add('is-mcp');
+        head.textContent='Vale montar um MCP';
+        text.innerHTML='O caminho depende do que for encontrado e a capacidade vai ser reaproveitada. Aqui o MCP <b>paga o próprio custo</b>: a lógica de decisão fica com o modelo e a manutenção fica num lugar só.';
+      }else{
+        verd.classList.add('is-mix');
+        head.textContent='Os dois, em camadas';
+        text.innerHTML='Seu caso tem uma parte previsível e uma parte que exige julgamento. O desenho certo costuma ser <b>API para o trecho determinístico</b> e MCP só para a etapa em que alguém precisa decidir com o que apareceu na frente.';
+      }
+    }
+    qs.forEach(function(q,i){
+      [].forEach.call(q.querySelectorAll('button'),function(btn){
+        btn.addEventListener('click',function(){
+          ans[i]=parseInt(btn.getAttribute('data-v'),10);
+          [].forEach.call(q.querySelectorAll('button'),function(o){
+            o.setAttribute('aria-pressed',String(o===btn));
+          });
+          score();
+        });
+      });
+    });
+  })();
+
+})();
+</script>
+</body>
+</html>

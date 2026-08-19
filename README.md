@@ -5,6 +5,7 @@ Apresentação animada do curso **"Servidor + IA"** — Ações 1.2 e 1.3 da Fre
 - **Acesse o curso (aluno):** https://inovajus.github.io/
 - **Versão do instrutor (editável):** https://inovajus.github.io/editar.html
 - **Comparativo de LLMs:** https://inovajus.github.io/comparativo-llms.html
+- **MCP e API, sem jargão:** https://inovajus.github.io/mcp-vs-api.html
 - **Tutorial — ApoIA no Claude via MCP:** https://inovajus.github.io/tutorial-apoia-mcp.html
 - **Tutorial — ApoIA no ChatGPT via MCP:** https://inovajus.github.io/tutorial-apoia-chatgpt.html
 - **Tutorial — ApoIA no Antigravity via MCP:** https://inovajus.github.io/tutorial-apoia-antigravity.html
@@ -28,7 +29,7 @@ foram removidos do arquivo, não apenas ocultados por CSS.
 - **Sem edição (participantes):** `index.html`, `tjce/index.html`, `banco-de-prompts.html`,
   `tjce/banco-de-prompts.html`, `comparativo-llms.html`, `material-do-aluno.html`,
   `tjce/material.html`, `ebook-servidor-ia.html` (e o da TJCE), `ementa.html`,
-  `tjce/casos-tipo.html`, `preteste.html`, `tjce/preteste.html`, `tutorial-apoia-mcp.html`,
+  `tjce/casos-tipo.html`, `preteste.html`, `tjce/preteste.html`, `tutorial-apoia-mcp.html`, `mcp-vs-api.html`,
   `tutorial-apoia-chatgpt.html`, `tutorial-apoia-antigravity.html`,
   e a Biblioteca do Iracema (repositório `iracema-biblioteca-prompts`).
 - **Com edição (instrutores):** `editar.html`, `tjce/editar.html`,
