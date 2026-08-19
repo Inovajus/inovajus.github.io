@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kit do Projeto do Claude · Curso Servidor + IA</title>
+<style>
+:root {
+  --laranja:#C05A1E; --laranja-claro:#F2E4D8; --tinta:#23201d; --cinza:#5c554e;
+  --fundo:#FFFDFA; --borda:#e6ddd3; --creme:#FFF7EF;
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--fundo); color:var(--tinta);
+  font:16px/1.65 -apple-system,"Segoe UI",Inter,Roboto,sans-serif; }
+header.topo { background:var(--laranja); color:#fff; padding:26px 20px; }
+header.topo h1 { margin:0 0 4px; font-size:1.5rem; letter-spacing:-.01em; }
+header.topo p { margin:0; opacity:.92; font-size:.95rem; }
+.wrap { display:flex; gap:32px; max-width:1240px; margin:0 auto; padding:28px 20px 80px; }
+nav { flex:0 0 264px; position:sticky; top:20px; align-self:flex-start;
+  max-height:calc(100vh - 40px); overflow:auto; font-size:.9rem; }
+nav ul { list-style:none; margin:0; padding:0; }
+nav a { color:var(--cinza); text-decoration:none; display:block; padding:5px 10px;
+  border-left:2px solid transparent; border-radius:0 4px 4px 0; }
+nav a:hover { background:var(--creme); color:var(--laranja); border-left-color:var(--laranja); }
+.nav-sec a { font-weight:700; color:var(--tinta); margin-top:14px; }
+.n2 a { padding-left:20px; }
+main { flex:1; min-width:0; }
+h2 { font-size:1.32rem; margin:2.2em 0 .5em; color:var(--laranja);
+  border-bottom:1px solid var(--borda); padding-bottom:.3em; }
+h3 { font-size:1.08rem; margin:1.7em 0 .4em; }
+h4 { font-size:.98rem; margin:1.4em 0 .3em; color:var(--cinza); }
+p, li { margin:.5em 0; }
+code { background:var(--creme); padding:1px 5px; border-radius:3px; font-size:.9em; }
+pre { background:var(--creme); border:1px solid var(--borda); border-left:3px solid var(--laranja);
+  padding:14px 16px; border-radius:6px; overflow-x:auto; white-space:pre-wrap;
+  font:13px/1.5 ui-monospace,Consolas,monospace; }
+blockquote { margin:.8em 0; padding:.4em 0 .4em 14px; border-left:3px solid var(--laranja-claro);
+  color:var(--cinza); font-style:italic; }
+.tw { overflow-x:auto; margin:1em 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { border:1px solid var(--borda); padding:7px 10px; text-align:left; vertical-align:top; }
+th { background:var(--laranja-claro); }
+.secao { scroll-margin-top:20px; }
+.cta-banco { display:block; margin:1.1em 0 .5em; padding:14px 18px; text-decoration:none;
+  background:var(--creme); border:1px solid var(--borda); border-left:4px solid var(--laranja);
+  border-radius:6px; color:var(--tinta); transition:background .15s, border-color .15s; }
+.cta-banco:hover { background:var(--laranja-claro); border-left-color:var(--laranja); }
+.cta-banco-tit { display:block; font-weight:700; color:var(--laranja); font-size:1.02rem; }
+.cta-banco-tit::after { content:' →'; }
+.cta-banco-sub { display:block; color:var(--cinza); font-size:.9rem; margin-top:2px; }
+.nota-banco { color:var(--cinza); font-size:.9rem; }
+.rodape { border-top:1px solid var(--borda); margin-top:60px; padding-top:16px;
+  color:var(--cinza); font-size:.85rem; }
+@media (max-width:900px) {
+  .wrap { flex-direction:column; padding:16px; }
+  nav { position:static; max-height:none; flex:none; }
+}
+@media print {
+  nav, header.topo { display:none; }
+  body { font-size:11pt; } .wrap { display:block; padding:0; }
+  h2 { page-break-after:avoid; } table, pre { page-break-inside:avoid; }
+  /* no papel o link precisa mostrar o endereço */
+  .cta-banco { break-inside:avoid; page-break-inside:avoid; }
+  .cta-banco-sub::after { content:" — inovajus.github.io/banco-de-prompts.html"; font-weight:700; }
+}
+</style>
+</head>
+<body>
+<header class="topo">
+  <h1>Monte o seu Projeto do Claude</h1>
+  <p>Curso Servidor + IA · Módulo 3 · Justiça Federal no Ceará · INOVAJUS Eixo III</p>
+</header>
+
+<div class="wrap">
+<nav>
+  <ul>
+<li class="nav-sec"><a href="#antes-do-primeiro-clique-o-que-é-um-projeto">Antes do primeiro
+clique: o que é um Projeto</a></li>
+<li class="nav-sec"><a href="#etapa-1-criar-o-projeto-1-min">Etapa 1 · Criar o Projeto (1
+min)</a></li>
+<li class="nav-sec"><a href="#etapa-2-colar-as-instruções-3-min">Etapa 2 · Colar as instruções
+(3 min)</a></li>
+<li class="nav-sec"><a href="#etapa-3-subir-os-arquivos-de-conhecimento-3-min">Etapa 3 · Subir
+os arquivos de conhecimento (3 min)</a></li>
+<li class="nav-sec"><a href="#etapa-4-o-primeiro-teste-2-min">Etapa 4 · O primeiro teste (2
+min)</a></li>
+<li class="nav-sec"><a href="#etapa-5-o-teste-que-importa-mais-2-min">Etapa 5 · O teste que
+importa mais (2 min)</a></li>
+<li class="nav-sec"><a href="#etapa-6-trocar-os-exemplos-pelos-seus-modelos-4-min-hoje-e-uma-tarde-depois">Etapa
+6 · Trocar os exemplos pelos seus modelos (4 min hoje, e uma tarde
+depois)</a></li>
+<li class="nav-sec"><a href="#as-cinco-armadilhas-na-ordem-em-que-costumam-pegar">As cinco
+armadilhas, na ordem em que costumam pegar</a></li>
+<li class="nav-sec"><a href="#o-que-este-projeto-não-faz">O que este Projeto não faz</a></li>
+  </ul>
+</nav>
+
+<main>
+  <div class="aviso">
+    <strong>Para fazer junto, na aula ou depois.</strong>
+    Os arquivos de exemplo estão em
+    <a href="kit-projeto-claude-arquivos.zip">kit-projeto-claude-arquivos.zip</a>
+    e o passo a passo em
+    <a href="Kit-Projeto-Claude-passo-a-passo.pdf">PDF</a>.
+    Antes de usar processo real, leia a última seção: retenção zero não é detalhe.
+  </div>
+<p data-k="kz1">Este é o kit do participante. Ele existe para que você saia da aula
+com <strong>o seu Projeto criado</strong>, não com a lembrança de ter
+visto o Projeto de outra pessoa.</p>
+<p data-k="kz2">Você vai precisar de: uma conta no Claude (o plano gratuito cria
+Projeto), o navegador aberto e quinze minutos. <strong>Não precisa de
+nada instalado</strong>, e não precisa de acesso à ApoIA para as cinco
+primeiras etapas.</p>
+<hr />
+<h2 data-k="kz3" id="antes-do-primeiro-clique-o-que-é-um-projeto">Antes do primeiro
+clique: o que é um Projeto</h2>
+<p data-k="kz4">Um chat comum esquece a sua unidade a cada conversa. Um
+<strong>Projeto</strong> é um lugar onde ficam guardadas três coisas que
+não precisam mais ser repetidas:</p>
+<div class="tw"><table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+
+<tr class="header">
+<th data-k="kz5">O que é</th>
+<th data-k="kz6">O que guarda</th>
+<th data-k="kz7">Onde fica</th>
+</tr>
+
+
+<tr class="odd">
+<td data-k="kz8"><strong>Instruções</strong></td>
+<td data-k="kz9">Quem é a sua unidade, como o texto deve sair, o que nunca fazer</td>
+<td data-k="kz10">Campo de texto, escrito uma vez</td>
+</tr>
+<tr class="even">
+<td data-k="kz11"><strong>Conhecimento</strong></td>
+<td data-k="kz12">Os seus modelos, o seu estilo, as suas regras</td>
+<td data-k="kz13">Arquivos que você sobe</td>
+</tr>
+<tr class="odd">
+<td data-k="kz14"><strong>Conector</strong></td>
+<td data-k="kz15">O acesso aos autos, quando houver</td>
+<td data-k="kz16">Ligado por conversa</td>
+</tr>
+
+</table></div>
+<p data-k="kz17">A frase que resume: <strong>um Projeto não é um chat com nome — é um
+posto de trabalho.</strong></p>
+<hr />
+<h2 data-k="kz18" id="etapa-1-criar-o-projeto-1-min">Etapa 1 · Criar o Projeto (1
+min)</h2>
+<ol>
+<li data-k="kz19">Entre em <code>claude.ai</code>.</li>
+<li data-k="kz20">Na barra da esquerda, clique em <strong>Projetos</strong>.</li>
+<li data-k="kz21">Botão <strong>Novo projeto</strong>, no alto à direita.</li>
+<li data-k="kz22">Nome: escreva o que a unidade faz, não o que a ferramenta é.
+<em>“Secretaria da 2ª Vara — minutas”</em> é melhor que <em>“Teste
+IA”</em>.</li>
+<li data-k="kz23">Descrição: uma linha sobre o que você espera dele.</li>
+</ol>
+<h2 data-k="kz24" id="etapa-2-colar-as-instruções-3-min">Etapa 2 · Colar as instruções
+(3 min)</h2>
+<p data-k="kz25">No painel da direita, em <strong>Instruções</strong>, clique no
+<code>+</code> e cole o texto do arquivo
+<code>instrucoes-para-colar.txt</code> deste kit. Troque
+<strong>apenas</strong> o que está entre colchetes na primeira linha: o
+nome da sua unidade e o sistema que você usa.</p>
+<p data-k="kz26"><strong>Leia o que está colando.</strong> É a única parte do Projeto
+que decide o comportamento dele — e você vai querer ajustar depois da
+primeira semana de uso.</p>
+<h2 data-k="kz27" id="etapa-3-subir-os-arquivos-de-conhecimento-3-min">Etapa 3 · Subir
+os arquivos de conhecimento (3 min)</h2>
+<p data-k="kz28">Em <strong>Contexto</strong>, clique no <code>+</code> e escolha
+<strong>Carregar do aparelho</strong>. Suba os três arquivos da pasta
+<code>exemplos/</code>:</p>
+<div class="tw"><table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+
+<tr class="header">
+<th data-k="kz29">Arquivo</th>
+<th data-k="kz30">Para que serve</th>
+<th data-k="kz31">Quando trocar pelo seu</th>
+</tr>
+
+
+<tr class="odd">
+<td data-k="kz32"><code>00-minha-unidade.md</code></td>
+<td data-k="kz33">Diz quem é a unidade e quem lê a minuta</td>
+<td data-k="kz34">Hoje mesmo — são 5 linhas</td>
+</tr>
+<tr class="even">
+<td data-k="kz35"><code>01-meus-modelos.md</code></td>
+<td data-k="kz36">Três modelos de exemplo, para o Projeto funcionar já</td>
+<td data-k="kz37">Assim que reunir os seus</td>
+</tr>
+<tr class="odd">
+<td data-k="kz38"><code>02-regras-de-dado.md</code></td>
+<td data-k="kz39">Sigilo, conectores e injeção de prompt</td>
+<td data-k="kz40">Nunca: vale para qualquer unidade</td>
+</tr>
+
+</table></div>
+<p data-k="kz41">Os exemplos são <strong>fictícios</strong>, e existem para você ver o
+mecanismo funcionando antes de investir tempo. O Projeto só fica bom
+quando <code>01-meus-modelos.md</code> virar o repertório real da sua
+unidade.</p>
+<h2 data-k="kz42" id="etapa-4-o-primeiro-teste-2-min">Etapa 4 · O primeiro teste (2
+min)</h2>
+<p data-k="kz43">Abra uma conversa dentro do Projeto e peça:</p>
+<pre data-k="kz44"><code>Preciso intimar a parte autora para se manifestar sobre documento novo juntado aos
+autos. Qual modelo do repertório se aplica, e como ficaria a minuta?</code></pre>
+<p data-k="kz45">O que observar na resposta — e é isto que separa um Projeto que serve
+de um que engana:</p>
+<ul>
+<li data-k="kz46">Ele <strong>citou o nome do modelo</strong> que usou? Se inventou um
+nome, a instrução não está sendo obedecida.</li>
+<li data-k="kz47">O texto saiu <strong>no formato do modelo</strong>, com o fecho da
+casa?</li>
+<li data-k="kz48">Todo dado factual veio marcado
+<strong><code>[CONFERIR]</code></strong>?</li>
+<li data-k="kz49">Veio o bloco <strong>CONFERÊNCIA</strong> no fim, dizendo o que
+falta?</li>
+</ul>
+<h2 data-k="kz50" id="etapa-5-o-teste-que-importa-mais-2-min">Etapa 5 · O teste que
+importa mais (2 min)</h2>
+<p data-k="kz51">Peça um ato para o qual <strong>não existe modelo</strong> no seu
+repertório:</p>
+<pre data-k="kz52"><code>Minute uma sentença de improcedência em ação de desapropriação.</code></pre>
+<p data-k="kz53">A resposta certa é <strong>“nenhum modelo do repertório se
+aplica”</strong>. Se ele inventar um ato, o Projeto está mentindo com
+aparência de competência — volte à Etapa 2 e confira se a instrução foi
+colada inteira.</p>
+<h2 data-k="kz54"
+id="etapa-6-trocar-os-exemplos-pelos-seus-modelos-4-min-hoje-e-uma-tarde-depois">Etapa
+6 · Trocar os exemplos pelos seus modelos (4 min hoje, e uma tarde
+depois)</h2>
+<ol>
+<li data-k="kz55">Junte numa pasta os <strong>cinco atos que você mais repete no
+mês</strong>. Cinco bastam.</li>
+<li data-k="kz56">Abra cada um, <strong>apague todo dado de caso concreto</strong> —
+nome de parte, CPF, número de processo, valores, endereço, telefone.
+Modelo de secretaria costuma vir com esses restos, e ninguém nota,
+porque internamente não é problema. Passa a ser quando o arquivo sai da
+casa.</li>
+<li data-k="kz57">Cole os cinco num arquivo de texto só, cada um com um título
+assim:</li>
+</ol>
+<pre data-k="kz58"><code>### Nome do modelo, como você o chama no PJe
+
+(texto do modelo)</code></pre>
+<ol start="4">
+<li data-k="kz59">Suba no lugar de <code>01-meus-modelos.md</code>, e <strong>apague o
+de exemplo</strong>. Duas versões do mesmo insumo convivendo é a forma
+mais rápida de o Projeto aplicar a errada.</li>
+</ol>
+<hr />
+<h2 data-k="kz60" id="as-cinco-armadilhas-na-ordem-em-que-costumam-pegar">As cinco
+armadilhas, na ordem em que costumam pegar</h2>
+<p data-k="kz61"><strong>1. O conector não fica salvo no Projeto.</strong> Se você
+usar o MCP da ApoIA, a ativação é por conversa (botão <code>+</code> ›
+Conectores). Esquecer isso é receber uma minuta impecável — e sem os
+autos dentro.</p>
+<p data-k="kz62"><strong>2. Vários conectores ligados.</strong> Com dois ou três, o
+Claude decide sozinho de qual buscar. Deixe ligado só o que a tarefa
+exige.</p>
+<p data-k="kz63"><strong>3. O token da ApoIA vence em 8 horas contadas do
+login</strong>, não da geração da URL. E <strong>a URL é uma
+chave</strong>: não vai para grupo, documento compartilhado nem chamado
+de suporte.</p>
+<p data-k="kz64"><strong>4. Duas versões do mesmo arquivo no Contexto.</strong> Ao
+atualizar, apague o anterior.</p>
+<p data-k="kz65"><strong>5. O Projeto envelhece em silêncio.</strong> Modelo revogado
+que continua lá vira minuta errada com cara de certa. Dez minutos de
+revisão por mês resolvem.</p>
+<hr />
+<h2 data-k="kz66" id="o-que-este-projeto-não-faz">O que este Projeto não faz</h2>
+<p data-k="kz67">Não decide, não assina e <strong>não dispensa a sua
+conferência</strong>. A saída é rascunho de um modelo de linguagem que
+não leu os autos com olhos humanos — e a supervisão do art. 19 da
+Resolução CNJ nº 615/2025 recai sobre quem assina o ato, não sobre quem
+operou a ferramenta.</p>
+<p data-k="kz68">E antes de conectar qualquer processo real: confirme que a sua conta
+garante <strong>retenção zero e não uso dos dados para
+treinamento</strong>. Plano voltado ao consumidor final não oferece isso
+em contrato. Até resolver, trabalhe com documento fictício — a mecânica
+é exatamente a mesma.</p>
+
+</main>
+</div>
