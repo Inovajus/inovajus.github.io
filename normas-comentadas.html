@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>A Resolução 615, no que importa · Curso Servidor + IA</title>
+<style>
+  :root{
+    --tinta:#161616; --fundo:#ffffff; --suave:#5f5f5f; --linha:#e4e2e0;
+    --realce:#8a3b12; --caixa:#f7f4f1; --erro:#f3ece7; --forte:#f0e6de;
+    --res:#2f5d8a;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --tinta:#efedeb; --fundo:#121212; --suave:#a9a5a1; --linha:#302e2c;
+           --realce:#ffab73; --caixa:#1d1b1a; --erro:#241d1a; --forte:#2a2320;
+           --res:#8fb8e8; }
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0; background:var(--fundo); color:var(--tinta);
+    font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:17px; line-height:1.6;
+  }
+  .folha{ max-width:46rem; margin:0 auto; padding:2rem 1.1rem 5rem; }
+  header{ border-bottom:2px solid var(--realce); padding-bottom:1rem; margin-bottom:1.5rem; }
+  h1{ font-size:1.7rem; margin:0 0 .35rem; line-height:1.25; }
+  header p{ margin:0; color:var(--suave); font-size:.95rem; }
+  h2{ font-size:1.4rem; margin:3.2rem 0 1rem; padding:1.1rem 0 0;
+      border-top:2px solid var(--realce); }
+  h3{ font-size:1.12rem; margin:2.2rem 0 .3rem; padding-top:1.1rem;
+      border-top:1px solid var(--linha); scroll-margin-top:1rem; }
+  h4{ font-size:.95rem; margin:1.3rem 0 .3rem; text-transform:uppercase;
+      letter-spacing:.04em; color:var(--suave); }
+  p{ margin:0 0 .75rem; }
+  ul, ol{ padding-left:1.25rem; margin:0 0 .75rem; }
+  li{ margin-bottom:.42rem; }
+  a{ color:var(--realce); }
+
+  /* o bloco de cada dispositivo */
+  .disp{ margin:1.6rem 0 2rem; }
+  .disp .cab{ display:flex; align-items:baseline; gap:.7rem; flex-wrap:wrap;
+              margin-bottom:.5rem; }
+  .disp .art{ font-weight:700; font-size:1.02rem; }
+  .res .art{ color:var(--res); }
+  .disp .rub{ color:var(--suave); font-size:.95rem; }
+  .selo{ font-size:.62rem; text-transform:uppercase; letter-spacing:.09em; font-weight:700;
+         padding:.16rem .5rem; border-radius:99px; border:1px solid var(--linha);
+         color:var(--suave); white-space:nowrap; }
+  .selo.t1{ border-color:rgba(138,59,18,.4); color:var(--realce); }
+  .selo.t2{ border-color:rgba(138,59,18,.4); color:var(--realce); }
+  .selo.t3{ border-color:rgba(138,59,18,.4); color:var(--realce); }
+  .selo.t4{ border-color:rgba(138,59,18,.4); color:var(--realce); }
+  .texto{ border-left:3px solid var(--linha); padding:.7rem 1rem; margin:.6rem 0 .8rem;
+          background:var(--caixa); border-radius:0 8px 8px 0; font-size:.97rem; }
+  .texto p{ margin:0 0 .5rem; } .texto p:last-child{ margin:0; }
+  .texto .lit{ font-style:italic; }
+  .texto .sig{ display:block; margin-top:.5rem; font-size:.76rem; font-style:normal;
+               color:var(--suave); letter-spacing:.02em; }
+  .mesa{ font-size:.99rem; }
+  .mesa::before{ content:"Na sua mesa  "; font-size:.68rem; text-transform:uppercase;
+                 letter-spacing:.09em; color:var(--realce); font-weight:700; }
+  mark{ background:rgba(255,199,102,.28); color:inherit; padding:.05em .15em;
+        border-radius:3px; font-style:normal; }
+  @media (prefers-color-scheme: dark){ mark{ background:rgba(255,199,102,.20); } }
+
+  .destaque{ background:var(--forte); border-radius:9px; padding:1rem 1.15rem; margin:1.2rem 0; }
+  .destaque p:last-child{ margin:0; }
+  .grande{ font-size:1.08rem; font-weight:700; }
+  .nota{ background:var(--caixa); border-radius:9px; padding:.85rem 1rem; margin:1rem 0;
+         font-size:.95rem; }
+  .nota p:last-child{ margin:0; }
+  .desvio{ background:var(--erro); border-radius:9px; padding:.85rem 1rem; margin:1rem 0;
+           font-size:.95rem; }
+  .desvio p:last-child{ margin:0; }
+  .desvio b{ color:var(--realce); }
+  .rolagem{ overflow-x:auto; }
+  table{ width:100%; border-collapse:collapse; font-size:.93rem; margin:.6rem 0 1rem; }
+  th, td{ text-align:left; vertical-align:top; padding:.5rem .6rem;
+          border-bottom:1px solid var(--linha); }
+  th{ font-size:.74rem; text-transform:uppercase; letter-spacing:.04em; color:var(--suave); }
+  .fora td:first-child{ white-space:nowrap; font-weight:650; }
+  .rodape{ margin-top:3.5rem; padding-top:1.2rem; border-top:1px solid var(--linha);
+           color:var(--suave); font-size:.88rem; }
+
+  /* modo de edição */
+  .barra{ position:fixed; right:1rem; bottom:1rem; display:flex; gap:.4rem; z-index:99; }
+  .barra button{ font:inherit; font-size:.78rem; padding:.45rem .8rem; border-radius:99px;
+                 border:1px solid var(--linha); background:var(--fundo); color:var(--suave);
+                 cursor:pointer; box-shadow:0 1px 6px rgba(0,0,0,.12); }
+  .barra button:hover{ color:var(--realce); border-color:var(--realce); }
+  body.editando{ outline:3px solid var(--realce); outline-offset:-3px; }
+  body.editando .barra button.ativo{ color:var(--realce); border-color:var(--realce);
+                                     font-weight:700; }
+
+  @media print{
+    :root{ --tinta:#000; --fundo:#fff; --suave:#444; --linha:#bbb; --realce:#000;
+           --caixa:#f3f3f3; --erro:#eee; --forte:#eee; --res:#000; }
+    body{ font-size:10.5pt; }
+    .folha{ max-width:none; padding:0; }
+    .disp, .destaque, .nota, .desvio{ page-break-inside:avoid; }
+    h2, h3{ page-break-after:avoid; }
+    mark{ background:none; border-bottom:2px solid #999; }
+    .barra{ display:none; }
+  }
+</style>
+</head>
+<body>
+<div class="folha">
+
+<header>
+  <h1>A Resolução 615, no que importa</h1>
+  <p>Resolução CNJ 615/2025 &middot; leitura curada e comentada &middot; Curso Servidor + IA
+  &middot; Justiça Federal no Ceará</p>
+</header>
+
+<p>A Resolução tem <b>quarenta e sete artigos</b> e um Anexo de Classificação de Riscos. A maior
+parte deles é endereçada a comitês, secretarias e equipes técnicas, e não muda nada no que você
+faz. Esta página fica com <b>treze dispositivos</b>, traz o que eles dizem e explica o que cada um
+significa na prática.</p>
+
+<p>Antes da seleção, o critério que a produziu. Sem ele, uma curadoria é só uma opinião com
+aparência de norma.</p>
+
+<h2 id="criterio">O critério</h2>
+
+<p>A pergunta que organiza a escolha não é <i>qual artigo é juridicamente mais relevante</i>
+&mdash; essa resposta mudaria conforme quem pergunta. É outra, e ela é operacional:</p>
+
+<div class="destaque">
+  <p class="grande">Este dispositivo muda alguma decisão que você toma?</p>
+  <p>Um artigo entra se, conhecendo-o, você faz alguma coisa diferente na segunda-feira. Se
+  saber ou não saber dele produz exatamente o mesmo comportamento, ele é contexto &mdash; não
+  é conteúdo de curso.</p>
+</div>
+
+<p>Esse teste geral se decompõe em quatro, e <b>basta passar em um</b> para entrar:</p>
+
+<div class="rolagem">
+<table>
+  <tr><th>Teste</th><th>Entra quando…</th><th>Exemplo</th></tr>
+  <tr>
+    <td><span class="selo t1">decisão</span></td>
+    <td>determina o que se pode ou não fazer diante de uma tarefa concreta</td>
+    <td>Dado sob segredo de justiça não vai para ferramenta externa</td>
+  </tr>
+  <tr>
+    <td><span class="selo t2">crença falsa</span></td>
+    <td>desmonta uma convicção errada que a turma comprovadamente traz</td>
+    <td>&ldquo;É proibido usar IA da internet&rdquo; &mdash; não é</td>
+  </tr>
+  <tr>
+    <td><span class="selo t3">responsabilidade</span></td>
+    <td>cria dever cujo descumprimento recai sobre <b>a pessoa</b>, não sobre o órgão</td>
+    <td>Dever de informar ao tribunal a ferramenta contratada por conta própria</td>
+  </tr>
+  <tr>
+    <td><span class="selo t4">fronteira</span></td>
+    <td>define <b>quando</b> a vedação passa a incidir</td>
+    <td>A linha entre BR4 e AR4, que diz a partir de onde o pedido deixa de ser permitido fora
+    de casa</td>
+  </tr>
+</table>
+</div>
+
+<h4>O critério de exclusão, que é a outra metade</h4>
+<p>Fica de fora o dispositivo <b>endereçado a órgão</b> &mdash; secretaria de tecnologia, comitê,
+escola judicial, presidência &mdash; que não cria dever para quem opera a ferramenta. Não é
+que ele seja menos importante: é que o destinatário é outro. Todos eles estão nomeados no fim,
+em <a href="#fora">o que ficou de fora</a>, para que a seleção possa ser conferida e contestada.</p>
+
+<div class="nota">
+  <p><b>O que faria um excluído voltar.</b> O critério precisa ser falseável, senão não é
+  critério. Um dispositivo hoje fora entra assim que se demonstrar que <b>(a)</b> alguém pode
+  ser responsabilizado pessoalmente por descumpri-lo, ou <b>(b)</b> ele altera uma escolha
+  cotidiana de quem usa a ferramenta. Se você identificar um caso desses, ele deve ser
+  acrescentado.</p>
+</div>
+
+<div class="desvio">
+  <p><b>O que esta página não é.</b> Não é a norma. É uma leitura orientada dela, para uso
+  didático. As citações abaixo foram conferidas contra o texto oficial, mas <b>a norma que vale
+  é a íntegra</b> &mdash;
+  <a href="https://atos.cnj.jus.br/atos/detalhar/6001">Resolução CNJ 615/2025</a>. Em caso de
+  dúvida concreta, vale o texto oficial e a orientação da chefia.</p>
+  <p style="margin-top:.5rem"><b>Atenção à versão.</b> A Resolução já foi alterada uma vez, pela
+  <b>Resolução CNJ 674, de 25 de março de 2026</b>, que mudou o <b>art. 15, § 1º</b> &mdash; a
+  composição do Comitê Nacional. <b>Nenhum dispositivo desta página foi alterado</b>, mas material
+  antigo que descreva a composição do Comitê está desatualizado.</p>
+</div>
+
+<h2 id="res">Resolução CNJ 615/2025</h2>
+
+<p>Ela responde a uma pergunta: <b>posso usar inteligência artificial nesta tarefa, e com que
+ferramenta?</b> Treze dispositivos passaram no critério, e dez deles estão em um único artigo
+&mdash; o <b>art. 19</b>, que é o que rege diretamente o servidor e é, de longe, o menos
+conhecido.</p>
+
+<div class="destaque">
+  <p class="grande">A tese do art. 19, em uma frase</p>
+  <p>Ele <b>não proíbe</b> usar ferramenta de inteligência artificial da internet. Ele
+  <b>condiciona</b>. Quem lê o artigo esperando uma proibição sai achando que leu errado.</p>
+</div>
+
+<div class="disp res">
+  <div class="cab"><span class="art">Art. 19, caput</span>
+    <span class="rub">a autorização de base</span>
+    <span class="selo t2">crença falsa</span></div>
+  <div class="texto">
+    <p class="lit">Os modelos de linguagem de larga escala (LLMs), de pequena escala (SLMs) e
+    outros sistemas de inteligência artificial generativa (IAGen)
+    <mark>disponíveis na rede mundial de computadores poderão ser utilizados pelos magistrados
+    e pelos servidores</mark> do Poder Judiciário em suas respectivas atividades como ferramentas
+    de auxílio à gestão ou de apoio à decisão, em obediência aos padrões de segurança da
+    informação e às normas desta Resolução.</p>
+    <span class="sig">Texto conferido contra a íntegra da Resolução.</span>
+  </div>
+  <p class="mesa">É a primeira coisa a dizer, e ela desarma metade da sala: a norma
+  <b>autoriza</b>. O que ela faz em seguida é listar condições. Quem começa a leitura pelo § 3º
+  entende o artigo ao contrário.</p>
+</div>
+
+<div class="disp res">
+  <div class="cab"><span class="art">Art. 19, § 1º</span>
+    <span class="rub">a via preferencial</span>
+    <span class="selo t1">decisão</span></div>
+  <div class="texto">
+    <p class="lit">O uso se dará <mark>preferencialmente, por meio de acesso que seja
+    habilitado, disponibilizado e monitorado pelos tribunais</mark>.</p>
+  </div>
+  <p class="mesa">Existindo ferramenta da casa, é ela. Não por burocracia: a institucional
+  resolve sozinha o problema de para onde o dado vai. É a razão pela qual o encontro da
+  ferramenta institucional existe no curso.</p>
+</div>
+
+<div class="disp res">
+  <div class="cab"><span class="art">Art. 19, § 2º</span>
+    <span class="rub">quando a casa não oferece</span>
+    <span class="selo t2">crença falsa</span>
+    <span class="selo t4">fronteira</span></div>
+  <div class="texto">
+    <p class="lit">Quando o tribunal não oferecer solução corporativa de inteligência artificial
+    especificamente treinada e personalizada para uso no Poder Judiciário,
+    <mark>será facultado ao magistrado, servidor ou colaborador (…) a contratação direta de
+    solução mediante assinatura ou cadastro de natureza privada</mark>, desde que atendidas as
+    diretrizes do § 3º.</p>
+  </div>
+  <p class="mesa">Pagar do próprio bolso <b>não é proibido</b>. É o oposto do que quase todo
+  mundo supõe. Mas a autorização vem amarrada ao § 3º inteiro &mdash; e é ali que a maioria
+  descobre que a assinatura pessoal que usa não atende.</p>
+</div>
+
+<div class="disp res">
+  <div class="cab"><span class="art">Art. 19, § 3º, I</span>
+    <span class="rub">capacitação prévia</span>
+    <span class="selo t1">decisão</span></div>
+  <div class="texto">
+    <p class="lit">Os usuários deverão realizar <mark>capacitação e treinamentos específicos</mark>
+    sobre melhores práticas, limitações, riscos, e uso ético, responsável e eficiente de modelos
+    de linguagem (…) conforme programa de letramento digital padronizado.</p>
+  </div>
+  <p class="mesa">É a condição que este curso cumpre. Vale dizer com todas as letras: ninguém
+  está aqui por cortesia da administração &mdash; a capacitação é <b>requisito normativo</b>
+  para poder usar a ferramenta.</p>
+</div>
+
+<div class="disp res">
+  <div class="cab"><span class="art">Art. 19, § 3º, II</span>
+    <span class="rub">caráter auxiliar</span>
+    <span class="selo t3">responsabilidade</span></div>
+  <div class="texto">
+    <p class="lit">(…) <mark>vedada a utilização como instrumento autônomo de tomada de decisões
+    judiciais</mark> sem a devida orientação, interpretação, verificação e revisão por parte do
+    magistrado, <mark>que permanecerá integralmente responsável</mark>.</p>
+  </div>
+  <p class="mesa">A frase &ldquo;permanecerá integralmente responsável&rdquo; é a que fecha
+  qualquer discussão sobre terceirizar a culpa para a ferramenta. E é literalmente a mesma tese
+  do acórdão da Sexta Turma do Tribunal Superior do Trabalho de março de 2026: a responsabilidade
+  pela verificação não se divide com quem operou nem com o software.</p>
+</div>
+
+<div class="disp res">
+  <div class="cab"><span class="art">Art. 19, § 3º, III</span>
+    <span class="rub">seus dados não treinam o modelo</span>
+    <span class="selo t1">decisão</span></div>
+  <div class="texto">
+    <p class="lit">(…) sendo <mark>vedado o tratamento, uso ou compartilhamento dos dados
+    fornecidos pelos usuários do Poder Judiciário, bem como dos dados inferidos a partir
+    desses, para treinamento</mark>, aperfeiçoamento ou quaisquer outros fins não expressamente
+    autorizados.</p>
+  </div>
+  <p class="mesa">Vira um ato concreto: <b>desligar o treinamento com os seus dados nas
+  configurações</b>. E vira um critério de escolha de plano &mdash; a vedação precisa estar
+  <b>em contrato</b>. Um botão que a empresa muda quando quiser não é vedação contratual, e é
+  por isso que plano de consumidor final normalmente não atende.</p>
+  <p class="mesa" style="margin-top:.5rem"><b>Repare no alcance:</b> a vedação não fala só de
+  dado pessoal. Alcança <i>os dados fornecidos</i> em geral <b>e os inferidos a partir
+  deles</b>.</p>
+  <div class="nota">
+    <p><b>Não é só leitura nossa.</b> O art. 22, § 1º manda que a conformidade seja
+    <i>&ldquo;assegurada contratualmente&rdquo;</i>. A própria Resolução, portanto, coloca o
+    contrato &mdash; e não a configuração &mdash; como o lugar onde a garantia tem de estar.</p>
+  </div>
+</div>
+
+<div class="disp res">
+  <div class="cab"><span class="art">Art. 19, § 3º, IV</span>
+    <span class="rub">sigiloso e segredo de justiça</span>
+    <span class="selo t1">decisão</span></div>
+  <div class="texto">
+    <p class="lit">É <mark>vedado o uso de modelos de linguagem e sistemas de IA generativa de
+    natureza privada ou externos ao Judiciário</mark> para processar, analisar, gerar conteúdo
+    ou servir de suporte a decisões a partir de <mark>documentos ou dados sigilosos ou
+    protegidos por segredo de justiça</mark>, nos termos da legislação aplicável,
+    <mark>salvo quando devidamente anonimizados na origem</mark> ou quando forem adotados
+    mecanismos técnicos e procedimentais que garantam a efetiva proteção e segurança desses
+    dados e de seus titulares.</p>
+  </div>
+  <p class="mesa">É o dispositivo mais operacional da Resolução, e o que sustenta a regra dura do
+  curso. Duas leituras precisam ser feitas juntas:</p>
+  <ul>
+    <li>a vedação alcança <b>ferramenta privada ou externa</b> &mdash; a institucional está em
+    outro regime;</li>
+    <li>a ressalva é <b>anonimização na origem</b>, não anonimização improvisada depois de já ter
+    colado.</li>
+  </ul>
+  <div class="desvio">
+    <p><b>E a ordem das checagens importa.</b> Primeiro se confere o sigilo. Sendo
+    &ldquo;sim&rdquo; ou &ldquo;desconhecido&rdquo;, não se chega a anonimizar &mdash; a prática
+    do curso é não enviar. A ressalva do inciso existe, mas usá-la exige garantir a anonimização
+    <i>antes</i>, e conferir que ela funcionou.</p>
+  </div>
+</div>
+
+<div class="disp res">
+  <div class="cab"><span class="art">Art. 19, § 3º, V</span>
+    <span class="rub">o que nem anonimizado vai</span>
+    <span class="selo t1">decisão</span></div>
+  <div class="texto">
+    <p class="lit">É vedado o uso dessas ferramentas para as hipóteses de <mark>risco excessivo
+    (art. 10) e de alto risco (art. 11)</mark>.</p>
+    <span class="sig">Síntese do inciso; a remissão aos artigos é literal.</span>
+  </div>
+  <p class="mesa">Aqui não há ressalva de anonimização. Anonimizar resolve o problema
+  <b>do dado</b>; não resolve o problema <b>da tarefa</b>. Pedir a conclusão jurídica continua
+  vedado em ferramenta externa mesmo que nenhum nome apareça.</p>
+  <p class="mesa" style="margin-top:.5rem"><b>Onde se lê o que é alto risco:</b> o art. 11 não
+  lista as hipóteses &mdash; ele <i>remete ao Anexo de Classificação de Riscos</i>. Por isso o
+  bloco do Anexo, abaixo, é o que de fato resolve a dúvida do dia a dia.</p>
+</div>
+
+<div class="disp res">
+  <div class="cab"><span class="art">Art. 19, § 6º</span>
+    <span class="rub">registro do uso</span>
+    <span class="selo t3">responsabilidade</span></div>
+  <div class="texto">
+    <p class="lit">O uso de IA na redação de ato judicial <mark>poderá ser mencionado no corpo da
+    decisão, a critério do magistrado</mark>, sendo, porém, <mark>devido o registro automático no
+    sistema interno do tribunal</mark>, para fins de produção de estatísticas, monitoramento e
+    eventual auditoria.</p>
+  </div>
+  <p class="mesa">Duas coisas diferentes, e a turma confunde: <b>mencionar na decisão é
+  facultativo</b>; <b>o registro no sistema é devido</b>. Quem responde por rastreabilidade não
+  é quem escolhe mencionar.</p>
+</div>
+
+<div class="disp res">
+  <div class="cab"><span class="art">Art. 19, § 7º</span>
+    <span class="rub">dever de informar</span>
+    <span class="selo t3">responsabilidade</span></div>
+  <div class="texto">
+    <p class="lit">Quem contratar solução de mercado &mdash; <mark>ou o gestor cuja equipe a
+    utilize</mark> &mdash; deverá <mark>prestar informações ao seu respectivo tribunal sobre sua
+    utilização</mark>, na forma do regulamento.</p>
+    <span class="sig">Síntese fiel do parágrafo, com as expressões centrais literais.</span>
+  </div>
+  <p class="mesa">É a parte que praticamente ninguém sabe, e a que mais protege quem cumpre.
+  Omitir não é neutro: elimina qualquer alegação futura de boa-fé. E o dever alcança
+  <b>o gestor</b>, não só quem assinou.</p>
+  <div class="nota">
+    <p><b>E a informação não morre no tribunal.</b> O § 8º manda que os tribunais
+    <i>consolidem</i> o que receberam e enviem ao Comitê Nacional de Inteligência Artificial do
+    Judiciário. O que você informa vira inventário nacional &mdash; que é exatamente o que torna
+    a omissão detectável depois.</p>
+    <p style="margin-top:.5rem"><b>Como informar, na prática:</b> o parágrafo diz
+    <i>&ldquo;na forma do regulamento&rdquo;</i>, e o regulamento é local. Não havendo canal
+    divulgado, o caminho seguro é registrar por escrito à chefia imediata &mdash; o que importa é
+    existir registro datado, não o formulário.</p>
+  </div>
+</div>
+
+<div class="disp res">
+  <div class="cab"><span class="art">Art. 10</span>
+    <span class="rub">risco excessivo &mdash; vedado sempre</span>
+    <span class="selo t1">decisão</span></div>
+  <div class="texto">
+    <p>São vedadas, <b>em qualquer ferramenta</b>, soluções que:</p>
+    <p><b>I</b> &mdash; não permitam revisão humana ou gerem dependência absoluta do usuário;<br>
+    <b>II</b> &mdash; valorem traços de personalidade ou comportamento para prever crime ou
+    reiteração delitiva, ou para fundamentar decisão trabalhista a partir de perfis pessoais;<br>
+    <b>III</b> &mdash; classifiquem ou ranqueiem pessoas por comportamento ou situação social
+    para avaliar <mark>a plausibilidade de seus direitos, méritos judiciais ou testemunhos</mark>;<br>
+    <b>IV</b> &mdash; usem biometria para reconhecimento de emoções.</p>
+    <span class="sig">Síntese estruturada dos quatro incisos; as expressões marcadas são
+    literais.</span>
+  </div>
+  <p class="mesa">São quatro, são curtas, e valem para a ferramenta da casa também. O inciso III
+  é o que mais surpreende, e é o que conversa diretamente com o bloco de vieses: ranquear
+  pessoas para avaliar se o direito delas é plausível é vedação absoluta, não questão de
+  cautela.</p>
+</div>
+
+<div class="disp res">
+  <div class="cab"><span class="art">Anexo &mdash; BR4 e AR4</span>
+    <span class="rub">a linha que separa apoio de conclusão</span>
+    <span class="selo t1">decisão</span>
+    <span class="selo t4">fronteira</span></div>
+  <div class="texto">
+    <p><b>BR4, baixo risco:</b> <span class="lit">produção de textos de apoio para facilitar a
+    confecção de atos judiciais, <mark>desde que a supervisão e a versão final do documento
+    sejam realizadas pelo magistrado</mark>.</span></p>
+    <p><b>AR4, alto risco:</b> <span class="lit">juízo conclusivo sobre a aplicação de norma ou
+    precedente a fatos concretos, <mark>inclusive quantificação de danos</mark>.</span></p>
+  </div>
+  <p class="mesa">É o conceito central do módulo e cabe num par de exemplos com o mesmo
+  documento: <i>resuma esta contestação</i> é BR1; <i>redija a estrutura deste despacho conforme
+  minhas instruções</i> é BR4; <i>fixe o valor da indenização aplicando este precedente</i> é
+  AR4. <b>A faixa vem da frase que você digita, não do software.</b></p>
+  <div class="nota">
+    <p>Baixo risco também abrange, literalmente, <b>sumarização e resumo</b> (BR1) e
+    <b>anonimização de documentos</b> (BR8) &mdash; o que significa que quase tudo o que o curso
+    ensina está expressamente listado como baixo risco, desde que supervisionado.</p>
+  </div>
+</div>
+
+<div class="disp res">
+  <div class="cab"><span class="art">Art. 7º, § 2º, e art. 20, parágrafo único</span>
+    <span class="rub">anonimização obrigatória</span>
+    <span class="selo t1">decisão</span></div>
+  <div class="texto">
+    <p class="lit"><b>Art. 7º, § 2º</b> Os dados deverão ser anonimizados sempre que possível,
+    <mark>providência obrigatória para os dados sigilosos ou protegidos por segredo de
+    justiça</mark>, de acordo com as melhores práticas de proteção de dados e segurança da
+    informação.</p>
+    <p class="lit"><b>Art. 20, parágrafo único</b> É vedada a utilização de dados sigilosos ou
+    protegidos por segredo de justiça para treinamento de modelos de inteligência artificial,
+    <mark>salvo prévia anonimização dos dados na origem</mark>.</p>
+    <span class="sig">Ambos conferidos literalmente contra o texto oficial.</span>
+  </div>
+  <p class="mesa">Os dois dispositivos usam a mesma expressão do § 3º, IV: <b>na origem</b>. A
+  norma insiste nisso porque anonimizar depois de enviar não desfaz o envio.</p>
+  <div class="desvio">
+    <p><b>E trocar o nome não é anonimizar.</b> A Resolução não define o termo &mdash; manda
+    seguir <i>&ldquo;as melhores práticas&rdquo;</i>. A referência é a definição da
+    <b>LGPD (Lei 13.709/2018, art. 5º, XI)</b>, que exige que o dado perca a possibilidade de
+    associação <b>direta <i>ou indireta</i></b> a um indivíduo. Trocar o nome por [PARTE] resolve
+    a associação direta e não toca na indireta &mdash; e é a indireta que reidentifica, pela
+    combinação de doença rara, município pequeno e sequência de datas.</p>
+    <p style="margin-top:.5rem"><span style="font-size:.86rem">Remissão à LGPD, não transcrição:
+    o inciso é citado aqui pelo conteúdo, não reproduzido literalmente.</span></p>
+  </div>
+</div>
+
+<h2 id="fora">O que ficou de fora, e por quê</h2>
+
+<p>A curadoria só é confiável se declarar o que descartou. Nenhum dos dispositivos abaixo é
+irrelevante &mdash; todos têm <b>outro destinatário</b>.</p>
+
+<div class="rolagem">
+<table class="fora">
+  <tr><th>Dispositivo</th><th>Por que ficou de fora</th></tr>
+  <tr><td>Art. 4º</td><td>Definições (privacidade desde a concepção, auditabilidade, explicabilidade, contestabilidade). Contexto conceitual; não muda decisão de quem opera.</td></tr>
+  <tr><td>Art. 11, §§ 1º a 3º</td><td>Auditoria e monitoramento contínuo das soluções de alto risco, revisão anual do Anexo, revisão periódica das de baixo risco. Destinatário: tribunais e Comitê Nacional. <b>O <i>caput</i> entrou indiretamente</b>, pela remissão ao Anexo.</td></tr>
+  <tr><td>Art. 15</td><td>Composição do Comitê Nacional de Inteligência Artificial do Judiciário. Destinatário é a estrutura de governança nacional. <b>Alterado pela Res. CNJ 674/2026</b> &mdash; material antigo sobre a composição está desatualizado.</td></tr>
+  <tr><td>Art. 19, § 4º</td><td>Manual de boas práticas em linguagem simples. Destinatário: Comitê Nacional. <b>Vale saber que existe</b>, porque é material oficial de consulta quando publicado.</td></tr>
+  <tr><td>Art. 19, § 5º</td><td>Dever de tribunais e escolas de promover capacitação continuada, em consonância com CNJ, Enfam e Enamat. É o par institucional do § 3º, I: <b>a obrigação do servidor de se capacitar tem, do outro lado, a obrigação da casa de capacitar</b>. Destinatário, porém, é o tribunal.</td></tr>
+  <tr><td>Art. 19, § 8º</td><td>Consolidação das informações do § 7º e envio ao Comitê Nacional. Destinatário: tribunal. Comentado no bloco do § 7º, porque explica para onde vai o que você informa.</td></tr>
+  <tr><td>Art. 21, § 2º</td><td>Rótulos de identificação nos logs de uso do sistema. É a base do registro automático citado no art. 19, § 6º, mas o dever recai sobre o <b>sistema</b>, não sobre o usuário.</td></tr>
+  <tr><td><b>Art. 22</b></td><td><b>Excluído com ressalva.</b> Determina que o modelo adotado observe a LGPD e a Lei de Acesso à Informação, e que a conformidade seja <i>assegurada contratualmente</i> (§ 1º). Ficou fora porque o dever recai sobre a solução adotada pelo tribunal &mdash; mas o § 1º é citado no bloco do art. 19, § 3º, III, e quem for tratar de acesso à informação deve conhecer o <i>caput</i>.</td></tr>
+  <tr><td>Arts. de governança institucional</td><td>Endereçados a tribunais e comitês: aprovação de soluções, planos, catálogo público, prestação de contas.</td></tr>
+</table>
+</div>
+
+<h2 id="caminho">O caminho de decisão, em uma tabela</h2>
+
+<p>A pergunta que resolve noventa por cento dos casos não é qual artigo citar, e sim
+<b>o que você está pedindo</b>. A faixa de risco vem da tarefa &mdash; não da ferramenta, não do
+documento.</p>
+
+<div class="rolagem">
+<table>
+  <tr><th>O que você está pedindo</th><th>Onde isso cai</th><th>O que a Resolução exige</th></tr>
+  <tr>
+    <td>Resumir, extrair, classificar, agrupar, transcrever, anonimizar</td>
+    <td><b>Baixo risco</b><br>BR1, BR7, BR8</td>
+    <td>Supervisão humana, que o próprio Anexo exige; e o sigilo conferido <b>antes</b> de colar
+    (§ 3º, IV)</td>
+  </tr>
+  <tr>
+    <td>Redigir texto de apoio para um ato judicial: minuta, estrutura, rascunho</td>
+    <td><b>Baixo risco</b><br>BR4</td>
+    <td>Supervisão e versão final do magistrado; a responsabilidade permanece integralmente de
+    quem assina (§ 3º, II)</td>
+  </tr>
+  <tr>
+    <td>Pedir a conclusão: enquadrar o fato na norma ou no precedente, fixar valor de indenização</td>
+    <td><b>Alto risco</b><br>AR4</td>
+    <td>Vedado em ferramenta privada ou externa (§ 3º, V), <b>mesmo anonimizado</b>. Na solução
+    institucional, o art. 11, § 1º impõe auditoria e monitoramento contínuo</td>
+  </tr>
+  <tr>
+    <td>Qualquer das quatro hipóteses do art. 10</td>
+    <td><b>Risco excessivo</b></td>
+    <td>Vedado sempre, inclusive na ferramenta da casa. Não há ressalva de anonimização nem de
+    supervisão</td>
+  </tr>
+</table>
+</div>
+
+<div class="destaque">
+  <p class="grande">A frase que resume a Resolução</p>
+  <p>Ela não pergunta qual é a marca da ferramenta. Pergunta duas coisas: <b>o que você está
+  pedindo</b> e <b>de onde veio o dado que você colou</b>. É por isso que trocar de ferramenta
+  nunca resolve, sozinho, um problema de norma.</p>
+</div>
+
+<div class="rodape">
+  <p>Leitura curada para uso didático no Curso Servidor + IA, da Justiça Federal no Ceará. As
+  citações foram conferidas contra o texto oficial da Resolução CNJ 615/2025 &mdash; pela íntegra
+  anexa à Nota Técnica 65/2026 do Centro Nacional de Inteligência da Justiça Federal e pelo texto
+  publicado em <a href="https://atos.cnj.jus.br/atos/detalhar/6001">atos.cnj.jus.br</a>, consultado
+  em 24 de agosto de 2026. Onde o texto foi sintetizado em vez de transcrito, isso está assinalado
+  no próprio bloco.</p>
+  <p><b>A norma que vale é a íntegra.</b> Esta página organiza a leitura; não a substitui.</p>
+</div>
+
+</div>
+
+<div class="barra">
+  <button type="button" id="btEditar">✎ editar</button>
+  <button type="button" id="btBaixar">baixar</button>
+</div>
+
+<script>
+(function(){
+  var folha = document.querySelector('.folha');
+  var btE = document.getElementById('btEditar');
+  var btB = document.getElementById('btBaixar');
+  var CHAVE = 'normas615-jfce';
+
+  try {
+    var salvo = localStorage.getItem(CHAVE);
+    if (salvo) { folha.innerHTML = salvo; }
+  } catch (e) {}
+
+  function guardar(){
+    try { localStorage.setItem(CHAVE, folha.innerHTML); } catch (e) {}
+  }
+
+  btE.addEventListener('click', function(){
+    var ligando = !document.body.classList.contains('editando');
+    document.body.classList.toggle('editando', ligando);
+    btE.classList.toggle('ativo', ligando);
+    folha.contentEditable = ligando ? 'true' : 'false';
+    btE.textContent = ligando ? '✓ salvar' : '✎ editar';
+    if (!ligando) { guardar(); }
+  });
+
+  folha.addEventListener('blur', guardar, true);
+
+  btB.addEventListener('click', function(){
+    var doc = '<!doctype html>\n<html lang="pt-BR">\n<head>\n<meta charset="utf-8">\n'
+      + '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
+      + '<title>' + document.title + '</title>\n<style>'
+      + document.querySelector('style').textContent
+      + '</style>\n</head>\n<body>\n<div class="folha">'
+      + folha.innerHTML + '</div>\n</body>\n</html>';
+    var blob = new Blob([doc], {type:'text/html;charset=utf-8'});
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'normas-comentadas-615.html';
+    document.body.appendChild(a); a.click();
+    setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 0);
+  });
+})();
+</script>
+
+</body>
+</html>
