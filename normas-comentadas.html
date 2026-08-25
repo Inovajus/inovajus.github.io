@@ -5,16 +5,40 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>A Resolução 615, no que importa · Curso Servidor + IA</title>
+<script>
+  /* Roda antes da pintura, senao a pagina pisca no tema do sistema e so depois
+     corrige para o tema escolhido. Sem escolha guardada, nada e marcado e a
+     media query do sistema decide. */
+  try {
+    var t = localStorage.getItem('normas615-tema');
+    if (t === 'dark' || t === 'light') {
+      document.documentElement.setAttribute('data-theme', t);
+    }
+  } catch (e) {}
+</script>
 <style>
+  /* Tema claro: a definicao completa mora aqui, no :root pelado. Os dois blocos
+     seguintes so redefinem os tokens — nenhuma cor tem sua unica definicao dentro
+     de media query ou de [data-theme], para a pagina nunca abrir sem paleta. */
   :root{
     --tinta:#161616; --fundo:#ffffff; --suave:#5f5f5f; --linha:#e4e2e0;
     --realce:#8a3b12; --caixa:#f7f4f1; --erro:#f3ece7; --forte:#f0e6de;
-    --res:#2f5d8a;
+    --res:#2f5d8a; --marca:rgba(255,199,102,.28);
   }
+  /* Sem escolha explicita, segue o sistema. O :not([data-theme="light"]) e o que
+     permite a escolha "claro" vencer um sistema em modo escuro. */
   @media (prefers-color-scheme: dark){
-    :root{ --tinta:#efedeb; --fundo:#121212; --suave:#a9a5a1; --linha:#302e2c;
-           --realce:#ffab73; --caixa:#1d1b1a; --erro:#241d1a; --forte:#2a2320;
-           --res:#8fb8e8; }
+    :root:not([data-theme="light"]){
+      --tinta:#efedeb; --fundo:#121212; --suave:#a9a5a1; --linha:#302e2c;
+      --realce:#ffab73; --caixa:#1d1b1a; --erro:#241d1a; --forte:#2a2320;
+      --res:#8fb8e8; --marca:rgba(255,199,102,.20);
+    }
+  }
+  /* Escolha explicita de escuro, valida inclusive com o sistema em claro. */
+  :root[data-theme="dark"]{
+    --tinta:#efedeb; --fundo:#121212; --suave:#a9a5a1; --linha:#302e2c;
+    --realce:#ffab73; --caixa:#1d1b1a; --erro:#241d1a; --forte:#2a2320;
+    --res:#8fb8e8; --marca:rgba(255,199,102,.20);
   }
   *{ box-sizing:border-box; }
   body{
@@ -60,9 +84,8 @@
   .mesa{ font-size:.99rem; }
   .mesa::before{ content:"Na sua mesa  "; font-size:.68rem; text-transform:uppercase;
                  letter-spacing:.09em; color:var(--realce); font-weight:700; }
-  mark{ background:rgba(255,199,102,.28); color:inherit; padding:.05em .15em;
+  mark{ background:var(--marca); color:inherit; padding:.05em .15em;
         border-radius:3px; font-style:normal; }
-  @media (prefers-color-scheme: dark){ mark{ background:rgba(255,199,102,.20); } }
 
   .destaque{ background:var(--forte); border-radius:9px; padding:1rem 1.15rem; margin:1.2rem 0; }
   .destaque p:last-child{ margin:0; }
@@ -537,6 +560,7 @@ documento.</p>
 </div>
 
 <div class="barra">
+  <button type="button" id="btTema" title="alternar entre claro e escuro">tema</button>
   <button type="button" id="btEditar">✎ editar</button>
   <button type="button" id="btBaixar">baixar</button>
 </div>
@@ -547,6 +571,42 @@ documento.</p>
   var btE = document.getElementById('btEditar');
   var btB = document.getElementById('btBaixar');
   var CHAVE = 'normas615-jfce';
+
+  /* ---- tema -------------------------------------------------------------
+     Tres estados: sem atributo = segue o sistema; data-theme="light" ou
+     "dark" = escolha explicita, que vence o sistema nos dois sentidos. */
+  var btT = document.getElementById('btTema');
+  var CHAVE_TEMA = 'normas615-tema';
+  var raiz = document.documentElement;
+  var midia = window.matchMedia('(prefers-color-scheme: dark)');
+
+  function escuroAgora(){
+    var t = raiz.getAttribute('data-theme');
+    if (t === 'dark') return true;
+    if (t === 'light') return false;
+    return midia.matches;
+  }
+
+  function pintaBotao(){
+    // o rotulo anuncia para onde o clique leva, nao onde se esta
+    btT.textContent = escuroAgora() ? '☀ claro' : '☾ escuro';
+  }
+
+  btT.addEventListener('click', function(){
+    var alvo = escuroAgora() ? 'light' : 'dark';
+    raiz.setAttribute('data-theme', alvo);
+    try { localStorage.setItem(CHAVE_TEMA, alvo); } catch (e) {}
+    pintaBotao();
+  });
+
+  // enquanto nao houver escolha guardada, acompanha o sistema ao vivo
+  if (midia.addEventListener) {
+    midia.addEventListener('change', function(){
+      if (!raiz.getAttribute('data-theme')) { pintaBotao(); }
+    });
+  }
+
+  pintaBotao();
 
   try {
     var salvo = localStorage.getItem(CHAVE);
@@ -569,7 +629,10 @@ documento.</p>
   folha.addEventListener('blur', guardar, true);
 
   btB.addEventListener('click', function(){
-    var doc = '<!doctype html>\n<html lang="pt-BR">\n<head>\n<meta charset="utf-8">\n'
+    // o arquivo baixado sai com o tema que estava na tela
+    var tema = raiz.getAttribute('data-theme');
+    var doc = '<!doctype html>\n<html lang="pt-BR"'
+      + (tema ? ' data-theme="' + tema + '"' : '') + '>\n<head>\n<meta charset="utf-8">\n'
       + '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
       + '<title>' + document.title + '</title>\n<style>'
       + document.querySelector('style').textContent
