@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Proposta de etapa preparatória do curso Gestor + IA: levantamento de dados junto aos gestores administrativos da 5ª Região. INOVAJUS, Eixo de Tecnologia e IA.">
+<!-- Projeto Gestor + IA (TRF5) · v1.1 de 26.08.2026 (matrícula individual; dupla reservada para edição futura) -->
+<title>Levantamento Prévio — Gestor + IA</title>
+</head>
+<body>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  color-scheme:light;
+  --bg:#F6F8F9;
+  --surface:#FFFFFF;
+  --surface-2:#EEF3F5;
+  --ink:#152128;
+  --ink-2:#4C606C;
+  --ink-3:#758894;
+  --line:#D7E0E5;
+  --line-strong:#B6C6CE;
+  --accent:#12505F;
+  --accent-ink:#0C3D49;
+  --accent-soft:#E3EEF1;
+  --ok:#26694A; --ok-bg:#E9F2EC; --ok-line:#8FBBA2;
+  --warn:#8A6410; --warn-bg:#F7F0DF; --warn-line:#C8AC6B;
+  --stop:#A03227; --stop-bg:#F7E9E7; --stop-line:#D19790;
+  --on-accent:#FFFFFF;
+  --shadow:0 1px 2px rgba(21,33,40,.06),0 8px 24px -16px rgba(21,33,40,.28);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0F161A;
+    --surface:#161F25;
+    --surface-2:#1C272E;
+    --ink:#E6EDF1;
+    --ink-2:#A5B6C0;
+    --ink-3:#7C8E99;
+    --line:#2C3A43;
+    --line-strong:#3D4E59;
+    --accent:#6EB7C9;
+    --accent-ink:#8FCEDE;
+    --accent-soft:#19323A;
+    --ok:#7FC49E; --ok-bg:#15291F; --ok-line:#33604A;
+    --warn:#D5B172; --warn-bg:#2A2418; --warn-line:#5E4F2C;
+    --stop:#E29289; --stop-bg:#2B1B19; --stop-line:#6B3A34;
+    --on-accent:#0F161A;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px -18px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0F161A;
+  --surface:#161F25;
+  --surface-2:#1C272E;
+  --ink:#E6EDF1;
+  --ink-2:#A5B6C0;
+  --ink-3:#7C8E99;
+  --line:#2C3A43;
+  --line-strong:#3D4E59;
+  --accent:#6EB7C9;
+  --accent-ink:#8FCEDE;
+  --accent-soft:#19323A;
+  --ok:#7FC49E; --ok-bg:#15291F; --ok-line:#33604A;
+  --warn:#D5B172; --warn-bg:#2A2418; --warn-line:#5E4F2C;
+  --stop:#E29289; --stop-bg:#2B1B19; --stop-line:#6B3A34;
+  --on-accent:#0F161A;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px -18px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font:400 17px/1.68 "Public Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:2px}
+
+.shell{max-width:1180px;margin:0 auto;padding:0 1.5rem 6rem}
+
+/* ---------- Cabeçalho ---------- */
+.masthead{
+  border-bottom:1px solid var(--line);
+  padding:3rem 0 1.75rem;
+  display:flex;flex-direction:column;gap:.9rem;
+}
+.eyebrow{
+  font:500 .72rem/1 "IBM Plex Mono",ui-monospace,monospace;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--accent);
+  display:flex;flex-wrap:wrap;gap:.55rem;align-items:center;
+}
+.eyebrow .dot{width:4px;height:4px;border-radius:50%;background:var(--line-strong);display:inline-block}
+h1{
+  font:500 clamp(2.4rem,6vw,3.6rem)/1.04 Newsreader,Georgia,"Times New Roman",serif;
+  letter-spacing:-.015em;margin:0;text-wrap:balance;
+}
+.deck{
+  font:400 clamp(1.08rem,2.4vw,1.32rem)/1.42 Newsreader,Georgia,serif;
+  color:var(--ink-2);margin:0;max-width:34ch;text-wrap:balance;
+}
+
+/* ---------- Grid ---------- */
+.grid{display:grid;grid-template-columns:1fr;gap:2rem}
+@media (min-width:1000px){
+  .grid{grid-template-columns:15.5rem minmax(0,1fr);gap:3.5rem;align-items:start}
+}
+
+/* ---------- Trilho ---------- */
+.rail{display:flex;flex-direction:column;gap:1.5rem;padding-top:2rem}
+@media (min-width:1000px){.rail{position:sticky;top:1.5rem;max-height:calc(100vh - 3rem);overflow-y:auto}}
+.rail h2{
+  font:600 .7rem/1 "IBM Plex Mono",ui-monospace,monospace;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);
+  margin:0 0 .75rem;
+}
+.toc{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:.1rem}
+.toc a{
+  display:grid;grid-template-columns:1.9rem 1fr;gap:.15rem;
+  padding:.32rem .4rem;border-radius:4px;
+  text-decoration:none;color:var(--ink-2);font-size:.9rem;line-height:1.3;
+  border-left:2px solid transparent;
+}
+.toc a .n{font:500 .74rem/1.5 "IBM Plex Mono",ui-monospace,monospace;color:var(--ink-3)}
+.toc a:hover{background:var(--surface-2);color:var(--ink)}
+.toc a.here{color:var(--accent-ink);border-left-color:var(--accent);background:var(--accent-soft)}
+.toc a.here .n{color:var(--accent)}
+
+.ficha{
+  background:var(--surface);border:1px solid var(--line);border-radius:8px;
+  padding:.9rem 1rem;display:flex;flex-direction:column;gap:.7rem;box-shadow:var(--shadow);
+}
+.ficha div{display:flex;flex-direction:column;gap:.12rem}
+.ficha dt,.ficha .k{
+  font:500 .66rem/1 "IBM Plex Mono",ui-monospace,monospace;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);
+}
+.ficha .v{font-size:.92rem;line-height:1.35;color:var(--ink);font-weight:500}
+
+.railmobile{display:block}
+@media (min-width:1000px){.railmobile{display:none}}
+details.tocm{
+  background:var(--surface);border:1px solid var(--line);border-radius:8px;
+  padding:.75rem 1rem;margin-top:1.5rem;
+}
+details.tocm summary{
+  cursor:pointer;font:500 .78rem/1 "IBM Plex Mono",ui-monospace,monospace;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--accent);
+}
+
+/* ---------- Texto ---------- */
+main{padding-top:2rem;max-width:68ch}
+section{padding-top:1rem;margin-bottom:3rem}
+section>h2{
+  font:500 1.62rem/1.2 Newsreader,Georgia,serif;
+  letter-spacing:-.01em;margin:0 0 1rem;text-wrap:balance;
+  padding-bottom:.6rem;border-bottom:1px solid var(--line);
+  position:relative;
+}
+section>h2 .num{
+  font:500 .78rem/1 "IBM Plex Mono",ui-monospace,monospace;
+  color:var(--ink-3);display:block;margin-bottom:.4rem;letter-spacing:.1em;
+}
+p{margin:0 0 .95rem}
+.lead{font-size:1.09rem;color:var(--ink)}
+main ul,main ol{padding-left:1.25rem;margin:0 0 1rem}
+main li{margin:.35rem 0}
+main li::marker{color:var(--ink-3)}
+strong{font-weight:700}
+em{font-style:italic}
+code{
+  font:400 .88em/1.4 "IBM Plex Mono",ui-monospace,monospace;
+  background:var(--surface-2);padding:.1em .35em;border-radius:3px;
+}
+h3{font:600 1rem/1.35 "Public Sans",sans-serif;margin:1.6rem 0 .4rem;color:var(--ink)}
+
+/* letras de justificativa */
+.motivos{display:flex;flex-direction:column;gap:1.1rem;margin:0 0 1rem;padding:0;list-style:none;counter-reset:m}
+.motivos li{
+  display:grid;grid-template-columns:1.7rem 1fr;gap:.7rem;margin:0;counter-increment:m;
+}
+.motivos li::before{
+  content:counter(m,lower-alpha);
+  font:500 .82rem/1.55 "IBM Plex Mono",ui-monospace,monospace;
+  color:var(--accent);border-top:2px solid var(--accent);padding-top:.3rem;
+}
+.motivos p{margin:0}
+.motivos .t{font-weight:700;display:block;margin-bottom:.15rem}
+
+/* tese */
+.tese{
+  background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);
+  border-radius:0 8px 8px 0;padding:1.2rem 1.3rem;margin:0 0 1rem;box-shadow:var(--shadow);
+}
+.tese p{margin:0 0 .7rem}
+.tese p:last-child{margin:0}
+.tese .virada{
+  font:500 1.06rem/1.45 Newsreader,Georgia,serif;color:var(--accent-ink);
+}
+
+/* tabelas */
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:8px;margin:0 0 1rem;background:var(--surface);box-shadow:var(--shadow)}
+table{border-collapse:collapse;width:100%;font-size:.93rem;min-width:34rem}
+caption{caption-side:top;text-align:left;padding:.7rem .85rem 0;font:500 .7rem/1 "IBM Plex Mono",ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+th{
+  text-align:left;font:600 .7rem/1.3 "IBM Plex Mono",ui-monospace,monospace;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2);
+  background:var(--surface-2);padding:.6rem .85rem;border-bottom:1px solid var(--line-strong);
+  white-space:nowrap;vertical-align:bottom;
+}
+td{padding:.7rem .85rem;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.5}
+tbody tr:last-child td{border-bottom:none}
+td.enc{
+  font:500 .95rem/1.5 "IBM Plex Mono",ui-monospace,monospace;
+  color:var(--accent);font-variant-numeric:tabular-nums;white-space:nowrap;
+}
+td .tema{font-weight:700;display:block;margin-bottom:.2rem}
+td .det{color:var(--ink-2);font-size:.9rem;line-height:1.45}
+.troca{
+  display:inline-block;font:500 .62rem/1 "IBM Plex Mono",ui-monospace,monospace;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--accent);
+  background:var(--accent-soft);border-radius:3px;padding:.22rem .4rem;margin-left:.35rem;vertical-align:.1em;
+}
+td.descartado{color:var(--stop)}
+
+/* semáforo */
+.semaforo{display:flex;flex-direction:column;gap:.7rem;margin:0 0 1rem}
+.sem{border:1px solid var(--line);border-left-width:4px;border-radius:0 8px 8px 0;padding:.85rem 1.05rem;background:var(--surface)}
+.sem .chip{
+  font:600 .66rem/1 "IBM Plex Mono",ui-monospace,monospace;
+  letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:.35rem;
+}
+.sem p{margin:0;font-size:.96rem;line-height:1.55;color:var(--ink)}
+.sem.ok{border-left-color:var(--ok-line);background:var(--ok-bg)} .sem.ok .chip{color:var(--ok)}
+.sem.warn{border-left-color:var(--warn-line);background:var(--warn-bg)} .sem.warn .chip{color:var(--warn)}
+.sem.stop{border-left-color:var(--stop-line);background:var(--stop-bg)} .sem.stop .chip{color:var(--stop)}
+.regra{
+  font:500 .95rem/1.5 "Public Sans",sans-serif;color:var(--ink);
+  border:1px dashed var(--line-strong);border-radius:6px;padding:.6rem .85rem;margin:0 0 1rem;background:var(--surface-2);
+}
+
+/* etapas de replicação */
+.fases{list-style:none;padding:0;margin:0 0 1rem;counter-reset:f;display:flex;flex-direction:column;gap:.85rem}
+.fases li{display:grid;grid-template-columns:2.1rem 1fr;gap:.75rem;counter-increment:f;margin:0}
+.fases li::before{
+  content:"F" counter(f);
+  font:500 .74rem/1.4 "IBM Plex Mono",ui-monospace,monospace;color:var(--accent);
+  background:var(--accent-soft);border-radius:4px;padding:.2rem 0;text-align:center;height:1.7rem;
+}
+
+.foot{
+  margin-top:3rem;padding-top:1.2rem;border-top:1px solid var(--line);
+  font-size:.88rem;line-height:1.6;color:var(--ink-2);
+}
+
+/* ---------- Barra de ferramentas ---------- */
+.tools{
+  position:fixed;right:1rem;bottom:1rem;z-index:20;
+  display:flex;gap:.4rem;align-items:center;
+  background:var(--surface);border:1px solid var(--line);border-radius:999px;
+  padding:.3rem;box-shadow:var(--shadow);
+}
+.tools button{
+  font:500 .8rem/1 "Public Sans",sans-serif;color:var(--ink-2);
+  background:transparent;border:none;border-radius:999px;padding:.5rem .8rem;cursor:pointer;
+}
+.tools button:hover{background:var(--surface-2);color:var(--ink)}
+.tools button.on{background:var(--accent);color:var(--on-accent)}
+.tools .sep{width:1px;height:1.2rem;background:var(--line)}
+
+  font:400 .72rem/1.2 "Public Sans",sans-serif;color:var(--ink-3);
+  padding:0 .55rem 0 .3rem;max-width:11rem;display:none;
+}
+
+@media (max-width:520px){
+  .tools{left:1rem;right:1rem;justify-content:center}
+  .tools .aviso{display:none!important}
+}
+
+@media print{
+  .tools,.rail,.railmobile{display:none!important}
+  body{background:#fff;color:#000;font-size:11pt}
+  .shell{max-width:none;padding:0}
+  .grid{display:block}
+  main{max-width:none;padding-top:0}
+  section{break-inside:auto;page-break-inside:auto}
+  section>h2{break-after:avoid;page-break-after:avoid}
+  .tablewrap,.sem,.tese{break-inside:avoid;page-break-inside:avoid;box-shadow:none}
+  a{color:#000;text-decoration:none}
+}
+</style>
+
+<div class="shell">
+
+<header class="masthead">
+  <div class="eyebrow">
+    <span>Proposta de etapa preparatória</span><span class="dot"></span>
+    <span>para apreciação do TRF5</span><span class="dot"></span>
+    <span>v1.0 · 26.08.2026</span>
+  </div>
+  <h1>Levantamento Prévio</h1>
+  <p class="deck">Consulta aos gestores administrativos da 5ª Região, antes da turma-piloto do curso Gestor + IA</p>
+</header>
+
+<div class="grid">
+
+  <aside class="rail" aria-label="Navegação do documento">
+    <nav>
+      <h2>Sumário</h2>
+      <ol class="toc" id="toc">
+        <li><a href="#objeto"><span class="n">01</span><span>Objeto</span></a></li>
+        <li><a href="#precedente"><span class="n">02</span><span>O precedente de 2025</span></a></li>
+        <li><a href="#justificativa"><span class="n">03</span><span>Justificativa</span></a></li>
+        <li><a href="#escopo"><span class="n">04</span><span>Escopo</span></a></li>
+        <li><a href="#produtos"><span class="n">05</span><span>Produtos</span></a></li>
+        <li><a href="#conducao"><span class="n">06</span><span>Condução e cronograma</span></a></li>
+        <li><a href="#recomendacao"><span class="n">07</span><span>Recomendação</span></a></li>
+        <li><a href="#questionario"><span class="n">08</span><span>Anexo A — Questionário</span></a></li>
+      </ol>
+    </nav>
+    <div class="ficha">
+      <div><span class="k">Referência</span><span class="v">Projeto Gestor + IA, v1.1</span></div>
+      <div><span class="k">Instrumento</span><span class="v">Questionário + reunião por seccional</span></div>
+      <div><span class="k">Duração</span><span class="v">6 semanas</span></div>
+      <div><span class="k">Proponente</span><span class="v">JFCE · INOVAJUS<br>Eixo de Tecnologia e IA</span></div>
+    </div>
+  </aside>
+
+  <div>
+  <div class="railmobile">
+    <details class="tocm">
+      <summary>Sumário do documento</summary>
+      <ol class="toc" style="margin-top:.7rem">
+        <li><a href="#objeto"><span class="n">01</span><span>Objeto</span></a></li>
+        <li><a href="#precedente"><span class="n">02</span><span>O precedente de 2025</span></a></li>
+        <li><a href="#justificativa"><span class="n">03</span><span>Justificativa</span></a></li>
+        <li><a href="#escopo"><span class="n">04</span><span>Escopo</span></a></li>
+        <li><a href="#produtos"><span class="n">05</span><span>Produtos</span></a></li>
+        <li><a href="#conducao"><span class="n">06</span><span>Condução e cronograma</span></a></li>
+        <li><a href="#recomendacao"><span class="n">07</span><span>Recomendação</span></a></li>
+        <li><a href="#questionario"><span class="n">08</span><span>Anexo A — Questionário</span></a></li>
+      </ol>
+    </details>
+  </div>
+
+  <main id="doc">
+
+    <section id="objeto">
+      <h2><span class="num">01</span>Objeto</h2>
+      <p class="lead">Propõe-se a realização de um <strong>levantamento estruturado de dados junto aos diretores e supervisores de área administrativa</strong> do TRF5 e das seis Seções Judiciárias (AL, CE, PB, PE, RN e SE), como etapa preparatória do curso Gestor + IA — antes da abertura da turma-piloto regional.</p>
+      <p>O levantamento tem três finalidades: <strong>(a)</strong> mapear os processos de trabalho reais que servirão de casos de exercício do curso; <strong>(b)</strong> calibrar o conteúdo de cada área temática à realidade das unidades da região; e <strong>(c)</strong> iniciar, já na consulta, a adesão dos gestores que o curso pretende formar.</p>
+    </section>
+
+    <section id="precedente">
+      <h2><span class="num">02</span>O precedente: como o curso de 2025 foi construído na JFCE</h2>
+      <p>O Curso “Transformação Administrativa com IA” (JFCE, agosto–setembro de 2025) — origem da demanda que o TRF5 formulou — não partiu de conteúdo de prateleira. Seu material foi desenvolvido <strong>com foco nas necessidades específicas de cada núcleo administrativo</strong>, levantadas diretamente com as unidades antes da preparação do curso.</p>
+      <p>O caso mais bem documentado ilustra o método e o seu valor. No Núcleo de Gestão de Pessoas, os supervisores de cada seção enviaram, entre 4 e 10 de outubro de 2024, a relação dos pontos críticos e sugestões de automação das suas rotinas, complementada pela Diretoria do Núcleo. Esse material foi analisado proposta a proposta, cotejado com os objetivos estratégicos da Seccional, e converteu-se no módulo do núcleo — uma cadeia rastreável que vai da dor declarada pelo supervisor ao exercício aplicado em sala. Em outra frente, a pesquisa de satisfação de usuários da JFCE alimentou o diagnóstico do módulo de estratégia e governança com dados reais de atendimento.</p>
+      <div class="tese">
+        <p>A experiência deixou também um aprendizado: <strong>onde a coleta foi estruturada e registrada, o conteúdo resultante permanece ancorado no trabalho real e é reaproveitável até hoje; onde a coleta foi informal, o registro se perdeu.</strong></p>
+        <p class="virada">É essa formalização — do instrumento, do registro e do produto — que esta proposta incorpora para a escala regional.</p>
+      </div>
+    </section>
+
+    <section id="justificativa">
+      <h2><span class="num">03</span>Justificativa</h2>
+      <ol class="motivos">
+        <li><p><span class="t">Num curso agêntico, o caso real não é ilustração — é insumo didático.</span>O Gestor + IA trabalha do primeiro ao último encontro sobre um processo real da unidade de cada participante, medido antes e depois. Sem levantamento prévio, a escolha do caso ocorre às cegas no primeiro encontro; com ele, a coordenação chega à turma-piloto conhecendo os processos candidatos de cada unidade e prepara demonstrações sobre material que a turma reconhece como seu.</p></li>
+        <li><p><span class="t">A 5ª Região não é homogênea.</span>Sete unidades administrativas, com estruturas, sistemas locais e maturidades distintas de uso de IA. O que é rotina crítica numa seccional pode não existir em outra. Só o levantamento revela o mapa — e permite compor uma turma-piloto que represente a diversidade real da região, não a suposta.</p></li>
+        <li><p><span class="t">A adesão do gestor começa quando ele é ouvido.</span>Foi assim na JFCE em 2025: as unidades que declararam suas dores reconheceram-se no material e chegaram ao curso com casos próprios. A reunião de diretores administrativos da JF5 (28–29/05/2026), que pautou expressamente o uso de IA pelas Seções Judiciárias, indica que a interlocução está madura para essa consulta.</p></li>
+        <li><p><span class="t">A medição começa no levantamento.</span>O projeto do curso assume o compromisso de não divulgar nenhum número que a própria turma não tenha medido. O levantamento antecipa a linha de base: volumes, frequências e tempos estimados declarados pelos gestores compõem o primeiro retrato regional — contra o qual as medições da turma serão lidas.</p></li>
+        <li><p><span class="t">O levantamento protege o curso do conteúdo genérico.</span>A revisão crítica do acervo de 2025 mostrou que o material envelhece mal justamente onde se descolou do trabalho real. Ancorar cada área temática em processos declarados pelas próprias unidades é a defesa estrutural contra esse risco.</p></li>
+        <li><p><span class="t">Conformidade desde a origem.</span>A consulta já aplica o semáforo administrativo do curso: pergunta-se sobre processos de trabalho e documentos públicos (LAI), sem coleta de dado pessoal de servidor nem de informação sigilosa — em linha com a Res. CNJ nº 615/2025 e a LGPD.</p></li>
+      </ol>
+    </section>
+
+    <section id="escopo">
+      <h2><span class="num">04</span>Escopo</h2>
+      <h3>Inclui</h3>
+      <ul>
+        <li>Questionário estruturado aos diretores e supervisores de área administrativa das sete unidades (respondível em 15 a 20 minutos — minuta no Anexo A);</li>
+        <li>Uma reunião de aprofundamento por seccional (videoconferência, cerca de 1 hora), com os gestores respondentes, para detalhar os processos mais promissores;</li>
+        <li>Análise consolidada e devolutiva ao TRF5.</li>
+      </ul>
+      <p class="regra">Não inclui — e convém dizer: não é auditoria nem avaliação das unidades; não coleta dado pessoal de servidor, dado processual nem informação sigilosa; não gera ranking entre seccionais. Os dados servem ao desenho do curso e à linha de base regional — nada além disso.</p>
+    </section>
+
+    <section id="produtos">
+      <h2><span class="num">05</span>Produtos</h2>
+      <div class="tablewrap"><table>
+        <thead><tr><th>#</th><th>Produto</th><th>Uso</th></tr></thead>
+        <tbody>
+          <tr><td class="enc">1</td><td>Mapa regional de processos administrativos candidatos, por área temática e seccional</td><td>Calibragem da grade e das demonstrações</td></tr>
+          <tr><td class="enc">2</td><td>Banco de casos reais (documentos públicos indicados pelas unidades)</td><td>Casos de exercício dos encontros</td></tr>
+          <tr><td class="enc">3</td><td>Retrato de maturidade de uso de IA por unidade</td><td>Nivelamento da turma e do material</td></tr>
+          <tr><td class="enc">4</td><td>Linha de base regional declarada (volumes, frequências, tempos estimados)</td><td>Referência para as medições da turma</td></tr>
+          <tr><td class="enc">5</td><td>Subsídio ao critério de indicação de participantes por seccional</td><td>Composição da turma-piloto</td></tr>
+          <tr><td class="enc">6</td><td>Relatório consolidado ao TRF5, com sugestão de compartilhamento com o GT-IA (Portaria Conjunta nº 2/2025)</td><td>Governança e memória institucional</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section id="conducao">
+      <h2><span class="num">06</span>Condução, esforço e cronograma</h2>
+      <p>Condução pela equipe do curso (INOVAJUS/JFCE), com apoio da unidade de capacitação do TRF5 na expedição do questionário e na convocação das reuniões. Sem custo adicional relevante: o esforço é de coordenação e análise, absorvido pela equipe proponente.</p>
+      <div class="tablewrap"><table>
+        <thead><tr><th>Etapa</th><th>Prazo</th></tr></thead>
+        <tbody>
+          <tr><td>Expedição do questionário aos gestores, pelo TRF5</td><td>Semana 1</td></tr>
+          <tr><td>Janela de resposta</td><td>Semanas 1–3</td></tr>
+          <tr><td>Reuniões de aprofundamento por seccional</td><td>Semanas 3–4</td></tr>
+          <tr><td>Análise, consolidação e devolutiva ao TRF5</td><td>Semana 5</td></tr>
+          <tr><td>Ajuste fino da grade e abertura das indicações para a turma-piloto</td><td>Semana 6</td></tr>
+        </tbody>
+      </table></div>
+      <p>O cronograma encaixa-se no do projeto do curso: o levantamento ocupa o intervalo entre a aprovação do projeto e a indicação dos participantes, sem adiar o início da turma-piloto.</p>
+    </section>
+
+    <section id="recomendacao">
+      <h2><span class="num">07</span>Recomendação</h2>
+      <p>Recomenda-se a aprovação da etapa preparatória e a expedição do questionário do Anexo A pela unidade de capacitação do TRF5 aos diretores e supervisores de área administrativa das sete unidades da 5ª Região. O levantamento reproduz — agora com instrumento formal e registro sistemático — o método que deu ao curso de 2025 o seu principal acerto: <strong>ensinar sobre o trabalho que as unidades efetivamente fazem</strong>.</p>
+    </section>
+
+    <section id="questionario">
+      <h2><span class="num">08</span>Anexo A — Minuta do questionário</h2>
+      <p><em>Respondível em 15 a 20 minutos. As respostas alimentam exclusivamente o desenho do curso Gestor + IA e a sua linha de base regional. Não informe dado pessoal de servidor, dado processual nem informação sigilosa.</em></p>
+      <ol>
+        <li><strong>Identificação.</strong> Unidade, seccional e área de atuação (gestão de pessoas; orçamento e finanças; governança e contratações; auditoria; infraestrutura; comunicação; estratégia; outra).</li>
+        <li><strong>Trabalhos repetitivos.</strong> Liste até três trabalhos da sua unidade que se repetem (semanal, mensal ou anualmente) e que operam sobre lotes de documentos ou planilhas — por exemplo: conferências entre planilhas, checagens de completude de processos, harmonização de documentos, consolidação de relatórios.</li>
+        <li><strong>O mais crítico.</strong> Dos trabalhos listados, qual mais consome a equipe? Descreva em até cinco linhas como ele é feito hoje.</li>
+        <li><strong>Volume e frequência.</strong> Para esse trabalho: qual o volume típico por ciclo (documentos, linhas de planilha, processos) e com que frequência ocorre?</li>
+        <li><strong>Tempo estimado.</strong> Quantas horas de trabalho da equipe esse ciclo consome, aproximadamente?</li>
+        <li><strong>Retrabalho e erro.</strong> O que mais gera retrabalho ou erro nesse processo hoje?</li>
+        <li><strong>Onde vivem os documentos.</strong> Em que ambiente estão os documentos desse trabalho (SEI, pasta de rede, planilha local, sistema próprio)? Eles são: (a) públicos ou publicáveis; (b) públicos com dado pessoal incidental; (c) sigilosos ou com dado pessoal de servidor?</li>
+        <li><strong>Uso atual de IA.</strong> A unidade já utiliza alguma ferramenta de IA? Qual, para quê e com que frequência? Há alguma orientação interna sobre esse uso?</li>
+        <li><strong>Caso real candidato.</strong> A unidade dispõe de um conjunto de documentos públicos (contratos assinados, editais, termos de referência, planilhas orçamentárias públicas, normativos) que poderia servir de caso de exercício no curso? Qual?</li>
+        <li><strong>Critério de sucesso.</strong> Que resultado concreto, na sua avaliação, tornaria o curso um sucesso para a sua unidade?</li>
+      </ol>
+      <p><em>Campo livre para observações.</em></p>
+
+      <p class="foot">Documento de referência: <code>proposta-levantamento-previo.md</code> (com versão .docx para o SEI), no repositório do INOVAJUS (Eixo de Tecnologia e IA). Etapa preparatória do Projeto de Curso “Gestor + IA — Sistemas Agênticos na Área Administrativa da 5ª Região”, v1.1.</p>
+    </section>
+
+  </main>
+  </div>
+</div>
+</div>
+<div class="tools" role="toolbar" aria-label="Ferramentas do documento">
+  <button id="btn-tema" type="button" aria-label="Alternar tema claro ou escuro">Tema: auto</button>
+  <span class="sep" aria-hidden="true"></span>
+  <button id="btn-print" type="button">Imprimir</button>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  document.getElementById('btn-print').addEventListener('click',function(){
+    try{ window.print(); }catch(e){}
+  });
+
+  /* tema claro/escuro: auto (segue o sistema) -> claro -> escuro */
+  var CHAVE='gestor-ia-trf5:tema';
+  var btnTema=document.getElementById('btn-tema');
+  var NOMES={auto:'Tema: auto',light:'Tema: claro',dark:'Tema: escuro'};
+  function aplicar(t){
+    var raiz=document.documentElement;
+    if(t==='light'||t==='dark'){ raiz.setAttribute('data-theme',t); }
+    else { raiz.removeAttribute('data-theme'); t='auto'; }
+    btnTema.textContent=NOMES[t];
+    return t;
+  }
+  var tema='auto';
+  try{ tema=aplicar(localStorage.getItem(CHAVE)); }catch(e){ aplicar('auto'); }
+  btnTema.addEventListener('click',function(){
+    tema=aplicar(tema==='auto'?'light':(tema==='light'?'dark':'auto'));
+    try{ if(tema==='auto'){ localStorage.removeItem(CHAVE); } else { localStorage.setItem(CHAVE,tema); } }catch(e){}
+  });
+
+  /* marca a seção corrente no sumário */
+  var links=[].slice.call(document.querySelectorAll('.rail .toc a'));
+  var alvo={};
+  links.forEach(function(a){ alvo[a.getAttribute('href').slice(1)]=a; });
+  if('IntersectionObserver' in window){
+    var obs=new IntersectionObserver(function(entradas){
+      entradas.forEach(function(e){
+        if(!e.isIntersecting) return;
+        links.forEach(function(a){ a.classList.remove('here'); });
+        var a=alvo[e.target.id];
+        if(a) a.classList.add('here');
+      });
+    },{rootMargin:'-15% 0px -70% 0px',threshold:0});
+    [].slice.call(document.querySelectorAll('main section')).forEach(function(s){ obs.observe(s); });
+  }
+})();
+</script>
+</body>
+</html>
