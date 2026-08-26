@@ -509,6 +509,8 @@ td.descartado{color:var(--stop)}
 </div>
 
 <div class="tools" role="toolbar" aria-label="Ferramentas do documento">
+  <button id="btn-tema" type="button" aria-label="Alternar tema claro ou escuro">Tema: auto</button>
+  <span class="sep" aria-hidden="true"></span>
   <button id="btn-print" type="button">Imprimir</button>
 </div>
 
@@ -517,6 +519,24 @@ td.descartado{color:var(--stop)}
   "use strict";
   document.getElementById('btn-print').addEventListener('click',function(){
     try{ window.print(); }catch(e){}
+  });
+
+  /* tema claro/escuro: auto (segue o sistema) -> claro -> escuro */
+  var CHAVE='gestor-ia-trf5:tema';
+  var btnTema=document.getElementById('btn-tema');
+  var NOMES={auto:'Tema: auto',light:'Tema: claro',dark:'Tema: escuro'};
+  function aplicar(t){
+    var raiz=document.documentElement;
+    if(t==='light'||t==='dark'){ raiz.setAttribute('data-theme',t); }
+    else { raiz.removeAttribute('data-theme'); t='auto'; }
+    btnTema.textContent=NOMES[t];
+    return t;
+  }
+  var tema='auto';
+  try{ tema=aplicar(localStorage.getItem(CHAVE)); }catch(e){ aplicar('auto'); }
+  btnTema.addEventListener('click',function(){
+    tema=aplicar(tema==='auto'?'light':(tema==='light'?'dark':'auto'));
+    try{ if(tema==='auto'){ localStorage.removeItem(CHAVE); } else { localStorage.setItem(CHAVE,tema); } }catch(e){}
   });
 
   /* marca a seção corrente no sumário */
