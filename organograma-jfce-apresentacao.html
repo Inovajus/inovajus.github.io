@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Estrutura organizacional da Seção Judiciária do Ceará conforme o Anexo II da Resolução TRF5 nº 4/2026: 229 unidades e 642 funções comissionadas, navegáveis por nível.">
+<meta name="description" content="Versão para apresentação do organograma da Seção Judiciária do Ceará (Anexo II da Resolução TRF5 nº 4/2026), com os quatro temas do design system MIRA.">
 <meta name="author" content="INOVAJUS — Justiça Federal no Ceará">
-<meta property="og:title" content="Organograma da Justiça Federal no Ceará">
-<meta property="og:description" content="Anexo II da Resolução TRF5 nº 4/2026, navegável por nível.">
+<meta property="og:title" content="Organograma JFCE para Apresentação">
+<meta property="og:description" content="Anexo II da Resolução TRF5 nº 4/2026, navegável, no design system do MIRA.">
 <meta property="og:type" content="website">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8F%9B%EF%B8%8F%3C/text%3E%3C/svg%3E">
-<title>Organograma da Justiça Federal no Ceará</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%A8%3C/text%3E%3C/svg%3E">
+<title>Organograma JFCE para Apresentação</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
 <style>
 :root{
   --ground:#F4F7F8; --surface:#FFFFFF; --surface-2:#E9EFF1; --surface-3:#DDE7EA;
@@ -356,6 +356,240 @@ body[data-edit="1"] .aviso-edit{display:flex}
   body{background:#fff}
 }
 @media (prefers-reduced-motion:reduce){ *{transition:none !important} }
+
+/* ═══ SKIN MIRA ═══ */
+/* ══════════════════════════════════════════════════════════
+   SKIN MIRA — preview. Não altera o template: remapeia os
+   tokens da página para os 16 tokens --mira-* do design system
+   (mira-templates/themes/), e reveste os componentes com o
+   vocabulário do MIRA (glass-card, attribute-pill, badge).
+
+   Especificidade: html:root[data-mira=...] = (0,2,1), empata com
+   o @media dark da página e vence por vir depois na cascata.
+   ══════════════════════════════════════════════════════════ */
+
+/* ── os 4 temas do MIRA ───────────────────────────────── */
+html:root[data-mira="mira-dark"]{
+  --mira-primary:#FF904D; --mira-bg:#000000; --mira-text:#ffffff;
+  --mira-text-soft:rgba(255,255,255,.70); --mira-text-softer:rgba(255,255,255,.50);
+  --mira-card-bg:rgba(255,255,255,.05); --mira-card-border:rgba(255,255,255,.10);
+  --mira-glow-soft:rgba(255,144,77,.15); --mira-glow-strong:rgba(255,144,77,.25);
+  --mira-icon-bg:rgba(255,144,77,.15); --mira-icon-border:rgba(255,144,77,.30);
+  --mira-pill-bg:rgba(255,255,255,.04); --mira-pill-border:rgba(255,255,255,.08);
+  --mira-stage-glow:rgba(255,144,77,.06); --mira-accent-2:#FFC766;
+}
+html:root[data-mira="light-minimal"]{
+  --mira-primary:#E8722A; --mira-bg:#FAFAF7; --mira-text:#1A1A1A;
+  --mira-text-soft:rgba(26,26,26,.72); --mira-text-softer:rgba(26,26,26,.50);
+  --mira-card-bg:rgba(255,255,255,.85); --mira-card-border:rgba(0,0,0,.08);
+  --mira-glow-soft:rgba(232,114,42,.10); --mira-glow-strong:rgba(232,114,42,.18);
+  --mira-icon-bg:rgba(232,114,42,.12); --mira-icon-border:rgba(232,114,42,.30);
+  --mira-pill-bg:rgba(0,0,0,.03); --mira-pill-border:rgba(0,0,0,.08);
+  --mira-stage-glow:rgba(232,114,42,.05); --mira-accent-2:#2A6FE8;
+}
+html:root[data-mira="corporate-blue"]{
+  --mira-primary:#4DA3FF; --mira-bg:#0A1220; --mira-text:#ffffff;
+  --mira-text-soft:rgba(255,255,255,.72); --mira-text-softer:rgba(255,255,255,.50);
+  --mira-card-bg:rgba(255,255,255,.05); --mira-card-border:rgba(255,255,255,.10);
+  --mira-glow-soft:rgba(77,163,255,.15); --mira-glow-strong:rgba(77,163,255,.25);
+  --mira-icon-bg:rgba(77,163,255,.15); --mira-icon-border:rgba(77,163,255,.30);
+  --mira-pill-bg:rgba(255,255,255,.04); --mira-pill-border:rgba(255,255,255,.08);
+  --mira-stage-glow:rgba(77,163,255,.06); --mira-accent-2:#6EE7F0;
+}
+html:root[data-mira="neon-emerald"]{
+  --mira-primary:#34E89E; --mira-bg:#0B0F0D; --mira-text:#F2FFF8;
+  --mira-text-soft:rgba(242,255,248,.72); --mira-text-softer:rgba(242,255,248,.50);
+  --mira-card-bg:rgba(255,255,255,.04); --mira-card-border:rgba(52,232,158,.12);
+  --mira-glow-soft:rgba(52,232,158,.12); --mira-glow-strong:rgba(52,232,158,.22);
+  --mira-icon-bg:rgba(52,232,158,.14); --mira-icon-border:rgba(52,232,158,.32);
+  --mira-pill-bg:rgba(255,255,255,.04); --mira-pill-border:rgba(255,255,255,.08);
+  --mira-stage-glow:rgba(52,232,158,.06); --mira-accent-2:#8AF0FF;
+}
+
+/* ── ponte: os tokens da página passam a ler os do MIRA ── */
+html:root[data-mira]{
+  --ground:var(--mira-bg);
+  --surface:var(--mira-card-bg);
+  --surface-2:color-mix(in srgb, var(--mira-text) 8%, transparent);
+  --surface-3:color-mix(in srgb, var(--mira-text) 16%, transparent);
+  --line:var(--mira-card-border);
+  --line-soft:color-mix(in srgb, var(--mira-text) 7%, transparent);
+  --ink:var(--mira-text);
+  --ink-2:var(--mira-text-soft);
+  --ink-3:var(--mira-text-softer);
+  --adm:var(--mira-primary);
+  --adm-soft:var(--mira-icon-bg);
+  --jud:var(--mira-accent-2);
+  --jud-soft:color-mix(in srgb, var(--mira-accent-2) 14%, transparent);
+  --bar:var(--mira-primary);
+  --bar-track:color-mix(in srgb, var(--mira-text) 10%, transparent);
+  --hub-bg:var(--mira-primary);
+  --hub-ink:var(--mira-bg);
+  --fio:color-mix(in srgb, var(--mira-primary) 55%, transparent);
+  --shadow:0 10px 30px var(--mira-glow-soft);
+  --r:.5rem;
+}
+
+/* ── tipografia do MIRA: Inter em tudo, sem serifada ───── */
+html:root[data-mira] body,
+html:root[data-mira] button{font-family:'Inter', -apple-system, "Segoe UI", sans-serif}
+html:root[data-mira] .brand h1,
+html:root[data-mira] .det h3,
+html:root[data-mira] .hub .hub-nome,
+html:root[data-mira] .faixas .txt h3{
+  font-family:'Inter', -apple-system, sans-serif; font-weight:700; letter-spacing:-.02em;
+}
+html:root[data-mira] .brand h1{font-size:24px}
+
+/* ── superfícies: glass-card do MIRA ───────────────────── */
+html:root[data-mira] .painel,
+html:root[data-mira] .sat,
+html:root[data-mira] .esfera{
+  background:var(--mira-card-bg); backdrop-filter:blur(10px);
+  border:1px solid var(--mira-card-border); border-radius:.75rem;
+  box-shadow:0 10px 30px var(--mira-glow-soft);
+  transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+}
+html:root[data-mira] .sat:hover,
+html:root[data-mira] .esfera:hover{
+  transform:translateY(-4px); box-shadow:0 20px 40px var(--mira-glow-strong);
+  border-color:var(--mira-icon-border); background:var(--mira-card-bg);
+}
+html:root[data-mira] .top{
+  background:color-mix(in srgb, var(--mira-bg) 82%, transparent);
+  backdrop-filter:blur(12px); border-bottom:1px solid var(--mira-card-border);
+}
+html:root[data-mira] .col.esq .sat{border-right:1px solid var(--mira-card-border)}
+html:root[data-mira] .col.dir .sat{border-left:1px solid var(--mira-card-border)}
+html:root[data-mira] .esfera{border-left:2px solid var(--mira-primary)}
+html:root[data-mira] .esfera[data-esfera="jud"]{border-left-color:var(--mira-accent-2)}
+
+/* ── controles: attribute-pill e mira-btn ──────────────── */
+html:root[data-mira] .btn,
+html:root[data-mira] .fchip,
+html:root[data-mira] .subir,
+html:root[data-mira] .visoes button{
+  background:var(--mira-pill-bg); border:1px solid var(--mira-pill-border);
+  border-radius:9999px; color:var(--mira-text-soft); transition:all .25s ease;
+}
+html:root[data-mira] .visoes{border:0; gap:6px; overflow:visible}
+html:root[data-mira] .visoes button + button{border-left:1px solid var(--mira-pill-border)}
+html:root[data-mira] .btn:hover,
+html:root[data-mira] .fchip:hover,
+html:root[data-mira] .subir:hover,
+html:root[data-mira] .visoes button:hover{
+  background:var(--mira-icon-bg); border-color:var(--mira-icon-border);
+  color:var(--mira-text); transform:translateY(-2px);
+}
+html:root[data-mira] .btn[aria-pressed="true"],
+html:root[data-mira] .fchip[aria-pressed="true"],
+html:root[data-mira] .visoes button[aria-pressed="true"]{
+  background:var(--mira-primary); border-color:var(--mira-primary);
+  color:var(--mira-bg); font-weight:700; box-shadow:0 0 20px var(--mira-glow-strong);
+}
+html:root[data-mira] .busca input{
+  background:color-mix(in srgb, var(--mira-text) 5%, transparent);
+  border:1px solid var(--mira-pill-border); border-radius:9999px; padding-left:15px;
+  color:var(--mira-text);
+}
+/* o tema da página cede lugar ao seletor de temas do MIRA */
+html:root[data-mira] #b-tema{display:none}
+
+/* ── selos de função: badge / badge-soft escalonados ───── */
+html:root[data-mira] .fc{border-radius:9999px; font-weight:600; padding:1px 7px}
+html:root[data-mira] .fc[data-g="cj"],
+html:root[data-mira] .fc[data-g="6"]{
+  background:var(--mira-primary); color:var(--mira-bg); border-color:var(--mira-primary);
+}
+html:root[data-mira] .fc[data-g="5"]{
+  background:var(--mira-icon-bg); color:var(--mira-primary); border-color:var(--mira-icon-border);
+}
+html:root[data-mira] .fc[data-g="4"]{
+  background:var(--mira-pill-bg); color:var(--mira-text-soft); border-color:var(--mira-pill-border);
+}
+html:root[data-mira] .fc[data-g="3"]{
+  background:transparent; color:var(--mira-text-softer); border-color:var(--mira-pill-border);
+}
+
+/* ── árvore ─────────────────────────────────────────────── */
+html:root[data-mira] .no-lin{border-radius:.5rem}
+html:root[data-mira] .no-lin:hover{background:color-mix(in srgb, var(--mira-text) 5%, transparent)}
+html:root[data-mira] .no-lin[data-sel="1"],
+html:root[data-mira] .no[data-esfera="jud"] > .no-lin[data-sel="1"]{
+  background:var(--mira-icon-bg); box-shadow:inset 2px 0 0 var(--mira-primary);
+}
+html:root[data-mira] .nome mark{border-bottom-color:var(--mira-primary)}
+html:root[data-mira] .filhos{border-left-color:color-mix(in srgb, var(--mira-text) 9%, transparent)}
+
+/* ── mapa: o centro é o acento do tema ─────────────────── */
+html:root[data-mira] .mapa-corpo{
+  background:radial-gradient(circle at 50% 45%, var(--mira-stage-glow), transparent 68%);
+}
+html:root[data-mira] .hub{
+  background:var(--mira-primary); color:var(--mira-bg);
+  box-shadow:0 0 60px var(--mira-glow-strong);
+}
+html:root[data-mira] .hub .hub-cod,
+html:root[data-mira] .hub .hub-meta{opacity:.8}
+html:root[data-mira] .sat[data-folha="1"]{background:var(--mira-pill-bg); box-shadow:none}
+html:root[data-mira] .sat-cod{color:var(--mira-primary)}
+
+/* ── escada de funções: pílulas do MIRA ────────────────── */
+html:root[data-mira] .degrau{
+  background:var(--mira-pill-bg); border:1px solid var(--mira-pill-border); border-radius:9999px;
+}
+html:root[data-mira] .degrau .cod-fc{
+  background:var(--mira-primary); color:var(--mira-bg); font-weight:700;
+}
+html:root[data-mira] .degrau[data-g="5"] .cod-fc{
+  background:color-mix(in srgb, var(--mira-primary) 72%, var(--mira-bg));
+}
+html:root[data-mira] .degrau[data-g="4"] .cod-fc{
+  background:var(--mira-icon-bg); color:var(--mira-primary);
+  border:1px solid var(--mira-icon-border);
+}
+html:root[data-mira] .degrau[data-g="3"] .cod-fc{
+  background:transparent; color:var(--mira-text-soft);
+  border:1px solid var(--mira-pill-border);
+}
+
+/* ── seletor de temas do MIRA (só no preview) ──────────── */
+.mira-sel{display:flex; gap:5px; align-items:center; flex-wrap:wrap}
+.mira-sel .rot{
+  font-size:11px; color:var(--mira-text-softer); text-transform:uppercase;
+  letter-spacing:.07em; margin-right:2px;
+}
+.mira-sel button{
+  border:1px solid var(--mira-pill-border); background:var(--mira-pill-bg);
+  color:var(--mira-text-soft); border-radius:9999px; padding:4px 11px; font-size:11.5px;
+  display:flex; align-items:center; gap:6px; transition:all .25s ease;
+}
+.mira-sel button:hover{border-color:var(--mira-icon-border); color:var(--mira-text)}
+.mira-sel button[aria-pressed="true"]{
+  border-color:var(--mira-primary); color:var(--mira-text);
+  background:var(--mira-icon-bg); font-weight:600;
+}
+.mira-sel .bolinha{
+  width:9px; height:9px; border-radius:50%; background:var(--amostra);
+  box-shadow:0 0 0 1px color-mix(in srgb, var(--mira-text) 25%, transparent);
+}
+.aviso-preview{
+  max-width:1440px; margin:0 auto; padding:12px 24px 0;
+  font-size:12px; color:var(--mira-text-softer);
+}
+.aviso-preview b{color:var(--mira-primary); font-weight:600}
+
+/* tarja de preview: texto e seletor lado a lado */
+.aviso-preview{
+  display:flex; gap:18px; align-items:center; justify-content:space-between;
+  flex-wrap:wrap; padding:14px 24px 0;
+}
+.aviso-preview p{margin:0; max-width:70ch; line-height:1.5}
+.aviso-preview code{
+  font-family:"IBM Plex Mono", monospace; font-size:11px;
+  color:var(--mira-text-soft);
+}
+
 </style>
 </head>
 <body>
@@ -392,6 +626,18 @@ body[data-edit="1"] .aviso-edit{display:flex}
   </div>
 </header>
 
+<div class="aviso-preview">
+<p><b>Versão para apresentação.</b> Mesma estrutura e os mesmos dados do Anexo II, vestidos
+com o design system do MIRA. Para consulta, citação e compartilhamento institucional, use a
+<a href="https://inovajus.github.io/organograma-jfce.html">versão de referência</a>.</p>
+  <div class="mira-sel" role="group" aria-label="Tema do design system MIRA">
+    <span class="rot">Tema MIRA</span>
+    <button type="button" data-mira-tema="mira-dark" aria-pressed="true"><span class="bolinha" style="--amostra:#FF904D"></span>dark</button>
+    <button type="button" data-mira-tema="light-minimal" aria-pressed="false"><span class="bolinha" style="--amostra:#E8722A"></span>light</button>
+    <button type="button" data-mira-tema="corporate-blue" aria-pressed="false"><span class="bolinha" style="--amostra:#4DA3FF"></span>corporate</button>
+    <button type="button" data-mira-tema="neon-emerald" aria-pressed="false"><span class="bolinha" style="--amostra:#34E89E"></span>emerald</button>
+  </div>
+</div>
 <main class="palco" id="palco-arvore">
   <section class="painel">
     <div class="painel-cab">
@@ -444,8 +690,6 @@ body[data-edit="1"] .aviso-edit{display:flex}
   Estrutura vigente desde a publicação em 7 de maio de 2026 (Diário Oficial Eletrônico Administrativo da 5ª Região nº 82).
   Processo administrativo SEI nº 0002204-25.2026.4.05.7600. Os quantitativos entre parênteses no Anexo II indicam quantas
   funções idênticas existem no conjunto de varas correspondente — por isso um mesmo cargo pode aparecer com 9, 6 ou 5 ocorrências.
-
-  <p style="margin-top:10px"><a href="https://inovajus.github.io/organograma-jfce-apresentacao.html">Versão para apresentação</a> — mesma estrutura, no design system do MIRA, com quatro temas.</p>
 </footer>
 
 <script>
@@ -1127,6 +1371,23 @@ document.getElementById("m-nv").textContent = TOTAIS.prof;
 desenharArvore();
 desenharDetalhe();
 if (location.hash === "#mapa") trocarVisao("mapa");
+
+/* ── seletor de tema do MIRA ─────────────────────────── */
+const CHAVE_MIRA = "organograma-jfce:mira";
+const btnsMira = [...document.querySelectorAll("[data-mira-tema]")];
+function aplicarMira(t){
+  if (!btnsMira.some(b => b.dataset.miraTema === t)) t = "mira-dark";
+  document.documentElement.setAttribute("data-mira", t);
+  btnsMira.forEach(b => b.setAttribute("aria-pressed", b.dataset.miraTema === t ? "true" : "false"));
+  if (visao === "mapa") requestAnimationFrame(desenharFios);
+  return t;
+}
+let temaMira = "mira-dark";
+try{ temaMira = aplicarMira(localStorage.getItem(CHAVE_MIRA) || "mira-dark"); }catch(e){ aplicarMira("mira-dark"); }
+btnsMira.forEach(b => b.addEventListener("click", () => {
+  temaMira = aplicarMira(b.dataset.miraTema);
+  try{ localStorage.setItem(CHAVE_MIRA, temaMira); }catch(e){}
+}));
 </script>
 
 </body>
