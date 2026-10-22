@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Prompt Lab — Do desafio ao prompt conferido · INOVAJUS Eixo III</title>
+
+<!-- Tudo local (pasta vendor/): o deck abre sem internet. Reveal.js 5.1.0, D3 v7, Lucide, Inter. -->
+<link rel="stylesheet" href="vendor/inter.css">
+<link rel="stylesheet" href="vendor/reset.css">
+<link rel="stylesheet" href="vendor/reveal.css">
+
+<style>
+  /* @MIRA:THEME:START mira-dark — único lugar com cor literal (igual ao deck do Curso Servidor + IA) */
+  :root {
+    --mira-primary: #FF904D;
+    --mira-crop: #35D07F;
+    --mira-bg: #000000;
+    --mira-text: #ffffff;
+    --mira-text-soft: rgba(255, 255, 255, 0.70);
+    --mira-text-softer: rgba(255, 255, 255, 0.50);
+    --mira-card-bg: rgba(255, 255, 255, 0.05);
+    --mira-card-border: rgba(255, 255, 255, 0.10);
+    --mira-glow-soft: rgba(255, 144, 77, 0.15);
+    --mira-glow-strong: rgba(255, 144, 77, 0.25);
+    --mira-icon-bg: rgba(255, 144, 77, 0.15);
+    --mira-icon-border: rgba(255, 144, 77, 0.30);
+    --mira-pill-bg: rgba(255, 255, 255, 0.04);
+    --mira-pill-border: rgba(255, 255, 255, 0.08);
+    --mira-stage-glow: rgba(255, 144, 77, 0.06);
+    --mira-accent-2: #FFC766;
+    --mira-papel: #ffffff;
+  }
+  /* @MIRA:THEME:END */
+
+  :root {
+    --mono: ui-monospace, 'Cascadia Mono', Consolas, 'Courier New', monospace;
+    --hair: color-mix(in srgb, var(--mira-text) 10%, transparent);
+    --hair-2: color-mix(in srgb, var(--mira-text) 20%, transparent);
+  }
+
+  /* Sem tema do Reveal, o reveal.css pinta a página de branco: fixar o fundo do MIRA. */
+  html, body, .reveal-viewport { background: var(--mira-bg); --r-background-color: var(--mira-bg); }
+  #fundo {
+    position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background:
+      radial-gradient(ellipse 55% 45% at 12% 0%, var(--mira-glow-soft), transparent 70%),
+      radial-gradient(ellipse 45% 40% at 100% 100%, var(--mira-stage-glow), transparent 70%);
+  }
+  .reveal { font-family: 'Inter', sans-serif; color: var(--mira-text); font-size: 22px; z-index: 1; }
+  .reveal .slides { text-align: left; }
+  /* Conteúdo centrado na vertical, como no MIRA. O display:flex vem do config do Reveal
+     (display:'flex'); pôr display aqui mostraria os slides ocultos. */
+  .reveal .slides > section { box-sizing: border-box; height: 720px; padding: 42px 72px 48px; flex-direction: column; justify-content: center; }
+  .reveal .progress { color: var(--mira-primary); height: 3px; }
+  .reveal .controls { color: var(--mira-primary); }
+  .reveal .slide-number {
+    left: 28px; right: auto; bottom: 18px; background: transparent;
+    font: 600 12px 'Inter', sans-serif; letter-spacing: 2px; color: var(--mira-text-softer);
+  }
+
+  /* ===== Tipografia ===== */
+  .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--mira-text-softer); margin: 0 0 10px; }
+  .reveal h1, .reveal h2 { font-family: 'Inter', sans-serif; color: var(--mira-text); text-transform: none; margin: 0; }
+  .reveal h2 { font-size: 44px; font-weight: 800; line-height: 1.1; letter-spacing: -0.5px; margin-bottom: 8px; }
+  .reveal h1 em, .reveal h2 em, .reveal .citacao em { color: var(--mira-primary); font-style: italic; }
+  .lead { font-size: 19px; font-style: italic; color: var(--mira-text-soft); margin: 0 0 6px; }
+
+  /* ===== Cartões de vidro ===== */
+  .glass {
+    background: var(--mira-card-bg); backdrop-filter: blur(10px);
+    border: 1px solid var(--mira-card-border); border-radius: 14px;
+    box-shadow: 0 10px 30px var(--mira-glow-soft);
+  }
+  .cards { display: grid; gap: 18px; margin-top: 28px; }
+  .c2 { grid-template-columns: 1fr 1fr; }
+  .c3 { grid-template-columns: repeat(3, 1fr); }
+  .c4 { grid-template-columns: repeat(4, 1fr); }
+  .card { padding: 22px 24px; display: flex; gap: 16px; align-items: flex-start; }
+  .card.col { flex-direction: column; gap: 12px; }
+  .card p { margin: 0; font-size: 21px; line-height: 1.42; }
+  .card p.mini { font-size: 15px; color: var(--mira-text-soft); line-height: 1.4; }
+  .card.forte { border-color: var(--mira-primary); box-shadow: 0 10px 34px var(--mira-glow-strong); }
+  .ic {
+    width: 48px; height: 48px; border-radius: 14px; flex: 0 0 auto;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--mira-icon-bg); border: 1px solid var(--mira-icon-border); color: var(--mira-primary);
+  }
+  .ic svg { width: 24px; height: 24px; }
+  .num {
+    width: 34px; height: 34px; border-radius: 50%; flex: 0 0 auto;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 15px; color: var(--mira-primary);
+    background: var(--mira-icon-bg); border: 1px solid var(--mira-icon-border);
+  }
+  .rotulo { font-size: 12px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--mira-primary); margin: 0; }
+  .rotulo.apagado { color: var(--mira-text-softer); }
+
+  .pills { display: flex; flex-wrap: wrap; gap: 10px; }
+  .pill {
+    background: var(--mira-pill-bg); border: 1px solid var(--mira-pill-border); border-radius: 999px;
+    padding: 8px 16px; font-size: 15px; color: var(--mira-text-soft); margin: 0;
+  }
+  .pill.acento { color: var(--mira-primary); border-color: var(--mira-icon-border); background: var(--mira-icon-bg); }
+
+  .prompt {
+    font-family: var(--mono); font-size: 19px; line-height: 1.6; color: var(--mira-text);
+    background: color-mix(in srgb, var(--mira-bg) 55%, transparent);
+    border: 1px solid var(--hair); border-left: 3px solid var(--mira-primary);
+    border-radius: 12px; padding: 22px 26px; margin: 22px 0;
+  }
+
+  /* ===== Tabelas ===== */
+  .tab { width: 100%; border-collapse: collapse; margin-top: 24px; font-size: 19px; }
+  .tab th {
+    font-size: 12px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--mira-primary); text-align: left; padding: 12px 18px; border-bottom: 1px solid var(--hair-2);
+  }
+  .tab td { padding: 13px 18px; border-bottom: 1px solid var(--hair); color: var(--mira-text-soft); vertical-align: top; }
+  .tab td:first-child { color: var(--mira-text); font-weight: 600; }
+  .tab .etq { color: var(--mira-primary); font-weight: 700; white-space: nowrap; }
+  .tab-moldura { padding: 6px 10px 10px; margin-top: 24px; }
+  .tab-moldura .tab { margin-top: 0; }
+
+  /* ===== Layouts especiais ===== */
+  .centro { height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; z-index: 2; }
+  .palco-fundo { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+  .palco-fundo svg { width: 100%; height: 100%; display: block; }
+  .reveal h1.capa-t { font-size: 120px; font-weight: 900; letter-spacing: -3px; line-height: 1; margin: 6px 0 14px; }
+  .capa-sub { font-size: 26px; color: var(--mira-text-soft); margin: 0 0 28px; }
+  .logo-painel { background: var(--mira-papel); border-radius: 12px; padding: 6px 14px; display: inline-block; margin-top: 34px; }
+  .logo-painel img { height: 64px; display: block; }
+
+  .citacao { font-size: 54px; font-weight: 800; line-height: 1.15; letter-spacing: -1px; max-width: 980px; margin: 0; }
+  .contraponto { font-size: 28px; color: var(--mira-accent-2); font-style: italic; margin: 30px 0 0; }
+  .aspa { font-size: 140px; line-height: .6; color: var(--mira-primary); font-weight: 900; margin: 0 0 10px; }
+
+  .divisor-num {
+    font-size: 200px; font-weight: 900; line-height: 1; letter-spacing: -6px;
+    color: transparent; -webkit-text-stroke: 2px var(--mira-primary); margin: 0;
+  }
+
+  .duas { display: grid; grid-template-columns: 470px 1fr; gap: 40px; align-items: center; margin-top: 14px; }
+  .duas.inv { grid-template-columns: 1fr 480px; }
+  .palco { position: relative; border-radius: 14px; background: radial-gradient(circle at 50% 50%, var(--mira-stage-glow), transparent 70%); }
+  .palco svg { width: 100%; height: 100%; display: block; }
+  .pilha { display: flex; flex-direction: column; gap: 14px; }
+  .passo { padding: 14px 18px; display: flex; gap: 14px; align-items: flex-start; transition: border-color .3s, box-shadow .3s; }
+  .passo .nm { font-size: 20px; font-weight: 700; margin: 0 0 3px; }
+  .passo .dc { font-size: 16px; color: var(--mira-text-soft); margin: 0; line-height: 1.35; }
+  .passo .sai { font-size: 14px; color: var(--mira-primary); margin: 5px 0 0; }
+  .hot { border-color: var(--mira-primary) !important; box-shadow: 0 8px 30px var(--mira-glow-strong) !important; }
+
+  /* 6 etapas: elipse de cartões em volta do núcleo (mesmo desenho do a13 do curso) */
+  .etapas-cena { position: relative; width: 1136px; height: 520px; margin-top: 14px; }
+  .etapas-cena svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .etapa { position: absolute; width: 262px; transform: translate(-50%, -50%); padding: 12px 15px; transition: border-color .3s, box-shadow .3s; }
+  .etapa .cab { display: flex; align-items: center; gap: 10px; }
+  .etapa .num { width: 28px; height: 28px; font-size: 13px; }
+  .etapa .nm { font-size: 19px; font-weight: 700; margin: 0; }
+  .etapa .dc { font-size: 14.5px; color: var(--mira-text-soft); margin: 6px 0 0; line-height: 1.35; }
+  .etapa .marca { font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mira-accent-2); margin: 6px 0 0; }
+  .e1 { left: 568px; top: 60px; }  .e2 { left: 930px; top: 165px; } .e3 { left: 930px; top: 365px; }
+  .e4 { left: 568px; top: 462px; } .e5 { left: 206px; top: 365px; } .e6 { left: 206px; top: 165px; }
+  .nucleo {
+    position: absolute; left: 568px; top: 262px; width: 160px; height: 160px; transform: translate(-50%, -50%);
+    border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+    background: radial-gradient(circle at 50% 38%, var(--mira-glow-strong), var(--mira-stage-glow) 70%);
+    border: 1px solid var(--mira-icon-border); box-shadow: 0 0 40px var(--mira-glow-soft);
+  }
+  .nucleo .k { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--mira-text-softer); margin: 0; }
+  .nucleo .t { font-size: 28px; font-weight: 900; margin: 4px 0 2px; }
+  .nucleo .s { font-size: 12px; font-weight: 700; letter-spacing: 1px; color: var(--mira-primary); margin: 0; }
+
+  .rodape-fim { display: flex; gap: 34px; justify-content: center; margin-top: 30px; font-size: 14px; color: var(--mira-text-softer); letter-spacing: 1px; }
+  .rodape-fim strong { color: var(--mira-primary); letter-spacing: 2px; font-size: 12px; margin-right: 6px; }
+
+  /* ===== Cronômetro (fora de .slides: não entra na cópia editada) ===== */
+  #cronometro {
+    position: fixed; right: 26px; top: 22px; z-index: 30; display: none;
+    font: 700 16px var(--mono); letter-spacing: .08em; color: var(--mira-text);
+    background: var(--mira-card-bg); backdrop-filter: blur(10px);
+    border: 1px solid var(--mira-card-border); border-radius: 999px; padding: 8px 18px;
+    cursor: pointer; user-select: none;
+  }
+  #cronometro.ativo { border-color: var(--mira-primary); box-shadow: 0 0 24px var(--mira-glow-strong); }
+  #cronometro.alerta { color: var(--mira-accent-2); border-color: var(--mira-accent-2); }
+  #cronometro.fim { color: var(--mira-bg); background: var(--mira-primary); border-color: var(--mira-primary); }
+  #cronometro .dica { font: 500 11px 'Inter', sans-serif; color: var(--mira-text-softer); margin-left: 10px; letter-spacing: 1px; }
+  #cronometro.fim .dica { color: var(--mira-bg); }
+
+  /* EDICAO:INICIO — publicar.py remove este trecho na versão de participante */
+  /* ===== Modo de edição (tecla E ou ?edit=1) ===== */
+  #barra-edicao {
+    position: fixed; left: 50%; top: 14px; transform: translateX(-50%); z-index: 40; display: none;
+    gap: 8px; align-items: center; font: 600 13px 'Inter', sans-serif;
+    background: var(--mira-card-bg); backdrop-filter: blur(12px);
+    border: 1px solid var(--mira-primary); border-radius: 999px; padding: 6px 8px 6px 16px;
+  }
+  html.editando #barra-edicao { display: flex; }
+  #barra-edicao .tag { color: var(--mira-primary); letter-spacing: 2px; margin-right: 6px; }
+  #barra-edicao button {
+    font: 600 13px 'Inter', sans-serif; color: var(--mira-text); cursor: pointer;
+    background: var(--mira-pill-bg); border: 1px solid var(--mira-card-border); border-radius: 999px; padding: 6px 14px;
+  }
+  #barra-edicao button.principal { background: var(--mira-primary); color: var(--mira-bg); border-color: var(--mira-primary); }
+  #barra-edicao #status-edicao { color: var(--mira-text-soft); margin: 0 6px; }
+  html.editando .slides [contenteditable] { outline: 1px dashed var(--mira-icon-border); outline-offset: 3px; cursor: text; }
+  html.editando .slides [contenteditable]:focus { outline: 2px solid var(--mira-primary); }
+  html.editando .reveal .slides section .fragment { opacity: 1 !important; visibility: inherit !important; transform: none !important; }
+  @media print { #barra-edicao { display: none !important; } }
+  /* EDICAO:FIM */
+
+  /* PDF de reserva (?print-pdf): a impressão do Reveal zera o recuo e o display dos slides. */
+  html.reveal-print .reveal .slides section, html.print-pdf .reveal .slides section {
+    box-sizing: border-box !important; height: 720px !important; padding: 42px 72px 48px !important;
+    display: flex !important; flex-direction: column; justify-content: center;
+  }
+  @media print {
+    #cronometro { display: none !important; }
+    .glass { backdrop-filter: none; }
+  }
+</style>
+</head>
+<body>
+
+<div id="fundo"></div>
+
+<div class="reveal">
+  <div class="slides">
+    <!-- EDITABLE_SLIDES_START -->
+
+    <!-- ===== 1 · CAPA ===== -->
+    <section data-anim="particulas">
+      <div class="palco-fundo"><svg></svg></div>
+      <div class="centro">
+        <p class="eyebrow">INOVAJUS · Eixo III · Justiça Federal no Ceará</p>
+        <h1 class="capa-t">Prompt <em>Lab</em></h1>
+        <p class="capa-sub">Do desafio ao prompt conferido</p>
+        <div class="pills">
+          <p class="pill acento">25 de novembro de 2026</p>
+          <p class="pill">3 horas</p>
+          <p class="pill">Laboratório de informática</p>
+          <p class="pill">Ação 1.1</p>
+        </div>
+        <div class="logo-painel"><img src="inovajus-logo.png" alt="INOVAJUS"></div>
+      </div>
+      <aside class="notes">
+        Esperar o silêncio. Apresentar-se em uma frase. Não começar agradecendo:
+        os primeiros 60 segundos são para a promessa.
+      </aside>
+    </section>
+
+    <!-- ===== 2 · PROMESSA ===== -->
+    <section>
+      <p class="eyebrow">Abertura · 0:00</p>
+      <h2>Em 3 horas, cada dupla sai daqui com</h2>
+      <div class="cards c3">
+        <div class="glass card col fragment fade-up">
+          <div class="ic"><i data-lucide="file-pen-line"></i></div>
+          <p>Um prompt seu, de uma tarefa do seu trabalho.</p>
+        </div>
+        <div class="glass card col fragment fade-up">
+          <div class="ic"><i data-lucide="repeat-2"></i></div>
+          <p>Que funcionou duas vezes e na mão de outra pessoa.</p>
+        </div>
+        <div class="glass card col forte fragment fade-up">
+          <div class="ic"><i data-lucide="search-check"></i></div>
+          <p>E o hábito de achar o erro que a IA esconde num texto bonito.</p>
+        </div>
+      </div>
+      <div class="pills" style="margin-top:34px">
+        <p class="pill acento">Ciclo de bancada</p>
+        <p class="pill">Desafio → Prompt → Teste e conferência → Registro</p>
+      </div>
+      <aside class="notes">
+        Ler devagar, um cartão por vez. A palavra que importa é "conferido":
+        é o tema da tarde.
+      </aside>
+    </section>
+
+    <!-- ===== 3 · IDEIA-ÂNCORA ===== -->
+    <section>
+      <div class="centro">
+        <p class="aspa">&ldquo;</p>
+        <p class="citacao">Prompt bom é o que funciona <em>na mão do colega</em>.</p>
+        <p class="contraponto">E só se sabe conferindo.</p>
+      </div>
+      <aside class="notes">
+        Dizer a frase e fazer uma pausa de três segundos. Ela volta no fechamento,
+        literalmente.
+      </aside>
+    </section>
+
+    <!-- ===== 4 · QUEM ESTÁ AQUI ===== -->
+    <section data-min="5">
+      <p class="eyebrow">Abertura · 5 minutos</p>
+      <h2>Quem está <em>aqui</em></h2>
+      <div class="cards c3">
+        <div class="glass card col">
+          <div class="ic"><i data-lucide="hand"></i></div>
+          <p>Quem fez o Curso Servidor + IA? Levante a mão.</p>
+        </div>
+        <div class="glass card col">
+          <div class="ic"><i data-lucide="users"></i></div>
+          <p>Duplas mistas: quem fez o curso com quem não fez. Área judiciária com administrativa, quando der.</p>
+        </div>
+        <div class="glass card col">
+          <div class="ic"><i data-lucide="monitor"></i></div>
+          <p>Uma estação por dupla. Hoje não é revisão de conteúdo: é bancada.</p>
+        </div>
+      </div>
+      <aside class="notes">
+        Formar as duplas agora, não depois. Quem fez o curso conhece o Prompt em
+        6 etapas e ajuda o parceiro; quem não fez traz o olhar de fora, que é ótimo
+        para conferir. Tecla T liga o cronômetro de 5 minutos, se precisar.
+      </aside>
+    </section>
+
+    <!-- ===== 5 · REGRA DO LABORATÓRIO ===== -->
+    <section>
+      <p class="eyebrow">A regra do laboratório</p>
+      <h2>O desafio é real. O documento é <em>fictício</em>.</h2>
+      <div class="cards c3">
+        <div class="glass card col fragment fade-up">
+          <div class="ic"><i data-lucide="shield-x"></i></div>
+          <p>Documento de processo ou interno não vai para IA externa. Nem de processo público, nem anonimizado.</p>
+        </div>
+        <div class="glass card col fragment fade-up">
+          <div class="ic"><i data-lucide="copy"></i></div>
+          <p>Vocês trazem a tarefa. O documento sai do Banco de Desafios ou é um gêmeo fictício: mesma estrutura, todo nome, número, data e valor trocado.</p>
+        </div>
+        <div class="glass card col forte fragment fade-up">
+          <div class="ic"><i data-lucide="user-check"></i></div>
+          <p>A IA ajuda; quem assina responde. Supervisão humana sempre.</p>
+        </div>
+      </div>
+      <aside class="notes">
+        Base: Política de Uso Responsável de IA Generativa da JFCE e Res. CNJ 615/2025.
+        Distribuir agora as Regras de Ouro e o "Onde cada dado pode ir". Este ponto
+        não se negocia: se alguém colar texto real, interromper com gentileza.
+      </aside>
+    </section>
+
+    <!-- ===== 6 · DIVISOR 01 ===== -->
+    <section>
+      <div class="centro">
+        <p class="divisor-num">01</p>
+        <h2>Conferir é <em>o trabalho</em></h2>
+        <p class="lead">O texto bonito é exatamente onde o erro se esconde.</p>
+      </div>
+      <aside class="notes">Transição para a demonstração (0:15–0:40).</aside>
+    </section>
+
+    <!-- ===== 7 · O PEDIDO VAGO ===== -->
+    <section>
+      <p class="eyebrow">Demonstração · 0:15</p>
+      <h2>Primeiro, o pedido que <em>todo mundo faz</em></h2>
+      <p class="lead">Documento: um requerimento fictício de licença para capacitação.</p>
+      <p class="prompt">Resuma esse requerimento.</p>
+      <div class="glass card">
+        <div class="ic"><i data-lucide="circle-help"></i></div>
+        <p>Ficou bonito. Está certo? Ninguém aqui sabe. Esse é o problema.</p>
+      </div>
+      <aside class="notes">
+        Ao vivo: colar o documento 4.1 do roteiro com o prompt vago. Ler o resultado
+        em voz alta. Se a internet falhar, usar o resultado guardado na véspera.
+      </aside>
+    </section>
+
+    <!-- ===== 8 · VAGO × 6 ETAPAS ===== -->
+    <section>
+      <p class="eyebrow">Demonstração</p>
+      <h2>O mesmo pedido, agora <em>conferível</em></h2>
+      <div class="cards c2">
+        <div class="glass card col">
+          <p class="rotulo apagado">Pedido vago</p>
+          <p>Texto corrido, fluente.</p>
+          <p>Para conferir, é preciso reler o documento inteiro.</p>
+          <p>Se faltou um dado, a IA preenche e não avisa.</p>
+        </div>
+        <div class="glass card col forte">
+          <p class="rotulo">Pedido em 6 etapas</p>
+          <p>Tabela campo a campo: cada linha se confere em segundos.</p>
+          <p>O que não estava no documento vem marcado INCERTO.</p>
+          <p>No fim, a IA diz o quanto confia, e por quê.</p>
+        </div>
+      </div>
+      <aside class="notes">
+        Rodar o prompt em 6 etapas (roteiro 4.3) e mostrar lado a lado. A diferença
+        não é o texto ficar mais bonito: é ficar conferível.
+      </aside>
+    </section>
+
+    <!-- ===== 9 · CAÇA AO ERRO ===== -->
+    <section data-min="5" data-anim="caca">
+      <p class="eyebrow">Caça ao Erro · 5 minutos</p>
+      <h2>Três erros e <em>uma omissão</em></h2>
+      <div class="duas inv">
+        <div class="pilha">
+          <div class="glass card">
+            <div class="ic"><i data-lucide="file-text"></i></div>
+            <p>Vocês receberam o resumo que uma IA fez do mesmo requerimento.</p>
+          </div>
+          <div class="glass card forte">
+            <div class="ic"><i data-lucide="scan-search"></i></div>
+            <p>Ele tem três erros e uma omissão. Confiram contra o documento, com a Ficha de Validação ao lado.</p>
+          </div>
+          <div class="glass card">
+            <div class="ic"><i data-lucide="hand"></i></div>
+            <p>Quem achar os quatro levanta a mão.</p>
+          </div>
+        </div>
+        <div class="palco" style="height:470px"><svg viewBox="0 0 480 470"></svg></div>
+      </div>
+      <aside class="notes">
+        Entregar agora o impresso da seção 4.4 do roteiro (um por dupla). Tecla T:
+        cronômetro de 5 minutos. A animação não entrega o gabarito: só mostra a lupa
+        passando linha por linha, que é o gesto que se quer ensinar.
+      </aside>
+    </section>
+
+    <!-- ===== 10 · GABARITO ===== -->
+    <section>
+      <p class="eyebrow">Caça ao Erro · Gabarito</p>
+      <h2>O que a IA <em>trocou</em></h2>
+      <div class="glass tab-moldura">
+        <table class="tab">
+          <thead>
+            <tr><th>No resumo da IA</th><th>No documento</th><th>Tipo de erro</th></tr>
+          </thead>
+          <tbody>
+            <tr class="fragment fade-up"><td>Em exercício desde 03/02/2016</td><td>03/02/2015</td><td>Data trocada</td></tr>
+            <tr class="fragment fade-up"><td>Curso de 120 horas</td><td>180 horas</td><td>Número trocado</td></tr>
+            <tr class="fragment fade-up"><td>"Portaria Conjunta nº 47/2023 da Direção do Foro"</td><td>Nenhuma portaria citada</td><td>Citação que não estava na fonte</td></tr>
+            <tr class="fragment fade-up"><td>Chefia "favorável"</td><td>Favorável, condicionado à indicação de substituto</td><td>Omissão de condição</td></tr>
+            <tr class="fragment fade-up"><td>"Apto ao deferimento"</td><td>Ninguém pediu conclusão</td><td>Bônus: a IA foi além da tarefa</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <aside class="notes">
+        Antes de cada linha: "quem achou?". A omissão é o erro mais perigoso: o texto
+        continua coerente, só que diz outra coisa. O art. 87 da Lei 8.112/1990 citado
+        no resumo é real; se alguém o marcou, elogiar a desconfiança: também não estava
+        no documento e teria de ser conferido na fonte oficial.
+      </aside>
+    </section>
+
+    <!-- ===== 11 · O QUE CAÇAR ===== -->
+    <section>
+      <p class="eyebrow">Para levar</p>
+      <h2>O que caçar em <em>todo</em> resultado de IA</h2>
+      <div class="cards c2">
+        <div class="glass card fragment fade-up">
+          <div class="ic"><i data-lucide="calendar-search"></i></div>
+          <p>Datas, números, nomes e valores, um a um, contra o original.</p>
+        </div>
+        <div class="glass card fragment fade-up">
+          <div class="ic"><i data-lucide="scale"></i></div>
+          <p>Citação de lei, norma ou decisão que não estava no documento.</p>
+        </div>
+        <div class="glass card forte fragment fade-up">
+          <div class="ic"><i data-lucide="filter-x"></i></div>
+          <p>Condição, ressalva ou exceção que sumiu no resumo.</p>
+        </div>
+        <div class="glass card fragment fade-up">
+          <div class="ic"><i data-lucide="ban"></i></div>
+          <p>Conclusão que ninguém pediu.</p>
+        </div>
+      </div>
+      <aside class="notes">
+        "É isso que vocês vão caçar no próprio prompt daqui a pouco." Os quatro itens
+        são a coluna "Você conferiu" da Ficha de Validação.
+      </aside>
+    </section>
+
+    <!-- ===== 12 · DIVISOR 02 ===== -->
+    <section>
+      <div class="centro">
+        <p class="divisor-num">02</p>
+        <h2>O ciclo <em>de bancada</em></h2>
+        <p class="lead">Desafio → Prompt → Teste e conferência → Registro</p>
+      </div>
+      <aside class="notes">Transição para o Passo 1 (0:40).</aside>
+    </section>
+
+    <!-- ===== 13 · OS QUATRO PASSOS (ciclo animado) ===== -->
+    <section data-anim="ciclo">
+      <p class="eyebrow">O ciclo de bancada</p>
+      <h2>Quatro passos, <em>uma tarde</em></h2>
+      <div class="duas">
+        <div class="palco" style="height:500px"><svg viewBox="0 0 470 500"></svg></div>
+        <div class="pilha">
+          <div class="glass passo"><div class="num">1</div><div>
+            <p class="nm">Desafio</p>
+            <p class="dc">Escolhe uma tarefa real e diz como vai conferir.</p>
+            <p class="sai">Sai com: Cartão do Desafio, Caso A e Caso B</p></div></div>
+          <div class="glass passo"><div class="num">2</div><div>
+            <p class="nm">Prompt</p>
+            <p class="dc">Escreve nas 6 etapas, roda no Caso A, confere.</p>
+            <p class="sai">Sai com: Ficha de Validação nº 1</p></div></div>
+          <div class="glass passo"><div class="num">3</div><div>
+            <p class="nm">Teste e conferência</p>
+            <p class="dc">Corrige o prompt; outra dupla roda no Caso B e confere.</p>
+            <p class="sai">Sai com: Fichas nº 2 e nº 3</p></div></div>
+          <div class="glass passo"><div class="num">4</div><div>
+            <p class="nm">Registro</p>
+            <p class="dc">Registra o prompt para o Banco de Prompts.</p>
+            <p class="sai">Sai com: Ficha de Registro</p></div></div>
+        </div>
+      </div>
+      <aside class="notes">
+        Estamos no passo 1. Mostrar as fichas físicas enquanto fala de cada linha.
+        O ponto que gira é o ciclo: quem acha erro no passo 3 volta ao 2.
+      </aside>
+    </section>
+
+    <!-- ===== 14 · PASSO 1: CARTÃO DO DESAFIO ===== -->
+    <section data-min="15">
+      <p class="eyebrow">Passo 1 · 15 minutos</p>
+      <h2>O <em>Cartão</em> do Desafio</h2>
+      <div class="cards c2">
+        <div class="glass card fragment fade-up"><div class="num">1</div>
+          <p>Qual tarefa? Com que frequência? Quanto tempo toma?</p></div>
+        <div class="glass card fragment fade-up"><div class="num">2</div>
+          <p>O que seria um bom resultado?</p></div>
+        <div class="glass card forte fragment fade-up"><div class="num">3</div>
+          <p>Como vamos saber que o resultado está certo?</p></div>
+        <div class="glass card fragment fade-up"><div class="num">4</div>
+          <p>Caso A para criar o prompt; Caso B, do mesmo tipo, para a troca.</p></div>
+      </div>
+      <aside class="notes">
+        O campo mais importante é o terceiro: se a dupla não sabe dizer como conferir,
+        ainda não é um bom desafio para IA. Quem usa o Banco já recebe Caso A e B.
+        Quem monta gêmeo fictício faz o B mudando o A, de preferência com um dado
+        faltando. Aos 8 minutos, dupla parada recebe desafio do Banco. Tecla T: 15 min.
+      </aside>
+    </section>
+
+    <!-- ===== 15 · 6 ETAPAS (radial animado) ===== -->
+    <section data-anim="etapas">
+      <p class="eyebrow">Passo 2 · O molde</p>
+      <h2>O prompt em <em>6 etapas</em></h2>
+      <div class="etapas-cena">
+        <svg viewBox="0 0 1136 520"></svg>
+        <div class="nucleo"><p class="k">o seu</p><p class="t">PROMPT</p><p class="s">6 etapas</p></div>
+        <div class="glass etapa e1"><div class="cab"><div class="num">1</div><p class="nm">Contexto</p></div>
+          <p class="dc">Quem a IA deve ser e a situação do caso.</p></div>
+        <div class="glass etapa e2"><div class="cab"><div class="num">2</div><p class="nm">Tom</p></div>
+          <p class="dc">O registro e o público da resposta.</p></div>
+        <div class="glass etapa e3"><div class="cab"><div class="num">3</div><p class="nm">Tarefa</p></div>
+          <p class="dc">O verbo direto: resuma, extraia, compare.</p></div>
+        <div class="glass etapa e4"><div class="cab"><div class="num">4</div><p class="nm">Exemplos</p></div>
+          <p class="dc">Um modelo da casa para guiar.</p></div>
+        <div class="glass etapa e5 forte"><div class="cab"><div class="num">5</div><p class="nm">Qualidade</p></div>
+          <p class="dc">Normas e limites: cite, não invente.</p>
+          <p class="marca">Aqui mora a frase de segurança</p></div>
+        <div class="glass etapa e6"><div class="cab"><div class="num">6</div><p class="nm">Formato</p></div>
+          <p class="dc">A estrutura da saída: tabela, um dado por linha.</p></div>
+      </div>
+      <aside class="notes">
+        Um minuto, não mais: quem fez o Curso Servidor + IA já conhece o desenho.
+        Hoje a etapa que mais pesa é a 5, Qualidade, que é onde mora a frase de
+        segurança. A 6, Formato, é a que torna o resultado conferível.
+      </aside>
+    </section>
+
+    <!-- ===== 16 · A FRASE DE SEGURANÇA ===== -->
+    <section>
+      <p class="eyebrow">Etapa 5 · Qualidade</p>
+      <h2>A frase de segurança, <em>no fim de todo prompt</em></h2>
+      <p class="prompt">Use apenas o documento fornecido. Não cite norma, decisão ou dado que não esteja nele. Se um campo não puder ser determinado com segurança, escreva INCERTO. Ao final, indique seu nível de confiança (alto, médio ou baixo) e por quê.</p>
+      <div class="glass card forte">
+        <div class="ic"><i data-lucide="siren"></i></div>
+        <p>Ela não impede o erro. Ela faz o erro aparecer.</p>
+      </div>
+      <aside class="notes">
+        Pedir que todas as duplas copiem a frase agora. É o que transforma "a IA
+        inventou" em "a IA avisou que não sabia".
+      </aside>
+    </section>
+
+    <!-- ===== 17 · PASSO 2: RODAR E CONFERIR ===== -->
+    <section data-min="35">
+      <p class="eyebrow">Passo 2 · 35 minutos</p>
+      <h2>Rodar e <em>conferir</em></h2>
+      <div class="cards c2">
+        <div class="glass card fragment fade-up"><div class="num">1</div>
+          <p>Escrevam o prompt v1 nas 6 etapas, com a frase de segurança.</p></div>
+        <div class="glass card fragment fade-up"><div class="num">2</div>
+          <p>Rodem no Caso A.</p></div>
+        <div class="glass card forte fragment fade-up"><div class="num">3</div>
+          <p>Confiram com a Ficha de Validação nº 1, item por item.</p></div>
+        <div class="glass card fragment fade-up"><div class="num">4</div>
+          <p>Anotem no Cartão cada erro encontrado.</p></div>
+      </div>
+      <aside class="notes">
+        Circular sem dar respostas; perguntas que destravam na seção 5 do roteiro.
+        "Qual dado daqui vocês já conferiram no documento? Mostrem um." Aos 1:35,
+        aviso de cinco minutos. Tecla T: 35 min.
+      </aside>
+    </section>
+
+    <!-- ===== 18 · INTERVALO ===== -->
+    <section data-min="10">
+      <div class="centro">
+        <div class="ic" style="width:72px;height:72px;border-radius:20px;margin-bottom:22px"><i data-lucide="coffee"></i></div>
+        <h2>Intervalo · <em>10 minutos</em></h2>
+        <p class="lead">Na volta: corrigir o prompt e entregá-lo a outra dupla.</p>
+      </div>
+      <aside class="notes">Tecla T: 10 min. Deixar o cronômetro visível.</aside>
+    </section>
+
+    <!-- ===== 19 · PASSO 3A: DO ERRO À CORREÇÃO ===== -->
+    <section data-min="15">
+      <p class="eyebrow">Passo 3a · 15 minutos</p>
+      <h2>Cada erro vira <em>uma linha do prompt</em></h2>
+      <div class="glass tab-moldura">
+        <table class="tab">
+          <thead>
+            <tr><th>Erro encontrado no v1</th><th>O que acrescentar no v2</th><th>Etapa</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Data ou número trocado</td><td>"Transcreva datas e valores exatamente como no documento."</td><td class="etq">Qualidade</td></tr>
+            <tr><td>Citação que não estava na fonte</td><td>"Não cite norma ou decisão que não esteja no texto."</td><td class="etq">Qualidade</td></tr>
+            <tr><td>Condição omitida</td><td>"Liste todas as condições e ressalvas, literalmente."</td><td class="etq">Tarefa</td></tr>
+            <tr><td>Conclusão não pedida</td><td>"Não analise o mérito nem conclua."</td><td class="etq">Tarefa</td></tr>
+            <tr><td>Formato difícil de conferir</td><td>"Devolva em tabela, um dado por linha."</td><td class="etq">Formato</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <aside class="notes">
+        15 minutos. Rodar o v2 no Caso A de novo e preencher a Ficha nº 2. A coluna
+        Etapa mostra onde a correção entra no molde. Tecla T.
+      </aside>
+    </section>
+
+    <!-- ===== 20 · PASSO 3B: A TROCA (anel animado) ===== -->
+    <section data-min="20" data-anim="anel">
+      <p class="eyebrow">Passo 3b · 20 minutos · em anel</p>
+      <h2>A <em>troca</em></h2>
+      <div class="duas">
+        <div class="palco" style="height:490px"><svg viewBox="0 0 470 490"></svg></div>
+        <div class="pilha">
+          <div class="glass card fragment fade-up"><div class="num">1</div>
+            <p>Entreguem o prompt v2 e o Caso B à dupla seguinte.</p></div>
+          <div class="glass card forte fragment fade-up"><div class="num">2</div>
+            <p>Quem recebe não altera o prompt: só cola, roda e confere com uma Ficha nova.</p></div>
+          <div class="glass card fragment fade-up"><div class="num">3</div>
+            <p>Nos últimos 5 minutos, devolvam a ficha e conversem com a dupla dona do prompt.</p></div>
+        </div>
+      </div>
+      <aside class="notes">
+        Anel: dupla 1 entrega para a 2, a 2 para a 3, a última para a 1. "Agora o prompt
+        de vocês está na mão de outra pessoa, com um documento que ele nunca viu. É aqui
+        que se descobre se ele presta." Tecla T: 20 min.
+      </aside>
+    </section>
+
+    <!-- ===== 21 · PASSOU QUANDO ===== -->
+    <section>
+      <p class="eyebrow">Passo 3b · Critério</p>
+      <h2>O prompt <em>passou</em> na troca quando</h2>
+      <div class="cards c2">
+        <div class="glass card fragment fade-up"><div class="ic"><i data-lucide="check"></i></div>
+          <p>No Caso B, não inventou nada.</p></div>
+        <div class="glass card fragment fade-up"><div class="ic"><i data-lucide="check"></i></div>
+          <p>Marcou INCERTO onde faltava informação.</p></div>
+        <div class="glass card fragment fade-up"><div class="ic"><i data-lucide="check"></i></div>
+          <p>A outra dupla conseguiu conferir tudo sem perguntar a vocês.</p></div>
+        <div class="glass card forte fragment fade-up"><div class="ic"><i data-lucide="lightbulb"></i></div>
+          <p>Não passou? É o achado mais útil da tarde. Vai para a Ficha de Registro como limitação.</p></div>
+      </div>
+      <aside class="notes">Só os prompts que passaram vão ao Banco de Prompts; os outros ficam registrados com a limitação, para a próxima edição.</aside>
+    </section>
+
+    <!-- ===== 22 · MOSTRA ===== -->
+    <section data-min="3">
+      <p class="eyebrow">Mostra · 3 minutos por dupla</p>
+      <h2>Cinco duplas, <em>de áreas diferentes</em></h2>
+      <div class="cards c4">
+        <div class="glass card col"><div class="num">1</div><p>A tarefa.</p></div>
+        <div class="glass card col"><div class="num">2</div><p>O erro que acharam no v1.</p></div>
+        <div class="glass card col"><div class="num">3</div><p>O que mudaram no prompt.</p></div>
+        <div class="glass card col forte"><div class="num">4</div><p>O que aconteceu na troca.</p></div>
+      </div>
+      <div class="pills" style="margin-top:30px"><p class="pill acento">Três minutos são três minutos.</p></div>
+      <aside class="notes">
+        Preferir duplas cujo prompt não passou na troca: rende a melhor conversa.
+        Tecla T reinicia 3 minutos a cada dupla (R zera).
+      </aside>
+    </section>
+
+    <!-- ===== 23 · SÍNTESE ===== -->
+    <section>
+      <p class="eyebrow">Síntese</p>
+      <h2>O que <em>as mesas</em> ensinaram</h2>
+      <div class="cards c3">
+        <div class="glass card col fragment fade-up"><div class="ic"><i data-lucide="repeat"></i></div>
+          <p>Que erro apareceu em mais de uma mesa?</p></div>
+        <div class="glass card col fragment fade-up"><div class="ic"><i data-lucide="wrench"></i></div>
+          <p>Que mudança no prompt resolveu mais problemas?</p></div>
+        <div class="glass card col forte fragment fade-up"><div class="ic"><i data-lucide="calendar-check"></i></div>
+          <p>Qual destes prompts você usaria amanhã?</p></div>
+      </div>
+      <aside class="notes">
+        10 minutos. O facilitador nomeia os padrões que viu ao circular. Os prompts
+        indicados pela turma vão primeiro para o Banco de Prompts.
+      </aside>
+    </section>
+
+    <!-- ===== 24 · PASSO 4: REGISTRO ===== -->
+    <section data-min="10">
+      <p class="eyebrow">Passo 4 · 10 minutos</p>
+      <h2>Registro e <em>compromisso</em></h2>
+      <div class="cards c3">
+        <div class="glass card col fragment fade-up"><div class="ic"><i data-lucide="clipboard-check"></i></div>
+          <p>Dupla: Ficha de Registro preenchida, com a Ficha de Validação da troca grampeada.</p></div>
+        <div class="glass card col forte fragment fade-up"><div class="ic"><i data-lucide="calendar-clock"></i></div>
+          <p>Cada pessoa, no campo Compromisso: uma tarefa em que vai usar o prompt nos próximos 30 dias.</p></div>
+        <div class="glass card col fragment fade-up"><div class="ic"><i data-lucide="message-square-text"></i></div>
+          <p>Formulário de avaliação: 3 minutos.</p></div>
+      </div>
+      <aside class="notes">Recolher Fichas de Registro, formulários e lista de presença antes da saída.</aside>
+    </section>
+
+    <!-- ===== 25 · FECHAMENTO ===== -->
+    <section data-anim="particulas">
+      <div class="palco-fundo"><svg></svg></div>
+      <div class="centro">
+        <p class="eyebrow">Fechamento</p>
+        <p class="citacao" style="font-size:46px">Prompt bom é o que funciona <em>na mão do colega</em>.</p>
+        <div class="pills" style="margin-top:30px;justify-content:center">
+          <p class="pill fragment fade-up">Um prompt testado duas vezes e conferido por outra dupla.</p>
+          <p class="pill fragment fade-up">Os aprovados na troca vão ao Banco de Prompts em até uma semana.</p>
+          <p class="pill fragment fade-up">Daqui a 30 dias: três perguntas curtas sobre o uso.</p>
+        </div>
+        <div class="rodape-fim">
+          <p><strong>COORDENAÇÃO</strong>Eixo III · INOVAJUS</p>
+          <p><strong>BANCO DE PROMPTS</strong>inovajus.github.io/banco-de-prompts.html</p>
+        </div>
+        <div class="logo-painel" style="margin-top:22px"><img src="inovajus-logo.png" alt="INOVAJUS"></div>
+      </div>
+      <aside class="notes">
+        Repetir a frase-âncora do slide 3, literalmente, completando em voz alta:
+        "E só se sabe conferindo." Deixar este slide na tela durante as perguntas.
+        Não dizer "obrigado" como fecho.
+      </aside>
+    </section>
+
+    <!-- EDITABLE_SLIDES_END -->
+  </div>
+</div>
+
+<div id="cronometro" title="T inicia/pausa · R zera"><span class="tempo">00:00</span><span class="dica">T inicia · R zera</span></div>
+
+<!-- EDICAO:INICIO -->
+<div id="barra-edicao">
+  <span class="tag">EDITANDO</span>
+  <span id="status-edicao"></span>
+  <button type="button" class="principal" id="btn-baixar">Baixar HTML</button>
+  <button type="button" id="btn-salvar" hidden>Salvar no projeto</button>
+  <button type="button" id="btn-sair">Concluir (E)</button>
+</div>
+<!-- EDICAO:FIM -->
+
+<script src="vendor/reveal.js"></script>
+<script src="vendor/notes.js"></script>
+<script src="vendor/d3.v7.min.js"></script>
+<script src="vendor/lucide.js"></script>
+<script src="vendor/reveal-config.js"></script>
+<script>
+  /* EDICAO:INICIO */
+  // Fonte do arquivo antes de Lucide e Reveal mexerem no DOM: base da cópia editada.
+  const FONTE = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+  /* EDICAO:FIM */
+
+  lucide.createIcons();
+  initInovajusDeck({ controls: true, progress: true, slideNumber: 'c/t', display: 'flex' });
+
+  const cor = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+  const P = cor('--mira-primary'), A2 = cor('--mira-accent-2'), TX = cor('--mira-text');
+  const FRACO = cor('--mira-card-border'), SOFT = cor('--mira-text-softer');
+
+  // ===================================================================
+  // Animações: entram com coreografia e depois seguem em loop (regra MIRA).
+  // Cada uma devolve uma função que para tudo; só o slide atual anima.
+  // ===================================================================
+
+  function animParticulas(sec) {
+    const svg = d3.select(sec).select('.palco-fundo svg').attr('viewBox', '0 0 1280 720');
+    svg.selectAll('*').remove();
+    const pts = d3.range(46).map(i => ({ r: 140 + Math.random() * 430, a: Math.random() * Math.PI * 2,
+      v: (0.00006 + Math.random() * 0.00012) * (i % 2 ? 1 : -1), s: 1 + Math.random() * 2.2, o: 0.15 + Math.random() * 0.45 }));
+    const c = svg.selectAll('circle').data(pts).join('circle')
+      .attr('r', d => d.s).attr('fill', (d, i) => i % 5 ? P : A2).attr('opacity', 0);
+    c.transition().duration(1200).delay((d, i) => i * 18).attr('opacity', d => d.o);
+    const t = d3.timer(el => c.attr('cx', d => 640 + Math.cos(d.a + el * d.v) * d.r)
+      .attr('cy', d => 360 + Math.sin(d.a + el * d.v) * d.r * 0.55));
+    return () => t.stop();
+  }
+
+  function animCiclo(sec) {
+    const svg = d3.select(sec).select('.palco svg'); svg.selectAll('*').remove();
+    const cards = Array.from(sec.querySelectorAll('.passo'));
+    const nomes = cards.map(c => c.querySelector('.nm').textContent.trim());
+    const C = { x: 235, y: 245 }, R = 160, angs = [-90, 0, 90, 180];
+    svg.append('circle').attr('cx', C.x).attr('cy', C.y).attr('r', R).attr('fill', 'none')
+      .attr('stroke', P).attr('stroke-opacity', 0.35).attr('stroke-dasharray', '3,8')
+      .attr('stroke-dashoffset', 0);
+    svg.append('text').attr('x', C.x).attr('y', C.y - 4).attr('text-anchor', 'middle').attr('fill', SOFT)
+      .attr('font-size', 12).attr('letter-spacing', 3).text('CICLO DE');
+    svg.append('text').attr('x', C.x).attr('y', C.y + 22).attr('text-anchor', 'middle').attr('fill', TX)
+      .attr('font-size', 22).attr('font-weight', 800).text('bancada');
+    const nos = angs.map((deg, i) => {
+      const a = deg * Math.PI / 180, x = C.x + Math.cos(a) * R, y = C.y + Math.sin(a) * R;
+      const g = svg.append('g').attr('transform', `translate(${x},${y})`);
+      const bola = g.append('circle').attr('r', 0).attr('fill', cor('--mira-bg')).attr('stroke', P).attr('stroke-width', 2);
+      bola.transition().delay(200 + i * 180).duration(500).ease(d3.easeBackOut).attr('r', 30);
+      g.append('text').attr('text-anchor', 'middle').attr('dy', 7).attr('fill', P).attr('font-size', 20).attr('font-weight', 800).text(i + 1);
+      // Rótulo acima do nó do topo e abaixo dos demais: nos lados, o texto sairia do palco.
+      g.append('text').attr('x', 0).attr('y', i === 0 ? -44 : 56).attr('text-anchor', 'middle')
+        .attr('fill', TX).attr('font-size', 15).attr('font-weight', 600).text(nomes[i] || '');
+      return bola;
+    });
+    const orbe = svg.append('circle').attr('r', 7).attr('fill', A2).style('filter', `drop-shadow(0 0 8px ${P})`);
+    let atual = -1;
+    const t = d3.timer(el => {
+      const a = -Math.PI / 2 + (el / 5200) * Math.PI * 2;
+      orbe.attr('cx', C.x + Math.cos(a) * R).attr('cy', C.y + Math.sin(a) * R);
+      const k = Math.floor((((el / 5200) % 1) + 0.125) * 4) % 4;
+      if (k !== atual) {
+        atual = k;
+        cards.forEach((c, i) => c.classList.toggle('hot', i === k));
+        nos.forEach((n, i) => n.transition().duration(300).attr('fill', i === k ? cor('--mira-icon-bg') : cor('--mira-bg')).attr('r', i === k ? 34 : 30));
+      }
+    });
+    return () => { t.stop(); cards.forEach(c => c.classList.remove('hot')); };
+  }
+
+  function animEtapas(sec) {
+    const svg = d3.select(sec).select('.etapas-cena svg'); svg.selectAll('*').remove();
+    const cards = Array.from(sec.querySelectorAll('.etapa'));
+    const C = { x: 568, y: 262 };
+    const alvos = [[568, 60], [930, 165], [930, 365], [568, 462], [206, 365], [206, 165]];
+    svg.append('ellipse').attr('cx', C.x).attr('cy', C.y).attr('rx', 362).attr('ry', 200)
+      .attr('fill', 'none').attr('stroke', P).attr('stroke-opacity', 0.18).attr('stroke-dasharray', '2,8');
+    const linhas = alvos.map(([x, y], i) => {
+      const dx = x - C.x, dy = y - C.y, d = Math.hypot(dx, dy), ux = dx / d, uy = dy / d;
+      const l = { x1: C.x + ux * 84, y1: C.y + uy * 84, x2: x - ux * Math.min(d * 0.42, 120), y2: y - uy * Math.min(d * 0.42, 60) };
+      svg.append('line').attr('x1', l.x1).attr('y1', l.y1).attr('x2', l.x1).attr('y2', l.y1)
+        .attr('stroke', P).attr('stroke-opacity', 0.35).attr('stroke-width', 1.4)
+        .transition().delay(150 + i * 110).duration(450).attr('x2', l.x2).attr('y2', l.y2);
+      return l;
+    });
+    let k = 0;
+    function passo() {
+      const l = linhas[k];
+      const p = svg.append('circle').attr('r', 5).attr('fill', A2).attr('cx', l.x1).attr('cy', l.y1)
+        .style('filter', `drop-shadow(0 0 6px ${P})`);
+      p.transition().duration(640).ease(d3.easeQuadInOut).attr('cx', l.x2).attr('cy', l.y2).attr('opacity', 0.1).on('end', () => p.remove());
+      cards.forEach((c, i) => c.classList.toggle('hot', i === k));
+      k = (k + 1) % linhas.length;
+    }
+    let loop;
+    const to = setTimeout(() => { passo(); loop = setInterval(passo, 900); }, 900);
+    return () => { clearTimeout(to); clearInterval(loop); svg.selectAll('*').interrupt(); cards.forEach(c => c.classList.remove('hot')); };
+  }
+
+  function animCaca(sec) {
+    const svg = d3.select(sec).select('.palco svg'); svg.selectAll('*').remove();
+    const X = 70, Y = 40, W = 340, H = 390;
+    svg.append('rect').attr('x', X).attr('y', Y).attr('width', W).attr('height', H).attr('rx', 14)
+      .attr('fill', cor('--mira-card-bg')).attr('stroke', FRACO);
+    svg.append('text').attr('x', X + 24).attr('y', Y + 36).attr('fill', SOFT).attr('font-size', 12)
+      .attr('letter-spacing', 2.5).text('RESUMO FEITO PELA IA');
+    const larg = [270, 250, 290, 210, 280, 240, 265, 150, 285, 230, 260, 190];
+    const marcadas = { 2: 'erro', 5: 'erro', 8: 'erro', 10: 'omissao' };
+    const linhas = larg.map((w, i) => {
+      const y = Y + 66 + i * 26;
+      const r = svg.append('rect').attr('x', X + 24).attr('y', y).attr('height', 8).attr('rx', 4).attr('width', 0)
+        .attr('fill', TX).attr('opacity', 0.22);
+      r.transition().delay(100 + i * 45).duration(380).attr('width', marcadas[i] === 'omissao' ? w * 0.45 : w);
+      if (marcadas[i] === 'omissao') {
+        svg.append('rect').attr('x', X + 24 + w * 0.5).attr('y', y - 3).attr('height', 14).attr('rx', 5).attr('width', w * 0.5)
+          .attr('fill', 'none').attr('stroke', SOFT).attr('stroke-dasharray', '3,4').attr('opacity', 0.6);
+      }
+      return { y, w, tipo: marcadas[i] };
+    });
+    const avisos = svg.append('g');
+    const lupa = svg.append('g').attr('opacity', 0);
+    lupa.append('circle').attr('r', 26).attr('fill', cor('--mira-stage-glow')).attr('stroke', P).attr('stroke-width', 3);
+    lupa.append('line').attr('x1', 19).attr('y1', 19).attr('x2', 40).attr('y2', 40).attr('stroke', P).attr('stroke-width', 5).attr('stroke-linecap', 'round');
+    let i = 0, loop;
+    function passo() {
+      if (i >= linhas.length) {
+        i = 0;
+        avisos.selectAll('*').transition().duration(400).attr('opacity', 0).remove();
+      }
+      const l = linhas[i];
+      lupa.transition().duration(380).ease(d3.easeQuadInOut).attr('opacity', 1)
+        .attr('transform', `translate(${X + 24 + l.w * (i % 2 ? 0.7 : 0.35)},${l.y + 4})`);
+      if (l.tipo) {
+        const g = avisos.append('g').attr('transform', `translate(${X + W + 6},${l.y + 4})`).attr('opacity', 0);
+        g.append('circle').attr('r', 12).attr('fill', l.tipo === 'erro' ? P : 'none').attr('stroke', l.tipo === 'erro' ? P : A2).attr('stroke-width', 2);
+        g.append('text').attr('text-anchor', 'middle').attr('dy', 5).attr('font-size', 15).attr('font-weight', 800)
+          .attr('fill', l.tipo === 'erro' ? cor('--mira-bg') : A2).text(l.tipo === 'erro' ? '!' : '?');
+        g.transition().delay(300).duration(300).attr('opacity', 1);
+      }
+      i += 1;
+    }
+    const to = setTimeout(() => { passo(); loop = setInterval(passo, 620); }, 800);
+    return () => { clearTimeout(to); clearInterval(loop); svg.selectAll('*').interrupt(); };
+  }
+
+  function animAnel(sec) {
+    const svg = d3.select(sec).select('.palco svg'); svg.selectAll('*').remove();
+    const C = { x: 235, y: 245 }, R = 168, N = 6;
+    const pos = d3.range(N).map(i => { const a = -Math.PI / 2 + i * 2 * Math.PI / N; return { a, x: C.x + Math.cos(a) * R, y: C.y + Math.sin(a) * R }; });
+    svg.append('circle').attr('cx', C.x).attr('cy', C.y).attr('r', R).attr('fill', 'none')
+      .attr('stroke', P).attr('stroke-opacity', 0.3).attr('stroke-dasharray', '3,8');
+    svg.append('text').attr('x', C.x).attr('y', C.y - 6).attr('text-anchor', 'middle').attr('fill', SOFT)
+      .attr('font-size', 12).attr('letter-spacing', 3).text('PROMPT v2');
+    svg.append('text').attr('x', C.x).attr('y', C.y + 20).attr('text-anchor', 'middle').attr('fill', TX)
+      .attr('font-size', 20).attr('font-weight', 800).text('+ Caso B');
+    const nos = pos.map((p, i) => {
+      const g = svg.append('g').attr('transform', `translate(${p.x},${p.y})`);
+      const b = g.append('circle').attr('r', 0).attr('fill', cor('--mira-bg')).attr('stroke', P).attr('stroke-width', 2);
+      b.transition().delay(150 + i * 120).duration(450).ease(d3.easeBackOut).attr('r', 30);
+      g.append('text').attr('text-anchor', 'middle').attr('dy', -2).attr('fill', SOFT).attr('font-size', 10).attr('letter-spacing', 1.5).text('DUPLA');
+      g.append('text').attr('text-anchor', 'middle').attr('dy', 15).attr('fill', TX).attr('font-size', 17).attr('font-weight', 800).text(i + 1);
+      return b;
+    });
+    const pacotes = svg.append('g');
+    function rodada() {
+      pos.forEach((p, i) => {
+        const pk = pacotes.append('rect').attr('width', 18).attr('height', 13).attr('rx', 3)
+          .attr('fill', A2).style('filter', `drop-shadow(0 0 6px ${P})`).attr('opacity', 0.95);
+        pk.transition().duration(1300).ease(d3.easeCubicInOut)
+          .tween('arco', () => t => {
+            const a = p.a + t * 2 * Math.PI / N;
+            pk.attr('x', C.x + Math.cos(a) * R - 9).attr('y', C.y + Math.sin(a) * R - 6.5);
+          })
+          .on('end', () => {
+            pk.remove();
+            const alvo = nos[(i + 1) % N];
+            alvo.transition().duration(180).attr('r', 35).attr('fill', cor('--mira-icon-bg'))
+              .transition().duration(420).attr('r', 30).attr('fill', cor('--mira-bg'));
+          });
+      });
+    }
+    let loop;
+    const to = setTimeout(() => { rodada(); loop = setInterval(rodada, 2400); }, 900);
+    return () => { clearTimeout(to); clearInterval(loop); svg.selectAll('*').interrupt(); };
+  }
+
+  const ANIM = { particulas: animParticulas, ciclo: animCiclo, etapas: animEtapas, caca: animCaca, anel: animAnel };
+  let pararAtual = null;
+  function animar(sec) {
+    if (pararAtual) { pararAtual(); pararAtual = null; }
+    const fn = sec && ANIM[sec.dataset.anim];
+    if (fn) pararAtual = fn(sec);
+  }
+  Reveal.on('ready', ev => {
+    if (Reveal.isPrintView && Reveal.isPrintView()) {
+      document.querySelectorAll('.slides section[data-anim]').forEach(s => ANIM[s.dataset.anim](s));
+    } else {
+      animar(ev.currentSlide);
+    }
+  });
+  Reveal.on('slidechanged', ev => animar(ev.currentSlide));
+
+  // ===================================================================
+  // Cronômetro: aparece nos slides com data-min; T inicia/pausa, R zera.
+  // ===================================================================
+  (function () {
+    const box = document.getElementById('cronometro');
+    const out = box.querySelector('.tempo');
+    let restante = 0, total = 0, timer = null;
+
+    function mostrar() {
+      const m = Math.floor(Math.abs(restante) / 60), s = Math.abs(restante) % 60;
+      out.textContent = (restante < 0 ? '+' : '') + String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+      box.classList.toggle('alerta', restante > 0 && restante <= 60);
+      box.classList.toggle('fim', restante <= 0 && timer !== null);
+    }
+    function parar() { clearInterval(timer); timer = null; box.classList.remove('ativo'); }
+    function zerar() { parar(); restante = total; box.classList.remove('fim', 'alerta'); mostrar(); }
+    function alternar() {
+      if (!total) return;
+      if (timer) { parar(); mostrar(); return; }
+      box.classList.add('ativo');
+      timer = setInterval(function () { restante -= 1; mostrar(); }, 1000);
+      mostrar();
+    }
+    function aoMudar(ev) {
+      parar();
+      const min = parseFloat(ev.currentSlide.dataset.min || '0');
+      total = Math.round(min * 60);
+      box.style.display = total ? 'block' : 'none';
+      zerar();
+    }
+    Reveal.on('ready', aoMudar);
+    Reveal.on('slidechanged', aoMudar);
+    Reveal.addKeyBinding({ keyCode: 84, key: 'T', description: 'Cronômetro: iniciar/pausar' }, alternar);
+    Reveal.addKeyBinding({ keyCode: 82, key: 'R', description: 'Cronômetro: zerar' }, zerar);
+    box.addEventListener('click', alternar);
+  })();
+
+  /* EDICAO:INICIO */
+  // ===================================================================
+  // Modo de edição: tecla E (ou ?edit=1). Clique no texto e digite.
+  // "Baixar HTML" gera a cópia editada (funciona aberto do disco);
+  // "Salvar no projeto" aparece quando o deck roda pelo serve.py.
+  // ===================================================================
+  (function () {
+    const ALVOS = '.slides section :is(h1, h2, p, td, th)';
+    const html = document.documentElement;
+    const status = document.getElementById('status-edicao');
+    const btnSalvar = document.getElementById('btn-salvar');
+    if (['localhost', '127.0.0.1'].includes(location.hostname)) btnSalvar.hidden = false; // só pelo serve.py
+
+    function alvos() {
+      return Array.from(document.querySelectorAll(ALVOS))
+        .filter(el => !el.closest('svg') && !el.parentElement.closest('[data-editavel]'));
+    }
+    function entrar() {
+      html.classList.add('editando');
+      Reveal.configure({ keyboard: false });
+      const els = alvos();
+      els.forEach(el => { el.setAttribute('contenteditable', 'true'); el.setAttribute('data-editavel', ''); el.spellcheck = false; });
+      status.textContent = els.length + ' textos editáveis';
+    }
+    function sair() {
+      html.classList.remove('editando');
+      document.querySelectorAll('[data-editavel]').forEach(el => { el.removeAttribute('contenteditable'); el.removeAttribute('data-editavel'); });
+      Reveal.configure({ keyboard: true });
+      if (document.activeElement) document.activeElement.blur();
+    }
+    function slidesLimpos() {
+      const clone = document.querySelector('.reveal .slides').cloneNode(true);
+      clone.querySelectorAll('section').forEach(s => {
+        ['present', 'past', 'future', 'stack'].forEach(c => s.classList.remove(c));
+        if (!s.className) s.removeAttribute('class');
+        Array.from(s.attributes).forEach(a => {
+          if (['hidden', 'aria-hidden', 'style'].includes(a.name) || a.name.startsWith('data-previous') || a.name.startsWith('data-index')) s.removeAttribute(a.name);
+        });
+      });
+      clone.querySelectorAll('.fragment').forEach(f => { f.classList.remove('visible', 'current-fragment'); f.removeAttribute('data-fragment-index'); });
+      clone.querySelectorAll('.hot').forEach(el => el.classList.remove('hot'));
+      clone.querySelectorAll('.palco svg, .palco-fundo svg, .etapas-cena svg').forEach(s => { s.innerHTML = ''; });
+      clone.querySelectorAll('svg[data-lucide]').forEach(s => {
+        const i = document.createElement('i'); i.setAttribute('data-lucide', s.getAttribute('data-lucide')); s.replaceWith(i);
+      });
+      clone.querySelectorAll('[data-editavel]').forEach(el => { el.removeAttribute('contenteditable'); el.removeAttribute('data-editavel'); el.removeAttribute('spellcheck'); });
+      const ini = '<!-- EDITABLE_SLIDES_START -->', fim = '<!-- EDITABLE_SLIDES_END -->';
+      const h = clone.innerHTML;
+      return h.slice(h.indexOf(ini) + ini.length, h.indexOf(fim)).trim();
+    }
+    function baixar() {
+      const ini = '<!-- EDITABLE_SLIDES_START -->', fim = '<!-- EDITABLE_SLIDES_END -->';
+      const novo = FONTE.slice(0, FONTE.indexOf(ini) + ini.length) + '\n' + slidesLimpos() + '\n    ' + FONTE.slice(FONTE.indexOf(fim));
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([novo], { type: 'text/html' }));
+      a.download = 'index.html';
+      a.click();
+      status.textContent = 'Cópia baixada: substitua o index.html desta pasta por ela';
+    }
+    async function salvar() {
+      let p = location.pathname.replace(/\/index\.html$/, '').replace(/\/$/, '').replace(/^\/+/, '');
+      status.textContent = 'salvando…';
+      try {
+        const r = await fetch('/api/save-deck', { method: 'POST', headers: { 'Content-Type': 'application/json; charset=utf-8' },
+          body: JSON.stringify({ deck: p, slides_html: slidesLimpos() }) });
+        status.textContent = r.ok ? 'Salvo no projeto' : 'Erro ' + r.status;
+      } catch (e) { status.textContent = 'Erro: ' + e.message; }
+    }
+    document.getElementById('btn-baixar').addEventListener('click', baixar);
+    btnSalvar.addEventListener('click', salvar);
+    document.getElementById('btn-sair').addEventListener('click', sair);
+    document.addEventListener('keydown', e => {
+      const digitando = e.target.isContentEditable;
+      if ((e.key === 'e' || e.key === 'E') && !digitando && !e.ctrlKey && !e.metaKey) {
+        html.classList.contains('editando') ? sair() : entrar();
+      }
+      if (e.key === 'Escape' && html.classList.contains('editando') && digitando) e.target.blur();
+      if ((e.ctrlKey || e.metaKey) && e.key === 's' && html.classList.contains('editando')) {
+        e.preventDefault(); btnSalvar.hidden ? baixar() : salvar();
+      }
+    });
+    if (new URLSearchParams(location.search).get('edit') === '1') Reveal.on('ready', entrar);
+  })();
+  /* EDICAO:FIM */
+</script>
+
+</body>
+</html>

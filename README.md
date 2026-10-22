@@ -9,6 +9,7 @@ Apresentação animada do curso **"Servidor + IA"** — Ações 1.2 e 1.3 da Fre
 - **Tutorial — ApoIA no Claude via MCP:** https://inovajus.github.io/tutorial-apoia-mcp.html
 - **Tutorial — ApoIA no ChatGPT via MCP:** https://inovajus.github.io/tutorial-apoia-chatgpt.html
 - **Tutorial — ApoIA no Antigravity via MCP:** https://inovajus.github.io/tutorial-apoia-antigravity.html
+- **Prompt Lab 25/11/2026 (apresentação):** https://inovajus.github.io/prompt-lab/ (instrutor: `prompt-lab/editar.html`; gerada por `publicar.py` no repo do Eixo III)
 - **Material de apoio:** `Banco-de-Prompts-Servidor-IA.docx` — banco de prompts para os exercícios.
 
 ## Sobre
@@ -30,11 +31,12 @@ foram removidos do arquivo, não apenas ocultados por CSS.
   `tjce/banco-de-prompts.html`, `comparativo-llms.html`, `material-do-aluno.html`,
   `tjce/material.html`, `ebook-servidor-ia.html` (e o da TJCE), `ementa.html`,
   `tjce/casos-tipo.html`, `preteste.html`, `tjce/preteste.html`, `tutorial-apoia-mcp.html`, `mcp-vs-api.html`,
-  `tutorial-apoia-chatgpt.html`, `tutorial-apoia-antigravity.html`,
+  `tutorial-apoia-chatgpt.html`, `tutorial-apoia-antigravity.html`, `prompt-lab/index.html`,
   e a Biblioteca do Iracema (repositório `iracema-biblioteca-prompts`).
 - **Com edição (instrutores):** `editar.html`, `tjce/editar.html`,
   `laboratorio-demonstracoes.html`, `painel-preteste.html`, `resultados-preteste.html`,
-  `material-do-instrutor.html`, `guia-metodologico.html`, `guia-rapido-instrutor.html`.
+  `material-do-instrutor.html`, `guia-metodologico.html`, `guia-rapido-instrutor.html`,
+  `prompt-lab/editar.html`.
 
 Ao regerar qualquer página de participante a partir dos geradores (`gen_banco_prompts_html.py`
 e afins, em `mira-slides/decks/servidor-mais-ia/`), **conferir e remover a barra de edição
