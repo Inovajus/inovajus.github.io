@@ -10,7 +10,7 @@ Apresentação animada do curso **"Servidor + IA"** — Ações 1.2 e 1.3 da Fre
 - **Tutorial — ApoIA no ChatGPT via MCP:** https://inovajus.github.io/tutorial-apoia-chatgpt.html
 - **Tutorial — ApoIA no Antigravity via MCP:** https://inovajus.github.io/tutorial-apoia-antigravity.html
 - **Prompt Lab 25/11/2026 (apresentação):** https://inovajus.github.io/prompt-lab/ (instrutor: `prompt-lab/editar.html`; gerada por `publicar.py` no repo do Eixo III)
-- **Oficina Eixo III 25/11/2026 (IA generativa com ética e responsabilidade, 47 telas):** https://inovajus.github.io/oficina-eixo-iii/ (fonte: `C:VictorPrivativoINOVAJUSOficina Prompt Laboficina-eixo-iii.html`; não substitui o `/prompt-lab/`)
+- **Oficina Eixo III 25/11/2026 (IA generativa com ética e responsabilidade, 47 telas):** https://inovajus.github.io/oficina-eixo-iii/ (fonte: `C:/Victor/Privativo/INOVAJUS/Oficina Prompt Lab/oficina-eixo-iii.html`; não substitui o `/prompt-lab/`)
 - **Material de apoio:** `Banco-de-Prompts-Servidor-IA.docx` — banco de prompts para os exercícios.
 
 ## Sobre
