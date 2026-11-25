@@ -185,7 +185,108 @@ ol.two li{break-inside:avoid;margin-bottom:.25em}
 .gabslide .reveal{flex:1;display:flex;flex-direction:column}.gabslide .rv{flex:1;display:flex;flex-direction:column}.gabslide .gabcard{flex:1}
 .decslide .reveal{min-height:5.2em}
 .steps3{flex:1}.steps3 .k{display:flex;flex-direction:column;justify-content:center}.steps3 .k p{font-size:1em}.steps3 .k h3{font-size:1.15em}
-</style></head><body>
+</style><style id="skin-mira">
+/* ══ SKIN MIRA (mira-dark) — tokens do design system MIRA aplicados por cima do deck.
+   Não altera conteúdo nem script: só remapeia cores e reveste os componentes. ══ */
+:root{
+  --mira-primary:#FF904D; --mira-bg:#000000; --mira-text:#ffffff;
+  --mira-text-soft:rgba(255,255,255,.72); --mira-text-softer:rgba(255,255,255,.52);
+  --mira-card-bg:rgba(255,255,255,.05); --mira-card-border:rgba(255,255,255,.10);
+  --mira-glow-soft:rgba(255,144,77,.15); --mira-glow-strong:rgba(255,144,77,.25);
+  --mira-icon-bg:rgba(255,144,77,.15); --mira-icon-border:rgba(255,144,77,.30);
+  --mira-pill-bg:rgba(255,255,255,.04); --mira-pill-border:rgba(255,255,255,.08);
+  --mira-stage-glow:rgba(255,144,77,.06); --mira-accent-2:#FFC766;
+  /* ponte: tokens do deck passam a ler os do MIRA */
+  --bg:var(--mira-bg); --ink:var(--mira-text); --navy:var(--mira-primary);
+  --muted:var(--mira-text-soft); --gray:var(--mira-text-softer);
+  --line:var(--mira-card-border); --card:var(--mira-card-bg); --tint:var(--mira-pill-bg);
+  --ok:#5EE09A; --okbg:rgba(94,224,154,.09);
+  --ca:#FFC766; --cabg:rgba(255,199,102,.09);
+  --no:#FF7A7A; --nobg:rgba(255,122,122,.09);
+  --warn:#FF7A7A; --warnbg:rgba(255,122,122,.08);
+}
+html,body{background:#000}
+.slide{background:
+  radial-gradient(ellipse 70% 55% at 88% 8%, var(--mira-stage-glow), transparent 70%),
+  radial-gradient(ellipse 50% 45% at 8% 100%, rgba(255,144,77,.035), transparent 70%),
+  #000}
+.bar{width:6px;background:linear-gradient(180deg,var(--mira-primary),rgba(255,144,77,.15));box-shadow:0 0 24px var(--mira-glow-strong)}
+footer{color:var(--mira-text-softer)}
+footer .cnt{color:var(--mira-primary)}
+
+/* tipografia: título branco, rótulos em laranja */
+h1,h3,.capameta b,.k h3,.opt,.decslide .sit p,.verd .vp,.oficio .num,.tb .h,.pedido b,.cmpq b,.gab li,#ilist li .ik{color:var(--mira-text)}
+h1{letter-spacing:-.025em}
+.kicker,.lbl,.cicloinfo,.ciclo .ck{color:var(--mira-primary)}
+.k b{color:var(--mira-primary);text-shadow:0 0 28px var(--mira-glow-strong)}
+.oficio .org{color:var(--mira-primary)}
+.sm,.fund,.lead,.org2,.k p{color:var(--mira-text-soft)}
+
+/* cartões de vidro */
+.card,.k,.capameta div,.decslide .sit{
+  background:var(--mira-card-bg);border:1px solid var(--mira-card-border);border-radius:16px;
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  box-shadow:0 0 0 1px rgba(255,255,255,.02) inset, 0 12px 40px rgba(0,0,0,.45)}
+.k{border-top:4px solid var(--mira-primary)}
+.capameta div,.gabcard,.decslide .sit{border-left:4px solid var(--mira-primary)}
+.k.rev{border-top-color:var(--ok);background:var(--okbg)}
+
+/* blocos que eram "branco sobre azul-marinho" viram vidro com brilho laranja */
+.answer,.pill,.pill2,.thanks{
+  background:linear-gradient(135deg,rgba(255,144,77,.14),rgba(255,144,77,.04));
+  border:1px solid var(--mira-icon-border);color:var(--mira-text);
+  box-shadow:0 0 40px var(--mira-glow-soft)}
+.pill p,.pill2 p{color:var(--mira-text)}
+.answer .central{color:var(--mira-accent-2)}
+.opt{background:var(--mira-pill-bg);border:1px solid var(--mira-pill-border)}
+.opt b,.ciclo .st{background:var(--mira-primary);color:#000}
+.ciclo{background:var(--mira-pill-bg);border:1px solid var(--mira-pill-border)}
+.ciclo .ar{color:var(--mira-primary)}
+
+/* regra de sala e avisos */
+.rule{background:rgba(255,122,122,.10);border:1px solid rgba(255,122,122,.45);color:var(--mira-text)}
+.rule .x{background:var(--no);color:#000}
+.warnbox{background:var(--warnbg);border:1px solid rgba(255,122,122,.30);border-left:4px solid var(--warn)}
+.warnbox p{color:#FFC2C2}
+.aviso{background:var(--warnbg);color:#FFC2C2;border:1px solid rgba(255,122,122,.30);border-left:4px solid var(--warn)}
+.pedido{background:var(--mira-pill-bg);border:1px solid var(--mira-pill-border);color:var(--mira-text-soft)}
+.vf{background:rgba(255,199,102,.16);color:var(--mira-accent-2)}
+
+/* tabelas */
+.tb th,.prose table th{background:var(--mira-icon-bg);color:var(--mira-primary);border-bottom:1px solid var(--mira-icon-border)}
+.tb td,.prose table td{border-bottom:1px solid var(--mira-card-border)}
+.tb tr:nth-child(even) td{background:rgba(255,255,255,.025)}
+.roteiro .tot td{background:var(--mira-icon-bg)!important;color:var(--mira-text)}
+
+/* caixa do prompt */
+.promptwrap{background:#0A0A0A;border:1px solid var(--mira-icon-border);box-shadow:0 0 30px var(--mira-glow-soft)}
+.plabel{color:var(--mira-primary)}
+.copy{background:var(--mira-primary);color:#000}
+.copy.alt{background:rgba(255,255,255,.10);color:var(--mira-text);border:1px solid var(--mira-card-border)}
+.copy.done{background:var(--ok);color:#000}
+
+/* gabarito, vereditos */
+.pode{background:var(--okbg);border:1px solid rgba(94,224,154,.25);border-left:4px solid var(--ok)}
+.naopode{background:var(--nobg);border:1px solid rgba(255,122,122,.25);border-left:4px solid var(--no)}
+.vc.ok,.verd.ok{background:var(--okbg);color:var(--ok);border:2px solid var(--ok)}
+.vc.ca,.verd.ca{background:var(--cabg);color:var(--ca);border:2px solid var(--ca)}
+.vc.no,.verd.no{background:var(--nobg);color:var(--no);border:2px solid var(--no)}
+.reveal .mask{border:2px dashed var(--mira-icon-border);
+  background:repeating-linear-gradient(45deg,rgba(255,144,77,.05),rgba(255,144,77,.05) 14px,rgba(255,255,255,.015) 14px,rgba(255,255,255,.015) 28px)}
+.reveal .mask span{background:#0A0A0A;border:1px solid var(--mira-icon-border);color:var(--mira-primary)}
+
+/* sobreposições: cronômetro, índice, ajuda */
+#timer{background:rgba(10,10,10,.92);border:1px solid var(--mira-icon-border);box-shadow:0 0 30px var(--mira-glow-soft)}
+#timer .tl{color:var(--mira-primary)}
+#timer.paused .tv{color:var(--mira-accent-2)}
+#toast{background:#0A0A0A;border:1px solid var(--mira-icon-border)}
+#index,#help{background:rgba(0,0,0,.78)}
+.ibox{background:#0D0D0D;color:var(--mira-text);border:1px solid var(--mira-card-border);box-shadow:0 0 60px var(--mira-glow-soft)}
+.ibox h2,#help td:first-child{color:var(--mira-primary)}
+#ilist li.sel,#ilist li:hover{background:var(--mira-icon-bg)}
+#gbtn{background:rgba(255,255,255,.06);border:1px solid var(--mira-card-border);color:var(--mira-text-softer)}
+</style>
+</head><body>
 <div id="stage"><section class="slide cover" data-max="36" data-i="0" data-timer="0" data-label="Capa"><div class="bar"></div><div class="inner"><div class="capa"><div class="kicker big">INOVAJUS · Eixo III · Tecnologia e Inteligência Artificial</div>
 <h1 class="giant">IA generativa com ética e responsabilidade no Judiciário</h1>
 <p class="lead xl">Oficina prática · uso ético e responsável de IA generativa por servidores</p>
