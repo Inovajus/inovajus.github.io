@@ -375,6 +375,26 @@ addEventListener('keydown',e=>{if(e.ctrlKey||e.metaKey||e.altKey)return;if(handl
 addEventListener('hashchange',()=>{const n=parseInt(location.hash.slice(1),10);if(!isNaN(n)&&n-1!==cur)show(n-1);});
 const st=parseInt(location.hash.slice(1),10);show(isNaN(st)?0:st-1);
 (document.fonts?document.fonts.ready:Promise.resolve()).then(fitSlides);
+/* rodinha do mouse: um gesto = um slide */
+let wAcc=0,wLock=0,wIdle;
+addEventListener('wheel',e=>{
+  if(e.ctrlKey)return;                                   /* Ctrl+rodinha = zoom do navegador */
+  if(!ix.hidden||!help.hidden)return;                    /* índice/ajuda abertos: rolam normalmente */
+  for(let n=e.target;n&&n!==document.body;n=n.parentElement){  /* caixa com rolagem própria rola primeiro */
+    if(n.closest&&n.closest('#notes,.ibox,#presenter'))return;
+    const cs=getComputedStyle(n);
+    if(/(auto|scroll)/.test(cs.overflowY)&&n.scrollHeight>n.clientHeight+1){
+      if(e.deltaY>0&&n.scrollTop+n.clientHeight<n.scrollHeight-1)return;
+      if(e.deltaY<0&&n.scrollTop>0)return;
+    }
+  }
+  e.preventDefault();
+  const d=Math.abs(e.deltaY)>=Math.abs(e.deltaX)?e.deltaY:e.deltaX;
+  clearTimeout(wIdle);wIdle=setTimeout(()=>{wAcc=0;},200);
+  if(Date.now()<wLock)return;                            /* ignora a inércia do touchpad */
+  wAcc+=e.deltaMode===1?d*40:d;
+  if(Math.abs(wAcc)>=50){show(cur+(wAcc>0?1:-1));wAcc=0;wLock=Date.now()+650;}
+},{passive:false});
 window.__deck={fitSlides,show,count:S.length};
 })();
 </script></body></html>
