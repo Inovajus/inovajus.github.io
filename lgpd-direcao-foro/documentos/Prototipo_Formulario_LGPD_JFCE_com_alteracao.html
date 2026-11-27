@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Protótipo — Direitos do Titular (LGPD) · JFCE</title>
+<style>
+  :root{--azul:#13335a;--gov:#1351b4;--verde:#256b2c;--amb:#8a5a00}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+       color:#1f2933;background:#dfe3e9}
+  .demo-banner{background:#fff3d6;color:#7a5500;font-size:12.5px;text-align:center;padding:7px 12px;
+       border-bottom:1px solid #ecd9a0}
+  .demo-banner b{color:#6a4a00}
+  /* SEI chrome */
+  .sei-top{background:#15355e;color:#fff;font-size:10px;font-weight:700;letter-spacing:.5px;padding:5px 16px}
+  .sei-bar{background:#1f9bd6;height:46px;display:flex;align-items:center;padding:0 16px}
+  .sei-logo{color:#fff;font-weight:800;font-size:24px;font-style:italic}.sei-logo b{color:#cfe54b}
+  .wrap{max-width:760px;margin:0 auto;padding:18px 16px 60px}
+  .tabs{display:flex;gap:8px;margin:14px 0 18px}
+  .tab{flex:1;text-align:center;padding:9px;border:1px solid #c9d2dc;background:#fff;border-radius:8px;
+       font-size:13px;font-weight:600;color:#41506a;cursor:pointer}
+  .tab.on{background:var(--azul);color:#fff;border-color:var(--azul)}
+  h1{font-size:20px;color:var(--azul);margin:0 0 4px}
+  .lead{color:#5a6470;font-size:13px;margin:0 0 16px}
+  /* stepper */
+  .stepper{display:flex;align-items:center;margin:0 0 20px;font-size:11.5px}
+  .st{display:flex;align-items:center;gap:7px;color:#9aa4b0;flex:none}
+  .st .b{width:24px;height:24px;border-radius:50%;background:#e4e9ef;color:#7a828c;display:flex;
+        align-items:center;justify-content:center;font-weight:700;font-size:12px}
+  .st.on{color:var(--azul)}.st.on .b{background:var(--gov);color:#fff}
+  .st.done .b{background:var(--verde);color:#fff}
+  .line{flex:1;height:2px;background:#e0e5eb;margin:0 8px}
+  /* card */
+  .card{background:#fff;border:1px solid #d4dae2;border-radius:12px;padding:20px;
+        box-shadow:0 1px 3px rgba(20,40,70,.06)}
+  .screen{display:none}.screen.active{display:block}
+  .q{font-size:16px;font-weight:700;color:#222;margin:0 0 14px}
+  .opt{display:flex;align-items:center;gap:11px;border:1.5px solid #e1e6ec;border-radius:10px;
+       padding:13px 14px;margin-bottom:10px;cursor:pointer;font-size:14px;transition:.12s}
+  .opt:hover{border-color:#b9c6db;background:#fafcff}
+  .opt .ic{width:24px;height:24px;flex:none;border-radius:6px;background:#eef3fb;display:flex;
+       align-items:center;justify-content:center;font-size:13px}
+  .opt.lgpd .ic{background:#e7f3ea}
+  .opt .chip{margin-left:auto;background:#fbe6cf;color:var(--amb);font-size:11px;font-weight:700;
+       padding:3px 10px;border-radius:20px;white-space:nowrap}
+  label{display:block;font-size:12.5px;font-weight:600;color:#3a424c;margin:14px 0 5px}
+  input,select,textarea{width:100%;border:1.5px solid #c3ccd6;border-radius:8px;padding:10px 11px;
+       font-size:14px;background:#fbfcfd;color:#39414b;font-family:inherit}
+  textarea{height:90px;resize:vertical}
+  .row{display:flex;gap:12px}.row>div{flex:1}
+  .btn{border:none;border-radius:9px;padding:12px 20px;font-size:14px;font-weight:600;cursor:pointer}
+  .btn.primary{background:var(--gov);color:#fff}
+  .btn.green{background:var(--verde);color:#fff;width:100%}
+  .btn.ghost{background:#eef1f5;color:#41506a}
+  .btn:disabled{opacity:.5;cursor:not-allowed}
+  .bar{display:flex;justify-content:space-between;margin-top:18px;gap:10px}
+  .gov{background:var(--gov);color:#fff;border:none;border-radius:10px;padding:14px;font-size:16px;
+       width:100%;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
+  .gov b{font-weight:800}
+  .alt{display:block;text-align:center;font-size:13px;color:var(--gov);margin-top:12px;
+       text-decoration:underline;cursor:pointer}
+  .note{font-size:12.5px;line-height:1.5;border-radius:8px;padding:11px 13px;margin-top:14px;border-left:4px solid}
+  .note.g{background:#e9f5ec;border-color:var(--verde);color:#1f5128}
+  .note.a{background:#fef4e2;border-color:#c98a00;color:#7a5500}
+  .note.r{background:#fdecea;border-color:#c0392b;color:#7d241a}
+  .note.g::before{content:"✓ ";font-weight:800}
+  .note.a::before{content:"❗ ";font-weight:800}
+  .note.r::before{content:"⚠ ";font-weight:800}
+  .idbox{background:#eaf3ff;border:1px solid #cfe0f5;border-radius:10px;padding:12px 14px;margin-bottom:6px}
+  .idbox .who{font-weight:700;color:var(--azul);font-size:14px;display:flex;align-items:center;gap:8px}
+  .idchips{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}
+  .idc{background:#fff;color:#33506e;font-size:12px;font-weight:600;padding:4px 10px;border-radius:20px;border:1px solid #cfe0f5}
+  .badge{display:inline-block;background:#e7f3ea;color:var(--verde);font-size:11px;font-weight:700;
+       padding:2px 9px;border-radius:20px}
+  .badge.warn{background:#fef4e2;color:#8a5a00}
+  .counter{text-align:right;font-size:11.5px;color:#8a929c;margin-top:4px}
+  .chk{display:flex;align-items:flex-start;gap:9px;font-size:13px;font-weight:500;margin-top:14px;color:#3a424c}
+  .chk input{width:auto;margin-top:2px}
+  .err{color:#c0392b;font-size:12.5px;margin-top:10px;display:none}
+  .err.show{display:block}
+  /* gov modal */
+  .overlay{position:fixed;inset:0;background:rgba(15,25,45,.55);display:none;align-items:center;
+       justify-content:center;padding:20px;z-index:50}
+  .overlay.on{display:flex}
+  .gmodal{background:#fff;border-radius:14px;max-width:380px;width:100%;overflow:hidden}
+  .gmodal .gh{background:var(--gov);color:#fff;padding:16px 20px;font-size:22px;font-weight:800;font-style:italic}
+  .gmodal .gb{padding:20px}
+  .gmodal p{font-size:13.5px;color:#41506a;line-height:1.5}
+  .sim{font-size:11px;color:#9aa4b0;text-align:center;margin-top:10px}
+  /* success */
+  .ok-ico{width:56px;height:56px;border-radius:50%;background:#e7f3ea;color:var(--verde);
+       display:flex;align-items:center;justify-content:center;font-size:30px;margin:0 auto 12px}
+  .proto{font-size:22px;font-weight:800;color:var(--azul);text-align:center;letter-spacing:.5px;margin:6px 0}
+  .center{text-align:center}
+  .kv{font-size:13px;color:#41506a;margin:5px 0}
+  .kv b{color:#222}
+  .muted{color:#7a828c;font-size:12px}
+  /* antes (atual) */
+  #atual .card label{font-weight:600}
+  #atual .red{font-size:11.5px;color:#922}
+  .pill{display:inline-block;background:#fdecea;color:#922;font-size:11px;font-weight:700;border-radius:6px;padding:2px 7px;margin-left:6px}
+  .pill.ok{background:#e7f3ea;color:#256b2c}
+</style>
+</head>
+<body>
+<div class="demo-banner"><b>Demonstração</b> — protótipo de navegação. Dados fictícios, login gov.br <b>simulado</b>, nada é enviado.</div>
+<div class="sei-top">JUSTIÇA FEDERAL NO CEARÁ</div>
+<div class="sei-bar"><span class="sei-logo">sei<b>!</b></span></div>
+
+<div class="wrap">
+  <div class="tabs">
+    <div class="tab on" id="tab-proto" onclick="showTab('proto')">▶ Protótipo (proposta)</div>
+    <div class="tab" id="tab-atual" onclick="showTab('atual')">Formulário atual (como é hoje)</div>
+  </div>
+
+  <!-- ===================== PROTÓTIPO ===================== -->
+  <div id="proto">
+    <h1>Fale com o Encarregado de Dados — LGPD</h1>
+    <p class="lead">Vamos direcioná-lo ao canal certo e, se for um direito de titular, confirmar sua identidade com segurança.</p>
+
+    <div class="stepper">
+      <div class="st on" id="s0"><span class="b">0</span> Triagem</div><div class="line"></div>
+      <div class="st" id="s1"><span class="b">1</span> Autenticação</div><div class="line"></div>
+      <div class="st" id="s2"><span class="b">2</span> Pedido</div><div class="line"></div>
+      <div class="st" id="s3"><span class="b">✓</span> Concluído</div>
+    </div>
+
+    <div class="card">
+      <!-- TRIAGEM 0 -->
+      <div class="screen active" data-screen="triage">
+        <p class="q">Sobre o que é a sua solicitação?</p>
+        <div class="opt lgpd" onclick="setNat('direito')"><span class="ic">🛡️</span> Exercer um direito sobre meus dados pessoais (acessar, corrigir, eliminar…)</div>
+        <div class="opt lgpd" onclick="setNat('incidente')"><span class="ic">🚨</span> Comunicar um incidente com meus dados (vazamento, exposição, envio errado)</div>
+        <div class="opt lgpd" onclick="setNat('reclamacao')"><span class="ic">📝</span> Reclamar sobre como a JFCE trata meus dados</div>
+        <div class="opt" onclick="redir('Ouvidoria do TRF5','Na JFCE, o acesso a informações e documentos públicos (Lei de Acesso à Informação) é feito pela Ouvidoria do TRF5. Se na verdade você quer acessar dados pessoais sobre você, volte e escolha a primeira opção.','https://www.trf5.jus.br/index.php/ouvidoria')"><span class="ic">📄</span> Acesso a uma informação ou documento público <span class="chip">→ Ouvidoria (LAI)</span></div>
+        <div class="opt" onclick="redir('PJe','Andamento, consulta e peticionamento de processos judiciais são feitos no PJe. Para atendimento ao público por videoconferência, há o Balcão Virtual.','https://www.jfce.jus.br/wp-content/assets/acessos/index.html')"><span class="ic">⚖️</span> Andamento, consulta ou peticionamento de processo <span class="chip">→ PJe</span></div>
+        <div class="opt" onclick="redir('Ouvidoria do TRF5','Reclamações, elogios, denúncias e sugestões sobre serviço ou atendimento são tratados pela Ouvidoria do TRF5.','https://www.trf5.jus.br/index.php/ouvidoria')"><span class="ic">📣</span> Reclamação, elogio, denúncia ou sugestão sobre serviço/atendimento <span class="chip">→ Ouvidoria TRF5</span></div>
+        <div class="opt" onclick="redir('Ouvidoria do TRF5','Sem problema! A Ouvidoria do TRF5 vai te orientar e encaminhar ao canal certo. Se for um assunto de proteção de dados pessoais, ela encaminha internamente ao Encarregado da JFCE — você não precisa saber de antemão de quem é a competência.','https://www.trf5.jus.br/index.php/ouvidoria')"><span class="ic">❓</span> Não tenho certeza <span class="chip">→ Ouvidoria</span></div>
+        <div class="note g">A triagem <b>orienta e redireciona</b> — nunca recusa. Ela reduz a carga indevida, mas não substitui o registro formal de não enquadramento feito pela equipe.</div>
+      </div>
+
+      <!-- REDIRECT -->
+      <div class="screen" data-screen="redirect">
+        <p class="q" id="redir-title"></p>
+        <div class="note a" id="redir-msg"></div>
+        <div class="bar"><button class="btn ghost" onclick="go('triage')">← Voltar à triagem</button>
+          <button class="btn primary" id="redir-go">Ir para o canal →</button></div>
+      </div>
+
+      <!-- INCIDENTE (via rápida) -->
+      <div class="screen" data-screen="incident">
+        <p class="q">Comunicar um incidente com dados pessoais</p>
+        <p class="lead" style="margin-bottom:14px">Obrigado por avisar. Para conter o incidente o quanto antes, registramos sua comunicação <b>imediatamente</b>, sem login. Pedimos apenas uma identificação leve agora; a <b>confirmação de identidade</b>, quando o caso exigir, é feita depois e <b>não atrasa a contenção</b>.</p>
+        <label>Você é… *</label>
+        <select id="inc-quem">
+          <option value="">Selecione…</option>
+          <option value="titular">O titular dos dados envolvidos</option>
+          <option value="terceiro">Um terceiro (recebi/encontrei dados de outra pessoa)</option>
+          <option value="nsei">Não sei / prefiro não dizer</option>
+        </select>
+        <label>Seu nome *</label>
+        <input id="inc-nome" placeholder="Como podemos chamar você">
+        <label>Seu contato (e-mail ou telefone) *</label>
+        <input id="inc-contato" placeholder="Para retornarmos sobre a contenção">
+        <span class="alt" id="inc-id-link" onclick="govLogin('incident')">Quero confirmar minha identidade agora pelo gov.br (opcional)</span>
+        <span class="idc" id="inc-id-chip" style="display:none;margin-top:8px">✓ identidade confirmada · gov.br</span>
+        <label>O que aconteceu? *</label>
+        <textarea id="inc-msg" placeholder="Ex.: recebi por e-mail um documento com dados de outra pessoa; vi meus dados expostos em uma página; etc."></textarea>
+        <div class="row">
+          <div><label>Quando você percebeu?</label><input id="inc-quando" placeholder="Ex.: hoje, ontem, data aproximada"></div>
+          <div><label>Quais dados ou qual sistema/serviço?</label><input id="inc-dados" placeholder="Ex.: meu CPF, um sistema, um e-mail"></div>
+        </div>
+        <label>Como você tomou conhecimento?</label>
+        <select id="inc-como">
+          <option value="">Selecione…</option>
+          <option>Recebi e-mail/documento de outra pessoa por engano</option>
+          <option>Vi meus dados expostos publicamente</option>
+          <option>Fui avisado(a) por um terceiro</option>
+          <option>Outro</option>
+        </select>
+        <label>Anexar evidência (opcional)</label>
+        <input type="file" id="inc-file" multiple>
+        <div class="note a">Registro encaminhado de imediato à Equipe de Governança de TIC e Apoio à LGPD e à Segurança da Informação (sai do rito ordinário — Res. CD/ANPD nº 15/2024). <b>Sua identidade só será confirmada se for preciso revelar detalhes sobre os seus dados ou atender a um direito seu</b> — e não para iniciar a contenção. Evite incluir dados de terceiros além do necessário.</div>
+        <div class="err" id="inc-err">Informe quem é você, seu nome, um contato e descreva o que aconteceu.</div>
+        <div class="bar"><button class="btn ghost" onclick="go('triage')">← Voltar</button>
+          <button class="btn green" style="width:auto;background:#c0392b;border-color:#c0392b" onclick="submitIncident()">Registrar incidente</button></div>
+      </div>
+
+      <!-- Q direito -->
+      <div class="screen" data-screen="q_right">
+        <p class="q">Qual direito você deseja exercer? <span class="muted">(art. 18 da LGPD)</span></p>
+        <select id="right-sel">
+          <option value="Confirmação da existência de tratamento (art. 18, I)">Confirmação da existência de tratamento (art. 18, I)</option>
+          <option value="Acesso aos dados (art. 18, II)" selected>Acesso aos dados (art. 18, II)</option>
+          <option value="Correção de dados (art. 18, III)">Correção de dados (art. 18, III)</option>
+          <option value="Anonimização de dados (art. 18, IV)">Anonimização de dados (art. 18, IV)</option>
+          <option value="Bloqueio de dados (art. 18, IV)">Bloqueio de dados (art. 18, IV)</option>
+          <option value="Eliminação de dados (art. 18, IV)">Eliminação de dados (art. 18, IV)</option>
+          <option value="Portabilidade de dados (art. 18, V)">Portabilidade de dados (art. 18, V)</option>
+          <option value="Eliminação de dados com o consentimento (art. 18, VI)">Eliminação de dados com o consentimento (art. 18, VI)</option>
+          <option value="Informações sobre compartilhamento dos dados (art. 18, VII)">Informações sobre compartilhamento dos dados (art. 18, VII)</option>
+          <option value="Informações sobre consentimento e consequências da negativa (art. 18, VIII)">Informações sobre consentimento e consequências da negativa (art. 18, VIII)</option>
+          <option value="Revogação do consentimento (art. 18, IX)">Revogação do consentimento (art. 18, IX)</option>
+          <option value="Tratamento automatizado / revisão de decisões (art. 20)">Tratamento automatizado / revisão de decisões (art. 20)</option>
+        </select>
+        <div class="note g">Não perguntamos se o dado é “da JFCE” nem se é “processual”: essa verificação de escopo e competência é feita pela equipe (etapas 4 e 11 do fluxo), para não pedir ao titular uma classificação que cabe ao órgão.</div>
+        <div class="bar"><button class="btn ghost" onclick="go('triage')">← Voltar</button>
+          <button class="btn primary" onclick="toAuth()">Continuar →</button></div>
+      </div>
+
+      <!-- AUTH 1 -->
+      <div class="screen" data-screen="auth">
+        <p class="q">Confirme sua identidade</p>
+        <p class="lead" style="margin-bottom:14px">Como o pedido pode revelar ou alterar dados pessoais, precisamos ter certeza de que é você.</p>
+        <button class="gov" onclick="govLogin()">Entrar com <b>gov.br</b></button>
+        <span class="alt" onclick="go('altdoc')">Não tenho conta gov.br — usar verificação documental</span>
+        <div class="note g">Com gov.br a identidade vem validada (você não digita CPF). Sem gov.br, há um <b>canal alternativo documental</b> para não excluir ninguém.</div>
+        <div class="bar"><button class="btn ghost" onclick="backFromAuth()">← Voltar</button><span></span></div>
+      </div>
+
+      <!-- AUTH ALTERNATIVA / DOCUMENTAL -->
+      <div class="screen" data-screen="altdoc">
+        <p class="q">Verificação documental de identidade</p>
+        <p class="lead" style="margin-bottom:14px">Sem conta gov.br, você comprova sua identidade enviando um documento. A conferência é feita pela equipe antes de qualquer entrega de dados.</p>
+        <label>Nome completo *</label><input id="doc-nome" placeholder="Seu nome completo">
+        <label>CPF (ou RG/Órgão Expedidor, se não tiver CPF) *</label><input id="doc-cpf" placeholder="Ex.: 000.000.000-00 ou RG + órgão">
+        <label>Tipo de documento *</label>
+        <select id="doc-tipo">
+          <option value="">Selecione…</option>
+          <option>RG (carteira de identidade)</option>
+          <option>CNH</option>
+          <option>Passaporte</option>
+          <option>Outro documento oficial com foto</option>
+        </select>
+        <label>Documento de identidade (frente e verso) *</label>
+        <input type="file" id="doc-file" multiple>
+        <div class="note a">A identidade é <b>conferida pela equipe</b> — não é aprovada automaticamente pelo upload. Enquanto não for confirmada, não há entrega de dados pessoais (art. 18; Fluxo do Encarregado, etapas 7 e 9).</div>
+        <div class="err" id="doc-err">Preencha nome, documento de identificação, tipo e anexe ao menos um arquivo.</div>
+        <div class="bar"><button class="btn ghost" onclick="go('auth')">← Voltar</button>
+          <button class="btn primary" onclick="altDocDone()">Continuar →</button></div>
+      </div>
+
+      <!-- FORM 2 -->
+      <div class="screen" data-screen="form">
+        <div class="idbox">
+          <div class="who">👤 <span id="who-name">—</span> <span class="badge" id="id-badge">identidade verificada · gov.br</span></div>
+          <div class="idchips">
+            <span class="idc">CPF: <span id="who-cpf">—</span></span>
+            <span class="idc" id="mail-chip">E-mail: <span id="who-mail">—</span></span>
+          </div>
+          <div class="note a" id="doc-pending" style="display:none;margin-top:10px">Identidade por <b>verificação documental</b> — será conferida pela equipe antes de qualquer entrega de dados.</div>
+        </div>
+
+        <label>Quem está solicitando</label>
+        <select id="solicitante" onchange="toggleRep()">
+          <option value="titular">O próprio titular dos dados</option>
+          <option value="rep">Representante legal</option>
+          <option value="menor">Responsável por menor de idade</option>
+          <option value="incapaz">Responsável legal por pessoa incapaz/curatelado</option>
+        </select>
+        <div id="rep-box" style="display:none">
+          <label>Comprovação de representação (procuração/documento)</label>
+          <input type="file">
+          <div class="note a">Obrigatório quando o solicitante não é o próprio titular — é o que evita que alguém peça os dados de outra pessoa.</div>
+        </div>
+
+        <label>Direito exercido / natureza do pedido</label>
+        <input id="right-show" readonly style="background:#eef3fb;font-weight:600;color:var(--azul)">
+
+        <label>Contexto / serviço relacionado *</label>
+        <select id="contexto">
+          <option value="">Selecione…</option>
+          <option>Cadastro / atendimento ao público</option>
+          <option>Recursos humanos / servidores</option>
+          <option>Folha / pagamentos</option>
+          <option>Comunicação / mailing</option>
+          <option>Outro (descrever na mensagem)</option>
+        </select>
+
+        <label>Mensagem *</label>
+        <textarea id="msg" maxlength="5000" oninput="count()" placeholder="Descreva seu pedido — sem inserir dados sensíveis ou de terceiros."></textarea>
+        <div class="counter">Caracteres restantes: <span id="cc">5000</span></div>
+
+        <label class="chk"><input type="checkbox" id="aviso"> Li e estou ciente do <b style="margin:0 3px">aviso de privacidade</b> deste formulário (os dados são usados apenas para processar este pedido).</label>
+
+        <div class="err" id="form-err">Preencha o contexto, a mensagem e marque a ciência do aviso de privacidade.</div>
+
+        <div class="bar"><button class="btn ghost" onclick="go('auth')">← Voltar</button>
+          <button class="btn green" style="width:auto" onclick="submitForm()">Enviar pedido</button></div>
+      </div>
+
+      <!-- DONE 3 -->
+      <div class="screen" data-screen="done">
+        <div class="ok-ico">✓</div>
+        <p class="center" id="done-title" style="font-weight:700;font-size:17px;margin:0">Pedido registrado com sucesso</p>
+        <p class="center muted" style="margin:4px 0 14px">Seu protocolo no SEI:</p>
+        <div class="proto" id="proto-num">—</div>
+        <div style="max-width:460px;margin:16px auto 0">
+          <div class="kv"><b>Pedido:</b> <span id="done-right">—</span></div>
+          <div class="kv"><b>Identidade:</b> <span id="done-idmethod">verificada via gov.br</span> <span id="done-who"></span></div>
+          <div class="kv"><b>Classificação no SEI:</b> tipo "LGPD (Ouvidoria)" · acesso RESTRITO · hipótese legal "Proteção de Dados Pessoais (Lei nº 13.709/2018)"</div>
+          <div class="kv"><b>Encaminhamento:</b> Equipe de Governança de TIC e Apoio à LGPD / Encarregado(a)</div>
+          <div class="kv"><b>Prazo de resposta:</b> até 15 dias (art. 19 da LGPD)</div>
+        </div>
+        <div class="note a" id="done-incident" style="max-width:460px;margin:14px auto 0;display:none">🚨 Sinalizado como <b>incidente</b>: será retirado do rito ordinário e conduzido pelo procedimento de resposta a incidentes (Res. CD/ANPD nº 15/2024).</div>
+        <div class="note g" style="max-width:460px;margin:14px auto 0">O desfecho pode variar conforme a análise: atendimento integral ou parcial, negativa fundamentada, pedido de complementação, redirecionamento ou encerramento sem mérito (se a identidade não for confirmada). Você acompanha pelo protocolo.</div>
+        <div class="center" style="margin-top:18px"><button class="btn ghost" onclick="reset()">↺ Fazer nova solicitação</button></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===================== ATUAL ===================== -->
+  <div id="atual" style="display:none">
+    <h1>Formulário atual — Ouvidoria LGPD</h1>
+    <p class="lead">Como é hoje (estático, para comparação). O Assunto já usa os direitos do art. 18 — o que falta é triagem, autenticação e os caminhos de incidente e reclamação.</p>
+    <div class="card">
+      <label>Nome Completo *</label><input>
+      <label>Nome Social (opcional)</label><input>
+      <div class="row"><div><label>E-mail *</label><input></div><div><label>DDD e Telefone</label><input></div></div>
+      <label>CPF * <span class="pill">ou RG/Órgão Expedidor</span></label><input>
+      <div class="red">⚠ CPF/RG digitados livremente, sem autenticar quem informa.</div>
+      <div class="row"><div><label>Estado *</label><select><option>CE</option></select></div><div><label>Cidade *</label><select><option>Fortaleza</option></select></div></div>
+      <label>Tipo * <span class="pill">opção única: LGPD</span></label><select><option>Lei Geral de Proteção de Dados (LGPD)</option></select>
+      <label>Assunto * <span class="pill ok">já usa o art. 18 ✓</span></label><select><option>Acesso aos dados (LGPD, art. 18, II)</option><option>Correção, Eliminação, Portabilidade…</option></select>
+      <div class="red">⚠ Não há opção para comunicar incidente nem para reclamação sobre tratamento.</div>
+      <label>Processos Relacionados</label><input>
+      <label>Mensagem *</label><textarea></textarea>
+      <label class="chk"><input type="checkbox"> Não desejo receber retorno <span class="pill">conflita com art. 19</span></label>
+      <div class="captcha" style="margin-top:12px"><span class="cap" style="background:repeating-linear-gradient(45deg,#e9edf2,#e9edf2 6px,#dde3ea 6px,#dde3ea 12px);padding:5px 12px;border-radius:5px;font-weight:800;letter-spacing:4px;color:#516">Snan</span> <span style="font-size:11.5px;color:#5a6470">CAPTCHA de texto (maiúsc./minúsc.)</span></div>
+      <div class="red">⚠ CAPTCHA de texto é barreira de acessibilidade.</div>
+      <div style="margin-top:14px"><button class="btn ghost">Enviar</button></div>
+      <div class="note r">Sem triagem, sem autenticação, sem caminho de incidente/reclamação e sem aviso de privacidade — por isso a caixa do Encarregado recebe o que é de outro canal.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- gov.br modal -->
+<div class="overlay" id="gov-overlay">
+  <div class="gmodal">
+    <div class="gh">gov.br</div>
+    <div class="gb">
+      <p>Você está autorizando a <b>Justiça Federal no Ceará</b> a acessar seus dados de identificação (nome, CPF e e-mail) para processar seu pedido de direitos do titular.</p>
+      <button class="btn primary" style="width:100%" onclick="govConfirm()">Autorizar e continuar</button>
+      <p class="sim">Tela ilustrativa — simulação, não é o gov.br real.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  var IDENT = { name:"Maria de Souza Lima", cpf:"***.***.***-04", mail:"m****lima@email.com" };
+  var state = { right:"Acesso aos dados (art. 18, II)", natureza:"direito", viaDoc:false, authCtx:"form", incId:false };
+  function setNat(n){
+    state.natureza=n;
+    if(n==='direito') go('q_right');
+    else if(n==='incidente') go('incident');
+    else { state.right='Reclamação sobre tratamento de dados'; go('auth'); }
+  }
+
+  function showTab(t){
+    document.getElementById('proto').style.display = t==='proto'?'block':'none';
+    document.getElementById('atual').style.display = t==='atual'?'block':'none';
+    document.getElementById('tab-proto').classList.toggle('on', t==='proto');
+    document.getElementById('tab-atual').classList.toggle('on', t==='atual');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  var STAGE = { triage:0, redirect:0, q_right:0, incident:2, auth:1, altdoc:1, form:2, done:3 };
+  function setStepper(stage){
+    for(var i=0;i<4;i++){
+      var el=document.getElementById('s'+i);
+      el.classList.remove('on','done');
+      if(i<stage) el.classList.add('done');
+      else if(i===stage) el.classList.add('on');
+    }
+  }
+  function setStepperInc(atDone){
+    for(var i=0;i<4;i++){ document.getElementById('s'+i).classList.remove('on','done'); }
+    document.getElementById('s0').classList.add('done');
+    document.getElementById('s2').classList.add(atDone?'done':'on');
+    if(atDone) document.getElementById('s3').classList.add('on');
+  }
+  function go(name){
+    var scr=document.querySelectorAll('#proto .screen');
+    scr.forEach(function(e){ e.classList.remove('active'); });
+    document.querySelector('[data-screen="'+name+'"]').classList.add('active');
+    if(name==='incident') setStepperInc(false);
+    else if(name==='done' && state.natureza==='incidente') setStepperInc(true);
+    else setStepper(STAGE[name]);
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  function redir(title,msg,url){
+    document.getElementById('redir-title').textContent = 'Encaminhamos você para: '+title;
+    document.getElementById('redir-msg').innerHTML = msg;
+    var btn = document.getElementById('redir-go');
+    btn.textContent = 'Ir para '+title+' →';
+    btn.onclick = function(){
+      if(url){ window.open(url,'_blank','noopener'); }
+      else { alert('(Demonstração) Aqui o cidadão seria levado ao canal correto: '+title+'.'); }
+    };
+    go('redirect');
+  }
+
+  function toAuth(){
+    state.right = document.getElementById('right-sel').value;
+    go('auth');
+  }
+  function backFromAuth(){ go(state.natureza==='direito' ? 'q_right' : 'triage'); }
+  function submitIncident(){
+    var quem=document.getElementById('inc-quem').value;
+    var nome=document.getElementById('inc-nome').value.trim();
+    var contato=document.getElementById('inc-contato').value.trim();
+    var msg=document.getElementById('inc-msg').value.trim();
+    var err=document.getElementById('inc-err');
+    if(!quem || !nome || !contato || !msg){ err.classList.add('show'); return; }
+    err.classList.remove('show');
+    var n=Math.floor(1000+Math.random()*8999);
+    document.getElementById('proto-num').textContent='0004'+n+'-72.2025.4.05.8100';
+    document.getElementById('done-title').textContent='Comunicação de incidente registrada — contenção iniciada';
+    document.getElementById('done-right').textContent='Comunicação de incidente';
+    document.getElementById('done-who').textContent='('+nome+')';
+    document.getElementById('done-idmethod').textContent = state.incId
+      ? 'confirmada via gov.br'
+      : 'identificação leve registrada; confirmação só se for revelar dados ou atender a um direito';
+    document.getElementById('done-incident').style.display='block';
+    go('done');
+  }
+
+  function govLogin(ctx){ state.authCtx = ctx || 'form'; document.getElementById('gov-overlay').classList.add('on'); }
+  function govConfirm(){
+    document.getElementById('gov-overlay').classList.remove('on');
+    if(state.authCtx==='incident'){ incIdConfirmed(); }
+    else { govDone(); }
+  }
+  function incIdConfirmed(){
+    state.incId = true;
+    if(!document.getElementById('inc-nome').value.trim()){ document.getElementById('inc-nome').value = IDENT.name; }
+    document.getElementById('inc-quem').value = 'titular';
+    document.getElementById('inc-id-link').style.display = 'none';
+    document.getElementById('inc-id-chip').style.display = 'inline-block';
+  }
+  function govDone(){
+    document.getElementById('gov-overlay').classList.remove('on');
+    state.viaDoc=false;
+    document.getElementById('who-name').textContent = IDENT.name;
+    document.getElementById('who-cpf').textContent = IDENT.cpf;
+    document.getElementById('who-mail').textContent = IDENT.mail;
+    var b=document.getElementById('id-badge');
+    b.textContent='identidade verificada · gov.br'; b.classList.remove('warn');
+    document.getElementById('mail-chip').style.display='';
+    document.getElementById('doc-pending').style.display='none';
+    document.getElementById('right-show').value = state.right;
+    go('form');
+  }
+  function altDocDone(){
+    var nome=document.getElementById('doc-nome').value.trim();
+    var cpf=document.getElementById('doc-cpf').value.trim();
+    var tipo=document.getElementById('doc-tipo').value;
+    var nfile=document.getElementById('doc-file').files.length;
+    var err=document.getElementById('doc-err');
+    if(!nome || !cpf || !tipo || !nfile){ err.classList.add('show'); return; }
+    err.classList.remove('show');
+    state.viaDoc=true;
+    document.getElementById('who-name').textContent = nome;
+    document.getElementById('who-cpf').textContent = cpf;
+    var b=document.getElementById('id-badge');
+    b.textContent='verificação documental · conferência pendente'; b.classList.add('warn');
+    document.getElementById('mail-chip').style.display='none';
+    document.getElementById('doc-pending').style.display='block';
+    document.getElementById('right-show').value = state.right;
+    go('form');
+  }
+
+  function toggleRep(){
+    var v=document.getElementById('solicitante').value;
+    document.getElementById('rep-box').style.display = (v==='titular')?'none':'block';
+  }
+  function count(){
+    var n=document.getElementById('msg').value.length;
+    document.getElementById('cc').textContent = (5000-n);
+  }
+
+  function submitForm(){
+    var ctx=document.getElementById('contexto').value;
+    var msg=document.getElementById('msg').value.trim();
+    var av=document.getElementById('aviso').checked;
+    var err=document.getElementById('form-err');
+    if(!ctx || !msg || !av){ err.classList.add('show'); return; }
+    err.classList.remove('show');
+    var n = Math.floor(1000 + Math.random()*8999);
+    document.getElementById('proto-num').textContent = '0004'+n+'-72.2025.4.05.8100';
+    document.getElementById('done-title').textContent='Pedido registrado com sucesso';
+    document.getElementById('done-right').textContent = state.right;
+    document.getElementById('done-who').textContent = '('+document.getElementById('who-name').textContent+')';
+    document.getElementById('done-idmethod').textContent = state.viaDoc
+      ? 'declarada — verificação documental (conferência pela equipe)'
+      : 'verificada via gov.br';
+    document.getElementById('done-incident').style.display = (state.natureza==='incidente')?'block':'none';
+    go('done');
+  }
+
+  function reset(){
+    document.getElementById('solicitante').value='titular'; toggleRep();
+    document.getElementById('contexto').value='';
+    document.getElementById('msg').value=''; count();
+    document.getElementById('aviso').checked=false;
+    document.getElementById('right-sel').value='Acesso aos dados (art. 18, II)';
+    state.right='Acesso aos dados (art. 18, II)';
+    state.natureza='direito';
+    state.viaDoc=false;
+    document.getElementById('doc-nome').value='';
+    document.getElementById('doc-cpf').value='';
+    document.getElementById('doc-tipo').value='';
+    document.getElementById('doc-file').value='';
+    document.getElementById('doc-err').classList.remove('show');
+    ['inc-msg','inc-quando','inc-dados','inc-contato','inc-nome'].forEach(function(id){ document.getElementById(id).value=''; });
+    document.getElementById('inc-como').value='';
+    document.getElementById('inc-quem').value='';
+    document.getElementById('inc-file').value='';
+    document.getElementById('inc-err').classList.remove('show');
+    state.incId=false; state.authCtx='form';
+    document.getElementById('inc-id-link').style.display='';
+    document.getElementById('inc-id-chip').style.display='none';
+    var b=document.getElementById('id-badge');
+    b.textContent='identidade verificada · gov.br'; b.classList.remove('warn');
+    document.getElementById('mail-chip').style.display='';
+    document.getElementById('doc-pending').style.display='none';
+    go('triage');
+  }
+
+  // Deep link vindo do Portal: abre direto na etapa certa.
+  function routeFromHash(){
+    var h = (location.hash || '').replace('#','').toLowerCase();
+    // A pedido da JFCE: o canal do titular abre na triagem completa (todas as opções),
+    // em vez de pular direto para a seleção de direitos.
+    if(h==='direito' || h==='direitos') go('triage');
+    else if(h==='incidente' || h==='incidentes') setNat('incidente');
+    else if(h==='reclamacao' || h==='reclamacão') go('triage');
+    // sem marcador reconhecido: permanece na triagem
+  }
+  routeFromHash();
+  window.addEventListener('hashchange', routeFromHash);
+</script>
+</body>
+</html>

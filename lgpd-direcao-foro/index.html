@@ -1,0 +1,953 @@
+<!doctype html>
+<html lang="pt-BR" data-mira="corporate-blue">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Adequação à LGPD — Justiça Federal no Ceará</title>
+<style>
+@font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;
+  src:url('assets/fonts/inter-latin.woff2') format('woff2')}
+
+/* ═══ Design system MIRA — tokens (3 temas) ═══ */
+html[data-mira="corporate-blue"]{
+  --mira-primary:#4DA3FF; --mira-bg:#0A1220; --mira-text:#ffffff;
+  --mira-text-soft:rgba(255,255,255,.76); --mira-text-softer:rgba(255,255,255,.54);
+  --mira-card-bg:rgba(255,255,255,.05); --mira-card-border:rgba(255,255,255,.11);
+  --mira-glow-soft:rgba(77,163,255,.15); --mira-glow-strong:rgba(77,163,255,.25);
+  --mira-icon-bg:rgba(77,163,255,.15); --mira-icon-border:rgba(77,163,255,.30);
+  --mira-pill-bg:rgba(255,255,255,.04); --mira-pill-border:rgba(255,255,255,.10);
+  --mira-stage-glow:rgba(77,163,255,.07); --mira-accent-2:#6EE7F0;
+  --ok:#4ADE80; --warn:#FBBF24; --danger:#F87171; --solid:#101B2E; color-scheme:dark;
+}
+html[data-mira="mira-dark"]{
+  --mira-primary:#FF904D; --mira-bg:#000000; --mira-text:#ffffff;
+  --mira-text-soft:rgba(255,255,255,.74); --mira-text-softer:rgba(255,255,255,.52);
+  --mira-card-bg:rgba(255,255,255,.05); --mira-card-border:rgba(255,255,255,.10);
+  --mira-glow-soft:rgba(255,144,77,.15); --mira-glow-strong:rgba(255,144,77,.25);
+  --mira-icon-bg:rgba(255,144,77,.15); --mira-icon-border:rgba(255,144,77,.30);
+  --mira-pill-bg:rgba(255,255,255,.04); --mira-pill-border:rgba(255,255,255,.09);
+  --mira-stage-glow:rgba(255,144,77,.06); --mira-accent-2:#FFC766;
+  --ok:#4ADE80; --warn:#FBBF24; --danger:#F87171; --solid:#0D0D0D; color-scheme:dark;
+}
+html[data-mira="light-minimal"]{
+  --mira-primary:#1F5FBF; --mira-bg:#FAFAF7; --mira-text:#1A1A1A;
+  --mira-text-soft:rgba(26,26,26,.78); --mira-text-softer:rgba(26,26,26,.58);
+  --mira-card-bg:rgba(255,255,255,.88); --mira-card-border:rgba(0,0,0,.10);
+  --mira-glow-soft:rgba(31,95,191,.09); --mira-glow-strong:rgba(31,95,191,.16);
+  --mira-icon-bg:rgba(31,95,191,.10); --mira-icon-border:rgba(31,95,191,.28);
+  --mira-pill-bg:rgba(0,0,0,.03); --mira-pill-border:rgba(0,0,0,.10);
+  --mira-stage-glow:rgba(31,95,191,.05); --mira-accent-2:#0E7490;
+  --ok:#15803D; --warn:#A16207; --danger:#B91C1C; --solid:#FFFFFF; color-scheme:light;
+}
+
+*{box-sizing:border-box}
+html{font-size:clamp(15px, calc(.6vw + .62vh), 22px); height:100%}
+@media (max-width:760px){html{font-size:15px}}
+body{margin:0; height:100vh; height:100dvh; overflow:hidden; display:grid; grid-template-rows:auto 1fr auto;
+  font-family:'Inter',-apple-system,"Segoe UI",Roboto,sans-serif; color:var(--mira-text);
+  background:
+    radial-gradient(60rem 30rem at 85% -10%, var(--mira-stage-glow), transparent 70%),
+    radial-gradient(50rem 28rem at -10% 110%, var(--mira-stage-glow), transparent 70%),
+    var(--mira-bg);
+  line-height:1.45; -webkit-font-smoothing:antialiased}
+button{font:inherit; color:inherit; cursor:pointer}
+svg.i{width:1.15em; height:1.15em; flex:none; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round}
+:focus-visible{outline:2px solid var(--mira-primary); outline-offset:2px}
+
+/* ═══ Barra superior: marca + abas de capítulo + ferramentas ═══ */
+.top{display:flex; align-items:center; gap:.75rem; padding:.45rem 1rem; border-bottom:1px solid var(--mira-card-border);
+  background:color-mix(in srgb, var(--mira-bg) 84%, transparent); backdrop-filter:blur(12px); min-width:0}
+.brand{display:flex; align-items:center; gap:.5rem; font-weight:700; font-size:.82rem; letter-spacing:-.01em; white-space:nowrap; background:none; border:0; padding:0}
+.brand .mk{width:1.9rem; height:1.9rem; border-radius:.5rem; display:grid; place-items:center; background:var(--mira-icon-bg); border:1px solid var(--mira-icon-border); color:var(--mira-primary)}
+.brand small{display:block; font-weight:500; color:var(--mira-text-softer); font-size:.68rem}
+.chaps{display:flex; gap:.3rem; overflow-x:auto; flex:1; min-width:0; scrollbar-width:none; padding:.15rem}
+.chaps::-webkit-scrollbar{display:none}
+.chaps button{white-space:nowrap; padding:.36rem .8rem; border-radius:9999px; font-size:.78rem; font-weight:500;
+  background:var(--mira-pill-bg); border:1px solid var(--mira-pill-border); color:var(--mira-text-soft); transition:all .2s ease}
+.chaps button:hover{background:var(--mira-icon-bg); border-color:var(--mira-icon-border); color:var(--mira-text)}
+.chaps button[aria-selected="true"]{background:var(--mira-primary); border-color:var(--mira-primary); color:var(--mira-bg); font-weight:700; box-shadow:0 0 18px var(--mira-glow-strong)}
+.tools{display:flex; gap:.3rem}
+.tool{display:inline-flex; align-items:center; gap:.4rem; padding:.4rem .6rem; border-radius:9999px; font-size:.76rem;
+  background:var(--mira-pill-bg); border:1px solid var(--mira-pill-border); color:var(--mira-text-soft); transition:all .2s ease}
+.tool:hover{background:var(--mira-icon-bg); border-color:var(--mira-icon-border); color:var(--mira-text)}
+.tool[aria-pressed="true"]{background:var(--mira-primary); border-color:var(--mira-primary); color:var(--mira-bg); font-weight:700}
+.only-edit{display:none} body.editing .only-edit{display:inline-flex}
+@media (max-width:1100px){.tool span{display:none}}
+@media (max-width:760px){.top{flex-wrap:wrap; padding:.45rem .75rem} .brand{flex:1} .chaps{order:3; flex-basis:100%}}
+
+/* ═══ Palco e slides ═══ */
+#stage{position:relative; min-height:0; overflow:hidden}
+.slide{display:none; height:100%; overflow-y:auto; padding:1.3rem 2rem 0}
+.slide.on{display:block; animation:in .28s ease}
+@keyframes in{from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:none}}
+@media (prefers-reduced-motion:reduce){.slide.on{animation:none}}
+.si{max-width:76rem; margin:0 auto; min-height:100%; display:flex; flex-direction:column; gap:.85rem}
+.eyebrow{font-size:.74rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--mira-primary); margin:0}
+h1,h2{margin:0; letter-spacing:-.025em; line-height:1.1; font-weight:800; text-wrap:balance}
+h2{font-size:2.05rem}
+.lead{margin:0; font-size:1.02rem; color:var(--mira-text-soft); max-width:62rem}
+.grow{flex:1; display:flex; flex-direction:column; gap:.8rem; justify-content:center; min-height:0}
+.card{background:var(--mira-card-bg); border:1px solid var(--mira-card-border); border-radius:.75rem; backdrop-filter:blur(10px); box-shadow:0 10px 30px var(--mira-glow-soft)}
+.ico{width:2.1rem; height:2.1rem; border-radius:.55rem; display:grid; place-items:center; flex:none; background:var(--mira-icon-bg); border:1px solid var(--mira-icon-border); color:var(--mira-primary)}
+.pill{display:inline-flex; align-items:center; gap:.35rem; padding:.2rem .6rem; border-radius:9999px; font-size:.7rem; font-weight:700; letter-spacing:.04em; text-transform:uppercase; white-space:nowrap;
+  background:var(--mira-pill-bg); border:1px solid var(--mira-pill-border); color:var(--mira-text-soft)}
+.pill.p{color:var(--mira-primary); border-color:var(--mira-icon-border); background:var(--mira-icon-bg)}
+.pill.ok{color:var(--ok); border-color:color-mix(in srgb,var(--ok) 40%,transparent); background:color-mix(in srgb,var(--ok) 12%,transparent)}
+.pill.w{color:var(--warn); border-color:color-mix(in srgb,var(--warn) 40%,transparent); background:color-mix(in srgb,var(--warn) 12%,transparent)}
+.pill.d{color:var(--danger); border-color:color-mix(in srgb,var(--danger) 40%,transparent); background:color-mix(in srgb,var(--danger) 12%,transparent)}
+.note{display:flex; gap:.6rem; align-items:flex-start; padding:.6rem .85rem; border-radius:.6rem; font-size:.86rem; color:var(--mira-text-soft);
+  background:var(--mira-icon-bg); border:1px solid var(--mira-icon-border)}
+.note svg{color:var(--mira-primary); margin-top:.15em}
+.src{font-size:.76rem; color:var(--mira-text-softer); margin:0}
+
+/* ═══ Tabela responsiva (vira cartões no celular) ═══ */
+.tb{overflow:hidden}
+.tb .r{display:grid; grid-template-columns:var(--cols); gap:0 1.1rem; padding:.58rem 1rem; align-items:center; border-top:1px solid var(--mira-card-border); font-size:.88rem}
+.tb .r.h{border-top:0; font-size:.68rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--mira-text-softer); padding-block:.5rem; background:var(--mira-pill-bg)}
+.tb .k{font-weight:700; display:flex; align-items:center; gap:.6rem}
+.tb .c{color:var(--mira-text-soft)}
+.tb .b{color:var(--mira-text-softer); display:flex; gap:.5rem}
+.tb .a{color:var(--mira-text); display:flex; gap:.5rem}
+.tb .b>svg{color:var(--danger); opacity:.85; margin-top:.15em}
+.tb .a>svg{color:var(--ok); margin-top:.15em}
+.tb .mid{display:flex; align-items:center; gap:.4rem; justify-content:center; color:var(--mira-text-softer)}
+@media (max-width:760px){
+  .tb .r.h{display:none}
+  .tb .r{grid-template-columns:1fr; gap:.4rem; padding:.8rem .9rem; align-items:start}
+  .tb .mid{justify-content:flex-start}
+  .tb [data-l]::before{content:attr(data-l); display:block; flex:none; width:100%; font-size:.64rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--mira-text-softer); margin-bottom:.1rem}
+  .tb .b,.tb .a{flex-wrap:wrap}
+}
+
+/* ═══ Abas de documentos (rodapé do slide) ═══ */
+.docs{position:sticky; bottom:0; z-index:2; margin:auto -.5rem 0; padding:.6rem .5rem .7rem; display:flex; flex-wrap:wrap; align-items:center; gap:.45rem;
+  background:linear-gradient(to top, var(--mira-bg) 70%, transparent)}
+.docs-l{font-size:.72rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--mira-text-softer); margin-right:.3rem}
+.doc{display:inline-flex; align-items:center; gap:.5rem; padding:.55rem .95rem; border-radius:.6rem .6rem .2rem .2rem; font-size:.86rem; font-weight:600; text-align:left;
+  background:var(--solid); border:1px solid var(--mira-card-border); border-bottom:3px solid var(--mira-primary); color:var(--mira-text); transition:transform .2s ease, box-shadow .2s ease, background .2s ease}
+.doc:hover{transform:translateY(-3px); box-shadow:0 12px 26px var(--mira-glow-strong); background:color-mix(in srgb, var(--mira-primary) 14%, var(--solid))}
+.doc svg{color:var(--mira-primary)}
+.doc small{font-weight:500; color:var(--mira-text-softer); font-size:.74rem}
+.doc.p{background:var(--mira-primary); color:var(--mira-bg); border-color:var(--mira-primary)}
+.doc.p svg,.doc.p small{color:inherit}
+.doc.p:hover{background:var(--mira-primary); filter:brightness(1.08)}
+.doc.w{border-bottom-color:var(--warn)} .doc.w svg{color:var(--warn)}
+.doc.d{border-bottom-color:var(--danger)} .doc.d svg{color:var(--danger)}
+.spacer{flex:1}
+.foot{font-size:.76rem; color:var(--mira-text-softer); margin:0; padding-bottom:.8rem}
+.slide .si>.pad{height:.8rem; flex:none}
+
+/* ═══ Capa ═══ */
+.cover{display:grid; grid-template-columns:1.25fr 1fr; gap:2.2rem; align-items:center; flex:1}
+.cover h1{font-size:3.2rem}
+.cover h1 em{font-style:normal; color:var(--mira-primary)}
+.cover .who{color:var(--mira-text-soft); font-size:.98rem; max-width:34rem; margin:.3rem 0 0}
+.cover .when{color:var(--mira-text-softer); font-size:.82rem; margin:0}
+.tl{display:grid; grid-template-columns:repeat(4,1fr); margin-top:1.2rem; position:relative}
+.tl::before{content:""; position:absolute; left:.45rem; right:calc(25% - .45rem); top:.42rem; height:2px; background:linear-gradient(90deg,var(--mira-icon-border),var(--mira-primary))}
+.tl div{position:relative; padding-top:1.3rem; font-size:.78rem; color:var(--mira-text-soft); padding-right:.6rem}
+.tl div::before{content:""; position:absolute; top:0; left:0; width:.9rem; height:.9rem; border-radius:50%; background:var(--mira-bg); border:2px solid var(--mira-primary)}
+.tl div:last-child::before{background:var(--mira-primary); box-shadow:0 0 14px var(--mira-glow-strong)}
+.tl b{display:block; color:var(--mira-text); font-size:.82rem}
+.map{padding:1.1rem; display:flex; flex-direction:column; gap:.55rem}
+.map h3{margin:0 0 .2rem; font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--mira-text-softer)}
+.map button{display:flex; align-items:center; gap:.7rem; text-align:left; padding:.6rem .7rem; border-radius:.6rem; background:var(--mira-pill-bg); border:1px solid var(--mira-pill-border); transition:all .2s ease; width:100%}
+.map button:hover{background:var(--mira-icon-bg); border-color:var(--mira-icon-border); transform:translateX(4px)}
+.map .n{font-size:.68rem; font-weight:700; letter-spacing:.1em; color:var(--mira-primary); display:block}
+.map .t{font-weight:700; font-size:.92rem; display:block}
+.map .pill{margin-left:auto}
+@media (max-width:900px){.cover{grid-template-columns:1fr; gap:1.2rem} .cover h1{font-size:2.2rem} h2{font-size:1.55rem} .slide{padding:1rem 1rem 0}
+  .tl{grid-template-columns:1fr 1fr; row-gap:.9rem} .tl::before{display:none}
+  .docs{position:static; background:none; margin-top:.4rem}}
+
+/* ═══ Fluxos (slide 6) ═══ */
+.lane{display:grid; grid-template-columns:13rem 1fr; gap:.9rem; align-items:stretch}
+.lane-h{padding:.75rem .9rem; display:flex; flex-direction:column; gap:.15rem; justify-content:center; border-left:3px solid var(--mira-primary)}
+.lane.x .lane-h{border-left-color:var(--mira-accent-2)}
+.lane-h b{font-size:.74rem; letter-spacing:.12em; display:flex; gap:.45rem; align-items:center; color:var(--mira-primary)}
+.lane.x .lane-h b{color:var(--mira-accent-2)}
+.lane-h span{font-size:.88rem; font-weight:600}
+.lane-h small{font-size:.74rem; color:var(--mira-text-softer)}
+.phases{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(3,1fr); gap:1.4rem}
+.phases li{position:relative; padding:.65rem .85rem; display:flex; flex-direction:column; gap:.15rem}
+.phases li+li::before{content:""; position:absolute; left:-1.05rem; top:50%; width:.5rem; height:.5rem; border-top:2px solid var(--mira-primary); border-right:2px solid var(--mira-primary); transform:translateY(-50%) rotate(45deg)}
+.lane.x .phases li+li::before{border-color:var(--mira-accent-2)}
+.phases .ph{font-size:.66rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--mira-text-softer)}
+.phases b{font-size:.92rem; line-height:1.25}
+.phases span:last-child{font-size:.8rem; color:var(--mira-text-soft)}
+.three{display:grid; grid-template-columns:repeat(3,1fr); gap:.8rem}
+.three .note b{color:var(--mira-text)}
+@media (max-width:900px){.lane{grid-template-columns:1fr} .phases{grid-template-columns:1fr; gap:1.1rem}
+  .phases li+li::before{left:50%; top:-.8rem; transform:rotate(135deg)} .three{grid-template-columns:1fr}}
+
+/* ═══ Documento para abrir (slides 8 e 9) ═══ */
+.dv{display:grid; grid-template-columns:15rem 1fr; gap:1.4rem; align-items:start}
+.thumb{padding:0; border:1px solid var(--mira-card-border); border-radius:.6rem; overflow:hidden; background:#fff; position:relative; display:block; transition:transform .25s ease, box-shadow .25s ease; box-shadow:0 10px 30px var(--mira-glow-soft)}
+.thumb:hover{transform:translateY(-4px); box-shadow:0 20px 40px var(--mira-glow-strong)}
+.thumb img{display:block; width:100%; height:auto}
+.thumb .z{position:absolute; right:.5rem; bottom:.5rem; display:inline-flex; gap:.35rem; align-items:center; padding:.3rem .6rem; border-radius:9999px; font-size:.72rem; font-weight:700; background:rgba(10,18,32,.88); color:#fff}
+.arts{list-style:none; margin:0; padding:0; display:grid; gap:.45rem}
+.arts li{display:grid; grid-template-columns:auto 1fr; gap:.7rem; padding:.5rem .8rem; font-size:.88rem; align-items:start; color:var(--mira-text-soft)}
+.arts li b{color:var(--mira-text)}
+.arts li>svg{color:var(--mira-primary); margin-top:.2em}
+.two{display:grid; grid-template-columns:1fr 1fr; gap:1rem}
+.two .card{padding:.9rem 1rem; display:flex; flex-direction:column; gap:.55rem}
+.two h3{margin:0; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase}
+.two ul{margin:0; padding-left:1.1rem; font-size:.86rem; color:var(--mira-text-soft); display:grid; gap:.35rem}
+.two li::marker{color:var(--mira-primary)}
+@media (max-width:900px){.dv{grid-template-columns:1fr} .thumb{max-width:14rem} .two{grid-template-columns:1fr}}
+
+/* ═══ Demonstrações (slides 11 e 12) ═══ */
+.shots{display:grid; grid-template-columns:repeat(3,1fr); gap:1rem}
+.shots figure{margin:0; display:flex; flex-direction:column; gap:.4rem}
+.shots figcaption b{display:block; font-size:.92rem}
+.shots figcaption span{font-size:.82rem; color:var(--mira-text-soft)}
+.steps{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(4,1fr); gap:1.3rem; counter-reset:s}
+.steps li{position:relative; padding:.6rem .8rem .6rem 3rem; counter-increment:s; font-size:.82rem; color:var(--mira-text-soft)}
+.steps li::before{content:counter(s); position:absolute; left:.7rem; top:.65rem; width:1.7rem; height:1.7rem; border-radius:50%; display:grid; place-items:center; font-weight:800; font-size:.85rem; background:var(--mira-primary); color:var(--mira-bg)}
+.steps li+li::after{content:""; position:absolute; left:-.95rem; top:50%; width:.45rem; height:.45rem; border-top:2px solid var(--mira-primary); border-right:2px solid var(--mira-primary); transform:translateY(-50%) rotate(45deg)}
+.steps b{display:block; color:var(--mira-text); font-size:.92rem}
+@media (max-width:900px){.shots{grid-template-columns:1fr} .steps{grid-template-columns:1fr 1fr; gap:.7rem} .steps li+li::after{display:none}}
+
+/* ═══ Situação (slide 14) ═══ */
+.status{display:grid; grid-template-columns:repeat(5,1fr); gap:.8rem}
+.status .card{padding:.9rem; display:flex; flex-direction:column; gap:.5rem; border-top:3px solid var(--st,var(--mira-primary))}
+.status .n{font-size:.68rem; font-weight:700; letter-spacing:.12em; color:var(--mira-text-softer)}
+.status h3{margin:0; font-size:1.05rem; line-height:1.2; letter-spacing:-.01em}
+.status p{margin:0; font-size:.82rem; color:var(--mira-text-soft)}
+.status .pill{align-self:flex-start}
+.status .ico{color:var(--st); border-color:color-mix(in srgb,var(--st) 35%,transparent); background:color-mix(in srgb,var(--st) 12%,transparent)}
+@media (max-width:1000px){.status{grid-template-columns:1fr 1fr}} @media (max-width:560px){.status{grid-template-columns:1fr}}
+
+/* ═══ Decisões (slide 15) ═══ */
+.dec{display:grid; gap:.55rem}
+.dec .card{display:grid; grid-template-columns:2.6rem 1fr 1.25fr; gap:1rem; align-items:center; padding:.65rem 1rem}
+.dec .num{width:2.3rem; height:2.3rem; border-radius:50%; display:grid; place-items:center; font-weight:800; background:var(--mira-primary); color:var(--mira-bg)}
+.dec .v{font-size:.68rem; font-weight:700; letter-spacing:.14em; color:var(--mira-primary); display:block}
+.dec h3{margin:0; font-size:1rem; line-height:1.25}
+.dec p{margin:0; font-size:.85rem; color:var(--mira-text-soft)}
+@media (max-width:760px){.dec .card{grid-template-columns:2.6rem 1fr} .dec p{grid-column:1/-1}}
+
+/* ═══ Lista de documentos (slide 16) ═══ */
+.dl{display:grid; grid-template-columns:1fr 1fr; gap:1.2rem; align-items:start}
+.dl .card{padding:.9rem; display:flex; flex-direction:column; gap:.4rem}
+.dl h3{margin:0 0 .3rem; font-size:.74rem; letter-spacing:.12em; text-transform:uppercase; color:var(--mira-primary)}
+.dl button{display:flex; align-items:center; gap:.7rem; text-align:left; width:100%; padding:.55rem .7rem; border-radius:.55rem; font-size:.88rem; font-weight:600; background:var(--mira-pill-bg); border:1px solid var(--mira-pill-border); transition:all .2s ease}
+.dl button:hover{background:var(--mira-icon-bg); border-color:var(--mira-icon-border); transform:translateX(4px)}
+.dl button svg:first-child{color:var(--mira-primary)}
+.dl button .pill{margin-left:auto}
+@media (max-width:900px){.dl{grid-template-columns:1fr}}
+
+/* ═══ Rodapé de navegação ═══ */
+.nav{display:flex; align-items:center; gap:.8rem; padding:.4rem 1rem; border-top:1px solid var(--mira-card-border); background:color-mix(in srgb, var(--mira-bg) 88%, transparent); backdrop-filter:blur(12px)}
+.nav .org{font-size:.72rem; color:var(--mira-text-softer); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; flex:1; min-width:0}
+.nav .bar{flex:1.2; height:4px; border-radius:2px; background:color-mix(in srgb, var(--mira-text) 10%, transparent); overflow:hidden; min-width:3rem}
+.nav .bar i{display:block; height:100%; background:var(--mira-primary); border-radius:2px; transition:width .3s ease}
+.nav .cnt{font-size:.8rem; font-weight:700; font-variant-numeric:tabular-nums; white-space:nowrap}
+.nav .arrow{width:2.4rem; height:2.4rem; border-radius:50%; display:grid; place-items:center; background:var(--mira-pill-bg); border:1px solid var(--mira-pill-border)}
+.nav .arrow:hover:not(:disabled){background:var(--mira-primary); color:var(--mira-bg); border-color:var(--mira-primary)}
+.nav .arrow:disabled{opacity:.3; cursor:default}
+@media (max-width:760px){.nav .org{display:none}}
+
+/* ═══ Índice ═══ */
+.sheet{position:fixed; inset:0; z-index:40; background:color-mix(in srgb, var(--mira-bg) 94%, transparent); backdrop-filter:blur(14px); overflow-y:auto; padding:1.5rem}
+.sheet[hidden]{display:none}
+.sheet-h{max-width:76rem; margin:0 auto 1rem; display:flex; align-items:center; gap:1rem}
+.sheet-h h2{font-size:1.4rem; flex:1}
+.ov{max-width:76rem; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fill,minmax(15rem,1fr)); gap:.7rem}
+.ov button{text-align:left; padding:.8rem .9rem; display:flex; flex-direction:column; gap:.3rem; min-height:6.2rem; transition:all .2s ease}
+.ov button:hover,.ov button[aria-current="true"]{border-color:var(--mira-primary); transform:translateY(-3px); box-shadow:0 16px 34px var(--mira-glow-strong)}
+.ov .n{font-size:.7rem; font-weight:700; letter-spacing:.12em; color:var(--mira-primary); display:flex; gap:.5rem; align-items:center; text-transform:uppercase}
+.ov .t{font-weight:700; font-size:.95rem; line-height:1.25}
+.ov .pill{margin-left:auto}
+
+/* ═══ Visualizador de documentos (abas) ═══ */
+#viewer{position:fixed; inset:0; z-index:50; display:grid; grid-template-rows:auto auto 1fr; background:var(--mira-bg)}
+#viewer[hidden]{display:none}
+.v-tabs{display:flex; align-items:flex-end; gap:.3rem; padding:.5rem .8rem 0; border-bottom:1px solid var(--mira-card-border); background:var(--solid)}
+.v-list{display:flex; gap:.25rem; overflow-x:auto; flex:1; min-width:0; scrollbar-width:thin}
+.v-list button{white-space:nowrap; display:inline-flex; align-items:center; gap:.45rem; padding:.55rem .9rem; font-size:.84rem; font-weight:600; border:1px solid transparent; border-bottom:0; border-radius:.6rem .6rem 0 0; background:none; color:var(--mira-text-soft)}
+.v-list button:hover{background:var(--mira-pill-bg); color:var(--mira-text)}
+.v-list button[aria-selected="true"]{background:var(--mira-bg); border-color:var(--mira-card-border); color:var(--mira-text); box-shadow:inset 0 3px 0 var(--mira-primary)}
+.v-list button[aria-selected="true"] svg{color:var(--mira-primary)}
+.v-close{margin:0 0 .4rem .4rem; display:inline-flex; align-items:center; gap:.4rem; padding:.45rem .9rem; border-radius:9999px; font-size:.82rem; font-weight:700; background:var(--mira-primary); color:var(--mira-bg); border:0; white-space:nowrap}
+.v-sub{display:flex; flex-wrap:wrap; align-items:center; gap:.5rem .8rem; padding:.5rem 1rem; font-size:.82rem; border-bottom:1px solid var(--mira-card-border)}
+.v-sub strong{font-size:.95rem}
+.v-sub .msg{color:var(--mira-text-softer); font-size:.76rem; flex-basis:100%}
+.v-sub a,.v-sub button.j{display:inline-flex; align-items:center; gap:.4rem; padding:.3rem .7rem; border-radius:9999px; font-size:.78rem; font-weight:600; text-decoration:none;
+  background:var(--mira-pill-bg); border:1px solid var(--mira-pill-border); color:var(--mira-text)}
+.v-sub a:hover,.v-sub button.j:hover{background:var(--mira-icon-bg); border-color:var(--mira-icon-border)}
+.v-body{min-height:0; background:#525659; position:relative}
+.v-body iframe{position:absolute; inset:0; width:100%; height:100%; border:0; background:#fff}
+.v-body .imgw{position:absolute; inset:0; overflow:auto; background:#fff; text-align:center; cursor:zoom-in}
+.v-body .imgw img{max-width:100%; max-height:100%; display:inline-block}
+.v-body .imgw.zoom{cursor:zoom-out; text-align:left} .v-body .imgw.zoom img{max-width:none; max-height:none}
+@media (max-width:760px){.v-close span{display:none}}
+
+/* ═══ Notas do apresentador e modo de edição ═══ */
+.notes{display:none}
+#notesbox{position:fixed; left:1rem; right:1rem; bottom:3.6rem; z-index:30; max-width:60rem; margin:0 auto; padding:.8rem 1rem; font-size:.9rem; background:var(--solid); display:none}
+#notesbox b{font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; color:var(--mira-primary); display:block; margin-bottom:.2rem}
+body.show-notes #notesbox{display:block}
+body.editing [contenteditable]{outline:1px dashed var(--mira-icon-border); outline-offset:2px; border-radius:3px}
+body.editing [contenteditable]:focus{outline:2px solid var(--mira-primary); background:var(--mira-icon-bg)}
+#toast{position:fixed; left:50%; bottom:4rem; transform:translateX(-50%); z-index:60; padding:.5rem 1rem; border-radius:9999px; font-size:.82rem; font-weight:600; background:var(--mira-primary); color:var(--mira-bg); opacity:0; pointer-events:none; transition:opacity .25s ease}
+#toast.on{opacity:1}
+
+@media print{
+  body{display:block; height:auto; overflow:visible; background:#fff}
+  .top,.nav,#viewer,.sheet,#notesbox,#toast{display:none !important}
+  #stage{overflow:visible} .slide{display:block !important; height:auto; overflow:visible; page-break-after:always; padding:1cm}
+  .docs{position:static; background:none}
+}
+</style>
+</head>
+<body>
+
+<!-- Ícones (traço único, herdados pela cor do texto) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-ext" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M9 13h6M9 17h6"/></symbol>
+  <symbol id="i-flow" viewBox="0 0 24 24"><path d="M3 4h6v5H3zM15 15h6v5h-6zM6 9v6a2.5 2.5 0 0 0 2.5 2.5H15"/></symbol>
+  <symbol id="i-win" viewBox="0 0 24 24"><path d="M3 5h18v14H3zM3 9h18M6 7h.01M8.5 7h.01"/></symbol>
+  <symbol id="i-form" viewBox="0 0 24 24"><path d="M9 3h6v4H9zM9 5H5v16h14V5h-4M9 12h6M9 16h4"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 5 5L20 7"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="m12 3 8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6zM9 12l2.2 2.2L15.5 10"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="m12 4 9 16H3zM12 10v4M12 17v.5"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0M16 5.5a2.6 2.6 0 0 1 0 5M17.5 14.3A5.6 5.6 0 0 1 21 20"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 4v16M7 20h10M5 7h14M5 7l-3 6a3 3 0 0 0 6 0zM19 7l-3 6a3 3 0 0 0 6 0z"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+  <symbol id="i-theme" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></symbol>
+  <symbol id="i-full" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16zM13 7l4 4"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></symbol>
+  <symbol id="i-undo" viewBox="0 0 24 24"><path d="M4 9h10a5 5 0 0 1 0 10H8M4 9l4-4M4 9l4 4"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-img" viewBox="0 0 24 24"><path d="M3 5h18v14H3z"/><circle cx="8.5" cy="10" r="1.5"/><path d="m21 16-5-5-8 8"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M16 7l3 3"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="M3 5h18v4H3zM5 9v10h14V9M10 13h4"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="m4 12 16-8-6 16-3-6z"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><path d="M4 5h16v15H4zM4 10h16M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5v.5"/></symbol>
+  <symbol id="i-cookie" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9 4 4 0 0 1-4-4 4 4 0 0 1-5-5zM9 10h.01M14 15h.01M9 16h.01"/></symbol>
+</svg>
+
+<header class="top">
+  <button class="brand" data-go="1" title="Voltar à abertura">
+    <span class="mk"><svg class="i"><use href="#i-shield"/></svg></span>
+    <span>LGPD · JFCE<small>Direção do Foro</small></span>
+  </button>
+  <nav class="chaps" id="chaps" role="tablist" aria-label="Capítulos da apresentação"></nav>
+  <div class="tools">
+    <button class="tool" data-act="index" title="Índice de slides (tecla G)"><svg class="i"><use href="#i-grid"/></svg><span>Índice</span></button>
+    <button class="tool" data-act="theme" title="Trocar tema (tecla T)"><svg class="i"><use href="#i-theme"/></svg><span>Tema</span></button>
+    <button class="tool" data-act="full" title="Tela cheia (tecla F)"><svg class="i"><use href="#i-full"/></svg><span>Tela cheia</span></button>
+    <button class="tool" data-act="edit" aria-pressed="false" title="Editar os textos (tecla E)"><svg class="i"><use href="#i-edit"/></svg><span>Editar</span></button>
+    <button class="tool only-edit" data-act="download" title="Baixar uma cópia com as edições"><svg class="i"><use href="#i-down"/></svg><span>Baixar cópia</span></button>
+    <button class="tool only-edit" data-act="reset" title="Desfazer todas as edições"><svg class="i"><use href="#i-undo"/></svg><span>Restaurar</span></button>
+  </div>
+</header>
+
+<main id="stage">
+
+<!-- 1 ─ ABERTURA -->
+<section class="slide" id="s1" data-title="Adequação à Lei Geral de Proteção de Dados Pessoais" data-short="Abertura">
+ <div class="si">
+  <div class="cover">
+   <div>
+    <p class="eyebrow">Justiça Federal no Ceará</p>
+    <h1>Adequação à Lei Geral de <em>Proteção de Dados Pessoais</em></h1>
+    <p class="lead" style="margin-top:.9rem">O que era antes e o que foi feito, à luz das orientações do TCU</p>
+    <p class="who">Apresentação do Encarregado, do Grupo de Apoio à LGPD e do INOVAJUS — Eixo II</p>
+    <p class="when">Fortaleza · novembro de 2026</p>
+    <div class="tl" aria-label="Percurso do trabalho">
+      <div><b>Março</b>Diagnóstico</div>
+      <div><b>Agosto</b>Entregas revisadas</div>
+      <div><b>13/11</b>Validação do Encarregado</div>
+      <div><b>Hoje</b>Decisão da Direção do Foro</div>
+    </div>
+   </div>
+   <div class="card map">
+    <h3>As quatro entregas</h3>
+    <button data-go="5"><span class="ico"><svg class="i"><use href="#i-flow"/></svg></span><span><span class="n">ENTREGA 1</span><span class="t">Governança do Encarregado</span></span><span class="pill ok">Pronta</span></button>
+    <button data-go="13"><span class="ico"><svg class="i"><use href="#i-alert"/></svg></span><span><span class="n">ENTREGA 2</span><span class="t">Resposta a incidentes</span></span><span class="pill w">Em maturação</span></button>
+    <button data-go="14"><span class="ico"><svg class="i"><use href="#i-eye"/></svg></span><span><span class="n">ENTREGA 3</span><span class="t">Relatório de Impacto</span></span><span class="pill">Segundo plano</span></button>
+    <button data-go="7"><span class="ico"><svg class="i"><use href="#i-doc"/></svg></span><span><span class="n">ENTREGA 4</span><span class="t">Política, privacidade e portal</span></span><span class="pill ok">Pronta</span></button>
+   </div>
+  </div>
+  <div class="pad"></div>
+ </div>
+</section>
+
+<!-- 2 ─ ACÓRDÃO -->
+<section class="slide" id="s2" data-title="O que o Acórdão determina e recomenda" data-short="Itens aplicáveis">
+ <div class="si">
+  <p class="eyebrow">Itens aplicáveis</p>
+  <h2>O que o Acórdão determina e recomenda</h2>
+  <div class="grow">
+   <div class="card tb" style="--cols:13rem 1fr 11.5rem">
+    <div class="r h"><span>Item</span><span>Conteúdo</span><span>Natureza</span></div>
+    <div class="r"><div class="k"><span class="ico"><svg class="i"><use href="#i-alert"/></svg></span>Determinação 9.2.4</div><div class="c">Elaborar e aplicar modelo de comunicação à ANPD e aos titulares sobre incidentes que possam acarretar risco ou dano relevante.</div><div><span class="pill w">Determinação com prazo</span></div></div>
+    <div class="r"><div class="k"><span class="ico"><svg class="i"><use href="#i-scale"/></svg></span>Determinação 9.2.1</div><div class="c">Orientação, pelo órgão governante superior, quanto à harmonização entre a LGPD e a Lei de Acesso à Informação.</div><div><span class="pill w">Determinação via CNJ</span></div></div>
+    <div class="r"><div class="k"><span class="ico"><svg class="i"><use href="#i-doc"/></svg></span>Recomendação 9.1.5</div><div class="c">Elaborar e publicar Política de Privacidade no sítio eletrônico institucional.</div><div><span class="pill p">Recomendação</span></div></div>
+    <div class="r"><div class="k"><span class="ico"><svg class="i"><use href="#i-users"/></svg></span>Recomendação 9.1.6</div><div class="c">Implementar mecanismos para atender a todos os direitos dos titulares (arts. 9º e 18 da LGPD).</div><div><span class="pill p">Recomendação</span></div></div>
+    <div class="r"><div class="k"><span class="ico"><svg class="i"><use href="#i-send"/></svg></span>Recomendação 9.1.7</div><div class="c">Avaliar o compartilhamento de dados pessoais com terceiros e identificar todos os dados compartilhados.</div><div><span class="pill p">Recomendação</span></div></div>
+    <div class="r"><div class="k"><span class="ico"><svg class="i"><use href="#i-shield"/></svg></span>Recomendação 9.1.8</div><div class="c">Liderança explícita da alta administração e envolvimento da auditoria interna no processo de adequação.</div><div><span class="pill p">Recomendação</span></div></div>
+   </div>
+   <p class="src">Fonte: Acórdão nº 1.372/2025 – TCU – Plenário (TC 009.980/2024-5) e documentos de suporte da fiscalização.</p>
+  </div>
+  <div class="pad"></div>
+ </div>
+</section>
+
+<!-- 3 ─ DIAGNÓSTICO -->
+<section class="slide" id="s3" data-title="Como a JFCE estava" data-short="Diagnóstico inicial">
+ <div class="si">
+  <p class="eyebrow">Diagnóstico inicial — cinco constatações</p>
+  <h2>Como a JFCE estava</h2>
+  <p class="lead">Nenhuma delas descreve inércia: todas descrevem produção documental que ainda não havia se convertido em prática formalizada.</p>
+  <div class="grow">
+   <div class="card tb" style="--cols:16rem 1.2fr 1fr">
+    <div class="r h"><span>Constatação</span><span>O que significava</span><span>Consequência</span></div>
+    <div class="r"><div class="k"><span class="ico"><svg class="i"><use href="#i-box"/></svg></span>Acervo documental relevante</div><div class="c" data-l="O que significava">Existiam políticas, normas, formulários, relatório de impacto, inventários e materiais de governança já produzidos.</div><div class="c" data-l="Consequência">O ponto de partida era favorável.</div></div>
+    <div class="r"><div class="k"><span class="ico"><svg class="i"><use href="#i-send"/></svg></span>Formalização e publicação pendentes</div><div class="c" data-l="O que significava">Parte dos instrumentos dependia de aprovação, publicação ou incorporação formal aos processos.</div><div class="c" data-l="Consequência">O acervo não produzia efeito nem servia de evidência.</div></div>
+    <div class="r"><div class="k"><span class="ico"><svg class="i"><use href="#i-eye"/></svg></span>Transparência ativa a aperfeiçoar</div><div class="c" data-l="O que significava">O portal precisava refletir de forma mais clara e organizada o acervo e os canais disponíveis.</div><div class="c" data-l="Consequência">O cidadão não alcançava o que já existia.</div></div>
+    <div class="r"><div class="k"><span class="ico"><svg class="i"><use href="#i-flow"/></svg></span>Fluxos críticos a consolidar</div><div class="c" data-l="O que significava">Demandas do Encarregado e resposta a incidentes sem etapas, papéis e pontos de decisão definidos.</div><div class="c" data-l="Consequência">A atuação dependia de encaminhamentos casuísticos.</div></div>
+    <div class="r"><div class="k"><span class="ico"><svg class="i"><use href="#i-cal"/></svg></span>Agenda de continuidade</div><div class="c" data-l="O que significava">Capacitação, mapeamento e compartilhamentos exigiriam trabalho posterior ao pacote priorizado.</div><div class="c" data-l="Consequência">Nem tudo caberia no período da consultoria.</div></div>
+   </div>
+  </div>
+  <div class="pad"></div>
+ </div>
+</section>
+
+<!-- 4 ─ ANTES × DEPOIS (GERAL) -->
+<section class="slide" id="s4" data-title="O que mudou, item a item do Acórdão" data-short="Antes × Depois">
+ <div class="si">
+  <p class="eyebrow">Antes × Depois</p>
+  <h2>O que mudou, item a item do Acórdão</h2>
+  <p class="lead">Cada lacuna priorizada em março encontrou resposta em um produto, vinculado à orientação do TCU.</p>
+  <div class="grow">
+   <div class="card tb" style="--cols:1fr 12.5rem 1fr">
+    <div class="r h"><span>Antes (lacuna apontada no diagnóstico)</span><span style="text-align:center">Item do Acórdão</span><span>Depois (o que foi feito)</span></div>
+    <div class="r"><div class="b" data-l="Antes"><svg class="i"><use href="#i-x"/></svg><span>Ausência de modelo padronizado de comunicação de incidente à ANPD e aos titulares.</span></div><div class="mid"><span class="pill w">Determinação 9.2.4</span><svg class="i"><use href="#i-arrow"/></svg></div><div class="a" data-l="Depois"><svg class="i"><use href="#i-check"/></svg><span>Plano de resposta a incidentes, modelos de comunicação e formulário da ANPD.</span></div></div>
+    <div class="r"><div class="b" data-l="Antes"><svg class="i"><use href="#i-x"/></svg><span>Normativos elaborados e ainda sem publicação formal.</span></div><div class="mid"><span class="pill p">Recomendação 9.1.5</span><svg class="i"><use href="#i-arrow"/></svg></div><div class="a" data-l="Depois"><svg class="i"><use href="#i-check"/></svg><span>Minuta de portaria consolidada, pronta para deliberação superior.</span></div></div>
+    <div class="r"><div class="b" data-l="Antes"><svg class="i"><use href="#i-x"/></svg><span>Comitê de Proteção de Dados Pessoais ainda não instituído.</span></div><div class="mid"><span class="pill p">Recomendação 9.1.8.1</span><svg class="i"><use href="#i-arrow"/></svg></div><div class="a" data-l="Depois"><svg class="i"><use href="#i-check"/></svg><span>Capítulo próprio da minuta, com competências e composição.</span></div></div>
+    <div class="r"><div class="b" data-l="Antes"><svg class="i"><use href="#i-x"/></svg><span>Direitos do titular sem fluxo operacional definido por direito.</span></div><div class="mid"><span class="pill p">Recomendação 9.1.6</span><svg class="i"><use href="#i-arrow"/></svg></div><div class="a" data-l="Depois"><svg class="i"><use href="#i-check"/></svg><span>Fluxo externo e formulário que discriminam os direitos do art. 18.</span></div></div>
+    <div class="r"><div class="b" data-l="Antes"><svg class="i"><use href="#i-x"/></svg><span>Relatório de impacto sem refletir o cenário vigente e sem versão publicável.</span></div><div class="mid"><span class="pill p">Recomendação 9.1.9</span><svg class="i"><use href="#i-arrow"/></svg></div><div class="a" data-l="Depois"><svg class="i"><use href="#i-check"/></svg><span>Revisão técnica com apontamentos e versão pública do relatório.</span></div></div>
+    <div class="r"><div class="b" data-l="Antes"><svg class="i"><use href="#i-x"/></svg><span>Auditoria interna não vinculada ao programa de proteção de dados.</span></div><div class="mid"><span class="pill p">Recomendação 9.1.8.2</span><svg class="i"><use href="#i-arrow"/></svg></div><div class="a" data-l="Depois"><svg class="i"><use href="#i-check"/></svg><span>Dispositivo próprio na minuta, com verificação independente periódica.</span></div></div>
+   </div>
+  </div>
+  <div class="pad"></div>
+ </div>
+</section>
+
+<!-- 5 ─ FLUXOS DO ENCARREGADO -->
+<section class="slide" id="s5" data-title="Fluxos do Encarregado" data-short="Antes × Depois · Entrega 1">
+ <div class="si">
+  <p class="eyebrow">Antes × Depois · Entrega 1</p>
+  <h2>Fluxos do Encarregado</h2>
+  <p class="lead">Recomendação 9.1.6 (direitos dos titulares): da demanda itinerante ao fluxo formal.</p>
+  <div class="grow">
+   <div class="card tb" style="--cols:13.5rem 1fr 1.35fr">
+    <div class="r h"><span>Aspecto</span><span>Antes</span><span>Depois</span></div>
+    <div class="r"><div class="k"><span class="ico"><svg class="i"><use href="#i-list"/></svg></span>Triagem</div><div class="b" data-l="Antes"><svg class="i"><use href="#i-x"/></svg><span>Sem critérios formais; a demanda que não cabia ao Comitê circulava de setor em setor.</span></div><div class="a" data-l="Depois"><svg class="i"><use href="#i-check"/></svg><span>Triagem expressa, apoiada em matriz de classificação e checklist. Fora do escopo: comunica-se o interessado e encerra. Sem elementos mínimos: pede-se complementação.</span></div></div>
+    <div class="r"><div class="k"><span class="ico"><svg class="i"><use href="#i-doc"/></svg></span>Formalização</div><div class="b" data-l="Antes"><svg class="i"><use href="#i-x"/></svg><span>Demandas orais ou por e-mail.</span></div><div class="a" data-l="Depois"><svg class="i"><use href="#i-check"/></svg><span>Toda demanda formalizada no SEI; no fluxo externo, com atenção ao sigilo dos processos.</span></div></div>
+    <div class="r"><div class="k"><span class="ico"><svg class="i"><use href="#i-alert"/></svg></span>Indício de incidente</div><div class="b" data-l="Antes"><svg class="i"><use href="#i-x"/></svg><span>Sem procedimento padronizado.</span></div><div class="a" data-l="Depois"><svg class="i"><use href="#i-check"/></svg><span>Identificado na triagem e encaminhado a fluxo específico e novo.</span></div></div>
+    <div class="r"><div class="k"><span class="ico"><svg class="i"><use href="#i-key"/></svg></span>Identidade do requerente</div><div class="b" data-l="Antes"><svg class="i"><use href="#i-x"/></svg><span>Sem previsão de verificação nos requerimentos externos.</span></div><div class="a" data-l="Depois"><svg class="i"><use href="#i-check"/></svg><span>Validação de identidade e legitimidade (art. 30, § 1º), ainda a aperfeiçoar e implementar com a Direção do Foro; sem ela, o próprio atendimento ao titular pode gerar incidente.</span></div></div>
+   </div>
+  </div>
+  <div class="pad"></div>
+ </div>
+</section>
+
+<!-- 6 ─ FLUXOS, ETAPA POR ETAPA (documentos) -->
+<section class="slide" id="s6" data-title="Fluxo interno e fluxo externo, etapa por etapa" data-short="Entrega 1 · Fluxos detalhados">
+ <div class="si">
+  <p class="eyebrow">Entrega 1 · Descrição detalhada dos fluxos</p>
+  <h2>Fluxo interno e fluxo externo, etapa por etapa</h2>
+  <p class="lead">Cada etapa tem macroatividade, descrição operacional, responsável e saída. Aqui, só o desenho das três fases.</p>
+  <div class="grow">
+   <div class="lane">
+    <div class="card lane-h"><b><svg class="i"><use href="#i-users"/></svg>FLUXO INTERNO</b><span>Servidores, magistrados e unidades</span><small>17 etapas · seção 8.3</small></div>
+    <ol class="phases">
+     <li class="card"><span class="ph">Fase 1 · Etapas 1 a 6</span><b>Receber pelo SEI e verificar o escopo</b><span>A demanda é mesmo de proteção de dados?</span></li>
+     <li class="card"><span class="ph">Fase 2 · Etapas 7 a 11</span><b>Classificar, instruir e obter subsídios</b><span>A unidade técnica informa; o Encarregado analisa.</span></li>
+     <li class="card"><span class="ph">Fase 3 · Etapas 12 a 17</span><b>Consolidar, validar e responder</b><span>Orientação, parecer ou encaminhamento.</span></li>
+    </ol>
+   </div>
+   <div class="lane x">
+    <div class="card lane-h"><b><svg class="i"><use href="#i-key"/></svg>FLUXO EXTERNO</b><span>Titulares de dados e representantes</span><small>19 etapas · seção 9.3</small></div>
+    <ol class="phases">
+     <li class="card"><span class="ph">Fase 1 · Etapas 1 a 9</span><b>Receber, formalizar e autenticar</b><span>Escopo, suficiência e validação de identidade.</span></li>
+     <li class="card"><span class="ph">Fase 2 · Etapas 10 a 14</span><b>Classificar e ouvir a unidade custodiante</b><span>Quem guarda o dado fornece os subsídios.</span></li>
+     <li class="card"><span class="ph">Fase 3 · Etapas 15 a 19</span><b>Consolidar, validar e comunicar</b><span>Resposta ao titular em até 15 dias.</span></li>
+    </ol>
+   </div>
+   <div class="three">
+    <div class="note"><svg class="i"><use href="#i-x"/></svg><span><b>Fora do escopo:</b> registra, avisa o interessado e indica o canal certo.</span></div>
+    <div class="note"><svg class="i"><use href="#i-alert"/></svg><span><b>Indício de incidente:</b> sai do rito ordinário e segue o procedimento próprio.</span></div>
+    <div class="note"><svg class="i"><use href="#i-key"/></svg><span><b>Direito do titular:</b> exige validação de identidade e de legitimidade.</span></div>
+   </div>
+  </div>
+  <div class="docs" role="group" aria-label="Documentos deste slide">
+   <span class="docs-l">Abrir na reunião:</span>
+   <button class="doc p" data-doc="gov" data-page="8"><svg class="i"><use href="#i-doc"/></svg><span>Descrição detalhada <small>(PDF, p. 8 e 13)</small></span></button>
+   <button class="doc" data-doc="bpmnInt"><svg class="i"><use href="#i-flow"/></svg><span>BPMN interno</span></button>
+   <button class="doc" data-doc="bpmnExt"><svg class="i"><use href="#i-flow"/></svg><span>BPMN externo</span></button>
+   <button class="doc" data-doc="matriz"><svg class="i"><use href="#i-list"/></svg><span>Matriz e checklist</span></button>
+  </div>
+  <p class="foot">Os fluxos estão escritos como texto normativo na minuta da Política: publicada a norma, entram em vigor.</p>
+ </div>
+</section>
+
+<!-- 7 ─ POLÍTICA DE PROTEÇÃO DE DADOS -->
+<section class="slide" id="s7" data-title="Política de Proteção de Dados" data-short="Antes × Depois · Entrega 4">
+ <div class="si">
+  <p class="eyebrow">Antes × Depois · Entrega 4</p>
+  <h2>Política de Proteção de Dados</h2>
+  <p class="lead">Recomendações 9.1.5 e 9.1.8: base normativa para os fluxos e para a governança.</p>
+  <div class="grow">
+   <div class="card tb" style="--cols:14rem 1fr 1.3fr">
+    <div class="r h"><span>Aspecto</span><span>Antes</span><span>Depois</span></div>
+    <div class="r"><div class="k"><span class="ico"><svg class="i"><use href="#i-scale"/></svg></span>Base normativa</div><div class="b" data-l="Antes"><svg class="i"><use href="#i-x"/></svg><span>Minuta com ambiguidades sobre competências e sem a dimensão procedimental.</span></div><div class="a" data-l="Depois"><svg class="i"><use href="#i-check"/></svg><span>Política reformulada, que dá respaldo normativo aos fluxos desenhados.</span></div></div>
+    <div class="r"><div class="k"><span class="ico"><svg class="i"><use href="#i-send"/></svg></span>Remessa ao Comitê (art. 32)</div><div class="b" data-l="Antes"><svg class="i"><use href="#i-x"/></svg><span>Dependia da iniciativa dos setores, sem hipótese de remessa obrigatória.</span></div><div class="a" data-l="Depois"><svg class="i"><use href="#i-check"/></svg><span>Mantida a remessa voluntária; criado rito que impõe a remessa de ofício ao setor de LGPD, atendidos certos pressupostos.</span></div></div>
+    <div class="r"><div class="k"><span class="ico"><svg class="i"><use href="#i-list"/></svg></span>Critério da remessa</div><div class="b" data-l="Antes"><svg class="i"><use href="#i-x"/></svg><span>O setor de LGPD não tem estrutura para analisar todas as demandas com dados pessoais.</span></div><div class="a" data-l="Depois"><svg class="i"><use href="#i-check"/></svg><span>Pressupostos inspirados em norma da ANPD (dispensa do encarregado em controladores de pequeno porte): casos relevantes são remetidos e remessas desnecessárias, evitadas.</span></div></div>
+    <div class="r"><div class="k"><span class="ico"><svg class="i"><use href="#i-users"/></svg></span>Governança</div><div class="b" data-l="Antes"><svg class="i"><use href="#i-x"/></svg><span>Comitê não instituído; auditoria interna não vinculada ao programa.</span></div><div class="a" data-l="Depois"><svg class="i"><use href="#i-check"/></svg><span>Capítulo próprio sobre o Comitê e dispositivo de auditoria interna na minuta.</span></div></div>
+   </div>
+  </div>
+  <div class="pad"></div>
+ </div>
+</section>
+
+<!-- 8 ─ MINUTA DA POLÍTICA (documentos) -->
+<section class="slide" id="s8" data-title="Minuta da Política de Proteção de Dados Pessoais" data-short="Entrega 4 · Documento para abrir">
+ <div class="si">
+  <p class="eyebrow">Entrega 4 · Documento para abrir</p>
+  <h2>Minuta da Política de Proteção de Dados Pessoais</h2>
+  <p class="lead">Portaria da Direção do Foro que dá base normativa aos fluxos, ao Comitê e ao tratamento de incidentes.</p>
+  <div class="grow">
+   <div class="dv">
+    <button class="thumb" data-doc="minuta" data-page="9" title="Abrir a minuta da Política"><img src="assets/img/capa-minuta.png" alt="Primeira página da Portaria que institui a Política de Proteção de Dados Pessoais" loading="lazy"><span class="z"><svg class="i"><use href="#i-ext"/></svg>Abrir</span></button>
+    <div style="display:grid; gap:.6rem">
+     <ul class="arts">
+      <li class="card"><svg class="i"><use href="#i-flow"/></svg><span><b>Fluxos do Encarregado como norma.</b> Etapas, prazos e responsáveis dos fluxos interno e externo.</span></li>
+      <li class="card"><svg class="i"><use href="#i-users"/></svg><span><b>Art. 15 — Comitê.</b> Núcleo enxuto, por representantes das unidades, presidido pelo Diretor do Foro.</span></li>
+      <li class="card"><svg class="i"><use href="#i-shield"/></svg><span><b>Art. 18, parágrafo único — Encarregado substituto.</b> Hoje não há substituto formal.</span></li>
+      <li class="card"><svg class="i"><use href="#i-send"/></svg><span><b>Art. 8º-A — Transferência internacional.</b> Só nas hipóteses do art. 33 da LGPD.</span></li>
+      <li class="card"><svg class="i"><use href="#i-key"/></svg><span><b>Art. 30 — Identidade do requerente.</b> gov.br, documento com selfie ou presencial; documentos guardados só durante o processo, com certidão de eliminação (Anexo I).</span></li>
+      <li class="card"><svg class="i"><use href="#i-scale"/></svg><span><b>Arts. 32 a 34 — Remessa obrigatória ao Comitê.</b> Tratamentos de maior risco, por critérios objetivos.</span></li>
+     </ul>
+     <div class="note"><svg class="i"><use href="#i-info"/></svg><span>No arquivo: texto em amarelo é sugestão da equipe ainda sujeita à Assessoria Jurídica; texto riscado é a redação substituída.</span></div>
+    </div>
+   </div>
+  </div>
+  <div class="docs" role="group" aria-label="Documentos deste slide">
+   <span class="docs-l">Abrir na reunião:</span>
+   <button class="doc p" data-doc="minuta" data-page="9"><svg class="i"><use href="#i-doc"/></svg><span>Abrir a minuta da Política</span></button>
+   <button class="doc" data-doc="redacao"><svg class="i"><use href="#i-doc"/></svg><span>Redação normativa dos fluxos <small>(RBCIP)</small></span></button>
+  </div>
+  <div class="pad"></div>
+ </div>
+</section>
+
+<!-- 9 ─ COOKIES E PRIVACIDADE (documentos) -->
+<section class="slide" id="s9" data-title="Aviso de Cookies e Política de Privacidade do portal" data-short="Entrega 4 · Documentos para abrir">
+ <div class="si">
+  <p class="eyebrow">Entrega 4 · Documentos para abrir</p>
+  <h2>Aviso de Cookies e Política de Privacidade do portal</h2>
+  <p class="lead">Atendem à Recomendação 9.1.5 do Acórdão e ao art. 1º, VI, da Resolução CNJ nº 363/2021.</p>
+  <div class="grow">
+   <div class="dv">
+    <button class="thumb" data-doc="cookies" title="Abrir o Aviso de Cookies"><img src="assets/img/capa-cookies.png" alt="Primeira página do Aviso de Cookies, versão 3.0" loading="lazy"><span class="z"><svg class="i"><use href="#i-ext"/></svg>Abrir</span></button>
+    <div class="two">
+     <div class="card">
+      <h3>Aviso de Cookies · Versão 3.0</h3>
+      <span class="pill ok" style="align-self:flex-start"><svg class="i"><use href="#i-check"/></svg>Validado em 13/11</span>
+      <ul>
+       <li>Três partes: banner, painel de preferências e declaração completa.</li>
+       <li>Cookies necessários sempre ativos; analíticos desativados até o usuário consentir.</li>
+       <li>Três botões com o mesmo destaque: aceitar, rejeitar, configurar.</li>
+       <li>Revisado pela DTIC: só o que a ferramenta realmente coleta.</li>
+      </ul>
+     </div>
+     <div class="card">
+      <h3>Política de Privacidade para navegação</h3>
+      <span class="pill w" style="align-self:flex-start; white-space:normal"><svg class="i"><use href="#i-clock"/></svg>Para aprovação · validação da DTIC pendente</span>
+      <ul>
+       <li>Versão 2.1, de 26/11. Doze seções: dados tratados, finalidades, compartilhamento, guarda e direitos.</li>
+       <li>Traz a transferência internacional e o contato do Encarregado.</li>
+       <li>Pode ser aprovada com as demais; a publicação aguarda a validação.</li>
+       <li>Pendentes com a DTIC e a SI: dados coletados, transferência internacional e segurança.</li>
+      </ul>
+     </div>
+    </div>
+   </div>
+  </div>
+  <div class="docs" role="group" aria-label="Documentos deste slide">
+   <span class="docs-l">Abrir na reunião:</span>
+   <button class="doc p" data-doc="cookies"><svg class="i"><use href="#i-cookie"/></svg><span>Abrir o Aviso de Cookies</span></button>
+   <button class="doc w" data-doc="priv"><svg class="i"><use href="#i-doc"/></svg><span>Abrir a Política de Privacidade</span></button>
+  </div>
+  <div class="pad"></div>
+ </div>
+</section>
+
+<!-- 10 ─ PORTAL E FORMULÁRIO (A×D) -->
+<section class="slide" id="s10" data-title="Portal LGPD e formulário do titular" data-short="Antes × Depois · Entrega 4">
+ <div class="si">
+  <p class="eyebrow">Antes × Depois · Entrega 4</p>
+  <h2>Portal LGPD e formulário do titular</h2>
+  <p class="lead">Recomendações 9.1.5 e 9.1.6: de um formulário único a um modelo multiportas.</p>
+  <div class="grow">
+   <div class="card tb" style="--cols:13.5rem 1fr 1.25fr">
+    <div class="r h"><span>Aspecto</span><span>Antes</span><span>Depois</span></div>
+    <div class="r"><div class="k"><span class="ico"><svg class="i"><use href="#i-win"/></svg></span>Canal de entrada</div><div class="b" data-l="Antes"><svg class="i"><use href="#i-x"/></svg><span>LGPD como única opção de classificação, sem caminho para comunicar incidente ou reclamar de tratamento; demandas de outra natureza chegavam ao setor de LGPD.</span></div><div class="a" data-l="Depois"><svg class="i"><use href="#i-check"/></svg><span>Modelo multiportas (LGPD, LAI, jurisdicional, críticas e sugestões etc.), em etapas: triagem, autenticação, protocolo no SEI e mérito.</span></div></div>
+    <div class="r"><div class="k"><span class="ico"><svg class="i"><use href="#i-list"/></svg></span>Triagem</div><div class="b" data-l="Antes"><svg class="i"><use href="#i-x"/></svg><span>Sem triagem nem aviso de privacidade; CAPTCHA como barreira à acessibilidade.</span></div><div class="a" data-l="Depois"><svg class="i"><use href="#i-check"/></svg><span>Triagem como orientação, não como barreira; na dúvida, a demanda vai à ouvidoria, que a encaminha.</span></div></div>
+    <div class="r"><div class="k"><span class="ico"><svg class="i"><use href="#i-key"/></svg></span>Identidade do titular</div><div class="b" data-l="Antes"><svg class="i"><use href="#i-x"/></svg><span>Apenas CPF/RG digitado em campo livre.</span></div><div class="a" data-l="Depois"><svg class="i"><use href="#i-check"/></svg><span>Autenticação como etapa própria; a exigência pode ser afastada ou mitigada em alguns casos, como nos incidentes.</span></div></div>
+   </div>
+  </div>
+  <div class="pad"></div>
+ </div>
+</section>
+
+<!-- 11 ─ PORTAL: DEMONSTRAÇÃO (documentos) -->
+<section class="slide" id="s11" data-title="O novo portal de proteção de dados" data-short="Entrega 4 · Demonstração">
+ <div class="si">
+  <p class="eyebrow">Entrega 4 · Demonstração</p>
+  <h2>O novo portal de proteção de dados</h2>
+  <p class="lead">Protótipo navegável: três portas de entrada na página inicial e seções próprias para incidentes e para o Encarregado.</p>
+  <div class="grow">
+   <div class="shots">
+    <figure><button class="thumb" data-doc="portal" title="Abrir o portal (protótipo)"><img src="assets/img/portal-inicio.png" alt="Página inicial do protótipo do portal" loading="lazy"><span class="z"><svg class="i"><use href="#i-ext"/></svg>Abrir</span></button><figcaption><b>Página inicial</b><span>Exercer direitos, comunicar incidente, entender a LGPD.</span></figcaption></figure>
+    <figure><button class="thumb" data-doc="portal" title="Abrir o portal (protótipo)"><img src="assets/img/portal-incidentes.png" alt="Seção de incidentes do protótipo do portal" loading="lazy"><span class="z"><svg class="i"><use href="#i-ext"/></svg>Abrir</span></button><figcaption><b>Incidentes</b><span>Registro imediato, sem login; identidade confirmada depois.</span></figcaption></figure>
+    <figure><button class="thumb" data-doc="portal" title="Abrir o portal (protótipo)"><img src="assets/img/fale-encarregado.png" alt="Seção Fale com o Encarregado do protótipo do portal" loading="lazy"><span class="z"><svg class="i"><use href="#i-ext"/></svg>Abrir</span></button><figcaption><b>Fale com o Encarregado</b><span>Três passos e os dados do Encarregado.</span></figcaption></figure>
+   </div>
+   <div class="note"><svg class="i"><use href="#i-info"/></svg><span>Também no portal: tratamento de dados, governança, normas, perguntas frequentes, ajuste de fonte e alto contraste.</span></div>
+  </div>
+  <div class="docs" role="group" aria-label="Documentos deste slide">
+   <span class="docs-l">Abrir na reunião:</span>
+   <button class="doc p" data-doc="portal"><svg class="i"><use href="#i-win"/></svg><span>Abrir o portal <small>(protótipo)</small></span></button>
+  </div>
+  <p class="foot">Demonstração: dados fictícios e login gov.br simulado. Implantação pela DTIC após a aprovação da Direção do Foro.</p>
+ </div>
+</section>
+
+<!-- 12 ─ FORMULÁRIO (documentos) -->
+<section class="slide" id="s12" data-title="O formulário que executa o fluxo externo" data-short="Entrega 4 aplicando a Entrega 1">
+ <div class="si">
+  <p class="eyebrow">Entrega 4 aplicando a Entrega 1</p>
+  <h2>O formulário que executa o fluxo externo</h2>
+  <p class="lead">As etapas do fluxo desenhado na Entrega 1 viram as telas do formulário: triagem, autenticação, pedido e protocolo.</p>
+  <div class="grow">
+   <ol class="steps">
+    <li class="card"><b>Triagem</b>Sete opções: o que é LGPD segue; o resto vai ao canal certo.</li>
+    <li class="card"><b>Autenticação</b>gov.br ou documento com selfie, proporcional ao pedido.</li>
+    <li class="card"><b>Pedido</b>Direitos do art. 18 discriminados, só com os dados necessários.</li>
+    <li class="card"><b>Protocolo</b>Número de acompanhamento e resposta em até 15 dias.</li>
+   </ol>
+   <div class="shots">
+    <figure><button class="thumb" data-doc="form" title="Abrir o formulário"><img src="assets/img/form-triagem.png" alt="Tela de triagem do protótipo do formulário" loading="lazy"><span class="z"><svg class="i"><use href="#i-ext"/></svg>Abrir</span></button><figcaption><b>Triagem</b><span>Orienta em vez de barrar: LAI, PJe e ouvidoria são redirecionados.</span></figcaption></figure>
+    <figure><button class="thumb" data-doc="formInc" title="Abrir o formulário em Comunicar incidente"><img src="assets/img/form-incidente.png" alt="Tela de comunicação de incidente do protótipo do formulário" loading="lazy"><span class="z"><svg class="i"><use href="#i-ext"/></svg>Abrir</span></button><figcaption><b>Comunicar incidente</b><span>Formulário novo: sem login, para não atrasar a contenção.</span></figcaption></figure>
+    <figure><button class="thumb" data-doc="form" title="Abrir o formulário"><img src="assets/img/fale-encarregado.png" alt="Seção Fale com o Encarregado" loading="lazy"><span class="z"><svg class="i"><use href="#i-ext"/></svg>Abrir</span></button><figcaption><b>Fale com o Encarregado</b><span>Entrada única para direitos, incidentes e reclamações.</span></figcaption></figure>
+   </div>
+  </div>
+  <div class="docs" role="group" aria-label="Documentos deste slide">
+   <span class="docs-l">Abrir na reunião:</span>
+   <button class="doc p" data-doc="form"><svg class="i"><use href="#i-form"/></svg><span>Abrir o formulário</span></button>
+   <button class="doc d" data-doc="formInc"><svg class="i"><use href="#i-alert"/></svg><span>Comunicar incidente</span></button>
+   <button class="doc" data-doc="formDir"><svg class="i"><use href="#i-key"/></svg><span>Exercer um direito</span></button>
+  </div>
+  <div class="pad"></div>
+ </div>
+</section>
+
+<!-- 13 ─ INCIDENTES -->
+<section class="slide" id="s13" data-title="Resposta a incidentes com dados pessoais" data-short="Antes × Depois · Entrega 2">
+ <div class="si">
+  <p class="eyebrow">Antes × Depois · Entrega 2</p>
+  <h2>Resposta a incidentes com dados pessoais</h2>
+  <p class="lead">Determinação 9.2.4: modelo de comunicação à ANPD e aos titulares.</p>
+  <div class="grow">
+   <div class="card tb" style="--cols:14rem 1fr 1.1fr">
+    <div class="r h"><span>Aspecto</span><span>Antes</span><span>Depois</span></div>
+    <div class="r"><div class="k"><span class="ico"><svg class="i"><use href="#i-send"/></svg></span>Comunicação à ANPD</div><div class="b" data-l="Antes"><svg class="i"><use href="#i-x"/></svg><span>Sem modelo padronizado.</span></div><div class="a" data-l="Depois"><svg class="i"><use href="#i-check"/></svg><span>Formulário da própria ANPD adotado como padrão formal.</span></div></div>
+    <div class="r"><div class="k"><span class="ico"><svg class="i"><use href="#i-alert"/></svg></span>Resposta ao incidente</div><div class="b" data-l="Antes"><svg class="i"><use href="#i-x"/></svg><span>Sem procedimento padronizado para incidentes com dados pessoais.</span></div><div class="a" data-l="Depois"><svg class="i"><use href="#i-check"/></svg><span>Plano de resposta a incidentes e guia rápido de resposta.</span></div></div>
+    <div class="r"><div class="k"><span class="ico"><svg class="i"><use href="#i-scale"/></svg></span>Avaliação de risco</div><div class="b" data-l="Antes"><svg class="i"><use href="#i-x"/></svg><span>Sem critério objetivo para decidir se o incidente deve ser comunicado.</span></div><div class="a" data-l="Depois"><svg class="i"><use href="#i-check"/></svg><span>Calculadora de risco em Excel, como ferramenta de apoio.</span></div></div>
+   </div>
+  </div>
+  <div class="pad"></div>
+ </div>
+</section>
+
+<!-- 14 ─ SITUAÇÃO -->
+<section class="slide" id="s14" data-title="Onde está cada entrega" data-short="Situação em novembro de 2026">
+ <div class="si">
+  <p class="eyebrow">Situação em novembro de 2026</p>
+  <h2>Onde está cada entrega</h2>
+  <p class="lead">Situação após a validação do Encarregado em 13/11/2026.</p>
+  <div class="grow">
+   <div class="status">
+    <div class="card" style="--st:var(--ok)"><span class="ico"><svg class="i"><use href="#i-flow"/></svg></span><span class="n">ENTREGA 1</span><h3>Governança do Encarregado</h3><span class="pill ok"><svg class="i"><use href="#i-check"/></svg>Pronta</span><p>Fluxos, matriz e checklist validados. Vigoram com a publicação da Política.</p></div>
+    <div class="card" style="--st:var(--ok)"><span class="ico"><svg class="i"><use href="#i-doc"/></svg></span><span class="n">ENTREGA 4</span><h3>Política e privacidade</h3><span class="pill ok"><svg class="i"><use href="#i-check"/></svg>Pronta</span><p>Minuta validada; Aviso de Cookies validado; Política do portal aguarda a SI.</p></div>
+    <div class="card" style="--st:var(--mira-primary)"><span class="ico"><svg class="i"><use href="#i-win"/></svg></span><span class="n">ENTREGA 4</span><h3>Portal e formulário</h3><span class="pill p"><svg class="i"><use href="#i-check"/></svg>Aprovado</span><p>Aprovado pelo Encarregado. Implantação pela DTIC após a Direção do Foro.</p></div>
+    <div class="card" style="--st:var(--warn)"><span class="ico"><svg class="i"><use href="#i-alert"/></svg></span><span class="n">ENTREGA 2</span><h3>Resposta a incidentes</h3><span class="pill w"><svg class="i"><use href="#i-clock"/></svg>Em maturação</span><p>Entrega de alta importância. Falta a validação da área de Segurança da Informação.</p></div>
+    <div class="card" style="--st:var(--mira-text-softer)"><span class="ico"><svg class="i"><use href="#i-eye"/></svg></span><span class="n">ENTREGA 3</span><h3>Relatório de Impacto</h3><span class="pill">Segundo plano</span><p>A versão pública do RIPD não será publicada. Fica em segundo plano após a análise da DTIC.</p></div>
+   </div>
+   <div class="note" style="font-size:.98rem"><svg class="i"><use href="#i-info"/></svg><span>Pedimos aprovação para o que está pronto. O que depende da Segurança da Informação segue por processo próprio no SEI.</span></div>
+  </div>
+  <div class="pad"></div>
+ </div>
+</section>
+
+<!-- 15 ─ DECISÕES -->
+<section class="slide" id="s15" data-title="O que pedimos à Direção do Foro" data-short="Decisões solicitadas">
+ <div class="si">
+  <p class="eyebrow">Decisões solicitadas</p>
+  <h2>O que pedimos à Direção do Foro</h2>
+  <p class="lead">Cinco decisões destravam as Entregas 1 e 4. A Entrega 2 aguarda a Segurança da Informação; a Entrega 3 fica em segundo plano.</p>
+  <div class="grow">
+   <div class="dec">
+    <div class="card"><span class="num">1</span><div><span class="v">APROVAR</span><h3>Aprovar a Política e enviá-la à Assessoria Jurídica</h3></div><p>Ativa os fluxos, os prazos e a remessa obrigatória. Ponto para a AJ: prazo de guarda da selfie (art. 30).</p></div>
+    <div class="card"><span class="num">2</span><div><span class="v">INSTITUIR</span><h3>Instituir o Comitê e indicar seus membros</h3></div><p>Presidido pelo Diretor do Foro, com representantes de SI, DTIC, NGP, Assessoria Jurídica e Comunicação.</p></div>
+    <div class="card"><span class="num">3</span><div><span class="v">DESIGNAR</span><h3>Designar Encarregado(a) suplente</h3></div><p>Sem substituto, a ausência do titular deixa sem responsável o atendimento e a comunicação de incidente à ANPD.</p></div>
+    <div class="card"><span class="num">4</span><div><span class="v">DECIDIR</span><h3>Manter ou suprimir a auditoria interna na minuta</h3></div><p>O Acórdão recomenda envolvê-la (9.1.8.2); o Encarregado não é favorável. Arts. 13, V, 15 e 21.</p></div>
+    <div class="card"><span class="num">5</span><div><span class="v">AUTORIZAR</span><h3>Autorizar a implantação do portal e do formulário</h3></div><p>Processo no SEI à DTIC e tratativa com o TRF5 sobre o gov.br, mantidas as vias alternativas.</p></div>
+   </div>
+  </div>
+  <div class="pad"></div>
+ </div>
+</section>
+
+<!-- 16 ─ DOCUMENTOS -->
+<section class="slide" id="s16" data-title="Documentos das Entregas 1 e 4" data-short="Para a demonstração">
+ <div class="si">
+  <p class="eyebrow">Para a demonstração</p>
+  <h2>Documentos das Entregas 1 e 4</h2>
+  <p class="lead">Clique para abrir. Os arquivos ficam na pasta "documentos", ao lado desta apresentação.</p>
+  <div class="grow" style="justify-content:flex-start">
+   <div class="dl">
+    <div class="card">
+     <h3>Entrega 1 — Governança do Encarregado</h3>
+     <button data-doc="gov"><svg class="i"><use href="#i-doc"/></svg><span>Governança do Encarregado — descrição detalhada dos fluxos</span><span class="pill">PDF</span></button>
+     <button data-doc="bpmnInt"><svg class="i"><use href="#i-flow"/></svg><span>Fluxo interno — diagrama BPMN</span><span class="pill">Imagem</span></button>
+     <button data-doc="bpmnExt"><svg class="i"><use href="#i-flow"/></svg><span>Fluxo externo — diagrama BPMN</span><span class="pill">Imagem</span></button>
+     <button data-doc="matriz"><svg class="i"><use href="#i-list"/></svg><span>Matriz de classificação e checklist operacional</span><span class="pill">PDF</span></button>
+     <button data-doc="redacao"><svg class="i"><use href="#i-doc"/></svg><span>Redação normativa dos fluxos, v4.1 (RBCIP)</span><span class="pill">Word</span></button>
+    </div>
+    <div class="card">
+     <h3>Entrega 4 — Política, privacidade e portal</h3>
+     <button data-doc="minuta"><svg class="i"><use href="#i-doc"/></svg><span>Minuta da Política de Proteção de Dados Pessoais</span><span class="pill">Word</span></button>
+     <button data-doc="cookies"><svg class="i"><use href="#i-cookie"/></svg><span>Aviso de Cookies, versão 3.0</span><span class="pill">Word</span></button>
+     <button data-doc="priv"><svg class="i"><use href="#i-doc"/></svg><span>Política de Privacidade para navegação, versão 2.1</span><span class="pill">Word</span></button>
+     <button data-doc="portal"><svg class="i"><use href="#i-win"/></svg><span>Portal de proteção de dados — protótipo navegável</span><span class="pill">Protótipo</span></button>
+     <button data-doc="form"><svg class="i"><use href="#i-form"/></svg><span>Formulário do titular — protótipo</span><span class="pill">Protótipo</span></button>
+     <button data-doc="formInc"><svg class="i"><use href="#i-alert"/></svg><span>Formulário — comunicar incidente</span><span class="pill">Protótipo</span></button>
+    </div>
+   </div>
+  </div>
+  <div class="pad"></div>
+ </div>
+</section>
+
+</main>
+
+<footer class="nav">
+  <button class="arrow" data-act="prev" aria-label="Slide anterior" title="Anterior (←)"><svg class="i"><use href="#i-left"/></svg></button>
+  <span class="cnt" id="cnt">1 / 16</span>
+  <div class="bar" aria-hidden="true"><i id="bar"></i></div>
+  <span class="org">JFCE · Encarregado, Grupo de Apoio à LGPD e INOVAJUS — Eixo II</span>
+  <button class="arrow" data-act="next" aria-label="Próximo slide" title="Próximo (→)"><svg class="i"><use href="#i-right"/></svg></button>
+</footer>
+
+<!-- Índice -->
+<div class="sheet" id="index" hidden role="dialog" aria-modal="true" aria-label="Índice de slides">
+  <div class="sheet-h"><h2>Índice</h2><button class="v-close" data-act="index-close" style="margin:0"><svg class="i"><use href="#i-x"/></svg><span>Fechar</span></button></div>
+  <div class="ov" id="ov"></div>
+</div>
+
+<!-- Visualizador de documentos -->
+<div id="viewer" hidden role="dialog" aria-modal="true" aria-label="Documentos do slide">
+  <div class="v-tabs">
+    <div class="v-list" id="vlist" role="tablist" aria-label="Documentos deste slide"></div>
+    <button class="v-close" id="vclose" data-act="viewer-close" title="Voltar à apresentação (Esc)"><svg class="i"><use href="#i-left"/></svg><span>Voltar à apresentação</span></button>
+  </div>
+  <div class="v-sub" id="vsub"></div>
+  <div class="v-body" id="vbody"></div>
+</div>
+
+<div class="card" id="notesbox"><b>Nota do apresentador</b><span id="notestext"></span></div>
+<div id="toast" role="status"></div>
+
+<script>
+(function(){
+'use strict';
+var KEY='lgpd-jfce-direcao-foro-v6-r1';
+var $=function(s,r){return (r||document).querySelector(s)}, $$=function(s,r){return [].slice.call((r||document).querySelectorAll(s))};
+var store={get:function(k){try{return localStorage.getItem(k)}catch(e){return null}},set:function(k,v){try{localStorage.setItem(k,v)}catch(e){}},del:function(k){try{localStorage.removeItem(k)}catch(e){}}};
+
+/* ── Documentos: caminho do arquivo original e, para Word, a prévia em PDF ── */
+var D='documentos/', P='assets/previa/';
+var DOCS={
+  gov:{t:'Governança do Encarregado — descrição detalhada dos fluxos',s:'Descrição detalhada',k:'pdf',i:'doc',src:D+'03_Governanca_do_Encarregado_Fluxos.pdf',j:[['Fluxo interno · p. 8',8],['Fluxo externo · p. 13',13]]},
+  bpmnInt:{t:'Fluxo interno — diagrama BPMN',s:'BPMN interno',k:'img',i:'flow',src:D+'06_Fluxo_Interno_BPMN.png'},
+  bpmnExt:{t:'Fluxo externo — diagrama BPMN',s:'BPMN externo',k:'img',i:'flow',src:D+'07_Fluxo_Externo_BPMN.png'},
+  matriz:{t:'Matriz de classificação e checklist operacional',s:'Matriz e checklist',k:'pdf',i:'list',src:D+'04_Matriz_de_Classificacao_e_Checklist.pdf'},
+  redacao:{t:'Redação normativa dos fluxos, v4.1 (RBCIP)',s:'Redação normativa',k:'docx',i:'doc',src:D+'05_Redacao_Normativa_dos_Fluxos_v4.1.docx',prev:P+'05_Redacao_Normativa_dos_Fluxos_v4.1.pdf'},
+  minuta:{t:'Minuta da Política de Proteção de Dados Pessoais',s:'Minuta da Política',k:'docx',i:'doc',src:D+'01_Minuta_Politica_Protecao_de_Dados.docx',prev:P+'01_Minuta_Politica_Protecao_de_Dados.pdf',j:[['Início do documento',1],['Portaria · p. 9',9]]},
+  cookies:{t:'Aviso de Cookies, versão 3.0',s:'Aviso de Cookies',k:'docx',i:'cookie',src:D+'02_Aviso_de_Cookies_v3.docx',prev:P+'02_Aviso_de_Cookies_v3.pdf'},
+  priv:{t:'Política de Privacidade para navegação, versão 2.1',s:'Política de Privacidade',k:'docx',i:'doc',src:D+'08_Politica_de_Privacidade_v2.1.docx',prev:P+'08_Politica_de_Privacidade_v2.1.pdf'},
+  portal:{t:'Portal de proteção de dados — protótipo navegável',s:'Portal (protótipo)',k:'html',i:'win',src:D+'Portal_LGPD_JFCE_com_alteracao.html'},
+  form:{t:'Formulário do titular — protótipo',s:'Formulário',k:'html',i:'form',src:D+'Prototipo_Formulario_LGPD_JFCE_com_alteracao.html'},
+  formInc:{t:'Formulário — comunicar incidente',s:'Comunicar incidente',k:'html',i:'alert',src:D+'Prototipo_Formulario_LGPD_JFCE_com_alteracao.html#incidente'},
+  formDir:{t:'Formulário — exercer um direito',s:'Exercer um direito',k:'html',i:'key',src:D+'Prototipo_Formulario_LGPD_JFCE_com_alteracao.html#direito'}
+};
+var KIND={pdf:'PDF',img:'Imagem',docx:'Word',html:'Protótipo'};
+var CHAPS=[['Abertura',1],['Acórdão',2],['Diagnóstico',3],['Fluxos',5],['Política',7],['Portal',10],['Incidentes',13],['Situação',14],['Decisões',15],['Documentos',16]];
+var THEMES=['corporate-blue','light-minimal','mira-dark'];
+
+var slides=$$('.slide'), cur=0, orig={}, editing=false;
+function ico(n){return '<svg class="i"><use href="#i-'+n+'"/></svg>'}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;')}
+function toast(m){var t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(function(){t.classList.remove('on')},2200)}
+
+/* ── Edições salvas neste navegador ── */
+slides.forEach(function(s){orig[s.id]=s.innerHTML});
+var saved={};try{saved=JSON.parse(store.get(KEY)||'{}')||{}}catch(e){saved={}}
+slides.forEach(function(s){if(typeof saved[s.id]==='string')s.innerHTML=saved[s.id]});
+
+/* ── Tema ── */
+var th=store.get(KEY+':tema'); if(THEMES.indexOf(th)>=0)document.documentElement.setAttribute('data-mira',th);
+function nextTheme(){var a=document.documentElement.getAttribute('data-mira'),n=THEMES[(THEMES.indexOf(a)+1)%THEMES.length];document.documentElement.setAttribute('data-mira',n);store.set(KEY+':tema',n);toast({'corporate-blue':'Tema: azul institucional','light-minimal':'Tema: claro','mira-dark':'Tema: escuro'}[n])}
+
+/* ── Capítulos e índice ── */
+function docKeys(s){var seen=[];$$('.docs [data-doc], .dl [data-doc]',s).forEach(function(b){if(seen.indexOf(b.dataset.doc)<0)seen.push(b.dataset.doc)});return seen}
+function build(){
+  var c=$('#chaps');c.innerHTML='';
+  CHAPS.forEach(function(ch){var b=document.createElement('button');b.setAttribute('role','tab');b.dataset.go=ch[1];b.textContent=ch[0];c.appendChild(b)});
+  var o=$('#ov');o.innerHTML='';
+  slides.forEach(function(s,i){var n=docKeys(s).length,b=document.createElement('button');b.className='card';b.dataset.go=i+1;
+    b.innerHTML='<span class="n">'+(i+1<10?'0':'')+(i+1)+' · '+esc(s.dataset.short)+(n?'<span class="pill p">'+ico('doc')+n+(n>1?' documentos':' documento')+'</span>':'')+'</span><span class="t">'+esc(s.dataset.title)+'</span>';o.appendChild(b)});
+}
+function go(n){
+  cur=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach(function(s,i){s.classList.toggle('on',i===cur)});
+  slides[cur].scrollTop=0;
+  $('#cnt').textContent=(cur+1)+' / '+slides.length;
+  $('#bar').style.width=((cur+1)/slides.length*100)+'%';
+  $('[data-act=prev]').disabled=cur===0; $('[data-act=next]').disabled=cur===slides.length-1;
+  var act=0;CHAPS.forEach(function(ch,i){if(ch[1]<=cur+1)act=i});
+  $$('#chaps button').forEach(function(b,i){b.setAttribute('aria-selected',i===act?'true':'false');if(i===act&&b.scrollIntoView)b.scrollIntoView({block:'nearest',inline:'center'})});
+  $$('#ov button').forEach(function(b,i){b.setAttribute('aria-current',i===cur?'true':'false')});
+  var nt=$('.notes',slides[cur]);$('#notestext').textContent=nt?nt.textContent:'Este slide não tem nota.';
+  document.title=(cur+1)+'. '+slides[cur].dataset.title+' — LGPD · JFCE';
+  try{history.replaceState(null,'','#'+(cur+1))}catch(e){}
+}
+
+/* ── Visualizador com abas ── */
+var viewer=$('#viewer'), vkeys=[], vcur=null, lastFocus=null;
+function openDoc(key,page){
+  if(!DOCS[key])return;
+  vkeys=docKeys(slides[cur]); if(vkeys.indexOf(key)<0)vkeys.unshift(key);
+  lastFocus=document.activeElement; viewer.hidden=false; $('#index').hidden=true;
+  showDoc(key,page); $('#vclose').focus();
+}
+function showDoc(key,page){
+  var d=DOCS[key]; vcur=key;
+  $('#vlist').innerHTML=vkeys.map(function(k){return '<button role="tab" data-vdoc="'+k+'" aria-selected="'+(k===key)+'">'+ico(DOCS[k].i)+esc(DOCS[k].s)+'</button>'}).join('');
+  var sel=$('#vlist [aria-selected=true]'); if(sel&&sel.scrollIntoView)sel.scrollIntoView({block:'nearest',inline:'center'});
+  var h='<strong>'+esc(d.t)+'</strong><span class="pill p">'+KIND[d.k]+'</span>';
+  (d.j||[]).forEach(function(j){h+='<button class="j" data-vdoc="'+key+'" data-page="'+j[1]+'">'+esc(j[0])+'</button>'});
+  h+='<span class="spacer"></span>';
+  if(d.k==='docx')h+='<a href="'+d.prev+'" target="_blank" rel="noopener">'+ico('ext')+'Prévia em nova guia</a><a href="'+d.src+'" target="_blank" rel="noopener">'+ico('down')+'Abrir o original no Word (.docx)</a>';
+  else h+='<a href="'+d.src+'" target="_blank" rel="noopener">'+ico('ext')+'Abrir em nova guia</a>';
+  if(d.k==='docx')h+='<span class="msg">Prévia de leitura, gerada a partir do arquivo Word. O documento que vale é o original (.docx), no botão ao lado.</span>';
+  if(d.k==='img')h+='<span class="msg">Clique na imagem para ampliar e arraste as barras para percorrer o diagrama; clique de novo para ver inteiro.</span>';
+  $('#vsub').innerHTML=h;
+  var body=$('#vbody');body.innerHTML='';
+  if(d.k==='img'){var w=document.createElement('div');w.className='imgw';w.innerHTML='<img src="'+d.src+'" alt="'+esc(d.t)+'">';w.onclick=function(){w.classList.toggle('zoom')};body.appendChild(w)}
+  else{var f=document.createElement('iframe');f.title=d.t;var u=d.k==='docx'?d.prev:d.src;if(d.k==='pdf'||d.k==='docx')u+='#page='+(page||1)+'&view=FitH';f.src=u;body.appendChild(f)}
+}
+function closeViewer(){viewer.hidden=true;$('#vbody').innerHTML='';if(lastFocus&&lastFocus.focus)lastFocus.focus()}
+
+/* ── Modo de edição ── */
+var INLINE={B:1,STRONG:1,EM:1,I:1,BR:1,SMALL:1,SPAN:1,U:1,A:1};
+function editable(s){return $$('h1,h2,h3,p,li,figcaption b,figcaption span,.c,.b>span,.a>span,.k,.tl div,.note>span,.lane-h>span,.lane-h>small,.phases .ph,.phases b,.phases span,.status .n,.dec .v',s).filter(function(el){
+  if(el.closest('button,.docs,svg,.notes'))return false;
+  for(var i=0;i<el.children.length;i++){if(!INLINE[el.children[i].tagName]&&el.children[i].tagName!=='svg')return false}
+  return el.textContent.trim().length>0})}
+function setEdit(on){
+  editing=on; document.body.classList.toggle('editing',on); $('[data-act=edit]').setAttribute('aria-pressed',on?'true':'false');
+  slides.forEach(function(s){if(on)editable(s).forEach(function(el){if(!el.querySelector('[contenteditable]')&&!el.closest('[contenteditable]'))el.setAttribute('contenteditable','true')});else $$('[contenteditable]',s).forEach(function(el){el.removeAttribute('contenteditable')})});
+  toast(on?'Edição ligada: clique em um texto para alterar':'Edição desligada');
+}
+function clean(s){var c=s.cloneNode(true);$$('[contenteditable]',c).forEach(function(el){el.removeAttribute('contenteditable')});return c.innerHTML}
+function persist(){var out={};slides.forEach(function(s){var h=clean(s);if(h!==orig[s.id])out[s.id]=h});store.set(KEY,JSON.stringify(out))}
+var pt;document.addEventListener('input',function(e){if(editing&&e.target.closest&&e.target.closest('.slide')){clearTimeout(pt);pt=setTimeout(persist,400)}});
+function download(){
+  var was=editing; if(was)setEdit(false); persist();
+  var v=viewer.hidden; viewer.hidden=true; $('#index').hidden=true; document.body.classList.remove('show-notes');
+  var html='<!doctype html>\n'+document.documentElement.outerHTML; viewer.hidden=v;
+  var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([html],{type:'text/html;charset=utf-8'}));a.download='apresentacao.html';document.body.appendChild(a);a.click();a.remove();
+  if(was)setEdit(true); toast('Cópia baixada: salve-a no lugar de apresentacao.html, ao lado das pastas');
+}
+function reset(){if(!window.confirm('Desfazer todas as edições e voltar ao texto original?'))return;store.del(KEY);slides.forEach(function(s){s.innerHTML=orig[s.id]});if(editing)setEdit(true);go(cur);build();go(cur);toast('Texto original restaurado')}
+
+/* ── Cliques ── */
+document.addEventListener('click',function(e){
+  var t=e.target.closest('[data-vdoc],[data-doc],[data-go],[data-act]'); if(!t)return;
+  if(t.dataset.vdoc){showDoc(t.dataset.vdoc,t.dataset.page);return}
+  if(t.dataset.doc){if(editing&&t.closest('.slide')&&e.target.closest('[contenteditable]'))return;openDoc(t.dataset.doc,t.dataset.page);return}
+  if(t.dataset.go){$('#index').hidden=true;go(+t.dataset.go-1);return}
+  var a=t.dataset.act;
+  if(a==='prev')go(cur-1); else if(a==='next')go(cur+1);
+  else if(a==='index'){$('#index').hidden=false;var c=$('#ov [aria-current=true]');if(c)c.focus()}
+  else if(a==='index-close')$('#index').hidden=true;
+  else if(a==='viewer-close')closeViewer();
+  else if(a==='theme')nextTheme();
+  else if(a==='full')fullscreen();
+  else if(a==='edit')setEdit(!editing);
+  else if(a==='download')download();
+  else if(a==='reset')reset();
+});
+function fullscreen(){var d=document;if(d.fullscreenElement)d.exitFullscreen();else if(d.documentElement.requestFullscreen)d.documentElement.requestFullscreen().catch(function(){})}
+
+/* ── Teclado ── */
+document.addEventListener('keydown',function(e){
+  if(e.ctrlKey||e.metaKey||e.altKey)return;
+  var k=e.key;
+  if(k==='Escape'){if(!viewer.hidden)closeViewer();else if(!$('#index').hidden)$('#index').hidden=true;else if(editing)setEdit(false);else document.body.classList.remove('show-notes');return}
+  var tg=e.target; if(tg&&(tg.isContentEditable||/^(INPUT|TEXTAREA|SELECT)$/.test(tg.tagName)))return;
+  if(!viewer.hidden){
+    if(k==='ArrowRight'||k==='ArrowLeft'){var i=vkeys.indexOf(vcur)+(k==='ArrowRight'?1:-1);if(i>=0&&i<vkeys.length)showDoc(vkeys[i])}
+    return}
+  if(editing)return;
+  if(k==='ArrowRight'||k==='PageDown'||(k===' '&&!(tg&&tg.tagName==='BUTTON'))){e.preventDefault();go(cur+1)}
+  else if(k==='ArrowLeft'||k==='PageUp'){e.preventDefault();go(cur-1)}
+  else if(k==='Home')go(0); else if(k==='End')go(slides.length-1);
+  else if(k==='g'||k==='G'){$('#index').hidden=!$('#index').hidden}
+  else if(k==='t'||k==='T')nextTheme();
+  else if(k==='f'||k==='F')fullscreen();
+  else if(k==='e'||k==='E'){e.preventDefault();setEdit(true)}
+  else if(k==='n'||k==='N')document.body.classList.toggle('show-notes');
+  else if(/^[1-9]$/.test(k)&&!$('#index').hidden){/* reservado */}
+});
+
+/* ── Toque: deslizar para os lados ── */
+var tx=0,ty=0;var st=$('#stage');
+st.addEventListener('touchstart',function(e){tx=e.changedTouches[0].clientX;ty=e.changedTouches[0].clientY},{passive:true});
+st.addEventListener('touchend',function(e){if(editing)return;var dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>70&&Math.abs(dx)>Math.abs(dy)*1.8)go(cur+(dx<0?1:-1))},{passive:true});
+window.addEventListener('hashchange',function(){var n=parseInt(location.hash.slice(1),10);if(n&&n-1!==cur)go(n-1)});
+
+document.body.classList.remove('editing','show-notes');
+build(); go((parseInt(location.hash.slice(1),10)||1)-1);
+})();
+</script>
+</body>
+</html>
