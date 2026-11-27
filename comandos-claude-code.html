@@ -109,7 +109,7 @@ select option{background:#111;color:#fff}
 .c-desc{color:var(--muted);font-size:15.5px}
 .c-obs{display:block;font-size:13.5px;color:var(--softer);margin-top:3px}
 .c-desk{font-size:14px;color:var(--muted)}
-.st{display:inline-flex;align-items:center;gap:6px;font:700 11px/1 var(--sans);letter-spacing:.07em;text-transform:uppercase;border-radius:999px;padding:5px 9px;border:1px solid;margin-bottom:5px;white-space:nowrap}
+.st{flex:0 0 auto;display:inline-flex;align-items:center;gap:6px;font:700 11px/1 var(--sans);letter-spacing:.07em;text-transform:uppercase;border-radius:999px;padding:5px 9px;border:1px solid;margin-bottom:5px;white-space:nowrap}
 .st::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
 .st.sim{color:var(--frio);border-color:rgba(127,212,230,.45);background:rgba(127,212,230,.08)}
 .st.botao{color:var(--accent2);border-color:rgba(255,199,102,.45);background:rgba(255,199,102,.08)}
@@ -120,7 +120,7 @@ select option{background:#111;color:#fff}
 .secao h2 small{font:600 15px var(--mono);color:var(--softer);margin-left:6px}
 .vazio{color:var(--muted);padding:30px 0;text-align:center}
 .legenda{display:flex;flex-wrap:wrap;gap:10px 18px;margin:0 0 30px;padding:16px 18px;font-size:14.5px;color:var(--muted)}
-.legenda div{display:flex;gap:8px;align-items:baseline;flex:1 1 240px}
+.legenda div{display:flex;flex-direction:column;align-items:flex-start;gap:7px;flex:1 1 220px}
 .legenda .st{margin:0}
 
 /* extras */
