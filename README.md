@@ -7,6 +7,7 @@ Apresentação animada do curso **"Servidor + IA"** — Ações 1.2 e 1.3 da Fre
 - **Comparativo de LLMs:** https://inovajus.github.io/comparativo-llms.html
 - **MCP e API, sem jargão:** https://inovajus.github.io/mcp-vs-api.html
 - **Guia: instalar o Claude Code (Windows e Mac, para leigos):** https://inovajus.github.io/instalar-claude-code.html (fonte: `~/06-claude-toolkit/guia-instalar-claude-code/guia.html`, gerada por `publicar.py --site`; .docx em `Guia-Instalar-Claude-Code.docx`)
+- **Guia: Claude Code no Desktop (aba Code x terminal, para leigos):** https://inovajus.github.io/claude-code-no-desktop.html (fonte: `~/06-claude-toolkit/guia-claude-code-desktop/guia.html`, gerada por `publicar.py --site`; .docx em `Guia-Claude-Code-no-Desktop.docx`)
 - **Tutorial — ApoIA no Claude via MCP:** https://inovajus.github.io/tutorial-apoia-mcp.html
 - **Tutorial — ApoIA no ChatGPT via MCP:** https://inovajus.github.io/tutorial-apoia-chatgpt.html
 - **Tutorial — ApoIA no Antigravity via MCP:** https://inovajus.github.io/tutorial-apoia-antigravity.html
@@ -32,7 +33,7 @@ foram removidos do arquivo, não apenas ocultados por CSS.
 - **Sem edição (participantes):** `index.html`, `tjce/index.html`, `banco-de-prompts.html`,
   `tjce/banco-de-prompts.html`, `comparativo-llms.html`, `material-do-aluno.html`,
   `tjce/material.html`, `ebook-servidor-ia.html` (e o da TJCE), `ementa.html`,
-  `tjce/casos-tipo.html`, `preteste.html`, `tjce/preteste.html`, `tutorial-apoia-mcp.html`, `mcp-vs-api.html`, `instalar-claude-code.html`,
+  `tjce/casos-tipo.html`, `preteste.html`, `tjce/preteste.html`, `tutorial-apoia-mcp.html`, `mcp-vs-api.html`, `instalar-claude-code.html`, `claude-code-no-desktop.html`,
   `tutorial-apoia-chatgpt.html`, `tutorial-apoia-antigravity.html`, `prompt-lab/index.html`,
   e a Biblioteca do Iracema (repositório `iracema-biblioteca-prompts`).
 - **Com edição (instrutores):** `editar.html`, `tjce/editar.html`,

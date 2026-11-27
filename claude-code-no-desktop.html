@@ -1,0 +1,695 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Claude Code no Desktop</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Guia ilustrado da aba Code do Claude Desktop: o que funciona igual ao Claude Code do terminal, o que muda de lugar e o que fica só de um lado.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE everyday: quem tem receio do terminal descobre que pode usar o mesmo Claude Code com botões
+   IDEA tradutor: cada comando do terminal ganha o seu botão equivalente no Desktop
+   PICTURE janela do app desenhada, com um ponteiro que clica no botão enquanto o comando é digitado ao lado
+   COLOUR MIRA dark: preto, laranja #FF904D lidera, dourado #FFC766 apoia, ciano #7FD4E6 marca "igual"
+   TYPE Inter 800 nos títulos + Inter no texto; JetBrains Mono só para comandos
+   LAYOUT laptop: título à esquerda, app desenhado à direita; celular: título, app, abas */
+:root{color-scheme:dark;--bg:#000;--ink:#fff;--muted:rgba(255,255,255,.68);--softer:rgba(255,255,255,.44);--primary:#FF904D;--accent2:#FFC766;--frio:#7FD4E6;--alerta:#FF5A5A;--card:rgba(255,255,255,.05);--borda:rgba(255,255,255,.11);--glow:rgba(255,144,77,.28);--term:#0b0f14;--mono:"JetBrains Mono",ui-monospace,Consolas,monospace;--sans:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;--gl:max(5vw,16px,env(safe-area-inset-left,0px));--gr:max(5vw,16px,env(safe-area-inset-right,0px))}
+:root[data-theme=light],:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-behavior:smooth;background:#000}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 var(--sans);overflow-x:clip;-webkit-font-smoothing:antialiased}
+a{color:var(--accent2)}
+::selection{background:rgba(255,144,77,.35)}
+.faixa{position:relative;z-index:1;padding-left:var(--gl);padding-right:var(--gr)}
+.miolo{max-width:1180px;margin:0 auto}
+#fundo{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+#fundo .grade{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:48px 48px;mask-image:radial-gradient(ellipse at 30% 30%,#000 30%,transparent 80%)}
+#fundo .brilho{position:absolute;left:70%;top:22%;width:1000px;height:1000px;margin:-500px 0 0 -500px;border-radius:50%;background:radial-gradient(circle,var(--glow) 0%,rgba(0,0,0,0) 62%);animation:respira 4s ease-in-out infinite alternate}
+@keyframes respira{from{opacity:.35}to{opacity:.75}}
+.hud{position:relative;background:var(--card);border:1px solid var(--borda);border-radius:8px}
+.hud::before,.hud::after{content:"";position:absolute;width:14px;height:14px;border:2px solid var(--primary);pointer-events:none}
+.hud::before{left:-1px;top:-1px;border-right:0;border-bottom:0;border-radius:8px 0 0 0}
+.hud::after{right:-1px;bottom:-1px;border-left:0;border-top:0;border-radius:0 0 8px 0}
+kbd{font:600 13px var(--mono);background:#1a1d22;border:1px solid rgba(255,255,255,.22);border-bottom-width:3px;border-radius:5px;padding:1px 7px;color:var(--ink);white-space:nowrap}
+code.in{font:14px var(--mono);background:rgba(255,255,255,.07);color:var(--accent2);padding:1px 6px;border-radius:4px;overflow-wrap:anywhere}
+button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible{outline:2px solid var(--accent2);outline-offset:2px}
+
+/* topo */
+.topo{padding-block:clamp(28px,5vw,64px) clamp(28px,4vw,48px)}
+.topo .miolo{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:clamp(28px,4vw,60px);align-items:center}
+h1{font-size:clamp(34px,5.2vw,54px);line-height:1.05;letter-spacing:-.02em;font-weight:800;margin:0 0 16px}
+h1 em{font-style:normal;color:var(--primary)}
+.lead{color:var(--muted);font-size:clamp(17px,1.6vw,19px);max-width:50ch;margin:0}
+.selos{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 24px;padding:0;list-style:none}
+.selos li{border:1px solid var(--borda);background:var(--card);border-radius:999px;padding:5px 13px;font-size:14px;color:var(--muted)}
+.selos b{color:var(--accent2);font-weight:600}
+.acoes{display:flex;flex-wrap:wrap;gap:10px}
+.btn{appearance:none;font:600 16px var(--sans);border-radius:8px;padding:12px 18px;min-height:46px;cursor:pointer;border:1px solid var(--borda);background:var(--card);color:var(--ink);text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:transform .15s,border-color .15s,background .15s}
+.btn:hover{border-color:var(--primary);transform:translateY(-1px)}
+.btn.prim{background:var(--primary);border-color:var(--primary);color:#1a0d04}
+.btn.prim:hover{background:#ffa56c}
+
+/* app desenhado */
+.palco{position:relative}
+.app{position:relative;background:#0d1117;border:1px solid var(--borda);border-radius:12px;overflow:hidden;box-shadow:0 30px 80px -40px var(--glow);font-family:var(--sans)}
+.app-barra{display:flex;align-items:center;gap:7px;padding:9px 12px;background:#141a21;border-bottom:1px solid var(--borda)}
+.app-barra .luz{width:11px;height:11px;border-radius:50%}
+.app-barra .luz:nth-child(1){background:#ff5f57}.app-barra .luz:nth-child(2){background:#febc2e}.app-barra .luz:nth-child(3){background:#28c840}
+.app-modos{margin:0 auto;display:flex;background:#0b0f14;border:1px solid var(--borda);border-radius:7px;padding:2px;font:600 12px var(--sans)}
+.app-modos span{padding:3px 14px;border-radius:5px;color:var(--softer)}
+.app-modos .on{background:#262e38;color:var(--ink)}
+.app-corpo{display:grid;grid-template-columns:138px minmax(0,1fr);min-height:300px}
+.app-lado{border-right:1px solid var(--borda);padding:12px 10px;display:flex;flex-direction:column;gap:6px;font-size:12px}
+.app-lado .nova{border:1px dashed rgba(255,255,255,.22);border-radius:6px;padding:6px 8px;color:var(--muted);font-weight:600}
+.app-lado .rot{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--softer);margin:6px 0 0 2px}
+.sess{padding:6px 8px;border-radius:6px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border:1px solid transparent;transition:all .3s}
+.sess.atual{background:rgba(255,255,255,.06);color:var(--ink)}
+.app-main{padding:14px;display:flex;flex-direction:column;gap:10px}
+.msg{max-width:90%;padding:8px 11px;border-radius:9px;font-size:13px;line-height:1.45}
+.msg.voce{align-self:flex-end;background:rgba(255,144,77,.14)}
+.msg.cl{background:rgba(255,255,255,.05);color:var(--muted)}
+.diff{display:inline-block;font:600 12px var(--mono);color:var(--frio);border:1px solid rgba(127,212,230,.4);border-radius:5px;padding:1px 6px;margin-left:4px;white-space:nowrap;transition:all .3s}
+.caixa{margin-top:auto;border:1px solid var(--borda);border-radius:10px;background:#0b0f14;padding:10px}
+.caixa .ph{color:var(--softer);font-size:13px;margin-bottom:9px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:600 11.5px var(--sans);border:1px solid var(--borda);border-radius:6px;padding:4px 8px;color:var(--muted);display:inline-flex;gap:5px;align-items:center;transition:all .3s;white-space:nowrap}
+.chip svg{width:12px;height:12px}
+.app [data-alvo].alvo{border-color:var(--primary);color:var(--ink);box-shadow:0 0 0 4px rgba(255,144,77,.18);background:rgba(255,144,77,.12)}
+.ponteiro{position:absolute;left:0;top:0;width:20px;height:28px;z-index:3;pointer-events:none;transition:transform .9s cubic-bezier(.4,.1,.2,1);transform:translate(70%,80%);filter:drop-shadow(0 2px 3px rgba(0,0,0,.6))}
+.ponteiro.clica svg{animation:clica .35s ease}
+@keyframes clica{50%{transform:scale(.78)}}
+.tradutor{margin-top:14px;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:10px;align-items:stretch}
+.trad-lado{padding:10px 12px;border-radius:8px;border:1px solid var(--borda);background:var(--card);min-height:70px}
+.trad-lado small{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:var(--softer);margin-bottom:4px;font-weight:600}
+#tr-term{font:13.5px/1.4 var(--mono);color:var(--accent2);overflow-wrap:anywhere}
+#tr-desk{font-size:14px;line-height:1.4;color:var(--ink)}
+.trad-seta{display:grid;place-items:center;color:var(--primary);font-size:22px;font-weight:700}
+.cursor{display:inline-block;width:.55em;height:1.1em;background:var(--primary);vertical-align:-.2em;animation:pisca 1s steps(1) infinite}
+@keyframes pisca{50%{opacity:0}}
+.legenda-app{font-size:13px;color:var(--softer);margin:8px 0 0;text-align:center}
+
+/* abas */
+.abas-wrap{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(0,0,0,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-block:1px solid var(--borda)}
+body::before{content:"";position:fixed;left:0;right:0;top:0;height:env(safe-area-inset-top,0px);background:#000;z-index:21}
+.abas{position:relative;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;max-width:1180px;margin:0 auto}
+.abas::-webkit-scrollbar{display:none}
+.aba{flex:0 0 auto;appearance:none;background:none;border:0;color:var(--muted);font:600 15.5px var(--sans);padding:14px 14px 13px;min-height:50px;cursor:pointer;display:flex;align-items:center;gap:8px;white-space:nowrap;transition:color .2s}
+.aba:hover,.aba[aria-selected=true]{color:var(--ink)}
+.aba svg{width:18px;height:18px;flex:0 0 auto;opacity:.8}
+.aba[aria-selected=true] svg{color:var(--primary);opacity:1}
+.indicador{position:absolute;left:0;bottom:0;height:3px;width:0;background:var(--primary);border-radius:3px 3px 0 0;transition:transform .35s cubic-bezier(.2,.8,.2,1),width .35s cubic-bezier(.2,.8,.2,1)}
+
+/* painéis */
+.painel{padding-block:clamp(30px,4vw,52px) 72px}
+.painel.entra{animation:entra .45s cubic-bezier(.2,.8,.2,1)}
+.painel.entra .anima{animation:entra .55s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i,0)*70ms)}
+@keyframes entra{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+h2{font-size:clamp(30px,3.6vw,40px);line-height:1.08;letter-spacing:-.02em;margin:0 0 10px;font-weight:800}
+h3{letter-spacing:-.01em}
+.intro{color:var(--muted);max-width:68ch;margin:0 0 28px;font-size:18px}
+.intro strong{color:var(--ink)}
+.subtit{font-size:24px;font-weight:800;letter-spacing:-.01em;margin:44px 0 14px}
+.duas{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:center}
+.analogia p{color:var(--muted);font-size:18px;margin:0 0 14px;max-width:56ch}
+.analogia p strong{color:var(--ink)}
+.ilu{margin:0}
+.ilu svg{width:100%;height:auto;display:block}
+.ilu figcaption{font-size:14px;color:var(--softer);text-align:center;margin-top:8px}
+.fluxo{stroke-dasharray:6 6;animation:fluxo 1s linear infinite}
+@keyframes fluxo{to{stroke-dashoffset:-12}}
+.robo-flutua{animation:flutua 3.4s ease-in-out infinite}
+@keyframes flutua{50%{transform:translateY(-8px)}}
+.lampada{animation:acende 1.6s ease-in-out infinite alternate}
+@keyframes acende{from{opacity:.45}to{opacity:1}}
+
+/* placar */
+.placar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:36px 0 0}
+.placar button{appearance:none;font:inherit;color:var(--ink);text-align:left;cursor:pointer;padding:20px 22px;transition:border-color .2s,transform .2s}
+.placar button:hover{border-color:var(--primary);transform:translateY(-2px)}
+.placar .n{display:block;font:800 clamp(40px,5vw,56px)/1 var(--sans);letter-spacing:-.03em}
+.placar .t{display:block;font-weight:700;font-size:18px;margin:6px 0 2px}
+.placar .d{display:block;color:var(--muted);font-size:15px}
+.placar .igual .n{color:var(--frio)}.placar .muda .n{color:var(--accent2)}.placar .lado .n{color:var(--primary)}
+
+/* passos para abrir */
+.passos{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;counter-reset:p}
+.passos li{padding:18px 16px;counter-increment:p}
+.passos li::before{content:counter(p);display:grid;place-items:center;width:34px;height:34px;border-radius:9px;background:rgba(255,144,77,.15);color:var(--primary);font:700 16px var(--mono);margin-bottom:10px}
+.passos b{display:block;font-size:16.5px;margin-bottom:4px}
+.passos span{color:var(--muted);font-size:15px;display:block}
+.glossario{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 36px;margin:0}
+.glossario div{padding:14px 0;border-bottom:1px solid var(--borda)}
+.glossario dt{font-weight:700;color:var(--accent2);margin-bottom:2px}
+.glossario dd{margin:0;color:var(--muted);font-size:16px}
+
+/* selos de status */
+.selo{display:inline-flex;align-items:center;gap:6px;font:700 11.5px/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:5px 10px;border:1px solid}
+.selo.igual{color:var(--frio);border-color:rgba(127,212,230,.45);background:rgba(127,212,230,.08)}
+.selo.muda{color:var(--accent2);border-color:rgba(255,199,102,.45);background:rgba(255,199,102,.08)}
+.selo.desk{color:var(--primary);border-color:rgba(255,144,77,.5);background:rgba(255,144,77,.08)}
+.selo.term{color:#ffb0b0;border-color:rgba(255,90,90,.45);background:rgba(255,90,90,.08)}
+
+/* funciona igual */
+.diagrama{margin:0 0 36px}
+.grade-igual{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.cartao{padding:20px;display:flex;flex-direction:column;gap:10px}
+.cartao .topo-c{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.cartao .ico{width:42px;height:42px;border-radius:10px;background:rgba(127,212,230,.12);color:var(--frio);display:grid;place-items:center}
+.cartao .ico svg{width:22px;height:22px}
+.cartao h3{font-size:18px;margin:0}
+.cartao p{font-size:15.5px;margin:0;color:var(--muted)}
+.cartao p strong{color:var(--ink)}
+.cartao .onde{margin-top:auto;font:13px/1.5 var(--mono);color:var(--accent2);border-top:1px dashed var(--borda);padding-top:10px;overflow-wrap:anywhere}
+
+/* muda o jeito */
+.busca{display:flex;align-items:center;gap:10px;border:1px solid var(--borda);border-radius:10px;background:var(--card);padding:0 14px;margin:0 0 22px;max-width:620px}
+.busca:focus-within{border-color:var(--primary)}
+.busca svg{width:20px;height:20px;color:var(--softer);flex:0 0 auto}
+.busca input{flex:1;background:none;border:0;color:var(--ink);font:16px var(--sans);padding:14px 0;outline:none}
+.sugestoes{display:flex;flex-wrap:wrap;gap:6px;margin:-10px 0 24px}
+.sugestoes button{appearance:none;font:13px var(--mono);color:var(--accent2);background:rgba(255,255,255,.05);border:1px solid var(--borda);border-radius:6px;padding:4px 9px;cursor:pointer}
+.sugestoes button:hover{border-color:var(--primary)}
+.lista-trad{display:grid;gap:10px}
+.trad{display:grid;grid-template-columns:minmax(0,.9fr) 40px minmax(0,1.4fr);align-items:center;padding:14px 18px}
+.trad[hidden]{display:none}
+.trad .qual{display:block;font-weight:700;font-size:16px;margin-bottom:4px}
+.trad .t-term code{font:14px/1.5 var(--mono);color:var(--accent2);overflow-wrap:anywhere}
+.trad .t-term .sem{color:var(--softer);font-size:14.5px}
+.trad .seta-t{color:var(--primary);font-size:22px;text-align:center;font-weight:700}
+.trad .t-desk{color:var(--muted);font-size:15.5px}
+.trad .t-desk b{color:var(--ink);font-weight:600}
+.vazio{color:var(--muted);padding:16px 0}
+
+/* só de um lado */
+.lados{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;align-items:start}
+.lado-col{padding:22px}
+.lado-col h3{font-size:22px;margin:10px 0 14px}
+.lado-col ul{list-style:none;margin:0;padding:0}
+.lado-col li{padding:12px 0;border-top:1px solid var(--borda);color:var(--muted);font-size:15.5px}
+.lado-col li b{display:block;color:var(--ink);font-size:16.5px;margin-bottom:2px}
+.aviso{display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;align-items:center;padding:18px 22px;margin-top:22px;border-color:rgba(255,199,102,.45);background:rgba(255,199,102,.06)}
+.aviso svg{width:40px;height:40px;color:var(--accent2)}
+.aviso p{margin:0;color:var(--muted)}
+.aviso strong{color:var(--ink)}
+
+/* qual escolher */
+.quiz{display:grid;gap:14px;max-width:820px}
+.pergunta{padding:18px 20px;border:0;margin:0}
+.pergunta legend{font-weight:700;font-size:18px;padding:0;margin-bottom:12px;float:left;width:100%}
+.opcoes{display:flex;flex-wrap:wrap;gap:8px;clear:both}
+.opcoes label{display:inline-flex;align-items:center;gap:8px;cursor:pointer;border:1px solid var(--borda);border-radius:8px;padding:9px 14px;font-weight:600;font-size:15px;min-height:44px;transition:all .2s}
+.opcoes label:hover{border-color:var(--primary)}
+.opcoes input{accent-color:var(--primary);width:18px;height:18px;margin:0}
+.opcoes label:has(input:checked){border-color:var(--primary);background:rgba(255,144,77,.1);color:var(--primary)}
+.resultado{max-width:820px;margin-top:18px;padding:22px 24px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:20px;align-items:center;border-color:rgba(127,212,230,.45);background:rgba(127,212,230,.06)}
+.resultado[hidden]{display:none}
+.resultado:not([hidden]){animation:entra .5s cubic-bezier(.2,.8,.2,1)}
+.resultado svg{width:76px;height:auto}
+.resultado h3{margin:0 0 6px;font-size:22px}
+.resultado p{margin:0;color:var(--muted)}
+.dica-quiz{color:var(--softer);font-size:15px;margin:14px 0 0}
+.juntos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.juntos .cartao .ico{background:rgba(255,144,77,.13);color:var(--primary)}
+
+/* perguntas */
+.faq-grade{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);gap:clamp(24px,4vw,56px);align-items:start}
+.faq-arte{position:sticky;top:90px}
+.faq details{border-bottom:1px solid var(--borda)}
+.faq summary{list-style:none;cursor:pointer;padding:18px 44px 18px 0;font-weight:600;font-size:18px;position:relative;line-height:1.35}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";position:absolute;right:10px;top:50%;width:10px;height:10px;border:solid var(--primary);border-width:0 2px 2px 0;transform:translateY(-75%) rotate(45deg);transition:transform .25s}
+.faq details[open] summary::after{transform:translateY(-25%) rotate(-135deg)}
+.faq summary:hover{color:var(--accent2)}
+.faq .resp{color:var(--muted);padding:0 0 20px;max-width:68ch}
+.faq details[open] .resp{animation:entra .35s cubic-bezier(.2,.8,.2,1)}
+.faq .resp p{margin:0 0 10px}
+.faq .resp strong{color:var(--ink)}
+.duvida text{animation:flutua 3s ease-in-out infinite}
+.duvida text:nth-child(2){animation-delay:-1s}
+.duvida text:nth-child(3){animation-delay:-2s}
+
+.rodape{border-top:1px solid var(--borda);padding-block:28px 40px;color:var(--softer);font-size:14.5px}
+.rodape p{margin:0 0 6px;max-width:80ch}
+
+@media(max-width:1060px){.passos{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:900px){.topo .miolo,.duas,.faq-grade,.lados{grid-template-columns:minmax(0,1fr)}.faq-arte{position:static;max-width:280px}.juntos{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:700px){.placar{grid-template-columns:minmax(0,1fr)}.glossario{grid-template-columns:minmax(0,1fr)}.passos{grid-template-columns:repeat(2,minmax(0,1fr))}.trad{grid-template-columns:minmax(0,1fr);gap:6px}.trad .seta-t{text-align:left;transform:rotate(90deg);width:22px}.resultado{grid-template-columns:minmax(0,1fr)}.resultado svg{display:none}}
+@media(max-width:520px){body{font-size:16px}.app-corpo{grid-template-columns:96px minmax(0,1fr);min-height:280px}.app-lado{padding:10px 6px}.app-lado .rot{display:none}.tradutor{grid-template-columns:minmax(0,1fr)}.trad-seta{transform:rotate(90deg)}.passos{grid-template-columns:minmax(0,1fr)}.msg{font-size:12.5px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="robo" viewBox="0 0 120 132">
+      <line x1="60" y1="9" x2="60" y2="27" stroke="#FFC766" stroke-width="4" stroke-linecap="round"/>
+      <circle class="lampada" cx="60" cy="9" r="7" fill="#FFC766"/>
+      <rect x="7" y="47" width="13" height="23" rx="5" fill="#FFC766"/>
+      <rect x="100" y="47" width="13" height="23" rx="5" fill="#FFC766"/>
+      <rect x="40" y="92" width="40" height="34" rx="12" fill="#e2743a"/>
+      <circle cx="60" cy="109" r="5" fill="#7FD4E6"/>
+      <rect x="17" y="25" width="86" height="68" rx="23" fill="#FF904D"/>
+      <path d="M17 62v8a23 23 0 0 0 23 23h40a23 23 0 0 0 23-23v-8z" fill="#e2743a"/>
+      <rect x="29" y="39" width="62" height="38" rx="15" fill="#1a0d04"/>
+      <rect x="44" y="49" width="9" height="14" rx="4.5" fill="#7FD4E6"/>
+      <rect x="67" y="49" width="9" height="14" rx="4.5" fill="#7FD4E6"/>
+      <path d="M50 68q10 7 20 0" stroke="#7FD4E6" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M30 35q9-6 22-6" stroke="rgba(255,255,255,.55)" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="seta" viewBox="0 0 20 28"><path d="M2 2v20l5-5 4 9 4-2-4-9h7z" fill="#fff" stroke="#000" stroke-width="1.5" stroke-linejoin="round"/></symbol>
+    <symbol id="i-pasta" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+    <symbol id="i-escudo" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+    <symbol id="i-chip" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-ramo" viewBox="0 0 24 24"><circle cx="6" cy="5" r="2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="19" r="2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="8" r="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M6 7v10M18 10c0 4-6 3-12 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  </defs>
+</svg>
+
+<div id="fundo" aria-hidden="true"><div class="grade"></div><div class="brilho"></div></div>
+
+<header class="faixa topo">
+  <div class="miolo">
+    <div data-editavel>
+      <h1>O Claude Code, <em>sem o terminal</em></h1>
+      <p class="lead">O aplicativo Claude Desktop tem uma aba chamada <b>Code</b>. Por dentro, ela é o mesmo Claude Code do terminal; por fora, troca comandos digitados por botões. Este guia mostra o que funciona igual, o que muda de lugar e o que fica só de um lado.</p>
+      <ul class="selos">
+        <li><b>Mesmo</b> Claude Code por dentro</li>
+        <li><b>Windows</b> e <b>Mac</b></li>
+        <li>Sem digitar comandos</li>
+        <li>Conferido em <b>27/11/2026</b></li>
+      </ul>
+      <div class="acoes">
+        <button class="btn prim" data-ir="igual">Ver o que funciona igual</button>
+        <button class="btn" data-ir="muda">Tradutor de comandos</button>
+      </div>
+    </div>
+    <div class="palco">
+      <div class="app" id="app" role="img" aria-label="Desenho simplificado da aba Code do Claude Desktop. Um ponteiro clica, um de cada vez, no botão que faz o mesmo que um comando do terminal.">
+        <div class="app-barra"><span class="luz"></span><span class="luz"></span><span class="luz"></span>
+          <div class="app-modos"><span>Chat</span><span class="on">Code</span></div>
+        </div>
+        <div class="app-corpo">
+          <div class="app-lado">
+            <div class="nova" data-alvo="nova">+ New session</div>
+            <div class="rot">Sessões</div>
+            <div class="sess atual">organizar-pdfs</div>
+            <div class="sess" data-alvo="resume">planilha-ferias</div>
+            <div class="sess">relatorio-mensal</div>
+          </div>
+          <div class="app-main">
+            <div class="msg voce">Organize os PDFs desta pasta por data.</div>
+            <div class="msg cl">Pronto. Renomeei 12 arquivos e criei a pasta 2026. <span class="diff" data-alvo="diff">+12 −1</span></div>
+            <div class="caixa">
+              <div class="ph">Escreva seu pedido…</div>
+              <div class="chips">
+                <span class="chip" data-alvo="pasta"><svg aria-hidden="true"><use href="#i-pasta"/></svg>meus-documentos</span>
+                <span class="chip" data-alvo="modo"><svg aria-hidden="true"><use href="#i-escudo"/></svg>Accept edits</span>
+                <span class="chip" data-alvo="modelo"><svg aria-hidden="true"><use href="#i-chip"/></svg>Modelo ▾</span>
+                <span class="chip" data-alvo="worktree"><svg aria-hidden="true"><use href="#i-ramo"/></svg>Worktree</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ponteiro" id="ponteiro"><svg viewBox="0 0 20 28" width="20" height="28"><use href="#seta"/></svg></div>
+      </div>
+      <div class="tradutor" aria-live="polite">
+        <div class="trad-lado"><small>No terminal você digita</small><div id="tr-term">/model</div></div>
+        <div class="trad-seta" aria-hidden="true">→</div>
+        <div class="trad-lado"><small>No Desktop você clica</small><div id="tr-desk">No seletor de modelo, embaixo da caixa de pedido</div></div>
+      </div>
+      <p class="legenda-app">Desenho simplificado. Os botões do app aparecem em inglês.</p>
+    </div>
+  </div>
+</header>
+
+<nav class="abas-wrap faixa" aria-label="Seções do guia">
+  <div class="abas" role="tablist" id="abas">
+    <button class="aba" role="tab" data-aba="comecar" id="t-comecar" aria-controls="p-comecar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/></svg>O que é</button>
+    <button class="aba" role="tab" data-aba="igual" id="t-igual" aria-controls="p-igual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M5 9h14M5 15h14"/></svg>Funciona igual</button>
+    <button class="aba" role="tab" data-aba="muda" id="t-muda" aria-controls="p-muda"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h13l-3-3M20 16H7l3 3"/></svg>Muda o jeito</button>
+    <button class="aba" role="tab" data-aba="lados" id="t-lados" aria-controls="p-lados"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="5" width="7" height="14" rx="1.5"/><rect x="14" y="5" width="7" height="14" rx="1.5"/></svg>Só de um lado</button>
+    <button class="aba" role="tab" data-aba="escolher" id="t-escolher" aria-controls="p-escolher"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v6M12 9 5 15v5M12 9l7 6v5"/></svg>Qual escolher</button>
+    <button class="aba" role="tab" data-aba="perguntas" id="t-perguntas" aria-controls="p-perguntas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/><path d="M10 9a2 2 0 1 1 2.5 2c-.5.2-.5.6-.5 1M12 14h.01"/></svg>Perguntas</button>
+    <span class="indicador" id="indicador" aria-hidden="true"></span>
+  </div>
+</nav>
+
+<main class="faixa" id="conteudo" data-editavel>
+<div class="miolo">
+
+<!-- ═════════ O QUE É ═════════ -->
+<section class="painel" id="p-comecar" role="tabpanel" aria-labelledby="t-comecar">
+  <div class="duas">
+    <div class="analogia anima" style="--i:0">
+      <h2>Mesmo motor, outro painel</h2>
+      <p>Pense num carro com <strong>dois painéis</strong>. No terminal, você dirige escrevendo ordens. Na aba Code do Desktop, dirige apertando botões. <strong>O motor é o mesmo</strong>: o Claude lê os arquivos da pasta, cria e altera arquivos, roda tarefas e pede sua autorização antes de agir.</p>
+      <p>Os dois leem <strong>as mesmas instruções e configurações</strong> guardadas no seu computador. Uma habilidade (skill) criada para o terminal aparece no Desktop, e vice-versa.</p>
+      <p>Você <strong>não precisa instalar o Claude Code de terminal</strong> para usar a aba Code: ele já vem dentro do aplicativo.</p>
+    </div>
+    <figure class="ilu anima" style="--i:1">
+      <svg viewBox="0 0 420 300" role="img" aria-label="Uma janela de terminal e uma janela do Desktop ligadas ao mesmo robô, que lê uma única pasta de configurações">
+        <rect x="10" y="20" width="150" height="104" rx="9" fill="#0b0f14" stroke="rgba(255,255,255,.18)"/>
+        <path d="M10 29a9 9 0 0 1 9-9h132a9 9 0 0 1 9 9v9H10z" fill="#141a21"/>
+        <text x="85" y="33" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="rgba(255,255,255,.5)">Terminal</text>
+        <g font-family="JetBrains Mono,monospace" font-size="10.5"><text x="22" y="62" fill="#7FD4E6">&gt; <tspan fill="#fff">/model</tspan></text><text x="22" y="82" fill="#7FD4E6">&gt; <tspan fill="#fff">/resume</tspan></text><text x="22" y="102" fill="#FFC766">ok</text></g>
+        <rect x="260" y="20" width="150" height="104" rx="9" fill="#0d1117" stroke="rgba(255,255,255,.18)"/>
+        <path d="M260 29a9 9 0 0 1 9-9h132a9 9 0 0 1 9 9v9H260z" fill="#141a21"/>
+        <text x="335" y="33" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="rgba(255,255,255,.5)">Desktop · Code</text>
+        <rect x="272" y="48" width="36" height="66" rx="4" fill="rgba(255,255,255,.05)"/>
+        <rect x="316" y="50" width="82" height="14" rx="4" fill="rgba(255,144,77,.18)"/>
+        <rect x="316" y="70" width="70" height="14" rx="4" fill="rgba(255,255,255,.07)"/>
+        <rect x="316" y="94" width="34" height="14" rx="4" fill="none" stroke="#FF904D"/>
+        <rect x="354" y="94" width="44" height="14" rx="4" fill="none" stroke="rgba(255,255,255,.3)"/>
+        <path class="fluxo" d="M120 124 C140 160 170 160 188 170" stroke="#FF904D" stroke-width="2.5" fill="none"/>
+        <path class="fluxo" d="M300 124 C280 160 250 160 232 170" stroke="#FF904D" stroke-width="2.5" fill="none"/>
+        <g class="robo-flutua"><use href="#robo" x="172" y="128" width="76" height="84"/></g>
+        <path class="fluxo" d="M210 214 V236" stroke="#7FD4E6" stroke-width="2.5" fill="none"/>
+        <path d="M96 240h70l10 11h148a8 8 0 0 1 8 8v31a8 8 0 0 1-8 8H96a8 8 0 0 1-8-8v-42a8 8 0 0 1 8-8z" fill="#FFC766"/>
+        <path d="M88 256h244v34a8 8 0 0 1-8 8H96a8 8 0 0 1-8-8z" fill="#f0b24d"/>
+        <text x="210" y="273" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11" font-weight="700" fill="#1a0d04">CLAUDE.md · skills · MCP</text>
+        <text x="210" y="289" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11" font-weight="700" fill="#1a0d04">hooks · configurações</text>
+      </svg>
+      <figcaption>Duas portas de entrada para o mesmo Claude Code.</figcaption>
+    </figure>
+  </div>
+
+  <div class="placar" id="placar">
+    <button class="hud igual anima" style="--i:2" data-ir="igual"><span class="n" data-conta="#p-igual .cartao">0</span><span class="t">funcionam igual</span><span class="d">Mesmo recurso, mesmo arquivo, mesmo resultado.</span></button>
+    <button class="hud muda anima" style="--i:3" data-ir="muda"><span class="n" data-conta="#p-muda .trad">0</span><span class="t">mudam só o jeito</span><span class="d">O comando digitado vira um botão ou um menu.</span></button>
+    <button class="hud lado anima" style="--i:4" data-ir="lados"><span class="n" data-conta="#p-lados li">0</span><span class="t">ficam de um lado só</span><span class="d">Existem só no Desktop ou só no terminal.</span></button>
+  </div>
+
+  <h3 class="subtit">Como abrir a aba Code</h3>
+  <ol class="passos">
+    <li class="hud anima" style="--i:5"><b>Baixe o aplicativo</b><span>Em <a href="https://claude.ai/download">claude.ai/download</a>, para Windows 10 ou mais novo, ou macOS 13 ou mais novo. Instale como qualquer programa.</span></li>
+    <li class="hud anima" style="--i:6"><b>Entre na sua conta</b><span>É preciso um plano pago: Pro, Max, Ultra, Team ou Enterprise. O plano gratuito abre o chat, mas não a aba Code.</span></li>
+    <li class="hud anima" style="--i:7"><b>Clique em Code</b><span>Fica no alto da barra lateral. Se aparecerem só ícones, passe o mouse por cima para ver os nomes.</span></li>
+    <li class="hud anima" style="--i:8"><b>Escolha a pasta</b><span>No seletor de ambiente, escolha <b>Local</b> e depois <b>Open folder…</b> Use uma pasta só para isso.</span></li>
+    <li class="hud anima" style="--i:9"><b>Faça o primeiro pedido</b><span>Por exemplo: “Crie um CLAUDE.md com instruções para esta pasta”.</span></li>
+  </ol>
+
+  <h3 class="subtit">Seis palavras que vão aparecer</h3>
+  <dl class="glossario">
+    <div><dt>Aba Code</dt><dd>O modo do aplicativo Claude Desktop em que o Claude trabalha dentro de uma pasta do seu computador. A aba Chat é a conversa comum.</dd></div>
+    <div><dt>Sessão</dt><dd>Uma conversa de trabalho numa pasta. Fica guardada na barra lateral e pode ser retomada depois.</dd></div>
+    <div><dt>Modo de permissão</dt><dd>O quanto o Claude pode agir sem perguntar. No começo, prefira os modos que pedem autorização.</dd></div>
+    <div><dt>Diff</dt><dd>O resumo do que mudou nos arquivos: linhas que entraram e linhas que saíram.</dd></div>
+    <div><dt>Skill</dt><dd>Uma habilidade guardada: um conjunto de instruções que o Claude segue quando você a chama com <kbd>/</kbd>.</dd></div>
+    <div><dt>MCP ou conector</dt><dd>Uma ponte entre o Claude e outro serviço, como uma agenda ou um banco de documentos.</dd></div>
+  </dl>
+</section>
+
+<!-- ═════════ FUNCIONA IGUAL ═════════ -->
+<section class="painel" id="p-igual" role="tabpanel" aria-labelledby="t-igual" hidden>
+  <h2>Funciona igual</h2>
+  <p class="intro">Estes recursos usam <strong>os mesmos arquivos</strong> no terminal e no Desktop. O que você configurou de um lado já vale do outro. A última linha de cada cartão diz onde o recurso fica guardado.</p>
+  <div class="grade-igual">
+    <div class="cartao hud anima" style="--i:0"><div class="topo-c"><div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pasta"/></svg></div><span class="selo igual">igual</span></div><h3>Trabalhar na sua pasta</h3><p>Lê, cria e altera arquivos e roda comandos na pasta escolhida, <strong>pedindo autorização</strong> conforme o modo de permissão.</p><div class="onde">a pasta que você abriu</div></div>
+    <div class="cartao hud anima" style="--i:1"><div class="topo-c"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M9 11h7M9 15h7"/></svg></div><span class="selo igual">igual</span></div><h3>CLAUDE.md</h3><p>As instruções do projeto, escritas uma vez, valem nos dois lados. Inclui o <strong>CLAUDE.local.md</strong>, para anotações só suas.</p><div class="onde">CLAUDE.md na pasta do projeto</div></div>
+    <div class="cartao hud anima" style="--i:2"><div class="topo-c"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.6 5.6L20 9.5l-4 4 1 5.5-5-2.8-5 2.8 1-5.5-4-4 5.4-.9z"/></svg></div><span class="selo igual">igual</span></div><h3>Skills</h3><p>Suas habilidades pessoais e as do projeto carregam nos dois. No Desktop, digite <kbd>/</kbd> ou use <b>+ › Slash commands</b>.</p><div class="onde">~/.claude/skills/</div></div>
+    <div class="cartao hud anima" style="--i:3"><div class="topo-c"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3v6a4 4 0 0 0 8 0V3M12 13v8"/></svg></div><span class="selo igual">igual</span></div><h3>Hooks</h3><p>Ações automáticas que rodam antes ou depois de certos passos do Claude. As definidas nas configurações <strong>valem para os dois</strong>.</p><div class="onde">~/.claude/settings.json</div></div>
+    <div class="cartao hud anima" style="--i:4"><div class="topo-c"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 7V3M15 7V3M7 7h10v4a5 5 0 0 1-10 0zM12 16v5"/></svg></div><span class="selo igual">igual</span></div><h3>MCP</h3><p>Os servidores MCP configurados para o terminal funcionam no Desktop. O Desktop ainda oferece os <strong>Conectores</strong>, que se configuram por tela.</p><div class="onde">~/.claude.json ou .mcp.json</div></div>
+    <div class="cartao hud anima" style="--i:5"><div class="topo-c"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg></div><span class="selo igual">igual</span></div><h3>Configurações</h3><p>O arquivo de configurações é compartilhado. <strong>Algumas opções se comportam diferente</strong> na aba Code; na dúvida, confira em Settings › Code.</p><div class="onde">~/.claude/settings.json</div></div>
+    <div class="cartao hud anima" style="--i:6"><div class="topo-c"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="6" r="3"/><circle cx="5" cy="18" r="2.5"/><circle cx="12" cy="18" r="2.5"/><circle cx="19" cy="18" r="2.5"/><path d="M12 9v6.5M10 10l-4 5.5M14 10l4 5.5"/></svg></div><span class="selo igual">igual</span></div><h3>Subagentes</h3><p>O Claude pode dividir o trabalho com ajudantes. No Desktop, eles aparecem no <strong>painel de tarefas</strong>, junto com os comandos que rodam em segundo plano.</p><div class="onde">mesmo mecanismo nos dois</div></div>
+    <div class="cartao hud anima" style="--i:7"><div class="topo-c"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M15 4 9 20"/></svg></div><span class="selo igual">igual</span></div><h3>Comandos com barra</h3><p>Comandos como <code class="in">/compact</code>, <code class="in">/context</code>, <code class="in">/resume</code>, <code class="in">/status</code> e <code class="in">/code-review</code> funcionam na caixa de pedido. Os que abrem um painel no terminal, como <code class="in">/permissions</code>, respondem que não estão disponíveis.</p><div class="onde">digite / na caixa de pedido</div></div>
+    <div class="cartao hud anima" style="--i:8"><div class="topo-c"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h10M4 18h6"/></svg></div><span class="selo igual">igual</span></div><h3>Resumo da conversa</h3><p>Quando a conversa fica longa demais, o Claude <strong>resume sozinho</strong> e continua. Para resumir na hora, use <code class="in">/compact</code>.</p><div class="onde">automático nos dois</div></div>
+    <div class="cartao hud anima" style="--i:9"><div class="topo-c"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></svg></div><span class="selo igual">igual</span></div><h3>Plano e limite de uso</h3><p>Terminal e Desktop usam a mesma assinatura. O limite de uso é <strong>um só</strong>, somado entre todos os lugares onde você usa o Claude Code.</p><div class="onde">sua conta do Claude</div></div>
+  </div>
+</section>
+
+<!-- ═════════ MUDA O JEITO ═════════ -->
+<section class="painel" id="p-muda" role="tabpanel" aria-labelledby="t-muda" hidden>
+  <h2>Muda só o jeito</h2>
+  <p class="intro">O recurso existe nos dois lados, mas <strong>no Desktop você clica em vez de digitar</strong>. Procure abaixo o que você já fazia no terminal. Os nomes dos botões estão em inglês, como aparecem no aplicativo.</p>
+  <label class="busca"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="busca-trad" type="search" placeholder="Ex.: /model, Shift+Tab, worktree, pasta" autocomplete="off" aria-label="Procurar comando do terminal"></label>
+  <div class="sugestoes" aria-label="Sugestões de busca"><button type="button" data-sug="/model">/model</button><button type="button" data-sug="Shift+Tab">Shift+Tab</button><button type="button" data-sug="/resume">/resume</button><button type="button" data-sug="worktree">worktree</button><button type="button" data-sug="/loop">/loop</button></div>
+  <div class="lista-trad" id="lista-trad">
+    <div class="trad hud"><div class="t-term"><span class="qual">Abrir numa pasta</span><code>cd minha-pasta</code> <span class="sem">e depois</span> <code>claude</code></div><div class="seta-t" aria-hidden="true">→</div><div class="t-desk">No seletor de ambiente, escolha <b>Local</b> e depois <b>Open folder…</b></div></div>
+    <div class="trad hud"><div class="t-term"><span class="qual">Incluir outra pasta</span><code>--add-dir</code></div><div class="seta-t" aria-hidden="true">→</div><div class="t-desk">Botão <b>+</b> e depois <b>Add folder</b></div></div>
+    <div class="trad hud"><div class="t-term"><span class="qual">Modo de permissão</span><code>Shift+Tab</code> <span class="sem">ou</span> <code>--permission-mode</code></div><div class="seta-t" aria-hidden="true">→</div><div class="t-desk">Seletor de modo na linha <b>embaixo da caixa de pedido</b>: Manual, Accept edits, Plan, Auto e Bypass. O Bypass só aparece se for liberado em Settings › Code. No Desktop, <kbd>Shift</kbd> + <kbd>Tab</kbd> não troca o modo.</div></div>
+    <div class="trad hud"><div class="t-term"><span class="qual">Trocar o modelo</span><code>/model</code> <span class="sem">ou</span> <code>--model</code></div><div class="seta-t" aria-hidden="true">→</div><div class="t-desk">Seletor de modelo <b>embaixo da caixa de pedido</b>. Dá para trocar no meio da sessão.</div></div>
+    <div class="trad hud"><div class="t-term"><span class="qual">Citar um arquivo</span><code>@arquivo</code></div><div class="seta-t" aria-hidden="true">→</div><div class="t-desk">Digite <kbd>@</kbd> e escolha o arquivo na <b>lista que se completa sozinha</b>.</div></div>
+    <div class="trad hud"><div class="t-term"><span class="qual">Retomar uma conversa</span><code>/resume</code> <span class="sem">ou</span> <code>--continue</code></div><div class="seta-t" aria-hidden="true">→</div><div class="t-desk">Clique na sessão na <b>barra lateral</b>. Para continuar uma sessão iniciada no terminal, digite <code class="in">/resume</code> na caixa de pedido.</div></div>
+    <div class="trad hud"><div class="t-term"><span class="qual">Várias tarefas ao mesmo tempo</span><span class="sem">abrir outra janela do terminal</span></div><div class="seta-t" aria-hidden="true">→</div><div class="t-desk"><b>+ New session</b> na barra lateral, ou <kbd>Ctrl</kbd> + <kbd>N</kbd> no Windows e <kbd>⌘</kbd> + <kbd>N</kbd> no Mac.</div></div>
+    <div class="trad hud"><div class="t-term"><span class="qual">Trabalhar numa cópia isolada</span><code>--worktree</code></div><div class="seta-t" aria-hidden="true">→</div><div class="t-desk">Ligue a chave <b>Worktree</b> antes de iniciar a sessão. Ela vem desligada e exige o Git instalado.</div></div>
+    <div class="trad hud"><div class="t-term"><span class="qual">Plugins</span><code>/plugin</code></div><div class="seta-t" aria-hidden="true">→</div><div class="t-desk">Gerenciador de plugins <b>na tela</b>, sem digitar comandos.</div></div>
+    <div class="trad hud"><div class="t-term"><span class="qual">Ver quanto já usou</span><code>/context</code> <span class="sem">ou</span> <code>/usage</code></div><div class="seta-t" aria-hidden="true">→</div><div class="t-desk">O <b>anel de contexto</b>, perto da caixa de pedido, mostra quanto da conversa já foi ocupado. Clique nele para ver o uso do plano.</div></div>
+    <div class="trad hud"><div class="t-term"><span class="qual">Configurações</span><code>/config</code></div><div class="seta-t" aria-hidden="true">→</div><div class="t-desk">Abre <b>Settings › Code</b>, a tela de configurações do aplicativo.</div></div>
+    <div class="trad hud"><div class="t-term"><span class="qual">Tarefas que se repetem</span><code>/loop</code></div><div class="seta-t" aria-hidden="true">→</div><div class="t-desk">Tela de <b>tarefas agendadas</b>. A tarefa local só roda com o app aberto e o computador ligado; a tarefa na nuvem roda mesmo com o computador desligado.</div></div>
+    <div class="trad hud"><div class="t-term"><span class="qual">Abrir no editor de código</span><span class="sem">extensão do editor</span></div><div class="seta-t" aria-hidden="true">→</div><div class="t-desk">Botão <b>Open in</b>, para abrir a pasta no VS Code, no Cursor ou no Zed.</div></div>
+    <div class="trad hud"><div class="t-term"><span class="qual">Controlar a tela do computador</span><code>/mcp</code> <span class="sem">(só Mac)</span></div><div class="seta-t" aria-hidden="true">→</div><div class="t-desk">Disponível no <b>Mac e no Windows</b>, nos planos Pro, Max e Ultra. Não existe nos planos Team e Enterprise.</div></div>
+  </div>
+  <p class="vazio" id="trad-vazio" hidden>Nada encontrado. Tente outra palavra, ou veja a aba <b>Só de um lado</b>: talvez esse recurso não exista no Desktop.</p>
+</section>
+
+<!-- ═════════ SÓ DE UM LADO ═════════ -->
+<section class="painel" id="p-lados" role="tabpanel" aria-labelledby="t-lados" hidden>
+  <h2>Só de um lado</h2>
+  <p class="intro">Aqui está o que <strong>não tem equivalente</strong> do outro lado. Saber disso evita procurar no Desktop um botão que não existe.</p>
+  <div class="lados">
+    <div class="lado-col hud anima" style="--i:0">
+      <span class="selo desk">só no Desktop</span>
+      <h3>O que o aplicativo acrescenta</h3>
+      <ul>
+        <li><b>Não precisa instalar nada além do app</b>O Claude Code já vem dentro do aplicativo. Não precisa de Node.js nem do programa de terminal.</li>
+        <li><b>Ver as mudanças na tela</b>O indicador <code class="in">+12 −1</code> abre a lista do que mudou. Passe o mouse numa linha e clique no <b>+</b> para deixar um comentário.</li>
+        <li><b>Anexar imagens e PDFs</b>Arraste o arquivo para a conversa. No terminal isso não existe.</li>
+        <li><b>Ver o site funcionando</b>O Claude pode abrir o site que está criando num navegador dentro do próprio app, para conferir o resultado.</li>
+        <li><b>Terminal embutido</b>Se quiser digitar algo, abra um terminal dentro do app com <kbd>Ctrl</kbd> + <kbd>`</kbd>.</li>
+        <li><b>Sessão na nuvem, por SSH ou no WSL</b>A sessão pode rodar nos computadores da Anthropic e continuar mesmo com o app fechado. O uso conta no limite do seu plano, sem cobrança à parte.</li>
+        <li><b>Conectores por tela</b>Ligar o Claude a outros serviços clicando, sem editar arquivo de configuração.</li>
+      </ul>
+    </div>
+    <div class="lado-col hud anima" style="--i:1">
+      <span class="selo term">só no terminal</span>
+      <h3>O que continua exclusivo do terminal</h3>
+      <ul>
+        <li><b>Scripts e automação</b>Rodar o Claude sem conversa, dentro de um script (<code class="in">-p</code>, <code class="in">--output-format</code>). O Desktop é só interativo.</li>
+        <li><b>Equipes de agentes</b>Vários Claudes trabalhando juntos como equipe (agent teams) existem só no terminal.</li>
+        <li><b>Modo dontAsk</b>Esse modo de permissão não aparece no seletor do Desktop.</li>
+        <li><b>Shift + Tab para trocar o modo</b>No Desktop, o atalho não funciona; use o seletor embaixo da caixa.</li>
+        <li><b>Liberar ou bloquear ferramentas por sessão</b>As opções <code class="in">--allowedTools</code> e <code class="in">--disallowedTools</code> não existem no app. As regras salvas nas configurações continuam valendo.</li>
+        <li><b>Painéis interativos</b>Comandos que abrem um painel no terminal, como <code class="in">/permissions</code>, respondem no Desktop que não estão disponíveis.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="aviso hud anima" style="--i:2">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 20h20zM12 10v4M12 17h.01"/></svg>
+    <p><strong>São duas cópias do Claude Code.</strong> O Desktop traz a própria cópia, que pode estar numa versão diferente da do terminal. Atualizar um não atualiza o outro. Por isso, um recurso novo pode aparecer primeiro de um lado só.</p>
+  </div>
+</section>
+
+<!-- ═════════ QUAL ESCOLHER ═════════ -->
+<section class="painel" id="p-escolher" role="tabpanel" aria-labelledby="t-escolher" hidden>
+  <h2>Qual escolher?</h2>
+  <p class="intro">Responda três perguntas. A recomendação aparece embaixo e muda conforme as respostas.</p>
+  <form class="quiz" id="quiz" onsubmit="return false">
+    <fieldset class="pergunta hud"><legend>1. Você usa o terminal sem receio?</legend><div class="opcoes"><label><input type="radio" name="q1" value="sim">Sim, já uso</label><label><input type="radio" name="q1" value="nao">Não, prefiro botões</label></div></fieldset>
+    <fieldset class="pergunta hud"><legend>2. Vai rodar o Claude dentro de scripts ou automações?</legend><div class="opcoes"><label><input type="radio" name="q2" value="sim">Sim</label><label><input type="radio" name="q2" value="nao">Não, só vou conversar</label></div></fieldset>
+    <fieldset class="pergunta hud"><legend>3. Quer ver as mudanças na tela, anexar imagens ou PDFs?</legend><div class="opcoes"><label><input type="radio" name="q3" value="sim">Sim</label><label><input type="radio" name="q3" value="nao">Tanto faz</label></div></fieldset>
+  </form>
+  <div class="resultado hud" id="resultado" hidden aria-live="polite">
+    <svg viewBox="0 0 120 132" aria-hidden="true"><use href="#robo"/></svg>
+    <div><h3 id="res-tit"></h3><p id="res-txt"></p></div>
+  </div>
+  <p class="dica-quiz" id="dica-quiz">Responda as três perguntas para ver a recomendação.</p>
+
+  <h3 class="subtit">Dá para usar os dois</h3>
+  <div class="juntos">
+    <div class="cartao hud anima" style="--i:0"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h12M12 6l6 6-6 6"/></svg></div><h3>Do terminal para o app</h3><p>No terminal, digite <code class="in">/desktop</code>. A mesma conversa continua no aplicativo, sem virar cópia. Funciona no Mac e no Windows de 64 bits (x64), com login de assinatura.</p></div>
+    <div class="cartao hud anima" style="--i:1"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H8M12 18l-6-6 6-6"/></svg></div><h3>Retomar no app</h3><p>Na caixa de pedido do Desktop, digite <code class="in">/resume</code> para escolher uma sessão que você começou no terminal.</p></div>
+    <div class="cartao hud anima" style="--i:2"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M9 11h7M9 15h7"/></svg></div><h3>Uma configuração só</h3><p>Skills, CLAUDE.md, hooks e MCP ficam nos mesmos arquivos. Configure uma vez e use dos dois lados.</p></div>
+  </div>
+</section>
+
+<!-- ═════════ PERGUNTAS ═════════ -->
+<section class="painel" id="p-perguntas" role="tabpanel" aria-labelledby="t-perguntas" hidden>
+  <div class="faq-grade">
+    <div class="faq-arte">
+      <h2>Perguntas frequentes</h2>
+      <p class="intro">As dúvidas de quem está trocando o terminal pelo aplicativo, ou usando os dois.</p>
+      <svg viewBox="0 0 220 200" aria-hidden="true" style="width:100%;max-width:260px">
+        <g class="duvida" font-family="Inter,sans-serif" font-weight="800">
+          <text x="18" y="70" font-size="46" fill="#FFC766">?</text>
+          <text x="170" y="56" font-size="34" fill="#7FD4E6">?</text>
+          <text x="184" y="132" font-size="26" fill="#FF904D">?</text>
+        </g>
+        <use href="#robo" x="50" y="40" width="130" height="143"/>
+      </svg>
+    </div>
+    <div class="faq">
+      <details><summary>Preciso instalar o Claude Code de terminal para usar a aba Code?</summary><div class="resp"><p>Não. O aplicativo já traz o Claude Code dentro dele. Se um dia quiser usar o comando <code class="in">claude</code> no terminal, ele se instala à parte; há um guia passo a passo em <a href="https://inovajus.github.io/instalar-claude-code.html">Instale o Claude Code no seu computador</a>.</p></div></details>
+      <details><summary>É de graça?</summary><div class="resp"><p>Não. A aba Code exige um <strong>plano pago</strong>: Pro, Max, Ultra, Team ou Enterprise. Com o plano gratuito, o aplicativo abre o chat, mas pede para assinar um plano ao clicar em Code.</p></div></details>
+      <details><summary>Minhas skills, CLAUDE.md e configurações valem nos dois?</summary><div class="resp"><p>Sim. O terminal e o Desktop leem os mesmos arquivos: <code class="in">CLAUDE.md</code> no projeto, as skills em <code class="in">~/.claude/skills/</code> e as configurações em <code class="in">~/.claude/settings.json</code>. Algumas opções se comportam diferente na aba Code.</p></div></details>
+      <details><summary>Configurei um servidor MCP no terminal. Ele aparece no Desktop?</summary><div class="resp"><p>Sim, se estiver em <code class="in">~/.claude.json</code> ou em <code class="in">.mcp.json</code>. O contrário nem sempre vale: o Desktop também lê a configuração do app de chat (<code class="in">claude_desktop_config.json</code>), e o terminal não lê esse arquivo.</p></div></details>
+      <details><summary>Atualizei o Claude Code do terminal. O Desktop também atualizou?</summary><div class="resp"><p>Não. A aba Code usa a própria cópia do Claude Code, que se atualiza junto com o aplicativo. Cada um tem a sua versão.</p></div></details>
+      <details><summary>Aperto Shift + Tab e nada acontece. Está quebrado?</summary><div class="resp"><p>Não. No Desktop, esse atalho não troca o modo de permissão. Use o seletor de modo, na linha embaixo da caixa de pedido.</p></div></details>
+      <details><summary>Comecei uma conversa no terminal. Posso continuar no Desktop?</summary><div class="resp"><p>Sim, de dois jeitos. No terminal, digite <code class="in">/desktop</code>, que funciona no Mac e no Windows de 64 bits com login de assinatura. Ou, no Desktop, digite <code class="in">/resume</code> na caixa de pedido e escolha a sessão.</p></div></details>
+      <details><summary>Preciso instalar o Git no Windows?</summary><div class="resp"><p>Só para sessões com <strong>Worktree</strong> ligado. Para o uso comum, não. Se o aplicativo pedir o Git sem você usar Worktree, atualize o aplicativo: versões antigas pediam sempre.</p></div></details>
+      <details><summary>Sessões na nuvem custam a mais?</summary><div class="resp"><p>Não há cobrança separada pelo computador da nuvem: o uso conta no limite do seu plano. A vantagem é que a sessão continua mesmo se você fechar o aplicativo.</p></div></details>
+      <details><summary>E o “voltar atrás” do terminal (Esc duas vezes ou /rewind)?</summary><div class="resp"><p>No terminal, <code class="in">/rewind</code> ou <kbd>Esc</kbd> duas vezes voltam a conversa e os arquivos a um ponto anterior. A documentação do Desktop não diz se isso funciona na aba Code. Lá, <kbd>Esc</kbd> interrompe o Claude. Na dúvida, trabalhe numa cópia da pasta ou com o Git.</p></div></details>
+      <details><summary>É seguro?</summary><div class="resp"><p>Os cuidados são os mesmos do terminal. <strong>1.</strong> Abra sempre uma pasta própria, nunca a pasta pessoal inteira. <strong>2.</strong> Leia cada pedido de permissão antes de aceitar e deixe o modo <strong>Bypass</strong> desligado. <strong>3.</strong> Não use documentos confidenciais nem dados pessoais de outras pessoas sem autorização de quem responde por eles.</p></div></details>
+    </div>
+  </div>
+</section>
+
+</div>
+</main>
+
+<footer class="faixa rodape">
+  <div class="miolo" data-editavel>
+    <p>Baseado na documentação oficial do Claude Code (<a href="https://code.claude.com/docs/en/desktop">code.claude.com/docs/en/desktop</a>), conferida em 27/11/2026. O aplicativo muda com frequência: em caso de dúvida, vale o que está na página oficial.</p>
+    <p>O desenho do aplicativo é simplificado e serve só para localizar os botões. Guia irmão: <a href="https://inovajus.github.io/instalar-claude-code.html">Instale o Claude Code no seu computador</a>.</p>
+  </div>
+</footer>
+
+<script>
+{
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const ABAS = ['comecar', 'igual', 'muda', 'lados', 'escolher', 'perguntas'];
+  const reduz = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- abas ---------- */
+  const indicador = $('#indicador'), abas = $('#abas'), nav = $('.abas-wrap');
+  const moverIndicador = () => {
+    const b = $('.aba[aria-selected="true"]'); if (!b) return;
+    indicador.style.width = b.offsetWidth + 'px';
+    indicador.style.transform = `translateX(${b.offsetLeft}px)`;
+    const alvo = b.offsetLeft - (abas.clientWidth - b.offsetWidth) / 2;
+    abas.scrollTo({ left: Math.max(0, alvo), behavior: reduz ? 'auto' : 'smooth' });
+  };
+  const abrir = (id, opc = {}) => {
+    if (!ABAS.includes(id)) id = 'comecar';
+    $$('.aba').forEach(b => { const s = b.dataset.aba === id; b.setAttribute('aria-selected', s ? 'true' : 'false'); b.tabIndex = s ? 0 : -1; });
+    $$('.painel').forEach(p => {
+      const s = p.id === 'p-' + id;
+      p.hidden = !s;
+      if (s && !reduz) { p.classList.remove('entra'); void p.offsetWidth; p.classList.add('entra'); }
+    });
+    moverIndicador();
+    if (id === 'comecar') contar();
+    try { history.replaceState(null, '', '#' + id); } catch (e) {}
+    if (opc.rolar) { const topo = $('#conteudo').getBoundingClientRect().top + scrollY - nav.offsetHeight; if (scrollY > topo + 2 || opc.forcar) scrollTo({ top: Math.max(0, topo), behavior: reduz ? 'auto' : 'smooth' }); }
+    if (opc.foco) $(`.aba[data-aba="${id}"]`).focus();
+  };
+  abas.addEventListener('keydown', e => {
+    const i = ABAS.indexOf($('.aba[aria-selected="true"]').dataset.aba);
+    const mapa = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: ABAS.length - 1 };
+    if (!(e.key in mapa)) return;
+    e.preventDefault();
+    abrir(ABAS[(mapa[e.key] + ABAS.length) % ABAS.length], { foco: true });
+  });
+  addEventListener('hashchange', () => { const h = location.hash.slice(1); if (ABAS.includes(h)) abrir(h); });
+  addEventListener('resize', moverIndicador);
+
+  /* ---------- placar: conta os cartões de verdade ---------- */
+  const contar = () => $$('[data-conta]').forEach(el => {
+    const total = $$(el.dataset.conta).length;
+    if (reduz) { el.textContent = total; return; }
+    const t0 = performance.now();
+    const passo = t => { const k = Math.min(1, (t - t0) / 900); el.textContent = Math.round(total * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(passo); };
+    requestAnimationFrame(passo);
+  });
+
+  /* ---------- tradutor de comandos (busca) ---------- */
+  const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+  const filtrar = q => {
+    q = norm(q.trim()).replace(/^-+/, '');
+    let vis = 0;
+    $$('#lista-trad .trad').forEach(c => { const m = !q || norm(c.textContent).includes(q); c.hidden = !m; if (m) vis++; });
+    $('#trad-vazio').hidden = vis > 0;
+  };
+
+  /* ---------- quiz ---------- */
+  const RESULTADOS = {
+    terminal: ['Fique com o terminal (e use o Desktop quando quiser)', 'Scripts e automações só rodam no terminal. Para o dia a dia, nada impede de abrir a mesma pasta no Desktop: as configurações são as mesmas.'],
+    desktop: ['Comece pela aba Code do Desktop', 'Você terá o mesmo Claude Code com botões, verá as mudanças na tela e poderá anexar imagens e PDFs. Se um dia precisar de automação, o terminal usa as mesmas configurações.'],
+    ambos: ['Os dois servem. Fique com o que já usa', 'Para o seu uso, terminal e Desktop entregam o mesmo resultado. Experimente a aba Code num dia de revisão: ver as mudanças na tela costuma ajudar.']
+  };
+  const avaliar = () => {
+    const v = n => ($(`#quiz input[name="${n}"]:checked`) || {}).value;
+    const [a, b, c] = [v('q1'), v('q2'), v('q3')];
+    const pronto = a && b && c;
+    $('#resultado').hidden = !pronto; $('#dica-quiz').hidden = !!pronto;
+    if (!pronto) return;
+    const chave = b === 'sim' ? 'terminal' : (a === 'nao' || c === 'sim') ? 'desktop' : 'ambos';
+    $('#res-tit').textContent = RESULTADOS[chave][0];
+    $('#res-txt').textContent = RESULTADOS[chave][1];
+    const r = $('#resultado'); r.classList.remove('entra'); void r.offsetWidth;
+  };
+
+  /* ---------- cliques (delegação: sobrevive à edição de texto) ---------- */
+  document.addEventListener('click', e => {
+    const aba = e.target.closest('.aba'); if (aba) { abrir(aba.dataset.aba); return; }
+    const ir = e.target.closest('[data-ir]'); if (ir) { e.preventDefault(); abrir(ir.dataset.ir, { rolar: true, forcar: true }); return; }
+    const sg = e.target.closest('[data-sug]'); if (sg) { const i = $('#busca-trad'); i.value = sg.dataset.sug; filtrar(i.value); i.focus(); }
+  });
+  document.addEventListener('input', e => { if (e.target.id === 'busca-trad') filtrar(e.target.value); });
+  document.addEventListener('change', e => { if (e.target.closest('#quiz')) avaliar(); });
+
+  /* ---------- app desenhado: o ponteiro clica no botão equivalente ---------- */
+  const PARES = [
+    { alvo: 'modelo', term: '/model', desk: 'No seletor de modelo, embaixo da caixa de pedido' },
+    { alvo: 'modo', term: 'Shift+Tab', desk: 'No seletor de modo de permissão' },
+    { alvo: 'pasta', term: 'cd meus-documentos && claude', desk: 'Na pasta: Local › Open folder…' },
+    { alvo: 'resume', term: '/resume', desk: 'Na conversa antiga, na barra lateral' },
+    { alvo: 'diff', term: 'git diff', desk: 'No +12 −1, para ver o que mudou' },
+    { alvo: 'worktree', term: 'claude --worktree', desk: 'Na chave Worktree, antes de começar' },
+    { alvo: 'nova', term: '(abrir outra janela)', desk: 'Em + New session, para outra tarefa' }
+  ];
+  const app = $('#app'), ponteiro = $('#ponteiro'), trTerm = $('#tr-term'), trDesk = $('#tr-desk');
+  let iPar = 0, timer = null;
+  const esc = s => String(s).replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+  const mira = el => {
+    const a = app.getBoundingClientRect(), r = el.getBoundingClientRect();
+    ponteiro.style.transform = `translate(${r.left - a.left + Math.min(r.width * .6, 60)}px, ${r.top - a.top + r.height * .45}px)`;
+  };
+  const mostra = (par, digitar) => {
+    $$('#app [data-alvo]').forEach(x => x.classList.toggle('alvo', x.dataset.alvo === par.alvo));
+    const el = $(`#app [data-alvo="${par.alvo}"]`); if (el) mira(el);
+    trDesk.textContent = par.desk;
+    if (!digitar) { trTerm.textContent = par.term; return; }
+    let c = 0;
+    const tick = () => { trTerm.innerHTML = esc(par.term.slice(0, c)) + '<span class="cursor"></span>'; if (c++ < par.term.length) timer = setTimeout(tick, 45 + Math.random() * 40); };
+    tick();
+  };
+  const ciclo = () => {
+    clearTimeout(timer);
+    const par = PARES[iPar % PARES.length]; iPar++;
+    $$('#app [data-alvo]').forEach(x => x.classList.remove('alvo'));
+    const el = $(`#app [data-alvo="${par.alvo}"]`); if (el) mira(el);
+    let c = 0;
+    const tick = () => {
+      trTerm.innerHTML = esc(par.term.slice(0, c)) + '<span class="cursor"></span>';
+      if (c++ < par.term.length) { timer = setTimeout(tick, 45 + Math.random() * 40); return; }
+      timer = setTimeout(() => {
+        ponteiro.classList.remove('clica'); void ponteiro.offsetWidth; ponteiro.classList.add('clica');
+        if (el) el.classList.add('alvo');
+        trDesk.textContent = par.desk;
+        timer = setTimeout(ciclo, 2600);
+      }, 500);
+    };
+    trDesk.textContent = '…';
+    timer = setTimeout(tick, 700);
+  };
+  addEventListener('resize', () => { const el = $('#app .alvo'); if (el) mira(el); });
+
+  /* ---------- início ---------- */
+  const iniciar = () => {
+    const h = location.hash.slice(1);
+    abrir(ABAS.includes(h) ? h : 'comecar');
+    filtrar($('#busca-trad').value || '');
+    avaliar();
+  };
+  document.addEventListener('conteudo-trocado', iniciar);
+  iniciar();
+  if (reduz) mostra(PARES[0], false); else ciclo();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(moverIndicador);
+}
+</script>
+</body>
+</html>
