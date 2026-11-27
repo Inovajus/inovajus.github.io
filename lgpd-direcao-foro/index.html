@@ -238,8 +238,13 @@ h2{font-size:2.05rem}
 .dl button svg:first-child{color:var(--mira-primary)}
 .dl button .pill{margin-left:auto}
 .dl .card.wide{grid-column:1 / -1}
-.dl .row{display:grid; grid-template-columns:repeat(auto-fit,minmax(15rem,1fr)); gap:.4rem}
-@media (max-width:900px){.dl{grid-template-columns:1fr}}
+.dl .dr{display:flex; gap:.35rem; align-items:stretch; min-width:0}
+.dl .dr button{flex:1; width:auto; min-width:0}
+.dl .dlw{display:inline-flex; align-items:center; gap:.35rem; padding:0 .7rem; border-radius:.55rem; font-size:.74rem; font-weight:700; text-decoration:none; color:var(--mira-primary); background:var(--mira-pill-bg); border:1px solid var(--mira-pill-border); transition:all .2s ease}
+.dl .dlw:hover{background:var(--mira-icon-bg); border-color:var(--mira-icon-border)}
+.v-sub a.dw{background:var(--mira-primary); border-color:var(--mira-primary); color:#fff}
+.dl .row{display:grid; grid-template-columns:1fr 1fr; gap:.4rem}
+@media (max-width:900px){.dl,.dl .row{grid-template-columns:1fr}}
 
 /* ═══ Rodapé de navegação ═══ */
 .nav{display:flex; align-items:center; gap:.8rem; padding:.4rem 1rem; border-top:1px solid var(--mira-card-border); background:color-mix(in srgb, var(--mira-bg) 88%, transparent); backdrop-filter:blur(12px)}
@@ -265,7 +270,7 @@ h2{font-size:2.05rem}
 .ov .pill{margin-left:auto}
 
 /* ═══ Visualizador de documentos (abas) ═══ */
-#viewer{position:fixed; inset:0; z-index:50; display:grid; grid-template-rows:auto auto 1fr; background:var(--mira-bg)}
+#viewer{position:fixed; inset:0; z-index:50; display:grid; grid-template-columns:minmax(0,1fr); grid-template-rows:auto auto 1fr; background:var(--mira-bg)}
 #viewer[hidden]{display:none}
 .v-tabs{display:flex; align-items:flex-end; gap:.3rem; padding:.5rem .8rem 0; border-bottom:1px solid var(--mira-card-border); background:var(--solid)}
 .v-list{display:flex; gap:.25rem; overflow-x:auto; flex:1; min-width:0; scrollbar-width:thin}
@@ -732,7 +737,7 @@ body.editing [contenteditable]:focus{outline:2px solid var(--mira-primary); back
  <div class="si">
   <p class="eyebrow">Para a demonstração</p>
   <h2>Documentos das Entregas 1 e 4 e documentos de base</h2>
-  <p class="lead">Clique para abrir. Os arquivos ficam na pasta "documentos", ao lado desta apresentação.</p>
+  <p class="lead">Clique no nome para abrir. Nos arquivos Word, o botão "Baixar" traz o original para edição.</p>
   <div class="grow" style="justify-content:flex-start">
    <div class="dl">
     <div class="card">
@@ -741,13 +746,13 @@ body.editing [contenteditable]:focus{outline:2px solid var(--mira-primary); back
      <button data-doc="bpmnInt"><svg class="i"><use href="#i-flow"/></svg><span>Fluxo interno — diagrama BPMN</span><span class="pill">Imagem</span></button>
      <button data-doc="bpmnExt"><svg class="i"><use href="#i-flow"/></svg><span>Fluxo externo — diagrama BPMN</span><span class="pill">Imagem</span></button>
      <button data-doc="matriz"><svg class="i"><use href="#i-list"/></svg><span>Matriz de classificação e checklist operacional</span><span class="pill">PDF</span></button>
-     <button data-doc="redacao"><svg class="i"><use href="#i-doc"/></svg><span>Redação normativa dos fluxos, v4.1 (RBCIP)</span><span class="pill">Word</span></button>
+     <div class="dr"><button data-doc="redacao"><svg class="i"><use href="#i-doc"/></svg><span>Redação normativa dos fluxos, v4.1 (RBCIP)</span><span class="pill">Word</span></button><a class="dlw" href="documentos/05_Redacao_Normativa_dos_Fluxos_v4.1.docx" download title="Baixar o arquivo Word para editar" aria-label="Baixar o arquivo Word para editar"><svg class="i"><use href="#i-down"/></svg><span>Baixar</span></a></div>
     </div>
     <div class="card">
      <h3>Entrega 4 — Política, privacidade e portal</h3>
-     <button data-doc="minuta"><svg class="i"><use href="#i-doc"/></svg><span>Minuta da Política de Proteção de Dados Pessoais</span><span class="pill">Word</span></button>
-     <button data-doc="cookies"><svg class="i"><use href="#i-cookie"/></svg><span>Aviso de Cookies, versão 3.0</span><span class="pill">Word</span></button>
-     <button data-doc="priv"><svg class="i"><use href="#i-doc"/></svg><span>Política de Privacidade para navegação, versão 2.1</span><span class="pill">Word</span></button>
+     <div class="dr"><button data-doc="minuta"><svg class="i"><use href="#i-doc"/></svg><span>Minuta da Política de Proteção de Dados Pessoais</span><span class="pill">Word</span></button><a class="dlw" href="documentos/01_Minuta_Politica_Protecao_de_Dados.docx" download title="Baixar o arquivo Word para editar" aria-label="Baixar o arquivo Word para editar"><svg class="i"><use href="#i-down"/></svg><span>Baixar</span></a></div>
+     <div class="dr"><button data-doc="cookies"><svg class="i"><use href="#i-cookie"/></svg><span>Aviso de Cookies, versão 3.0</span><span class="pill">Word</span></button><a class="dlw" href="documentos/02_Aviso_de_Cookies_v3.docx" download title="Baixar o arquivo Word para editar" aria-label="Baixar o arquivo Word para editar"><svg class="i"><use href="#i-down"/></svg><span>Baixar</span></a></div>
+     <div class="dr"><button data-doc="priv"><svg class="i"><use href="#i-doc"/></svg><span>Política de Privacidade para navegação, versão 2.1</span><span class="pill">Word</span></button><a class="dlw" href="documentos/08_Politica_de_Privacidade_v2.1.docx" download title="Baixar o arquivo Word para editar" aria-label="Baixar o arquivo Word para editar"><svg class="i"><use href="#i-down"/></svg><span>Baixar</span></a></div>
      <button data-doc="portal"><svg class="i"><use href="#i-win"/></svg><span>Portal de proteção de dados — protótipo navegável</span><span class="pill">Protótipo</span></button>
      <button data-doc="form"><svg class="i"><use href="#i-form"/></svg><span>Formulário do titular — protótipo</span><span class="pill">Protótipo</span></button>
      <button data-doc="formInc"><svg class="i"><use href="#i-alert"/></svg><span>Formulário — comunicar incidente</span><span class="pill">Protótipo</span></button>
@@ -829,7 +834,7 @@ function toast(m){var t=$('#toast');t.textContent=m;t.classList.add('on');clearT
 /* ── Edições salvas neste navegador ── */
 slides.forEach(function(s){orig[s.id]=s.innerHTML});
 var saved={};try{saved=JSON.parse(store.get(KEY)||'{}')||{}}catch(e){saved={}}
-if(saved.s16&&saved.s16.indexOf('data-doc="acordao"')<0)delete saved.s16;
+if(saved.s16&&saved.s16.indexOf('class="dlw"')<0)delete saved.s16;
 slides.forEach(function(s){if(typeof saved[s.id]==='string')s.innerHTML=saved[s.id]});
 
 /* ── Tema ── */
@@ -875,9 +880,9 @@ function showDoc(key,page){
   var h='<strong>'+esc(d.t)+'</strong><span class="pill p">'+KIND[d.k]+'</span>';
   (d.j||[]).forEach(function(j){h+='<button class="j" data-vdoc="'+key+'" data-page="'+j[1]+'">'+esc(j[0])+'</button>'});
   h+='<span class="spacer"></span>';
-  if(d.k==='docx')h+='<a href="'+d.prev+'" target="_blank" rel="noopener">'+ico('ext')+'Prévia em nova guia</a><a href="'+d.src+'" target="_blank" rel="noopener">'+ico('down')+'Abrir o original no Word (.docx)</a>';
+  if(d.k==='docx')h+='<a href="'+d.prev+'" target="_blank" rel="noopener">'+ico('ext')+'Prévia em nova guia</a><a class="dw" href="'+d.src+'" download>'+ico('down')+'Baixar para editar (.docx)</a>';
   else h+='<a href="'+d.src+'" target="_blank" rel="noopener">'+ico('ext')+'Abrir em nova guia</a>';
-  if(d.k==='docx')h+='<span class="msg">Prévia de leitura, gerada a partir do arquivo Word. O documento que vale é o original (.docx), no botão ao lado.</span>';
+  if(d.k==='docx')h+='<span class="msg">Prévia de leitura, gerada a partir do arquivo Word. Para alterar o texto, baixe o arquivo Word (.docx) no botão ao lado e edite no seu computador.</span>';
   if(d.k==='img')h+='<span class="msg">Clique na imagem para ampliar e arraste as barras para percorrer o diagrama; clique de novo para ver inteiro.</span>';
   $('#vsub').innerHTML=h;
   var body=$('#vbody');body.innerHTML='';
