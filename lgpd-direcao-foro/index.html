@@ -242,6 +242,7 @@ h2{font-size:2.05rem}
 .dl .dr button{flex:1; width:auto; min-width:0}
 .dl .dlw{display:inline-flex; align-items:center; gap:.35rem; padding:0 .7rem; border-radius:.55rem; font-size:.74rem; font-weight:700; text-decoration:none; color:var(--mira-primary); background:var(--mira-pill-bg); border:1px solid var(--mira-pill-border); transition:all .2s ease}
 .dl .dlw:hover{background:var(--mira-icon-bg); border-color:var(--mira-icon-border)}
+a.tool{text-decoration:none} a.tool[hidden]{display:none}
 .v-sub a.dw{background:var(--mira-primary); border-color:var(--mira-primary); color:#fff}
 .dl .row{display:grid; grid-template-columns:1fr 1fr; gap:.4rem}
 @media (max-width:900px){.dl,.dl .row{grid-template-columns:1fr}}
@@ -353,6 +354,7 @@ body.editing [contenteditable]:focus{outline:2px solid var(--mira-primary); back
   </button>
   <nav class="chaps" id="chaps" role="tablist" aria-label="Capítulos da apresentação"></nav>
   <div class="tools">
+    <a class="tool" id="upl" hidden target="_blank" rel="noopener" title="Enviar a versão editada de um documento para a pasta da JFCE"><svg class="i"><use href="#i-send"/></svg><span>Enviar versão editada</span></a>
     <button class="tool" data-act="index" title="Índice de slides (tecla G)"><svg class="i"><use href="#i-grid"/></svg><span>Índice</span></button>
     <button class="tool" data-act="theme" title="Trocar tema (tecla T)"><svg class="i"><use href="#i-theme"/></svg><span>Tema</span></button>
     <button class="tool" data-act="full" title="Tela cheia (tecla F)"><svg class="i"><use href="#i-full"/></svg><span>Tela cheia</span></button>
@@ -807,6 +809,9 @@ var store={get:function(k){try{return localStorage.getItem(k)}catch(e){return nu
 
 /* ── Documentos: caminho do arquivo original e, para Word, a prévia em PDF ── */
 var D='documentos/', P='assets/previa/';
+/* Link da "solicitação de arquivos" do OneDrive/SharePoint da JFCE. Vazio = o botão de envio não aparece. */
+var UPLOAD_URL='';
+if(UPLOAD_URL){var upl=document.getElementById('upl');upl.href=UPLOAD_URL;upl.hidden=false}
 var DOCS={
   acordao:{t:'Acórdão 1372/2025 — TCU — Plenário (TC 009.980/2024-5)',s:'Acórdão do TCU',k:'pdf',i:'scale',src:D+'12_Acordao_1372_2025_TCU_Plenario.pdf'},
   gov:{t:'Governança do Encarregado — descrição detalhada dos fluxos',s:'Descrição detalhada',k:'pdf',i:'doc',src:D+'03_Governanca_do_Encarregado_Fluxos.pdf',j:[['Fluxo interno · p. 8',8],['Fluxo externo · p. 13',13]]},
@@ -880,7 +885,7 @@ function showDoc(key,page){
   var h='<strong>'+esc(d.t)+'</strong><span class="pill p">'+KIND[d.k]+'</span>';
   (d.j||[]).forEach(function(j){h+='<button class="j" data-vdoc="'+key+'" data-page="'+j[1]+'">'+esc(j[0])+'</button>'});
   h+='<span class="spacer"></span>';
-  if(d.k==='docx')h+='<a href="'+d.prev+'" target="_blank" rel="noopener">'+ico('ext')+'Prévia em nova guia</a><a class="dw" href="'+d.src+'" download>'+ico('down')+'Baixar para editar (.docx)</a>';
+  if(d.k==='docx')h+='<a href="'+d.prev+'" target="_blank" rel="noopener">'+ico('ext')+'Prévia em nova guia</a><a class="dw" href="'+d.src+'" download>'+ico('down')+'Baixar para editar (.docx)</a>'+(UPLOAD_URL?'<a href="'+UPLOAD_URL+'" target="_blank" rel="noopener">'+ico('send')+'Enviar versão editada</a>':'');
   else h+='<a href="'+d.src+'" target="_blank" rel="noopener">'+ico('ext')+'Abrir em nova guia</a>';
   if(d.k==='docx')h+='<span class="msg">Prévia de leitura, gerada a partir do arquivo Word. Para alterar o texto, baixe o arquivo Word (.docx) no botão ao lado e edite no seu computador.</span>';
   if(d.k==='img')h+='<span class="msg">Clique na imagem para ampliar e arraste as barras para percorrer o diagrama; clique de novo para ver inteiro.</span>';
