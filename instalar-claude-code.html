@@ -1,0 +1,1013 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Instalar o Claude Code</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Passo a passo ilustrado para instalar o Claude Code no Windows e no Mac, feito para quem nunca usou o terminal.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE everyday: aprender algo novo, com calma e um pouco de brincadeira
+   IDEA o próprio terminal: a página se comporta como uma instalação guiada, com estações acesas a cada passo
+   PICTURE terminal grande digitando a instalação, com o ajudante robô; cada passo tem sua tela desenhada
+   COLOUR MIRA dark: preto, tinta branca, laranja #FF904D lidera, dourado #FFC766 apoia, ciano #7FD4E6 marca o que deu certo
+   TYPE Inter 800 nos títulos + Inter no texto; JetBrains Mono só para comandos
+   LAYOUT laptop: título à esquerda, terminal à direita; celular: título, terminal, abas */
+:root{color-scheme:dark;--bg:#000;--ink:#fff;--muted:rgba(255,255,255,.68);--softer:rgba(255,255,255,.44);--primary:#FF904D;--accent2:#FFC766;--frio:#7FD4E6;--alerta:#FF5A5A;--card:rgba(255,255,255,.05);--borda:rgba(255,255,255,.11);--glow:rgba(255,144,77,.28);--term:#0b0f14;--mono:"JetBrains Mono",ui-monospace,Consolas,monospace;--sans:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;--gl:max(5vw,16px,env(safe-area-inset-left,0px));--gr:max(5vw,16px,env(safe-area-inset-right,0px))}
+:root[data-theme=light],:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-behavior:smooth;background:#000}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 var(--sans);overflow-x:clip;-webkit-font-smoothing:antialiased}
+a{color:var(--accent2)}
+::selection{background:rgba(255,144,77,.35)}
+.faixa{position:relative;z-index:1;padding-left:var(--gl);padding-right:var(--gr)}
+.miolo{max-width:1180px;margin:0 auto}
+#fundo{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+#fundo .grade{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:48px 48px;mask-image:radial-gradient(ellipse at 30% 30%,#000 30%,transparent 80%)}
+#fundo .brilho{position:absolute;left:70%;top:22%;width:1000px;height:1000px;margin:-500px 0 0 -500px;border-radius:50%;background:radial-gradient(circle,var(--glow) 0%,rgba(0,0,0,0) 62%);animation:respira 4s ease-in-out infinite alternate}
+@keyframes respira{from{opacity:.35}to{opacity:.75}}
+.hud{position:relative;background:var(--card);border:1px solid var(--borda);border-radius:8px}
+.hud::before,.hud::after{content:"";position:absolute;width:14px;height:14px;border:2px solid var(--primary);pointer-events:none}
+.hud::before{left:-1px;top:-1px;border-right:0;border-bottom:0;border-radius:8px 0 0 0}
+.hud::after{right:-1px;bottom:-1px;border-left:0;border-top:0;border-radius:0 0 8px 0}
+
+/* topo */
+.topo{padding-block:clamp(28px,5vw,64px) clamp(28px,4vw,48px)}
+.topo .miolo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:clamp(28px,4vw,60px);align-items:center}
+h1{font-size:clamp(34px,5.2vw,54px);line-height:1.05;letter-spacing:-.02em;font-weight:800;margin:0 0 16px}
+.lead{color:var(--muted);font-size:clamp(17px,1.6vw,19px);max-width:50ch;margin:0}
+.selos{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 24px;padding:0;list-style:none}
+.selos li{border:1px solid var(--borda);background:var(--card);border-radius:999px;padding:5px 13px;font-size:14px;color:var(--muted)}
+.selos b{color:var(--accent2);font-weight:600}
+.acoes{display:flex;flex-wrap:wrap;gap:10px}
+.btn{appearance:none;font:600 16px var(--sans);border-radius:8px;padding:12px 18px;min-height:46px;cursor:pointer;border:1px solid var(--borda);background:var(--card);color:var(--ink);text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:transform .15s,border-color .15s,background .15s}
+.btn:hover{border-color:var(--primary);transform:translateY(-1px)}
+.btn.prim{background:var(--primary);border-color:var(--primary);color:#1a0d04}
+.btn.prim:hover{background:#ffa56c}
+.btn svg{width:18px;height:18px;flex:0 0 auto}
+button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible{outline:2px solid var(--accent2);outline-offset:2px}
+.detect{margin:12px 0 0;font-size:14.5px;color:var(--softer)}
+.palco{position:relative;padding:0 18px 30px 0}
+.terminal{background:var(--term);border:1px solid var(--borda);border-radius:10px;overflow:hidden;box-shadow:0 30px 80px -40px var(--glow)}
+.barra-t{display:flex;align-items:center;gap:7px;padding:9px 12px;background:#141a21;border-bottom:1px solid var(--borda);font:12.5px var(--mono);color:var(--softer)}
+.barra-t .luz{width:11px;height:11px;border-radius:50%;background:#3a4048}
+.barra-t .luz:nth-child(1){background:#ff5f57}
+.barra-t .luz:nth-child(2){background:#febc2e}
+.barra-t .luz:nth-child(3){background:#28c840}
+.barra-t .nome{margin-left:6px;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.troca{display:flex;gap:4px}
+.troca button{appearance:none;border:1px solid var(--borda);background:none;color:var(--softer);font:600 12px var(--sans);border-radius:5px;padding:4px 9px;cursor:pointer}
+.troca button[aria-pressed=true]{color:var(--primary);border-color:var(--primary)}
+#demo{margin:0;padding:18px 18px 24px;font:14px/1.75 var(--mono);color:var(--ink);min-height:300px;white-space:pre-wrap;overflow-wrap:anywhere}
+.t-c{color:var(--softer)}
+.t-p{color:var(--frio)}
+.t-o{color:var(--accent2)}
+.cursor{display:inline-block;width:.6em;height:1.15em;background:var(--primary);vertical-align:-.22em;animation:pisca 1s steps(1) infinite}
+@keyframes pisca{50%{opacity:0}}
+.robo-topo{position:absolute;right:-4px;bottom:-6px;width:clamp(92px,12vw,132px);animation:flutua 3.4s ease-in-out infinite}
+@keyframes flutua{50%{transform:translateY(-10px) rotate(-3deg)}}
+.lampada{animation:acende 1.6s ease-in-out infinite alternate}
+@keyframes acende{from{opacity:.45}to{opacity:1}}
+
+/* abas */
+.abas-wrap{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(0,0,0,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-block:1px solid var(--borda)}
+body::before{content:"";position:fixed;left:0;right:0;top:0;height:env(safe-area-inset-top,0px);background:#000;z-index:21}
+.abas{position:relative;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;max-width:1180px;margin:0 auto}
+.abas::-webkit-scrollbar{display:none}
+.aba{flex:0 0 auto;appearance:none;background:none;border:0;color:var(--muted);font:600 15.5px var(--sans);padding:14px 14px 13px;min-height:50px;cursor:pointer;display:flex;align-items:center;gap:8px;white-space:nowrap;transition:color .2s}
+.aba:hover{color:var(--ink)}
+.aba[aria-selected=true]{color:var(--ink)}
+.aba svg{width:18px;height:18px;flex:0 0 auto;opacity:.8}
+.aba[aria-selected=true] svg{color:var(--primary);opacity:1}
+.aba .ok{display:none;width:18px;height:18px;border-radius:50%;background:var(--frio);color:#00222a;font:800 11px/18px var(--sans);text-align:center}
+.aba.completa .ok{display:inline-block;animation:salta .5s cubic-bezier(.3,1.6,.5,1)}
+@keyframes salta{from{transform:scale(0)}}
+.indicador{position:absolute;left:0;bottom:0;height:3px;width:0;background:var(--primary);border-radius:3px 3px 0 0;transition:transform .35s cubic-bezier(.2,.8,.2,1),width .35s cubic-bezier(.2,.8,.2,1)}
+
+/* painéis */
+.painel{padding-block:clamp(30px,4vw,52px) 72px}
+.painel.entra{animation:entra .45s cubic-bezier(.2,.8,.2,1)}
+.painel.entra .anima{animation:entra .55s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i,0)*90ms)}
+@keyframes entra{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+h2{font-size:clamp(30px,3.6vw,40px);line-height:1.08;letter-spacing:-.02em;margin:0 0 10px;font-weight:800}
+h3{letter-spacing:-.01em}
+.intro{color:var(--muted);max-width:66ch;margin:0 0 28px;font-size:18px}
+.intro strong,.passo p strong,.cartao p strong{color:var(--ink)}
+kbd{font:600 13px var(--mono);background:#1a1d22;border:1px solid rgba(255,255,255,.22);border-bottom-width:3px;border-radius:5px;padding:1px 7px;color:var(--ink);white-space:nowrap}
+code.in{font:14px var(--mono);background:rgba(255,255,255,.07);color:var(--accent2);padding:1px 6px;border-radius:4px;overflow-wrap:anywhere}
+
+/* rota de progresso */
+.rota{list-style:none;margin:0 0 30px;padding:0;display:grid;grid-template-columns:repeat(var(--n,4),minmax(0,1fr));position:relative}
+.rota::before,.rota .trilho{content:"";position:absolute;top:21px;height:3px;border-radius:2px;left:calc(50% / var(--n,4))}
+.rota::before{right:calc(50% / var(--n,4));background:rgba(255,255,255,.1)}
+.rota .trilho{width:calc((100% - 100% / var(--n,4)) * var(--p,0));background:linear-gradient(90deg,var(--primary),var(--accent2));transition:width .7s cubic-bezier(.2,.8,.2,1)}
+.rota li{position:relative;display:flex;justify-content:center}
+.rota button{appearance:none;background:none;border:0;color:var(--muted);font:500 13.5px/1.3 var(--sans);display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;padding:0 4px;text-align:center}
+.rota .bola{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:#0b0b0b;border:2px solid rgba(255,255,255,.2);font:700 16px var(--mono);color:var(--muted);transition:background .3s,border-color .3s,box-shadow .3s,transform .3s}
+.rota button:hover .bola{border-color:var(--primary)}
+.rota li.feito .bola{background:var(--primary);border-color:var(--primary);color:#1a0d04;box-shadow:0 0 0 7px rgba(255,144,77,.14);transform:scale(1.06)}
+.rota li.feito button{color:var(--ink)}
+
+/* passo */
+.passo{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:clamp(20px,3vw,40px);align-items:center;padding:clamp(20px,2.6vw,32px);margin-bottom:20px;scroll-margin-top:80px;transition:border-color .3s}
+.passo.feito{border-color:rgba(255,144,77,.4)}
+.passo h3{font-size:clamp(20px,2vw,24px);line-height:1.2;margin:0 0 10px;display:flex;gap:12px;align-items:center}
+.num{flex:0 0 auto;width:36px;height:36px;border-radius:9px;background:rgba(255,144,77,.15);color:var(--primary);display:grid;place-items:center;font:700 17px var(--mono)}
+.passo p,.cartao p{color:var(--muted);margin:0 0 12px}
+.passo ol,.passo ul{color:var(--muted);margin:0 0 12px;padding-left:22px}
+.passo li{margin-bottom:4px}
+.cmd{display:flex;align-items:stretch;border:1px solid rgba(255,144,77,.38);border-radius:8px;background:var(--term);margin:14px 0}
+.cmd code{flex:1;padding:12px 14px;font:14.5px/1.5 var(--mono);color:var(--accent2);overflow-wrap:anywhere}
+.copiar{flex:0 0 auto;appearance:none;border:0;border-left:1px solid rgba(255,144,77,.38);background:rgba(255,144,77,.1);color:var(--primary);font:600 14px var(--sans);padding:0 14px;min-width:92px;cursor:pointer;border-radius:0 7px 7px 0;transition:background .2s,color .2s}
+.copiar:hover{background:rgba(255,144,77,.2)}
+.copiar.ok{background:var(--primary);color:#1a0d04}
+.rotulo-cmd{font-size:13.5px;color:var(--softer);margin:14px 0 -8px}
+.ver{border-left:3px solid var(--frio);padding:6px 0 6px 14px;margin:14px 0;color:var(--muted);font-size:16px}
+.ver b{color:var(--frio);font-weight:600}
+.ver.atencao{border-left-color:var(--accent2)}
+.ver.atencao b{color:var(--accent2)}
+.feito-lbl{display:inline-flex;align-items:center;gap:10px;cursor:pointer;font-weight:600;font-size:15px;padding:9px 16px 9px 11px;border-radius:8px;border:1px solid var(--borda);min-height:46px;user-select:none;margin-top:6px;transition:border-color .2s,color .2s,background .2s}
+.feito-lbl:hover{border-color:var(--primary)}
+.feito-lbl input{appearance:none;width:22px;height:22px;border-radius:6px;border:2px solid rgba(255,255,255,.38);display:grid;place-items:center;margin:0;cursor:pointer;flex:0 0 auto;transition:background .2s,border-color .2s}
+.feito-lbl input:checked{background:var(--primary);border-color:var(--primary)}
+.feito-lbl input:checked::after{content:"";width:6px;height:11px;border:solid #1a0d04;border-width:0 2.5px 2.5px 0;transform:translate(0,-1px) rotate(45deg)}
+.feito-lbl:has(input:checked){border-color:var(--primary);color:var(--primary);background:rgba(255,144,77,.08)}
+.ilu{margin:0}
+.ilu svg{width:100%;height:auto;display:block}
+.ilu figcaption{font-size:14px;color:var(--softer);text-align:center;margin-top:8px}
+details.alt{margin:12px 0;border:1px dashed var(--borda);border-radius:8px;padding:0 14px}
+details.alt summary{cursor:pointer;padding:11px 0;font-weight:600;font-size:15px;color:var(--accent2)}
+details.alt[open]{padding-bottom:6px}
+details.alt p{font-size:15.5px}
+.parabens{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:18px;align-items:center;padding:20px 24px;margin-top:8px;border-color:rgba(127,212,230,.45);background:rgba(127,212,230,.07)}
+.parabens:not([hidden]){animation:entra .5s cubic-bezier(.2,.8,.2,1)}
+.parabens svg{width:64px;height:auto}
+.parabens h3{margin:0 0 4px;font-size:22px}
+.parabens p{margin:0;color:var(--muted)}
+
+/* antes de começar */
+.duas{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:center;margin-bottom:44px}
+.analogia p{color:var(--muted);font-size:18px;margin:0 0 14px;max-width:56ch}
+.analogia p strong{color:var(--ink)}
+.grade4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:0 0 44px}
+.cartao{padding:20px}
+.cartao .ico{width:44px;height:44px;border-radius:10px;background:rgba(255,144,77,.13);color:var(--primary);display:grid;place-items:center;margin-bottom:12px}
+.cartao .ico svg{width:24px;height:24px}
+.cartao h3{font-size:18px;margin:0 0 6px}
+.cartao p{font-size:15.5px;margin:0}
+.subtit{font-size:24px;font-weight:800;letter-spacing:-.01em;margin:0 0 14px}
+.glossario{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 36px;margin:0 0 44px}
+.glossario div{padding:14px 0;border-bottom:1px solid var(--borda)}
+.glossario dt{font-weight:700;color:var(--accent2);margin-bottom:2px}
+.glossario dd{margin:0;color:var(--muted);font-size:16px}
+.escolha{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.escolha button{appearance:none;font:inherit;color:var(--ink);text-align:left;cursor:pointer;display:grid;grid-template-columns:72px minmax(0,1fr) auto;gap:18px;align-items:center;padding:22px;transition:border-color .2s,transform .2s}
+.escolha button:hover{border-color:var(--primary);transform:translateY(-2px)}
+.escolha svg.logo{width:72px;height:72px}
+.escolha b{display:block;font-size:22px;letter-spacing:-.01em}
+.escolha span{color:var(--muted);font-size:15px}
+.escolha .seta{color:var(--primary);font-size:26px;transition:transform .2s}
+.escolha button:hover .seta{transform:translateX(5px)}
+
+/* tabela de comandos e alternativas */
+.tabela-wrap{overflow-x:auto;margin:0 0 40px}
+table{border-collapse:collapse;width:100%;font-size:16px}
+th,td{text-align:left;vertical-align:top;padding:11px 14px;border-bottom:1px solid var(--borda)}
+th{font-weight:600;border-bottom-color:rgba(255,144,77,.55)}
+td{color:var(--muted)}
+td:first-child{white-space:nowrap}
+
+/* erros */
+.busca{display:flex;align-items:center;gap:10px;border:1px solid var(--borda);border-radius:10px;background:var(--card);padding:0 14px;margin:0 0 22px;max-width:620px}
+.busca:focus-within{border-color:var(--primary)}
+.busca svg{width:20px;height:20px;color:var(--softer);flex:0 0 auto}
+.busca input{flex:1;background:none;border:0;color:var(--ink);font:16px var(--sans);padding:14px 0;outline:none}
+.erros{columns:2 380px;column-gap:16px}
+.erro{padding:22px;break-inside:avoid;margin-bottom:16px;display:block}
+.erro[hidden]{display:none}
+.erro h3{font-size:19px;margin:0 0 10px;line-height:1.3}
+.sintoma{font:13.5px/1.5 var(--mono);color:#ffc2c2;background:rgba(255,90,90,.08);border:1px solid rgba(255,90,90,.28);border-radius:6px;padding:9px 11px;margin:0 0 12px;overflow-wrap:anywhere}
+.erro p{color:var(--muted);margin:0 0 10px;font-size:16px}
+.erro p b{color:var(--ink)}
+.vazio{color:var(--muted);padding:20px 0}
+
+/* perguntas */
+.faq-grade{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);gap:clamp(24px,4vw,56px);align-items:start}
+.faq-arte{position:sticky;top:90px}
+.faq details{border-bottom:1px solid var(--borda)}
+.faq summary{list-style:none;cursor:pointer;padding:18px 44px 18px 0;font-weight:600;font-size:18px;position:relative;line-height:1.35}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";position:absolute;right:10px;top:50%;width:10px;height:10px;border:solid var(--primary);border-width:0 2px 2px 0;transform:translateY(-75%) rotate(45deg);transition:transform .25s}
+.faq details[open] summary::after{transform:translateY(-25%) rotate(-135deg)}
+.faq summary:hover{color:var(--accent2)}
+.faq .resp{color:var(--muted);padding:0 0 20px;max-width:68ch}
+.faq details[open] .resp{animation:entra .35s cubic-bezier(.2,.8,.2,1)}
+.faq .resp p{margin:0 0 10px}
+.faq .resp strong{color:var(--ink)}
+
+.rodape{border-top:1px solid var(--borda);padding-block:28px 40px;color:var(--softer);font-size:14.5px}
+.rodape p{margin:0 0 6px;max-width:80ch}
+#confete{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:50}
+
+@media(max-width:980px){.grade4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:860px){.topo .miolo,.duas,.faq-grade{grid-template-columns:minmax(0,1fr)}.palco{padding-right:10px}.faq-arte{position:static;max-width:280px}}
+@media(max-width:760px){.passo{grid-template-columns:minmax(0,1fr)}.passo .ilu{order:-1}.escolha,.glossario{grid-template-columns:minmax(0,1fr)}.parabens{grid-template-columns:minmax(0,1fr)}.parabens svg{display:none}}
+@media(max-width:520px){body{font-size:16px}.grade4{grid-template-columns:minmax(0,1fr)}#demo{font-size:12.5px;min-height:270px}.rota button{font-size:12px}.rota .bola{width:38px;height:38px}.rota::before,.rota .trilho{top:18px}.escolha button{grid-template-columns:52px minmax(0,1fr) auto;padding:18px}.escolha svg.logo{width:52px;height:52px}td:first-child{white-space:normal}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="gMesa" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c2836"/><stop offset="1" stop-color="#0d1218"/></linearGradient>
+    <linearGradient id="gMac" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2a1a3a"/><stop offset="1" stop-color="#14233a"/></linearGradient>
+    <symbol id="robo" viewBox="0 0 120 132">
+      <line x1="60" y1="9" x2="60" y2="27" stroke="#FFC766" stroke-width="4" stroke-linecap="round"/>
+      <circle class="lampada" cx="60" cy="9" r="7" fill="#FFC766"/>
+      <rect x="7" y="47" width="13" height="23" rx="5" fill="#FFC766"/>
+      <rect x="100" y="47" width="13" height="23" rx="5" fill="#FFC766"/>
+      <rect x="40" y="92" width="40" height="34" rx="12" fill="#e2743a"/>
+      <circle cx="60" cy="109" r="5" fill="#7FD4E6"/>
+      <rect x="17" y="25" width="86" height="68" rx="23" fill="#FF904D"/>
+      <path d="M17 62v8a23 23 0 0 0 23 23h40a23 23 0 0 0 23-23v-8z" fill="#e2743a"/>
+      <rect x="29" y="39" width="62" height="38" rx="15" fill="#1a0d04"/>
+      <rect x="44" y="49" width="9" height="14" rx="4.5" fill="#7FD4E6"/>
+      <rect x="67" y="49" width="9" height="14" rx="4.5" fill="#7FD4E6"/>
+      <path d="M50 68q10 7 20 0" stroke="#7FD4E6" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M30 35q9-6 22-6" stroke="rgba(255,255,255,.55)" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="seta" viewBox="0 0 20 28"><path d="M2 2v20l5-5 4 9 4-2-4-9h7z" fill="#fff" stroke="#000" stroke-width="1.5" stroke-linejoin="round"/></symbol>
+    <symbol id="logo-win" viewBox="0 0 24 24"><path fill="currentColor" d="M3 5.2 10.4 4v7.4H3zm8.4-1.4L21 2.4v9H11.4zM3 12.6h7.4V20L3 18.8zm8.4 0H21v9l-9.6-1.4z"/></symbol>
+    <symbol id="logo-mac" viewBox="0 0 24 24"><rect x="2.5" y="4" width="19" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 21h8M12 17v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="m7 9 2.5 2L7 13M11.5 13H15" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<div id="fundo" aria-hidden="true"><div class="grade"></div><div class="brilho"></div></div>
+
+<header class="faixa topo">
+  <div class="miolo">
+    <div data-editavel>
+      <h1>Instale o Claude Code no seu computador</h1>
+      <p class="lead">Um passo a passo para quem nunca abriu um terminal. São quatro passos, cerca de quinze minutos, e você não precisa saber programar.</p>
+      <ul class="selos">
+        <li><b>15 min</b> do início ao fim</li>
+        <li><b>Windows</b> e <b>Mac</b></li>
+        <li>Sem programar</li>
+        <li>Sem ser administrador</li>
+      </ul>
+      <div class="acoes" id="acoes-topo">
+        <button class="btn prim" data-ir="windows"><svg aria-hidden="true"><use href="#logo-win"/></svg>Instalar no Windows</button>
+        <button class="btn" data-ir="mac"><svg aria-hidden="true"><use href="#logo-mac"/></svg>Instalar no Mac</button>
+      </div>
+      <p class="detect" id="detect">Primeira vez? Comece pela aba <b>Antes de começar</b>, logo abaixo.</p>
+    </div>
+    <div class="palco">
+      <div class="terminal" role="img" aria-label="Animação de um terminal mostrando os três comandos da instalação">
+        <div class="barra-t"><span class="luz"></span><span class="luz"></span><span class="luz"></span><span class="nome" id="demo-nome">Windows PowerShell</span>
+          <div class="troca" role="group" aria-label="Escolher o sistema da demonstração"><button type="button" data-demo="windows" aria-pressed="true">Windows</button><button type="button" data-demo="mac" aria-pressed="false">Mac</button></div>
+        </div>
+<pre id="demo"><span class="t-c"># 1. cole o comando e aperte Enter</span>
+<span class="t-p">PS C:\Users\voce&gt; </span>irm https://claude.ai/install.ps1 | iex
+<span class="t-c"># 2. espere o cursor voltar (não aparece barra de progresso)</span>
+<span class="t-c"># 3. abra uma janela nova e confira</span>
+<span class="t-p">PS C:\Users\voce&gt; </span>claude --version
+<span class="t-o">2.1.211 (Claude Code)</span>
+<span class="t-c"># pronto! agora é só digitar: claude</span></pre>
+      </div>
+      <svg class="robo-topo" viewBox="0 0 120 132" aria-hidden="true"><use href="#robo"/></svg>
+    </div>
+  </div>
+</header>
+
+<nav class="abas-wrap faixa" aria-label="Etapas do guia">
+  <div class="abas" role="tablist" id="abas">
+    <button class="aba" role="tab" data-aba="antes" id="t-antes" aria-controls="p-antes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/></svg>Antes de começar</button>
+    <button class="aba" role="tab" data-aba="windows" id="t-windows" aria-controls="p-windows"><svg aria-hidden="true"><use href="#logo-win"/></svg>Windows<span class="ok" aria-label="concluído">✓</span></button>
+    <button class="aba" role="tab" data-aba="mac" id="t-mac" aria-controls="p-mac"><svg aria-hidden="true"><use href="#logo-mac"/></svg>Mac<span class="ok" aria-label="concluído">✓</span></button>
+    <button class="aba" role="tab" data-aba="primeiro-uso" id="t-primeiro-uso" aria-controls="p-primeiro-uso"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Primeiro uso<span class="ok" aria-label="concluído">✓</span></button>
+    <button class="aba" role="tab" data-aba="erros" id="t-erros" aria-controls="p-erros"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 20h20zM12 10v4M12 17h.01"/></svg>Deu erro?</button>
+    <button class="aba" role="tab" data-aba="perguntas" id="t-perguntas" aria-controls="p-perguntas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/><path d="M10 9a2 2 0 1 1 2.5 2c-.5.2-.5.6-.5 1M12 14h.01"/></svg>Perguntas</button>
+    <span class="indicador" id="indicador" aria-hidden="true"></span>
+  </div>
+</nav>
+
+<main class="faixa" id="conteudo" data-editavel>
+<div class="miolo">
+
+<!-- ═════════ ANTES DE COMEÇAR ═════════ -->
+<section class="painel" id="p-antes" role="tabpanel" aria-labelledby="t-antes">
+  <div class="duas">
+    <div class="analogia anima" style="--i:0">
+      <h2>O que é o Claude Code, em uma frase</h2>
+      <p>É o Claude trabalhando <strong>dentro de uma pasta do seu computador</strong>. Em vez de só conversar, ele lê os arquivos daquela pasta, cria arquivos novos e faz tarefas por você.</p>
+      <p>Pense num <strong>assistente sentado na sua mesa</strong>: você pede em português, ele mostra o que pretende fazer e só age quando você autoriza.</p>
+      <p>Ele roda numa janela de texto chamada <strong>terminal</strong>. Ela parece coisa de programador, mas aqui você vai usá-la só para colar três ou quatro comandos.</p>
+    </div>
+    <figure class="ilu anima" style="--i:1">
+      <svg viewBox="0 0 400 290" role="img" aria-label="Um monitor com uma pasta aberta e o robô ajudante organizando papéis dentro dela">
+        <rect x="40" y="20" width="320" height="200" rx="14" fill="#141a21" stroke="rgba(255,255,255,.16)" stroke-width="2"/>
+        <rect x="54" y="34" width="292" height="172" rx="6" fill="url(#gMesa)"/>
+        <path d="M180 220h40l10 40h-60z" fill="#1d242d"/>
+        <rect x="130" y="258" width="140" height="12" rx="6" fill="#262e38"/>
+        <path d="M96 92h70l12 14h120a8 8 0 0 1 8 8v70a8 8 0 0 1-8 8H96a8 8 0 0 1-8-8v-84a8 8 0 0 1 8-8z" fill="#FFC766"/>
+        <path d="M88 122h218v62a8 8 0 0 1-8 8H96a8 8 0 0 1-8-8z" fill="#f0b24d"/>
+        <g class="papel-voa"><rect x="120" y="58" width="44" height="56" rx="4" fill="#fff" transform="rotate(-10 142 86)"/><path d="M128 74h26M128 84h26M128 94h16" stroke="#9aa4b0" stroke-width="3" stroke-linecap="round" transform="rotate(-10 142 86)"/></g>
+        <rect x="176" y="62" width="44" height="56" rx="4" fill="#fff" transform="rotate(6 198 90)"/>
+        <path d="M184 78h26M184 88h26M184 98h18" stroke="#9aa4b0" stroke-width="3" stroke-linecap="round" transform="rotate(6 198 90)"/>
+        <text x="110" y="172" font-family="JetBrains Mono,monospace" font-size="14" font-weight="600" fill="#1a0d04">minha-pasta</text>
+        <use href="#robo" x="232" y="64" width="98" height="108"/>
+        <circle cx="348" cy="42" r="22" fill="#7FD4E6"/><path d="m338 42 7 7 13-14" stroke="#00222a" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <figcaption>Ele só enxerga a pasta em que você o abrir.</figcaption>
+    </figure>
+  </div>
+
+  <h3 class="subtit">O que você precisa ter</h3>
+  <div class="grade4">
+    <div class="cartao hud anima" style="--i:2"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></div><h3>Um computador</h3><p>Windows 10 (versão 1809) ou mais novo, ou Mac com macOS 13 ou mais novo, e pelo menos 4 GB de memória.</p></div>
+    <div class="cartao hud anima" style="--i:3"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a15 15 0 0 1 20 0M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0"/><circle cx="12" cy="19.5" r="1"/></svg></div><h3>Internet</h3><p>O programa é baixado na instalação e conversa com o Claude pela internet o tempo todo.</p></div>
+    <div class="cartao hud anima" style="--i:4"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></svg></div><h3>Um plano pago do Claude</h3><p>Pro, Max, Team ou Enterprise, ou uma conta do Console com créditos. <strong>O plano gratuito não dá acesso.</strong></p></div>
+    <div class="cartao hud anima" style="--i:5"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3>Quinze minutos</h3><p>Sem pressa. Você não precisa ser administrador do computador nem instalar outro programa antes.</p></div>
+  </div>
+
+  <h3 class="subtit">Cinco palavras que vão aparecer</h3>
+  <dl class="glossario">
+    <div><dt>Terminal</dt><dd>Uma janela onde você dá ordens por escrito. No Windows ela se chama <strong>PowerShell</strong>; no Mac, <strong>Terminal</strong>.</dd></div>
+    <div><dt>Comando</dt><dd>Uma linha de texto que o computador executa quando você aperta <kbd>Enter</kbd>. Aqui você só vai copiar e colar.</dd></div>
+    <div><dt>Colar no terminal</dt><dd>No Windows, <kbd>Ctrl</kbd> + <kbd>V</kbd> ou um clique com o botão direito. No Mac, <kbd>⌘</kbd> + <kbd>V</kbd>.</dd></div>
+    <div><dt>Pasta de trabalho</dt><dd>A pasta em que você abre o Claude Code. É o único lugar onde ele lê e cria arquivos.</dd></div>
+    <div><dt>Prompt</dt><dd>O pedido que você escreve para o Claude, em português comum, como numa conversa.</dd></div>
+  </dl>
+
+  <h3 class="subtit">Qual é o seu computador?</h3>
+  <div class="escolha">
+    <button class="hud" data-ir="windows"><svg class="logo" aria-hidden="true" style="color:var(--frio)"><use href="#logo-win"/></svg><div><b>Windows</b><span>Notebook ou computador com Windows 10 ou 11</span></div><span class="seta" aria-hidden="true">→</span></button>
+    <button class="hud" data-ir="mac"><svg class="logo" aria-hidden="true" style="color:var(--accent2)"><use href="#logo-mac"/></svg><div><b>Mac</b><span>MacBook, iMac ou Mac mini com macOS 13 ou mais novo</span></div><span class="seta" aria-hidden="true">→</span></button>
+  </div>
+</section>
+
+<!-- ═════════ WINDOWS ═════════ -->
+<section class="painel" id="p-windows" role="tabpanel" aria-labelledby="t-windows" hidden>
+  <h2>Instalação no Windows</h2>
+  <p class="intro">Quatro passos. Marque <strong>Fiz este passo</strong> ao terminar cada um, e a trilha acende. Se algo der diferente do desenho, vá à aba <strong>Deu erro?</strong>.</p>
+  <ol class="rota" data-grupo="windows" style="--n:4"><span class="trilho"></span>
+    <li><button data-alvo="win-1"><span class="bola">1</span>Abrir o PowerShell</button></li>
+    <li><button data-alvo="win-2"><span class="bola">2</span>Colar o comando</button></li>
+    <li><button data-alvo="win-3"><span class="bola">3</span>Esperar</button></li>
+    <li><button data-alvo="win-4"><span class="bola">4</span>Conferir</button></li>
+  </ol>
+
+  <article class="passo hud anima" id="win-1" data-grupo="windows" style="--i:0">
+    <div>
+      <h3><span class="num">1</span>Abra o PowerShell</h3>
+      <ol>
+        <li>Aperte a tecla <kbd>⊞ Windows</kbd> (ou clique na lupa da barra de tarefas).</li>
+        <li>Escreva <strong>PowerShell</strong>.</li>
+        <li>Clique em <strong>Windows PowerShell</strong> ou aperte <kbd>Enter</kbd>.</li>
+      </ol>
+      <div class="ver"><b>O que você deve ver:</b> uma janela escura com uma linha que começa com <code class="in">PS C:\Users\</code> e o seu nome.</div>
+      <div class="ver atencao"><b>Não precisa</b> clicar em “Executar como administrador”. Abra do jeito normal.</div>
+      <label class="feito-lbl"><input type="checkbox" class="chk" id="chk-win-1">Fiz este passo</label>
+    </div>
+    <figure class="ilu">
+      <svg viewBox="0 0 360 236" role="img" aria-label="Menu Iniciar do Windows com PowerShell digitado na busca e o resultado Windows PowerShell destacado">
+        <rect width="360" height="236" rx="12" fill="url(#gMesa)"/>
+        <rect x="34" y="16" width="252" height="160" rx="10" fill="#1d232c" stroke="rgba(255,255,255,.12)"/>
+        <text x="50" y="40" font-family="Inter,sans-serif" font-size="11" fill="rgba(255,255,255,.5)">Melhor correspondência</text>
+        <rect x="46" y="50" width="228" height="54" rx="8" fill="rgba(255,144,77,.16)" stroke="#FF904D" stroke-width="1.5"/>
+        <rect x="58" y="61" width="32" height="32" rx="6" fill="#2b5797"/>
+        <text x="63" y="82" font-family="JetBrains Mono,monospace" font-size="13" font-weight="700" fill="#fff">&gt;_</text>
+        <text x="102" y="75" font-family="Inter,sans-serif" font-size="13.5" font-weight="600" fill="#fff">Windows PowerShell</text>
+        <text x="102" y="93" font-family="Inter,sans-serif" font-size="11" fill="rgba(255,255,255,.5)">Aplicativo</text>
+        <rect x="52" y="122" width="150" height="8" rx="4" fill="rgba(255,255,255,.1)"/>
+        <rect x="52" y="142" width="104" height="8" rx="4" fill="rgba(255,255,255,.1)"/>
+        <path d="M0 194h360v30a12 12 0 0 1-12 12H12A12 12 0 0 1 0 224z" fill="#11161d"/>
+        <use href="#logo-win" x="18" y="203" width="20" height="20" style="color:#7FD4E6"/>
+        <rect x="50" y="202" width="176" height="24" rx="12" fill="#1f2630" stroke="#FF904D"/>
+        <circle cx="65" cy="213" r="5" stroke="rgba(255,255,255,.55)" stroke-width="1.6" fill="none"/>
+        <path d="m69 217 4 4" stroke="rgba(255,255,255,.55)" stroke-width="1.6" stroke-linecap="round"/>
+        <text x="80" y="218" font-family="Inter,sans-serif" font-size="12.5" fill="#fff">PowerShell</text>
+        <rect class="cursor-svg" x="146" y="207" width="2" height="13" fill="#FF904D"/>
+        <use class="mouse" href="#seta" x="236" y="80" width="20" height="28"/>
+        <use href="#robo" x="290" y="108" width="62" height="68"/>
+      </svg>
+      <figcaption>Tecla Windows → escreva “PowerShell” → Enter.</figcaption>
+    </figure>
+  </article>
+
+  <article class="passo hud anima" id="win-2" data-grupo="windows" style="--i:1">
+    <div>
+      <h3><span class="num">2</span>Cole o comando de instalação</h3>
+      <p>Clique em <strong>Copiar</strong>, volte ao PowerShell, cole com <kbd>Ctrl</kbd> + <kbd>V</kbd> (ou botão direito do mouse) e aperte <kbd>Enter</kbd>.</p>
+      <div class="cmd"><code>irm https://claude.ai/install.ps1 | iex</code><button class="copiar" type="button">Copiar</button></div>
+      <div class="ver"><b>Por que é seguro:</b> o comando baixa o instalador oficial direto do site da Anthropic, a empresa que faz o Claude.</div>
+      <details class="alt"><summary>A janela que abriu é o Prompt de Comando (CMD)?</summary><p>Se a linha começa só com <code class="in">C:\</code>, sem o <code class="in">PS</code> na frente, você está no CMD. Use este comando no lugar do de cima:</p><div class="cmd"><code>curl -fsSL https://claude.ai/install.cmd -o install.cmd &amp;&amp; install.cmd &amp;&amp; del install.cmd</code><button class="copiar" type="button">Copiar</button></div></details>
+      <label class="feito-lbl"><input type="checkbox" class="chk" id="chk-win-2">Fiz este passo</label>
+    </div>
+    <figure class="ilu" data-term='{"os":"win","linhas":[["p","PS C:\\Users\\voce> ","irm https://claude.ai/install.ps1 | iex"],["d",""],["c","# aperte Enter depois de colar"]],"extra":"colar"}'><figcaption>Cole e aperte Enter.</figcaption></figure>
+  </article>
+
+  <article class="passo hud anima" id="win-3" data-grupo="windows" style="--i:2">
+    <div>
+      <h3><span class="num">3</span>Espere terminar</h3>
+      <p>O instalador <strong>não mostra barra de progresso</strong>. Parece que nada está acontecendo, mas ele está baixando. Pode levar de um a alguns minutos, conforme a internet.</p>
+      <div class="ver"><b>Terminou quando:</b> aparecem mensagens dizendo que a instalação foi concluída e a linha <code class="in">PS C:\Users\...&gt;</code> volta a piscar, esperando um novo comando.</div>
+      <div class="ver atencao"><b>Não feche a janela</b> nem aperte nada enquanto espera.</div>
+      <label class="feito-lbl"><input type="checkbox" class="chk" id="chk-win-3">Fiz este passo</label>
+    </div>
+    <figure class="ilu" data-term='{"os":"win","linhas":[["p","PS C:\\Users\\voce> ","irm https://claude.ai/install.ps1 | iex"],["c","baixando, sem barra de progresso…"]],"extra":"espera"}'><figcaption>Sem barra de progresso: só espere o cursor voltar.</figcaption></figure>
+  </article>
+
+  <article class="passo hud anima" id="win-4" data-grupo="windows" style="--i:3">
+    <div>
+      <h3><span class="num">4</span>Abra uma janela nova e confira</h3>
+      <p><strong>Feche o PowerShell e abra outro</strong>, como no passo 1. A janela antiga não “enxerga” o programa recém-instalado. Na janela nova, cole:</p>
+      <div class="cmd"><code>claude --version</code><button class="copiar" type="button">Copiar</button></div>
+      <div class="ver"><b>Deu certo se aparecer</b> um número seguido de <code class="in">(Claude Code)</code>, por exemplo <code class="in">2.1.211 (Claude Code)</code>. O número muda com as atualizações.</div>
+      <div class="ver atencao"><b>Apareceu “não é reconhecido”?</b> Veja o primeiro item da aba <a href="#erros" data-ir="erros">Deu erro?</a>.</div>
+      <label class="feito-lbl"><input type="checkbox" class="chk" id="chk-win-4">Fiz este passo</label>
+    </div>
+    <figure class="ilu" data-term='{"os":"win","linhas":[["p","PS C:\\Users\\voce> ","claude --version"],["o","2.1.211 (Claude Code)"],["p","PS C:\\Users\\voce> ",""]],"extra":"ok"}'><figcaption>Número + “(Claude Code)” = instalado.</figcaption></figure>
+  </article>
+
+  <div class="parabens hud" data-parabens="windows" hidden>
+    <svg viewBox="0 0 120 132" aria-hidden="true"><use href="#robo"/></svg>
+    <div><h3>Instalado no Windows!</h3><p>Agora vamos abrir o Claude Code pela primeira vez e fazer o login.</p></div>
+    <button class="btn prim" data-ir="primeiro-uso">Ir para o primeiro uso →</button>
+  </div>
+</section>
+
+<!-- ═════════ MAC ═════════ -->
+<section class="painel" id="p-mac" role="tabpanel" aria-labelledby="t-mac" hidden>
+  <h2>Instalação no Mac</h2>
+  <p class="intro">Quatro passos. Marque <strong>Fiz este passo</strong> ao terminar cada um, e a trilha acende. Se algo der diferente do desenho, vá à aba <strong>Deu erro?</strong>.</p>
+  <ol class="rota" data-grupo="mac" style="--n:4"><span class="trilho"></span>
+    <li><button data-alvo="mac-1"><span class="bola">1</span>Abrir o Terminal</button></li>
+    <li><button data-alvo="mac-2"><span class="bola">2</span>Colar o comando</button></li>
+    <li><button data-alvo="mac-3"><span class="bola">3</span>Esperar</button></li>
+    <li><button data-alvo="mac-4"><span class="bola">4</span>Conferir</button></li>
+  </ol>
+
+  <article class="passo hud anima" id="mac-1" data-grupo="mac" style="--i:0">
+    <div>
+      <h3><span class="num">1</span>Abra o Terminal</h3>
+      <ol>
+        <li>Aperte <kbd>⌘ Command</kbd> + <kbd>Espaço</kbd>. Abre a busca do Mac (Spotlight).</li>
+        <li>Escreva <strong>Terminal</strong>.</li>
+        <li>Aperte <kbd>Enter</kbd>.</li>
+      </ol>
+      <div class="ver"><b>O que você deve ver:</b> uma janela com uma linha terminada em <code class="in">%</code> e um cursor esperando.</div>
+      <label class="feito-lbl"><input type="checkbox" class="chk" id="chk-mac-1">Fiz este passo</label>
+    </div>
+    <figure class="ilu">
+      <svg viewBox="0 0 360 236" role="img" aria-label="Busca do Mac aberta com a palavra Terminal digitada e o aplicativo Terminal destacado">
+        <rect width="360" height="236" rx="12" fill="url(#gMac)"/>
+        <rect x="40" y="34" width="280" height="44" rx="12" fill="rgba(40,40,48,.95)" stroke="rgba(255,255,255,.16)"/>
+        <circle cx="64" cy="55" r="7" stroke="rgba(255,255,255,.6)" stroke-width="2" fill="none"/>
+        <path d="m69 60 6 6" stroke="rgba(255,255,255,.6)" stroke-width="2" stroke-linecap="round"/>
+        <text x="86" y="61" font-family="Inter,sans-serif" font-size="17" fill="#fff">Terminal</text>
+        <rect class="cursor-svg" x="160" y="45" width="2" height="20" fill="#FF904D"/>
+        <rect x="40" y="84" width="280" height="54" rx="10" fill="rgba(40,40,48,.95)" stroke="rgba(255,255,255,.1)"/>
+        <rect x="48" y="91" width="264" height="40" rx="8" fill="rgba(255,144,77,.2)" stroke="#FF904D" stroke-width="1.5"/>
+        <rect x="58" y="97" width="28" height="28" rx="6" fill="#1b1b1b" stroke="rgba(255,255,255,.3)"/>
+        <text x="62" y="116" font-family="JetBrains Mono,monospace" font-size="11" font-weight="700" fill="#fff">&gt;_</text>
+        <text x="96" y="116" font-family="Inter,sans-serif" font-size="14" font-weight="600" fill="#fff">Terminal</text>
+        <g font-family="Inter,sans-serif" font-size="13" font-weight="600" fill="#fff">
+          <rect x="62" y="170" width="78" height="40" rx="8" fill="#22252b" stroke="rgba(255,255,255,.3)"/><text x="76" y="195">⌘ cmd</text>
+          <text x="150" y="196" fill="#FFC766" font-size="18">+</text>
+          <rect x="170" y="170" width="104" height="40" rx="8" fill="#22252b" stroke="rgba(255,255,255,.3)"/><text x="192" y="195">espaço</text>
+        </g>
+        <use href="#robo" x="290" y="140" width="62" height="68"/>
+      </svg>
+      <figcaption>⌘ + Espaço → escreva “Terminal” → Enter.</figcaption>
+    </figure>
+  </article>
+
+  <article class="passo hud anima" id="mac-2" data-grupo="mac" style="--i:1">
+    <div>
+      <h3><span class="num">2</span>Cole o comando de instalação</h3>
+      <p>Clique em <strong>Copiar</strong>, volte ao Terminal, cole com <kbd>⌘</kbd> + <kbd>V</kbd> e aperte <kbd>Enter</kbd>.</p>
+      <div class="cmd"><code>curl -fsSL https://claude.ai/install.sh | bash</code><button class="copiar" type="button">Copiar</button></div>
+      <div class="ver"><b>Por que é seguro:</b> o comando baixa o instalador oficial direto do site da Anthropic, a empresa que faz o Claude.</div>
+      <details class="alt"><summary>Já usa o Homebrew? Há outro caminho</summary><p>Quem já tem o Homebrew pode instalar com <code class="in">brew install --cask claude-code</code>. Atenção: por esse caminho o programa <strong>não se atualiza sozinho</strong>; de tempos em tempos rode <code class="in">brew upgrade claude-code</code>. Se você não sabe o que é Homebrew, ignore e use o comando de cima.</p></details>
+      <label class="feito-lbl"><input type="checkbox" class="chk" id="chk-mac-2">Fiz este passo</label>
+    </div>
+    <figure class="ilu" data-term='{"os":"mac","linhas":[["p","~ % ","curl -fsSL https://claude.ai/install.sh | bash"],["d",""],["c","# aperte Enter depois de colar"]],"extra":"colar"}'><figcaption>Cole e aperte Enter.</figcaption></figure>
+  </article>
+
+  <article class="passo hud anima" id="mac-3" data-grupo="mac" style="--i:2">
+    <div>
+      <h3><span class="num">3</span>Espere terminar</h3>
+      <p>O instalador <strong>não mostra barra de progresso</strong>. Parece parado, mas está baixando. Pode levar de um a alguns minutos.</p>
+      <div class="ver"><b>Terminou quando:</b> aparecem mensagens dizendo que a instalação foi concluída e a linha com <code class="in">%</code> volta, esperando um novo comando.</div>
+      <div class="ver atencao"><b>Viu um aviso sobre o PATH</b> no fim da instalação? Anote. Se o passo 4 falhar, a aba <a href="#erros" data-ir="erros">Deu erro?</a> resolve com um comando.</div>
+      <label class="feito-lbl"><input type="checkbox" class="chk" id="chk-mac-3">Fiz este passo</label>
+    </div>
+    <figure class="ilu" data-term='{"os":"mac","linhas":[["p","~ % ","curl -fsSL https://claude.ai/install.sh | bash"],["c","baixando, sem barra de progresso…"]],"extra":"espera"}'><figcaption>Sem barra de progresso: só espere a linha voltar.</figcaption></figure>
+  </article>
+
+  <article class="passo hud anima" id="mac-4" data-grupo="mac" style="--i:3">
+    <div>
+      <h3><span class="num">4</span>Abra uma janela nova e confira</h3>
+      <p>Aperte <kbd>⌘</kbd> + <kbd>N</kbd> para abrir uma janela nova do Terminal. A janela antiga não “enxerga” o programa recém-instalado. Na nova, cole:</p>
+      <div class="cmd"><code>claude --version</code><button class="copiar" type="button">Copiar</button></div>
+      <div class="ver"><b>Deu certo se aparecer</b> um número seguido de <code class="in">(Claude Code)</code>, por exemplo <code class="in">2.1.211 (Claude Code)</code>. O número muda com as atualizações.</div>
+      <div class="ver atencao"><b>Apareceu “command not found”?</b> Veja o primeiro item da aba <a href="#erros" data-ir="erros">Deu erro?</a>.</div>
+      <label class="feito-lbl"><input type="checkbox" class="chk" id="chk-mac-4">Fiz este passo</label>
+    </div>
+    <figure class="ilu" data-term='{"os":"mac","linhas":[["p","~ % ","claude --version"],["o","2.1.211 (Claude Code)"],["p","~ % ",""]],"extra":"ok"}'><figcaption>Número + “(Claude Code)” = instalado.</figcaption></figure>
+  </article>
+
+  <div class="parabens hud" data-parabens="mac" hidden>
+    <svg viewBox="0 0 120 132" aria-hidden="true"><use href="#robo"/></svg>
+    <div><h3>Instalado no Mac!</h3><p>Agora vamos abrir o Claude Code pela primeira vez e fazer o login.</p></div>
+    <button class="btn prim" data-ir="primeiro-uso">Ir para o primeiro uso →</button>
+  </div>
+</section>
+
+<!-- ═════════ PRIMEIRO USO ═════════ -->
+<section class="painel" id="p-primeiro-uso" role="tabpanel" aria-labelledby="t-primeiro-uso" hidden>
+  <h2>Primeiro uso: login e o primeiro pedido</h2>
+  <p class="intro">Vale para Windows e Mac. Use o mesmo terminal da instalação (PowerShell ou Terminal). As telas do Claude Code aparecem <strong>em inglês</strong>; abaixo está o que cada uma quer dizer.</p>
+  <ol class="rota" data-grupo="primeiro-uso" style="--n:3"><span class="trilho"></span>
+    <li><button data-alvo="uso-1"><span class="bola">1</span>Criar a pasta</button></li>
+    <li><button data-alvo="uso-2"><span class="bola">2</span>Abrir e entrar</button></li>
+    <li><button data-alvo="uso-3"><span class="bola">3</span>Primeiro pedido</button></li>
+  </ol>
+
+  <article class="passo hud anima" id="uso-1" data-grupo="primeiro-uso" style="--i:0">
+    <div>
+      <h3><span class="num">1</span>Crie uma pasta só para ele</h3>
+      <p>O Claude Code trabalha <strong>dentro da pasta em que você está</strong>. Para treinar, crie uma pasta nova e vazia e entre nela. Cole um comando de cada vez, com <kbd>Enter</kbd> depois de cada um:</p>
+      <div class="cmd"><code>mkdir meu-primeiro-projeto</code><button class="copiar" type="button">Copiar</button></div>
+      <div class="cmd"><code>cd meu-primeiro-projeto</code><button class="copiar" type="button">Copiar</button></div>
+      <div class="ver"><b>Em português:</b> <code class="in">mkdir</code> cria a pasta; <code class="in">cd</code> entra nela. O nome da pasta passa a aparecer na linha do terminal.</div>
+      <label class="feito-lbl"><input type="checkbox" class="chk" id="chk-uso-1">Fiz este passo</label>
+    </div>
+    <figure class="ilu" data-term='{"os":"win","linhas":[["p","PS C:\\Users\\voce> ","mkdir meu-primeiro-projeto"],["p","PS C:\\Users\\voce> ","cd meu-primeiro-projeto"],["p","PS …\\meu-primeiro-projeto> ",""]],"extra":"pasta"}'><figcaption>A linha agora termina com o nome da pasta.</figcaption></figure>
+  </article>
+
+  <article class="passo hud anima" id="uso-2" data-grupo="primeiro-uso" style="--i:1">
+    <div>
+      <h3><span class="num">2</span>Abra o Claude Code e faça o login</h3>
+      <div class="cmd"><code>claude</code><button class="copiar" type="button">Copiar</button></div>
+      <p>Na primeira vez, ele faz algumas perguntas. Use as setas <kbd>↑</kbd> <kbd>↓</kbd> para escolher e <kbd>Enter</kbd> para confirmar:</p>
+      <ol>
+        <li><strong>Estilo do texto</strong> (cores claras ou escuras): escolha o que for mais confortável de ler.</li>
+        <li><strong>Forma de login</strong>: escolha a <strong>conta do Claude com assinatura</strong>. O navegador abre sozinho.</li>
+        <li>No navegador, entre na sua conta do Claude e clique em <strong>Autorizar</strong>. Depois volte para o terminal.</li>
+        <li><strong>“Você confia nos arquivos desta pasta?”</strong>: como a pasta é sua e está vazia, confirme que sim.</li>
+      </ol>
+      <div class="ver atencao"><b>O navegador não abriu?</b> O terminal mostra um endereço começando com <code class="in">https://</code>. Copie, cole no navegador e, se aparecer um código, cole-o de volta no terminal.</div>
+      <label class="feito-lbl"><input type="checkbox" class="chk" id="chk-uso-2">Fiz este passo</label>
+    </div>
+    <figure class="ilu">
+      <svg viewBox="0 0 360 236" role="img" aria-label="O terminal abre o navegador; no navegador há um botão Autorizar sendo clicado">
+        <rect x="8" y="40" width="150" height="130" rx="9" fill="#0b0f14" stroke="rgba(255,255,255,.16)"/>
+        <rect x="8" y="40" width="150" height="22" rx="9" fill="#141a21"/><rect x="8" y="54" width="150" height="8" fill="#141a21"/>
+        <circle cx="22" cy="51" r="4" fill="#ff5f57"/><circle cx="34" cy="51" r="4" fill="#febc2e"/><circle cx="46" cy="51" r="4" fill="#28c840"/>
+        <text x="18" y="84" font-family="JetBrains Mono,monospace" font-size="11.5"><tspan fill="#7FD4E6">&gt; </tspan><tspan fill="#fff">claude</tspan></text>
+        <text x="18" y="106" font-family="JetBrains Mono,monospace" font-size="10.5" fill="rgba(255,255,255,.5)">abrindo o</text>
+        <text x="18" y="121" font-family="JetBrains Mono,monospace" font-size="10.5" fill="rgba(255,255,255,.5)">navegador…</text>
+        <rect x="18" y="138" width="7" height="13" fill="#FF904D" class="cursor-svg"/>
+        <path class="fluxo" d="M162 104 C 182 80, 186 80, 200 92" stroke="#FFC766" stroke-width="2.5" fill="none" stroke-dasharray="6 6" stroke-linecap="round"/>
+        <path d="m195 84 7 9-11 2" stroke="#FFC766" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="186" y="22" width="166" height="190" rx="10" fill="#f4f1ea"/>
+        <rect x="186" y="22" width="166" height="26" rx="10" fill="#dcd7cc"/><rect x="186" y="40" width="166" height="8" fill="#dcd7cc"/>
+        <rect x="200" y="30" width="138" height="12" rx="6" fill="#fff"/>
+        <text x="208" y="40" font-family="Inter,sans-serif" font-size="9" fill="#555">claude.ai</text>
+        <text x="200" y="76" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#1a1a1a">Autorizar acesso</text>
+        <text x="200" y="94" font-family="Inter,sans-serif" font-size="10" fill="#555">O Claude Code quer usar</text>
+        <text x="200" y="107" font-family="Inter,sans-serif" font-size="10" fill="#555">a sua conta.</text>
+        <rect x="200" y="124" width="138" height="12" rx="3" fill="#e5e0d6"/>
+        <rect class="botao-pulsa" x="200" y="150" width="138" height="34" rx="8" fill="#FF904D"/>
+        <text x="245" y="172" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#1a0d04">Autorizar</text>
+        <use class="mouse" href="#seta" x="300" y="166" width="20" height="28"/>
+        <use href="#robo" x="40" y="176" width="52" height="58"/>
+      </svg>
+      <figcaption>Terminal → navegador → Autorizar → volte ao terminal.</figcaption>
+    </figure>
+  </article>
+
+  <article class="passo hud anima" id="uso-3" data-grupo="primeiro-uso" style="--i:2">
+    <div>
+      <h3><span class="num">3</span>Faça o primeiro pedido</h3>
+      <p>Escreva em português, como numa conversa, e aperte <kbd>Enter</kbd>. Por exemplo:</p>
+      <div class="cmd"><code>Crie um arquivo chamado ideias.txt com cinco nomes divertidos para um gato.</code><button class="copiar" type="button">Copiar</button></div>
+      <p>Antes de criar o arquivo, ele <strong>pede sua permissão</strong>. Leia o que ele vai fazer e escolha <strong>Yes</strong> (sim). Depois abra a pasta <strong>meu-primeiro-projeto</strong> no seu computador: o arquivo estará lá.</p>
+      <div class="ver"><b>Regra de ouro:</b> leia sempre o pedido de permissão antes de aceitar. Se não entender, escolha <strong>No</strong> e pergunte a ele o que aquilo faz.</div>
+      <label class="feito-lbl"><input type="checkbox" class="chk" id="chk-uso-3">Fiz este passo</label>
+    </div>
+    <figure class="ilu">
+      <svg viewBox="0 0 360 236" role="img" aria-label="Terminal com o pedido escrito em português e uma caixa perguntando se pode criar o arquivo, com a opção Sim destacada">
+        <rect x="6" y="8" width="348" height="220" rx="10" fill="#0b0f14" stroke="rgba(255,255,255,.16)"/>
+        <rect x="6" y="8" width="348" height="24" rx="10" fill="#141a21"/><rect x="6" y="24" width="348" height="8" fill="#141a21"/>
+        <circle cx="22" cy="20" r="4.5" fill="#ff5f57"/><circle cx="36" cy="20" r="4.5" fill="#febc2e"/><circle cx="50" cy="20" r="4.5" fill="#28c840"/>
+        <g font-family="JetBrains Mono,monospace" font-size="11.5">
+          <text x="20" y="56"><tspan fill="#7FD4E6">&gt; </tspan><tspan fill="#fff">Crie um arquivo chamado ideias.txt</tspan></text>
+          <text x="34" y="72" fill="#fff">com cinco nomes divertidos para um gato.</text>
+          <text x="20" y="98" fill="#FFC766">● Vou criar o arquivo ideias.txt</text>
+        </g>
+        <rect x="20" y="112" width="252" height="100" rx="8" fill="rgba(255,144,77,.08)" stroke="#FF904D" stroke-width="1.5"/>
+        <g font-family="JetBrains Mono,monospace" font-size="11.5">
+          <text x="32" y="134" fill="#fff" font-weight="700">Criar ideias.txt?</text>
+          <rect x="28" y="144" width="200" height="22" rx="4" fill="rgba(255,144,77,.25)"/>
+          <text x="36" y="160" fill="#FF904D" font-weight="700">❯ 1. Yes (sim)</text>
+          <text x="36" y="186" fill="rgba(255,255,255,.55)">  2. No (não)</text>
+        </g>
+        <use href="#robo" x="282" y="128" width="66" height="72"/>
+      </svg>
+      <figcaption>Ele sempre pergunta antes de criar ou mudar arquivos.</figcaption>
+    </figure>
+  </article>
+
+  <div class="parabens hud" data-parabens="primeiro-uso" hidden>
+    <svg viewBox="0 0 120 132" aria-hidden="true"><use href="#robo"/></svg>
+    <div><h3>Você já está usando o Claude Code!</h3><p>Guarde a tabela abaixo: são os comandos que mais vai usar no dia a dia.</p></div>
+    <button class="btn" data-ir="perguntas">Ver perguntas frequentes →</button>
+  </div>
+
+  <h3 class="subtit" style="margin-top:44px">Comandos para guardar</h3>
+  <div class="tabela-wrap">
+    <table>
+      <thead><tr><th>Comando ou tecla</th><th>O que faz</th></tr></thead>
+      <tbody>
+        <tr><td><code class="in">claude</code></td><td>Abre o Claude Code na pasta em que o terminal está.</td></tr>
+        <tr><td><kbd>Esc</kbd></td><td>Interrompe o que ele está fazendo, quando você quiser parar ou mudar o pedido.</td></tr>
+        <tr><td><code class="in">/help</code></td><td>Mostra a lista de comandos disponíveis.</td></tr>
+        <tr><td><code class="in">/clear</code></td><td>Começa uma conversa nova, do zero.</td></tr>
+        <tr><td><code class="in">/resume</code></td><td>Volta a uma conversa anterior.</td></tr>
+        <tr><td><code class="in">/exit</code></td><td>Fecha o Claude Code e devolve o terminal.</td></tr>
+        <tr><td><code class="in">claude doctor</code></td><td>Diagnóstico da instalação. Use no terminal, fora do Claude, quando algo estiver estranho.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="subtit">Prefere não usar o terminal?</h3>
+  <div class="grade4" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))">
+    <div class="cartao hud"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 8h18"/></svg></div><h3>App Claude para computador</h3><p>O aplicativo do Claude para Windows e Mac tem uma aba <strong>Code</strong> que faz o mesmo trabalho, com botões e janelas. Baixe em claude.ai/download.</p></div>
+    <div class="cartao hud"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 7-5 5 5 5M16 7l5 5-5 5"/></svg></div><h3>Extensão do VS Code</h3><p>Quem já usa o editor VS Code pode instalar a extensão <strong>Claude Code</strong> (<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>X</kbd> e busque o nome).</p></div>
+    <div class="cartao hud"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></div><h3>No navegador</h3><p>Também há uma versão web em <strong>claude.ai/code</strong>. Todas essas opções exigem um plano pago.</p></div>
+  </div>
+</section>
+
+<!-- ═════════ DEU ERRO? ═════════ -->
+<section class="painel" id="p-erros" role="tabpanel" aria-labelledby="t-erros" hidden>
+  <h2>Deu erro? Calma, quase sempre é simples</h2>
+  <p class="intro">Copie um pedaço da mensagem que apareceu no seu terminal e cole na busca. Os erros abaixo são os mais comuns na instalação.</p>
+  <label class="busca"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input type="search" id="busca-erro" placeholder="Ex.: não é reconhecido" autocomplete="off" aria-label="Buscar pela mensagem de erro"></label>
+  <div class="erros" id="lista-erros">
+    <article class="erro hud">
+      <h3>O comando <code class="in">claude</code> não funciona depois de instalar</h3>
+      <div class="sintoma">O termo 'claude' não é reconhecido como nome de cmdlet… / command not found: claude</div>
+      <p><b>Por quê:</b> a janela foi aberta antes da instalação, ou o computador ainda não sabe em que pasta o programa ficou.</p>
+      <p><b>Resolva:</b> primeiro, feche o terminal e abra outro. Se continuar, cole o comando do seu sistema, aperte <kbd>Enter</kbd> e abra uma janela nova de novo.</p>
+      <p class="rotulo-cmd">Windows (PowerShell):</p>
+      <div class="cmd"><code>[Environment]::SetEnvironmentVariable('PATH', [Environment]::GetEnvironmentVariable('PATH','User') + ";$env:USERPROFILE\.local\bin", 'User')</code><button class="copiar" type="button">Copiar</button></div>
+      <p class="rotulo-cmd">Mac (Terminal):</p>
+      <div class="cmd"><code>echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc</code><button class="copiar" type="button">Copiar</button></div>
+    </article>
+    <article class="erro hud">
+      <h3>“irm” não é reconhecido</h3>
+      <div class="sintoma">'irm' não é reconhecido como um comando interno ou externo, um programa operável ou um arquivo em lotes.</div>
+      <p><b>Por quê:</b> a janela aberta é o Prompt de Comando (CMD), não o PowerShell.</p>
+      <p><b>Resolva:</b> feche e abra o <b>PowerShell</b> (passo 1 do Windows). Ou use o comando alternativo para CMD, que está no passo 2.</p>
+    </article>
+    <article class="erro hud">
+      <h3>Erro com “&amp;&amp;” no PowerShell</h3>
+      <div class="sintoma">O token '&amp;&amp;' não é um separador de instrução válido nesta versão.</div>
+      <p><b>Por quê:</b> você colou no PowerShell o comando feito para o CMD.</p>
+      <p><b>Resolva:</b> use o comando principal do passo 2: <code class="in">irm https://claude.ai/install.ps1 | iex</code>.</p>
+    </article>
+    <article class="erro hud">
+      <h3>Comando do Mac usado no Windows</h3>
+      <div class="sintoma">'bash' não é reconhecido… / Não é possível localizar um parâmetro que coincida com o nome de parâmetro 'fsSL'</div>
+      <p><b>Por quê:</b> o comando com <code class="in">curl … | bash</code> é só para Mac.</p>
+      <p><b>Resolva:</b> no Windows, use o comando do passo 2 da aba Windows.</p>
+    </article>
+    <article class="erro hud">
+      <h3>“A execução de scripts foi desabilitada”</h3>
+      <div class="sintoma">… não pode ser carregado porque a execução de scripts foi desabilitada neste sistema.</div>
+      <p><b>Por quê:</b> isso acontece quando o Claude Code foi instalado por outro caminho (o npm). O instalador desta página não é afetado.</p>
+      <p><b>Resolva:</b> instale pelo comando do passo 2. Se precisar manter o npm, este comando libera scripts só para o seu usuário. Em computador de empresa, pergunte antes à equipe de TI.</p>
+      <div class="cmd"><code>Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser</code><button class="copiar" type="button">Copiar</button></div>
+    </article>
+    <article class="erro hud">
+      <h3>O login não funciona ou a conta não tem acesso</h3>
+      <div class="sintoma">O navegador não abriu / a conta não tem acesso ao Claude Code</div>
+      <p><b>Por quê:</b> o navegador pode não abrir sozinho, ou a conta usada é do plano gratuito, que não inclui o Claude Code.</p>
+      <p><b>Resolva:</b> copie o endereço <code class="in">https://</code> que aparece no terminal e cole no navegador. Confira se a conta tem plano Pro ou superior. Para trocar de conta, digite <code class="in">/login</code> dentro do Claude Code.</p>
+    </article>
+    <article class="erro hud">
+      <h3>Erro estranho logo ao instalar</h3>
+      <div class="sintoma">syntax error near unexpected token '&lt;' / erro 403</div>
+      <p><b>Por quê:</b> em vez do instalador, a internet devolveu uma página web. Costuma acontecer em redes de empresa com bloqueio, ou em países onde o Claude não é oferecido.</p>
+      <p><b>Resolva:</b> tente em outra rede (a de casa, por exemplo). No computador do trabalho, peça ajuda à equipe de TI.</p>
+    </article>
+    <article class="erro hud">
+      <h3>Nada acima resolveu</h3>
+      <div class="sintoma">Qualquer outro problema</div>
+      <p><b>Resolva:</b> rode o diagnóstico abaixo, que aponta o que está errado e sugere a correção. Se ainda assim travar, consulte a página oficial de solução de problemas, em inglês: <a href="https://code.claude.com/docs/en/troubleshoot-install">code.claude.com/docs/en/troubleshoot-install</a>.</p>
+      <div class="cmd"><code>claude doctor</code><button class="copiar" type="button">Copiar</button></div>
+    </article>
+  </div>
+  <p class="vazio" id="erros-vazio" hidden>Nenhum erro com esse texto. Tente uma palavra só, como <b>reconhecido</b> ou <b>login</b>, ou rode <code class="in">claude doctor</code>.</p>
+</section>
+
+<!-- ═════════ PERGUNTAS ═════════ -->
+<section class="painel" id="p-perguntas" role="tabpanel" aria-labelledby="t-perguntas" hidden>
+  <div class="faq-grade">
+    <div class="faq-arte">
+      <h2>Perguntas frequentes</h2>
+      <p class="intro">As dúvidas que mais aparecem de quem está começando.</p>
+      <svg viewBox="0 0 220 200" aria-hidden="true" style="width:100%;max-width:260px">
+        <g class="duvida" font-family="Inter,sans-serif" font-weight="800">
+          <text x="18" y="70" font-size="46" fill="#FFC766">?</text>
+          <text x="170" y="56" font-size="34" fill="#7FD4E6">?</text>
+          <text x="184" y="132" font-size="26" fill="#FF904D">?</text>
+        </g>
+        <use href="#robo" x="50" y="40" width="130" height="143"/>
+      </svg>
+    </div>
+    <div class="faq">
+      <details><summary>Preciso saber programar?</summary><div class="resp"><p>Não. Você escreve em português o que quer, como numa conversa. O terminal só entra para instalar e para abrir o programa.</p></div></details>
+      <details><summary>É de graça?</summary><div class="resp"><p>Não. O Claude Code exige um <strong>plano pago</strong> do Claude (Pro, Max, Team ou Enterprise) ou uma conta do Console da Anthropic com créditos. O plano gratuito do site não dá acesso. Os preços estão em claude.ai.</p></div></details>
+      <details><summary>Preciso ser administrador do computador?</summary><div class="resp"><p>Não. O instalador coloca o programa dentro da sua pasta de usuário. Em computadores de empresa ou órgão público, porém, a equipe de TI pode bloquear instalações; nesse caso, peça autorização antes.</p></div></details>
+      <details><summary>Preciso instalar Node.js, Python ou Git antes?</summary><div class="resp"><p>Não. O instalador desta página já traz tudo. No Windows, o Git é opcional: sem ele, o Claude Code usa o próprio PowerShell.</p></div></details>
+      <details><summary>Qual a diferença para o Claude do site ou do aplicativo?</summary><div class="resp"><p>O Claude do site conversa e devolve texto. O Claude Code também conversa, mas <strong>age</strong>: lê e cria arquivos na pasta em que foi aberto e executa tarefas no computador, sempre pedindo sua permissão antes.</p></div></details>
+      <details><summary>É seguro deixar o Claude mexer nos meus arquivos?</summary><div class="resp"><p>Ele pede autorização antes de criar ou mudar arquivos e antes de rodar comandos. Três cuidados bastam no começo:</p><p><strong>1.</strong> Abra sempre dentro de uma pasta própria, nunca na pasta pessoal inteira. <strong>2.</strong> Leia cada pedido de permissão antes de aceitar. <strong>3.</strong> Não use documentos confidenciais nem dados pessoais de outras pessoas sem autorização de quem responde por eles.</p></div></details>
+      <details><summary>Ele se atualiza sozinho?</summary><div class="resp"><p>Sim, na instalação desta página: a atualização acontece em segundo plano e vale na próxima vez que você abrir. Para atualizar na hora, use <code class="in">claude update</code>. Quem instalou pelo Homebrew ou WinGet precisa atualizar manualmente.</p></div></details>
+      <details><summary>Fechei a janela sem querer. Perdi tudo?</summary><div class="resp"><p>Não. Os arquivos criados continuam na pasta. Para continuar a conversa, abra o terminal na mesma pasta, digite <code class="in">claude</code> e depois <code class="in">/resume</code> para escolher a conversa anterior.</p></div></details>
+      <details><summary>Posso usar em mais de um computador?</summary><div class="resp"><p>Sim. Instale em cada um e faça login com a mesma conta.</p></div></details>
+      <details><summary>Funciona no Linux? E no celular?</summary><div class="resp"><p>No Linux, sim: use o mesmo comando do Mac. No celular não há instalação, mas a versão web em claude.ai/code funciona pelo navegador. O Windows de 32 bits não é suportado.</p></div></details>
+      <details><summary>Como desinstalar?</summary><div class="resp"><p>No <strong>Windows</strong>, cole no PowerShell, um de cada vez:</p><div class="cmd"><code>Remove-Item -Path "$env:USERPROFILE\.local\bin\claude.exe" -Force</code><button class="copiar" type="button">Copiar</button></div><div class="cmd"><code>Remove-Item -Path "$env:USERPROFILE\.local\share\claude" -Recurse -Force</code><button class="copiar" type="button">Copiar</button></div><p>No <strong>Mac</strong>, cole no Terminal:</p><div class="cmd"><code>rm -f ~/.local/bin/claude && rm -rf ~/.local/share/claude</code><button class="copiar" type="button">Copiar</button></div><p>Seus arquivos de trabalho não são apagados. As configurações e o histórico ficam na pasta <code class="in">.claude</code> da sua pasta de usuário; apague-a só se quiser zerar tudo.</p></div></details>
+    </div>
+  </div>
+</section>
+
+</div>
+</main>
+
+<footer class="faixa rodape">
+  <div class="miolo" data-editavel>
+    <p>Baseado na documentação oficial do Claude Code (<a href="https://code.claude.com/docs/en/setup">code.claude.com/docs</a>), conferida em 26/11/2026. Os comandos podem mudar; em caso de dúvida, vale o que está na página oficial.</p>
+    <p>O número de versão mostrado nos exemplos é ilustrativo.</p>
+  </div>
+</footer>
+
+<canvas id="confete" aria-hidden="true"></canvas>
+
+<style>
+.cursor-svg{animation:pisca 1s steps(1) infinite}
+.mouse{animation:mouse 2.6s ease-in-out infinite}
+@keyframes mouse{0%,100%{transform:translate(0,0)}50%{transform:translate(-10px,-8px)}}
+.fluxo{animation:fluxo 1s linear infinite}
+@keyframes fluxo{to{stroke-dashoffset:-12}}
+.botao-pulsa{animation:pulsa 1.6s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes pulsa{50%{transform:scale(1.05)}}
+.gira{animation:gira 1.2s linear infinite;transform-box:fill-box;transform-origin:center}
+@keyframes gira{to{transform:rotate(360deg)}}
+.duvida text{animation:flutua 3s ease-in-out infinite}
+.duvida text:nth-child(2){animation-delay:-1s}
+.duvida text:nth-child(3){animation-delay:-2s}
+.papel-voa{animation:flutua 3.6s ease-in-out infinite}
+</style>
+
+<script>
+{
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const ABAS = ['antes', 'windows', 'mac', 'primeiro-uso', 'erros', 'perguntas'];
+  const GRUPOS = ['windows', 'mac', 'primeiro-uso'];
+  const reduz = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const CH_PROG = 'guia-claude-code:progresso:v1';
+  const ler = () => { try { return JSON.parse(localStorage.getItem(CH_PROG)) || {}; } catch (e) { return {}; } };
+  const gravar = v => { try { localStorage.setItem(CH_PROG, JSON.stringify(v)); } catch (e) {} };
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+  /* ---------- ilustrações de terminal (geradas a partir de data-term) ---------- */
+  const desenhaTerminal = cfg => {
+    const W = 360, H = 236, fs = 11.5, cw = fs * 0.6, x0 = 22, max = Math.floor((W - x0 - 24) / cw);
+    const mac = cfg.os === 'mac';
+    let y = 66, linhas = '';
+    for (const [tipo, a, b] of cfg.linhas) {
+      if (tipo === 'p') {
+        let resto = a + (b || '');
+        const pedacos = [];
+        while (resto.length > max) {
+          let corte = resto.lastIndexOf(' ', max);
+          if (corte <= 0 || (!pedacos.length && corte < a.length)) corte = max;
+          pedacos.push(resto.slice(0, corte));
+          resto = resto.slice(corte).replace(/^ /, '');
+        }
+        pedacos.push(resto);
+        pedacos.forEach((p, i) => {
+          if (i === 0) linhas += `<text x="${x0}" y="${y}"><tspan fill="#7FD4E6">${esc(p.slice(0, a.length))}</tspan><tspan fill="#fff">${esc(p.slice(a.length))}</tspan></text>`;
+          else linhas += `<text x="${x0}" y="${y}" fill="#fff">${esc(p)}</text>`;
+          y += 20;
+        });
+        if (!b) linhas += `<rect class="cursor-svg" x="${x0 + a.length * cw + 2}" y="${y - 34}" width="7" height="14" fill="#FF904D"/>`;
+      } else {
+        const cor = tipo === 'o' ? '#FFC766' : 'rgba(255,255,255,.45)';
+        if (a) linhas += `<text x="${x0}" y="${y}" fill="${cor}">${esc(a)}</text>`;
+        y += 20;
+      }
+    }
+    const barra = mac
+      ? `<circle cx="24" cy="23" r="5" fill="#ff5f57"/><circle cx="40" cy="23" r="5" fill="#febc2e"/><circle cx="56" cy="23" r="5" fill="#28c840"/><text x="180" y="27" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="rgba(255,255,255,.5)">Terminal</text>`
+      : `<text x="18" y="27" font-family="Inter,sans-serif" font-size="11" fill="rgba(255,255,255,.55)">Windows PowerShell</text><text x="300" y="27" font-family="Inter,sans-serif" font-size="12" fill="rgba(255,255,255,.5)">–   ▢   ✕</text>`;
+    let extra = '';
+    const tecla = (x, t, w) => `<rect x="${x}" y="176" width="${w}" height="38" rx="7" fill="#22252b" stroke="rgba(255,255,255,.3)"/><rect x="${x}" y="206" width="${w}" height="8" rx="4" fill="#15171b"/><text x="${x + w / 2}" y="199" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#fff">${t}</text>`;
+    if (cfg.extra === 'colar') extra = tecla(150, mac ? '⌘' : 'Ctrl', 54) + `<text x="214" y="200" font-family="Inter,sans-serif" font-size="18" font-weight="700" fill="#FFC766">+</text>` + tecla(232, 'V', 40) + `<use href="#robo" x="290" y="150" width="56" height="62"/>`;
+    if (cfg.extra === 'espera') extra = `<circle cx="180" cy="150" r="30" stroke="rgba(255,255,255,.1)" stroke-width="6" fill="none"/><path class="gira" d="M180 120a30 30 0 0 1 30 30" stroke="#FF904D" stroke-width="6" fill="none" stroke-linecap="round"/><text x="180" y="204" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="rgba(255,255,255,.6)">aguarde…</text><use href="#robo" x="290" y="150" width="56" height="62"/>`;
+    if (cfg.extra === 'ok') extra = `<circle cx="300" cy="178" r="26" fill="#7FD4E6"/><path d="m288 178 8 8 16-17" stroke="#00222a" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><use href="#robo" x="200" y="150" width="56" height="62"/>`;
+    if (cfg.extra === 'pasta') extra = `<path d="M188 146h44l9 10h99a6 6 0 0 1 6 6v42a6 6 0 0 1-6 6H188a6 6 0 0 1-6-6v-52a6 6 0 0 1 6-6z" fill="#FFC766"/><path d="M182 168h164v36a6 6 0 0 1-6 6H188a6 6 0 0 1-6-6z" fill="#f0b24d"/><text x="264" y="195" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11" font-weight="700" fill="#1a0d04">meu-primeiro-projeto</text><use href="#robo" x="120" y="156" width="52" height="58"/>`;
+    return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Ilustração de terminal"><rect x="4" y="6" width="${W - 8}" height="${H - 12}" rx="10" fill="#0b0f14" stroke="rgba(255,255,255,.16)"/><path d="M4 16a10 10 0 0 1 10-10h${W - 28}a10 10 0 0 1 10 10v24H4z" fill="#141a21"/>${barra}<g font-family="JetBrains Mono,monospace" font-size="${fs}">${linhas}</g>${extra}</svg>`;
+  };
+  const montaIlustracoes = () => $$('figure[data-term]').forEach(f => {
+    try {
+      const cfg = JSON.parse(f.dataset.term);
+      const velho = f.querySelector('svg'); if (velho) velho.remove();
+      f.insertAdjacentHTML('afterbegin', desenhaTerminal(cfg));
+    } catch (e) { /* mantém só a legenda */ }
+  });
+
+  /* ---------- abas ---------- */
+  const indicador = $('#indicador'), abas = $('#abas'), nav = $('.abas-wrap');
+  const moverIndicador = () => {
+    const b = $('.aba[aria-selected="true"]'); if (!b) return;
+    indicador.style.width = b.offsetWidth + 'px';
+    indicador.style.transform = `translateX(${b.offsetLeft}px)`;
+    const alvo = b.offsetLeft - (abas.clientWidth - b.offsetWidth) / 2;
+    abas.scrollTo({ left: Math.max(0, alvo), behavior: reduz ? 'auto' : 'smooth' });
+  };
+  const abrir = (id, opc = {}) => {
+    if (!ABAS.includes(id)) id = 'antes';
+    $$('.aba').forEach(b => { const s = b.dataset.aba === id; b.setAttribute('aria-selected', s ? 'true' : 'false'); b.tabIndex = s ? 0 : -1; });
+    $$('.painel').forEach(p => {
+      const s = p.id === 'p-' + id;
+      p.hidden = !s;
+      if (s && !reduz) { p.classList.remove('entra'); void p.offsetWidth; p.classList.add('entra'); }
+    });
+    moverIndicador();
+    try { history.replaceState(null, '', '#' + id); } catch (e) {}
+    if (opc.rolar) { const topo = $('#conteudo').getBoundingClientRect().top + scrollY - nav.offsetHeight; if (scrollY > topo + 2 || opc.forcar) scrollTo({ top: Math.max(0, topo), behavior: reduz ? 'auto' : 'smooth' }); }
+    if (opc.foco) $(`.aba[data-aba="${id}"]`).focus();
+  };
+  abas.addEventListener('keydown', e => {
+    const i = ABAS.indexOf($('.aba[aria-selected="true"]').dataset.aba);
+    const mapa = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: ABAS.length - 1 };
+    if (!(e.key in mapa)) return;
+    e.preventDefault();
+    abrir(ABAS[(mapa[e.key] + ABAS.length) % ABAS.length], { foco: true });
+  });
+  addEventListener('hashchange', () => { const h = location.hash.slice(1); if (ABAS.includes(h)) abrir(h); });
+  addEventListener('resize', moverIndicador);
+
+  /* ---------- progresso ---------- */
+  let celebrados = {};
+  const atualizar = celebrar => {
+    const prog = ler();
+    $$('input.chk').forEach(c => { c.checked = !!prog[c.id]; c.closest('.passo').classList.toggle('feito', c.checked); });
+    for (const g of GRUPOS) {
+      const passos = $$(`.passo[data-grupo="${g}"]`);
+      const feitos = passos.map(p => !!$('input.chk', p)?.checked);
+      const n = feitos.filter(Boolean).length, total = passos.length;
+      const rota = $(`.rota[data-grupo="${g}"]`);
+      if (rota) {
+        let seguidos = 0; while (seguidos < total && feitos[seguidos]) seguidos++;
+        rota.style.setProperty('--p', seguidos <= 1 ? 0 : (seguidos - 1) / (total - 1));
+        $$('li', rota).forEach((li, i) => { li.classList.toggle('feito', feitos[i]); const bola = $('.bola', li); if (bola) bola.textContent = feitos[i] ? '✓' : String(i + 1); });
+      }
+      const completo = total > 0 && n === total;
+      $(`.aba[data-aba="${g}"]`)?.classList.toggle('completa', completo);
+      const pb = $(`[data-parabens="${g}"]`); if (pb) pb.hidden = !completo;
+      if (completo && celebrar === g && !celebrados[g]) { celebrados[g] = true; confete(); }
+      if (!completo) celebrados[g] = false;
+    }
+  };
+
+  /* ---------- confete ---------- */
+  const cv = $('#confete'), ctx = cv.getContext('2d');
+  const confete = () => {
+    if (reduz) return;
+    const dpr = Math.min(devicePixelRatio || 1, 2), W = innerWidth, H = innerHeight;
+    cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const cores = ['#FF904D', '#FFC766', '#7FD4E6', '#ffffff'];
+    let s = 7;
+    const rnd = () => (s = s * 16807 % 2147483647) / 2147483647;
+    const ps = Array.from({ length: 170 }, () => ({ x: W / 2 + (rnd() - .5) * W * .3, y: H * .35, vx: (rnd() - .5) * 15, vy: -rnd() * 15 - 4, r: rnd() * 6.3, vr: (rnd() - .5) * .35, w: 6 + rnd() * 6, h: 4 + rnd() * 6, c: cores[Math.floor(rnd() * cores.length)] }));
+    const t0 = performance.now();
+    const passo = t => {
+      const dt = t - t0; ctx.clearRect(0, 0, W, H);
+      ctx.globalAlpha = Math.max(0, 1 - Math.max(0, dt - 1800) / 900);
+      for (const p of ps) { p.vy += .38; p.vx *= .99; p.x += p.vx; p.y += p.vy; p.r += p.vr; ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.r); ctx.fillStyle = p.c; ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h); ctx.restore(); }
+      if (dt < 2700) requestAnimationFrame(passo); else ctx.clearRect(0, 0, W, H);
+    };
+    requestAnimationFrame(passo);
+  };
+
+  /* ---------- copiar ---------- */
+  const copiar = async bt => {
+    const code = bt.parentElement.querySelector('code'); if (!code) return;
+    const texto = code.textContent;
+    let ok = false;
+    try { await navigator.clipboard.writeText(texto); ok = true; } catch (e) {
+      try { const r = document.createRange(); r.selectNodeContents(code); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); ok = document.execCommand('copy'); } catch (e2) {}
+    }
+    bt.textContent = ok ? 'Copiado!' : 'Selecione e copie';
+    bt.classList.toggle('ok', ok);
+    clearTimeout(bt._t); bt._t = setTimeout(() => { bt.textContent = 'Copiar'; bt.classList.remove('ok'); }, 1800);
+  };
+
+  /* ---------- cliques (delegação: sobrevive à edição de texto) ---------- */
+  document.addEventListener('click', e => {
+    const aba = e.target.closest('.aba'); if (aba) { abrir(aba.dataset.aba); return; }
+    const ir = e.target.closest('[data-ir]'); if (ir) { e.preventDefault(); abrir(ir.dataset.ir, { rolar: true, forcar: true }); return; }
+    const cp = e.target.closest('.copiar'); if (cp) { copiar(cp); return; }
+    const al = e.target.closest('.rota button'); if (al) { $('#' + al.dataset.alvo)?.scrollIntoView({ behavior: reduz ? 'auto' : 'smooth', block: 'start' }); return; }
+    const dm = e.target.closest('[data-demo]'); if (dm) { demo.trocar(dm.dataset.demo); }
+  });
+  document.addEventListener('change', e => {
+    if (!e.target.matches('input.chk')) return;
+    const prog = ler(); prog[e.target.id] = e.target.checked; gravar(prog);
+    atualizar(e.target.closest('.passo')?.dataset.grupo);
+  });
+
+  /* ---------- busca de erros ---------- */
+  const norm = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  document.addEventListener('input', e => {
+    if (e.target.id !== 'busca-erro') return;
+    const q = norm(e.target.value.trim());
+    let vis = 0;
+    $$('#lista-erros .erro').forEach(c => { const m = !q || norm(c.textContent).includes(q); c.hidden = !m; if (m) vis++; });
+    $('#erros-vazio').hidden = vis > 0;
+  });
+
+  /* ---------- terminal do topo, digitando ---------- */
+  const ROTEIROS = {
+    windows: { nome: 'Windows PowerShell', p: 'PS C:\\Users\\voce> ', l: [['c', '# 1. cole o comando e aperte Enter'], ['p', 'irm https://claude.ai/install.ps1 | iex'], ['c', '# 2. espere o cursor voltar (não aparece barra de progresso)'], ['c', '# 3. abra uma janela nova e confira'], ['p', 'claude --version'], ['o', '2.1.211 (Claude Code)'], ['c', '# pronto! agora é só digitar: claude']] },
+    mac: { nome: 'Terminal', p: 'voce@mac ~ % ', l: [['c', '# 1. cole o comando e aperte Enter'], ['p', 'curl -fsSL https://claude.ai/install.sh | bash'], ['c', '# 2. espere a linha voltar (não aparece barra de progresso)'], ['c', '# 3. abra uma janela nova (⌘ + N) e confira'], ['p', 'claude --version'], ['o', '2.1.211 (Claude Code)'], ['c', '# pronto! agora é só digitar: claude']] }
+  };
+  const demo = (() => {
+    const pre = $('#demo'), nome = $('#demo-nome');
+    let so = 'windows', timer = null, gen = 0;
+    const linhaHTML = (r, [t, txt], parcial) => {
+      const s = parcial == null ? txt : txt.slice(0, parcial);
+      if (t === 'p') return `<span class="t-p">${esc(r.p)}</span>${esc(s)}`;
+      return `<span class="${t === 'o' ? 't-o' : 't-c'}">${esc(s)}</span>`;
+    };
+    const pinta = (r, n, parcial) => {
+      let h = r.l.slice(0, n).map(x => linhaHTML(r, x)).join('\n');
+      if (n < r.l.length) h += (n ? '\n' : '') + linhaHTML(r, r.l[n], parcial) + '<span class="cursor"></span>';
+      else h += '\n' + `<span class="t-p">${esc(r.p)}</span><span class="cursor"></span>`;
+      pre.innerHTML = h;
+    };
+    const roda = () => {
+      const r = ROTEIROS[so], g = ++gen;
+      nome.textContent = r.nome;
+      $$('[data-demo]').forEach(b => b.setAttribute('aria-pressed', b.dataset.demo === so ? 'true' : 'false'));
+      if (reduz) { pinta(r, r.l.length); return; }
+      let n = 0, c = 0;
+      const tick = () => {
+        if (g !== gen) return;
+        if (n >= r.l.length) { pinta(r, n); timer = setTimeout(roda, 5200); return; }
+        const [t, txt] = r.l[n];
+        if (t === 'p') {
+          if (c <= txt.length) { pinta(r, n, c); c++; timer = setTimeout(tick, 38 + Math.random() * 50); return; }
+          n++; c = 0; timer = setTimeout(tick, t === 'p' && txt.includes('irm') || txt.includes('curl') ? 1400 : 500);
+        } else { n++; pinta(r, n); timer = setTimeout(tick, t === 'o' ? 700 : 450); }
+      };
+      pinta(r, 0, 0); timer = setTimeout(tick, 600);
+    };
+    return { trocar: x => { so = x; clearTimeout(timer); roda(); }, iniciar: x => { so = x || so; roda(); } };
+  })();
+
+  /* ---------- sistema detectado ---------- */
+  const ua = navigator.userAgent || '';
+  const soDet = /Mac|iPhone|iPad/.test(ua) ? 'mac' : /Win/.test(ua) ? 'windows' : null;
+  if (soDet) {
+    const nomeSO = soDet === 'mac' ? 'um Mac' : 'um computador com Windows';
+    $('#detect').innerHTML = `Parece que você está usando <b>${nomeSO}</b>. Primeira vez? Leia antes a aba <b>Antes de começar</b>.`;
+    if (soDet === 'mac') { const a = $('#acoes-topo'), [bw, bm] = $$('.btn', a); bw.classList.remove('prim'); bm.classList.add('prim'); a.prepend(bm); }
+  }
+
+  /* ---------- início ---------- */
+  const iniciar = () => {
+    montaIlustracoes();
+    atualizar();
+    const h = location.hash.slice(1);
+    abrir(ABAS.includes(h) ? h : 'antes');
+  };
+  document.addEventListener('conteudo-trocado', iniciar);
+  iniciar();
+  demo.iniciar(soDet || 'windows');
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(moverIndicador);
+}
+</script>
+</body>
+</html>
