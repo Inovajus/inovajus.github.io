@@ -182,6 +182,13 @@ h3{letter-spacing:-.01em}
 .trad .t-desk{color:var(--muted);font-size:15.5px}
 .trad .t-desk b{color:var(--ink);font-weight:600}
 .vazio{color:var(--muted);padding:16px 0}
+.tabela-cmd{padding:6px 18px}
+.tc-linha{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.8fr) minmax(0,1.5fr);gap:16px;padding:12px 0;border-bottom:1px solid var(--borda);color:var(--muted);font-size:15.5px;align-items:baseline}
+.tc-linha:last-child{border-bottom:0}
+.tc-linha code{font:600 14.5px var(--mono);color:var(--accent2)}
+.tc-linha b{color:var(--ink);font-weight:600}
+.tc-cab{font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--softer);border-bottom-color:rgba(255,144,77,.5)}
+@media(max-width:700px){.tc-linha{grid-template-columns:minmax(0,1fr);gap:2px}.tc-cab{display:none}.tc-linha span:first-child{color:var(--ink);font-weight:600}}
 
 /* só de um lado */
 .lados{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;align-items:start}
@@ -443,6 +450,18 @@ h3{letter-spacing:-.01em}
     <div class="trad hud"><div class="t-term"><span class="qual">Controlar a tela do computador</span><code>/mcp</code> <span class="sem">(só Mac)</span></div><div class="seta-t" aria-hidden="true">→</div><div class="t-desk">Disponível no <b>Mac e no Windows</b>, nos planos Pro, Max e Ultra. Não existe nos planos Team e Enterprise.</div></div>
   </div>
   <p class="vazio" id="trad-vazio" hidden>Nada encontrado. Tente outra palavra, ou veja a aba <b>Só de um lado</b>: talvez esse recurso não exista no Desktop.</p>
+
+  <h3 class="subtit">Comandos com barra no Desktop</h3>
+  <p class="intro">Digitar <kbd>/</kbd> na caixa de pedido abre o menu de comandos, como no terminal. A documentação confirma que funcionam <code class="in">/compact</code>, <code class="in">/context</code>, <code class="in">/resume</code>, <code class="in">/status</code>, <code class="in">/code-review</code>, <code class="in">/btw</code>, <code class="in">/config</code> e <code class="in">/remote-control</code>, além das suas skills. Os cinco comandos que todo iniciante deveria conhecer ficam assim no app:</p>
+  <div class="tabela-cmd hud">
+    <div class="tc-linha tc-cab"><span>Para quê</span><span>No terminal</span><span>Na aba Code</span></div>
+    <div class="tc-linha"><span>Criar as instruções do projeto</span><code>/init</code><span>Peça: “Crie um CLAUDE.md com instruções para esta pasta”.</span></div>
+    <div class="tc-linha"><span>Planejar antes de mexer</span><code>/plan</code><span>Escolha <b>Plan</b> no seletor de modo.</span></div>
+    <div class="tc-linha"><span>Ver e liberar espaço na conversa</span><code>/context · /compact</code><span>Os dois funcionam na caixa de pedido.</span></div>
+    <div class="tc-linha"><span>Desfazer quando algo der errado</span><code>/rewind</code><span>Não confirmado. Trabalhe numa cópia da pasta ou com o Git.</span></div>
+    <div class="tc-linha"><span>Começar outro assunto</span><code>/clear</code><span><b>+ New session</b>, na barra lateral.</span></div>
+  </div>
+  <p class="intro" style="margin-top:18px">A lista completa, com 122 comandos e a situação de cada um no Desktop, está no guia <a href="https://inovajus.github.io/comandos-claude-code.html">Os comandos / do Claude Code</a>.</p>
 </section>
 
 <!-- ═════════ SÓ DE UM LADO ═════════ -->
@@ -542,7 +561,7 @@ h3{letter-spacing:-.01em}
 <footer class="faixa rodape">
   <div class="miolo" data-editavel>
     <p>Baseado na documentação oficial do Claude Code (<a href="https://code.claude.com/docs/en/desktop">code.claude.com/docs/en/desktop</a>), conferida em 27/11/2026. O aplicativo muda com frequência: em caso de dúvida, vale o que está na página oficial.</p>
-    <p>O desenho do aplicativo é simplificado e serve só para localizar os botões. Guia irmão: <a href="https://inovajus.github.io/instalar-claude-code.html">Instale o Claude Code no seu computador</a>.</p>
+    <p>O desenho do aplicativo é simplificado e serve só para localizar os botões. Guias irmãos: <a href="https://inovajus.github.io/instalar-claude-code.html">Instale o Claude Code no seu computador</a> e <a href="https://inovajus.github.io/comandos-claude-code.html">Os comandos / do Claude Code</a>.</p>
   </div>
 </footer>
 
