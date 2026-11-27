@@ -237,6 +237,8 @@ h2{font-size:2.05rem}
 .dl button:hover{background:var(--mira-icon-bg); border-color:var(--mira-icon-border); transform:translateX(4px)}
 .dl button svg:first-child{color:var(--mira-primary)}
 .dl button .pill{margin-left:auto}
+.dl .card.wide{grid-column:1 / -1}
+.dl .row{display:grid; grid-template-columns:repeat(auto-fit,minmax(15rem,1fr)); gap:.4rem}
 @media (max-width:900px){.dl{grid-template-columns:1fr}}
 
 /* ═══ Rodapé de navegação ═══ */
@@ -729,7 +731,7 @@ body.editing [contenteditable]:focus{outline:2px solid var(--mira-primary); back
 <section class="slide" id="s16" data-title="Documentos das Entregas 1 e 4" data-short="Para a demonstração">
  <div class="si">
   <p class="eyebrow">Para a demonstração</p>
-  <h2>Documentos das Entregas 1 e 4</h2>
+  <h2>Documentos das Entregas 1 e 4 e documentos de base</h2>
   <p class="lead">Clique para abrir. Os arquivos ficam na pasta "documentos", ao lado desta apresentação.</p>
   <div class="grow" style="justify-content:flex-start">
    <div class="dl">
@@ -749,6 +751,12 @@ body.editing [contenteditable]:focus{outline:2px solid var(--mira-primary); back
      <button data-doc="portal"><svg class="i"><use href="#i-win"/></svg><span>Portal de proteção de dados — protótipo navegável</span><span class="pill">Protótipo</span></button>
      <button data-doc="form"><svg class="i"><use href="#i-form"/></svg><span>Formulário do titular — protótipo</span><span class="pill">Protótipo</span></button>
      <button data-doc="formInc"><svg class="i"><use href="#i-alert"/></svg><span>Formulário — comunicar incidente</span><span class="pill">Protótipo</span></button>
+    </div>
+    <div class="card wide">
+     <h3>Base — decisão do TCU, diagnóstico e plano de ações</h3>
+     <div class="row">
+     <button data-doc="acordao"><svg class="i"><use href="#i-scale"/></svg><span>Acórdão 1372/2025 — TCU — Plenário</span><span class="pill">PDF</span></button>
+     </div>
     </div>
    </div>
   </div>
@@ -795,6 +803,7 @@ var store={get:function(k){try{return localStorage.getItem(k)}catch(e){return nu
 /* ── Documentos: caminho do arquivo original e, para Word, a prévia em PDF ── */
 var D='documentos/', P='assets/previa/';
 var DOCS={
+  acordao:{t:'Acórdão 1372/2025 — TCU — Plenário (TC 009.980/2024-5)',s:'Acórdão do TCU',k:'pdf',i:'scale',src:D+'12_Acordao_1372_2025_TCU_Plenario.pdf'},
   gov:{t:'Governança do Encarregado — descrição detalhada dos fluxos',s:'Descrição detalhada',k:'pdf',i:'doc',src:D+'03_Governanca_do_Encarregado_Fluxos.pdf',j:[['Fluxo interno · p. 8',8],['Fluxo externo · p. 13',13]]},
   bpmnInt:{t:'Fluxo interno — diagrama BPMN',s:'BPMN interno',k:'img',i:'flow',src:D+'06_Fluxo_Interno_BPMN.png'},
   bpmnExt:{t:'Fluxo externo — diagrama BPMN',s:'BPMN externo',k:'img',i:'flow',src:D+'07_Fluxo_Externo_BPMN.png'},
@@ -820,6 +829,7 @@ function toast(m){var t=$('#toast');t.textContent=m;t.classList.add('on');clearT
 /* ── Edições salvas neste navegador ── */
 slides.forEach(function(s){orig[s.id]=s.innerHTML});
 var saved={};try{saved=JSON.parse(store.get(KEY)||'{}')||{}}catch(e){saved={}}
+if(saved.s16&&saved.s16.indexOf('data-doc="acordao"')<0)delete saved.s16;
 slides.forEach(function(s){if(typeof saved[s.id]==='string')s.innerHTML=saved[s.id]});
 
 /* ── Tema ── */
